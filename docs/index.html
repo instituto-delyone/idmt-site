@@ -406,6 +406,81 @@ CLASSIFIED
         </ul>
         <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
       </section>
+    <!-- SEÇÃO DEMONSTRAÇÃO INTERATIVA: O MEMOSSOMO EM AÇÃO -->
+    <section class="idmt-panel" id="memossomo-demo" style="background: radial-gradient(circle at 90% 10%, rgba(35,139,87,0.12), transparent 22rem), linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,244,248,0.96)); border: 2px solid rgba(35,139,87,0.3);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <span style="font-size: 0.75rem; font-weight: 800; color: #238b57; background: #ecf8f1; border: 1px solid #c9ead8; padding: 0.3rem 0.7rem; border-radius: 8px; letter-spacing: 0.05em; text-transform: uppercase;">PoC AO VIVO • PATENTE BR 10 2026 001743-4</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: #0b1f3a;">Arquitetura Inter-Sessão & Sincronização Dual-AI</span>
+      </div>
+
+      <h1>Simulador do Memossomo: O Estado Persistente</h1>
+      <p class="idmt-panel-lead">
+        Experimente o motor de gerenciamento assimétrico de contexto. Veja como o sistema descarta ruídos de alta prevalência e preserva nós críticos de decisão entre sessões independentes e diálogo entre instâncias de IA.
+      </p>
+
+      <!-- PAINEL DE CONTROLE DA DEMO -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        
+        <!-- COLUNA 1: ESTADO DA MEMÓRIA (L0 a L3) -->
+        <div style="background: #ffffff; border: 1px solid rgba(31,95,174,0.18); border-radius: 16px; padding: 1.2rem; box-shadow: 0 10px 25px rgba(7,20,38,0.05);">
+          <strong style="color: #0b1f3a; font-size: 1.05rem; display: flex; align-items: center; gap: 6px;">
+            🧠 Camadas Ativas do Memossomo
+          </strong>
+          <p style="font-size: 0.85rem; color: var(--idmt-muted); margin: 0.3rem 0 1rem;">Estado persistente externo recuperado dinamicamente.</p>
+          
+          <div id="memory-state-box" style="font-family: monospace; font-size: 0.82rem; background: #071426; color: #cbd5e1; padding: 0.9rem; border-radius: 10px; height: 210px; overflow-y: auto; line-height: 1.5;">
+            [L2_persistent]: User = "Delyone de Paula Canedo Filho"<br>
+            [L2_persistent]: Role = "Médico & Language Meta-Engineer"<br>
+            [L1_working]: Project = "Diagnosis Engine & Memossomo"<br>
+            [L0_session]: Status = "Sessão Ativa / Sincronizado"<br>
+            [State]: Aguardando estímulo inter-sessão...
+          </div>
+
+          <button onclick="simulateCrossSession()" class="idmt-button" style="width: 100%; margin-top: 1rem; background: #1f5fae; border: none; font-size: 0.85rem; cursor: pointer;">
+            🔄 Simular Nova Sessão (Sem Perda de Contexto)
+          </button>
+        </div>
+
+        <!-- COLUNA 2: TERMINAL DE DIÁLOGO DUAL-AI (IA ⇄ IA) -->
+        <div style="background: #ffffff; border: 1px solid rgba(31,95,174,0.18); border-radius: 16px; padding: 1.2rem; box-shadow: 0 10px 25px rgba(7,20,38,0.05); display: flex; flexDirection: column; justify-content: space-between;">
+          <div>
+            <strong style="color: #0b1f3a; font-size: 1.05rem; display: flex; align-items: center; gap: 6px;">
+              ⚡ Sincronização Inter-Agente (Dual-AI)
+            </strong>
+            <p style="font-size: 0.85rem; color: var(--idmt-muted); margin: 0.3rem 0 1rem;">Protocolo de transmissão contextual sem recontar histórico.</p>
+            
+            <div id="agent-chat-log" style="font-size: 0.88rem; background: #f8fafb; border: 1px solid rgba(31,95,174,0.12); padding: 0.9rem; border-radius: 10px; height: 210px; overflow-y: auto; color: #37352f; line-height: 1.5;">
+              <div style="margin-bottom: 8px;"><strong style="color: #1f5fae;">Agente A (IDMT Core):</strong> "Estado compactado e metadados criptografados salvos no store persistente."</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #238b57;">Agente B (Instância Externa):</strong> "Recebido. Recuperando L2 sem ruído redundante. Pronto para avançar na patente."</div>
+            </div>
+          </div>
+
+          <button onclick="triggerDualAiSync()" class="idmt-button gold" style="width: 100%; margin-top: 1rem; border: none; font-size: 0.85rem; cursor: pointer; text-align: center;">
+            ⚡ Disparar Transmissão de Contexto Dual-AI
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCRIPT DE COMPORTAMENTO DO SIMULADOR -->
+    <script>
+      function simulateCrossSession() {
+        const box = document.getElementById('memory-state-box');
+        box.innerHTML += `<br><span style="color: #38bdf8;">[Nova Sessão Iniciada...]</span><br>` +
+                           `-> Retriever acionado via Patent BR 10 2026 001743-4<br>` +
+                           `-> Identidade reconhecida: Delyone Filho<br>` +
+                           `-> Zero amnésia detectada. Continuidade lógica restaurada em < 12ms.`;
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function triggerDualAiSync() {
+        const chat = document.getElementById('agent-chat-log');
+        chat.innerHTML += `<div style="margin-top: 8px; border-top: 1px dashed #e2e8f0; paddingTop: 6px;"><strong style="color: #d97706;">Sincronização:</strong> Instância 1 transmitiu estado de projeto de longo prazo para Instância 2. Memória histórica preservada sem degradação semântica.</div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }
+    </script>
 
       <!-- SEÇÃO 2 -->
       <section id="estrutura">
