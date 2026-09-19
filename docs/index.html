@@ -442,7 +442,9 @@ CLASSIFIED
           <span>Coordenação contextual, curadoria simbólica e integração.</span>
         </div>
         <div class="idmt-engine-grid">
-          <div class="idmt-engine-node csi-node">
+          <div class="idmt-engine-node csi-node" role="link" tabindex="0"
+          onclick="if (!event.target.closest('.csi-links a')) window.open('https://instituto-delyone.github.io/CSI-/','_blank','noopener');"
+          onkeydown="if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.csi-links a')) { event.preventDefault(); window.open('https://instituto-delyone.github.io/CSI-/','_blank','noopener'); }">
             <div class="csi-rain" aria-hidden="true">
               <span>0101100101</span>
               <span>1010011010</span>
