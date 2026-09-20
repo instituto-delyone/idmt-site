@@ -533,3 +533,194 @@ CLASSIFIED
     <section class="idmt-panel" id="memossomo-demo" style="background: radial-gradient(circle at 90% 10%, rgba(35,139,87,0.12), transparent 22rem), linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,244,248,0.96)); border: 2px solid rgba(35,139,87,0.3);">
       
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <span style="font-size: 0.75rem; font-weight: 800; color: #238b57; background: #ecf8f1; border: 1px solid #c9ead8; padding: 0.3rem 0.7rem; border-radius: 8px; letter-spacing: 0.05em; text-transform: uppercase;">PoC AO VIVO • PATENTE BR 10 2026 001743-4</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: #0b1f3a;">Arquitetura Inter-Sessão & Sincronização Dual-AI</span>
+      </div>
+
+      <h1>Simulador do Memossomo: O Estado Persistente</h1>
+      <p class="idmt-panel-lead">
+        Experimente o motor de gerenciamento assimétrico de contexto. Veja como o sistema descarta ruídos de alta prevalência e preserva nós críticos de decisão entre sessões independentes e diálogo entre instâncias de IA.
+      </p>
+
+      <!-- PAINEL DE CONTROLE DA DEMO -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        
+        <!-- COLUNA 1: ESTADO DA MEMÓRIA (L0 a L3) -->
+        <div style="background: #ffffff; border: 1px solid rgba(31,95,174,0.18); border-radius: 16px; padding: 1.2rem; box-shadow: 0 10px 25px rgba(7,20,38,0.05);">
+          <strong style="color: #0b1f3a; font-size: 1.05rem; display: flex; align-items: center; gap: 6px;">
+            🧠 Camadas Ativas do Memossomo
+          </strong>
+          <p style="font-size: 0.85rem; color: var(--idmt-muted); margin: 0.3rem 0 1rem;">Estado persistente externo recuperado dinamicamente.</p>
+          
+          <div id="memory-state-box" style="font-family: monospace; font-size: 0.82rem; background: #071426; color: #cbd5e1; padding: 0.9rem; border-radius: 10px; height: 210px; overflow-y: auto; line-height: 1.5;">
+            [L2_persistent]: User = "Delyone de Paula Canedo Filho"<br>
+            [L2_persistent]: Role = "Médico & Language Meta-Engineer"<br>
+            [L1_working]: Project = "Diagnosis Engine & Memossomo"<br>
+            [L0_session]: Status = "Sessão Ativa / Sincronizado"<br>
+            [State]: Aguardando estímulo inter-sessão...
+          </div>
+
+          <button onclick="simulateCrossSession()" class="idmt-button" style="width: 100%; margin-top: 1rem; background: #1f5fae; border: none; font-size: 0.85rem; cursor: pointer;">
+            🔄 Simular Nova Sessão (Sem Perda de Contexto)
+          </button>
+        </div>
+
+        <!-- COLUNA 2: TERMINAL DE DIÁLOGO DUAL-AI (IA ⇄ IA) -->
+        <div style="background: #ffffff; border: 1px solid rgba(31,95,174,0.18); border-radius: 16px; padding: 1.2rem; box-shadow: 0 10px 25px rgba(7,20,38,0.05); display: flex; flexDirection: column; justify-content: space-between;">
+          <div>
+            <strong style="color: #0b1f3a; font-size: 1.05rem; display: flex; align-items: center; gap: 6px;">
+              ⚡ Sincronização Inter-Agente (Dual-AI)
+            </strong>
+            <p style="font-size: 0.85rem; color: var(--idmt-muted); margin: 0.3rem 0 1rem;">Protocolo de transmissão contextual sem recontar histórico.</p>
+            
+            <div id="agent-chat-log" style="font-size: 0.88rem; background: #f8fafb; border: 1px solid rgba(31,95,174,0.12); padding: 0.9rem; border-radius: 10px; height: 210px; overflow-y: auto; color: #37352f; line-height: 1.5;">
+              <div style="margin-bottom: 8px;"><strong style="color: #1f5fae;">Agente A (IDMT Core):</strong> "Estado compactado e metadados criptografados salvos no store persistente."</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #238b57;">Agente B (Instância Externa):</strong> "Recebido. Recuperando L2 sem ruído redundante. Pronto para avançar na patente."</div>
+            </div>
+          </div>
+
+          <button onclick="triggerDualAiSync()" class="idmt-button gold" style="width: 100%; margin-top: 1rem; border: none; font-size: 0.85rem; cursor: pointer; text-align: center;">
+            ⚡ Disparar Transmissão de Contexto Dual-AI
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCRIPT DE COMPORTAMENTO DO SIMULADOR -->
+    <script>
+      function simulateCrossSession() {
+        const box = document.getElementById('memory-state-box');
+        box.innerHTML += `<br><span style="color: #38bdf8;">[Nova Sessão Iniciada...]</span><br>` +
+                           `-> Retriever acionado via Patent BR 10 2026 001743-4<br>` +
+                           `-> Identidade reconhecida: Delyone Filho<br>` +
+                           `-> Zero amnésia detectada. Continuidade lógica restaurada em < 12ms.`;
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function triggerDualAiSync() {
+        const chat = document.getElementById('agent-chat-log');
+        chat.innerHTML += `<div style="margin-top: 8px; border-top: 1px dashed #e2e8f0; paddingTop: 6px;"><strong style="color: #d97706;">Sincronização:</strong> Instância 1 transmitiu estado de projeto de longo prazo para Instância 2. Memória histórica preservada sem degradação semântica.</div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }
+    </script>
+
+      <!-- SEÇÃO 2 -->
+      <section id="estrutura">
+        <h1>2. Estrutura institucional</h1>
+        <h2>Missão e Visão</h2>
+        <p>Promover a excelência na prática médica por meio da integração entre raciocínio clínico estruturado, tomada de decisão eficiente e adaptação a diferentes cenários assistenciais. Consolidar-se como referência na estruturação de modelos clínicos e operacionais voltados à tomada de decisão em saúde.</p>
+
+        <h2>Valores e Princípios</h2>
+        <ul>
+          <li><strong>Excelência Clínica:</strong> Compromisso com a precisão diagnóstica e consistência nas condutas.</li>
+          <li><strong>Responsabilidade Técnica:</strong> Atuação pautada em rigor ético e segurança do paciente.</li>
+          <li><strong>Raciocínio Estruturado:</strong> Lógica clínica organizada como base para decisões assertivas.</li>
+          <li><strong>Adaptabilidade:</strong> Atuar com eficiência respeitando particularidades institucionais.</li>
+        </ul>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 3 -->
+      <section id="areas">
+        <h1>3. Áreas de atuação</h1>
+        <h2>Urgência, Emergência e Clínica Médica</h2>
+        <p>Atuação em contextos de alta demanda assistencial, com foco na avaliação rápida, estratificação de risco e definição de condutas em cenários de tempo crítico. Atendimento clínico voltado à avaliação integral do paciente, com definição de hipóteses diagnósticas e condução terapêutica.</p>
+
+        <h2>Avaliação Diagnóstica e Procedimentos</h2>
+        <p>Realização de avaliação estruturada com foco na identificação de síndromes, construção de diagnósticos diferenciais e definição racional de exames. Execução de procedimentos compatíveis com a prática médica e segurança do paciente.</p>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 4 -->
+      <section id="servicos">
+        <h1>4. Serviços</h1>
+        <ul>
+          <li>Atendimento clínico em contexto de urgência e emergência</li>
+          <li>Avaliação, estratificação de risco e conduta médica</li>
+          <li>Manejo de pacientes em diferentes níveis de gravidade</li>
+          <li>Emissão de Documentação Médica (Laudos e Pareceres)</li>
+          <li>Suporte Técnico e integração com fluxos institucionais</li>
+        </ul>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 5 -->
+      <section id="diferenciais">
+        <h1>5. Diferenciais</h1>
+        <p>Os diferenciais do Instituto estão diretamente relacionados à capacidade de organizar a tomada de decisão clínica e manter consistência assistencial em diferentes níveis de complexidade.</p>
+        <ul>
+          <li><strong>Tomada de Decisão:</strong> Organização estruturada do raciocínio clínico.</li>
+          <li><strong>Cenários Críticos:</strong> Atuação segura sob pressão operacional.</li>
+          <li><strong>Integração:</strong> Facilidade de inserção em diferentes protocolos locais.</li>
+          <li><strong>Rastreabilidade:</strong> Registro estruturado das ações garantindo segurança jurídica.</li>
+        </ul>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 6 -->
+      <section id="projetos">
+        <h1>6. Projetos e Inovação</h1>
+        <p>A atuação inicial é orientada à prestação de serviços médicos, evoluindo de forma estruturada para a construção de modelos clínicos, organização de sistemas assistenciais e inovação aplicada à prática médica (Integração entre Medicina e Tecnologia).</p>
+        <p>O instituto mantém iniciativas em desenvolvimento voltadas à evolução da prática assistencial, incluindo modelos de raciocínio clínico e interoperabilidade de dados clínicos para promoção da saúde  coletiva.</p>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 7 -->
+      <section id="saude-publica">
+        <h1>7. Atuação em Saúde Pública e Parcerias</h1>
+        <p>Atuação em unidades públicas de saúde, com adaptação às demandas operacionais do sistema, respeitando políticas de saúde vigentes. Estabelecimento de vínculos com instituições públicas e privadas para prestação de serviços e apoio à gestão em saúde.</p>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 8 E 9 -->
+      <section id="governanca">
+        <h1>8. Governança e Conformidade Legal</h1>
+        <p>O Instituto atua sob responsabilidade técnica de médico devidamente registrado no Conselho Regional de Medicina (CRM), garantindo conformidade com as normas legais e éticas vigentes, incluindo as diretrizes do CFM e a LGPD (Lei Geral de Proteção de Dados).</p>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 10 -->
+      <section id="modelo-operacional">
+        <h1>9. Modelo Operacional e Execução</h1>
+        <p>A atuação é orientada por uma abordagem clínica estruturada, baseada na avaliação sistemática do paciente, identificação de prioridades e definição de condutas seguras e eficientes. O fluxo assistencial segue uma estrutura lógica definida: entrada → avaliação → priorização → definição de conduta → destino clínico.</p>
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+      <!-- SEÇÃO 11 -->
+      <section id="contato">
+        <h1>10. Contato Institucional</h1>
+        <p>O Instituto opera com interface direta, priorizando comunicação objetiva e agilidade na formalização de parcerias.</p>
+        <ul>
+  <li>📧 <strong>E-mail:</strong> instituto@delyone.com</li>
+  <li>📱 <strong>Telefone/WhatsApp:</strong> (63) 99217-9738</li>
+  <li>🌎 (Disponibilidade regional e interestadual)</li>
+</ul>
+
+<h3 style="margin-top: 1.8rem; font-size: 1.1rem; border-bottom: 1px solid var(--idmt-line); padding-bottom: 0.4rem;">Registros e Credenciais Internacionais</h3>
+<ul style="list-style-type: none; padding-left: 0;">
+  <li style="margin-bottom: 0.5rem;"><strong style="color: var(--idmt-blue);">CNPJ:</strong> 6**.8**.**0.001-48</li>
+  <li style="margin-bottom: 0.5rem;"><strong style="color: var(--idmt-blue);">UEI (USA Federal Government):</strong> TVDBA31ZKM55</li>
+  <li style="margin-bottom: 0.5rem;"><strong style="color: var(--idmt-blue);">NCAGE (NATO Entity Code):</strong> 06M2K</li>
+  <li style="margin-bottom: 0.5rem;"><strong style="color: var(--idmt-blue);">DUNS Number:</strong> 582645254</li>
+</ul>
+
+        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+      </section>
+
+    </article>
+  </main>
+
+  <footer class="idmt-footer">
+    <strong>Instituto Delyone de Medicina e Tecnologia</strong><br>
+    Ciência, tecnologia e raciocínio clínico estruturado.<br><br>
+    <a href="#sumario">Início</a> · 
+    <a href="/contato/">Contato</a> · 
+    <a href="/pesquisas/">Projetos</a> · 
+    <a href="#ferramentas">Ferramentas</a> · 
+    <a href="#tecnologias">Patentes</a><br><br>
+    © IDMT — Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>
