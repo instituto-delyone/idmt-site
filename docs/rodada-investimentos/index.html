@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IDMT — Resumo Executivo | Rodada de Investimentos</title>
+  <meta name="description" content="Resumo executivo institucional do Instituto Delyone de Medicina e Tecnologia para discussão de uma eventual rodada privada de investimentos.">
+  <meta property="og:title" content="IDMT — Resumo Executivo | Rodada de Investimentos">
+  <meta property="og:description" content="Valuation indicativo, estrutura preliminar da rodada, destinação de recursos e marcos de execução do IDMT.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.delyone.com/rodada-investimentos/">
+  <style>
+    :root{
+      --navy:#071426;--blue:#1f5fae;--blue2:#3b82f6;--ink:#172033;
+      --muted:#64748b;--line:rgba(31,95,174,.14);--bg:#f6f9fd;--card:#fff;
+      --green:#238b57;--shadow:0 18px 50px rgba(7,20,38,.09);
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(59,130,246,.13),transparent 34rem),linear-gradient(180deg,#f7faff,#fff 35%,#f5f8fc);color:var(--ink);font-family:var(--font);line-height:1.55}
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 2rem));margin:auto}
+    .hero{padding:2.2rem 0 2.5rem}
+    .brand{display:flex;align-items:center;gap:.85rem;color:var(--navy);font-weight:800;letter-spacing:.08em}
+    .brand-mark{font-size:1.55rem}.brand small{display:block;font-size:.62rem;letter-spacing:.12em;color:#52657d;font-weight:700}
+    .eyebrow{margin:3rem 0 .55rem;color:var(--blue);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    h1{font-size:clamp(2.25rem,6vw,4.4rem);line-height:.98;letter-spacing:-.055em;margin:0;max-width:850px;color:var(--navy)}
+    .lead{max-width:780px;font-size:1.08rem;color:var(--muted);margin:1.2rem 0 0}
+    .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.3rem}
+    .btn{display:inline-block;padding:.72rem 1rem;border-radius:999px;text-decoration:none;font-weight:750;font-size:.86rem;border:1px solid var(--line);background:#fff;color:var(--navy)}
+    .btn.primary{background:linear-gradient(135deg,var(--blue),#174784);color:#fff;border-color:transparent}
+    .section{margin:1.1rem 0 1.4rem}
+    .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem}
+    .card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:1.35rem;box-shadow:var(--shadow)}
+    .card h2{margin:0;color:var(--navy);font-size:1.25rem;letter-spacing:-.025em}
+    .card h3{margin:0;color:var(--navy);font-size:1rem}
+    .muted{color:var(--muted)}
+    .valuation{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:stretch}
+    .big-number{font-size:clamp(2.6rem,7vw,4.7rem);line-height:.95;font-weight:850;letter-spacing:-.065em;color:var(--navy);margin:.8rem 0}
+    .tag{display:inline-flex;align-items:center;padding:.34rem .58rem;border-radius:999px;background:#eef5ff;color:var(--blue);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1rem}
+    .metric{border:1px solid var(--line);border-radius:16px;padding:.8rem;background:#fbfdff}
+    .metric strong{display:block;font-size:1.15rem;color:var(--navy)}
+    .metric span{display:block;font-size:.72rem;color:var(--muted);margin-top:.18rem}
+    .allocation{display:grid;gap:.65rem;margin-top:1rem}
+    .allocation-row{display:grid;grid-template-columns:64px 1fr;gap:.75rem;align-items:center}
+    .pct{font-size:1.15rem;font-weight:850;color:var(--blue)}
+    .allocation-row strong{display:block;font-size:.87rem;color:var(--navy)}
+    .allocation-row span{display:block;font-size:.74rem;color:var(--muted)}
+    .bar{height:7px;border-radius:99px;background:#e8eef7;margin-top:.38rem;overflow:hidden}
+    .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#93c5fd,var(--blue2),#1d4ed8)}
+    .milestones{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;margin-top:1rem}
+    .milestone{position:relative;padding:.9rem .8rem;border:1px solid var(--line);border-radius:16px;background:#fbfdff;min-height:125px}
+    .milestone b{display:block;color:var(--blue);font-size:.72rem}
+    .milestone strong{display:block;margin-top:.35rem;color:var(--navy);font-size:.82rem;line-height:1.25}
+    .milestone span{display:block;margin-top:.35rem;color:var(--muted);font-size:.7rem;line-height:1.35}
+    .columns{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .list{margin:.8rem 0 0;padding:0;list-style:none}
+    .list li{padding:.55rem 0;border-bottom:1px solid rgba(31,95,174,.08);font-size:.86rem}
+    .list li:last-child{border-bottom:0}
+    .list strong{color:var(--navy)}
+    .notice{margin-top:1rem;padding:1rem;border-radius:16px;background:#f4f8fd;border:1px solid var(--line);color:#52657d;font-size:.76rem;line-height:1.5}
+    .dark{margin-top:1rem;background:linear-gradient(135deg,#020812,#0b203b);color:#eaf2ff;border-radius:26px;padding:1.5rem;box-shadow:0 22px 55px rgba(7,20,38,.2)}
+    .dark h2,.dark strong{color:#fff}.dark p{color:rgba(234,242,255,.72)}
+    .footer{padding:2rem 0 3rem;text-align:center;color:var(--muted);font-size:.76rem}
+    @media(max-width:850px){.grid,.valuation{grid-template-columns:1fr}.columns{grid-template-columns:1fr 1fr}.milestones{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.wrap{width:min(100% - 1.2rem,1180px)}.columns,.metric-grid,.milestones{grid-template-columns:1fr}.hero{padding-top:1.2rem}.allocation-row{grid-template-columns:54px 1fr}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand-mark">IDMT</div>
+        <div><small>INSTITUTO DELYONE</small><small>DE MEDICINA E TECNOLOGIA</small></div>
+      </div>
+      <p class="eyebrow">Resumo executivo · Investment Round</p>
+      <h1>Estruturando o próximo ciclo do IDMT.</h1>
+      <p class="lead">
+        Documento executivo preliminar para apresentação institucional e discussão de uma eventual rodada privada de investimentos,
+        conectando infraestrutura física, assistência, pesquisa e escala tecnológica.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#rodada">Ver estrutura da rodada</a>
+        <a class="btn" href="#recursos">Destino dos recursos</a>
+        <a class="btn" href="https://www.delyone.com/">← Instituto Delyone</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section grid" id="rodada">
+      <article class="card">
+        <span class="tag">Snapshot · 24/09/2026</span>
+        <h2 style="margin-top:.8rem">Valuation e participação pretendida</h2>
+        <div class="valuation">
+          <div>
+            <div class="big-number">R$ 4,5 M</div>
+            <div class="muted">valuation indicativo / referência pré-money</div>
+          </div>
+          <div>
+            <div class="big-number" style="font-size:clamp(2.2rem,6vw,3.7rem)">até 20%</div>
+            <div class="muted">participação societária a ser avaliada na rodada</div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric"><strong>R$ 0,9 M</strong><span>exemplo a 20% sobre R$ 4,5 M</span></div>
+          <div class="metric"><strong>R$ 1,2 M</strong><span>exemplo se a referência for R$ 6,0 M</span></div>
+          <div class="metric"><strong>R$ 1,6 M</strong><span>exemplo se a referência for R$ 8,0 M</span></div>
+        </div>
+        <div class="notice">
+          Os números acima são cenários matemáticos ilustrativos, não promessa de preço, retorno ou condição de investimento.
+          O valuation definitivo e a participação efetivamente ofertada dependerão da estrutura societária, diligência, negociação e documentação da operação.
+        </div>
+      </article>
+
+      <article class="card" id="recursos">
+        <span class="tag">Uso planejado do capital</span>
+        <h2 style="margin-top:.8rem">Onde a rodada pretende colocar o dinheiro</h2>
+        <div class="allocation">
+          <div class="allocation-row"><div class="pct">35%</div><div><strong>Sede institucional</strong><span>Implantação/adequação da sede do IDMT, com infraestrutura para pesquisa e inovação.</span><div class="bar"><i style="width:35%"></i></div></div></div>
+          <div class="allocation-row"><div class="pct">25%</div><div><strong>Primeira unidade ambulatorial/hospitalar</strong><span>Estruturação da primeira unidade assistencial com integração tecnológica.</span><div class="bar"><i style="width:25%"></i></div></div></div>
+          <div class="allocation-row"><div class="pct">20%</div><div><strong>Pesquisa e desenvolvimento</strong><span>Estudos clínicos, pesquisa aplicada, IA, dados e inovação em saúde.</span><div class="bar"><i style="width:20%"></i></div></div></div>
+          <div class="allocation-row"><div class="pct">15%</div><div><strong>Ferramentas e infraestrutura nacional</strong><span>Escala das plataformas Diagnosis, MedUnity, CSI e demais engines.</span><div class="bar"><i style="width:15%"></i></div></div></div>
+          <div class="allocation-row"><div class="pct">5%</div><div><strong>Equipe e estruturação</strong><span>Contratações estratégicas, jurídico, compliance, governança e preparação para futuras rodadas.</span><div class="bar"><i style="width:5%"></i></div></div></div>
+        </div>
+        <div class="notice">Percentuais apresentados como proposta preliminar de planejamento e sujeitos a revisão conforme orçamento, diligência e necessidades operacionais.</div>
+      </article>
+    </section>
+
+    <section class="section card">
+      <h2>O que a rodada pretende construir</h2>
+      <div class="columns" style="margin-top:1rem">
+        <div><h3>🏢 Sede + pesquisa</h3><p class="muted">Uma base física e tecnológica para concentrar gestão, desenvolvimento, pesquisa e inovação.</p></div>
+        <div><h3>🏥 Assistência</h3><p class="muted">Primeira unidade ambulatorial/hospitalar planejada como ambiente assistencial e de validação operacional.</p></div>
+        <div><h3>💻 Escala tecnológica</h3><p class="muted">Estruturação das ferramentas para implantação progressiva em diferentes instituições e contextos nacionais.</p></div>
+      </div>
+    </section>
+
+    <section class="section card">
+      <h2>Marcos previstos após a captação</h2>
+      <div class="milestones">
+        <div class="milestone"><b>0–6 meses</b><strong>Sede</strong><span>Início da implantação e estruturação física/operacional.</span></div>
+        <div class="milestone"><b>6–12 meses</b><strong>Unidade assistencial</strong><span>Implantação da primeira unidade ambulatorial/hospitalar.</span></div>
+        <div class="milestone"><b>12–24 meses</b><strong>Pesquisa</strong><span>Projetos, estudos e desenvolvimento científico aplicado.</span></div>
+        <div class="milestone"><b>24–36 meses</b><strong>Expansão</strong><span>Ampliação nacional progressiva das ferramentas e parcerias.</span></div>
+        <div class="milestone"><b>36+ meses</b><strong>Consolidação</strong><span>Revisão da estratégia, novos ciclos de investimento e escala.</span></div>
+      </div>
+    </section>
+
+    <section class="section columns">
+      <article class="card">
+        <h2>Ativos e frentes tecnológicas</h2>
+        <ul class="list">
+          <li><strong>Diagnosis</strong> — simulação e treinamento de raciocínio clínico.</li>
+          <li><strong>MedUnity</strong> — automação e estruturação documental clínica.</li>
+          <li><strong>CSI</strong> — organização semântica e interoperabilidade clínica.</li>
+          <li><strong>Engines</strong> — infraestrutura de software e experimentação.</li>
+          <li><strong>Pesquisa</strong> — desenvolvimento científico e tecnológico aplicado.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Tração documentada</h2>
+        <ul class="list">
+          <li><strong>19/08/2026</strong> — registro de software IDMT App: MedUnity e Diagnosis, INPI BR512026006823-1.</li>
+          <li><strong>23/09/2026</strong> — proposta nº 871 no Fórum de Melhoria do Conselho de Usuários do Governo Federal, com status comunicado como aceita.</li>
+          <li><strong>24/09/2026</strong> — snapshot institucional de valuation indicativo.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Estrutura da operação</h2>
+        <ul class="list">
+          <li>Rodada privada a ser estruturada.</li>
+          <li>Participação societária pretendida: até 20%, sujeita à negociação.</li>
+          <li>Due diligence jurídica, societária, financeira e tecnológica.</li>
+          <li>Instrumento e governança definidos antes da assinatura.</li>
+          <li>Destinação de recursos acompanhada por orçamento e marcos.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="dark">
+      <span class="tag" style="background:rgba(255,255,255,.1);color:#bcd8ff;border-color:rgba(255,255,255,.12)">IDMT · Próximo ciclo</span>
+      <h2 style="font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.04em;margin:.8rem 0 0">Sede + Pesquisa + Assistência + Tecnologia</h2>
+      <p style="max-width:760px">
+        A proposta desta rodada é converter o ecossistema atualmente em desenvolvimento em infraestrutura física,
+        capacidade assistencial, produção científica e ferramentas tecnológicas preparadas para expansão nacional.
+      </p>
+    </section>
+
+    <section class="section card">
+      <h2>Nota de estruturação</h2>
+      <p class="muted">
+        Este documento é um resumo executivo preliminar para discussão institucional. Não constitui oferta pública de valores mobiliários,
+        promessa de retorno, recomendação de investimento ou avaliação financeira independente. Qualquer operação de investimento deverá
+        ser estruturada com assessoria jurídica e financeira adequada, observando a legislação e as regras aplicáveis.
+      </p>
+      <p class="muted" style="margin-bottom:0">
+        <strong>Próximo passo:</strong> transformar esta previsão em um modelo financeiro com cap table, valuation pré e pós-money,
+        necessidades de caixa, orçamento por frente e cenários de diluição.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>Instituto Delyone de Medicina e Tecnologia</strong><br>
+    Resumo executivo preliminar · 24/09/2026<br><br>
+    <a href="https://www.delyone.com/">Voltar ao Instituto Delyone</a>
+  </footer>
+</body>
+</html>
