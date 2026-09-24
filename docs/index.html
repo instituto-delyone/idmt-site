@@ -250,6 +250,53 @@
       .idmt-hero { padding-top: 2.2rem; }
       .idmt-logo { width: min(420px, 96vw); }
     }
+
+    /* === IDMT VALUATION SNAPSHOT === */
+    .idmt-valuation {
+      margin: 2.5rem 0;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      border: 1px solid rgba(31,95,174,0.16);
+      border-radius: 26px;
+      background: radial-gradient(circle at 50% 0%, rgba(31,95,174,0.10), transparent 28rem), linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+      box-shadow: 0 18px 46px rgba(7,20,38,0.08);
+      overflow: hidden;
+    }
+    .idmt-valuation-header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
+    .idmt-valuation-eyebrow { margin:0 0 .35rem; color:#1f5fae; font-size:.72rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    .idmt-valuation-title { margin:0; color:#071426; font-size:clamp(1.7rem,5vw,2.7rem); line-height:1; letter-spacing:-.04em; }
+    .idmt-valuation-subtitle { margin:.65rem 0 0; max-width:620px; color:rgba(31,41,51,.68); }
+    .idmt-valuation-date { padding:.55rem .8rem; border:1px solid rgba(31,95,174,.16); border-radius:999px; background:rgba(255,255,255,.85); color:#1f5fae; font-size:.78rem; font-weight:700; white-space:nowrap; }
+    .idmt-gauge-wrap { position:relative; width:min(620px,100%); margin:1.5rem auto 0; }
+    .idmt-gauge-svg { display:block; width:100%; height:auto; }
+    .idmt-gauge-value { position:absolute; left:50%; top:62%; transform:translate(-50%,-50%); text-align:center; white-space:nowrap; }
+    .idmt-gauge-value strong { display:block; color:#071426; font-size:clamp(2rem,7vw,4rem); line-height:1; letter-spacing:-.055em; }
+    .idmt-gauge-value span { display:block; margin-top:.55rem; color:#1f5fae; font-size:.72rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    .idmt-gauge-needle { transform-origin:50% 82%; transition:transform 1s cubic-bezier(.2,.8,.2,1); }
+    .idmt-valuation-range { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; margin-top:-.5rem; }
+    .idmt-valuation-range div { padding:.75rem; border:1px solid rgba(31,95,174,.12); border-radius:14px; background:rgba(255,255,255,.8); text-align:center; }
+    .idmt-valuation-range strong { display:block; color:#071426; font-size:1rem; }
+    .idmt-valuation-range span { color:rgba(31,41,51,.58); font-size:.72rem; }
+    .idmt-valuation-timeline { margin-top:2rem; padding-top:1.25rem; border-top:1px solid rgba(31,95,174,.12); }
+    .idmt-valuation-timeline-title { margin:0; color:#071426; font-size:1.05rem; }
+    .idmt-timeline { display:flex; gap:0; margin-top:1.1rem; overflow-x:auto; padding-bottom:.5rem; }
+    .idmt-timeline-item { position:relative; min-width:145px; padding:0 1rem 0 0; }
+    .idmt-timeline-item::after { content:""; position:absolute; top:.38rem; left:.7rem; right:-.1rem; height:2px; background:rgba(31,95,174,.16); }
+    .idmt-timeline-dot { position:relative; z-index:2; width:.75rem; height:.75rem; border-radius:50%; background:#fff; border:2px solid #1f5fae; }
+    .idmt-timeline-item.current .idmt-timeline-dot { background:#1f5fae; box-shadow:0 0 0 5px rgba(31,95,174,.10); }
+    .idmt-timeline-year { margin-top:.55rem; color:#1f5fae; font-size:.76rem; font-weight:800; }
+    .idmt-timeline-label { margin-top:.2rem; color:#071426; font-size:.82rem; font-weight:650; line-height:1.3; }
+    .idmt-timeline-value { margin-top:.25rem; color:rgba(31,41,51,.58); font-size:.72rem; }
+    .idmt-valuation-factors { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.65rem; margin-top:1.25rem; }
+    .idmt-valuation-factor { padding:.8rem; border-radius:14px; background:rgba(31,95,174,.045); }
+    .idmt-valuation-factor strong { display:block; color:#071426; font-size:.78rem; }
+    .idmt-valuation-factor span { display:block; margin-top:.25rem; color:rgba(31,41,51,.60); font-size:.72rem; line-height:1.35; }
+    .idmt-valuation-disclaimer { margin:1.25rem 0 0; color:rgba(31,41,51,.48); font-size:.68rem; line-height:1.45; }
+    @media (max-width:600px) {
+      .idmt-valuation-range { grid-template-columns:1fr; }
+      .idmt-gauge-value strong { font-size:2.3rem; }
+      .idmt-gauge-value { top:60%; }
+    }
+
   </style>
 </head>
 <body>
@@ -277,6 +324,92 @@
       <div class="idmt-card"><strong>Integração operacional</strong><span>Adaptação a equipes, fluxos e instituições de saúde.</span></div>
       <div class="idmt-card"><strong>Inovação aplicada</strong><span>Modelos clínicos e estruturas de decisão com uso prático.</span></div>
     </section>
+
+
+    <!-- IDMT VALUATION SNAPSHOT -->
+    <section class="idmt-valuation" id="idmt-valuation">
+      <div class="idmt-valuation-header">
+        <div>
+          <p class="idmt-valuation-eyebrow">IDMT • Institutional Snapshot</p>
+          <h2 class="idmt-valuation-title">Valuation Institucional</h2>
+          <p class="idmt-valuation-subtitle">
+            Estimativa preliminar baseada no conjunto de ativos tecnológicos,
+            propriedade intelectual, produtos em desenvolvimento, infraestrutura
+            e trajetória de execução do Instituto.
+          </p>
+        </div>
+        <div class="idmt-valuation-date" id="idmt-valuation-date">Snapshot · 24/09/2026</div>
+      </div>
+
+      <div class="idmt-gauge-wrap">
+        <svg class="idmt-gauge-svg" viewBox="0 0 600 360" role="img" aria-label="Indicador visual do valuation institucional do IDMT">
+          <path d="M 90 300 A 220 220 0 0 1 510 300" fill="none" stroke="#e8eef7" stroke-width="42" stroke-linecap="round"/>
+          <path id="idmt-gauge-progress" d="M 90 300 A 220 220 0 0 1 510 300" fill="none" stroke="url(#idmtGaugeGradient)" stroke-width="42" stroke-linecap="round" pathLength="100" stroke-dasharray="50 100"/>
+          <defs>
+            <linearGradient id="idmtGaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#93c5fd"/>
+              <stop offset="50%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#1d4ed8"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#b9c8da" stroke-width="2">
+            <line x1="90" y1="300" x2="105" y2="300"/><line x1="126" y1="210" x2="140" y2="216"/>
+            <line x1="195" y1="125" x2="202" y2="140"/><line x1="300" y1="80" x2="300" y2="98"/>
+            <line x1="405" y1="125" x2="398" y2="140"/><line x1="474" y1="210" x2="460" y2="216"/>
+            <line x1="510" y1="300" x2="495" y2="300"/>
+          </g>
+          <g id="idmt-gauge-needle" class="idmt-gauge-needle">
+            <line x1="300" y1="300" x2="300" y2="112" stroke="#071426" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="300" cy="300" r="15" fill="#071426"/>
+            <circle cx="300" cy="300" r="6" fill="#fff"/>
+          </g>
+          <g fill="#52657d" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="15" font-weight="700">
+            <text x="70" y="335">2023</text><text x="170" y="90">2024</text>
+            <text x="285" y="52">2025</text><text x="400" y="90">2026</text><text x="492" y="335">2027+</text>
+          </g>
+        </svg>
+        <div class="idmt-gauge-value">
+          <strong id="idmt-valuation-number">R$ 4,5 milhões</strong>
+          <span>valor indicativo</span>
+        </div>
+      </div>
+
+      <div class="idmt-valuation-range">
+        <div><strong>R$ 3,0 M</strong><span>Cenário conservador</span></div>
+        <div><strong>R$ 4,5 M</strong><span>Cenário-base</span></div>
+        <div><strong>R$ 6,0 M</strong><span>Cenário de expansão</span></div>
+      </div>
+
+      <div class="idmt-valuation-timeline">
+        <h3 class="idmt-valuation-timeline-title">Marcos da trajetória</h3>
+        <div class="idmt-timeline">
+          <div class="idmt-timeline-item"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">2023</div><div class="idmt-timeline-label">Início do projeto</div><div class="idmt-timeline-value">Formação do ecossistema</div></div>
+          <div class="idmt-timeline-item"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">2024</div><div class="idmt-timeline-label">Desenvolvimento</div><div class="idmt-timeline-value">Protótipos e primeiras plataformas</div></div>
+          <div class="idmt-timeline-item"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">2025</div><div class="idmt-timeline-label">Consolidação</div><div class="idmt-timeline-value">Expansão das plataformas</div></div>
+          <div class="idmt-timeline-item"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">19/08/2026</div><div class="idmt-timeline-label">Registro INPI</div><div class="idmt-timeline-value">IDMT App: MedUnity e Diagnosis</div></div>
+          <div class="idmt-timeline-item current"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">23/09/2026</div><div class="idmt-timeline-label">Proposta SUS nº 871</div><div class="idmt-timeline-value">Status comunicado: aceita</div></div>
+          <div class="idmt-timeline-item"><div class="idmt-timeline-dot"></div><div class="idmt-timeline-year">2027+</div><div class="idmt-timeline-label">Próximos marcos</div><div class="idmt-timeline-value">Piloto · receita · escala</div></div>
+        </div>
+      </div>
+
+      <div class="idmt-valuation-factors">
+        <div class="idmt-valuation-factor"><strong>Soluções tecnológicas</strong><span>Diagnosis · MedUnity · CSI · engines</span></div>
+        <div class="idmt-valuation-factor"><strong>Propriedade intelectual</strong><span>Registro de software e know-how</span></div>
+        <div class="idmt-valuation-factor"><strong>Tração institucional</strong><span>Proposta SUS nº 871</span></div>
+        <div class="idmt-valuation-factor"><strong>Ecossistema</strong><span>Site · infraestrutura · bases · pesquisa</span></div>
+        <div class="idmt-valuation-factor"><strong>Capital humano</strong><span>Pesquisa · desenvolvimento · execução</span></div>
+        <div class="idmt-valuation-factor"><strong>Potencial de escala</strong><span>Educação · documentação · saúde · pesquisa</span></div>
+      </div>
+
+      <p class="idmt-valuation-disclaimer">
+        Este indicador representa uma estimativa preliminar e indicativa do ecossistema IDMT.
+        Não constitui avaliação financeira independente, oferta de valores mobiliários ou garantia
+        de valor de mercado. O valor deverá ser revisado conforme novos ativos, receitas, contratos,
+        validações e eventos de financiamento sejam documentados.
+      </p>
+    </section>
+
+
 [ SYSTEM ARCHITECTURE ]
 Valuation & Engines
 PATENTED_
@@ -740,6 +873,44 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
     <a href="#tecnologias">Patentes</a><br><br>
     © IDMT — Todos os direitos reservados.
   </footer>
+
+
+    <script>
+      /* IDMT Valuation Snapshot — atualize somente este objeto em futuros snapshots. */
+      const IDMT_VALUATION = {
+        current: 4.5,
+        min: 3.0,
+        max: 6.0,
+        date: "24/09/2026"
+      };
+
+      function updateIDMTValuation() {
+        const valueElement = document.getElementById("idmt-valuation-number");
+        const dateElement = document.getElementById("idmt-valuation-date");
+        const needle = document.getElementById("idmt-gauge-needle");
+        const progress = document.getElementById("idmt-gauge-progress");
+
+        if (!valueElement || !needle || !progress) return;
+
+        const normalized = Math.max(0, Math.min(1,
+          (IDMT_VALUATION.current - IDMT_VALUATION.min) /
+          (IDMT_VALUATION.max - IDMT_VALUATION.min)
+        ));
+
+        needle.style.transform = "rotate(" + (-50 + normalized * 100) + "deg)";
+        progress.setAttribute("stroke-dasharray", (15 + normalized * 70) + " 100");
+
+        valueElement.textContent =
+          "R$ " + IDMT_VALUATION.current.toFixed(1).replace(".", ",") + " milhões";
+
+        if (dateElement) {
+          dateElement.textContent = "Snapshot · " + IDMT_VALUATION.date;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", updateIDMTValuation);
+    </script>
+
 
 </body>
 </html>
