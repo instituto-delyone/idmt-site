@@ -239,7 +239,35 @@
     .idmt-toc li { margin-bottom: 0.6rem; font-weight: 600;}
     .idmt-toc a { text-decoration: none; color: var(--idmt-blue); }
     .idmt-toc a:hover { text-decoration: underline; }
-    .back-to-top { display: inline-block; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; text-decoration: none; background: #e3f5f5; color: #086d70; padding: 4px 10px; border-radius: 6px; margin-top: 10px; }
+    .idmt-section-nav {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      margin-top:1.15rem;
+      padding-top:.75rem;
+      border-top:1px solid rgba(31,95,174,.10);
+      font-family:var(--font-sans);
+    }
+    .idmt-section-nav a {
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      padding:.42rem .68rem;
+      border-radius:8px;
+      background:#f2f7fb;
+      color:#1f5fae;
+      font-size:.78rem;
+      font-weight:700;
+      text-decoration:none;
+      border:1px solid rgba(31,95,174,.10);
+    }
+    .idmt-section-nav a:hover { background:#eaf3fc; }
+    .idmt-section-nav .top { margin-left:auto; }
+    @media(max-width:520px) {
+      .idmt-section-nav { gap:.5rem; }
+      .idmt-section-nav a { font-size:.72rem; }
+    }
 
     /* Footer */
     .idmt-footer { margin-top: 4rem; padding: 2rem 1rem; border-top: 1px solid var(--idmt-line); text-align: center; color: var(--idmt-muted); font-size: 0.92rem; }
@@ -307,7 +335,7 @@
 </head>
 <body>
 
-  <header class="idmt-hero">
+  <header class="idmt-hero" id="topo">
     <div class="container">
       <img class="idmt-logo" src="assets/logo-idmt.png" alt="Logo Instituto Delyone">
       <p class="idmt-eyebrow">Medicina • Tecnologia • Decisão Clínica • International Continuing Education</p>
@@ -315,10 +343,10 @@
       <p class="idmt-subtitle">temos ferramentas forjadas para atuar em favor da Estruturação do raciocínio clínico, comunicação e aprendizado da linguagem semiológica, integração assistencial e execução médica de alta performance (após a real implementação, em contextos reais de saúde.</p>
       <div class="idmt-cta-row">
         <a class="idmt-button" href="#sumario">Clique aqui para ler a proposta do Site</a>
+        <a class="idmt-button secondary" href="#ferramentas">Ferramentas</a>
         <a class="idmt-button secondary" href="#contato">Contato</a>
         <a class="idmt-button gold" href="/contato/">Enviar proposta</a>
-        <a class="idmt-button secondary" href="#ferramentas">Ferramentas</a>
-        <a class="idmt-button secondary" href="https://instituto-delyone.github.io/Meu-Lab/">laboratório de desenvolvimento</a>
+        <a class="idmt-button secondary" href="https://instituto-delyone.github.io/Meu-Lab/">Laboratório de desenvolvimento</a>
       </div>
     </div>
   </header>
@@ -721,7 +749,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
           <li>Oferecer suporte clínico em diferentes contextos de atenção;</li>
           <li>Participar de projetos voltados à inovação em saúde.</li>
         </ul>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
     <!-- SEÇÃO DEMONSTRAÇÃO INTERATIVA: O MEMOSSOMO EM AÇÃO -->
     <section class="idmt-panel" id="memossomo-demo" style="background: radial-gradient(circle at 90% 10%, rgba(35,139,87,0.12), transparent 22rem), linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,244,248,0.96)); border: 2px solid rgba(35,139,87,0.3);">
@@ -812,7 +843,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
           <li><strong>Raciocínio Estruturado:</strong> Lógica clínica organizada como base para decisões assertivas.</li>
           <li><strong>Adaptabilidade:</strong> Atuar com eficiência respeitando particularidades institucionais.</li>
         </ul>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 3 -->
@@ -823,7 +857,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
 
         <h2>Avaliação Diagnóstica e Procedimentos</h2>
         <p>Realização de avaliação estruturada com foco na identificação de síndromes, construção de diagnósticos diferenciais e definição racional de exames. Execução de procedimentos compatíveis com a prática médica e segurança do paciente.</p>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 4 -->
@@ -836,7 +873,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
           <li>Emissão de Documentação Médica (Laudos e Pareceres)</li>
           <li>Suporte Técnico e integração com fluxos institucionais</li>
         </ul>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 5 -->
@@ -849,7 +889,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
           <li><strong>Integração:</strong> Facilidade de inserção em diferentes protocolos locais.</li>
           <li><strong>Rastreabilidade:</strong> Registro estruturado das ações garantindo segurança jurídica.</li>
         </ul>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 6 -->
@@ -857,28 +900,40 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
         <h1>6. Projetos e Inovação</h1>
         <p>A atuação inicial é orientada à prestação de serviços médicos, evoluindo de forma estruturada para a construção de modelos clínicos, organização de sistemas assistenciais e inovação aplicada à prática médica (Integração entre Medicina e Tecnologia).</p>
         <p>O instituto mantém iniciativas em desenvolvimento voltadas à evolução da prática assistencial, incluindo modelos de raciocínio clínico e interoperabilidade de dados clínicos para promoção da saúde  coletiva.</p>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 7 -->
       <section id="saude-publica">
         <h1>7. Atuação em Saúde Pública e Parcerias</h1>
         <p>Atuação em unidades públicas de saúde, com adaptação às demandas operacionais do sistema, respeitando políticas de saúde vigentes. Estabelecimento de vínculos com instituições públicas e privadas para prestação de serviços e apoio à gestão em saúde.</p>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 8 E 9 -->
       <section id="governanca">
         <h1>8. Governança e Conformidade Legal</h1>
         <p>O Instituto atua sob responsabilidade técnica de médico devidamente registrado no Conselho Regional de Medicina (CRM), garantindo conformidade com as normas legais e éticas vigentes, incluindo as diretrizes do CFM e a LGPD (Lei Geral de Proteção de Dados).</p>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 10 -->
       <section id="modelo-operacional">
         <h1>9. Modelo Operacional e Execução</h1>
         <p>A atuação é orientada por uma abordagem clínica estruturada, baseada na avaliação sistemática do paciente, identificação de prioridades e definição de condutas seguras e eficientes. O fluxo assistencial segue uma estrutura lógica definida: entrada → avaliação → priorização → definição de conduta → destino clínico.</p>
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
       <!-- SEÇÃO 11 -->
@@ -899,7 +954,10 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
   <li style="margin-bottom: 0.5rem;"><strong style="color: var(--idmt-blue);">DUNS Number:</strong> 582645254</li>
 </ul>
 
-        <a href="#sumario" class="back-to-top">↑ Voltar ao Sumário</a>
+        <div class="idmt-section-nav">
+          <a href="#sumario">← Voltar ao Sumário</a>
+          <a href="#topo" class="top">↑ Voltar ao topo</a>
+        </div>
       </section>
 
     </article>
