@@ -1,0 +1,50 @@
+{
+  "service": "Senior Consult — Clínica Médica",
+  "organization": "Instituto Delyone de Medicina e Tecnologia",
+  "duration_minutes": 40,
+  "timezone": "America/Sao_Paulo",
+  "availability": {
+    "days": [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday"
+    ],
+    "start_time": "08:00",
+    "end_time": "21:00",
+    "recurrence": "weekly",
+    "buffer_minutes": null,
+    "daily_capacity_if_continuous": 19
+  },
+  "modality": {
+    "initial": "telemedicine",
+    "future": "in_person"
+  },
+  "booking": {
+    "confirmation": "automatic",
+    "payment": "after_booking",
+    "calendar": "dedicated_senior_consult_calendar",
+    "provider": "pending_calendar_booking_url"
+  },
+  "pricing": {
+    "promotional_brl": 100,
+    "promotional_duration_months": 2,
+    "start_date": null,
+    "end_date": null,
+    "standard_price_brl": null,
+    "note": "Promo applies to bookings made during the first two months after launch; confirm launch date and standard price before public launch."
+  },
+  "patient_data": {
+    "collect_at_booking": [
+      "full_name",
+      "email_or_phone",
+      "selected_slot"
+    ],
+    "cpf_required": false,
+    "clinical_reason_required": false,
+    "note": "Do not store patient health details in GitHub or public static files."
+  },
+  "status": "configuration_defined_booking_link_pending"
+}
