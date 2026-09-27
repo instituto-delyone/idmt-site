@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102d29">
+<title>Agende sua consulta | Senior Consult — IDMT</title>
+<meta name="description" content="Agendamento de consulta em Clínica Médica com o Senior Consult, do Instituto Delyone de Medicina e Tecnologia.">
+<style>
+:root{--ink:#17332f;--muted:#647873;--cream:#f5f4ef;--paper:#fffefa;--line:#dce5df;--green:#164e45;--mint:#dcece4;--gold:#c9a96b}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px max(22px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #e4e8e1;background:#fbfaf6}
+.brand{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.brand span{display:block;font-size:11px;letter-spacing:.04em;color:var(--muted);font-weight:500;text-transform:none}
+.tag{font-size:12px;border:1px solid #d8e2da;border-radius:30px;padding:8px 13px;color:var(--green);white-space:nowrap}
+main{max-width:1120px;margin:0 auto;padding:48px 22px 70px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;margin-bottom:34px}
+.eyebrow{color:#8b7040;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(38px,5vw,60px);line-height:1.05;letter-spacing:-.035em;margin:13px 0 18px}
+.lead{font-size:18px;color:#536b64;max-width:570px}.note{display:flex;gap:12px;align-items:flex-start;margin-top:22px;color:#50675f;font-size:14px}.note b{color:var(--green)}
+.hero-art{background:linear-gradient(145deg,#e3ece5,#f5ead8);border-radius:28px;min-height:260px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:30px}
+.art-card{background:#fffdf8;border:1px solid #ffffffb5;border-radius:22px;padding:28px;max-width:330px;width:100%;box-shadow:0 18px 50px #183e3017;transform:rotate(-2deg)}
+.art-mark{height:48px;width:48px;border-radius:50%;background:var(--mint);display:grid;place-items:center;color:var(--green);font-size:22px;margin-bottom:20px}
+.art-card h2{font:500 27px/1.15 Georgia,serif;margin:0 0 8px}.art-card p{margin:0;color:var(--muted);font-size:14px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 55px #183e300a;overflow:hidden}
+.panel-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px}.panel-head h2{margin:0;font-size:22px}.panel-head p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.step{font-size:12px;font-weight:700;color:var(--green);background:var(--mint);padding:7px 11px;border-radius:20px;white-space:nowrap}
+.booking{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:30px}
+.section-title{font-size:15px;font-weight:800;margin:0 0 14px}.dates{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.date{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px 4px;text-align:center;color:var(--ink);cursor:pointer;font:inherit}.date small{display:block;font-size:11px;color:var(--muted)}.date strong{display:block;font-size:17px}.date.active{background:var(--green);border-color:var(--green);color:white}.date.active small{color:#d5e7de}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.time{padding:10px 4px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--green);cursor:pointer;font:600 14px inherit}.time.active{background:var(--mint);border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.field{display:block;margin-top:15px}.field span{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input{width:100%;border:1px solid #d7e1da;border-radius:11px;padding:13px 14px;font:inherit;background:#fff;color:var(--ink)}.field input:focus{outline:2px solid #9ab9a9;outline-offset:1px}
+.summary{margin-top:22px;padding:16px;background:#f2f6f1;border-radius:14px;font-size:14px;color:#536b64}.summary strong{color:var(--green)}
+.submit{margin-top:16px;width:100%;border:0;border-radius:12px;background:var(--green);color:white;font:700 15px inherit;padding:15px;cursor:pointer}.submit:hover{background:#0e3b33}.smallprint{font-size:12px;color:#71817b;margin-top:11px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:26px}.mini{padding:19px;border:1px solid var(--line);border-radius:17px;background:#fbfaf6}.mini b{display:block;margin-bottom:5px}.mini p{font-size:13px;color:var(--muted);margin:0}.num{font-size:12px;color:#8b7040;font-weight:800;letter-spacing:.08em}
+footer{max-width:1120px;margin:0 auto;padding:0 22px 35px;color:#77857f;font-size:12px}
+.notice{margin:0 30px 25px;padding:13px 15px;background:#fff8e9;border:1px solid #efe0bd;border-radius:12px;color:#725d32;font-size:13px}
+@media(max-width:760px){main{padding-top:30px}.hero{grid-template-columns:1fr;gap:24px}.hero-art{min-height:220px}.booking{grid-template-columns:1fr;padding:22px}.panel-head{padding:22px;align-items:flex-start}.steps{grid-template-columns:1fr}.dates{grid-template-columns:repeat(4,1fr)}.notice{margin:0 22px 22px}}
+</style>
+</head>
+<body>
+<header><div class="brand">IDMT <span>Instituto Delyone de Medicina e Tecnologia</span></div><div class="tag">Senior Consult · Clínica Médica</div></header>
+<main>
+<section class="hero">
+<div><div class="eyebrow">Cuidado médico com atenção individual</div><h1>Uma consulta que começa com você.</h1><p class="lead">Reserve seu horário para uma consulta em Clínica Médica com atenção, escuta e uma visão cuidadosa da sua saúde.</p><div class="note"><span>✦</span><div><b>Senior Consult</b><br>Um serviço de atendimento próximo e personalizado — não uma especialidade geriátrica.</div></div></div>
+<div class="hero-art"><div class="art-card"><div class="art-mark">✦</div><h2>Medicina com tempo para ouvir.</h2><p>Clareza, acolhimento e cuidado em cada etapa da consulta.</p></div></div>
+</section>
+<section class="panel" aria-labelledby="booking-title">
+<div class="panel-head"><div><h2 id="booking-title">Escolha seu horário</h2><p>Selecione uma data e um horário para iniciar sua solicitação.</p></div><span class="step">Etapa 1 de 3</span></div>
+<div class="booking">
+<div><h3 class="section-title">1. Selecione uma data</h3><div class="dates" id="dates" aria-label="Datas disponíveis"></div><h3 class="section-title" style="margin-top:26px">2. Escolha um horário</h3><div class="times" id="times"></div><p class="smallprint">Horários ilustrativos nesta versão inicial. A disponibilidade será confirmada pela equipe.</p></div>
+<div><h3 class="section-title">3. Seus dados para contato</h3><form id="requestForm">
+<label class="field"><span>Nome completo</span><input id="name" name="name" autocomplete="name" required placeholder="Como podemos chamar você?"></label>
+<label class="field"><span>E-mail</span><input id="email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></label>
+<label class="field"><span>Telefone (opcional)</span><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(DDD) 00000-0000"></label>
+<div class="summary" id="summary" aria-live="polite">Escolha uma data e um horário para visualizar seu resumo.</div>
+<button class="submit" type="submit">Solicitar agendamento →</button>
+<p class="smallprint">O envio desta solicitação ainda não confirma a consulta nem gera cobrança. Não informe sintomas ou dados clínicos neste formulário.</p>
+</form></div>
+</div>
+<div class="notice">Esta é a primeira versão visual do calendário. A confirmação real, a consulta de horários disponíveis e o pagamento pelo PicPay serão conectados na próxima etapa. Nenhum dado é enviado ou armazenado por esta página.</div>
+</section>
+<section class="steps"><div class="mini"><span class="num">01 / ESCOLHA</span><b>Selecione data e horário</b><p>Indique o período que funciona melhor para você.</p></div><div class="mini"><span class="num">02 / CONFIRMAÇÃO</span><b>A equipe confirma</b><p>Você recebe o retorno com os próximos passos e a disponibilidade.</p></div><div class="mini"><span class="num">03 / CONSULTA</span><b>Atendimento individual</b><p>Com horário confirmado, você recebe as orientações para sua consulta.</p></div></section>
+</main>
+<footer>© Instituto Delyone de Medicina e Tecnologia · Senior Consult. Atendimento sujeito à confirmação de disponibilidade.</footer>
+<script>
+const datesEl=document.getElementById('dates'),timesEl=document.getElementById('times'),summary=document.getElementById('summary');
+let selectedDate=null,selectedTime=null;
+const now=new Date();now.setHours(12,0,0,0);
+const weekdays=['dom','seg','ter','qua','qui','sex','sáb'],months=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const dates=[];
+for(let i=1;i<22&&dates.length<4;i++){const d=new Date(now);d.setDate(now.getDate()+i);if(d.getDay()>0&&d.getDay()<6)dates.push(d);}
+function dateKey(d){return d.toISOString().slice(0,10)}
+dates.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.className='date'+(i===0?' active':'');b.innerHTML='<small>'+weekdays[d.getDay()]+'</small><strong>'+String(d.getDate()).padStart(2,'0')+'</strong><small>'+months[d.getMonth()]+'</small>';b.addEventListener('click',()=>{document.querySelectorAll('.date').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedDate=d;selectedTime=null;renderTimes();renderSummary()});datesEl.appendChild(b);if(i===0)selectedDate=d;});
+function renderTimes(){timesEl.innerHTML='';const hours=['09:00','10:00','11:00','13:00','14:00','15:00','16:00'];hours.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='time';b.textContent=t;b.addEventListener('click',()=>{document.querySelectorAll('.time').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedTime=t;renderSummary()});timesEl.appendChild(b)})}
+function renderSummary(){if(!selectedDate||!selectedTime){summary.textContent='Escolha uma data e um horário para visualizar seu resumo.';return}summary.innerHTML='<strong>Seu pedido:</strong><br>'+selectedDate.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'})+' · '+selectedTime+'<br><span>Consulta de Clínica Médica · 45 minutos</span><br><span>Solicitação sujeita à confirmação.</span>'}
+renderTimes();renderSummary();
+document.getElementById('requestForm').addEventListener('submit',e=>{e.preventDefault();if(!selectedDate||!selectedTime){alert('Selecione uma data e um horário.');return}alert('Esta página é uma prévia visual. O envio de solicitações será ativado após conectarmos o calendário e o canal de confirmação.');});
+</script>
+</body></html>
