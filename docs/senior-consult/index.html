@@ -49,13 +49,13 @@ footer{max-width:1120px;margin:0 auto;padding:0 22px 35px;color:#77857f;font-siz
 <div><h3 class="section-title">3. Seus dados para contato</h3><form id="requestForm">
 <label class="field"><span>Nome completo</span><input id="name" name="name" autocomplete="name" required placeholder="Como podemos chamar você?"></label>
 <label class="field"><span>E-mail</span><input id="email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></label>
-<label class="field"><span>Telefone (opcional)</span><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(DDD) 00000-0000"></label>
+<label class="field"><span>Telefone / WhatsApp</span><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="(DDD) 00000-0000"></label>
 <div class="summary" id="summary" aria-live="polite">Escolha uma data e um horário para visualizar seu resumo.</div>
-<button class="submit" type="submit">Solicitar agendamento →</button>
-<p class="smallprint">O envio desta solicitação ainda não confirma a consulta nem gera cobrança. Não informe sintomas ou dados clínicos neste formulário.</p>
+<button class="submit" type="submit">Continuar pelo WhatsApp →</button>
+<p class="smallprint">Ao continuar, o WhatsApp abrirá com os dados preenchidos. Confira e toque em Enviar. A consulta só será confirmada após retorno da equipe. Não informe sintomas ou dados clínicos.</p>
 </form></div>
 </div>
-<div class="notice">Esta é a primeira versão visual do calendário. A confirmação real, a consulta de horários disponíveis e o pagamento pelo PicPay serão conectados na próxima etapa. Nenhum dado é enviado ou armazenado por esta página.</div>
+<div class="notice">Esta página encaminha sua solicitação pelo WhatsApp. Os horários são opções para solicitar, não uma confirmação automática de disponibilidade. A equipe verificará o horário e enviará orientações de pagamento pelo PicPay. Nenhum dado é armazenado por esta página.</div>
 </section>
 <section class="steps"><div class="mini"><span class="num">01 / ESCOLHA</span><b>Selecione data e horário</b><p>Indique o período que funciona melhor para você.</p></div><div class="mini"><span class="num">02 / CONFIRMAÇÃO</span><b>A equipe confirma</b><p>Você recebe o retorno com os próximos passos e a disponibilidade.</p></div><div class="mini"><span class="num">03 / CONSULTA</span><b>Atendimento individual</b><p>Com horário confirmado, você recebe as orientações para sua consulta.</p></div></section>
 </main>
@@ -72,6 +72,6 @@ dates.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b
 function renderTimes(){timesEl.innerHTML='';const hours=['09:00','10:00','11:00','13:00','14:00','15:00','16:00'];hours.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='time';b.textContent=t;b.addEventListener('click',()=>{document.querySelectorAll('.time').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedTime=t;renderSummary()});timesEl.appendChild(b)})}
 function renderSummary(){if(!selectedDate||!selectedTime){summary.textContent='Escolha uma data e um horário para visualizar seu resumo.';return}summary.innerHTML='<strong>Seu pedido:</strong><br>'+selectedDate.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'})+' · '+selectedTime+'<br><span>Consulta de Clínica Médica · 45 minutos</span><br><span>Solicitação sujeita à confirmação.</span>'}
 renderTimes();renderSummary();
-document.getElementById('requestForm').addEventListener('submit',e=>{e.preventDefault();if(!selectedDate||!selectedTime){alert('Selecione uma data e um horário.');return}alert('Esta página é uma prévia visual. O envio de solicitações será ativado após conectarmos o calendário e o canal de confirmação.');});
+document.getElementById('requestForm').addEventListener('submit',e=>{e.preventDefault();if(!selectedDate||!selectedTime){alert('Selecione uma data e um horário.');return}const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),phone=document.getElementById('phone').value.trim();if(!name||!email||!phone){alert('Preencha nome, e-mail e telefone.');return}const date=selectedDate.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'});const msg='Olá! Gostaria de solicitar uma consulta Senior Consult.\nNome: '+name+'\nE-mail: '+email+'\nTelefone: '+phone+'\nData desejada: '+date+'\nHorário desejado: '+selectedTime+'\nDuração prevista: 45 minutos.\nEntendo que o horário depende de confirmação da equipe.';window.location.href='https://wa.me/5563992179738?text='+encodeURIComponent(msg);});
 </script>
 </body></html>
