@@ -23,7 +23,11 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(3
 .panel-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px}.panel-head h2{margin:0;font-size:22px}.panel-head p{margin:3px 0 0;color:var(--muted);font-size:14px}
 .step{font-size:12px;font-weight:700;color:var(--green);background:var(--mint);padding:7px 11px;border-radius:20px;white-space:nowrap}
 .booking{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:30px}
-.section-title{font-size:15px;font-weight:800;margin:0 0 14px}.dates{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.section-title{font-size:15px;font-weight:800;margin:0 0 14px}.date-navigation{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-2px 0 12px}
+.date-navigation button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;color:var(--green);font:600 13px inherit;cursor:pointer}
+.date-navigation button:disabled{opacity:.35;cursor:not-allowed}
+.date-range{font-size:12px;color:var(--muted);text-align:center}
+.dates{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .date{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px 4px;text-align:center;color:var(--ink);cursor:pointer;font:inherit}.date small{display:block;font-size:11px;color:var(--muted)}.date strong{display:block;font-size:17px}.date.active{background:var(--green);border-color:var(--green);color:white}.date.active small{color:#d5e7de}
 .times{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.time{padding:10px 4px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--green);cursor:pointer;font:600 14px inherit}.time.active{background:var(--mint);border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
 .field{display:block;margin-top:15px}.field span{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input{width:100%;border:1px solid #d7e1da;border-radius:11px;padding:13px 14px;font:inherit;background:#fff;color:var(--ink)}.field input:focus{outline:2px solid #9ab9a9;outline-offset:1px}
@@ -45,7 +49,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 22px 35px;color:#77857f;font-siz
 <section class="panel" aria-labelledby="booking-title">
 <div class="panel-head"><div><h2 id="booking-title">Escolha seu horário</h2><p>Segunda a sexta, das 08h às 17h · consultas de 45 min · almoço 13h–14h.</p></div><span class="step">Etapa 1 de 3</span></div>
 <div class="booking">
-<div><h3 class="section-title">1. Selecione uma data</h3><div class="dates" id="dates" aria-label="Datas disponíveis"></div><h3 class="section-title" style="margin-top:26px">2. Escolha um horário</h3><div class="times" id="times"></div><p class="smallprint">Horários oferecidos: 08h–13h e 14h–17h, em intervalos de 45 minutos. A disponibilidade será confirmada pela equipe.</p></div>
+<div><h3 class="section-title">1. Selecione uma data</h3><div class="date-navigation"><button type="button" id="prevDates" aria-label="Datas anteriores">←</button><span class="date-range" id="dateRange" aria-live="polite"></span><button type="button" id="nextDates" aria-label="Próximas datas">Próximas →</button></div><div class="dates" id="dates" aria-label="Datas disponíveis"></div><h3 class="section-title" style="margin-top:26px">2. Escolha um horário</h3><div class="times" id="times"></div><p class="smallprint">Horários oferecidos: 08h–13h e 14h–17h, em intervalos de 45 minutos. A disponibilidade será confirmada pela equipe.</p></div>
 <div><h3 class="section-title">3. Seus dados para contato</h3><form id="requestForm">
 <label class="field"><span>Nome completo</span><input id="name" name="name" autocomplete="name" required placeholder="Como podemos chamar você?"></label>
 <label class="field"><span>E-mail</span><input id="email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></label>
@@ -65,10 +69,21 @@ const datesEl=document.getElementById('dates'),timesEl=document.getElementById('
 let selectedDate=null,selectedTime=null;
 const now=new Date();now.setHours(12,0,0,0);
 const weekdays=['dom','seg','ter','qua','qui','sex','sáb'],months=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-const dates=[];
-for(let i=1;i<22&&dates.length<4;i++){const d=new Date(now);d.setDate(now.getDate()+i);if(d.getDay()>0&&d.getDay()<6)dates.push(d);}
+const dates=[];const pageSize=4;let datesPage=0;
+for(let i=1;i<=60&&dates.length<20;i++){const d=new Date(now);d.setDate(now.getDate()+i);if(d.getDay()>0&&d.getDay()<6)dates.push(d);}
 function dateKey(d){return d.toISOString().slice(0,10)}
-dates.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.className='date'+(i===0?' active':'');b.innerHTML='<small>'+weekdays[d.getDay()]+'</small><strong>'+String(d.getDate()).padStart(2,'0')+'</strong><small>'+months[d.getMonth()]+'</small>';b.addEventListener('click',()=>{document.querySelectorAll('.date').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedDate=d;selectedTime=null;renderTimes();renderSummary()});datesEl.appendChild(b);if(i===0)selectedDate=d;});
+function renderDates(){
+ datesEl.innerHTML='';
+ const pageDates=dates.slice(datesPage,datesPage+pageSize);
+ pageDates.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.className='date'+(selectedDate&&dateKey(selectedDate)===dateKey(d)?' active':'');b.innerHTML='<small>'+weekdays[d.getDay()]+'</small><strong>'+String(d.getDate()).padStart(2,'0')+'</strong><small>'+months[d.getMonth()]+'</small>';b.addEventListener('click',()=>{document.querySelectorAll('.date').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedDate=d;selectedTime=null;renderTimes();renderSummary()});datesEl.appendChild(b);});
+ const first=datesPage+1,last=Math.min(datesPage+pageSize,dates.length);
+ document.getElementById('dateRange').textContent=first+'–'+last+' de '+dates.length+' dias';
+ document.getElementById('prevDates').disabled=datesPage===0;
+ document.getElementById('nextDates').disabled=datesPage+pageSize>=dates.length;
+}
+document.getElementById('prevDates').addEventListener('click',()=>{datesPage=Math.max(0,datesPage-pageSize);selectedDate=dates[datesPage]||null;selectedTime=null;renderDates();renderTimes();renderSummary()});
+document.getElementById('nextDates').addEventListener('click',()=>{datesPage=Math.min(dates.length-pageSize,datesPage+pageSize);selectedDate=dates[datesPage]||null;selectedTime=null;renderDates();renderTimes();renderSummary()});
+selectedDate=dates[0]||null;renderDates();
 function renderTimes(){timesEl.innerHTML='';const hours=['08:00','08:45','09:30','10:15','11:00','11:45','14:00','14:45','15:30','16:15'];hours.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='time';b.textContent=t;b.addEventListener('click',()=>{document.querySelectorAll('.time').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedTime=t;renderSummary()});timesEl.appendChild(b)})}
 function renderSummary(){if(!selectedDate||!selectedTime){summary.textContent='Escolha uma data e um horário para visualizar seu resumo.';return}summary.innerHTML='<strong>Seu pedido:</strong><br>'+selectedDate.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'})+' · '+selectedTime+'<br><span>Consulta de Clínica Médica · 45 minutos</span><br><span>Solicitação sujeita à confirmação.</span>'}
 renderTimes();renderSummary();
