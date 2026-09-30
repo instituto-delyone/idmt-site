@@ -676,7 +676,7 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
         </div>
         <strong>Gerenciamento Assimétrico de Contexto Informacional em IA</strong>
         <p>Método computacional para análise e persistência assimétrica de memória em interações humano-máquina. Classifica dinamicamente informações críticas e preserva continuidade lógica.</p>
-        <a href="files/Resumo_patente_1.pdf" target="_blank" class="idmt-tool-footer" style="text-decoration: none;">📄 Ver resumo oficial (INPI)</a>
+        <a href="/Engines/patente_1_teste/" class="idmt-tool-footer" style="text-decoration: none;">🧪 Ver teste da patente + vídeos</a>
       </div>
 
       <div class="idmt-tool-card" style="cursor: default; margin-top: 1.2rem;">
@@ -998,53 +998,3 @@ Próximo objetivo: encaminhamento à área técnica + demonstração + eventual 
   </main>
 
   <footer class="idmt-footer">
-    <strong>Instituto Delyone de Medicina e Tecnologia</strong><br>
-    Ciência, tecnologia e raciocínio clínico estruturado.<br><br>
-    <a href="#sumario">Início</a> · 
-    <a href="/contato/">Contato</a> · 
-    <a href="/pesquisas/">Projetos</a> · 
-    <a href="#ferramentas">Ferramentas</a> · 
-    <a href="#tecnologias">Patentes</a><br><br>
-    © IDMT — Todos os direitos reservados.
-  </footer>
-
-
-    <script>
-      /* IDMT Valuation Snapshot — atualize somente este objeto em futuros snapshots. */
-      const IDMT_VALUATION = {
-        current: 4.5,
-        min: 3.0,
-        max: 6.0,
-        date: "24/09/2026"
-      };
-
-      function updateIDMTValuation() {
-        const valueElement = document.getElementById("idmt-valuation-number");
-        const dateElement = document.getElementById("idmt-valuation-date");
-        const needle = document.getElementById("idmt-gauge-needle");
-        const progress = document.getElementById("idmt-gauge-progress");
-
-        if (!valueElement || !needle || !progress) return;
-
-        const normalized = Math.max(0, Math.min(1,
-          (IDMT_VALUATION.current - IDMT_VALUATION.min) /
-          (IDMT_VALUATION.max - IDMT_VALUATION.min)
-        ));
-
-        needle.style.transform = "rotate(" + (-50 + normalized * 100) + "deg)";
-        progress.setAttribute("stroke-dasharray", (15 + normalized * 70) + " 100");
-
-        valueElement.textContent =
-          "R$ " + IDMT_VALUATION.current.toFixed(1).replace(".", ",") + " milhões";
-
-        if (dateElement) {
-          dateElement.textContent = "Snapshot · " + IDMT_VALUATION.date;
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", updateIDMTValuation);
-    </script>
-
-
-</body>
-</html>
