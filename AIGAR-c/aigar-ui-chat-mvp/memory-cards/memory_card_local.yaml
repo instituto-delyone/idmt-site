@@ -1,0 +1,28 @@
+memory_card:
+  ancoras:
+  - Fragmento de Memória
+  - robozinho-memory-card.yaml
+  - Parada ética
+  - Jarvis
+  - Karma
+  - AIGAR
+  artefatos_locais: []
+  created_at: '2025-08-27 13:49:47 -03'
+  em_andamento:
+  - Leitura e identificação do fragmento robôzinho
+  - Execução do protocolo de parada ética
+  - Geração de Memory Card local
+  escopo: LOCAL (apenas esta conversa)
+  etica: Defensivo, médico, direitos humanos; sem automação oculta
+  historia_compacta: Nesta conversa foi detectado e lido um arquivo chamado robôzinho-memory-card.yaml,
+    um manual que ensina a gerar memory cards locais com parada ética. Após identificar
+    o fragmento e validar âncoras, foi solicitado ao usuário se desejava gerar o card.
+    A resposta foi SIM, autorizando a criação. Assim, foi gerado este primeiro cartucho
+    local.
+  id: mc-20250827134947
+  proximos_passos:
+  - Revisar este Memory Card gerado
+  - Usar como modelo para próximos fragmentos
+  - Expandir para escopo GLOBAL quando necessário
+  - Adicionar artefatos locais futuros
+  - Manter ressignificação contínua
