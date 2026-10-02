@@ -90,7 +90,7 @@ a{text-decoration:none;color:inherit}
   display:flex;align-items:center;justify-content:space-between;
   padding:22px clamp(18px,4vw,58px);color:#eaf7ff;
 }
-.nav-brand{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.86}
+.nav-brand{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.86}.nav-brand .nav-institute,.nav-brand .nav-idmt{display:inline-block}.nav-brand .nav-idmt{margin-left:7px}
 .nav-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .nav-links a{padding:8px 13px;border:1px solid rgba(154,224,255,.18);border-radius:999px;background:rgba(0,18,38,.22);backdrop-filter:blur(10px);font-size:12px;color:#d9f1ff}
 .hybrid-hero{position:relative;min-height:760px;overflow:hidden;background:
@@ -212,7 +212,7 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
   .hybrid-hero{min-height:930px}
   .hybrid-nav{justify-content:center;padding-top:20px}
   .nav-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;line-height:1}
-  .nav-brand::first-line{font-size:14px}
+  .nav-brand .nav-institute{font-size:13px;letter-spacing:.14em}.nav-brand .nav-idmt{font-size:22px;letter-spacing:.22em;margin-left:0;margin-top:3px}
   .nav-links{display:none}
   .hero-inner{padding-top:94px}.hero-grid{gap:20px}.hero-copy h1{font-size:44px}.axis{grid-template-columns:1fr 1fr}.axis a:last-child{grid-column:1/-1}.portal{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(2,1fr)}.cred-row a:last-child{grid-column:1/-1}.credentials{margin-top:-45px}.pill-grid,.prof-grid{grid-template-columns:1fr}}
 </style>
@@ -221,7 +221,7 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
 <body>
 <section class="hybrid-hero">
   <div class="hybrid-nav">
-    <div class="nav-brand">IDMT · Instituto Delyone</div>
+    <div class="nav-brand"><span class="nav-institute">Instituto Delyone</span><span class="nav-idmt">IDMT</span></div>
     <div class="nav-links">
       <a href="/sobre.html">Instituto</a>
       <a href="/membros/">Equipe</a>
