@@ -125,6 +125,7 @@ background:radial-gradient(circle,rgba(54,196,255,.20),transparent 67%);filter:b
 .axis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .axis a{min-height:92px;border:1px solid rgba(153,222,255,.18);border-radius:16px;padding:14px;background:rgba(255,255,255,.035);transition:.2s}
 .axis a:hover{transform:translateY(-2px);background:rgba(71,179,241,.08);border-color:rgba(103,217,255,.38)}
+.axis .professional-axis{grid-column:1/-1;text-align:center;min-height:auto;padding:14px}
 .axis strong{display:block;font-size:14px}.axis span{display:block;margin-top:7px;font-size:11px;line-height:1.35;color:#9db8ce}
 .axis .medicine-feature{grid-column:1/-1;min-height:auto;padding:17px 18px;background:linear-gradient(145deg,rgba(16,91,145,.20),rgba(255,255,255,.035));border-color:rgba(103,217,255,.28)}.axis .technology-feature{grid-column:1/-1;min-height:auto;padding:17px 18px;background:linear-gradient(145deg,rgba(6,54,88,.42),rgba(2,16,31,.34));border:1px solid rgba(103,217,255,.22);border-radius:16px}.technology-feature .technology-label{display:flex;flex-direction:column;align-items:center;gap:9px}.technology-feature .technology-label strong{font-size:18px}.technology-feature .technology-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}.technology-feature .technology-links a{min-height:52px;border:1px solid rgba(153,222,255,.14);border-radius:12px;padding:10px;background:rgba(0,14,28,.18);display:grid;place-items:center;text-align:center;color:#b9d9eb;font-size:11px;font-weight:750}.technology-feature .technology-links a:hover{background:rgba(61,165,218,.08);border-color:rgba(103,217,255,.30);transform:translateY(-1px)}
 
@@ -412,10 +413,9 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
       <section class="panel" id="pesquisa">
         <h2>Pesquisa & Desenvolvimento</h2><p>Alguns projetos de pesquisa em desenvolvimento atualmente conduzidos pelo Instituto. <strong>Obs.: alguns não são visíveis.</strong></p>
         <div class="pill-grid">
-          <a class="small-card" href="/teleconsulta/"><strong>Pesquisas</strong><span>Projetos e publicações</span></a>
-          <a class="small-card" href="/framework/"><strong>Frameworks</strong><span>Modelos e métodos</span></a>
-          <a class="small-card" href="/parcerias/"><strong>Colaborações</strong><span>Propostas institucionais</span></a>
-          <a class="small-card" href="/files/pesquisas/"><strong>Pesquisa & PI</strong><span>Pesquisas, registros e pedidos de patente</span></a>
+          <a class="small-card" href="/pesquisas/"><strong>Pesquisas</strong><span>Projetos e publicações</span></a>
+          <a class="small-card" href="#propriedade-intelectual"><strong>Patentes</strong><span>Pedidos de patente de invenção</span></a>
+          <a class="small-card" href="#propriedade-intelectual"><strong>Registro de programa de computador</strong><span>Registro e documentação de software</span></a>
         </div>
       </section>
     </div>
@@ -537,13 +537,12 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
     <section class="panel" id="profissionais" style="margin-top:18px">
       <h2>Nossos Pilares Profissionais</h2>
       <p>Saúde · Informação · Segurança · Educação · Liderança</p>
-      <div class="prof-grid"><div class="prof"><strong>Saúde</strong><span>Medicina e assistência</span></div><div class="prof"><strong>Informação</strong><span>TI e sistemas</span></div><div class="prof"><strong>Segurança</strong><span>Segurança cibernética e infraestrutura</span></div><div class="prof"><strong>Educação</strong><span>Formação e ensino</span></div><div class="prof"><strong>Liderança</strong><span>Direção e coordenação institucional</span></div>
-        <div class="prof"><strong>Medicina</strong><span>Assistência e especialistas</span></div>
-        <div class="prof"><strong>Tecnologia</strong><span>Software e sistemas</span></div>
-        <div class="prof"><strong>Pesquisa</strong><span>Ciência e inovação</span></div>
-        <div class="prof"><strong>Engenharia</strong><span>Desenvolvimento aplicado</span></div>
-        <div class="prof"><strong>Segurança</strong><span>Informação e infraestrutura</span></div>
-        <div class="prof"><strong>Educação</strong><span>Formação continuada</span></div>
+      <div class="prof-grid">
+        <div class="prof"><strong>Saúde</strong><span>Medicina e assistência</span></div>
+        <div class="prof"><strong>Informação</strong><span>TI e sistemas</span></div>
+        <div class="prof"><strong>Segurança</strong><span>Segurança cibernética e infraestrutura</span></div>
+        <div class="prof"><strong>Educação</strong><span>Formação e ensino</span></div>
+        <div class="prof"><strong>Liderança</strong><span>Direção e coordenação institucional</span></div>
       </div>
     </section>
   </div>
