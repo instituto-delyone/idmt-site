@@ -151,6 +151,12 @@ main{background:var(--paper);padding:68px 0 86px}
 .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
 .panel h2{font-size:23px;letter-spacing:-.03em;margin:0 0 7px}.panel>p{margin:0 0 18px;color:var(--muted);font-size:13px}
 .pill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.small-card{border:1px solid #e1eaf1;border-radius:13px;padding:14px}.small-card strong{display:block;font-size:13px}.small-card span{display:block;margin-top:4px;color:#718597;font-size:11px}
+.maturity-card{position:relative;padding-top:18px;padding-right:88px}
+.maturity{position:absolute;top:11px;right:12px;font-size:8px;line-height:1;letter-spacing:.09em;font-weight:850;padding:5px 6px;border:1px solid #d8e5ef;border-radius:999px;background:#f8fbfe;color:#63788b}
+.maturity.mature{color:#146b4a;border-color:#cfe7dc;background:#f3fbf7}
+.maturity.starting{color:#176b9e;border-color:#cfe4f1;background:#f3faff}
+.maturity.embryonic{color:#80631e;border-color:#eadfbf;background:#fffaf0}
+.maturity-divider{height:1px;background:#d8e4ed;margin:9px 0 9px;width:100%}
 .international{background:linear-gradient(135deg,#082d52,#071a32);color:#eef8ff;border-color:#174e76}
 .international p{color:#a9c6dc}.international .small-card{border-color:rgba(149,216,248,.15);background:rgba(255,255,255,.035)}.international .small-card span{color:#91b0c8}
 .prof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -267,17 +273,28 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
     <div class="two" id="tecnologia">
       <section class="panel">
         <h2>Tecnologia</h2><p>Produtos e engines que formam a camada computacional do IDMT.</p>
-        <div class="pill-grid">
-          <a class="small-card" href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener"><strong>MedUnity ↗</strong><span>Integração assistencial</span></a>
-          <a class="small-card" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener"><strong>Diagnosis ↗</strong><span>Raciocínio clínico</span></a>
-          <a class="small-card" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener"><strong>CSI ↗</strong><span>Conhecimento estruturado</span></a>
-          <a class="small-card" href="/Aiger/"><strong>AIGAR</strong><span>Arquitetura e runtime</span></a>
+        <div class="pill-grid technology-projects">
+          <a class="small-card maturity-card" href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener">
+            <b class="maturity mature">MADURO</b>
+            <strong>MedUnity ↗</strong><span>Integração assistencial</span>
+          </a>
         </div>
 
-        <div class="pill-grid" style="margin-top:8px">
-          <a class="small-card" href="/sections/engines/"><strong>Engines</strong><span>Arquitetura técnica</span></a>
-          <a class="small-card" href="/files/research-tool-prisma/"><strong>Research Tool</strong><span>Pesquisa e documentação científica</span></a>
-          <a class="small-card" href="https://instituto-delyone.github.io/Meu-Lab/" target="_blank" rel="noopener"><strong>Meu Lab ↗</strong><span>Laboratório de desenvolvimento</span></a>
+        <div class="maturity-divider" aria-hidden="true"></div>
+
+        <div class="pill-grid technology-projects">
+          <a class="small-card maturity-card" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">
+            <b class="maturity starting">INICIANDO</b>
+            <strong>Diagnosis ↗</strong><span>Raciocínio clínico</span>
+          </a>
+          <a class="small-card maturity-card" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener">
+            <b class="maturity starting">INICIANDO</b>
+            <strong>CSI ↗</strong><span>Conhecimento estruturado</span>
+          </a>
+          <a class="small-card maturity-card" href="/files/research-tool-prisma/">
+            <b class="maturity embryonic">EMBRIONÁRIO</b>
+            <strong>Research Tool</strong><span>Pesquisa e documentação científica</span>
+          </a>
           <a class="small-card" href="/Comercial/"><strong>Comercial</strong><span>Produtos e frentes comerciais</span></a>
         </div>
       </section>
