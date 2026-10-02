@@ -127,6 +127,17 @@ background:radial-gradient(circle,rgba(54,196,255,.20),transparent 67%);filter:b
 .axis a:hover{transform:translateY(-2px);background:rgba(71,179,241,.08);border-color:rgba(103,217,255,.38)}
 .axis strong{display:block;font-size:14px}.axis span{display:block;margin-top:7px;font-size:11px;line-height:1.35;color:#9db8ce}
 .axis .medicine-feature{grid-column:1/-1;min-height:auto;padding:17px 18px;background:linear-gradient(145deg,rgba(16,91,145,.20),rgba(255,255,255,.035));border-color:rgba(103,217,255,.28)}.axis .technology-feature{grid-column:1/-1;min-height:auto;padding:17px 18px;background:linear-gradient(145deg,rgba(6,54,88,.42),rgba(2,16,31,.34));border:1px solid rgba(103,217,255,.22);border-radius:16px}.technology-feature .technology-label{display:flex;flex-direction:column;align-items:center;gap:9px}.technology-feature .technology-label strong{font-size:18px}.technology-feature .technology-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}.technology-feature .technology-links a{min-height:52px;border:1px solid rgba(153,222,255,.14);border-radius:12px;padding:10px;background:rgba(0,14,28,.18);display:grid;place-items:center;text-align:center;color:#b9d9eb;font-size:11px;font-weight:750}.technology-feature .technology-links a:hover{background:rgba(61,165,218,.08);border-color:rgba(103,217,255,.30);transform:translateY(-1px)}
+
+.international-capabilities{position:relative;overflow:hidden;display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 14px 13px!important;background:linear-gradient(145deg,rgba(5,44,75,.34),rgba(1,13,27,.28))!important}
+.international-capabilities .international-map{width:82px;height:82px;margin:0 auto 8px;opacity:.72;filter:drop-shadow(0 0 13px rgba(91,207,255,.13))}
+.international-capabilities .international-map svg{width:100%;height:100%;display:block}
+.international-capabilities .polar-ring{fill:rgba(70,178,229,.035);stroke:rgba(135,221,255,.38);stroke-width:1.2}
+.international-capabilities .polar-grid{fill:none;stroke:rgba(125,211,247,.24);stroke-width:.75}
+.international-capabilities .polar-land{fill:rgba(133,213,248,.16);stroke:rgba(160,226,255,.20);stroke-width:.7}
+.international-capabilities .polar-core{fill:#8fe3ff;filter:drop-shadow(0 0 4px rgba(112,220,255,.8))}
+.international-capabilities strong{font-size:13px!important;letter-spacing:.01em}
+.international-capabilities>span:last-child{margin-top:5px!important;font-size:10px!important}
+
 .medicine-feature .medicine-label{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:13px}.medicine-feature .medicine-label span{font-size:inherit}
 .medicine-feature .medicine-label strong{font-size:18px}
 .medicine-feature .medicine-label span{margin:0;color:#9fc5dc}
@@ -272,7 +283,36 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
           </div>
           <div class="technology-feature"><div class="technology-label"><strong>Tecnologia</strong><div class="technology-links"><a href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener">MedUnity ↗</a><a href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">Diagnosis ↗</a><a href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener">CSI ↗</a><a href="/teleconsulta/">Telemedicina →</a></div></div></div>
           <a href="#institucional"><strong>Institucional</strong><span>Governança, registros e documentação</span></a>
-          <a href="#internacional"><strong>International Capabilities</strong><span>Ecossistema e atuação internacional</span></a>
+          <a class="international-capabilities" href="#internacional">
+            <span class="international-map" aria-hidden="true">
+              <svg viewBox="0 0 220 220" role="img">
+                <defs>
+                  <clipPath id="polarClip"><circle cx="110" cy="110" r="91"/></clipPath>
+                </defs>
+                <circle class="polar-ring" cx="110" cy="110" r="91"/>
+                <g class="polar-grid" clip-path="url(#polarClip)">
+                  <ellipse cx="110" cy="110" rx="91" ry="28"/>
+                  <ellipse cx="110" cy="110" rx="91" ry="57"/>
+                  <ellipse cx="110" cy="110" rx="62" ry="91"/>
+                  <ellipse cx="110" cy="110" rx="31" ry="91"/>
+                  <path d="M110 19C79 47 61 78 61 110s18 63 49 91"/>
+                  <path d="M110 19c31 28 49 59 49 91s-18 63-49 91"/>
+                  <path d="M19 110h182"/>
+                </g>
+                <g class="polar-land" clip-path="url(#polarClip)">
+                  <path d="M49 72c10-8 17-8 25-3l9 11 12 4 5 12-7 10-14-1-9-8-13-4-6-9z"/>
+                  <path d="M92 48l13-6 16 5 8 12-8 8-14-3-8 7-12-6z"/>
+                  <path d="M123 70l15-4 17 9 12 15-5 11-14-1-7-10-13-3-7-9z"/>
+                  <path d="M142 110l16 3 12 12-5 11-16 2-11-10z"/>
+                  <path d="M83 116l12 4 8 13-4 15-10 15-8-8 3-16-7-12z"/>
+                  <path d="M112 135l11-4 13 7 3 13-9 10-12-5-8-11z"/>
+                </g>
+                <circle class="polar-core" cx="110" cy="110" r="3.2"/>
+              </svg>
+            </span>
+            <strong>International Capabilities</strong>
+            <span>Ecossistema e atuação internacional</span>
+          </a>
           <a href="#profissionais"><strong>Profissionais</strong><span>Estrutura e expansão do Instituto</span></a>
         </div>
       </div>
