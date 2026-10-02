@@ -155,7 +155,16 @@ background:rgba(3,18,36,.82);backdrop-filter:blur(16px);box-shadow:0 20px 55px r
 .cred-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:13px}
 .cred-head h2{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin:0;color:#bceaff}
 .cred-head span{font-size:10px;color:#7695ad}
-.cred-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cred-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}\n.cred-pentagon{position:relative;width:min(390px,100%);height:155px;margin:0 auto 2px}
+.cred-partner{position:absolute;width:112px;height:58px;border:1px solid rgba(140,211,247,.16);border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.025);transition:.2s}
+.cred-partner:hover{transform:translateY(-2px);border-color:rgba(103,217,255,.36);background:rgba(71,179,241,.07)}
+.cred-partner img{display:block;width:auto;height:auto;max-width:78px;max-height:40px;object-fit:contain}
+.cred-partner.coa{left:62px;top:0}.cred-partner.nasa{right:62px;top:0}
+.cred-partner.cnpq{left:0;bottom:0}.cred-partner.sam{left:calc(50% - 56px);bottom:0}.cred-partner.milmed{right:0;bottom:0}
+.cred-partner.cnpq .cnpq-mark{font-size:25px}
+.cred-partner.nasa img{max-width:48px;max-height:42px}
+.cred-partner.milmed img{max-width:55px;max-height:43px}
+@media(max-width:560px){.cred-pentagon{height:148px}.cred-partner{width:100px;height:54px}.cred-partner.coa{left:38px}.cred-partner.nasa{right:38px}.cred-partner.sam{left:calc(50% - 50px)}.cred-partner.cnpq{left:0}.cred-partner.milmed{right:0}}
 .cred-row a{height:55px;border:1px solid rgba(140,211,247,.18);border-radius:13px;display:grid;place-items:center;text-align:center;background:rgba(255,255,255,.025);color:#c7e7fa;font-size:11px;font-weight:800}
 .logo-credentials a{height:72px;padding:10px 14px;display:flex;align-items:center;justify-content:center;background:transparent;border-color:transparent}
 .logo-credentials img{display:block;max-width:100%;max-height:42px;width:auto;height:auto;object-fit:contain}
@@ -322,23 +331,22 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
 <section class="credentials">
   <div class="cred-shell">
     <div class="cred-head">
-      <h2>Parceiros / Credenciais</h2>
-      <span>Referências, registros e credenciais institucionais</span>
+      <h2>Parceiros do Instituto</h2>
     </div>
-    <div class="cred-row logo-credentials">
-      <a href="https://www.gov.br/cnpq/pt-br" target="_blank" aria-label="CNPq">
-        <span class="cnpq-mark">CNPq</span>
+    <div class="cred-pentagon">
+      <a class="cred-partner coa" href="https://www.nato.int/" target="_blank" rel="noopener" aria-label="COA / NATO">
+        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/NATO_OTAN_landscape_logo.svg" alt="COA">
       </a>
-      <a href="https://sam.gov/" target="_blank" aria-label="SAM.gov">
-        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/SamGovLogo.svg" alt="SAM.gov">
-      </a>
-      <a href="https://www.nato.int/" target="_blank" aria-label="NATO / NCAGE">
-        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/NATO_OTAN_landscape_logo.svg" alt="NATO">
-      </a>
-      <a href="https://www.nasa.gov/" target="_blank" aria-label="NASA / NSPIRES">
+      <a class="cred-partner nasa" href="https://www.nasa.gov/" target="_blank" rel="noopener" aria-label="NASA / NSPIRES">
         <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/NASA_logo.svg" alt="NASA">
       </a>
-      <a href="https://coemed.org/" target="_blank" aria-label="MILMED COE">
+      <a class="cred-partner cnpq" href="https://www.gov.br/cnpq/pt-br" target="_blank" rel="noopener" aria-label="CNPq">
+        <span class="cnpq-mark">CNPq</span>
+      </a>
+      <a class="cred-partner sam" href="https://sam.gov/" target="_blank" rel="noopener" aria-label="SAM.gov">
+        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/SamGovLogo.svg" alt="SAM.gov">
+      </a>
+      <a class="cred-partner milmed" href="https://coemed.org/" target="_blank" rel="noopener" aria-label="MILMED COE">
         <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/MILMED_COE_logo.png" alt="MILMED COE">
       </a>
     </div>
