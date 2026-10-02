@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ecossistema de Projetos | Instituto Delyone</title>
+<meta name="description" content="Ecossistema de projetos do Instituto Delyone de Medicina e Tecnologia.">
+<style>
+:root{--navy:#071a2d;--blue:#126ca6;--line:#d7e5ee;--paper:#f5f9fc;--muted:#657b8d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:#10283b}
+main{width:min(1080px,92%);margin:0 auto;padding:64px 0 80px}
+.back{display:inline-block;color:var(--blue);font-size:12px;font-weight:800;text-decoration:none;margin-bottom:24px}
+header{background:linear-gradient(145deg,#082d52,#071a32);color:white;border-radius:24px;padding:34px;margin-bottom:22px}
+.kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9edcf7;font-weight:800}
+h1{margin:9px 0 8px;font-size:34px;letter-spacing:-.04em}
+header p{margin:0;color:#b9d2e3;line-height:1.55;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;min-height:150px;box-shadow:0 10px 28px rgba(12,45,78,.055);transition:.2s}
+.card:hover{transform:translateY(-2px);border-color:#9fcde3}
+.card strong{display:block;font-size:19px;color:#126ca6;margin-bottom:8px}
+.card span{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+footer{margin-top:28px;font-size:11px;color:#7890a0}
+@media(max-width:650px){.grid{grid-template-columns:1fr}main{padding-top:36px}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="/">← Instituto Delyone</a>
+<header>
+<div class="kicker">Memorial de Programação</div>
+<h1>Ecossistema de Projetos</h1>
+<p>Projetos, sistemas e engines que compõem a construção tecnológica do Instituto Delyone de Medicina e Tecnologia.</p>
+</header>
+<section class="grid" aria-label="Projetos do Instituto">
+<a class="card" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener"><strong>Diagnosis ↗</strong><span>Simulação e raciocínio clínico</span></a>
+<a class="card" href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener"><strong>MedUnity ↗</strong><span>Documentação clínica e saúde digital</span></a>
+<a class="card" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener"><strong>CSI ↗</strong><span>Semântica e conhecimento</span></a>
+<a class="card" href="/Engines/Aurora/"><strong>AIGAR &amp; Aurora</strong><span>Contexto, linguagem e engines</span></a>
+</section>
+<footer>Instituto Delyone de Medicina e Tecnologia · Memorial de Programação</footer>
+</main>
+</body>
+</html>
