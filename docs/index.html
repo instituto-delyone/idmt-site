@@ -244,7 +244,14 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
   .nav-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;line-height:1}
   .nav-brand .nav-institute{font-size:13px;letter-spacing:.14em}.nav-brand .nav-idmt{font-size:22px;letter-spacing:.22em;margin-left:0;margin-top:3px}
   .nav-links{display:none}
-  .hero-inner{padding-top:94px}.hero-grid{gap:20px}.hero-copy h1{font-size:44px}.axis{grid-template-columns:1fr 1fr}.axis a:last-child{grid-column:1/-1}.portal{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(2,1fr)}.cred-row a:last-child{grid-column:1/-1}.credentials{margin-top:-45px}.pill-grid,.prof-grid{grid-template-columns:1fr}}
+  .hero-inner{padding-top:94px}.hero-grid{gap:20px}.hero-copy h1{font-size:44px}
+  .axis{grid-template-columns:1fr}
+  .axis .medicine-feature,.axis .technology-feature,.axis .international-capabilities,.axis .professional-axis{grid-column:1/-1;width:100%}
+  .medicine-links{grid-template-columns:1fr}
+  .medicine-link:nth-child(3),.medicine-link:nth-child(4){grid-column:auto;width:100%;justify-self:stretch}
+  .technology-feature .technology-links{grid-template-columns:1fr 1fr}
+  .international-capabilities{min-height:92px}
+  .portal{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(2,1fr)}.cred-row a:last-child{grid-column:1/-1}.credentials{margin-top:-45px}.pill-grid,.prof-grid{grid-template-columns:1fr}}
 </style>
 </head>
 
