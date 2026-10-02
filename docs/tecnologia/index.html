@@ -54,6 +54,148 @@ main{max-width:1080px;margin:0 auto;padding:58px 22px 90px}
 .principle strong{display:block;margin-bottom:5px}.principle span{font-size:.92rem;color:#667085}
 footer{padding:25px 22px 45px;text-align:center;color:#667085;font-size:.84rem}
 @media(max-width:820px){.grid,.principles{grid-template-columns:1fr}.card{min-height:auto}.nav{margin-bottom:48px}}
+<style>
+/* IDMT visual layer — continuidade azul / profundidade */
+:root{
+  --tech-night:#020814;
+  --tech-blue:#0b6eb7;
+  --tech-cyan:#67d9ff;
+  --tech-ink:#eaf6ff;
+  --tech-muted:#a9c4d9;
+  --tech-line:rgba(119,218,255,.18);
+}
+body{
+  color:var(--tech-ink);
+  background:
+    radial-gradient(ellipse at 18% 22%,rgba(10,113,190,.22),transparent 34%),
+    radial-gradient(ellipse at 82% 42%,rgba(50,100,190,.18),transparent 38%),
+    linear-gradient(180deg,#020814 0%,#031a31 48%,#020814 100%);
+}
+.hero{
+  box-shadow:0 28px 90px rgba(0,0,0,.35);
+}
+main{
+  position:relative;
+  overflow:hidden;
+  max-width:none;
+  padding:82px 0 100px;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(19,119,191,.20),transparent 34rem),
+    linear-gradient(180deg,#031a31 0%,#052746 45%,#020c1a 100%);
+}
+main:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(103,217,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,217,255,.045) 1px,transparent 1px);
+  background-size:86px 86px;
+  transform:perspective(900px) rotateX(68deg) translateY(28%);
+  transform-origin:center bottom;
+  opacity:.32;
+}
+main > *{position:relative;z-index:1}
+.intro{
+  max-width:850px;
+  margin:0 auto 46px;
+  padding:28px 30px;
+  border:1px solid var(--tech-line);
+  border-radius:26px;
+  background:linear-gradient(145deg,rgba(9,64,105,.58),rgba(2,22,42,.42));
+  backdrop-filter:blur(16px);
+  box-shadow:0 24px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(173,235,255,.08);
+}
+.intro h2{color:#eef9ff}
+.intro p{color:#abc6db}
+.grid{
+  width:min(1080px,calc(100% - 44px));
+  margin:0 auto;
+  gap:18px;
+  perspective:1200px;
+}
+.card{
+  min-height:430px;
+  padding:29px;
+  border:1px solid rgba(111,214,255,.17);
+  border-radius:28px;
+  background:
+    linear-gradient(145deg,rgba(9,61,101,.72),rgba(2,19,37,.64));
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 28px 75px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(177,235,255,.08);
+  color:var(--tech-ink);
+  transform:translateZ(0);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.card:hover{
+  transform:translateY(-7px) rotateX(.4deg);
+  border-color:rgba(103,217,255,.34);
+  box-shadow:0 38px 90px rgba(0,0,0,.34),0 0 34px rgba(35,157,224,.08);
+}
+.card.feature{
+  border-color:rgba(103,217,255,.29);
+  box-shadow:0 30px 85px rgba(0,0,0,.30),0 0 38px rgba(26,145,214,.09);
+}
+.meta{color:#7fddff}
+.card h3{color:#f0faff}
+.card .definition{color:#c3d9e8}
+.card h4{color:#8edbff}
+.card p,.card ul{color:#a9c4d9}
+.card li{margin:4px 0}
+.maturity{
+  border-top-color:rgba(111,214,255,.14);
+}
+.maturity strong{color:#d9f3ff}
+.maturity span{color:#91b1c8}
+.card-actions a{
+  border-color:rgba(110,215,255,.23);
+  background:rgba(8,75,119,.42);
+  color:#bdeeff;
+  box-shadow:inset 0 1px 0 rgba(174,238,255,.06);
+}
+.card-actions a:hover{
+  background:rgba(12,105,165,.52);
+  border-color:rgba(103,217,255,.4);
+}
+.section{
+  width:min(1080px,calc(100% - 44px));
+  margin:58px auto 0;
+  padding:34px;
+  border:1px solid rgba(111,214,255,.17);
+  border-radius:30px;
+  background:linear-gradient(145deg,rgba(8,61,100,.66),rgba(2,21,40,.52));
+  backdrop-filter:blur(18px);
+  box-shadow:0 28px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(174,238,255,.07);
+}
+.section h2{color:#eef9ff}
+.section p{color:#a9c4d9}
+.principles{gap:14px}
+.principle{
+  padding:19px;
+  border:1px solid rgba(111,214,255,.14);
+  border-radius:20px;
+  background:rgba(5,46,77,.46);
+  box-shadow:inset 0 1px 0 rgba(174,238,255,.05);
+}
+.principle strong{color:#d9f3ff}
+.principle span{color:#9ebbd0}
+footer{
+  padding:40px 22px 48px;
+  background:#020814;
+  color:#7fa4be;
+  border-top:1px solid rgba(103,217,255,.10);
+}
+footer a{color:#9edfff}
+@media(max-width:820px){
+  main{padding-top:60px}
+  .intro{margin-left:22px;margin-right:22px}
+  .grid,.section{width:calc(100% - 32px)}
+  .card{min-height:auto}
+}
+</style>
 </style>
 </head>
 <body>
