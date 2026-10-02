@@ -1054,6 +1054,20 @@ ul.bulleted-list li {
 .idmt-flow .idmt-mini-card { text-align:center; }
 .idmt-seal { display:inline-block; margin:.4rem 0 1rem; padding:.5rem .75rem; border-radius:999px; color:#0b1f3a; background:rgba(229,242,252,1); border:1px solid rgba(31,95,174,.18); font-weight:700; }
 @media(max-width:760px){ .idmt-two-col,.idmt-flow{grid-template-columns:1fr;} .idmt-topnav{justify-content:flex-start;} }
+
+/* Tecnologia aplicada à medicina — camada de apresentação */
+.idmt-applied{margin:2rem 0 1.5rem;padding:clamp(1.4rem,4vw,2.3rem);border:1px solid rgba(31,95,174,.20);border-radius:24px;background:linear-gradient(145deg,#f8fbff,#eef6fc);box-shadow:0 16px 45px rgba(12,45,78,.07)}
+.idmt-applied h2{margin:0 0 .45rem;font-size:clamp(1.7rem,4vw,2.5rem);letter-spacing:-.035em;color:#10243b}
+.idmt-applied .applied-sub{margin:0 0 1rem;color:#176da5;font-weight:750;font-size:1rem}
+.idmt-applied .applied-copy{max-width:820px;margin:0;color:#5e7184;line-height:1.72;font-size:1rem}
+.applied-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.35rem}
+.applied-project{display:block;padding:1.15rem;border:1px solid #d7e5ef;border-radius:18px;background:#fff;text-decoration:none;color:#10243b;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.applied-project:hover,.applied-project:focus{transform:translateY(-3px);border-color:#9bc9e5;box-shadow:0 14px 30px rgba(12,45,78,.09);outline:none}
+.applied-project .project-type{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#1875af;font-weight:850;margin-bottom:.45rem}
+.applied-project strong{display:block;font-size:1.1rem;margin-bottom:.35rem}
+.applied-project span{display:block;color:#6b7f91;font-size:.88rem;line-height:1.5}
+.applied-project em{display:block;margin-top:.8rem;color:#126ca6;font-style:normal;font-size:.78rem;font-weight:800}
+@media(max-width:760px){.applied-projects{grid-template-columns:1fr}}
 </style></head><body><article class="page serif">
 <header class="idmt-hero">
   <img class="idmt-logo" src="../assets/logo-idmt.png" alt="Logo IDMT - Instituto Delyone de Medicina e Tecnologia">
@@ -1064,6 +1078,32 @@ ul.bulleted-list li {
 </header>
 <nav class="idmt-topnav"><a href="/servicos/">Serviços</a><a href="/tecnologia/">Tecnologia</a><a href="/framework/">Framework</a><a href="/pesquisas/">Pesquisas</a><a href="/parcerias/">Parcerias</a><a href="/contato/">Contato</a></nav>
 <div class="page-body">
+<section class="idmt-applied">
+  <h2>Tecnologia aplicada à medicina</h2>
+  <p class="applied-sub">Inovações e resoluções de problemas ainda não resolvidos na área.</p>
+  <p class="applied-copy">O Instituto Delyone desenvolve tecnologia a partir de problemas concretos da medicina: situações em que conhecimento, documentação, raciocínio clínico e sistemas computacionais ainda não conversam da forma que deveriam. A proposta é transformar esses problemas em soluções aplicáveis, testáveis e evolutivas — aproximando a engenharia da prática médica sem perder o rigor clínico.</p>
+  <div class="applied-projects" aria-label="Projetos de tecnologia aplicada à medicina">
+    <a class="applied-project" href="/pesquisas/CSI/">
+      <span class="project-type">Conhecimento estruturado</span>
+      <strong>CSI</strong>
+      <span>Organização semântica do conhecimento médico e estruturação de termos e informações clínicas.</span>
+      <em>Conhecer o CSI →</em>
+    </a>
+    <a class="applied-project" href="https://medunity.delyone.com/" target="_blank" rel="noopener">
+      <span class="project-type">Documentação clínica</span>
+      <strong>MedUnity</strong>
+      <span>Ecossistema para centralizar informações clínicas e apoiar a produção de documentos derivados.</span>
+      <em>Acessar o MedUnity ↗</em>
+    </a>
+    <a class="applied-project" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">
+      <span class="project-type">Raciocínio clínico</span>
+      <strong>Diagnosis</strong>
+      <span>Ambiente de simulação e aprendizagem voltado ao raciocínio diagnóstico e à tomada de decisão.</span>
+      <em>Abrir o Diagnosis ↗</em>
+    </a>
+  </div>
+</section>
+
 <section class="idmt-proposal-panel"><h1>Tecnologia proprietária em contexto informacional</h1><span class="idmt-seal">Pedido de patente depositado: BR 10 2026 001743-4</span><p class="idmt-proposal-lead"><strong>Método Computacional de Gerenciamento Assimétrico de Contexto Informacional entre Sessões Independentes de Interação Humano-Máquina.</strong></p><p>A proposta parte de uma premissa simples e poderosa: sistemas inteligentes não devem apenas acumular histórico. Eles precisam saber o que preservar, o que compactar, o que reativar e o que deixar em segundo plano.</p></section>
 <section class="idmt-section-card"><h2>O problema técnico</h2><p>Interações humano-máquina geram grande volume de informações. Quando tudo é tratado com o mesmo peso, surgem redundância, perda de continuidade, custo computacional e dificuldade de recuperar elementos realmente importantes.</p></section>
 <section class="idmt-section-card"><h2>A solução proposta</h2><div class="idmt-flow"><div class="idmt-mini-card"><strong>Entrada</strong><span>Informação produzida em interação.</span></div><div class="idmt-mini-card"><strong>Classificação</strong><span>Separação por relevância, frequência e impacto.</span></div><div class="idmt-mini-card"><strong>Memória assimétrica</strong><span>Compactação ou preservação conforme criticidade.</span></div><div class="idmt-mini-card"><strong>Reativação</strong><span>Uso contextual em sessão futura.</span></div></div><p>Informações comuns podem ser compactadas. Informações raras, críticas, disruptivas ou longitudinalmente relevantes podem ser preservadas com maior fidelidade.</p></section>
