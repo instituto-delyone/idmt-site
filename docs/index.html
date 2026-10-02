@@ -126,6 +126,15 @@ background:radial-gradient(circle,rgba(54,196,255,.20),transparent 67%);filter:b
 .axis a{min-height:92px;border:1px solid rgba(153,222,255,.18);border-radius:16px;padding:14px;background:rgba(255,255,255,.035);transition:.2s}
 .axis a:hover{transform:translateY(-2px);background:rgba(71,179,241,.08);border-color:rgba(103,217,255,.38)}
 .axis strong{display:block;font-size:14px}.axis span{display:block;margin-top:7px;font-size:11px;line-height:1.35;color:#9db8ce}
+.axis .medicine-feature{grid-column:1/-1;min-height:auto;padding:17px 18px;background:linear-gradient(145deg,rgba(16,91,145,.20),rgba(255,255,255,.035));border-color:rgba(103,217,255,.28)}
+.medicine-feature .medicine-label{display:flex;align-items:baseline;gap:10px;margin-bottom:13px}
+.medicine-feature .medicine-label strong{font-size:18px}
+.medicine-feature .medicine-label span{margin:0;color:#9fc5dc}
+.medicine-links{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.medicine-link{min-height:76px!important;padding:12px!important;border:1px solid rgba(153,222,255,.16)!important;border-radius:13px!important;background:rgba(0,18,38,.24)!important}
+.medicine-link strong{font-size:12px}
+.medicine-link span{font-size:10px;line-height:1.35}
+@media(max-width:560px){.medicine-links{grid-template-columns:1fr 1fr}.medicine-link:last-child{grid-column:1/-1}}
 .hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
 .pill{padding:11px 16px;border-radius:999px;border:1px solid rgba(130,215,255,.34);background:rgba(4,47,82,.52);font-size:12px;font-weight:700}
 .pill.primary{background:rgba(10,116,190,.76);box-shadow:0 8px 30px rgba(0,115,210,.16)}
@@ -227,9 +236,25 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
       <div class="hero-panel">
         <div class="hero-panel-label">Portal institucional</div>
         <div class="axis">
+          <div class="medicine-feature">
+            <div class="medicine-label"><strong>Medicina</strong><span>Da prática assistencial à inovação.</span></div>
+            <div class="medicine-links">
+              <a class="medicine-link" href="/teleconsulta/">
+                <strong>Prática</strong><span>Agendamento e atendimento</span>
+              </a>
+              <a class="medicine-link" href="/pesquisas/">
+                <strong>Pesquisas</strong><span>Ciência e desenvolvimento clínico</span>
+              </a>
+              <a class="medicine-link" href="/pesquisas/#discussao">
+                <strong>Fóruns de discussão</strong><span>Debate, troca e construção coletiva</span>
+              </a>
+              <a class="medicine-link" href="/pesquisas/#propostas">
+                <strong>Propostas de inovação</strong><span>Ideias, projetos e colaborações</span>
+              </a>
+            </div>
+          </div>
           <a href="#projetos-idmt"><strong>Tecnologia</strong><span>MedUnity · Diagnosis · CSI · AIGAR</span></a>
           <a href="#projetos-idmt"><strong>Pesquisa</strong><span>Projetos, publicações e desenvolvimento</span></a>
-          <a href="#medicina"><strong>Medicina</strong><span>Telemedicina · especialidades · profissionais</span></a>
           <a href="#institucional"><strong>Institucional</strong><span>Governança, registros e documentação</span></a>
           <a href="#internacional"><strong>Internacional</strong><span>Ecossistema e atuação internacional</span></a>
           <a href="#profissionais"><strong>Profissionais</strong><span>Estrutura e expansão do Instituto</span></a>
