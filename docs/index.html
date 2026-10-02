@@ -156,7 +156,24 @@ main{background:var(--paper);padding:68px 0 86px}
 .prof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .prof{border:1px solid #e1eaf1;border-radius:13px;padding:14px;min-height:75px}.prof strong{font-size:12px}.prof span{display:block;color:#7a8e9f;font-size:10px;margin-top:4px}
 footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size:11px}
-@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.hero-copy{text-align:center}.logo-wrap{margin:0 auto 22px}.hero-panel{margin-top:10px}.portal{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(5,1fr)}}
+
+.project-hub,.ip-hub{margin-top:26px}
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.project-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 10px 28px rgba(12,45,78,.055);transition:.2s}
+.project-card:hover,.ip-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(12,45,78,.09)}
+.project-card.featured{background:linear-gradient(145deg,#fff,#eef8ff);border-color:#c5e0f0}
+.project-meta{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#1875af;font-weight:850}
+.project-card h3{margin:8px 0 7px;font-size:20px;letter-spacing:-.02em}
+.project-card p{margin:0;color:#687d90;font-size:13px;line-height:1.55}
+.project-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+.project-actions a{padding:7px 10px;border:1px solid #d8e5ef;border-radius:999px;color:#126ca6;background:#f8fbfe;font-size:10px;font-weight:800}
+.project-actions a:hover{border-color:#8cc8e8;background:#eef8ff}
+.ip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ip-card{display:block;background:linear-gradient(145deg,#fff,#f8fbfd);border:1px solid var(--line);border-radius:17px;padding:19px;transition:.2s}
+.ip-card span{font-size:9px;letter-spacing:.12em;color:#85631d;font-weight:850}
+.ip-card strong{display:block;margin-top:8px;font-size:17px;color:var(--ink)}
+.ip-card p{margin:6px 0 0;color:#718597;font-size:12px;line-height:1.45}
+@media(max-width:850px){.project-grid{grid-template-columns:1fr}.ip-grid{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}.hero-copy{text-align:center}.logo-wrap{margin:0 auto 22px}.hero-panel{margin-top:10px}.portal{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:560px){.hybrid-hero{min-height:930px}.nav-links{display:none}.hero-inner{padding-top:94px}.hero-grid{gap:20px}.hero-copy h1{font-size:44px}.axis{grid-template-columns:1fr 1fr}.axis a:last-child{grid-column:1/-1}.portal{grid-template-columns:1fr}.cred-row{grid-template-columns:repeat(2,1fr)}.cred-row a:last-child{grid-column:1/-1}.credentials{margin-top:-45px}.pill-grid,.prof-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -166,10 +183,12 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
   <div class="hybrid-nav">
     <div class="nav-brand">IDMT · Instituto Delyone</div>
     <div class="nav-links">
-      <a href="#tecnologia">Tecnologia</a>
-      <a href="#pesquisa">Pesquisa</a>
-      <a href="#medicina">Medicina</a>
-      <a href="#institucional">Institucional</a><a href="#contato">Contato</a>
+      <a href="/sobre.html">Instituto</a>
+      <a href="/membros/">Equipe</a>
+      <a href="/tecnologia/">Tecnologia</a>
+      <a href="/pesquisas/">Pesquisa</a>
+      <a href="/framework/">Framework</a>
+      <a href="/contato/">Contato</a>
     </div>
   </div>
 
@@ -195,8 +214,8 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
       <div class="hero-panel">
         <div class="hero-panel-label">Portal institucional</div>
         <div class="axis">
-          <a href="#tecnologia"><strong>Tecnologia</strong><span>MedUnity · Diagnosis · CSI · AIGAR</span></a>
-          <a href="#pesquisa"><strong>Pesquisa</strong><span>Projetos, publicações e desenvolvimento</span></a>
+          <a href="#projetos-idmt"><strong>Tecnologia</strong><span>MedUnity · Diagnosis · CSI · AIGAR</span></a>
+          <a href="#projetos-idmt"><strong>Pesquisa</strong><span>Projetos, publicações e desenvolvimento</span></a>
           <a href="#medicina"><strong>Medicina</strong><span>Telemedicina · especialidades · profissionais</span></a>
           <a href="#institucional"><strong>Institucional</strong><span>Governança, registros e documentação</span></a>
           <a href="#internacional"><strong>Internacional</strong><span>Ecossistema e atuação internacional</span></a>
@@ -210,8 +229,8 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
 <section class="credentials">
   <div class="cred-shell">
     <div class="cred-head">
-      <h2>Institutional Accreditations</h2>
-      <span>Credenciais & ecossistema institucional</span>
+      <h2>Registros & referências institucionais</h2>
+      <span>Links oficiais para sistemas e organizações de referência</span>
     </div>
     <div class="cred-row">
       <a href="https://www.gov.br/cnpq/pt-br" target="_blank">CNPq</a>
@@ -234,7 +253,7 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
           <div class="kicker">Atendimento</div><h3>Telemedicina</h3>
           <p>Agendamento e fluxo de consulta já existente, preservado como módulo próprio.</p><span class="go">Agendar consulta →</span>
         </a>
-        <a class="portal-card" href="/docs/especialidades.html">
+        <a class="portal-card" href="/especialidades/">
           <div class="kicker">Rede</div><h3>Especialidades</h3>
           <p>Catálogo preparado para expansão da rede médica.</p><span class="go">Explorar →</span>
         </a>
@@ -249,17 +268,17 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
       <section class="panel">
         <h2>Tecnologia</h2><p>Produtos e engines que formam a camada computacional do IDMT.</p>
         <div class="pill-grid">
-          <a class="small-card" href="/tecnologia/"><strong>MedUnity</strong><span>Integração assistencial</span></a>
-          <a class="small-card" href="/tecnologia/"><strong>Diagnosis</strong><span>Raciocínio clínico</span></a>
-          <a class="small-card" href="/tecnologia/"><strong>CSI</strong><span>Conhecimento estruturado</span></a>
-          <a class="small-card" href="/tecnologia/"><strong>AIGAR</strong><span>Arquitetura de IA</span></a>
+          <a class="small-card" href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener"><strong>MedUnity ↗</strong><span>Integração assistencial</span></a>
+          <a class="small-card" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener"><strong>Diagnosis ↗</strong><span>Raciocínio clínico</span></a>
+          <a class="small-card" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener"><strong>CSI ↗</strong><span>Conhecimento estruturado</span></a>
+          <a class="small-card" href="/Aiger/"><strong>AIGAR</strong><span>Arquitetura e runtime</span></a>
         </div>
 
         <div class="pill-grid" style="margin-top:8px">
-          <a class="small-card" href="/docs/sections/engines/"><strong>Engines</strong><span>Área técnica do Instituto</span></a>
-          <a class="small-card" href="/pesquisas/Diagnosis/" target="_blank" rel="noopener"><strong>Diagnosis</strong><span>Engine de raciocínio clínico</span></a>
-          <a class="small-card" href="/tecnologia/" target="_blank" rel="noopener"><strong>MedUnity</strong><span>Aplicação assistencial</span></a>
-          <a class="small-card" href="/pesquisas/" target="_blank" rel="noopener"><strong>Laboratório</strong><span>Desenvolvimento experimental</span></a>
+          <a class="small-card" href="/sections/engines/"><strong>Engines</strong><span>Arquitetura técnica</span></a>
+          <a class="small-card" href="/files/research-tool-prisma/"><strong>Research Tool</strong><span>Pesquisa e documentação científica</span></a>
+          <a class="small-card" href="https://instituto-delyone.github.io/Meu-Lab/" target="_blank" rel="noopener"><strong>Meu Lab ↗</strong><span>Laboratório de desenvolvimento</span></a>
+          <a class="small-card" href="/Comercial/"><strong>Comercial</strong><span>Produtos e frentes comerciais</span></a>
         </div>
       </section>
 
@@ -269,10 +288,138 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
           <a class="small-card" href="/pesquisas/"><strong>Pesquisas</strong><span>Projetos e publicações</span></a>
           <a class="small-card" href="/framework/"><strong>Frameworks</strong><span>Modelos e métodos</span></a>
           <a class="small-card" href="/parcerias/"><strong>Colaborações</strong><span>Propostas institucionais</span></a>
-          <a class="small-card" href="/docs/sobre.html"><strong>Documentação</strong><span>Wiki e acervo</span></a>
+          <a class="small-card" href="/files/pesquisas/"><strong>Pesquisa & PI</strong><span>Pesquisas, registros e pedidos de patente</span></a>
         </div>
       </section>
     </div>
+
+
+    <section class="project-hub" id="projetos-idmt">
+      <div class="section-head">
+        <div>
+          <h2>Ecossistema de Projetos</h2>
+          <p>Entradas diretas para os projetos, motores, ferramentas e documentos do Instituto.</p>
+        </div>
+        <a class="go" href="/pesquisas/">Ver todo o acervo →</a>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card featured">
+          <div class="project-meta">SIMULAÇÃO · RACIOCÍNIO CLÍNICO</div>
+          <h3>Diagnosis</h3>
+          <p>Projeto de simulação e aprendizagem clínica voltado à estruturação do raciocínio diagnóstico e da tomada de decisão.</p>
+          <div class="project-actions">
+            <a href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">Abrir plataforma ↗</a>
+            <a href="https://github.com/instituto-delyone/Diagnosis" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="/pesquisas/Diagnosis/">Página IDMT</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">DOCUMENTAÇÃO · SAÚDE DIGITAL</div>
+          <h3>MedUnity</h3>
+          <p>Ecossistema de documentação clínica e organização de informações médicas, desenvolvido a partir da prática assistencial.</p>
+          <div class="project-actions">
+            <a href="https://instituto-delyone.github.io/Delyone-Medicine-Unity/" target="_blank" rel="noopener">Abrir plataforma ↗</a>
+            <a href="https://github.com/instituto-delyone/Delyone-Medicine-Unity" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="/tecnologia/">Tecnologia</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">SEMÂNTICA · CONHECIMENTO</div>
+          <h3>CSI</h3>
+          <p>Camada de organização semântica e identificação de termos clínicos, integrada à arquitetura de engines do Instituto.</p>
+          <div class="project-actions">
+            <a href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener">Abrir CSI ↗</a>
+            <a href="/pesquisas/CSI/">Página IDMT</a>
+            <a href="/sections/engines/">Engines</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">IA · CONTEXTO · AURORA</div>
+          <h3>AIGAR & Aurora</h3>
+          <p>Arquitetura de engines para organização de contexto, linguagem, raciocínio e integração de componentes computacionais.</p>
+          <div class="project-actions">
+            <a href="/Aiger/">Abrir AIGAR</a>
+            <a href="/Engines/Aurora/">Aurora Engines</a>
+            <a href="https://github.com/instituto-delyone/idmt-site/tree/main/Engines/Aurora" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">PESQUISA · PROTO-FERRAMENTA</div>
+          <h3>Delyone Research Tool</h3>
+          <p>Ambiente experimental para estruturação de protocolos, revisões e documentos científicos.</p>
+          <div class="project-actions">
+            <a href="/files/research-tool-prisma/">Abrir ferramenta</a>
+            <a href="/files/research-tool-prisma/robis/">ROBIS & AMSTAR-2</a>
+            <a href="/files/pesquisas/">Pesquisa & PI</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">INFRAESTRUTURA · ENGINES</div>
+          <h3>Arquitetura de Engines</h3>
+          <p>Mapa das camadas técnicas do Instituto: Aurora, AIGAR, CSI, bibliotecas e demais motores experimentais.</p>
+          <div class="project-actions">
+            <a href="/sections/engines/">Abrir arquitetura</a>
+            <a href="/Engines/Aurora/">Aurora</a>
+            <a href="/Engines/patente_1_teste/">Teste da patente</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">INSTITUCIONAL · ESTRATÉGIA</div>
+          <h3>Rodada de Investimentos</h3>
+          <p>Resumo executivo preliminar com estrutura de planejamento, ativos tecnológicos e frentes de expansão.</p>
+          <div class="project-actions">
+            <a href="/rodada-investimentos/">Abrir resumo</a>
+            <a href="/parcerias/">Parcerias</a>
+            <a href="/contato/">Contato institucional</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">DESENVOLVIMENTO · ECOSSISTEMA</div>
+          <h3>Meu Lab</h3>
+          <p>Ambiente externo de desenvolvimento associado ao ecossistema técnico do Instituto.</p>
+          <div class="project-actions">
+            <a href="https://instituto-delyone.github.io/Meu-Lab/" target="_blank" rel="noopener">Abrir Meu Lab ↗</a>
+            <a href="/sections/engines/">Engines</a>
+            <a href="/contato/">Falar com o Instituto</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ip-hub" id="propriedade-intelectual">
+      <div class="section-head">
+        <div>
+          <h2>Pesquisa & Propriedade Intelectual</h2>
+          <p>Um único ponto de entrada para registros, pedidos e documentação técnica disponível.</p>
+        </div>
+        <a class="go" href="/files/pesquisas/">Abrir acervo →</a>
+      </div>
+      <div class="ip-grid">
+        <a class="ip-card" href="/files/pesquisas/">
+          <span>REGISTRO DE SOFTWARE</span>
+          <strong>BR512026006823-1</strong>
+          <p>IDMT App: MedUnity e Diagnosis.</p>
+        </a>
+        <a class="ip-card" href="/Engines/patente_1_teste/">
+          <span>PEDIDO DE PATENTE DE INVENÇÃO</span>
+          <strong>BR 10 2026 001743-4</strong>
+          <p>Gerenciamento assimétrico de contexto informacional entre sessões independentes.</p>
+        </a>
+        <a class="ip-card" href="/files/pesquisas/">
+          <span>PEDIDO DE PATENTE DE INVENÇÃO</span>
+          <strong>BR 10 2026 019277-5</strong>
+          <p>Encapsulamento criptográfico dinâmico e acumulativo de credenciais digitais.</p>
+        </a>
+      </div>
+    </section>
 
     <div class="two">
       <section class="panel international" id="internacional">
@@ -333,7 +480,7 @@ footer{padding:30px;text-align:center;background:#020814;color:#8099ae;font-size
   </div>
 </main>
 
-<footer>IDMT · Medicina · Tecnologia · Pesquisa · Desenvolvimento · <a href="/membros/">Membros</a> · <a href="/contato/">Propostas</a> · <a href="/docs/rodada-investimentos/">Investimentos</a></footer>
+<footer>IDMT · Medicina · Tecnologia · Pesquisa · Desenvolvimento · <a href="/sobre.html">Instituto</a> · <a href="/membros/">Membros</a> · <a href="/pesquisas/">Pesquisa</a> · <a href="/contato/">Contato</a> · <a href="/rodada-investimentos/">Investimentos</a></footer>
 <script>
 function simulateCrossSession(){
   const box=document.getElementById('memory-state-box');
