@@ -1,59 +1,27 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#081126">
-<meta name="description" content="Teleconsulta em Clínica Médica com Dr. Delyone de Paula Canedo Filho.">
-<title>Senior Consult | Teleconsulta com Dr. Delyone</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071321">
+<meta name="description" content="Teleconsultas e telemedicina no Instituto Delyone de Medicina e Tecnologia.">
+<title>Teleconsultas | Instituto Delyone</title>
 <style>
-:root{--bg:#081126;--blue:#2e5da8;--cream:#fff8e7;--brown:#8c421d}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#294d8b55,transparent 40rem),linear-gradient(#081126,#101b32);color:#f7f8fc;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{width:min(1080px,calc(100% - 36px));margin:auto}header{padding:24px 0}.nav{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:850;letter-spacing:.12em;font-size:.8rem}.mark{display:inline-grid;place-items:center;width:42px;height:42px;margin-right:10px;border-radius:14px;background:linear-gradient(140deg,#4779c3,#17345f);border:1px solid #91b5ed;vertical-align:middle}.pill{border:1px solid #ffffff30;border-radius:99px;padding:7px 14px;color:#bfd2f4;font-size:.85rem}
-.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center;padding:48px 0 62px}.eyebrow{color:#a9c7ff;letter-spacing:.18em;text-transform:uppercase;font-weight:850;font-size:.75rem}h1{font-size:clamp(2.5rem,5.5vw,4.6rem);line-height:1.03;letter-spacing:-.05em;margin:15px 0 22px}h1 span{color:#9fc1ff}.lead{font-size:1.16rem;color:#d5dce8;max-width:620px}.sub{color:#b9c8df;margin:20px 0 27px}.buttons{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:999px;padding:14px 23px;min-height:54px;font-weight:800;border:1px solid transparent;transition:transform .18s ease,box-shadow .18s ease}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px #0004}.primary{background:linear-gradient(135deg,#376dbb,#244b89);border-color:#779bd5;color:white}
-.photo-card{position:relative;min-height:470px;border:1px solid #9cb9ed40;border-radius:28px;overflow:hidden;background:linear-gradient(145deg,#253653,#101a30);box-shadow:0 24px 65px #0004}.photo-card img{display:block;width:100%;height:470px;object-fit:cover;object-position:center top}.photo-caption{position:absolute;left:0;right:0;bottom:0;padding:48px 24px 23px;background:linear-gradient(transparent,rgba(5,13,29,.95));}.photo-caption strong{display:block;font-size:1.28rem;line-height:1.25}.photo-caption span{color:#d1def3;font-size:.94rem}
-.promo{display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center;background:linear-gradient(135deg,#fff9e9,#f3e6c5);color:#382316;border:1px solid #ead59d;border-radius:25px;padding:clamp(24px,4vw,40px);margin-bottom:65px;box-shadow:0 20px 55px #0003}.promo-label{color:#8c421d;font-weight:900;letter-spacing:.17em;text-transform:uppercase;font-size:.75rem}.price{font-size:clamp(2.3rem,4vw,3.25rem);font-weight:900;letter-spacing:-.04em}.old{color:#8a7563;text-decoration:line-through;margin-left:10px}.promo p{margin:8px 0}.promo .btn{background:var(--brown);color:white;max-width:280px}.fine{font-size:.85rem;color:#786653!important;margin-top:14px!important}
-.note{text-align:center;color:#aebbd0;font-size:.88rem;max-width:800px;margin:0 auto 65px}footer{border-top:1px solid #ffffff20;padding:24px 0;color:#9eacc2;font-size:.82rem}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:760px){.hero{grid-template-columns:1fr;gap:25px;padding:30px 0 45px}.pill{display:none}.photo-card{min-height:360px}.photo-card img{height:420px}.promo{grid-template-columns:1fr}.promo .btn{max-width:none;width:100%}}
-@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+:root{--bg:#050b15;--bg2:#0a2038;--cyan:#74ddff;--blue:#1d73b7;--muted:#a8bfd0;--line:#8bdcff35;--card:#ffffff09}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,#147bbd35,transparent 38rem),linear-gradient(145deg,var(--bg),var(--bg2));color:#f4fbff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(920px,calc(100% - 36px));margin:auto}header{padding:24px 0}.nav{display:flex;justify-content:center;align-items:center}.brand{text-align:center;font-weight:850;letter-spacing:.16em;font-size:.76rem;color:#c8edff}.hero{text-align:center;padding:72px 0 46px}.eyebrow{color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;font-weight:850}.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);line-height:.96;letter-spacing:-.06em;margin:16px 0}.hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:1.08rem}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:25px auto 90px;max-width:760px}.choice{min-height:230px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(42,139,194,.14),var(--card));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:.2s;box-shadow:0 20px 60px #0004}.choice:hover{transform:translateY(-4px);border-color:#8fe5ff80;box-shadow:0 28px 70px #0006}.orb{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;border:1px solid #8ce5ff65;background:radial-gradient(circle at 35% 30%,#86e8ff55,#1677b633 55%,#061321 100%);box-shadow:0 0 35px #3cc9ff22}.choice strong{font-size:1.3rem}.choice span{margin-top:6px;color:var(--muted);font-size:.9rem;line-height:1.45}.arrow{margin-top:15px;color:var(--cyan);font-weight:800;font-size:.85rem}footer{border-top:1px solid #ffffff18;padding:28px 0;color:#8299aa;font-size:.78rem;text-align:center}@media(max-width:700px){.hero{padding-top:48px}.choices{grid-template-columns:1fr;max-width:430px}.choice{min-height:190px}}
 </style>
-<!-- Google Ads tag -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18157021349"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-18157021349');
-</script>
 </head>
 <body>
-<header><div class="wrap nav"><div class="brand"><span class="mark">SC</span>SENIOR CONSULT<br><span style="color:#9fb5d9;font-size:.7rem">CLÍNICA MÉDICA</span></div><span class="pill">Atendimento digital individual</span></div></header>
+<header><div class="wrap nav"><div class="brand">INSTITUTO DELYONE · IDMT</div></div></header>
 <main>
-<section class="wrap hero">
-<div>
-<div class="eyebrow">Consultório híbrido digital MedUnity</div>
-<h1>Teleconsulta com<br><span>Dr. Delyone</span></h1>
-<p class="lead">Clínica Médica com atenção individual, escuta cuidadosa e orientação médica para você entender os próximos passos do seu cuidado.</p>
-<p class="sub">Da solicitação ao atendimento, você conversa diretamente com a equipe responsável — sem precisar passar por um intermediário.</p>
-<div class="buttons"><a class="btn primary" href="https://www.delyone.com/senior-consult/">Solicitar consulta <span aria-hidden="true">→</span></a></div>
-</div>
-<aside class="photo-card" aria-label="Foto do Dr. Delyone">
-<img src="../assets/IMG_0005.png" alt="Dr. Delyone de Paula Canedo Filho">
-<div class="photo-caption"><strong>Dr. Delyone de Paula Canedo Filho</strong><span>Clínica Médica · Teleconsulta</span></div>
-</aside>
+<section class="wrap hero"><div class="eyebrow">Assistência em saúde</div><h1>Teleconsultas<br>e telemedicina</h1><p>Escolha a modalidade de atendimento que deseja conhecer e acesse o profissional correspondente.</p></section>
+<section class="wrap choices" aria-label="Modalidades de atendimento">
+<a class="choice" href="/teleconsulta/medicina/">
+<div class="orb" aria-hidden="true">✦</div><strong>Telemedicina</strong><span>Consulta médica com o Dr. Delyone de Paula Canedo Filho.</span><div class="arrow">Agendar consulta →</div>
+</a>
+<a class="choice" href="/teleconsulta/psicoterapia/">
+<div class="orb" aria-hidden="true">◌</div><strong>Psicoterapia</strong><span>Conheça os profissionais de psicoterapia do Instituto.</span><div class="arrow">Conhecer profissionais →</div>
+</a>
 </section>
-<section class="wrap">
-<div class="promo">
-<div>
-<div class="promo-label">✦ Condição promocional</div>
-<div><span class="price">R$ 100,00</span><span class="old">R$ 300,00</span></div>
-<p><strong>Agende até 20 de outubro de 2026</strong> e aproveite o valor promocional de R$ 100,00.</p>
-<p>A partir de 21 de outubro de 2026, o valor padrão será de R$ 300,00.</p>
-<p class="fine">A solicitação não confirma automaticamente a consulta. A equipe verificará a disponibilidade e orientará você sobre confirmação e pagamento.</p>
-</div>
-<a class="btn" href="https://www.delyone.com/senior-consult/">Agendar com valor promocional →</a>
-</div>
-</section>
-<p class="wrap note">Esta página apresenta o serviço e permite solicitar um horário. O envio da solicitação não representa confirmação automática. Em caso de urgência ou emergência, procure atendimento presencial.</p>
 </main>
-<footer><div class="wrap foot"><span>© 2026 Senior Consult · Instituto Delyone de Medicina e Tecnologia</span><span>Teleconsulta em Clínica Médica</span></div></footer>
+<footer><div class="wrap">© 2026 Instituto Delyone de Medicina e Tecnologia · Teleconsultas</div></footer>
 </body></html>
