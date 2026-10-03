@@ -420,15 +420,26 @@
     }
     .cred-partner{
       position:absolute;
-      width:112px;
-      height:58px;
+      width:150px;
+      min-height:76px;
       border:1px solid rgba(140,211,247,.16);
       border-radius:13px;
       display:flex;
+      flex-direction:column;
       align-items:center;
       justify-content:center;
+      gap:5px;
+      padding:7px 9px;
       background:rgba(255,255,255,.025);
       transition:.2s;
+      text-align:center;
+    }
+    .cred-partner small{
+      display:block;
+      max-width:132px;
+      color:#9db8ce;
+      font-size:8px;
+      line-height:1.25;
     }
     .cred-partner:hover{
       transform:translateY(-2px);
@@ -443,21 +454,21 @@
       max-height:40px;
       object-fit:contain;
     }
-    .cred-partner.nasa{left:82px;top:0}
-    .cred-partner.cnpq{right:82px;top:0}
-    .cred-partner.sam{left:0;top:83px}
-    .cred-partner.nato{right:0;top:83px}
-    .cred-partner.milmed{left:calc(50% - 56px);bottom:0}
-    .cred-partner.nasa img{max-width:50px;max-height:43px}
+    .cred-partner.nasa{left:42px;top:0}
+    .cred-partner.cnpq{right:42px;top:0}
+    .cred-partner.sam{left:0;top:92px}
+    .cred-partner.nato{right:0;top:92px}
+    .cred-partner.milmed{left:calc(50% - 75px);bottom:0}
+    .cred-partner.nasa img{max-width:48px;max-height:34px}
     .cred-partner.cnpq .cnpq-mark{
-      font-size:25px;
+      font-size:22px;
       font-weight:850;
       letter-spacing:-.08em;
       color:#b9e9ff;
     }
-    .cred-partner.sam img{max-width:78px}
-    .cred-partner.nato img{max-width:72px}
-    .cred-partner.milmed img{max-width:62px;max-height:44px}
+    .cred-partner.sam img{max-width:72px;max-height:32px}
+    .cred-partner.nato img{max-width:68px;max-height:32px}
+    .cred-partner.milmed img{max-width:58px;max-height:34px}
 
     .brazil-seal{
       position:absolute;
@@ -767,12 +778,13 @@
       .medicine-links,.technology-links{grid-template-columns:1fr}
       .international-link{width:92%}
       .partner-stage{height:210px}
-      .cred-partner{width:100px;height:53px}
-      .cred-partner.nasa{left:26px}
-      .cred-partner.cnpq{right:26px}
-      .cred-partner.sam{left:0;top:78px}
-      .cred-partner.nato{right:0;top:78px}
-      .cred-partner.milmed{left:calc(50% - 50px)}
+      .cred-partner{width:122px;min-height:68px}
+      .cred-partner small{font-size:7px;max-width:108px}
+      .cred-partner.nasa{left:10px}
+      .cred-partner.cnpq{right:10px}
+      .cred-partner.sam{left:0;top:76px}
+      .cred-partner.nato{right:0;top:76px}
+      .cred-partner.milmed{left:calc(50% - 61px)}
       .brazil-seal{width:44px;height:44px}
       .pill-grid,.memorial-links{grid-template-columns:1fr}
       .prof-grid{grid-template-columns:1fr 1fr}
@@ -976,22 +988,27 @@
         <div class="partner-stage">
           <a class="cred-partner nasa" href="https://www.nasa.gov/" target="_blank" rel="noopener" aria-label="NASA">
             <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/NASA_logo.svg" alt="NASA">
+            <small>Organização vinculada ao NSPIRES para submissão e gestão de propostas de pesquisa à NASA.</small>
           </a>
 
           <a class="cred-partner cnpq" href="https://www.gov.br/cnpq/pt-br" target="_blank" rel="noopener" aria-label="CNPq">
             <span class="cnpq-mark">CNPq</span>
+            <small>Instituição cadastrada no Diretório de Instituições do CNPq, com acesso às estruturas aplicáveis de pesquisa.</small>
           </a>
 
           <a class="cred-partner sam" href="https://sam.gov/" target="_blank" rel="noopener" aria-label="SAM.gov">
             <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/SamGovLogo.svg" alt="SAM.gov">
+            <small>Entidade registrada no SAM.gov e identificada por UEI para transações e oportunidades com o Governo Federal dos EUA.</small>
           </a>
 
           <a class="cred-partner nato" href="https://www.nato.int/" target="_blank" rel="noopener" aria-label="NATO / OTAN">
             <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/NATO_OTAN_landscape_logo.svg" alt="NATO / OTAN">
+            <small>Instituto possuidor de NCAGE, identificador de entidade usado no sistema de codificação e logística da OTAN.</small>
           </a>
 
           <a class="cred-partner milmed" href="https://coemed.org/" target="_blank" rel="noopener" aria-label="Centre of Excellence for Military Medicine">
             <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/MILMED_COE_logo.png" alt="Centre of Excellence for Military Medicine">
+            <small>Centro multinacional de excelência em medicina militar, dedicado a conhecimento, treinamento, inovação, padrões e apoio médico às operações.</small>
           </a>
 
           <span class="brazil-seal" aria-hidden="true">
