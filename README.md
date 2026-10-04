@@ -33,7 +33,7 @@ Dispneia
    ├── pode estar associada a → hipoxemia
    └── pode exigir → oximetria
 
-   possives apis
+   possible api concepts (extremely simplified)
    CSI Clinical API
 Consulta conceitos médicos.
 GET /concepts/dispneia
