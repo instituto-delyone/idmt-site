@@ -5,4 +5,4 @@ compatibility_date = "2026-10-03"
 [[d1_databases]]
 binding = "DB"
 database_name = "idmt-forum"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "27286fa8-cd57-4345-9798-5c586f53a6d4"
