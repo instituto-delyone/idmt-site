@@ -409,9 +409,59 @@
       min-height:260px;
     }
     .partner-side-space{
-      min-height:210px;
-    }
-    .partner-stage{
+    min-height:210px;
+}
+
+.acnur-side-space{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.acnur-donate{
+    width:150px;
+    min-height:120px;
+    border:1px solid rgba(140,211,247,.16);
+    border-radius:13px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    padding:9px;
+    background:rgba(255,255,255,.025);
+    transition:.2s;
+    text-align:center;
+    text-decoration:none;
+}
+
+.acnur-donate:hover{
+    transform:translateY(-2px);
+    border-color:rgba(103,217,255,.36);
+    background:rgba(71,179,241,.07);
+}
+
+.acnur-donate img{
+    display:block;
+    width:82px;
+    height:70px;
+    object-fit:contain;
+    border-radius:5px;
+}
+
+.acnur-donate strong{
+    font-size:11px;
+    color:#d9f2ff;
+}
+
+.acnur-donate small{
+    display:block;
+    color:#9db8ce;
+    font-size:8px;
+    line-height:1.25;
+}
+
+.partner-stage{
       position:relative;
       width:100%;
       max-width:540px;
@@ -756,7 +806,8 @@
       .hero-inner{padding-top:140px}
       .hero-panel{margin-top:10px}
       .partner-layout{grid-template-columns:1fr}
-      .partner-side-space{display:none}
+      .partner-side-space:not(.acnur-side-space){display:none}
+      .acnur-side-space{display:flex;min-height:145px}
       .partner-stage{width:min(540px,100%)}
       .two{grid-template-columns:1fr}
       .ip-grid{grid-template-columns:1fr}
@@ -1017,8 +1068,24 @@
           </span>
         </div>
 
-        <div class="partner-side-space" aria-hidden="true"></div>
-      </div>
+        <div class="partner-side-space acnur-side-space">
+  <a
+    class="acnur-donate"
+    href="https://doar.acnur.org/br/pt-br/general"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Doar diretamente para o ACNUR"
+  >
+    <img
+      src="/assets/IMG_0633.jpeg"
+      alt="ACNUR — Agência da ONU para Refugiados"
+    >
+
+    <strong>Doe · Ajude doando</strong>
+
+    <small>Contribua diretamente com o ACNUR.</small>
+  </a>
+</div>
     </div>
   </section>
 
