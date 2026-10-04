@@ -83,3 +83,12 @@ modelos de previsão biológica centenas de vezes mais poderosos
 
 o metodo de implantação deve ser protegido e não ser gravado em unidades de memoria. memorizado via repetição visual. segredo: 100% guardado
 
+exemplo simples de implantação caso eu não leve o projeto adiante
+
+csi - unifica achados e procedimentos
+forms mesmo personalizados podem usar tags csi em campos para posterior padronização
+banco de dados epidemiologico atualizado em tempo real pode ser criado facilmente devido ao csi
+comunicação global
+qualquer surto ou discrepancia de incidencia ou mudança importante em padroes epidemiologicos
+alerta imediato
+inicio de esforços de diagnostico controle prevenção e cura de endemias, epidemias surtos regionais, pandemias e erros humanos ou de maquinas perfeitamente auditaveis. (isso é o plano o qual ja esta estruturado porem não documentado)
