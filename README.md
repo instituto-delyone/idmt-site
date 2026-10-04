@@ -92,3 +92,16 @@ comunicação global
 qualquer surto ou discrepancia de incidencia ou mudança importante em padroes epidemiologicos
 alerta imediato
 inicio de esforços de diagnostico controle prevenção e cura de endemias, epidemias surtos regionais, pandemias e erros humanos ou de maquinas perfeitamente auditaveis. (isso é o plano o qual ja esta estruturado porem não documentado)
+
+CURRENT
+CSI semantic infrastructure
+
+FUTURE / VISION
+International interoperability
+Epidemiological standardization
+Research harmonization
+Clinical-data normalization
+Pandemic/surveillance applications
+Predictive biological models
+
+limitations: human capital. no investments. the disease outbreaks have a repeated pattern,but with suficient time to the humanity completely forget they will happen. this is the cause of: no invesments at all
