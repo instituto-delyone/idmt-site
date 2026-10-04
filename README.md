@@ -104,4 +104,8 @@ Clinical-data normalization
 Pandemic/surveillance applications
 Predictive biological models
 
-limitations: human capital. no investments. the disease outbreaks have a repeated pattern,but with suficient time to the humanity completely forget they will happen. this is the cause of: no invesments at all
+limitations: human capital. no investments. the disease outbreaks have a repeated pattern,but with suficient time to the humanity completely forget they will happen. this is the cause of lack of investments in health projects.
+
+till now, the structure of this project has been developed by  1 person without external resources.
+
+10 guys with some funding could have already made a pandemic previewing tool that could save some million lives
