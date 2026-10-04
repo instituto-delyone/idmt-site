@@ -5,7 +5,7 @@
 <title>Fórum de Discussões Clínicas | Instituto Delyone</title>
 <meta name="description" content="Fórum profissional e científico do Instituto Delyone para discussão de questões clínicas e construção de perguntas de pesquisa.">
 <style>
-:root{--navy:#02050a;--blue:#1f5fae;--soft:#8ebeff;--line:rgba(142,190,255,.22);--card:rgba(255,255,255,.065);--text:#f5f7fb;--muted:rgba(245,247,251,.72)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0%,rgba(46,123,216,.24),transparent 25rem),linear-gradient(135deg,#02050a,#071426 52%,#000);color:var(--text);font-family:Georgia,"Times New Roman",serif}.shell{width:min(1000px,calc(100% - 32px));margin:auto}.top{padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:700;letter-spacing:.04em}.back{color:#fff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 15px;background:#ffffff0d;font-family:system-ui,sans-serif;font-size:.88rem}.hero{padding:64px 0 34px;text-align:center}.kicker{letter-spacing:.2em;text-transform:uppercase;font:700 .75rem system-ui,sans-serif;color:#c8dcf7}.hero h1{font-size:clamp(2.4rem,7vw,4.7rem);line-height:1;margin:12px 0 18px;letter-spacing:-.045em}.hero p{max-width:720px;margin:auto;color:var(--muted);font-size:1.08rem;line-height:1.7}.notice{margin:25px 0;padding:20px 22px;border-radius:22px;background:rgba(31,95,174,.13);border:1px solid var(--line);line-height:1.65;color:#dce9f9}.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 18px}.tab{border:1px solid var(--line);background:var(--card);color:#fff;border-radius:999px;padding:10px 15px;font:700 .88rem system-ui,sans-serif}.section{padding:24px;border-radius:24px;border:1px solid var(--line);background:var(--card);margin:14px 0}.section h2{margin:0 0 8px;font-size:1.45rem}.section p{color:var(--muted);line-height:1.65}.example{border-left:3px solid var(--soft);padding:15px 18px;background:#ffffff07;border-radius:0 16px 16px 0;margin-top:16px}.example strong{display:block;margin-bottom:7px}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.step{padding:17px;border:1px solid var(--line);border-radius:18px;background:#ffffff06;text-align:center}.step b{display:block;margin-bottom:5px}.step span{font: .86rem/1.45 system-ui,sans-serif;color:var(--muted)}.question{margin-top:22px;padding:20px;border-radius:20px;border:1px solid rgba(142,190,255,.28);background:linear-gradient(135deg,rgba(31,95,174,.18),rgba(255,255,255,.035))}.question h3{margin:0 0 8px}.question p{margin:0;color:#e7f0fb}.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.cat{padding:16px;border-radius:17px;border:1px solid var(--line);background:#ffffff05}.cat b{display:block;margin-bottom:4px}.cat span{font: .84rem/1.45 system-ui,sans-serif;color:var(--muted)}.footer{padding:30px 0 45px;text-align:center;color:#8fa4ba;font: .85rem system-ui,sans-serif}@media(max-width:700px){.workflow,.categories{grid-template-columns:1fr 1fr}.top{align-items:flex-start}.hero{padding-top:45px}}@media(max-width:480px){.workflow,.categories{grid-template-columns:1fr}}
+:root{--navy:#02050a;--blue:#1f5fae;--soft:#8ebeff;--line:rgba(142,190,255,.22);--card:rgba(255,255,255,.065);--text:#f5f7fb;--muted:rgba(245,247,251,.72);--green:#75e0b2}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% 0%,rgba(46,123,216,.24),transparent 25rem),linear-gradient(135deg,#02050a,#071426 52%,#000);color:var(--text);font-family:Georgia,"Times New Roman",serif}.shell{width:min(1180px,calc(100% - 32px));margin:auto}.top{padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:700;letter-spacing:.04em}.back{color:#fff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 15px;background:#ffffff0d;font-family:system-ui,sans-serif;font-size:.88rem}.hero{padding:55px 0 28px;text-align:center}.kicker{letter-spacing:.2em;text-transform:uppercase;font:700 .75rem system-ui,sans-serif;color:#c8dcf7}.hero h1{font-size:clamp(2.4rem,7vw,4.7rem);line-height:1;margin:12px 0 18px;letter-spacing:-.045em}.hero p{max-width:760px;margin:auto;color:var(--muted);font-size:1.08rem;line-height:1.7}.notice{margin:25px 0;padding:18px 21px;border-radius:22px;background:rgba(31,95,174,.13);border:1px solid var(--line);line-height:1.65;color:#dce9f9}.tabs{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}.tab{border:1px solid var(--line);background:var(--card);color:#fff;border-radius:999px;padding:9px 14px;font:700 .84rem system-ui,sans-serif;cursor:pointer}.tab.active{background:rgba(31,95,174,.35);border-color:rgba(142,190,255,.5)}.forum-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start}.panel{border:1px solid var(--line);background:var(--card);border-radius:24px;padding:22px}.discussion-list{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}.discussion-list h2{margin:0 0 12px;font-size:1.2rem}.list-note{color:var(--muted);font: .82rem/1.45 system-ui,sans-serif;margin:0 0 15px}.discussion-card{width:100%;display:block;text-align:left;border:1px solid rgba(142,190,255,.16);background:#ffffff06;color:var(--text);border-radius:17px;padding:14px;margin:9px 0;cursor:pointer;font-family:inherit}.discussion-card:hover,.discussion-card.active{border-color:rgba(142,190,255,.48);background:rgba(31,95,174,.16)}.discussion-card strong{display:block;font-size:.98rem;line-height:1.25}.discussion-card small{display:block;color:#9fb5cc;font: .76rem/1.4 system-ui,sans-serif;margin-top:7px}.category{display:inline-block;margin-top:8px;color:#a9d2ff;font:700 .68rem system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em}.empty{padding:20px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);line-height:1.6}.discussion h2{font-size:1.75rem;margin:0 0 7px}.meta{font: .78rem system-ui,sans-serif;color:#9fb5cc}.question{margin:18px 0;padding:19px;border-radius:19px;border:1px solid rgba(142,190,255,.28);background:linear-gradient(135deg,rgba(31,95,174,.18),rgba(255,255,255,.035))}.question strong{display:block;margin-bottom:7px}.body-copy{white-space:pre-wrap;color:#dfe8f2;line-height:1.72}.comments{margin-top:28px;padding-top:20px;border-top:1px solid rgba(142,190,255,.15)}.comments h3{margin:0 0 12px}.comment{padding:14px 0;border-bottom:1px solid rgba(142,190,255,.1)}.comment:last-child{border-bottom:0}.comment b{font-size:.9rem}.comment time{font: .72rem system-ui,sans-serif;color:#849ab0;margin-left:7px}.comment p{white-space:pre-wrap;color:#d6e0eb;line-height:1.6;margin:7px 0 0}.form{margin-top:18px;padding:17px;border-radius:18px;background:#ffffff05;border:1px solid rgba(142,190,255,.14)}.form h3{margin:0 0 12px}.fields{display:grid;gap:9px}.fields.two{grid-template-columns:1fr 1fr}input,textarea,select{width:100%;border:1px solid rgba(142,190,255,.2);border-radius:11px;background:#020a15;color:#fff;padding:11px 12px;font: .9rem system-ui,sans-serif;outline:none}textarea{min-height:105px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:rgba(142,190,255,.55)}button.primary{border:0;border-radius:11px;padding:11px 16px;background:linear-gradient(135deg,#246dbb,#174a80);color:#fff;font:700 .86rem system-ui,sans-serif;cursor:pointer}button.primary:hover{filter:brightness(1.12)}button.primary:disabled{opacity:.55;cursor:wait}.new-discussion{margin-top:14px}.status{min-height:20px;margin:9px 0 0;font: .78rem system-ui,sans-serif;color:#a9d2ff}.status.error{color:#ffb1b1}.status.ok{color:var(--green)}.footer{padding:30px 0 45px;text-align:center;color:#8fa4ba;font: .85rem system-ui,sans-serif}.hidden{display:none!important}@media(max-width:850px){.forum-grid{grid-template-columns:1fr}.discussion-list{position:static;max-height:none;order:-1}.discussion-list .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.discussion-card{margin:0}.fields.two{grid-template-columns:1fr}}@media(max-width:520px){.shell{width:min(100% - 20px,1180px)}.top{align-items:flex-start}.hero{padding-top:38px}.panel{padding:17px}.discussion-list .cards{grid-template-columns:1fr}.tabs{overflow:auto;flex-wrap:nowrap;padding-bottom:3px}.tab{white-space:nowrap}}
 </style>
 </head>
 <body>
@@ -13,13 +13,128 @@
 <header class="top"><div class="brand">INSTITUTO DELYONE · IDMT</div><a class="back" href="/pesquisas/">← Pesquisas</a></header>
 <main>
 <section class="hero"><div class="kicker">Pesquisa aplicada · discussão profissional</div><h1>Fórum de Discussões Clínicas</h1><p>Um espaço para profissionais de saúde discutirem questões clínicas, controvérsias e lacunas de conhecimento observadas na prática — transformando dúvidas relevantes em perguntas de pesquisa.</p></section>
-<div class="notice"><strong>Importante:</strong> este é um espaço de discussão profissional e científica. As publicações têm caráter de discussão e geração de hipóteses de pesquisa e não substituem avaliação clínica individual, protocolos institucionais ou diretrizes vigentes.</div>
-<div class="tabs" aria-label="Áreas do fórum"><span class="tab">Clínica</span><span class="tab">Diagnóstico</span><span class="tab">Terapêutica</span><span class="tab">Evidências</span><span class="tab">Educação médica</span><span class="tab">Perguntas de pesquisa</span></div>
-<section class="section"><h2>Como funciona</h2><p>Uma dúvida clínica relevante inicia uma discussão. Outros profissionais podem apresentar experiências, evidências, argumentos ou contrapontos. A discussão pode então revelar uma lacuna de conhecimento e ajudar a formular uma pergunta de pesquisa.</p><div class="workflow"><div class="step"><b>01 · Dúvida</b><span>Uma questão nasce da prática clínica.</span></div><div class="step"><b>02 · Discussão</b><span>Profissionais apresentam perspectivas e evidências.</span></div><div class="step"><b>03 · Lacuna</b><span>Identificamos o que ainda não está suficientemente respondido.</span></div><div class="step"><b>04 · Pesquisa</b><span>A discussão pode gerar uma pergunta investigável.</span></div></div></section>
-<section class="section"><h2>Exemplo de discussão</h2><div class="example"><strong>Vasopressina no choque vasodilatatório</strong><span>Em pacientes com choque séptico recebendo noradrenalina, existe um nível de dose a partir do qual a associação de vasopressina apresenta benefício clínico relevante?</span></div><div class="question"><h3>🔬 Pergunta de pesquisa emergente</h3><p>Em adultos com choque séptico dependente de vasopressores, a adição precoce de vasopressina à noradrenalina, comparada à manutenção de noradrenalina isoladamente, reduz a necessidade de escalonamento de vasopressores e/ou melhora desfechos clínicos?</p></div></section>
-<section class="section"><h2>Áreas de discussão</h2><div class="categories"><div class="cat"><b>🩺 Clínica</b><span>Questões diretamente relacionadas à prática médica.</span></div><div class="cat"><b>🧪 Diagnóstico</b><span>Critérios, exames e diagnóstico diferencial.</span></div><div class="cat"><b>💊 Terapêutica</b><span>Medicamentos, procedimentos e estratégias terapêuticas.</span></div><div class="cat"><b>📊 Evidências</b><span>Estudos, diretrizes e conflitos entre evidências.</span></div><div class="cat"><b>🧠 Educação médica</b><span>Casos, raciocínio clínico e formação profissional.</span></div><div class="cat"><b>🔬 Perguntas de pesquisa</b><span>Questões amadurecidas durante as discussões.</span></div></div></section>
-<section class="section"><h2>Próxima etapa</h2><p>Esta primeira versão apresenta a estrutura conceitual do fórum. A camada interativa — publicação de perguntas, respostas, organização por temas e evolução das discussões — poderá ser incorporada posteriormente.</p></section>
+<div class="notice"><strong>Importante:</strong> este é um espaço de discussão profissional e científica. As publicações têm caráter de discussão e geração de hipóteses de pesquisa e não substituem avaliação clínica individual, protocolos institucionais ou diretrizes vigentes. Não publique dados identificáveis de pacientes.</div>
+<div class="tabs" id="categoryTabs" aria-label="Áreas do fórum"></div>
+<section class="forum-grid">
+  <div class="panel discussion" id="discussionView">
+    <div class="empty">Selecione uma discussão ao lado ou crie uma nova para iniciar o fórum.</div>
+  </div>
+  <aside class="panel discussion-list">
+    <h2>Discussões</h2>
+    <p class="list-note">Questões clínicas abertas para debate profissional.</p>
+    <div class="cards" id="discussionList"><div class="empty">Carregando discussões…</div></div>
+    <div class="new-discussion">
+      <button class="primary" type="button" id="newDiscussionBtn">＋ Nova discussão</button>
+    </div>
+  </aside>
+</section>
+<section class="panel form hidden" id="newDiscussionForm">
+  <h2>Nova discussão</h2>
+  <p class="list-note">Apresente uma questão clínica de forma objetiva. A discussão poderá evoluir para uma pergunta de pesquisa.</p>
+  <form id="discussionForm">
+    <div class="fields two">
+      <input name="author_name" maxlength="100" placeholder="Seu nome" required>
+      <input name="title" maxlength="180" placeholder="Título da discussão" required>
+    </div>
+    <div class="fields" style="margin-top:9px">
+      <select name="category" required><option value="">Categoria</option><option>Clínica</option><option>Diagnóstico</option><option>Terapêutica</option><option>Evidências</option><option>Educação médica</option><option>Perguntas de pesquisa</option></select>
+      <textarea name="question" maxlength="1200" placeholder="Qual é a pergunta clínica?" required></textarea>
+      <textarea name="context" maxlength="4000" placeholder="Contexto (opcional)"></textarea>
+      <textarea name="content" maxlength="8000" placeholder="Apresente sua discussão, experiência ou ponto de partida (opcional)"></textarea>
+      <button class="primary" type="submit">Publicar discussão</button>
+      <div class="status" id="discussionStatus"></div>
+    </div>
+  </form>
+</section>
 </main>
 <footer class="footer">© 2026 Instituto Delyone de Medicina e Tecnologia</footer>
 </div>
-</body></html>
+<script>
+// A URL pode ser definida futuramente por window.FORUM_API_BASE sem alterar a interface.
+const API_BASE = window.FORUM_API_BASE || "/api/forum";
+const categories = ["Todas","Clínica","Diagnóstico","Terapêutica","Evidências","Educação médica","Perguntas de pesquisa"];
+let selectedCategory = "Todas";
+let discussions = [];
+let selectedId = null;
+
+const $ = (id) => document.getElementById(id);
+
+function esc(value){return String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]));}
+function date(value){try{return new Intl.DateTimeFormat("pt-BR",{dateStyle:"short",timeStyle:"short"}).format(new Date(value));}catch{return value;}}
+async function api(path, options={}){
+  const response = await fetch(API_BASE + path, {headers:{"Content-Type":"application/json",...(options.headers||{})},...options});
+  const data = await response.json().catch(()=>({}));
+  if(!response.ok) throw new Error(data.error || "Não foi possível concluir a operação.");
+  return data;
+}
+
+function renderCategories(){
+  $("categoryTabs").innerHTML = categories.map(c => `<button class="tab ${c===selectedCategory?"active":""}" data-category="${esc(c)}">${esc(c)}</button>`).join("");
+  document.querySelectorAll("[data-category]").forEach(btn=>btn.addEventListener("click",()=>{selectedCategory=btn.dataset.category;renderCategories();loadDiscussions();}));
+}
+
+function renderList(){
+  const list = $("discussionList");
+  if(!discussions.length){list.innerHTML='<div class="empty">Ainda não há discussões publicadas nesta categoria.</div>';return;}
+  list.innerHTML = discussions.map(d=>`<button class="discussion-card ${d.id===selectedId?"active":""}" data-id="${esc(d.id)}"><strong>${esc(d.title)}</strong><small>por ${esc(d.author_name)} · ${esc(date(d.created_at))}</small><span class="category">${esc(d.category)}</span></button>`).join("");
+  list.querySelectorAll("[data-id]").forEach(btn=>btn.addEventListener("click",()=>loadDiscussion(btn.dataset.id)));
+}
+
+async function loadDiscussions(){
+  try{
+    const suffix = selectedCategory !== "Todas" ? `?category=${encodeURIComponent(selectedCategory)}` : "";
+    const data = await api("/discussions"+suffix);
+    discussions = data.discussions || [];
+    if(!selectedId || !discussions.some(d=>d.id===selectedId)) selectedId = discussions[0]?.id || null;
+    renderList();
+    if(selectedId) loadDiscussion(selectedId); else $("discussionView").innerHTML='<div class="empty">Ainda não há discussões. Seja o primeiro a iniciar uma.</div>';
+  }catch(error){
+    $("discussionList").innerHTML=`<div class="empty">Não foi possível carregar o fórum.<br><br><strong>${esc(error.message)}</strong></div>`;
+    $("discussionView").innerHTML='<div class="empty">O conteúdo do fórum depende do backend. A interface está pronta; falta apenas conectar a API do fórum ao domínio.</div>';
+  }
+}
+
+async function loadDiscussion(id){
+  selectedId=id; renderList();
+  try{
+    const data=await api(`/discussions/${encodeURIComponent(id)}`);
+    const d=data.discussion;
+    const comments=data.comments||[];
+    $("discussionView").innerHTML=`
+      <div class="meta">${esc(d.category)} · criada por ${esc(d.author_name)} · ${esc(date(d.created_at))}</div>
+      <h2>${esc(d.title)}</h2>
+      <div class="question"><strong>Pergunta clínica</strong><div class="body-copy">${esc(d.question)}</div></div>
+      ${d.context?`<div class="body-copy"><strong>Contexto</strong><br>${esc(d.context)}</div>`:""}
+      ${d.content?`<div class="body-copy" style="margin-top:17px"><strong>Discussão inicial</strong><br>${esc(d.content)}</div>`:""}
+      <div class="comments"><h3>${comments.length} ${comments.length===1?"comentário":"comentários"}</h3>
+        ${comments.length?comments.map(c=>`<div class="comment"><b>${esc(c.author_name)}</b><time>${esc(date(c.created_at))}</time><p>${esc(c.content)}</p></div>`).join(""): '<div class="empty">Ainda não há comentários. Abra a discussão.</div>'}
+        <form class="form" id="commentForm">
+          <h3>Participar da discussão</h3>
+          <div class="fields"><input name="author_name" maxlength="100" placeholder="Seu nome" required><textarea name="content" maxlength="5000" placeholder="Escreva seu comentário…" required></textarea><button class="primary" type="submit">Publicar comentário</button><div class="status" id="commentStatus"></div></div>
+        </form>
+      </div>`;
+    $("commentForm").addEventListener("submit",submitComment);
+  }catch(error){$("discussionView").innerHTML=`<div class="empty">${esc(error.message)}</div>`;}
+}
+
+async function submitComment(event){
+  event.preventDefault();
+  const form=event.currentTarget, button=form.querySelector("button"), status=$("commentStatus");
+  button.disabled=true; status.textContent="Publicando…";
+  const body=Object.fromEntries(new FormData(form).entries());
+  try{await api(`/discussions/${encodeURIComponent(selectedId)}/comments`,{method:"POST",body:JSON.stringify(body)});status.className="status ok";status.textContent="Comentário publicado.";form.reset();await loadDiscussion(selectedId);}catch(error){status.className="status error";status.textContent=error.message;button.disabled=false;}
+}
+
+$("newDiscussionBtn").addEventListener("click",()=>{$("newDiscussionForm").classList.toggle("hidden");if(!$('newDiscussionForm').classList.contains('hidden')) $('newDiscussionForm').scrollIntoView({behavior:'smooth',block:'center'});});
+$("discussionForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const form=event.currentTarget, button=form.querySelector("button"), status=$("discussionStatus");
+  button.disabled=true;status.className="status";status.textContent="Publicando…";
+  try{const body=Object.fromEntries(new FormData(form).entries());const result=await api("/discussions",{method:"POST",body:JSON.stringify(body)});status.className="status ok";status.textContent="Discussão publicada.";form.reset();$("newDiscussionForm").classList.add("hidden");selectedId=result.id;await loadDiscussions();}catch(error){status.className="status error";status.textContent=error.message;button.disabled=false;}
+});
+
+renderCategories();
+loadDiscussions();
+</script>
+</body>
+</html>
