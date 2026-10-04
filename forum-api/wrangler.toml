@@ -1,0 +1,8 @@
+name = "idmt-forum-api"
+main = "src/index.js"
+compatibility_date = "2026-10-03"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "idmt-forum"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
