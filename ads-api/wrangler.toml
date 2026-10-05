@@ -1,0 +1,6 @@
+name = "idmt-ads-api"
+main = "src/index.js"
+compatibility_date = "2026-10-05"
+
+[vars]
+OPENAI_ADS_PIXEL_ID = "TZrpbXCpUoNe2fLiVrFMs9"
