@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Conheça o fundador | Instituto Delyone</title>
+  <meta name="description" content="Conheça o fundador do Instituto Delyone de Medicina e Tecnologia.">
+  <style>
+    :root{
+      --night:#020814;
+      --deep:#061d35;
+      --cyan:#67d9ff;
+      --paper:#f5f9fd;
+      --ink:#10243b;
+      --muted:#6b8093;
+      --line:#dbe7f1;
+      --white:#fff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink)}
+    a{color:inherit;text-decoration:none}
+    .hero{
+      position:relative;overflow:hidden;color:#eef9ff;
+      background:
+        radial-gradient(circle at 18% 15%,rgba(20,143,220,.42),transparent 35%),
+        radial-gradient(circle at 84% 18%,rgba(73,100,201,.30),transparent 34%),
+        linear-gradient(135deg,#01050c 0%,#07365f 48%,#010711 100%);
+      padding:24px 0 72px;
+    }
+    .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#020814 100%);pointer-events:none}
+    .nav,.hero-inner,.content{width:min(1120px,92%);margin:auto;position:relative;z-index:2}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{font-size:12px;font-weight:850;letter-spacing:.18em;text-transform:uppercase}
+    .nav a{font-size:12px;color:#ccecff;opacity:.88}
+    .hero-inner{padding-top:78px;display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+    .eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#85dcff;margin:0 0 15px}
+    h1{font-size:clamp(42px,6vw,72px);line-height:.95;letter-spacing:-.055em;margin:0 0 18px}
+    .lead{max-width:650px;color:#bfd4e8;font-size:17px;line-height:1.7;margin:0}
+    .hero-card{border:1px solid rgba(145,220,255,.22);border-radius:28px;padding:14px;background:rgba(3,18,36,.48);backdrop-filter:blur(15px);box-shadow:0 28px 80px rgba(0,0,0,.22)}
+    .hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;display:block;background:#0b2037}
+    .hero-caption{display:flex;justify-content:space-between;gap:12px;padding:13px 5px 3px;color:#a9c5d8;font-size:10px}
+    main{padding:62px 0 80px}
+    .section{margin-top:26px}
+    .section:first-child{margin-top:0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}
+    h2{font-size:30px;letter-spacing:-.04em;margin:0}
+    .section-head p{margin:0;color:var(--muted);font-size:12px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px}
+    .panel p{margin:0;color:#687d90;font-size:14px;line-height:1.7}
+    .founder-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+    .founder-nav a{padding:15px;border:1px solid var(--line);border-radius:15px;background:#f8fbfe;font-size:11px;font-weight:800;text-align:center;color:#126ca6}
+    .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .photo{margin:0;border-radius:19px;overflow:hidden;background:#dfeaf2;border:1px solid var(--line);min-height:180px}
+    .photo:nth-child(1),.photo:nth-child(4){grid-column:span 7}
+    .photo:nth-child(2),.photo:nth-child(3),.photo:nth-child(5),.photo:nth-child(6){grid-column:span 5}
+    .photo img{display:block;width:100%;height:100%;min-height:230px;object-fit:cover}
+    .photo:nth-child(1) img,.photo:nth-child(4) img{min-height:360px}
+    footer{background:#020814;color:#7890a0;text-align:center;padding:34px 20px;font-size:10px;line-height:1.7}
+    @media(max-width:800px){
+      .hero-inner{grid-template-columns:1fr;gap:28px;padding-top:58px}
+      .hero-card{max-width:520px;margin:auto}
+      .founder-nav{grid-template-columns:repeat(2,1fr)}
+      .gallery{display:grid;grid-template-columns:1fr}
+      .photo,.photo:nth-child(1),.photo:nth-child(2),.photo:nth-child(3),.photo:nth-child(4),.photo:nth-child(5),.photo:nth-child(6){grid-column:auto}
+      .photo img,.photo:nth-child(1) img,.photo:nth-child(4) img{min-height:280px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav">
+      <div class="brand">Instituto Delyone · IDMT</div>
+      <a href="/instituto/">← Voltar ao Instituto</a>
+    </nav>
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Founder · Instituto Delyone</p>
+        <h1>Conheça o fundador.</h1>
+        <p class="lead">Delyone de Paula Canedo Filho é o fundador do Instituto Delyone de Medicina e Tecnologia. Esta área reúne, em um só lugar, os registros, imagens e materiais destinados a apresentar a pessoa por trás da construção do Instituto.</p>
+      </div>
+      <div class="hero-card">
+        <img class="hero-photo" src="assets/IMG_9560.png" alt="Material visual do fundador">
+        <div class="hero-caption"><span>Fundador</span><span>Instituto Delyone · IDMT</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <section class="section">
+        <div class="section-head">
+          <h2>O fundador</h2>
+          <p>Uma página para conhecer a trajetória por trás do Instituto.</p>
+        </div>
+        <div class="panel">
+          <p>Este espaço foi estruturado para receber a biografia, a formação, as contribuições, o currículo, os certificados, a história e as intenções que fazem parte do acervo do fundador. Conforme esses materiais forem publicados nas respectivas áreas, esta página funcionará como ponto de entrada para todo o conjunto.</p>
+          <div class="founder-nav">
+            <a href="biography/">Biografia</a>
+            <a href="history/">História</a>
+            <a href="curriculum-vitae/">Currículo</a>
+            <a href="certificates/">Certificados</a>
+            <a href="contributions/">Contribuições</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Acervo visual</h2>
+          <p>Imagens atualmente organizadas em <code>founder/assets</code>.</p>
+        </div>
+        <div class="gallery">
+          <figure class="photo"><img src="assets/IMG_0765.jpeg" alt="Registro visual do fundador"></figure>
+          <figure class="photo"><img src="assets/IMG_0766.jpeg" alt="Registro visual do fundador"></figure>
+          <figure class="photo"><img src="assets/IMG_0767.jpeg" alt="Registro visual do fundador"></figure>
+          <figure class="photo"><img src="assets/IMG_0768.jpeg" alt="Registro visual do fundador"></figure>
+          <figure class="photo"><img src="assets/IMG_0769.png" alt="Registro visual do fundador"></figure>
+          <figure class="photo"><img src="assets/IMG_9560.png" alt="Registro visual do fundador"></figure>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel">
+          <h2 style="margin-bottom:10px">Construção em andamento</h2>
+          <p>O acervo do fundador está organizado para crescer modularmente: biografia, história, formação, certificados, contribuições, currículo e sonhos, intenções e idealizações podem ser publicados sem alterar a arquitetura principal do Instituto.</p>
+          <div class="founder-nav">
+            <a href="dreams-intentions-idealizations/">Sonhos e intenções</a>
+            <a href="/instituto/">Instituto Delyone</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>Instituto Delyone de Medicina e Tecnologia</div>
+    <div>Medicina · Tecnologia · Desenvolvimento · Pesquisa</div>
+  </footer>
+</body>
+</html>
