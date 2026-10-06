@@ -65,7 +65,22 @@
       color:#dff5ff;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
     }
     .brand img{width:27px;height:27px;object-fit:contain}
-    .logo-wrap{width:122px;height:122px;margin:34px auto 20px;display:grid;place-items:center;position:relative}
+    .founder-spotlight{width:min(760px,100%);margin:30px auto 0;text-align:left}
+    .founder-card{
+      display:flex;align-items:center;gap:13px;width:min(390px,100%);padding:12px 14px;
+      border:1px solid rgba(126,220,255,.28);border-radius:18px;
+      background:linear-gradient(135deg,rgba(4,30,55,.74),rgba(3,13,27,.48));
+      box-shadow:0 12px 32px rgba(0,0,0,.14);backdrop-filter:blur(12px);
+      text-align:left;transition:.2s;
+    }
+    .founder-card:hover{transform:translateY(-2px);border-color:rgba(145,232,255,.55);box-shadow:0 16px 38px rgba(0,115,210,.18)}
+    .founder-avatar{width:50px;height:50px;flex:0 0 50px;border-radius:14px;object-fit:cover;border:1px solid rgba(126,220,255,.28);background:#0b2037}
+    .founder-card-copy{min-width:0}
+    .founder-card-kicker{display:block;color:#82dcff;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;margin-bottom:4px}
+    .founder-card strong{display:block;font-size:14px;color:#f1f8ff}
+    .founder-card span{display:block;margin-top:3px;color:#9fbdd1;font-size:10px;line-height:1.35}
+    .founder-arrow{margin-left:auto;color:#67d9ff;font-size:18px;line-height:1}
+    .logo-wrap{width:122px;height:122px;margin:26px auto 20px;display:grid;place-items:center;position:relative}
     .logo-wrap:before{content:"";position:absolute;inset:-35px;border-radius:50%;background:radial-gradient(circle,rgba(50,190,255,.16),transparent 68%);filter:blur(7px)}
     .logo-wrap img{position:relative;width:122px;height:122px;object-fit:contain;filter:drop-shadow(0 0 28px rgba(82,205,255,.3))}
     .eyebrow{margin:0 0 12px;color:#86dcff;font-size:11px;letter-spacing:.27em;text-transform:uppercase}
@@ -94,7 +109,9 @@
     footer strong{color:#91b1c8}
     @media(max-width:700px){
       main{padding-top:27px}
-      .logo-wrap{margin-top:27px;width:96px;height:96px}.logo-wrap img{width:96px;height:96px}
+      .founder-spotlight{margin-top:25px;width:100%}
+      .founder-card{width:min(350px,100%);margin-left:0}
+      .logo-wrap{margin-top:24px;width:96px;height:96px}.logo-wrap img{width:96px;height:96px}
       .cards{grid-template-columns:1fr}.card{min-height:195px}
       .intro{font-size:14px}.question{margin-top:30px}
     }
@@ -106,6 +123,19 @@
   <main>
     <header>
       <div class="brand"><img src="../assets/logo-idmt.png" alt="IDMT"> Instituto Delyone</div>
+
+      <div class="founder-spotlight">
+        <a class="founder-card" href="../founder/" aria-label="Conheça o fundador do Instituto Delyone">
+          <img class="founder-avatar" src="../founder/assets/IMG_0765.jpeg" alt="Delyone de Paula Canedo Filho">
+          <span class="founder-card-copy">
+            <span class="founder-card-kicker">Conheça o fundador</span>
+            <strong>Delyone de Paula Canedo Filho</strong>
+            <span>Fundador do Instituto Delyone de Medicina e Tecnologia</span>
+          </span>
+          <span class="founder-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
       <div class="logo-wrap"><img src="../assets/logo-idmt.png" alt="Instituto Delyone de Medicina e Tecnologia"></div>
       <p class="eyebrow">Medicina · Tecnologia · Desenvolvimento · Pesquisa</p>
       <h1>Como podemos ajudar você?</h1>
