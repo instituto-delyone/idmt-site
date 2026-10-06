@@ -1,16 +1,251 @@
 <!doctype html>
-<html lang="pt-BR"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Profissionais · Instituto Delyone</title>
-<meta name="description" content="Profissionais do Instituto Delyone de Medicina e Tecnologia.">
-<link rel="icon" type="image/png" href="../logo.png"><link rel="apple-touch-icon" href="../logo.png">
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Área Profissional · Instituto Delyone</title>
+<meta name="description" content="Área profissional do Instituto Delyone: ferramentas, pesquisa, educação médica e discussão clínica.">
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="apple-touch-icon" href="../logo.png">
 <style>
-:root{--night:#020814;--blue:#0b6eb7;--cyan:#67d9ff;--paper:#f5f9fd;--ink:#10243b;--muted:#647b90;--line:#dbe7f1}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink)}
-.hero{padding:28px 6%;background:radial-gradient(ellipse at 20% 0%,rgba(11,128,211,.55),transparent 35%),linear-gradient(135deg,#01050c,#07365f 52%,#010711);color:#eef8ff}
-nav{display:flex;justify-content:space-between;gap:12px;align-items:center}nav a{color:#dff5ff;text-decoration:none;font-size:12px;font-weight:700;padding:8px 12px;border:1px solid rgba(140,220,255,.2);border-radius:999px}
-.wrap{width:min(900px,90%);margin:auto}.hero .wrap{padding:70px 0 80px}.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#83dbff}h1{font-size:clamp(40px,7vw,70px);line-height:.98;letter-spacing:-.05em;margin:14px 0}p{line-height:1.65;color:#aecaE0}.content{padding:70px 0}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 12px 34px rgba(12,45,78,.06)}.button{display:inline-block;margin-top:20px;padding:12px 17px;border-radius:999px;background:#0b6eb7;color:white;text-decoration:none;font-weight:700;font-size:13px}footer{text-align:center;padding:30px;background:#020814;color:#8099ae;font-size:11px}
-</style></head><body>
-<header class="hero"><nav><a href="/">IDMT</a><a href="/contato/">Contato</a></nav><div class="wrap"><div class="eyebrow">MEDICINA · EQUIPE</div><h1>Profissionais</h1><p>Espaço institucional destinado à apresentação e expansão da rede de profissionais do Instituto.</p></div></header>
-<main class="content"><div class="wrap"><section class="panel"><h2>Estrutura em expansão</h2><p>Esta área já faz parte da arquitetura pública do Instituto e será ampliada conforme novos módulos, profissionais e serviços forem incorporados.</p><a class="button" href="/membros/">Conhecer os membros →</a></section></div></main>
-<footer>Instituto Delyone de Medicina e Tecnologia</footer></body></html>
+:root{
+  --paper:#f5f8fc;
+  --white:#fff;
+  --ink:#10243b;
+  --muted:#718398;
+  --line:#dbe5ef;
+  --night:#061322;
+  --blue:#0b6eb7;
+  --cyan:#67d9ff;
+  --green:#28714f;
+  --green-bg:#eaf7ef;
+  --gold:#806322;
+  --gold-bg:#fff6d9;
+  --purple:#655d83;
+  --purple-bg:#f0edff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+}
+a{color:inherit;text-decoration:none}
+.top{
+  background:
+    radial-gradient(circle at 20% 0%,rgba(31,137,210,.45),transparent 34%),
+    linear-gradient(135deg,#020812,#07365f 54%,#020711);
+  color:#eef8ff;
+  padding:20px 6% 46px;
+}
+.nav{
+  width:min(980px,92%);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.nav a{
+  font-size:12px;
+  font-weight:750;
+  padding:8px 13px;
+  border:1px solid rgba(150,225,255,.2);
+  border-radius:999px;
+  color:#dff5ff;
+  background:rgba(0,16,32,.18);
+}
+.hero{
+  width:min(900px,92%);
+  margin:auto;
+  padding:52px 0 20px;
+}
+.eyebrow{
+  margin:0 0 12px;
+  color:#84ddff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+h1{
+  margin:0;
+  font-size:clamp(42px,8vw,70px);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+.hero p{
+  max-width:670px;
+  margin:18px 0 0;
+  color:#bcd2e5;
+  font-size:16px;
+  line-height:1.65;
+}
+.main{
+  width:min(900px,92%);
+  margin:30px auto 80px;
+}
+.section{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:34px;
+  box-shadow:0 14px 40px rgba(18,52,86,.055);
+  margin-bottom:22px;
+}
+.section h2{
+  margin:0 0 8px;
+  font-size:32px;
+  letter-spacing:-.035em;
+}
+.section-intro{
+  margin:0 0 26px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+}
+.tools{display:grid;gap:18px}
+.tool{
+  display:block;
+  padding:28px 30px;
+  min-height:135px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:#fbfcfe;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.tool:hover{
+  transform:translateY(-2px);
+  border-color:#bfd4e5;
+  box-shadow:0 12px 30px rgba(18,52,86,.07);
+}
+.badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.16em;
+  margin-bottom:10px;
+}
+.mature{background:var(--green-bg);color:var(--green)}
+.starting{background:var(--gold-bg);color:var(--gold)}
+.embryonic{background:var(--purple-bg);color:var(--purple)}
+.tool h3{margin:0;font-size:25px;letter-spacing:-.025em}
+.tool p{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.45}
+.arrow{font-size:20px;margin-left:4px}
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.quick{
+  padding:21px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fbfcfe;
+  transition:.18s;
+}
+.quick:hover{transform:translateY(-1px);border-color:#bfd4e5}
+.quick strong{display:block;font-size:16px}
+.quick span{display:block;margin-top:5px;color:var(--muted);font-size:13px;line-height:1.45}
+.back{
+  display:inline-block;
+  margin-top:6px;
+  color:var(--blue);
+  font-weight:800;
+  font-size:13px;
+}
+footer{
+  background:var(--night);
+  color:#8099ae;
+  text-align:center;
+  padding:30px 20px;
+  font-size:11px;
+}
+@media(max-width:650px){
+  .top{padding-bottom:35px}
+  .hero{padding-top:42px}
+  .section{padding:26px 18px;border-radius:23px}
+  .section h2{font-size:29px}
+  .tool{padding:24px 22px;min-height:125px}
+  .tool h3{font-size:23px}
+  .quick-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <nav class="nav">
+    <a href="/">IDMT</a>
+    <a href="/instituto/">Instituto</a>
+  </nav>
+  <div class="hero">
+    <p class="eyebrow">MEDICINA · TECNOLOGIA · PESQUISA</p>
+    <h1>Área profissional</h1>
+    <p>Um ponto de entrada direto para as ferramentas, sistemas e espaços de desenvolvimento do Instituto Delyone.</p>
+  </div>
+</header>
+
+<main class="main">
+  <section class="section">
+    <h2>Ferramentas</h2>
+    <p class="section-intro">Acesso direto aos sistemas e tecnologias disponibilizados publicamente pelo Instituto.</p>
+
+    <div class="tools">
+      <a class="tool" href="https://medunity.delyone.com/" target="_blank" rel="noopener">
+        <span class="badge mature">MADURO</span>
+        <h3>MedUnity <span class="arrow">↗</span></h3>
+        <p>Integração assistencial</p>
+      </a>
+
+      <a class="tool" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">
+        <span class="badge starting">INICIANDO</span>
+        <h3>Diagnosis <span class="arrow">↗</span></h3>
+        <p>Raciocínio clínico</p>
+      </a>
+
+      <a class="tool" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener">
+        <span class="badge starting">INICIANDO</span>
+        <h3>CSI <span class="arrow">↗</span></h3>
+        <p>Conhecimento estruturado</p>
+      </a>
+
+      <a class="tool" href="/files/research-tool-prisma/">
+        <span class="badge embryonic">EMBRIONÁRIO</span>
+        <h3>Research Tool <span class="arrow">↗</span></h3>
+        <p>Pesquisa e documentação científica</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Comunidade e desenvolvimento</h2>
+    <p class="section-intro">Espaços para discussão clínica, pesquisa e acompanhamento do desenvolvimento do ecossistema.</p>
+    <div class="quick-grid">
+      <a class="quick" href="/pesquisas/forum/">
+        <strong>Fórum de discussão ↗</strong>
+        <span>Debate, troca e construção coletiva.</span>
+      </a>
+      <a class="quick" href="/pesquisas/">
+        <strong>Pesquisa ↗</strong>
+        <span>Projetos, documentação e desenvolvimento científico.</span>
+      </a>
+      <a class="quick" href="/memorial-de-projetos/">
+        <strong>Memorial de projetos ↗</strong>
+        <span>Histórico e registro do ecossistema tecnológico do Instituto.</span>
+      </a>
+      <a class="quick" href="/tecnologia/">
+        <strong>Tecnologia ↗</strong>
+        <span>Conheça a arquitetura pública e o estágio dos projetos.</span>
+      </a>
+    </div>
+    <a class="back" href="/">← Voltar à entrada do Instituto</a>
+  </section>
+</main>
+
+<footer>Instituto Delyone de Medicina e Tecnologia</footer>
+</body>
+</html>
