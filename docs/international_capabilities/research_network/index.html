@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="IDMT Research Network — cadastro de pesquisadores, profissionais, instituições e competências para projetos de pesquisa e inovação.">
+<title>IDMT — Research Network</title>
+<style>
+:root{--bg:#061019;--panel:#0c1b28;--line:#ffffff1c;--text:#f4f8fb;--muted:#aab9c5;--blue:#75b8ff;--mint:#9be7d7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 5%,#0c3048,transparent 32%),linear-gradient(180deg,#061019,#03090e);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6}a{color:inherit}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+nav{border-bottom:1px solid var(--line);background:#061019dd;backdrop-filter:blur(16px);position:sticky;top:0;z-index:5}.nav{height:68px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:850;letter-spacing:.13em;font-size:.82rem}.navlinks{display:flex;gap:20px;color:var(--muted);font-size:.82rem}.navlinks a{text-decoration:none}
+.hero{padding:86px 0 70px}.eyebrow{color:var(--mint);font-size:.72rem;letter-spacing:.2em;font-weight:850;text-transform:uppercase}.hero h1{font-size:clamp(3rem,8vw,6.8rem);line-height:.9;letter-spacing:-.07em;max-width:950px;margin:18px 0}.lead{font-size:clamp(1.1rem,2vw,1.4rem);color:#d1dce4;max-width:850px}
+section{padding:75px 0}.sectionhead{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:30px}.sectionhead h2{font-size:clamp(2rem,4vw,3.7rem);letter-spacing:-.055em;line-height:1;margin:0}.sectionhead p{max-width:520px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:27px;border:1px solid var(--line);border-radius:24px;background:#ffffff08}.num{color:var(--blue);font-size:.7rem;font-weight:850;letter-spacing:.16em}.card h3{font-size:1.35rem;margin:28px 0 8px}.card p{color:var(--muted);margin:0}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:stretch}.node{padding:19px 14px;border:1px solid var(--line);border-radius:18px;background:#ffffff07}.node b{font-size:.86rem}.node span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px}
+.formbox{border:1px solid #75b8ff44;border-radius:30px;background:linear-gradient(145deg,#75b8ff10,#9be7d708);padding:34px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:.78rem;font-weight:750;color:#dce6ee}input,select,textarea{width:100%;border:1px solid var(--line);background:#020a10;color:#f4f8fb;border-radius:12px;padding:12px 13px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:#75b8ff88}textarea{min-height:115px;resize:vertical}.checkgrid{display:flex;flex-wrap:wrap;gap:8px}.check{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#dce6ee;background:#ffffff06;font-size:.78rem}.check input{width:auto;margin-right:6px}.submit{margin-top:20px;border:0;border-radius:13px;padding:13px 18px;background:var(--mint);color:#061019;font-weight:900;cursor:pointer}.note{color:#91a5b4;font-size:.75rem;margin-top:14px}
+.callout{padding:27px;border-left:2px solid var(--mint);background:#9be7d708;color:#d5e0e7}.callout strong{color:#fff}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.links a{border:1px solid var(--line);border-radius:999px;padding:9px 13px;text-decoration:none;font-size:.78rem;font-weight:800;background:#ffffff06}.back{display:inline-block;margin-top:25px;color:#bcd8e8;text-decoration:none;font-size:.82rem}
+@media(max-width:800px){.steps{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.navlinks{display:none}}@media(max-width:500px){.flow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav"><div class="brand">IDMT / RESEARCH NETWORK</div><div class="navlinks"><a href="#how">Como funciona</a><a href="opportunities.html">Oportunidades</a><a href="#register">Cadastrar</a></div></div></nav>
+<main>
+<section class="hero"><div class="wrap"><div class="eyebrow">Research · Collaboration · Development</div><h1>Encontre seu lugar no próximo projeto.</h1><p class="lead">A IDMT Research Network conecta pesquisadores, médicos, cientistas, engenheiros, profissionais de tecnologia, instituições e empresas a oportunidades de pesquisa, inovação e desenvolvimento de projetos.</p><a class="submit" href="#register" style="display:inline-block;text-decoration:none">Quero entrar na rede →</a></div></section>
+
+<section id="how"><div class="wrap"><div class="sectionhead"><h2>Como funciona</h2><p>Você não precisa chegar com um projeto pronto. Primeiro mostramos o caminho; depois organizamos as competências necessárias para formar equipes.</p></div><div class="steps">
+<article class="card"><div class="num">01 / ENCONTRE</div><h3>Encontre uma oportunidade</h3><p>Pesquise nas fontes oficiais de financiamento e inovação. Grant significa, em termos simples, um recurso destinado a apoiar uma pesquisa ou projeto.</p></article>
+<article class="card"><div class="num">02 / INDIQUE</div><h3>Diga que tem interesse</h3><p>Informe a oportunidade, o tema ou a área que combina com você. Não sabe exatamente qual chamada escolher? Você também pode cadastrar apenas seu perfil.</p></article>
+<article class="card"><div class="num">03 / CONECTE</div><h3>O IDMT organiza a rede</h3><p>Seu perfil entra no mapa de competências. Quando houver uma oportunidade compatível, competências complementares podem ser reunidas para formar uma equipe.</p></article>
+</div></div></section>
+
+<section><div class="wrap"><div class="sectionhead"><h2>Do perfil ao projeto</h2><p>Esta é a protoestrutura. A automação dos workers entra depois, alimentando a mesma arquitetura.</p></div><div class="flow">
+<div class="node"><b>Pessoa</b><span>Quem você é</span></div><div class="node"><b>Competências</b><span>O que você sabe fazer</span></div><div class="node"><b>Interesse</b><span>O que procura</span></div><div class="node"><b>Oportunidade</b><span>Onde pode atuar</span></div><div class="node"><b>Match</b><span>Competências compatíveis</span></div><div class="node"><b>Equipe</b><span>Pesquisadores reunidos</span></div><div class="node"><b>Projeto</b><span>Pesquisa em desenvolvimento</span></div>
+</div></div></section>
+
+<section><div class="wrap"><div class="callout"><strong>Uma distinção importante:</strong> estar cadastrado ou acessar uma plataforma como NIH, NASA, CNPq, Grants.gov ou NATO não significa ser parceiro dessas instituições. O IDMT apresenta esses ecossistemas como fontes e caminhos de pesquisa. Parcerias institucionais serão identificadas separadamente quando existirem formalmente.</div><div class="links"><a href="opportunities.html">Ver ecossistemas e oportunidades →</a><a href="../international_capabilities/">International Capabilities →</a></div></div></section>
+
+<section id="register"><div class="wrap"><div class="sectionhead"><h2>Entre na Research Network</h2><p>Cadastro inicial de interesse. As informações podem ser usadas pelo IDMT para identificar competências, interesses e possíveis composições de equipes.</p></div>
+<div class="formbox">
+<form name="idmt-research-network" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="idmt-research-network">
+<p hidden><label>Não preencha: <input name="bot-field"></label></p>
+<div class="formgrid">
+<div class="field"><label>Nome completo *</label><input required name="nome" autocomplete="name"></div>
+<div class="field"><label>E-mail *</label><input required type="email" name="email" autocomplete="email"></div>
+<div class="field"><label>Profissão / função *</label><input required name="funcao" placeholder="Ex.: médico, pesquisador, engenheiro"></div>
+<div class="field"><label>Titulação</label><select name="titulacao"><option value="">Selecione</option><option>Graduação</option><option>Especialização</option><option>Mestrado</option><option>Doutorado</option><option>Pós-doutorado</option><option>Professor / pesquisador</option><option>Profissional sem titulação acadêmica</option></select></div>
+<div class="field"><label>Instituição</label><input name="instituicao"></div>
+<div class="field"><label>Área principal *</label><input required name="area" placeholder="Ex.: neurologia, IA, engenharia"></div>
+<div class="field full"><label>Competências e linhas de pesquisa *</label><textarea required name="competencias" placeholder="O que você sabe fazer? Que temas pesquisa?"></textarea></div>
+<div class="field full"><label>Perfil / credenciais</label><input name="perfil" placeholder="Lattes, ORCID, LinkedIn ou página institucional"></div>
+<div class="field full"><label>O que você procura?</label><div class="checkgrid"><label class="check"><input type="checkbox" name="interesse" value="Pesquisa"> Pesquisa</label><label class="check"><input type="checkbox" name="interesse" value="Grant"> Financiamento</label><label class="check"><input type="checkbox" name="interesse" value="Equipe"> Equipe multidisciplinar</label><label class="check"><input type="checkbox" name="interesse" value="Internacional"> Projeto internacional</label><label class="check"><input type="checkbox" name="interesse" value="Tecnologia"> Desenvolvimento tecnológico</label></div></div>
+<div class="field full"><label>Oportunidade ou tema de interesse</label><textarea name="oportunidade" placeholder="Cole o número/título da oportunidade ou descreva o tema que procura."></textarea></div>
+</div>
+<button class="submit" type="submit">Enviar meu perfil →</button><div class="note">Primeira versão: formulário de entrada. A base estruturada e o matching automatizado serão adicionados nas próximas etapas. O cadastro não garante seleção, financiamento, emprego ou participação em uma oportunidade.</div>
+</form></div></div></section>
+</main>
+</body></html>
