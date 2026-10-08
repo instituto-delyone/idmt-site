@@ -625,7 +625,7 @@ async def library_search(query,reading,limit=5):
 MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
 
 async def medunity_admin_login(body):
-    response = await fetch(MEDUNITY_AUTH_URL + "/admin/login", {
+    response = await fetch(MEDUNITY_AUTH_URL + "/login", {
         "method": "POST",
         "headers": {"Content-Type": "application/json"},
         "body": json.dumps({
@@ -711,7 +711,7 @@ class Default(WorkerEntrypoint):
         if request.method=="OPTIONS":
             return Response("",status=204,headers=cors_headers(origin))
         if path.endswith("/health") and request.method=="GET":
-            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.4.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
+            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.4.1-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
         if path.endswith("/auth/login") and request.method=="POST":
             try:
                 body=await request.json()
