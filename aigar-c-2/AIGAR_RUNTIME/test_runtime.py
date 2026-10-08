@@ -24,7 +24,10 @@ def test_executable_language_is_connected_to_runtime():
     ))
     assert result.state.reading.intent == "concept_basic"
     assert result.state.reading.needs_library is True
-    assert result.state.reading.scope == "o que foi a revolução agrícola"
+    assert result.state.reading.scope == "a revolução agrícola"
+    assert result.state.reading.linguistic_analysis["question"]["type"] == "definition"
+    assert result.plan["question_type"] == "definition"
+    assert "answer_mode" in result.plan
 
 
 def test_continuity_uses_session_memory():
