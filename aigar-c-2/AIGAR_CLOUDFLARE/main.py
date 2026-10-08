@@ -607,6 +607,61 @@ class LanguageEngine:
 
 LANGUAGE_ENGINE=LanguageEngine()
 
+BOOK_LEARNING={
+    "source":"portuguese_language_knowledge.pdf",
+    "chunks":5,
+    "pages_per_chunk":25,
+    "principles":[
+        "compreender_antes_de_buscar",
+        "definicao_antes_de_expansao",
+        "usar_contexto_para_interpretar",
+        "distinguir_classe_gramatical_de_funcao_sintatica",
+        "distinguir_tema_de_intencao",
+        "nao_confundir_ocorrencia_lexical_com_evidencia_semantica",
+        "sintetizar_a_partir_da_fonte_em_vez_de_repetir_fragmentos"
+    ]
+}
+
+def find_linguistic_concept(topic):
+    key=(topic or "").strip().lower()
+    if not key:
+        return None
+    for pool in (
+        PORTUGUESE.get("core_concepts",{}),
+        PORTUGUESE.get("word_classes",{}),
+        PORTUGUESE.get("syntax",{})
+    ):
+        if key in pool:
+            return {"key":key,**pool[key]}
+    if key.endswith("s"):
+        singular=key[:-1]
+        for pool in (
+            PORTUGUESE.get("core_concepts",{}),
+            PORTUGUESE.get("word_classes",{}),
+            PORTUGUESE.get("syntax",{})
+        ):
+            if singular in pool:
+                return {"key":singular,**pool[singular]}
+    return None
+
+def compose_book_grounded_answer(topic,qtype,depth,evidence):
+    concept=find_linguistic_concept(topic)
+    if qtype=="definition" and concept and concept.get("definition"):
+        answer=f"{topic.capitalize()} é {concept['definition'].rstrip('.')}."
+        examples=concept.get("examples")
+        if examples and depth in {"normal","technical","deep"}:
+            answer+="\n\nExemplo(s): "+"; ".join(map(str,examples[:3]))+"."
+        if evidence:
+            best=evidence[0]
+            answer+=(
+                "\n\nNo livro de Língua Portuguesa, encontrei evidência relacionada "
+                f"ao conceito nas páginas {best.get('start_page')}–{best.get('end_page')}: "
+                f"{best.get('text')}"
+            )
+        return answer
+    return None
+
+
 def chunk_urls(entry):
     # The index stores the relative cache path. Keep both a raw-file route
     # and the GitHub Contents API as a fallback for Worker egress.
@@ -651,14 +706,14 @@ async def load_chunks():
 
 async def library_search(query,reading,limit=5):
     chunks=await load_chunks()
-    q=tokens(reading.get("scope") or query)
-    if not q: q=tokens(query)
     qinfo=reading.get("linguistic_analysis",{}).get("question",{})
     qtype=qinfo.get("type")
     topic=(qinfo.get("topic_head") or reading.get("scope") or "").lower().strip()
+    q=tokens(topic) or tokens(reading.get("scope") or query)
     candidates=[]
-    noise_markers=("isbn","ficha catalográfica","sumário","referências","bibliografia","universidade federal de")
+    noise_markers=("isbn","ficha catalogográfica","sumário","referências","bibliografia","universidade federal")
     definition_markers=("é uma","é um","são","significa","consiste em","refere-se","define-se","definido como","definida como","constitui","constituída por")
+    concept=find_linguistic_concept(topic)
     for chunk in chunks:
         for sentence in sentences(chunk["text"]):
             lower=sentence.lower()
@@ -673,20 +728,35 @@ async def library_search(query,reading,limit=5):
             bonus=0.0
             if qtype=="definition":
                 if topic_hit and any(marker in lower for marker in definition_markers):
-                    bonus=3.5
+                    bonus=4.0
                 elif topic_hit:
                     bonus=0.6
+                if concept and any(marker in lower for marker in definition_markers):
+                    bonus+=0.5
             elif qtype=="function" and any(x in lower for x in ("função","serve","finalidade")):
                 bonus=2.0
+            elif qtype=="comparison" and any(x in lower for x in ("diferença","compar","semelhan","distin")):
+                bonus=1.5
             candidates.append((score+bonus,float(chunk.get("sequence",0)),sentence,chunk))
     candidates.sort(key=lambda x:(-x[0],x[1],len(x[2])))
-    selected=[]; seen=set()
+    selected=[]
+    seen=set()
     for score,_,sentence,chunk in candidates:
-        if sentence in seen: continue
+        if sentence in seen:
+            continue
         seen.add(sentence)
-        selected.append({"text":sentence,"chunk_id":chunk["id"],"source":chunk.get("source"),"start_page":chunk.get("start_page"),"end_page":chunk.get("end_page"),"score":round(score,6)})
-        if len(selected)>=limit: break
+        selected.append({
+            "text":sentence,
+            "chunk_id":chunk["id"],
+            "source":chunk.get("source"),
+            "start_page":chunk.get("start_page"),
+            "end_page":chunk.get("end_page"),
+            "score":round(score,6)
+        })
+        if len(selected)>=limit:
+            break
     return selected
+
 
 MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
 
@@ -759,16 +829,15 @@ async def handle_ask(body):
         answer="Oi! Aurora aqui. Manda o que você quer construir que a gente organiza."
     elif mode=="source_grounded":
         if qtype=="definition":
-            concept=PORTUGUESE.get("core_concepts",{}).get(topic_head.lower(),{})
-            definition=concept.get("definition")
-            runtime_use=concept.get("runtime_use")
-            parts=[definition] if definition else []
-            if runtime_use:
-                parts.append(f"Na interpretação, o AIGAR usa esse conceito para: {runtime_use}.")
-            if evidence:
-                parts.append("O livro de Língua Portuguesa recuperado acrescenta este contexto:")
-                parts.extend(e["text"] for e in evidence[:2])
-            answer=f"{topic_head.capitalize()} — definição estruturada pelo conhecimento linguístico do AIGAR:\n\n"+" ".join(parts)
+            answer=compose_book_grounded_answer(topic_head,qtype,reading["depth"],evidence)
+            if answer is None:
+                answer=f"Encontrei conteúdo relevante sobre {topic_scope}:\n\n"+" ".join(e["text"] for e in evidence[:3])
+            sources.append({
+                "kind":"language_knowledge",
+                "id":"aigar_portuguese_language_knowledge_v1",
+                "status":"confirmed",
+                "detail":"Definição estruturada pelo conhecimento linguístico explícito e complementada por evidência do livro."
+            })
         else:
             prefix=f"Encontrei conteúdo relevante sobre {topic_scope}:"
             answer=prefix+"\n\n"+" ".join(e["text"] for e in evidence[:3])
