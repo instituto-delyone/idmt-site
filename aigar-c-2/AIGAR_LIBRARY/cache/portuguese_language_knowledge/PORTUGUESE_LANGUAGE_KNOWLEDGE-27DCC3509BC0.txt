@@ -1,0 +1,625 @@
+101
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOcitar uma brincadeira diferente das que são citadas no poema, então, a ques-
+tão admite qualquer resposta desvinculada do texto. Caso semelhante ocorre em (25), uma questão precedida de uma reportagem que fala sobre frutas. 
+Assim como a questão anterior, o aluno pode mencionar uma fruta que nem 
+foi referida no texto. Na questão (26), a ligação com o texto não influencia a escolha do nome da personagem, qualquer nome escolhido pelo aluno deve ser considerado como uma resposta certa. 
+A distinção entre as questões subjetivas e vale-tudo fica mais evidente no 
+exemplo da questão (27), cuja resposta depende da opinião do aluno, assim como também ocorre nas questões do tipo subjetivas, porém não há a necessi-dade de nenhum tipo de justificativa ou relação textual, a questão apenas solicita 
+que o aluno escolha entre as opções: gostei, gostei muito, não gostei. 
+As questões classificadas como metalinguísticas “indagam sobre ques-
+tões formais, geralmente da estrutura do texto ou do léxico, bem como de par-
+tes textuais” (MARCUSCHI, 2008, p. 272). O livro Letramento e alfabetização, 
+2º ano: ensino fundamental apresentou 14% das perguntas desse tipo e o livro 
+A escola é nossa: letramento e alfabetização , 4%. Classificamos como sendo 
+desse tipo perguntas como:
+(28) Quantas estrofes tem o poema? (MOTTA; TORRES, 2011, p.154)
+(29) Quantos versos tem cada estrofe do poema? (MOTTA; TORRES, 2011, p.20) (30) O texto Quebra-cabeças pode ser dividido em três partes. Quais são elas? 
+(CAVÉQUIA, 2011, p. 114)
+A maior parte das metalinguísticas se referem a poemas. Questões como 
+(28) e (29) se repetem em algumas atividades, seja em forma direta, como 
+exemplificado, ou para completar, ou ainda para assinalar a alternativa correta. 
+A questão (30) indaga sobre as partes que compõem um texto instrucional que 
+precede a atividade. 
+Para além do livro didático
+Com o rastreamento das questões segundo a tipologia formulada por 
+Marcuschi (2008), notamos que, nas atividades de compreensão/interpretação nos livros didáticos analisados, predominam as questões objetivas , que esti-
+mulam a habilidade de localização das informações explícitas. Esse fato nos faz pensar na necessidade dos materiais didáticos das séries iniciais explora -
+rem melhor a atividade de interpretação textual, apresentando mais perguntas inferenciais , que propiciem o desenvolvimento das habilidades cognitivas do 
+aluno, uma vez que este tipo de questão não direciona as respostas, exigindo do leitor uma interação entre seus conhecimentos prévios e estratégias que estão muito além da decifração das palavras.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE102Mesmo nas séries iniciais é preciso trabalhar diversas habilidades de lei-
+tura, evitando não só a didatização do texto pelo direcionamento de perguntas, 
+mas também o silenciamento de sentidos da atividade criativa comum aos edu-
+candos desta fase. Algumas abordagens metodológicas podem ser sugeridas, 
+a exemplo de atividades mediadas pela leitura interpretativa do professor e a construção dos sentidos do texto a partir de prévias leituras coletivas em sala. Faz-se necessária a constante observação de questões elaboradas a partir da 
+indicação do desenvolvimento cognitivo dos alunos. 
+Além disso, a sala de aula deve ser um espaço de diálogo entre texto e 
+leitor, algumas perguntas podem direcionar a interpretação e, por vezes, tolher 
+os diálogos do texto para leitura do mundo do aluno e as práticas sociais futu-
+ras de letramento.
+As dificuldades constatadas em séries posteriores podem ser reflexo de pro-
+blemas que não foram solucionados nas séries iniciais, que podem prosseguir e 
+se intensificar a cada série. Assim, torna-se necessário identificar e buscar meios 
+de solucionar os problemas que atrapalham o ensino de leitura na base escolar.
+
+103CONCEPÇÃO DE LEITURA NO LIVRO DIDÁTICO E 
+AS ATIVIDADES DE COMPREENSÃO DE TEXTO
+Isabel Cristina Michelan de Azevedo
+Introdução1
+Sabemos que a leitura dissociada de um propósito, de uma intencionali -
+dade, de uma motivação individual não é propriamente leitura, por isso ativida -
+des mecânicas, que muitas vezes são praticadas nas escolas, pouco têm a ver 
+com construção de sentido, constituindo-se apenas em “pretexto para cópia, 
+resumos, análise sintática e outras tarefas de ensino de língua” (KLEIMAN, 2011, p. 30). Por essa razão, as práticas de leitura precisam envolver toda a comunidade escolar (gestores e professores de todas as áreas), por ser um 
+exercício cotidiano de linguagem, social e historicamente marcado, presente 
+na vida dos estudantes dentro e fora da escola, que revela posições assumidas nos diferentes contextos. 
+Na sociedade contemporânea, as práticas de leitura exigem prioritaria -
+mente compreensão conjunta, ou seja, construção mútua de sentidos, posto que “o texto não é um produto acabado, que traz tudo pronto para o leitor rece-ber de modo passivo” (KLEIMAN, 2011, p. 36). Partindo desse ponto de vista, o impacto direto de um trabalho organizado com a linguagem, considerando o 
+desenvolvimento das habilidades de leitura, deve recair sobre a ampliação das 
+competências docentes na elaboração de projetos que tenham a leitura, em perspectiva interdisciplinar, como eixo norteador. 
+Esse esforço é especialmente importante quando se verifica que o lei-
+tor proficiente não decodifica letra a letra no processamento da leitura, mas percebe as palavras globalmente e adivinha muitas outras, guiado por seus conhecimentos prévios e por suas hipóteses de leitura (KLEIMAN, 2011, p. 37).
+1 Trabalho decorrente do projeto de extensão Leitura: um compromisso de todas as áreas (LECTA), uma par-
+ceria entre a Universidade Federal de Sergipe e a Diretoria de Educação de Aracaju, com o objetivo de favo-
+recer a formação dos professores de diferentes áreas e a realização de Projetos de Leitura Interdisciplinares.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE104Tendo isso em vista, investigamos como o livro didático de língua portu-
+guesa tem possibilitado ao professor uma mudança de postura diante do tra-
+balho com a leitura. Por meio da análise dos exercícios propostos para a com-
+preensão dos textos selecionados para a composição dos volumes, buscamos 
+identificar a noção de língua subjacente à coleção didática, as habilidades que o livro pretende desenvolver e as possibilidades de trabalho diversificado su-gerido pela coleção.
+Compreensão de texto
+A compreensão de textos é um ato complexo e sociocultural, que envolve 
+uma multiplicidade de processos cognitivos e possibilita ao sujeito a elabora -
+ção de sentidos, por isso é uma noção que está associada à concepção de 
+leitura que se tem por base. 
+Há mais de vinte anos, Kleiman (2011) descreveu os processos cognitivos 
+envolvidos na leitura com a intenção de oferecer subsídios àqueles que partici-pam da formação de leitores e de favorecer o aprimoramento das capacidades 
+de leitura do leitor.
+Ao considerar a leitura um ato social, a autora vê o ato de ler como um ato 
+cognitivo que possibilita a interação entre diferentes elementos implicados na 
+construção de significados. Diante de um texto, o leitor necessita compreender 
+as sentenças, os pontos de vista apresentados a partir da seleção de argu-mentos, os objetivos que estão subjacentes à materialidade linguística, entre outros aspectos, o que permite assumir que ler é necessariamente interpretar.
+Ao destacar o papel do conhecimento prévio na compreensão de um tex-
+to, Kleiman (2011) ressalta a importância das experiências e dos conhecimen -
+tos acumulados ao longo da vida. É mediante a interação entre conhecimen -
+to linguístico e conhecimento de mundo, quando ativado, que o leitor pode 
+realizar inferências, permitindo uma visão ampliada dos sentidos do texto. O 
+processo inferencial depende de um número limitado de objetos, personagens, eventos, etc. que são acionados a favor da continuidade temática.
+Outro aspecto importante a ser considerado na leitura diz respeito aos ob-
+jetivos estabelecidos para o material selecionado. Ler por prazer, para buscar 
+informações necessárias para a realização de uma outra atividade, para enten-
+der uma situação vivida, para realizar uma avaliação escolar, por exemplo, são usos completamente distintos e promovem a apreensão de diferentes partes do texto. Além disso, percebe-se que a cada expectativa criada pelo leitor são
+
+105
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOconstituídas hipóteses particulares que acionarão temas, conteúdos e conhe -
+cimentos prévios variados. Essas são atividades de natureza metacognitiva 
+– pressupõem reflexão e controle consciente sobre o próprio conhecimento, 
+sobre o próprio fazer, sobre a própria capacidade (KLEIMAN, 2011, p. 43-44), 
+como já apresentado por Maristela Félix dos Santos, Maria Acácia de Lima Bo-nifácio e Taysa Mércia dos Santos Souza Damaceno , neste volume –, que se 
+opõem às atividades mecânicas de leitura, direcionadas apenas à recuperação 
+literal de informações.
+Então, quando o texto é considerado como uma unidade semântica, “onde 
+os vários elementos de significação são materializados através de categorias 
+lexicais, sintáticas, semânticas, estruturais” (KLEIMAN, 2011, p. 45), pode ser 
+observada nele uma interação pragmática que precisará ser reconstruída pelo 
+leitor, além de ser preciso reconhecer como os elementos formais, que estabele-cem relações coesivas, contribuem com a construção de um contexto específico.
+Dessa forma, ao aplicar variadas estratégias cognitivas, que funcionam 
+tanto no nível semântico quanto sintático, o leitor constrói coerência local e global, por meio das formas de recorrência, da linearidade, da continuidade te-mática, da não contradição, e também é capaz de identificar a rede de ligações e articulações presente no texto, mesmo de maneira não explicita.
+Apesar de ter decorrido um longo tempo, essa visão permanece válida, 
+tanto que se encontra parcialmente reafirmada na definição apresentada no relatório do PISA
+1 em 2012, como se vê a seguir:
+Letramento em leitura é a capacidade de compreender, utilizar, refletir e 
+envolver-se com textos escritos, com a função de alcançar um objetivo, desen -
+volver seu conhecimento e seu potencial, e participar da sociedade (OCDE, 2013). [...] O letramento em leitura inclui um largo conjunto de competências, que vão da decodificação básica ao conhecimento de palavras, estruturas e 
+características linguísticas e textuais ao conhecimento sobre o mundo. Inclui 
+também competências metacognitivas, como clareza e habilidade para utilizar uma variedade de estratégias apropriadas para a compreensão de textos. A leitura é vista como um processo “ativo”, que implica não apenas a capacidade 
+1 PISA (Programme for International Student Assessment - Programa Internacional de Avaliação de Estudan-
+tes) é desenvolvido pela Organização para Cooperação e Desenvolvimento Econômicos – OCDE –, entidade 
+que congrega 34 países. Além dos países filiados, a organização tem parceria para aplicação do PISA com outros 30 países e economias, entre os quais o Brasil. O PISA se propõe a avaliar estudantes de 15 anos de idade e matriculados a partir do sétimo ano de estudo. A avaliação é trienal, sendo que a cada edição o foco está centrado em uma área principal a ser avaliada. Na edição de 2000, o foco foi em leitura; em 2003, em matemática; em 2006, em ciências; em 2009, repetiu-se a área de leitura; e em 2012, o foco foi novamente 
+em matemática.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE106para compreender um texto, mas a capacidade de refletir sobre ele e de envol -
+ver-se com ele, a partir de ideias e experiências próprias (BRASIL, 2013, p. 3).
+A diferença que pode ser notada é a inscrição da discussão acerca da lei-
+tura nos estudos do letramento. Entre várias perspectivas existentes, destaca-se 
+a concepção sócio-histórica dos estudos de letramento, que concebe a leitura 
+como prática social, específica de uma comunidade, incluindo os modos de ler 
+inseparáveis dos contextos de ação dos leitores, as múltiplas e heterogêneas 
+funções da leitura ligadas aos contextos de ação desses sujeitos. Nesse sentido, “os modos de ler interessam pelo que nos podem mostrar sobre a construção social dos saberes em eventos que envolvem interações” (KLEIMAN, 2004). 
+Tendo por base essas referências, buscamos investigar o quanto o livro 
+didático de língua portuguesa favorece o desenvolvimento da leitura pelos es-tudantes, especificamente a coleção de Faraco e Moura (2012), aprovada sis-
+tematicamente pelo PNLD. No Guia de Livros Didáticos, publicado em 2014, aprovado para o próximo triênio, encontra-se a seguinte a avaliação: 
+A leitura é trabalhada por meio de levantamento de hipóteses, infe-
+rências, localização de informações, apreciações pessoais, relações 
+entre as partes dos textos e comparações com outros textos. São fo-calizadas relações semânticas, – como sinonímia, antonímia, deno -
+tação e conotação, – e textuais, como coesão e coerência, além de efeitos estilísticos de algumas estruturas linguísticas. No entanto, a seleção de textos apresenta pequena diversidade de autores, afigu-rando-se como pouco propícia à formação do leitor crítico (BRASIL, 2014, p. 90, grifos no original).
+A coleção é especialmente valorizada pelas atividades de leitura, embora 
+tenha sido criticada, no mesmo material, pela pouca diversidade de textos para 
+a formação do leitor crítico e pela pouca atenção à diversidade sociocultural.
+Em 2011, os mesmos autores disponibilizavam no mercado editorial a co-
+leção Linguagem Nova, que havia sido avaliada no Guia de Livros Didáticos de 
+2008. Embora tenha sido criticada por raramente explorar as singularidades do 
+texto literário nas atividades de compreensão, a coleção também foi bem avaliada. 
+A obra apresenta uma ótima coletânea de textos, com um núme-
+ro significativo de gêneros, que enfocam temas importantes para a formação ético-cidadã do aluno. As atividades de leitura acionam di-versas capacidades e exploram efeitos de sentidos e características específicas dos textos (BRASIL, 2014 p. 115).
+Adotando os critérios apresentados por Marcuschi (2008), já apresentados 
+no capítulo de Solange dos Santos e Leilane Ramos da Silva, neste volume, ava-
+liamos como as atividades propostas na coleção promovem o desenvolvimento 
+da compreensão leitora. Striquer (2010) analisou a obra Linguagem Nova, 6º
+
+107
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOano/5ª série e identificou que os textos apresentados no volume revelam diversi-
+dade de gêneros (22 gêneros diferentes em 51 textos recolhidos) e que as 195 questões propostas para o estudo dos textos precisavam ser analisadas levando 
+em conta as respostas propostas pelos autores. Como Striquer escolheu como 
+referência o texto de Marcuschi (2008), também selecionado para este trabalho, será possível estabelecer uma complementaridade entre as análises.
+Análise do livro didático
+A coleção Português nos dias de hoje , 6º ano, de Faraco e Moura (2012), 
+é composta por nove unidades, nas quais se encontram 20 textos para inter-pretação pelos estudantes. Cada uma possui uma seção intitulada “Para en-
+tender o texto”, cujas atividades exercitam a compreensão. Marcuschi (2008) 
+identificou mais de dezoito títulos de seções de compreensão em coleções didáticas publicadas na década de 1990. O título da coleção em análise, em 2012, reproduz escolhas daquela época, indicando que as denominações não 
+mudaram muito ao longo desse tempo, e que os objetivos também são manti-
+dos, pois tratam o texto sob vários ângulos, envolvendo compreensão, gramá-tica, fonologia, literatura e léxico.
+No estudo de Marcuschi (2008), encontra-se uma tipologia de perguntas 
+para a análise das atividades de compreensão encontradas nos livros didáticos de língua portuguesa, uma vez que há grande variedade de opções. Contudo, para a coleção de Faraco e Moura, na coleção divulgada em 2008, Striquer (2010) propôs a inserção de mais seis tipos: Criticidade, Confrontos entre texto 
+e realidade, Debates diretos, Pesquisas, Comparações entre leituras realiza -
+das e Decodificações. Com essa inserção, obtém-se quinze categorias, quan -
+do reunidas aos tipos propostos por Marcuschi (2008), porém, neste trabalho, 
+foram consideradas somente quatorze, pois a décima quinta (Decoficações) – definida por meio do agrupamento de perguntas que pretendem trabalhar 
+somente o vocabulário – está sistematicamente integrada a outros tipos na 
+obra de Faraco e Moura (2012).
+Na análise foram consideradas as questões propostas em “Para entender 
+o texto” e agregou-se as que se encontram na seção “Gramática textual”, que 
+também encaminham para a compreensão dos gêneros selecionados para o 
+volume. Em um primeiro momento, causou estranhamento essa divisão, mas ao longo da análise, percebeu-se que houve uma separação das questões que exploram aspectos relacionados ao conteúdo temático daquelas que analisam 
+características da estrutura composicional e estilística dos gêneros.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE108Seguindo a categorização proposta por Marcuschi (2008) e Striquer 
+(2010), temos, no volume do 6º ano, a distribuição das perguntas apresentada 
+na tabela 3.
+Tipo de Pergunta Ocorrências %
+Tipo 1 A cor do cavalo branco de Napoleão 7 4,5
+Tipo 2 Cópias 5 3,2
+Tipo 3 Objetivas 32 20,6
+Tipo 4 Inferenciais 17 11,0
+Tipo 5 Globais 10 6,5
+Tipo 6 Subjetivas 30 19,4
+Tipo 7 Vale-tudo 13 8,4
+Tipo 8 Impossível 0 0,0
+Tipo 9 Metalinguísticas 20 12,9
+Tipo 10 Criticidade 0 0,0
+Tipo 11 Confrontos entre texto e realidade 2 1,3
+Tipo 12 Debates 4 2,6
+Tipo 13 Pesquisas 3 1,9
+Tipo 14 Comparações 12 7,7
+Tabela 3: Categorização de perguntas em Faraco e Moura (2012) - vol. 6. 
+A tabela 3 mostra que as questões objetivas – que indagam objetivamente 
+os conteúdos, restringindo-se à decodificação das informações – prevalecem em relação aos outros tipos e representam 20,6% das perguntas encontradas 
+no volume. Esse predomínio coincide com a análise de Marcuschi (2008), e su-
+gere uma concepção de leitura única, igualmente partilhada, pois está funda-mentada na concepção de língua entendida como um sistema comum a todos, que gera textos com existência própria, independente do sujeito de enuncia -
+ção: o leitor. Os autores propõem aos estudantes o exercício da decodificação dos significados que possam ser desconhecidos antes da leitura.
+O segundo tipo mais frequente é o que reúne questões subjetivas (19,4%) 
+– que estão relacionadas à forma como cada estudante interpreta os fatos 
+indicados nos textos –, e coloca a responsabilidade pela intepretação total-
+mente no leitor. Nesse caso, a concepção cognitivista é ressaltada, uma vez que caberá a ele acionar os esquemas, pacotes de conhecimentos estrutura-dos, para associar informações recolhidas do texto a outras experiências ou
+
+109
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOconhecimentos, embora seja visível uma concepção de língua diferente que é 
+mobilizada por um sujeito ativo.
+Esses dois tipos de perguntas recobrem quase 50% das atividades en-
+contradas na obra de Faraco e Moura (2012) e revelam duas concepções dife-rentes de língua e leitura. A convivência de duas formas diferentes de abordar a língua e a leitura reflete os movimentos da Linguística Aplicada. Ou seja, os 
+autores mesclam abordagens, indicando o acompanhamento das tendências 
+teóricas para o ensino e a aprendizagem da leitura. Talvez isso explique a es-colha sistemática dos professores à obra.
+Vale a pena destacar ainda os outros tipos com maior frequência: tipo 
+metalinguístico (12,9%) e inferencial (11%). A porcentagem de questões meta-linguísticas já era esperada e varia pouco em relação ao estudo de Marcuschi (2008). Destaca-se, contudo, o aumento significativo de questões inferenciais. Percebe-se que o aumento de comparações entre textos favoreceu a amplia -
+ção de questões inferenciais, que estão alinhadas à concepção de leitura na 
+perspectiva interacionista, mas ainda há espaço para um número maior de 
+questões globais e para os debates diretos, que favorecem a criticidade e re-forçam as condições para o desenvolvimento de um processo, no qual o ato de ler torna-se um processo discursivo no qual se inserem os sujeitos produtores 
+de sentido – o autor e o leitor –, ambos sócio-historicamente determinados e 
+ideologicamente constituídos (CORACINI, 2002).
+Os exemplos do quadro da figura 31 evidenciam o esforço dos autores em 
+colaborar com a construção de um processo discursivo.
+Tipo de pergunta Exemplos
+Inferenciais O autor afirma que, se fosse um bicho, gostaria de ser 
+um golfinho, uma foca ou um urso. Considerando as vá-rias atividades que ele desenvolve, em sua opinião, que característica(s) de cada animal predomina(m) na persona-lidade de Flavio de Souza? Explique suas respostas. (p. 38)
+Globais Embora não seja fábula, o texto “O jabuti e a fruta” pode transmitir um ensinamento, uma “moral”. Qual seria a “mo-ral” dessa história? Justifique sua resposta. (p. 147)
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE110Tipo de pergunta Exemplos
+Confrontos entre texto 
+e realidadeComo você viu, de uma mesma história é possível originar 
+versões diferentes, as quais preservem o que há de mais importante e essencial da história original. Reúnam-se em equipes e tentem imaginar como seria a trama de Cindere -
+la nestes ambientes:
+a) numa tribo indígena brasileira da Amazônia de hoje;b) numa cidade grande brasileira;c) numa cidade pequena da região onde você mora;d) num futuro muito distante. (p. 91)
+Debates Diretos Como você viu, o texto lido faz parte da mitologia. Conver -
+se com seus(suas) colegas e o(a) professor(a) antes de 
+responder: seria adequado utilizar esse texto num livro de Ciências ou de Geografia para explicar a sucessão das es-tações do ano? Por quê? (p. 112)
+Pesquisas Reúna-se com alguns(algumas) colegas para pesquisar tiras humorísticas em livros, jornais ou revistas.
+a) Escolhem algumas das tiras encontradas, recortem-nas 
+e montem um painel.
+b) Numa folha avulsa, expliquem por escrito o que provoca 
+o efeito humorístico em cada uma das histórias. (p. 175)
+Comparações entre lei-
+turas realizadasCompare o Texto 1, “Sorte e ressureição”, com o Texto 2, “Corinthians (2) vs. Palestra (1)”. 
+a) Existem semelhanças entre os textos? Em caso afirma-
+tivo, que semelhanças são essas?
+b) E o que eles têm de diferente? (p. 198)
+Figura 31: Exemplos de tipo de perguntas que promovem o processo discursivo na obra de Faraco & Moura 
+(2012) - vol. 6. 
+As propostas apresentadas no quadro da figura 31 indicam um projeto di-
+dático engajado em um projeto interativo de leitura, mas que ainda não conse-
+gue superar os vínculos com posturas mais tradicionais e unilaterais de forma-
+ção de leitores, como se vê na diferença de incidências dos tipos de perguntas. 
+Para além do livro didático
+Em Faraco e Moura (2012), os debates diretos e os confrontos entre tex-
+to e realidade exploram pouco as relações sociais histórica e culturalmente 
+constituídas; além disso, as perguntas inferenciais e globais orientam pouco 
+a construção de avalições críticas, a identificação de conceitos contrários e a
+
+111
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOformulação de hipóteses baseadas em conhecimentos específicos. Trata-se, 
+portanto, de um movimento bem encaminhado que tem possibilidades de apri-moramento por parte dos professores, por meio de projetos de leitura locais e 
+alinhados às necessidades de cada grupo de estudantes.
+Como o discurso é entendido como constituído por um conjunto de enun -
+ciados possíveis em uma determinada situação comunicativa, marcada por um contexto sócio-histórico (ideológico), os projetos de leitura permitem aos 
+sujeitos participarem de práticas de linguagem cujas regras são pesquisadas, apropriadas e exercidas em uma comunidade cultural.
+Formar leitores proficientes, capazes de lidar com a pluralidade de senti-
+dos, é formar sujeitos com condições para construir sentidos que são atualiza-dos a cada circunstância enunciativa. Dessa forma, os estudantes podem com-preender que não é o texto que determina as leituras, não há leitura literal, nem é possível existir um leitor uno, coerente, pois os sujeitos são formados a partir de vivências muito diferentes, leituras variadas, relações sociais inéditas que, 
+certamente, irão impactar os sentidos que serão construídos a partir de um texto.
+
+113LEITURA DE TIRAS NO LIVRO DIDÁTICO
+Denise Porto Cardoso, Ruan Paulo Matos Rodrigues & 
+Fabíola dos Santos Lima
+Introdução1
+A tira é um subgênero das histórias em quadrinhos que vem ganhando 
+espaço no ensino-aprendizagem no decorrer das décadas. O uso das histó-
+rias em quadrinhos na educação baseia-se no conceito de criar engajamento 
+e motivação para os alunos. São gêneros multimodais, ou seja, textos que 
+empregam a linguagem verbal e a não verbal, em que uma linguagem comple -
+menta a outra, não podendo ser separadas como em um livro ilustrativo. O tipo textual predominante é o narrativo e gozam de linguagem autônoma porque 
+usam mecanismos próprios para representar os elementos narrativos, como 
+define-as Paulo Ramos “grande rótulo que agrega diferentes outros gêneros, cada um com suas peculiaridades”. (RAMOS, 2009, p. 20). 
+A tira pode ser considerada como um subgênero das histórias em quadri-
+nhos. É um texto curto, cuja menor unidade narrativa é o quadrinho, que contém o espaço da ação. As imagens não são apenas ilustrativas, mas constitutivas, cuja compreensão depende de leitura de textos, desenhos e variados tipos de balões, que são elementos fundamentais das histórias em quadrinhos. A passa-
+gem do tempo é marcada pela mudança de um quadrinho para outro, deixando 
+uma lacuna que se chama de hiato ou elipse. É nessa lacuna que o leitor cria expectativas para um final, geralmente inesperado. É nos balões, legendas, in-terjeições e onomatopeias que a linguagem verbal se apresenta. “A forma como as letras são grafadas pode conotar que determinada palavra ou expressão foi 
+dita aos gritos” (RAMOS, 2011, p.83), quando as letras aparecem bem maiores 
+e em negrito. Por se tratar de gênero multimodal, as tiras aparecem como fortes aliados do ensino-aprendizagem, permitindo ao aluno o uso de criatividade e imaginação em um gênero utilizado por muitos deles fora da escola.
+Na escola, a tira está presente no LDLP. Apresentamos o resultado de 
+uma investigação quanto à presença e ao uso das tiras na coleção Jornadas.
+1 Este trabalho é decorrente do desenvolvimento do projeto O uso de quadrinhos no livro didático, vinculado 
+ao Programa Institucional de Iniciação Científica COPES/UFS no período 2013-2014.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE114port Língua Portuguesa (DELMANTO; CARVALHO, 2012), já apresentada por 
+Maria Aparecida Alves Menezes, Marylin Vieira de Menezes e Vanusia Maria dos Santos Oliveira, ao tratarem dos pronomes possessivos, neste volume, 
+considerando seu uso na exploração do conteúdo didático. Com o foco na 
+leitura, adotamos a classificação proposta por Marcuschi (2008) decorrente de uma análise das questões de compreensão textual em LDLP, já explicitada e abordada por Solange dos Santos e Leilane Ramos da Silva e também por 
+Isabel Cristina Michelan de Azevedo , ambos neste volume. 
+No quadro da figura 32, estão ilustradas com atividades extraídas do 
+LDLP sob análise cada uma das categorias de perguntas relacionadas às pro-
+postas de compreensão textual.
+1. Perguntas do cavalo branco de Napoleão: perguntas em que a resposta já se 
+encontra na própria formulação. ― Em “[...] tenho um pouco de medo de ir à escola...”, qual é o termo que indica do que a menina tem medo? (8°ano, p.175)
+2. Cópias: perguntas que solicitam atividades de transcrição mecânica: copie, retire, 
+etc.: 
+― Reescreva no caderno as duas falas acrescentando o verbo subentendido. 
+(7º ano, p. 187)
+3. Objetivas: perguntas sobre conteúdos objetivamente inscritos no texto, atividade 
+de decodificação, pois a resposta está centrada no texto (o que, quem, quando, como, etc.).
+ ― Segundo as duas primeiras falas de Lucy o que ela gostaria de saber de Schroe-
+der? (9°ano, p.109)
+4. Inferenciais: perguntas mais complexas, exigindo não somente conhecimentos 
+textuais, mas também pessoais, contextuais, enciclopédicos, regras inferenciais e análise crítica. 
+― Agora leia a sinopse do filme apresentada no quadro ao lado e explique a intertex-
+tualidade presente na tira. (7°ano, p.201)
+5. Globais: perguntas que consideram o texto como um todo e aspectos extratextu-
+ais, envolvendo processos inferenciais complexos.
+ ― A quem Susanita se refere quando fala da sociedade “que tem a faca e o queijo na 
+mão” (6º ano, p.209)
+6. Subjetivas: perguntas superficiais sobre o texto, cujas respostas ficam por conta do 
+aluno e não há como testá-la em sua avaliação.
+― Compare as duas formas, a original e a que você redigiu. Qual você considera mais 
+adequada ao contexto? (9º ano, p.174)
+7. Vale-tudo: perguntas que indagam sobre questões que admitem qualquer resposta, 
+não havendo possibilidade de erro.
+-- Você se surpreendeu com a explicação que a personagem dá para o fato de gostar 
+de caminhos difíceis e esburacados? (7°ano, p.46)
+
+115
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENO8. Impossíveis: perguntas que exigem conhecimentos extratextuais e só podem ser 
+respondidas baseadas em conhecimentos enciclopédicos. ―Você conhece espécies 
+animais que migram anualmente? (8º ano, p. 151) 
+9. Metalinguísticas: perguntas sobre questões formais, geralmente da estrutura do 
+texto ou do léxico, bem como de partes textuais: 
+― Na situação criada por Suriá no último quadrinho, quem assume o papel de locutor? 
+E o de interlocutor? (6ºAno, p. 27)
+Figura 32: Tipologia das perguntas de compreensão (adaptado a partir de Marcuschi, 2008).
+Segundo Marcuschi, “todos os autores de LDLP julgam relevante o tra-
+balho com a compreensão textual” (MARCUSCHI, 2008, p. 49), tanto que 
+apresentam grande número de exercícios, cuja natureza nem sempre é clara. 
+Muitas vezes, os exercícios de compreensão deixam de fora a ironia, a análise 
+de intenções, a metáfora e outros aspectos que levariam a reflexões sobre o texto, como já apontado na análise de Maristela Felix dos Santos, Maria Acácia de Lima Bonifácio e Taysa Mércia dos Santos Souza Damaceno, neste volu-
+me. Além disso, apresentam questões de compreensão misturadas a questões 
+gramaticais que, muitas vezes, nada têm a ver com o texto, como já apontaram as análises de Maria Denise Oliveira da Silva e Tania Andrade Oliveira Santos, ao tratarem de pronomes pessoais, Maria Aparecida Alves Menezes, Marylin Vieira de Menezes e Vanusia Maria dos Santos Oliveira , ao tratarem de pro-
+nomes possessivos, Adna Nascimento Alves Santos, Karine Melo e Silva e 
+Simone Menezes Costa de Santana , ao tratarem do sujeito, e Dorinaldo dos 
+Santos Nascimento, Márcia Cristina Barreto Oliveira e Nadja Souza Ribeiro , ao 
+tratarem das orações adverbiais, todos neste volume.
+As questões relacionadas às tiras foram analisadas de acordo com a tipo-
+logia de Marcuschi (2008), a fim de verificarmos o seu uso como estratégia de leitura no LDLP sob análise, e também classificadas quanto ao tipo de conteú-do relacionado ao seu uso, se de compreensão ou de conteúdo gramatical, a 
+fim de vermos sua aplicação. 
+As tiras no livro didático
+Cada livro da coleção Jornadas.port é composto por oito unidades, cada uma 
+delas iniciada com a seção “Provocando o olhar”, que traz textos imagísticos com 
+o objetivo de contextualizar o tema que será desenvolvido na unidade e observar o conhecimento prévio dos alunos. Cada unidade apresenta duas leituras principais, 
+com textos variados, literários e não-literários, e os tópicos essenciais: “Exploração do texto”, “Depois da Leitura”, “Do texto para o cotidiano”, “Produção oral e/ou es-
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE116crita”, “Reflexão sobre a língua”, “Conhecimento interligado” e “Divirta-se” (esses 
+dois últimos tópicos não aparece em todas as unidades).
+O tópico Divirta-se tem o objetivo de descontrair. Aparece no meio e/ou 
+fim da unidade, pode ou não fazer relação com o gênero desenvolvido na ati-vidade de leitura da unidade e, normalmente, aparece sem qualquer exercício de compreensão, como se pode ver na figura 33, uma tira de Níquel Náusea no livro do 9º ano, o que sugere que o LDLP ainda está coaduna com a ideia 
+de que a função das tiras é apenas divertir. 
+Figura 33: Tira no livro didático Jornadas.por (DELMANTO; CARVALHO, 2012). Disponível em http://www2.
+uol.com.br/níquel/tiras_mes/2011/11/18.gif Acesso em 25/08/2014 
+A tira em questão poderia ser melhor explorada, para além da diversão, 
+com perguntas como “Em que consiste o humor do texto?” Para respondê-la, 
+o aluno teria que inferir que, em noite de lua cheia, de acordo com a cultura 
+popular, as pessoas se transformam em lobisomem, mas Níquel se transfor-
+mou em um poodle , como indicam seus cabelos transformados nos pelos do 
+poodle. Mais uma vez, a linguagem verbal estaria associada à linguagem não--verbal e a interpretação estaria dependente das duas.
+Por tratar-se de um gênero multimodal, cuja compreensão difere da de ou-
+tros gêneros porque apresenta imagens associadas à, agrada aos alunos, ao mesmo tempo em que exige reflexão, pois, algumas vezes, o aspecto verbal se sobrepõe ao visual e vice-versa.
+Em toda a coleção, foram empregadas muitas tiras, como podemos ver 
+na tabela 4, mas nem todas são acompanhadas por exercícios. No 6° e no 7° anos, o número de questões de compreensão é alto, superior ao de questões gramaticais; já no 8° e no 9° anos, o número de questões gramaticais é supe-
+rior, o que é considerado pelo Guia de Livros Didáticos do PNLD 2014 (BRA-
+SIL, 2013) como um ponto fraco.
+
+117
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOQuestões 6°ano 7°ano 8°ano 9°ano
+Gramaticais 52 65 50 44
+Compreensão 90 73 38 36
+Total 142 138 88 80
+Tabela 4: Quantidade de questões por ano.
+Como o nosso interesse é a compreensão de texto, focamos as questões 
+que tratam da compreensão das tiras. As questões de compreensão, de acor-
+do com a tipologia de perguntas proposta por Marcuschi (2008), estão distribu -
+ídas na coleção conforme a tabela 5.
+Tipos 6° 7° 8° 9°
+1.Cor do cavalo branco 0 0 01 0
+2. Cópias 05 03 01 03
+3.Objetivas 33 24 18 15
+4.Inferenciais 31 25 10 11
+5.Globais 10 02 02 01
+6.Subjetivas 07 15 04 04
+7.Vale – tudo 02 02 01 01
+8. Impossíveis - - 01 01
+9.Metalinguisticas 02 02 0 0
+Total 90 73 38 36
+Tabela 5: Perguntas de compreensão das tiras na coleção.
+A redução do número de questões com tiras nos livros do 8º e do 9º anos 
+é consequência de um da ampliação de gêneros de HQ, como a charge e o cartum, que são os gêneros predominantes na atividade de “Leitura 2” da últi-
+ma unidade do volume do 9°ano, já que, no Exame Nacional do Ensino Médio 
+(ENEM), muitas questões são pautadas em charges e cartuns, além das tiras.
+Chama a atenção o alto número de questões inferenciais, consideradas 
+por Marcuschi (2008) como questões merecedoras de atenção, já que são, ao lado das globais, as questões que mais contribuem para o desenvolvimento crítico reflexivo do aluno. Chegam a superar as questões objetivas e não con-tribuem para um crescimento da compreensão de textos por parte dos alunos,
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE118no 7°ano. O número de questões subjetivas, de cópia e de vale-tudo, que pou-
+co contribuem para o aprimoramento da compreensão leitora, é baixo; no en-tanto, as questões globais, importantes por levarem em conta o texto como um 
+todo, também aparecem em pequena quantidade. Vejamos na figura 34 mais 
+uma tira do Níquel Náusea, presente no tópico Atividades do 7ºano.
+ 
+Figura 34: Tira nas Atividades. Disponível em http://www2.uol.com.br/niquel/seletas_mundocao.shtm 7, 
+acessado em 28/08/2014
+A primeira pergunta relacionada à tira (a. Porque as pessoas estão corren-
+do) é objetiva, porque a resposta está no texto. O aluno não precisa pensar muito 
+para responder, uma vez que, no segundo quadrinho, está escrito “cão raivoso”. 
+Já as duas outras questões (b. Qual o significado de raivoso nesse contexto? c. 
+O medo das pessoas é justificado? Por quê) são consideradas inferenciais, por-
+que o aluno terá que fazer uma relação com os significados de raivoso – nesse 
+caso atacado de raiva, ou hidrofobia, doença que ataca cachorro. E, na questão 
+c, o aluno precisa relacionar a imagem da espuma com o que o cachorro fala, ou 
+seja, de que está apenas escovando os dentes.
+Vejamos agora a tira da figura 35, que trata de variação linguística. A tira 
+mostra uma versão portuguesa de uma tira de Calvin no volume do 8° ano e, a 
+seguir, vem o texto da versão brasileira, transcrito na figura 36. Essas tiras têm 
+como finalidade dar suporte à identificação da variação na colocação pronominal do português do Brasil e do português de Portugal. A questão 1, “Qual das tiras é de uma versão portuguesa das histórias de Calvin? Qual é de uma edição brasi-
+leira? Como você chegou a essa conclusão?”, é global, porque é necessário que 
+se compreenda a tira como um todo para que se responda a questão.
+
+119
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENO
+Figura 35: Tira para trabalhar variação linguística. Disponível em http://photos1.blogger.com/blog-
+ger/8140/903/1600/Calvin1.jpg acesso em 19/08/2014
+Figura 36: Texto da tira em português brasileiro
+Os tópicos em que mais aparecem as tiras são “Reflexão sobre a língua” 
+(que é voltado para o estudo dos conhecimentos linguísticos) e “Divirta-se”. Os au-
+tores de tiras mais encontrados são Fernando Gonsales, Laerte e Antônio Cedraz. 
+Apesar de seguir os pressupostos sociocomunicativos, o LDLP Jornadas.
+port ainda apresenta limitações na abordagem das tiras. Mudanças são neces-
+sárias para que a tira contribua para promover situações de aprendizagem di-
+ferentes das que fornecem os LDLP atuais. A tira ainda funciona apenas como 
+um instrumento para estudo de elementos gramaticais e para diversão.
+Para além do livro didático
+O gênero tira, ao ser preparado para atuar no ambiente de ensino, passa 
+a ser uma ferramenta que fornece ao professor um poder de atuação no ensi-no-aprendizagem, e aos alunos, o aprendizado do conteúdo de modo mais sig-
+nificativo. Entretanto, incentivar a compreensão das tiras e refletir como esse 
+gênero pode desenvolver a capacidade sociocomunicativa dos alunos é um trabalho do professor.- Calvin, seu ser desprezível!
+- Você me mandou ódio num cartão de namorados e um buquê escangalhado de flores 
+mortas!
+- Tome, aqui está um presente pra você, seu grosseiro insensível!- Um cartão de flores! Ele gosta de mim!- Ela notou! Ela gosta de mim!
+
+121REFERÊNCIAS
+AMORIM, E. R. M. Sujeito: uma questão mal resolvida pela gramática tradicional. Sitientibus , 
+n. 29, p.29-40, 2003.
+ARAUJO, A. S. Você me faria um favor? o futuro do pretérito e a expressão de polidez . 
+2014. Dissertação (Mestrado em Letras). Universidade Federal de Sergipe, 2014.
+ARAUJO, A. S.; CARVALHO, E. S. S.; SANTOS, J. C.; FREITAG, R. M. K. A expressão do tem-
+po verbal passado no português: a descrição dos compêndios gramaticais. Interdisciplinar , n. 
+5, v. 12, p. 257-269, jul/dez. 2010.
+ARAUJO, A. S.; FREITAG, R. M. K. O funcionamento dos planos discursivos em textos narrativos 
+e opinativos: um estudo da atuação do domínio aspectual. Signum. Estudos de Linguagem, v. 15, p. 57-76, 2012. 
+ARAUJO, A. S.; SANTOS, K. C.; FREITAG, R. M. K. Amostra rede social de informantes uni-
+versitários de Itabaiana/SE. In: FREITAG, R. M. K. (ed.) Metodologia de coleta e manipula-ção de dados em Sociolinguística . São Paulo: Blucher, 2014.
+AZEREDO, J. C. de. Gramática Houaiss da língua portuguesa. 3. ed. São Paulo: Publifolha, 2013.
+BAGNO, M. Gramática pedagógica do português brasileiro. São Paulo: Parábola, 
+2011.BECHARA, E. Moderna gramática portuguesa. 37.ed. Rio de Janeiro: Editora Lucerna, 
+2009.
+BECHARA, E. Gramática escolar da língua portuguesa. Rio de Janeiro: Lucerna, 2003.
+BENVENISTE, E. Problemas de Linguística geral I. A natureza dos pronomes. Tradução Ma-
+ria da Glória Novak e Maria Luiza Neri; revisão Isaac Nicolau Salum. 3.ed. Campinas: Pontes/
+Editora da UNICAMP, 1991.
+BORUCHOVITCH, E. Algumas estratégias de compreensão da leitura de aluno de ensino fun-
+damental . Psicologia Escolar e Educacional , n 5, p. 19-26, 2001.
+BRASIL, Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira. Relatório Nacional Pisa 2012. Resultados brasileiros. Brasília, 2013.
+BRASIL. Ministério da Educação e do Desporto. Secretaria de Educação Fundamental. Parâ-
+metros curriculares nacionais terceiro e quarto ciclos do ensino fundamental: Introdução 
+aos parâmetros curriculares nacionais. Brasília, 1998.
+BRASIL. Ministério da Educação. Secretaria de Educação Básica. Guia de livros didáticos: 
+PNLD 2014: Língua Portuguesa: Ensino Fundamental: anos finais. Brasília, 2013. 
+BYBEE, J. Frequency of use and the organization of language. Oxford: Oxford University 
+Press, 2006.
+CASTILHO, A. T. de. Nova Gramática do Português brasileiro. São Paulo: Contexto, 2010.
+CAVÉQUIA, M. P. A escola é nossa: letramento e alfabetização, 2º ano. São Paulo: Scipione, 
+2011.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE122CEREJA, W. R.; MAGALHÃES, T. C. Gramática – texto, reflexão e uso. São Paulo: Atual, 2008.
+CEREJA, W. R.; MAGALHÃES, T. C. Português: linguagens, 7°ano. 7.ed. reform. São Paulo: 
+Saraiva, 2012.
+CEREJA, W. R.; MAGALHÃES, T. C. Português: linguagens, 8º ano. 7 ed. São Paulo: Saraiva, 2012. CEREJA, W. R.; MAGALHÃES, T. C. Português: linguagens, 9º ano. 7. ed. São Paulo: Sa-
+raiva, 2012. 
+CIPRO NETO, P; INFANTE, U. Gramática da Língua Portuguesa. São Paulo: Scipione, 1998.
+COELHO, S. M. Uma análise funcional do onde no português contemporâneo: da sintaxe 
+ao discurso. 2001. Dissertação de Mestrado em Letras. Pontifícia Universidade Católica de Minas Gerais. Belo Horizonte, 2001. 
+CORACINI, M. J. R. F. O jogo discursivo na aula de leitura . Campinas: Pontes, 2002.
+COSTA VAL, M. G.; MARCUSCHI, B. Livro didático de língua portuguesa: letramento, inclu -
+são e cidadania. Belo Horizonte: Ceale/Autêntica, 2005.COSTA, C. L. et al. Para Viver Juntos: língua portuguesa – 7º ano. 3.ed. São Paulo: Edições 
+SM, 2012.
+COUTINHO, I. L. Gramática histórica. Rio de Janeiro: Ao Livro Técnico, 1982 [1932].
+CUNHA, C.; CINTRA, L. Nova gramática do português contemporâneo. Rio de Janeiro: 
+Nova Fronteira, 1985.
+CUNHA, C.; CINTRA, L. Nova gramática do português contemporâneo. 4.ed. Rio de Ja-
+neiro: Lexikon, 2007.
+DE NICOLA, J. Português: Ensino Médio. São Paulo: Scipione, 2005.
+DELMANTO, D; CARVALHO, L. B. Jornadas.port: Língua Portuguesa, 6º ano. 2. ed. São 
+Paulo: Saraiva, 2012. DUARTE, M. E. Termos da Oração. In: VIEIRA, S. R.; BRANDÃO, S. F. Ensino de gramática : 
+descrição e uso. São Paulo: Contexto, 2011, p. 186-203.
+FARACO, C. A. Norma culta brasileira: desatando alguns nós. 2. ed. São Paulo: Parábola 
+Editorial, 2008.
+FARACO, C. E.; MOURA, F. M. Português nos dias de hoje - 8º ano, São Paulo: Leya, 2012.
+FARACO, C. E.; MOURA, F. M. Gramática . São Paulo: Ática, 2003.
+FERNANDES, E. A. Nós e a gente: variação na Cidade de João Pessoa. (1997). Dissertação 
+(Mestrado em Letras). Universidade Federal da Paraíba, 1997.
+FERREIRA, L. M. A. Estabilidade e continuidade semântica. In: CUNHA, M. A. F.; OLIVEIRA, 
+M. R., MARTELOTTA, M. E, T. Lingu ística funcional : teoria e prática. Rio de Janeiro: DP&A, 
+2003. p. 73-87.
+FILETTI, E. As múltiplas funções sintático-semânticas do item onde no português do Brasil: 
+uma abordagem funcionalista para o ensino. Solta a Voz, v. 18, n. 2, p. 157-171, 2007. 
+FREITAG, R. M. K. Aspecto inerente e passado imperfectivo no português: atuação dos princí-
+pios da persistência e da marcação. Alfa, v. 55, p. 477-500, 2011.
+
+123
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOFREITAG, R. M. K. Banco de dados Falares Sergipanos. Working Papers em Linguística , 
+14 (2), p. 156-164, 2013. 
+FREITAG, R. M. K. Emergência e inovação na língua: explorando o paradigma funcional da 
+gramaticalização. Fólio, v. 2, n. 1 p. 143-161 jan./jun. 2010.
+FREITAG, R. M. K. Leitura, letramento e cidadania: explorando a Provinha Brasil. Curitiba: Appris, 2013.
+FREITAG, R. M. K. Variação na expressão do tempo verbal passado na fala e escrita de 
+Itabaiana/SE: funções e formas concorrentes. 2009. (Projeto de Pesquisa). Universidade 
+Federal de Sergipe, Programa de Pós-Graduação em Letras, 2009.
+FREITAG, R. M. K.; ARAUJO, A. S. O passado condicional: formas e contextos de uso. Cali-
+grama, v. 16, p. 199-228, 2011. 
+FREITAG, R. M. K.; MARTINS, M. A.; TAVARES, M. A. Bancos de dados sociolinguísticos do 
+português brasileiro e os estudos de terceira onda: potencialidades e limitações. Alfa, v. 56, 
+n.3, p. 917-944, 2012.
+GIVÓN, T. Syntax: an introduction. Amsterdam: John Benjamins, 2001.
+GÖRSKI, E. M.; COELHO, I. L. Variação linguística e ensino de gramática. Working Papers 
+em Linguística , v. 10, n.1, p. 73-91, 2009. 
+HALLIDAY, M.A.K. As ciências linguísticas e o ensino de línguas. Petrópolis: Vozes, 1974.
+HEINE, B. From cognition to grammar: evidence from African Languages. In: TRAUGOTT, E. C.; HEINE, B. (eds.) Approaches to grammaticalization. Philadelphia: John Benjamins, 
+1991, p. 149–187. 
+HORTA, M. R. F; MENNA, L. R. M. C; VIEIRA, M. G. Português: uma língua brasileira, 6º ano. 
+São Paulo: Leya, 2012.
+JOU, G. As habilidades cognitivas na compreensão da leitura. Um processo de inter-
+venção no contexto escolar. (2010). Tese de doutorado em Psicologia do Desenvolvimento. 
+Universidade Federal do Rio Grande do Sul, 2010.
+JOU, G., SPERB, T. M. A metacognição como estratégia reguladora da aprendizagem. Psico-
+logia: Reflexão e Crítica, v. 19, n.2, p. 177-185, 2006. 
+KERSCH, D. F. A palavra onde no português do Brasil. 1996. Dissertação (Mestrado em 
+Letras). Universidade Federal do Rio Grande do Sul, 1996.
+KLEIMAN, A. Abordagens da leitura. Scripta, v. 7, n. 14, p. 13-22, 2004.
+KLEIMAN, A. Texto e Leitor: aspectos cognitivos da leitura. 14. ed. Campinas: Pontes, 2011 
+[1989].KOCH, I. V.; ELIAS, V. M. Ler e escrever: estratégias de produção textual. 2 ed. São Paulo: 
+Contexto, 2014.
+LEFFA, V. J. Aspectos da leitura: uma perspectiva psicolinguística. Porto Alegre: Sagra-D.C. 
+Luzzatto, 1996. 
+LIMA, S. C. de. Impacto do vernáculo sobre o uso de onde na escrita monitorada. 2007. 
+Dissertação (Mestrado em Linguística). Universidade de Brasília, 2007.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE124LOPES, C. R. Pronomes pessoais. In: VIEIRA, S. R.; BRANDÃO, S. B. (org.). Ensino de gra-
+mática: descrição e uso. São Paulo: Contexto, 2011, p.103-119.
+LOPES, M. C. C. O uso de estratégias cognitivas e metacognitivas no ensino-aprendi -
+zagem da leitura no 1º grau: uma proposta de intervenção. 1997. Dissertação (Mestrado em 
+Letras). Universidade Estadual de Campinas, 1997.
+MARCUSCHI, L. A. Produção textual: análise de gêneros compreensão . São Paulo: Parábola, 
+2008.MARINHO, J. H. C. O funcionamento discursivo do item onde: uma abordagem modu-
+lar. 2002. Tese (Doutorado em Estudos Linguísticos). Universidade Federal de Minas Gerais, 
+2002.
+MARTINS, M. H. O que é leitura . São Paulo: Brasiliense. 2012.
+MOTTA, M.; TORRES, A. P. D. Letramento e alfabetização, 2º ano: ensino fundamental. São 
+Paulo: IBEP, 2011.
+NEVES, M. H. M. A gramática na escola. São Paulo: Contexto, 2003.
+NEVES, M. H. M. Ensino de língua e vivência de linguagem . São Paulo: Contexto, 2010.
+NEVES, M. H. M. Gramática de usos do português . São Paulo: Unesp, 2000.
+NEVES, M. H. M. Que gramática estudar na escola: norma e uso da língua portuguesa. 4. 
+ed. São Paulo: Contexto, 2013.
+NEVES, M. H. M. Guia de usos do português: confrontando regras e usos. São Paulo: 
+UNESP, 2003.
+OLIVEIRA, L. A. Coisas que todo professor de português precisa saber: a teoria na prática. 
+São Paulo: Parábola Editorial, 2010.
+OMENA, N. P. A referência a primeira pessoa do plural. In: SILVA, G. M. O.; SCHERRE, M. M. 
+P. (Orgs.). Padrões Sociolinguísticos. Rio de Janeiro: Tempo Brasileiro, 1996, p. 311-323.
+PASSARELLI, L. G. Ensino e correção na produção de textos escolares . São Paulo: Cor-
+tez, 2012.PERINI, M. A. Gramática do português brasileiro . São Paulo: Parábola Editorial, 2010.
+PERINI, M. A. Princípios de linguística descritiva: introdução ao pensamento gramatical . 
+São Paulo: Parábola Editorial, 2006.PONTES, E. S. L. Sujeito : da sintaxe ao discurso. São Paulo: Ática, 1986.
+RAFAEL, N. Variação, mudança e ensino: o caso dos pronomes possessivos da gente e 
+nosso(a)(s) em uma abordagem sociofuncionalista. 2010. Dissertação (Mestrado em Estudos 
+da Linguagem). Universidade Federal do Rio Grande do Norte, 2010.
+RAMOS, P. A leitura dos quadrinhos . São Paulo: Contexto, 2009. 
+RAMOS, P. Recursos de oralidade nos quadrinhos . In: ELIAS, V M. (org) Ensino de língua 
+portuguesa: oralidade, escrita e leitura. São Paulo: Contexto, 2011. p. 79-101.RIBEIRO, C. Metacognição: um apoio ao processo de aprendizagem. Psicologia: Reflexão e 
+Crítica, v.16, n.1, p. 109-116, 2003.
+
+125
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOROCHA LIMA, C. H. Gramática normativa da língua portuguesa. 3. ed. Rio de Janeiro: José 
+Olympio, 1989.
+SAID ALI, M. Gramática histórica da língua portuguesa. Rio de Janeiro: Livraria Acadêmica, 
+1971. 
+SANTOS, K. C. Estratégias de polidez e a variação de nós vs. a gente na fala de discen-
+tes da Universidade Federal de Sergipe. 2014. Dissertação (Mestrado em Letras). Universi -
+dade Federal de Sergipe, 2014. 
+SANTOS, S. Leitura e Provinha Brasil: dos pressupostos teóricos ao diagnóstico de habilida -
+des. 2014. Dissertação (Mestrado em Letras). Universidade Federal de Sergipe, 2014.
+SANTOS, S. Ler a palavra, ler o mundo: o universo da leitura no livro didático. 2010. Mono-
+grafia (Graduação em Letras Português - Licenciatura) – Departamento de Letras, Universida -
+de Federal de Sergipe, Itabaiana, 2010.
+SARMENTO, L. L. Gramática em textos . São Paulo: Moderna, 2000.
+SILVA, F. C. O percurso de mudança do item ‘onde’ na perspectiva da gramaticalização. 
+2008. Dissertação (Mestrado em Estudos da Linguagem). Universidade Federal de Minas Ge-
+rais, 2008.
+SILVA, G. R. da. A polifuncionalidade de onde. 2002. Dissertação (Mestrado em Letras Ver-
+náculas). Universidade Federal do Rio de Janeiro, 2002.
+SILVA, S. T.; OLIVEIRA, P. I.; MARTINS, A. L. A fluidez semântica das orações adverbiais 
+nas gramáticas pedagógicas do português brasileiro . Anais do XV Congresso Nacional de 
+Linguística e Filologia. Cadernos do CNLF, v. 25, n. 5, t. 2. Rio de Janeiro: CiFEFiL, 2011, p. 1271-1286.
+SOLÉ, I. Estratégias de leitura. 6 ed. Trad. Claudia Schilling. Porto Alegre: Armed, 1998.
+SOUZA, E. H. P. M. Os valores do onde na língua falada. Revista da FACED, n. 7, p. 213-226, 
+2003b. SOUZA, E. H. P. M., da. A multifuncionalidade do onde na fala de Salvador. 2003. Tese 
+(Doutorado em Letras). Universidade Federal do Rio de Janeiro, 2003a.STRIQUER, M. O processo de leitura realizado pela fórmula “Estudo do Texto” no livro didático 
+de língua portuguesa. Signum , n. 13/2, p. 453-470, 2010.
+SUASSUNA, L. Avaliação e reescrita de textos escolares: a mediação do professor. In: ELIAS, V. M. Ensino de Língua Portuguesa: oralidade, escrita e leitura. São Paulo: Contexto, 2011. p. 119- 134.
+TAVARES, M. A.; FREITAG, R. M. K. Do concreto ao abstrato: influência do traço semântico -
+-pragmático do verbo na gramaticalização em domínios funcionais complexos. Linguística , v. 
+6, p. 103-119, 2010. 
+TERRA, E.; NICOLA, J. Português: de olho no mundo do trabalho. São Paulo: Scipione, 2004.
+VITORINO, M. A.; SILVA, C. R. T. Livros didáticos de português: como enfocam concordância 
+e sujeito. Soletras, v. 26, p. 313-329, 2013.

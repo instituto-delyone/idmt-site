@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "source_key": "portuguese_language_knowledge",
+  "source_name": "portuguese_language_knowledge.pdf",
+  "source_sha256": "54e55ce74fea4a06c317dd4011954357ce4af64d576e7aeac0d412071a04b3c4",
+  "chunk_count": 5,
+  "source_units": 125,
+  "generated_by": "1.0.0"
+}

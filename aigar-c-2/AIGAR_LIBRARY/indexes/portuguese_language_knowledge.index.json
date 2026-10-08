@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "portuguese_language_knowledge.pdf",
+    "key": "portuguese_language_knowledge",
+    "sha256": "54e55ce74fea4a06c317dd4011954357ce4af64d576e7aeac0d412071a04b3c4",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "PORTUGUESE_LANGUAGE_KNOWLEDGE-6D6AF6C3B49F",
+      "sequence": 1,
+      "source": "portuguese_language_knowledge.pdf",
+      "source_key": "portuguese_language_knowledge",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 39870,
+      "text_checksum": "35d2a1e9de227044da72bff4660605f5e0b08886322a90073c7d422bd018ac60",
+      "cache_file": "portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-6D6AF6C3B49F.txt"
+    },
+    {
+      "id": "PORTUGUESE_LANGUAGE_KNOWLEDGE-5FA2F5CB4ABB",
+      "sequence": 2,
+      "source": "portuguese_language_knowledge.pdf",
+      "source_key": "portuguese_language_knowledge",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 57872,
+      "text_checksum": "e0324b769d58707a109bec67671c2bae4c4cbda04f0f32615363255efa185bc5",
+      "cache_file": "portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-5FA2F5CB4ABB.txt"
+    },
+    {
+      "id": "PORTUGUESE_LANGUAGE_KNOWLEDGE-707869DB28A4",
+      "sequence": 3,
+      "source": "portuguese_language_knowledge.pdf",
+      "source_key": "portuguese_language_knowledge",
+      "start_page": 51,
+      "end_page": 75,
+      "text_length": 57372,
+      "text_checksum": "49e143848dcdd551d1855d32563e0fa85d2fa190fd4b982b27074581389c52cb",
+      "cache_file": "portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-707869DB28A4.txt"
+    },
+    {
+      "id": "PORTUGUESE_LANGUAGE_KNOWLEDGE-5BA56CEA70AA",
+      "sequence": 4,
+      "source": "portuguese_language_knowledge.pdf",
+      "source_key": "portuguese_language_knowledge",
+      "start_page": 76,
+      "end_page": 100,
+      "text_length": 58671,
+      "text_checksum": "e1c8139b2f3b6fd0ff3a5652a1a9c5798baea956c7185dd47b90272139fec74d",
+      "cache_file": "portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-5BA56CEA70AA.txt"
+    },
+    {
+      "id": "PORTUGUESE_LANGUAGE_KNOWLEDGE-27DCC3509BC0",
+      "sequence": 5,
+      "source": "portuguese_language_knowledge.pdf",
+      "source_key": "portuguese_language_knowledge",
+      "start_page": 101,
+      "end_page": 125,
+      "text_length": 52489,
+      "text_checksum": "2e897d836578d812b89938cabf31f3850405d77f6d41bcd5c21e1e9ea3c1eaf7",
+      "cache_file": "portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-27DCC3509BC0.txt"
+    }
+  ]
+}

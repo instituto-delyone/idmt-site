@@ -1,0 +1,471 @@
+UNIVERSIDADE FEDERAL DE SERGIPE
+reitor
+Prof. Dr. Angelo Roberto Antoniolli
+vice-reitor
+Prof. Dr. André Maurício Conceição de Souza
+EDITORA DA UNIVERSIDADE FEDERAL DE SERGIPE
+coordenadora do programa editorial
+Messiluce da Rocha Hansen
+coordenador gráfico
+Michell Angelo Santos Lima
+conselho editorial
+Adriana Andrade Carvalho
+Antonio Martins de Oliveira Junior
+Aurélia Santos Faraoni
+Ariovaldo Antônio Tadeu LucasSatie Katagiri Ubirajara Coelho Neto
+José Raimundo Galvão
+Luisa Helena Albertini Pádua TrombetaMackely Ribeiro Borges
+Maria Leônia Garcia Costa Carvalho
+projeto gráfico , capa e editoração eletrônica
+Jeane de Santana
+ilustração /capa
+Jean Carlo da Silva
+Cidade Universitária Prof. José Aloísio de Campos
+CEP 49.100 - 000 – São Cristóvão - SE.
+Telefone: 2105 - 6922/6923. e-mail: editora.ufs@gmail.com 
+www.editora.ufs.br
+Este livro, ou parte dele, não pode ser reproduzido por qualquer meio sem autorização escrita da Editora.
+Este livro segue as normas do Acordo Ortográfico da Língua Portuguesa de 1990, adotado no Brasil em 2009.
+
+SÃO CRISTÓVÃO-SE/ 2015
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA 
+E ENSINO DE LÍNGUA PORTUGUESA
+CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE
+Raquel Meister Ko. Freitag &
+Taysa Mércia dos Santos Souza Damaceno
+
+FICHA CATALOGRÁFICA ELABORADA PELA BIBLIOTECA CENTRAL
+UNIVERSIDADE FEDERAL DE SERGIPE
+F866lFreitag, Raquel Meister Ko.
+ Livro didático-gramática, leitura e ensino da língua 
+portuguesa : contribuições para prática docente / 
+Raquel Meister Ko. Freitag, Taysa Mércia dos Santos Souza Damasceno. – São Cristóvão :Editora UFS, 2015. 
+125p.
+ISBN :978-85-7822-493-6
+ ISBN 978-85-7822-492-9 (Internet)
+1. Língua portuguesa – Estudo e ensino. 2. Língua 
+portuguesa - Gramática. 3. Material didático. 4. Prática de 
+ensino. I. Damasceno, Taysa Mércia dos Santos Souza. II. Título.CDU 811.134.3(81)
+
+Sumário
+9 PARA ALÉM DO LIVRO DIDÁTICO 
+Raquel Meister Ko. Freitag & Taysa Mércia dos Santos Souza Damaceno
+11 ENSINO PRODUTIVO DE GRAMÁTICA 
+Raquel Meister Ko. Freitag
+11 Introdução 
+11 Premissas do ensino de língua materna 
+13 Paradigma verbal do português 
+14 Ensino de verbos 17 Proposta de trabalho 
+19 O FUTURO DO PRETÉRITO COMO ESTRATÉGIA DE POLIDEZ: O QUE DIZEM 
+AS GRAMÁTICAS? 
+Andréia Silva Araujo
+19 Introdução 20 O que dizem os compêndios gramaticais sobre o FP? 
+24 Proposta de trabalho 
+25 ONDE: ADVÉRBIO, PRONOME OU CONJUNÇÃO?
+Jaqueline Lima Fontes 
+25 Introdução 26 A trajetória da funcionalidade do item onde 
+27 Onde em uso 32 Proposta de trabalho 
+33 PRONOMES PESSOAIS NO LIVRO DIDÁTICO 
+Maria Denise Oliveira da Silva & Tania Andrade Oliveira Santos
+33 Introdução34 O que são pronomes?36 Os pronomes no livro didático36 O livro analisado36 O tratamento dos pronomes41 Para além do livro didático
+
+45 OS PRONOMES POSSESSIVOS NO LIVRO DIDÁTICO
+Maria Aparecida Alves Menezes, Marylin Vieira de Menezes & Vanusia Maria dos Santos Oliveira 
+ 45 Introdução
+ 45 Pronomes possessivos 
+ 47 Os livros didáticos 
+ 47 Jornadas.port: língua portuguesa
+ 51 Português: uma língua brasileira 
+ 54 Para além do livro didático 
+55 SUJEITO: PONTOS E CONTRAPONTOS NA ABORDAGEM DO LIVRO DIDÁTICO
+Adna Nascimento Alves Santos, Karine Melo e Silva & Simone Menezes de Santana 
+55 Introdução 
+56 O sujeito: pontos e contrapontos 
+59 Análise do sujeito no livro didático “Português Linguagens” 
+60 Tópicos “Construindo o Conceito” e “Conceituando” 
+64 Tópico “A categoria gramatical estudada” 
+66 Tópico “Semântica e Discurso” 
+68 Para além do livro didático 
+71 AS ORAÇÕES ADVERBIAIS NO LIVRO DIDÁTICO
+Dorinaldo dos Santos Nascimento, Márcia Cristina Barreto Oliveira & Nadja Souza Ribeiro
+71 Introdução 
+72 Orações subordinadas no livro didático78 Para além do livro didático
+79 ABORDAGENS PARA A MEDIAÇÃO DA LEITURA E DA ESCRITA NO LIVRO 
+DIDÁTICO DE LÍNGUA PORTUGUESA 
+Maristela Felix dos Santos, Maria Acácia de Lima Bonifácio & Taysa Mércia dos Santos Souza 
+Damaceno
+79 Introdução
+80 Análise das atividades de leitura e escrita 
+81 Tratamento das habilidades cognitivas e metacognitivas da leitura84 Tratamento das habilidades cognitivas e metacognitivas da escrita87 Para além do livro didático
+
+91 TIPOLOGIA DE PERGUNTAS NAS ATIVIDADES DE MEDIAÇÃO PARA LEITURA 
+EM LIVROS DIDÁTICOS
+Solange dos Santos & Leilane Ramos da Silva 
+91 Introdução
+92 Uma tipologia para a atividade de compreensão/interpretação de texto96 A tipologia de perguntas nos livros didáticos 
+101 Para além do livro didático 
+103 CONCEPÇÃO DE LEITURA NO LIVRO DIDÁTICO EAS ATIVIDADES DE COM-
+PREENSÃO DE TEXTO
+Isabel Cristina Michelan de Azevedo
+103 Introdução
+104 Compreensão de texto107 Análise do livro didático
+110 Para além do livro didático
+113 LEITURA DE TIRAS NO LIVRO DIDÁTICO
+Denise Porto Cardoso, Ruan Paulo Matos Rodrigues & Fabíola dos Santos Lima
+113 Introdução 
+115 As tiras no livro didático 
+119 Para além do livro didático
+121 REFERÊNCIAS
+
+9PARA ALÉM DO LIVRO DIDÁTICO
+Raquel Meister Ko. Freitag & 
+Taysa Mércia dos Santos Souza Damaceno
+Debates e premissas sobre a formação docente e a apresentação de ob-
+jetos teóricos para o ensino de Língua Portuguesa sempre foram uma cons-
+tante no âmbito acadêmico. O cenário construído nos últimos vinte anos de 
+contribuições dos estudos da linguagem para o ensino de língua materna 
+trouxe caminhos e discussões para o que se propõe na Educação Básica – sistematizados nos Parâmetros Curriculares Nacionais da Língua Portuguesa (BRASIL, 1998) – e, por conseguinte, para a formação inicial e continuada dos 
+professores. 
+Consoante a essa perspectiva, o Grupo de Estudos em Linguagem, Inte-
+ração e Sociedade (GELINS) tem desenvolvido pesquisas na linha “Competên -
+cias comunicativas: formação docente e ensino de língua materna”, que tem por objetivo tratar da abordagem da leitura e o conhecimento gramatical com 
+base em dados empíricos oriundos de práticas sociais diversificadas. Nossos resultados visam estimular propostas de ensino da leitura para o letramento como prática social voltada para o fortalecimento do leitor como cidadão atu-
+ante na sociedade em que se insere. 
+As disciplinas Gramática, Variação e Ensino e Aspectos Sociocognitivos 
+e Metacognitivos da Leitura e da Escrita, do PROFLETRAS, propiciaram re-
+flexões sobre essa temática a professores da educação básica. O aprofun -
+damento desses conhecimentos foi orientado pelas análises epilinguísticas e 
+metalinguísticas, considerando os fenômenos gramaticais mais produtivos e 
+mais complexos, a fim de ampliar a competência comunicativa dos alunos na escuta, na leitura e na produção de textos orais e escritos. Buscamos uma prática reflexiva sobre a articulação entre as abordagens cognitivas da leitura e da escrita e as pesquisas sobre letramento e o conhecimento gramatical. 
+O processo de aprendizagem das disciplinas culminou com as propostas de 
+análise e abordagem “Para além do livro didático”, com a sugestão do “como” fazer nas aulas de Língua Portuguesa. Foi a partir dessa conjuntura que nos propusemos a analisar o recurso mais utilizado pelos professores nas aulas 
+do Ensino Fundamental: o livro didático de Língua Portuguesa (LDLP). Des-
+tacamos aqui o papel subsidiário e pedagógico que este recurso ganhou nas
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE10aulas de Língua Materna do Ensino Fundamental depois da implantação do 
+Programa Nacional do Livro Didático (PNLD). 
+Acreditamos no ensino produtivo de gramática. O professor de Língua 
+Portuguesa precisa não só consultar mais de um compêndio gramatical, como também instigar a reflexão quanto ao uso linguístico de falantes mais escola -
+rizados em face ao que preconizam os compêndios gramaticais. O ensino de 
+gramática a partir do livro didático deve integrar estas outras fontes de consulta 
+(os compêndios gramaticais, o senso epilinguístico do falante da língua). No tocante à leitura, as habilidades metacognitivas e a compreensão de textos são mais bem exploradas nos livros didáticos. No entanto, considerando a ti-pologia de perguntas de Marcuschi (2008), constatamos que os livros didáticos 
+não mudaram tanto quanto gostaríamos, o que reforça a importância de nosso 
+papel na formação inicial e continuada de professores de Língua Portuguesa.
+As nossas análises do LDLP, no contexto da formação docente, aprimo -
+raram as propostas de ensino nele contidas, visando não só aprofundar os 
+conhecimentos dos docentes no que se refere aos diversos subsistemas da 
+língua – fonológico, morfológico, sintático e semântico-pragmático –, mas tam-bém trazer um horizonte metodológico de USO-REFLEXÃO-USO para além do livro nas aulas de Língua Portuguesa. 
+Buscamos incluir neste cenário atividades epilinguísticas e metalinguísti -
+cas, ampliando, assim, a competência comunicativa dos alunos na escuta, na leitura e na produção de textos orais e escritos, em consonância a uma prática reflexiva sobre a articulação entre as abordagens cognitivas da leitura e da 
+escrita e as pesquisas sobre letramento.
+Por fim, destacamos não só a necessidade de se trabalhar diversas habi -
+lidades de leitura nos anos iniciais de formação, a fim de amenizar as proble -
+matizações advindas de dificuldades de focalização e inferências por parte de 
+leitores em formação inicial, mas também o desenvolvimento de pesquisas que articulem a teoria e a prática, como foi nossa proposta.
+
+11ENSINO PRODUTIVO DE GRAMÁTICA
+Raquel Meister Ko. Freitag
+Introdução1
+O desenvolvimento de modelos teórico-metodológicos para lidar com a 
+faculdade da linguagem tem beneficiado o ensino de língua, na medida em que 
+os resultados de investigação científica dão suporte a novas estratégias e me-
+todologias de trabalho, tanto para língua materna como para língua adicional. 
+A linha teórica funcional-cognitivista (GIVÓN, 2001; BYBEE, 2006, entre 
+outros) – subjacente nos PCN (BRASIL, 1998) – parte do princípio de que a 
+comunicação humana ocorre em função das ações (experiências) e envolve participantes e contextos não homogêneos; assim, a gramática responde pelo 
+modo como as informações são codificadas e afetadas pelo contexto, ou seja, 
+pelo modo como o falante absorve, armazena e codifica as suas experiências. Tal concepção de gramática é decorrente de uma concepção de língua como 
+um produto da adaptação biológica nas funções de representação e comuni -
+cação do conhecimento, considerando a relação entre frequência de uso e 
+emergência/regularização de padrões gramaticais. 
+A fim de contribuir para a formação do professor de Língua Portugue -
+sa, buscamos elucidar os evidenciais funcionalistas-cognitivas presentes nos PCN e destacar a sua importância no campo de ensino de gramática, especi -
+ficamente no domínio do verbo. Tais evidenciais, no entanto, são aplicáveis a todos os domínios da gramática.
+Premissas do ensino de língua materna
+Halliday (1974) sugere que há três maneiras de se ensinar ou abordar 
+uma língua: a prescritiva , baseada na fixação de padrões de prestígio; a des-
+1 Este trabalho é decorrente do desenvolvimento do projeto Variação na expressão do tempo verbal pas-
+sado na fala e escrita de Itabaiana/SE: funções e formas concorrentes (FREITAG, 2009), financiado pela 
+Chamada Pública Edital MCT/CNPq/MEC/CAPES nº 02/2010 - Ciências Humanas, Sociais e Sociais Aplicadas (Processo 401564/2010-0) e edital FAPITEC/SE/FUNTEC 06/2009 – UNIVERSAL (Processo 019.203.00910/2009-0).
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE12critiva, centrada na análise do modo como o sistema linguístico funciona; e a 
+produtiva, focada no aprimoramento das habilidades linguísticas. É à terceira proposta de Halliday (1974) que os PCN se alinham.
+2 
+O alinhamento funcionalista deste conjunto de documentos é facilmente 
+percebido ao analisarmos sua concepção de língua, que ressalta o uso social, considerando contextos de interação verbal, seus atores – falantes e ouvintes – e as condições internas e externas à manifestação linguística. A língua é vista como um organismo não autônomo, como produto e instrumento de comunica -
+ção, de persuasão, de expressão, de simulação, das manifestações humanas. Tal concepção de linguagem é assentada em premissas funcionalistas, como a da correspondência entre sentido e expressão, entre função e forma. As funções, sejam elas no nível da fonética/fonologia, da morfologia, da sintaxe ou do discurso, articulam sentidos e, a partir de análise gramatical, é possível 
+aprimorar estratégias de leitura e de produção textual. A atividade interpretativa 
+decorre de observação cuidadosa e refinada das estruturas linguísticas que funcionam como marcas ou pistas dos sentidos em elaboração.
+Os usos linguísticos combinam estratégias mais regulares e sistemáticas, 
+necessárias à interlocução social, de caráter geral e coletivo, no âmbito da gra-mática, assim como usos de âmbito mais individual, relativos a estruturas mais criativas e pessoais de apropriação da língua, no âmbito do discurso. A análise das estruturas gramaticais permite generalizações pela maior frequência com 
+que são articuladas na comunidade linguística, e o tratamento das estratégias 
+discursivas permite analisar o texto de modo mais específico, configurando uma língua maleável e adaptativa.
+Como podemos ver, nos PCN, a língua é tratada como uma estrutura 
+parcialmente maleável, na combinação, respectivamente, de níveis de maior fixação ou rigidez, como o fonológico ou o morfológico flexional, e outros mais sujeitos a pressões de natureza discursivo-pragmática, como o sintático ou o morfológico derivacional. Assumindo essa concepção, focamos a questão 
+entre o caráter discreto vs. contínuo para a abordagem de classe gramaticais. 
+Podemos, para fins de didatização de conteúdo, trabalhar com classes grama-ticais discretas, estáticas, absolutas e bem definidas, com contornos nítidos e sem hierarquização de seus constituintes; tal como quando lidamos, por exem-plo, com substantivo, verbo, adjetivo ou pronome como conjuntos fechados, 
+2 Os PCN são um conjunto de documentos que têm como objetivo subsidiar a elaboração do currículo dos 1º 
+e 2º ciclos do ensino fundamental e do ensino médio, visando à formação cidadã do aluno. Esses documen -
+tos têm sido alvo de críticas quanto a certas incoerências decorrentes da junção de diferentes abordagens 
+teóricas. Apesar das críticas, não perdem sua importância, pois trata-se de um conjunto de documentos unifi-cado, em nível nacional, de ampla divulgação e fácil acesso, que orienta a prática pedagógica para formação cidadã, com o foco no aprimoramento das habilidades expressão verbal, falada e escrita.
+
+13
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOsem intersecções, sem difusões. Outra opção é o tratamento das classes gra-
+maticais em seu continuum, em que cada qual constitui um conjunto irregular, 
+relativo e impreciso, dinamicamente organizado, cujos traços constitutivos não 
+são partilhados igualmente por todos os seus membros. Qual das duas abor-
+dagens é a melhor para lidar, por exemplo, com os verbos? Qual das duas abordagens pode prover explicações que dão conta de todos os dados e não apenas de parte deles? Vejamos, a seguir, uma contextualização do paradig -
+ma verbal do português em uso atualmente a fim de elucidar estas questões.
+Paradigma verbal do português
+“Cantava” ou “estava cantando”? “Cantaria” ou “ia cantar”? “Cantei” ou 
+“tinha cantado”? A língua portuguesa dispõe de diferentes formas verbais que funcionam com o mesmo significado (ou função), ou, ainda uma mesma forma 
+que tem mais de um significado, configurando contextos de polissemia e/ou va-
+riação. Esta variação, no entanto, não é um fenômeno recente: as gramáticas normativas já preveem muitos destes diversos usos da mesma forma verbal, o que indicia que este fenômeno de variação não é estigmatizado, ou seja, 
+não é visto de forma a estabelecer julgamento depreciativo a quem faz uso. 
+A variação entre formas e funções das categorias verbais do português traz dificuldades para um aprendiz de língua portuguesa em segunda língua. Traz dificuldades também para o processamento automático da língua (tradutores computadorizados, como Google translator ou Babylon). Porém, tais dificul -
+dades não afetam os falantes nativos da língua, aqueles que aprenderam a língua como sua língua materna, sugerindo que, por detrás da variação, haja sistematicidade de uso, mas cujas regras ainda não estão explicitadas nem formuladas nas gramáticas normativas. 
+Constatamos mudanças no paradigma verbal do português atual, que 
+difere daquilo que é apresentado na gramática normativa. Mas por que estu-dar verbos, um conteúdo tão chato na escola? Podemos tornar o estudo dos verbos na escola mais produtivo, alinhado à proposta de Halliday (1974) e 
+que está alinhada ao que apregoam os PCN, focando o aprimoramento das 
+competências sociocomunicativas em língua materna, e também possibilitar o aprendizado de português como língua estrangeira. Em todas as línguas há verbos, e em todas as línguas os valores de tempo, aspecto e modalidade 
+são expressos em torno dos verbos; são valores universais, mas a forma de 
+realização em cada língua é diferente, por isso, a necessidade de estudos descritivos do sistema verbal de uma língua, para poder comparar com os sis-temas verbais de outras línguas, de modo a possibilitar o desenvolvimento de estratégias de ensino mais eficientes.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE14As gramáticas normativas do português definem o paradigma verbal em 
+função dos tempos: no âmbito do passado, há formas de pretérito perfeito (sim-
+ples e composto), pretérito mais-que-perfeito (simples e composto), pretérito 
+imperfeito e futuro do pretérito, no modo indicativo; e pretérito imperfeito do 
+subjuntivo. Os resultados do projeto “Variação na expressão do tempo verbal passado na fala e escrita de Itabaiana/SE: funções e formas concorrentes” (FREITAG, 2009), no entanto, apontam que essas formas passam por rearran -
+jo a) semântico-discursivo, desempenhando mais de uma função; e b) morfos-sintático, com a emergência e regularização de novas formas e obsolescência de outras. Destacam-se, por exemplo:
+- a obsolescência da forma de pretérito mais-que-perfeito simples e a bai-
+xa produtividade da forma de pretérito mais-que-perfeito composto para ex-pressarem uma situação de passado anterior (com a forma de pretérito perfeito simples assumindo esta função); 
+- a emergência e regularização de uma forma para a expressão de passa-
+do imperfectivo progressivo, constituída pelo auxiliar estar + gerúndio (pretérito imperfeito composto), com a especialização forma de pretérito imperfeito sim-ples na expressão do valor habitual passado; 
+- a alternância entre as formas de futuro do pretérito e pretérito imperfeito 
+do indicativo, além da alternância entre o pretérito imperfeito do indicativo e do subjuntivo e a especialização da forma de pretérito perfeito composto na expressão do valor iterativo que dura até o presente. 
+Tais valores não são captados apenas pelo rótulo morfossintático: são 
+decorrentes de traços linguísticos mais amplos, como os planos narrativos, o tipo de sequência discursiva e a referência temporal (cf. ARAUJO; FREITAG, 2012; FREITAG, 2011; FREITAG; ARAUJO, 2011, entre outros). Conhecer es-
+tes valores e seus contextos de uso pode contribuir para o aprimoramento de 
+competências e habilidades linguísticas.
+Ensino de verbos
+Apesar de o paradigma verbal estar passando por um processo de reali -
+nhamento, em um estágio de menor estabilidade, com formas que desempe -
+nham mais de uma função e funções que são desempenhadas por mais de 
+uma forma, o ensino deste conteúdo gramatical continua focado em declina -
+ções paradigmáticas, com ênfase no aspecto morfológico. Quando falamos 
+em novas tecnologias para o ensino de língua materna, o que vemos, no que diz respeito ao conteúdo de verbos, é que apenas mudou o suporte; a ênfase
+
+15
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOainda recai em declinações morfológicas (as desinências), algumas arcaicas 
+no português, como podemos observar na figura 1.
+Figura 1: Exemplos de conjugadores verbais eletrônicos.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE16Tais recursos computacionais não contemplam a correlação entre forma e 
+função, preconizada pelo funcionalismo cognitivista e que reverbera nos PCN. 
+Para um ensino produtivo, é preciso considerar que verbos estão asso-
+ciados à expressão de tempo, aspecto e modalidade: a noção de tempo está 
+associada à ordenação externa dos eventos; aspecto, à ordenação interna dos eventos; e modalidade, às atitudes sobre os eventos. A expressão destes valo-
+res não é associada a uma forma morfológica específica: tome-se a categoria 
+modalidade, que recobre valores deônticos (necessidade, obrigação, desejo) e epistêmicos (crença, julgamento, negação); diferentes estratégias gramaticais são requisitadas para codificar estes valores na língua, como modos verbais, verbos modais e verbos de modalidade. Mas, mais importante do que saber 
+qual é a forma gramatical, é identificar o valor associado no contexto.
+Figura 2: Questão 119 do Caderno de Provas rosa do ENEM 2012.
+
+17
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOA figura 2 apresenta uma questão da Prova de Linguagens do ENEM 
+2012. Para resolver a questão, o conhecimento de nomenclatura morfológi -
+ca dos tempos verbais, tais como apregoados nas gramáticas normativas e 
+replicados em softwares educacionais, não é requisitado. Faz-se necessário 
+identificar a função que a forma desempenha naquele contexto e seus valores semânticos-discursivos associados ao domínio da modalidade, o que não é amplamente contemplado por uma abordagem que foque categorias discretas. 
+As funções, como bem apregoam os PCN, articulam sentidos e a atividade in-
+terpretativa decorre de observação estruturas linguísticas que funcionam como marcas ou pistas dos sentidos em elaboração. Por exemplo, neste volume,o 
+capítulo de Andréia Silva Araujo apresenta os diferentes valores de polidez que as gramáticas normativas preconizam para a forma de futuro do pretérito no 
+português, o que nem sempre é explorado na escola; e o capítulo de Jaqueline 
+Lima Fontes explora os diferentes usos de onde, não previstos nas gramáticas normativas, mas que estão presentes na fala de pessoas cultas, universitários que, certamente, estudaram gramática. 
+Proposta de trabalho
+O ensino produtivo de gramática se alinha ao eixo USO – REFLEXÃO 
+– USO preconizado pelos PCN e mostra-se essencial para o trabalho com categorias verbais no português. A questão aqui não se esgota; trazemos ape-
+nas mais algumas reflexões e sugestões práticas que vêm a colaborar com a 
+ampla rede de estudos já desenvolvidos, além de propiciar a articulação entre teoria e prática, sugerida nos PCN.
+
+19O FUTURO DO PRETÉRITO COMO ESTRATÉGIA 
+DE POLIDEZ: O QUE DIZEM AS GRAMÁTICAS?
+Andréia Silva Araujo
+Introdução1
+O futuro do pretérito (FP) é uma forma verbal que, dentre outros valores, 
+expressa polidez. No campo linguístico, a polidez é uma estratégia utilizada 
+com o objetivo de evitar conflitos na interação verbal. Apresentamos, a seguir, 
+um exemplo que evidencia o uso da forma de FP com valor de polidez, em 
+dados da língua em uso. 
+(1)E: agora no final do curso você se sente realizado com o seu desem-
+penho ao longo do curso? acha que poderia ter sido melhor? por quê?
+F: então então é um curso assim que... que depende muito né? do 
+estudante se... se ele vai se dar bem se ele vai se dar mal... de-pende muito do estudante... têm pessoas que têm mais facilidade outras têm menos facilidade... eu num se- eu... diria que (uma das 
+disciplinas) poderia ser melhor gostei eu acho que eu me esforcei... no curso me dediquei... fiz o máximo que eu pude... mas é claro que isso poderia melhorar mais... todo mundo poderia melhorar mais... (hes) no que a gente já fez (m 02)
+2
+Em (1), excerto retirado de uma entrevista sociolinguística, temos uma 
+situação em que o entrevistador faz uma pergunta sobre o desempenho do 
+falante durante a graduação e questiona se ela acha que o seu desempenho 
+poderia ter sido melhor. O falante não responde de maneira categórica e utiliza, 
+dentre outras estratégias linguísticas para expressar polidez, a forma verbal 
+1 Este trabalho é um recorte aplicado ao ensino de língua materna da dissertação de mestrado intitulada 
+Você me faria um favor? o futuro do pretérito e a expressão de polidez (ARAUJO, 2014), defendida junto ao 
+Programa de Pós-Graduação em Letras da Universidade Federal de Sergipe, sob a orientação da Profa. Dra. 
+Raquel Meister Ko. Freitag, que está vinculada ao projeto Mulheres, linguagem e poder: estudos de gênero na sociolinguística brasileira , financiado pela chamada CNPq 32/2012 (Processo 404932/2002-6), cujo foco 
+é, ao identificar mudanças sociais concernentes à relação entre a linguagem e o papel contemporâneo das mulheres e das relações de gênero, propor ajustes teórico-metodológicos no campo da Sociolinguística de-
+senvolvida no Brasil com fins de oferecer um instrumental de pesquisa atualizado para se refletir sobre as 
+especificidades linguísticas desse grupo social no contexto brasileiro moderno. Em relação à polidez, desta-camos o protocolo de coleta apresentado em Araujo, Santos e Freitag (2014).
+2 Os dados foram retirados da amostra Entrevistas Sociolinguísticas, constituída por 20 entrevistas de fa-
+lantes universitários da cidade de Itabaiana/SE, estratificadas quanto ao sexo, do Banco de Dados Falares Sergipanos (FREITAG, 2013; FREITAG; MARTINS; TAVARES, 2012). A sigla ao final identifica o informante.
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE20diria para atenuar a sua afirmação e, desse modo, preservar a sua imagem 
+social, uma vez que, se fizesse uma afirmação categórica, poderia soar que é presunçoso. Note-se que, nesse mesmo contexto, outras estratégias de poli -
+dez são utilizadas, como o verbo com traço modal poder , que se combina à for-
+ma de FP, contribuindo ainda mais para a preservação da face do informante. 
+Considerando que os compêndios gramaticais e o livro didático ainda são 
+os principais subsídios pedagógicos para o professor de língua portuguesa, apresentamos o que os compêndios gramaticais/manuais didáticos apresen -
+tam sobre o uso do FP como estratégia de polidez, a fim de contribuir para o ensino produtivo de gramática, como vimos no capítulo anterior . 
+O que dizem os compêndios gramaticais sobre o FP?
+Entendemos “por ‘compêndios gramaticais’ as obras que reproduzem re-
+gras da língua portuguesa, seja numa perspectiva descritiva (como se usa), seja numa perspectiva prescritiva (como se deve usar)” (ARAUJO et al., 2010, 
+p. 260), e podem ser classificados, de acordo com o tipo de abordagem ado-
+tada, em: históricos, normativos, pedagógicos e descritivos. Antes de apresen -
+tarmos o tratamento dado pelos compêndios gramaticais à forma verbal de FP, apresentamos os conceitos desses quatro tipos de gramáticas, explicitando 
+suas diferenças e especificidades. 
+A gramática histórica ocupa-se em buscar no passado as origens de uma 
+dada língua para “explicar-nos as transformações por que essa mesma lín-
+gua passou, na sua evolução através do espaço e do tempo” (COUTINHO, 
+1982 [1932], p. 13). Por gramática normativa, entendemos aquelas obras que 
+prescrevem as regras gramaticais de uma dada língua. Trata-se de um tipo de gramática que busca ditar regras com o objetivo de demonstrar como a língua deve ser usada, impondo, dessa maneira, uma única forma de realização da 
+língua como “correta”, considerando qualquer outra forma que não seja a des-
+crita como “errada”. Contrariamente a esta, a gramática descritiva tem como pretensão mostrar como a língua é usada com o intuito de identificar os dife-rentes contextos de usos, tanto de itens lexicais como gramaticais. Quanto à gramática pedagógica, além das categorizações, definições e exemplificações, 
+traz também propostas de atividades/exercícios escolares.
+Para avaliar o uso do FP como forma expressão de polidez, foram consul -
+tados treze compêndios gramaticais: Said Ali (1971), Coutinho (1982), Cunha 
+e Cintra (1985), Rocha Lima (1989 [1972]), Cipro Neto e Infante (1998), Neves
+
+21
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENO(2000), Faraco e Moura (2003), Terra e Nicola (2004), Bechara (2006; 2009), 
+Cereja e Magalhães (2008), Perini (2010) e Castilho (2010). 
+As obras dos dois primeiros autores caracterizam-se como gramáticas 
+históricas. Cunha e Cintra, Rocha Lima e Bechara são considerados gramá-ticos contemporâneos, embora, no caso da Moderna gramática portuguesa , 
+de Bechara (2009), tenhamos ficado na dúvida em como classificá-la, porque, 
+como bem afirma o autor, esta “alia a preocupação de uma científica descrição 
+sincrônica a uma visão sadia da gramática” (BECHARA, 2009, p. 20). Assim, este compêndio gramatical estaria em “meio termo” porque tem a pretensão de apresentar características tanto normativas como descritivas. Apesar dessa advertência do autor, considerando sua trajetória como normativista, optamos 
+por classificar este compêndio como uma gramática normativa. Cipro Neto e 
+Infante (1998), Faraco e Moura (2003), Terra e Nicola (2004) e Cereja e Maga-lhães (2008) são representantes daquilo que se tem definido como gramática pedagógica. As demais obras têm caráter evidentemente descritivo. A escolha 
+desses compêndios gramaticais é decorrente do fato destes autores, em sua 
+maioria, serem bastante difundidos na comunidade escolar, o que nos facilitou o acesso ao material. 
+Em sua Gramática histórica da língua portuguesa , Said Ali (1971) não 
+faz alusão de forma direta quanto ao fato de ser a polidez um dos usos do FP. O autor apenas afirma que, quando nos dirigimos “a uma segunda pessoa a pergunta com o verbo no futuro” a fim de obter uma informação, estamos nos valendo “de um modo de inquerir polido e em todo caso cauteloso” (SAID ALI, 1971, p. 320). Trata-se de um “futuro diplomático”, pois se faz uma solicitação 
+de informação e, embora se queira receber uma resposta, o locutor finge não 
+esperar uma reposta, marcando, dessa forma, linguisticamente, que o interlo -
+cutor pode ou não dar a resposta.
+Na obra Pontos de gramática histórica , de Coutinho (1982 [1932]), cons-
+tatamos que não há nenhum tipo de referência ao fenômeno; o autor restringe -
+-se a demonstrar como se deu a formação do FP na passagem do latim às línguas românicas.
+Cunha e Cintra (1985, p. 440), ao tratarem do FP em sua Nova gramática 
+do português contemporâneo, elencam cinco possíveis empregos para sua forma simples e três para sua forma composta:
+1. O FUTURO DO PRETÉRITO SIMPLES emprega-se: 1º) para de-
+signar ações posteriores à época que se fala; 2º para exprimir a incerteza (probabilidade, dúvida, suposição) sobre fatos passados; como forma polida de presente, em geral denotadora de desejo; 4º) em certas frases interrogativas e exclamativas, para denotar sur-
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE22presa ou indignação; 5º) nas afirmações condicionadas, quando se 
+referem a fatos que não se realizaram e que, provavelmente, não se realizarão; 2. O FUTURO DO PRETÉRITO COMPOSTO emprega -
+-se: 1º) para indicar que um fato teria acontecido no passado, me-diante certa condição; 2º) para exprimir a possibilidade de um fato passado; 3º) para indicar a incerteza sobre fatos passados, em cer-tas frases interrogativas que dispensam a resposta do interlocutor (CUNHA; CINTRA, 1985, p. 450-453).
+Cunha e Cintra (1985) destacam que a forma de FP simples pode ser 
+utilizada para manifestar polidez, e seu uso ocorre como denotador de desejo. 
+Para ilustrar tal uso, os autores apresentam os seguintes exemplos:
+(1) Seríeis capazes, minhas Senhoras, 
+De amar um homem deste feitio? (A. Nobre, S, 79).
+(2) Desejaríamos ouvi-lo sobre o crime (C. Drummond de Andrade, 
+BV, 103). (CUNHA; CINTRA, 1985, p. 451)
+Na Gramática normativa da língua portuguesa , Rocha Lima (1989) não 
+faz remissão ao uso do FP como forma de expressão de polidez. O autor não 
+dedica uma seção de sua obra para abordar o emprego dos tempos verbais, 
+restringindo-se a apresentar as classificações de modo, voz, número, pessoa 
+e voz e o paradigma de conjugação, o que sugere que sua preocupação esteja centrada mais com a forma dos verbos do que com sua semântica.
+Assim como Cunha e Cintra (1985), Bechara (2009) faz referência ao uso 
+do FP como estratégia de polidez ao afirmar que esta forma verbal exprime “asseveração modesta em relação ao passado, admiração por um fato se ter realizado” (2009, p. 280). Para demonstrar tal tipo de emprego, o autor apre-senta os seguintes exemplos:
+Eu teria ficado satisfeito com as tuas cartas [RV].
+Nós pretenderíamos saber a verdade.Seria isso verdadeiro? (BECHARA, 2009, p. 280)
+Cipro Neto e Infante (1998), em sua Gramática da língua portuguesa, ao se 
+referirem à forma de FP, não mencionam a possibilidade de expressão de poli-
+dez; do mesmo modo, Cereja e Magalhães (2008), na Gramática: texto, reflexão 
+e uso, também não fazem referência ao fenômeno. Já Faraco e Moura (2003) e 
+Terra e Nicola (2004), nas obras Gramática e Português: de olho no mundo do trabalho, respectivamente, fazem remissão ao uso do FP com valor de polidez. Os primeiros afirmam que o FP pode ser usado para “substituir o presente do 
+indicativo, para atenuar uma ordem ou um pedido” (FARACO; MOURA, 2003, p. 
+347). Já os segundos afirmam que o FP é usado no lugar do presente do indicati-
+
+23
+RAQUEL MEISTER KO. FREITAG & TAYSA MÉRCIA SOUZA SANTOS DAMACENOvo ou do imperativo “como forma de cortesia, boa educação” (TERRA; NICOLA, 
+2004). Esses gramáticos apresentam os seguintes exemplos:
+(2) Pediria que todos se manifestassem a respeito do assunto. (FA-
+RACO; MOURA, 2003, p. 347)
+(3) Você me faria um favor? (TERRA; NICOLA, 2004, p. 250)
+Em sua gramática descritiva, Gramática de usos do português , Neves 
+(2000) não destina uma seção do capítulo sobre verbo para abordar o emprego 
+dos tempos verbais, não fazendo, consequentemente, referência ao uso do FP 
+como estratégia de polidez. A autora focaliza nesse capítulo a formação básica 
+das predicações, evidenciando a natureza dos verbos, as subclassificações dos verbos que constituem predicados e os que não constituem.
+Ao discorrer sobre o FP em sua Gramática do português brasileiro , Perini 
+(2010) faz menção ao valor de polidez. O autor afirma que, quando se utiliza o 
+FP (ou condicional, em seus termos) com verbos de desejo para fazer pedidos, 
+acrescenta-se um matiz de polidez à situação, como, por exemplo, em:
+(4) Eu gostaria de participar da exposição.
+(5) Minha irmã adoraria conhecer o seu apartamento. (PERINI, 
+2010, p. 225)
+Ataliba de Castilho (2010), em sua Nova gramática do português brasi-
+leiro, também faz alusão ao uso do FP com o valor em questão no presente 
+estudo. Castilho (2010, p. 434) afirma que há um FP “metafórico”, que se em-
+prega em lugar do presente do indicativo quando se quer manifestar “opinião 
+de modo reservado, ou nos usos de atenuação ou polidez”. Vejamos os exem-plos utilizados pelo autor para demonstrar essa possibilidade:
+(6) Eu acharia/teria achado melhor irmos embora.
+(7) Isto aqui seria/teria sido o bacilo de Koch, pelo menos ele não 
+está/estava sentado nem deitado.
+(8) Que seria/teria sido aquilo? (CASTILHO, 2010, p. 434)
+A análise dos compêndios gramaticais mostra que, nos quatro tipos con-
+sultados, há referência ao uso do FP como estratégia de polidez. Dos dois 
+compêndios históricos analisados, apenas o de Said Ali (1971) faz, de forma 
+indireta, menção ao fenômeno. Dentre os demais compêndios examinados, 
+fizeram menção ao valor de polidez do FP em suas gramáticas os autores normativistas Cunha e Cintra (1985) e Bechara (2006; 2009); os pedagógicos Faraco e Moura (2003) e Terra e Nicola (2004); e os descritivistas Castilho 
+(2010) e Perini (2010).
+
+LIVRO DIDÁTICO – GRAMÁTICA, LEITURA E ENSINO DE LÍNGUA PORTUGUESA CONTRIBUIÇÕES PARA A PRÁTICA DOCENTE24A correlação entre o futuro do pretérito e a polidez é descrita em alguns 
+dos compêndios gramaticais, no entanto, as definições, em muitos casos, são 
+pouco esclarecedoras quanto ao contexto sintático-semântico-pragmático defi-
+nidor da função. Dessa forma, o professor precisa buscar outros materiais para 
+dar suporte à elaboração de suas aulas, expandindo, assim, a possibilidade de reflexão sobre o funcionamento da língua. 
+A análise do FP com valor de polidez aponta também que é necessário 
+consultar mais de um compêndio gramatical, visto que há diversidade de abor-dagens dentre os autores. 
+Proposta de trabalho
+Trabalhar no ensino com os valores de polidez, explorando os contextos 
+de uso do FP, é de suma importância pelo fato de dar base ao aluno para refletir sobre o seu comportamento linguístico e suas relações interpessoais. 
+Assim, tendo o conhecimento dos efeitos que a polidez pode desempenhar 
+na interação, o aluno poderá avaliar qual a melhor estratégia linguística a ser utilizada em cada situação para atender aos desígnios comunicativos e so-ciais dos interlocutores envolvidos na interação. O professor, como o mediador 
+entre o conhecimento e o aluno, deve propiciar ao aluno a reflexão sobre o 
+uso do FP em diversas situações comunicativas, atentando para os efeitos de sentidos produzidos, ao abordar o ensino de língua em seu contexto de uso, em seu funcionamento.
+
+25ONDE: ADVÉRBIO, PRONOME OU CONJUNÇÃO? 
+Jaqueline Lima Fontes
+Introdução1
+Tradicionalmente, o item gramatical onde é classificado, na maioria das 
+gramáticas brasileira, como advérbio de lugar ou pronome relativo (CUNHA; 
+CINTRA, 2006; BECHARA, 2009, CASTILHO, 2010; BAGNO, 2011). Bechara 
+(2009), por exemplo, afirma que o pronome relativo onde pode aparecer sem 
+referência a antecedentes, podendo ser substituído por em que. 
+Além de atuar como advérbio ou pronome, o item gramatical onde pode 
+ser usado como: 1) elemento anafórico-discursivo quando não se refere a um 
+espaço físico, mas a tudo que foi dito antes, apresentando sentido de conclu -
+são (OLIVEIRA, 1997 apud FERREIRA, 2003; LIMA, 2007); 2) como conector 
+discursivo, quando apresenta “função de conectar constituintes que se ligam numa relação argumentativa” (MARINHO, 2002, p. 267); 3) como pronome 
+relativo que remete a um espaço nocional, isto é, “um lugar do domínio das 
+ideias” (KERSCH, 1996, p. 140); 4) ou como conjunção intersentencial, quan -
+do funciona como um “elemento de coesão entre ideias” (SILVA, 2008, p. 14).
+O onde é, como podemos ver, multifuncional, assumindo funções mais 
+abstratas, que se distanciam, por vezes, da sua função primária de advérbio de lugar. Considerando a visão funcionalista-cognitivista de língua apresentada por Raquel Meister Ko. Freitag no início deste volume, e tendo como objetivo o ensino produtivo de língua, apresentamos uma proposta de tratamento para 
+onde de modo a contemplar a sua multifuncionalidade. Para tanto, optamos 
+pelo tratamento do onde em seu continuum .
+1 Este trabalho foi desenvolvido como requisito de avaliação para a disciplina Tópicos em Descrição 
+do Português do Programa de Pós-Graduação em Letras da Universidade Federal de Sergipe, no 
+período 2014.1, ministrada pelas Profa. Dra. Cristine Gorski Severo, Profa. Dra. Edair Maria Gor-
+ski (ambas da Universidade Federal de Santa Catarina) e Profa. Dra. Raquel Meister Ko. Freitag, da Universidade Federal de Sergipe, e promovida pelo projeto Da expressividade da língua ao mal na literatura: base de pesquisas interinstitucionais do PPGL/UFS, financiado pelo convênio CAPES/
+FAPITEC/PROMOB.
