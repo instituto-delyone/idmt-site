@@ -1150,8 +1150,10 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     parts.push(data)
     # Let Workers AI infer the document type from the .pdf filename.
     blob = Blob.new(parts)
+    from pyodide.ffi import create_proxy
+    file_item = create_proxy({"name": filename, "blob": blob})
     files = Array.new()
-    files.push({"name": filename, "blob": blob})
+    files.push(file_item)
     result = await ai.toMarkdown(files)
     items = result if isinstance(result, list) else list(result)
     if not items:
