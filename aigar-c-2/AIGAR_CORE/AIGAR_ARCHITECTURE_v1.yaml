@@ -1,0 +1,116 @@
+aigar_architecture:
+  id: AIGAR-ARCHITECTURE-FOUNDATION-v1
+  status: reconstruction_foundation
+  scope: aigar-c-2
+  source_of_truth:
+    historical_artifacts: true
+    do_not_overwrite_history: true
+
+  layers:
+    - id: language
+      name: Linguagem materna
+      responsibility:
+        - recognize_input_function
+        - estimate_scope
+        - estimate_depth
+        - handle_ambiguity
+        - represent_uncertainty
+      priority: 1
+      read_before_thematic_libraries: true
+
+    - id: conversation_state
+      name: Estado da conversa
+      responsibility:
+        - current_topic
+        - recent_referents
+        - unresolved_questions
+        - response_context
+
+    - id: memory
+      name: Memória
+      responsibility:
+        - continuity
+        - prior_context
+        - durable_anchors
+        - recall
+      status: partially_reconstructed
+
+    - id: csi
+      name: CSI / roteamento
+      responsibility:
+        - semantic_normalization
+        - intent_routing
+        - library_selection
+        - module_selection
+      status: partially_reconstructed
+
+    - id: library
+      name: Biblioteca documental
+      responsibility:
+        - source_retrieval
+        - document_context
+        - cached_text
+        - thematic_knowledge
+      status: evidenced
+
+    - id: reasoning
+      name: Raciocínio
+      responsibility:
+        - stepwise_reasoning
+        - alternative_hypotheses
+        - comparison
+        - cohesion
+        - uncertainty_statement
+      status: evidenced
+
+    - id: diagnosis
+      name: Diagnosis
+      responsibility:
+        - clinical_state
+        - hypotheses
+        - investigations
+        - treatment
+        - scoring
+        - red_flags
+      status: specialized_engine
+
+    - id: response
+      name: Response planning and modulation
+      responsibility:
+        - preserve_intent
+        - preserve_scope
+        - adapt_depth
+        - humanize_expression
+        - avoid_raw_dump
+
+    - id: aurora
+      name: Aurora
+      responsibility:
+        - conversational_presence
+        - response_organization
+        - continuity
+        - language_modulation
+
+  pipeline:
+    - input
+    - language_interpretation
+    - conversation_state
+    - memory_recall
+    - csi_routing
+    - retrieval_or_module_call
+    - reasoning
+    - response_planning
+    - aurora_modulation
+    - output
+
+  evidence_policy:
+    confirmed: "Directly documented by repository artifacts."
+    inferred: "Strong architectural inference from multiple artifacts."
+    proposed: "New implementation choice; not claimed as historical fact."
+
+  unresolved:
+    fragment_minimum_unit: unknown
+    fragment_recombination_algorithm: unknown
+    embeddings: no_evidence_yet
+    vector_database: no_evidence_yet
+    historical_grammar_card_full_content: not_recovered
