@@ -15,7 +15,7 @@
 <div class="grid">
 <main>
 <section class="panel"><div class="head"><b>Runtime</b><span class="tag">Developer</span></div><div class="body">
-<label>API Base</label><div class="row"><input id="api" value="http://127.0.0.1:8000"><button onclick="health()">Health</button></div>
+<label>API Base</label><div class="row"><input id="api" value="/aigar/api"><button onclick="health()">Health</button></div>
 <div class="gap"><label>Entrada</label><textarea id="q">O que é uma oração na língua portuguesa?</textarea><div class="actions"><button class="primary" onclick="ask()">Perguntar ao AIGAR</button><button onclick="clearAll()">Limpar</button></div></div>
 <div class="metrics"><div class="metric"><small>Intent</small><b id="intent">—</b></div><div class="metric"><small>Scope</small><b id="scope">—</b></div><div class="metric"><small>Depth</small><b id="depth">—</b></div><div class="metric"><small>Confidence</small><b id="conf">—</b></div></div>
 <div id="answer" class="response">A resposta do runtime aparecerá aqui.</div>
