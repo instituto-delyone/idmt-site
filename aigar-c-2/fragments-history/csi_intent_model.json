@@ -1,0 +1,101 @@
+{
+  "id": "csi_intent_model",
+  "version": "0.1",
+  "name": "CSI Intent Model",
+  "role": "subunit_of_csi",
+  "purpose": "Classificar a função pragmático-semântica da pergunta antes de buscar bibliotecas ou formular resposta.",
+  "pipeline_position": [
+    "input",
+    "syntax_reading",
+    "grammar_reading",
+    "lexical_reading",
+    "csi_intent_model",
+    "scope_detection",
+    "depth_detection",
+    "router",
+    "retrieval",
+    "response_builder"
+  ],
+  "intents": [
+    {
+      "id": "phatic",
+      "label": "Fática",
+      "description": "Abertura, manutenção ou teste de contato.",
+      "examples": [
+        "oi",
+        "olá",
+        "bom dia",
+        "você está aí?"
+      ],
+      "response_mode": "short_social_reply",
+      "requires_library": false
+    },
+    {
+      "id": "concept_basic",
+      "label": "Conceitual básica",
+      "description": "Definição direta de conceito.",
+      "patterns": [
+        "o que é",
+        "defina",
+        "explique o que é"
+      ],
+      "examples": [
+        "o que é hemoglobina?"
+      ],
+      "response_mode": "direct_definition",
+      "requires_library": true
+    },
+    {
+      "id": "concept_scoped",
+      "label": "Conceitual delimitada",
+      "description": "Conceito central com subpergunta dentro do escopo.",
+      "examples": [
+        "quais proteínas formam a hemoglobina?",
+        "qual doença é causada por defeito da hemoglobina?"
+      ],
+      "response_mode": "scoped_answer",
+      "requires_library": true
+    },
+    {
+      "id": "concept_depth_regulated",
+      "label": "Conceitual com regulação de profundidade",
+      "description": "Controle explícito de brevidade, simplicidade ou profundidade.",
+      "patterns": [
+        "brevemente",
+        "de maneira simples",
+        "resuma",
+        "em detalhes",
+        "profundamente"
+      ],
+      "response_mode": "depth_controlled_answer",
+      "requires_library": true
+    },
+    {
+      "id": "clinical_case",
+      "label": "Caso clínico",
+      "description": "Sintomas, sinais, exames, hipóteses, conduta ou decisão clínica.",
+      "markers": [
+        "paciente",
+        "dor",
+        "febre",
+        "dispneia",
+        "saturação",
+        "exame físico",
+        "diagnóstico",
+        "conduta"
+      ],
+      "response_mode": "clinical_reasoning",
+      "requires_library": true,
+      "requires_special_guide": "csi_clinical_language_guide.md"
+    },
+    {
+      "id": "unknown_domain",
+      "label": "Campo desconhecido",
+      "description": "Domínio ainda não reconhecido pelo AIGAR.",
+      "response_mode": "uncertainty_response",
+      "requires_library": false
+    }
+  ],
+  "decision_rule": "A resposta não deve ser construída apenas por palavra-chave. Primeiro classificar a função da pergunta; depois escolher rota, biblioteca e modo de resposta.",
+  "safety_rule": "Se a intenção for clínica e houver risco ou dados insuficientes, responder com raciocínio proporcional, hipóteses e necessidade de avaliação profissional."
+}
