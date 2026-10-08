@@ -1257,8 +1257,19 @@ async def build_document_library(env, document_id):
 
 class LibraryBuilderWorkflow(WorkflowEntrypoint):
     async def run(self, event, step):
-        payload = event.get("payload") if isinstance(event, dict) else None
-        payload = payload or {}
+        # Workflow REST/API instances deliver params as the event payload.
+        # Depending on the Python Workers version this can arrive as a dict
+        # or as a JSON string, so normalize both forms here.
+        payload = event
+        if isinstance(payload, str):
+            try:
+                payload = json.loads(payload)
+            except Exception:
+                payload = {}
+        if isinstance(payload, dict) and isinstance(payload.get("payload"), dict):
+            payload = payload["payload"]
+        if not isinstance(payload, dict):
+            payload = {}
         document_id = str(payload.get("document_id") or "")
         if not document_id:
             raise RuntimeError("document_id ausente no Workflow.")
