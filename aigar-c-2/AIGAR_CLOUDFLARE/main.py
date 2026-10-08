@@ -3,12 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import re
-from typing import Any, Literal
-
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-from workers import asgi, fetch
+from workers import WorkerEntrypoint, Response, fetch
 
 LANGUAGE = {
   "id": "aigar_language_runtime_v1",
@@ -508,67 +503,15 @@ LIBRARY_INDEX = {
   ]
 }
 
-app = FastAPI(title="AIGAR Runtime", version="0.3.0-cloudflare")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://delyone.com", "https://aigar-api.dr-delyone.workers.dev"],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+SESSIONS = {}
+CHUNK_CACHE = {}
 
-class ConversationReading(BaseModel):
-    intent: str = "unknown"
-    scope: str | None = None
-    depth: str = "normal"
-    ambiguity: float = 0.0
-    uncertainty: float = 0.0
-    needs_memory: bool = False
-    needs_library: bool = False
-    needs_diagnosis: bool = False
-    needs_reasoning: bool = True
-    linguistic_analysis: dict[str, Any] = Field(default_factory=dict)
+STOPWORDS = {"a","o","e","de","do","da","dos","das","um","uma","uns","umas","em","no","na","nos","nas","por","para","com","que","como","qual","quais","é","foi","ser","se","ao","à","às","os","as","mais","sobre","isso","esse","essa","este","esta","ou"}
 
-class ConversationState(BaseModel):
-    session_id: str = "default"
-    turns: list[dict[str, Any]] = Field(default_factory=list)
-    last_user_input: str | None = None
-    last_response: str | None = None
-    reading: ConversationReading = Field(default_factory=ConversationReading)
+def tokens(text):
+    return {w for w in re.findall(r"[a-zA-ZÀ-ÿ0-9_]{2,}", text.lower()) if w not in STOPWORDS}
 
-class SourceTrace(BaseModel):
-    kind: str
-    id: str
-    status: Literal["confirmed", "inferred", "proposed", "missing"] = "proposed"
-    detail: str | None = None
-
-class RuntimeRequest(BaseModel):
-    input: str
-    session_id: str = "default"
-
-class RuntimeResponse(BaseModel):
-    text: str
-    state: ConversationState
-    sources: list[SourceTrace] = Field(default_factory=list)
-    confidence: float = 0.0
-    plan: dict[str, Any] = Field(default_factory=dict)
-
-SESSIONS: dict[str, ConversationState] = {}
-CHUNK_CACHE: dict[str, str] = {}
-
-STOPWORDS = {
-    "a","o","e","de","do","da","dos","das","um","uma","uns","umas","em","no","na",
-    "nos","nas","por","para","com","que","como","qual","quais","é","foi","ser","se",
-    "ao","à","às","os","as","mais","sobre","isso","esse","essa","este","esta","ou"
-}
-
-def tokens(text: str) -> set[str]:
-    return {
-        w for w in re.findall(r"[a-zA-ZÀ-ÿ0-9_]{2,}", text.lower())
-        if w not in STOPWORDS
-    }
-
-def sentences(text: str) -> list[str]:
+def sentences(text):
     cleaned = re.sub(r"\s+", " ", text).strip()
     return [p.strip() for p in re.split(r"(?<=[.!?])\s+", cleaned) if p.strip()]
 
@@ -578,249 +521,167 @@ class LanguageEngine:
         self.portuguese = PORTUGUESE
 
     @staticmethod
-    def normalize(text: str) -> str:
+    def normalize(text):
         return re.sub(r"\s+", " ", text.strip().lower())
 
     @staticmethod
-    def has_any(text: str, values: list[str]) -> bool:
+    def has_any(text, values):
         return any(value in text for value in values)
 
-    def verbs(self, words: list[str]) -> list[str]:
-        lexicon = {
-            "é","são","foi","foram","ser","sendo","era","eram","está","estão",
-            "estava","estavam","ficou","ficaram","tem","têm","teve","tiveram","ter",
-            "faz","fazem","fez","fizeram","fazer","pode","podem","podia","poder",
-            "deve","devem","deveria","deveriam","dever","vai","vão","aconteceu",
-            "acontecer","chegou","chegaram","chegar","explica","explicar","explique",
-            "defina","define","significa","significar","funciona","funcionar","serve",
-            "servir","quer","querem","quero","precisa","precisam","crie","criar",
-            "faça","montar","monte","calcule","calcular","gere","gerar","compare",
-            "comparar","analise","analisar","responda","responder","continue","continua",
-            "entendi","entender","sabe","saber"
-        }
+    def verbs(self, words):
+        lexicon={"é","são","foi","foram","ser","sendo","era","eram","está","estão","estava","estavam","ficou","ficaram","tem","têm","teve","tiveram","ter","faz","fazem","fez","fizeram","fazer","pode","podem","podia","podiam","poder","deve","devem","deveria","deveriam","dever","vai","vão","aconteceu","acontecer","chegou","chegaram","chegar","explica","explicar","explique","defina","define","significa","significar","funciona","funcionar","serve","servir","quer","querem","quero","precisa","precisam","crie","criar","faça","fazer","monte","montar","calcule","calcular","gere","gerar","compare","comparar","analise","analisar","responda","responder","continue","continua","entendi","entender","sabe","saber"}
         return [w for w in words if w in lexicon]
 
-    def question(self, text: str) -> dict[str, Any]:
-        patterns = self.portuguese["question_patterns"]
-        ordered = [
-            ("definition", patterns["definition"]["forms"]),
-            ("identity", patterns["identity"]["forms"]),
-            ("time", patterns["time"]["forms"]),
-            ("place", patterns["place"]["forms"]),
-            ("cause", patterns["cause"]["forms"]),
-            ("function", patterns["function"]["forms"]),
-            ("process", patterns["process"]["forms"]),
-            ("comparison", patterns["comparison"]["forms"]),
-        ]
-        for qtype, forms in ordered:
-            for form in sorted(forms, key=len, reverse=True):
+    def question(self,text):
+        patterns=self.portuguese["question_patterns"]
+        ordered=[("definition",patterns["definition"]["forms"]),("identity",patterns["identity"]["forms"]),("time",patterns["time"]["forms"]),("place",patterns["place"]["forms"]),("cause",patterns["cause"]["forms"]),("function",patterns["function"]["forms"]),("process",patterns["process"]["forms"]),("comparison",patterns["comparison"]["forms"])]
+        for qtype,forms in ordered:
+            for form in sorted(forms,key=len,reverse=True):
                 if form in text:
-                    remainder = text.replace(form, "", 1).strip(" ?")
-                    return {
-                        "type": qtype,
-                        "matched_form": form,
-                        "semantic_goal": patterns[qtype]["semantic_goal"],
-                        "topic_candidate": remainder or None,
-                    }
-        return {"type": None, "matched_form": None, "semantic_goal": None, "topic_candidate": None}
+                    remainder=text.replace(form,"",1).strip(" ?")
+                    return {"type":qtype,"matched_form":form,"semantic_goal":patterns[qtype]["semantic_goal"],"topic_candidate":remainder or None}
+        return {"type":None,"matched_form":None,"semantic_goal":None,"topic_candidate":None}
 
-    def interpret(self, raw: str) -> ConversationReading:
-        text = self.normalize(raw)
+    def interpret(self,raw):
+        text=self.normalize(raw)
         if not text:
-            return ConversationReading(intent="unknown", ambiguity=1.0, uncertainty=1.0, needs_reasoning=False,
-                linguistic_analysis={"analysis_status": "empty_input"})
-        words = re.findall(r"[\wÀ-ÿ]+(?:[-'][\wÀ-ÿ]+)?", text, flags=re.UNICODE)
-        q = self.question(text)
-        verbs = self.verbs(words)
-        pronouns = [w for w in words if w in {"eu","tu","ele","ela","nós","vocês","eles","elas","isso","isto","aquilo","esse","essa","este","esta","aquele","aquela","quem","que","meu","minha","seu","sua","me","te","se","lhe"}]
-        articles = [w for w in words if w in {"o","a","os","as","um","uma","uns","umas"}]
-        subject = pronouns[0] if pronouns else (" ".join(words[words.index(articles[0]):words.index(articles[0])+2]) if articles and len(words)>words.index(articles[0])+1 else None)
-        analysis = {
-            "tokens": words,
-            "verbs": verbs,
-            "possible_subject": subject,
-            "question": q,
-            "has_question_mark": text.endswith("?"),
-            "sentence_count": max(1, len(re.findall(r"[.!?]+", text))),
-            "analysis_status": "heuristic_structural_reading",
-        }
-        intent_rules = self.language["intent"]
-        if self.has_any(text, intent_rules["phatic"]["examples"]):
-            intent, confidence = "phatic", 0.98
-        elif self.has_any(text, intent_rules["clinical_case"]["examples"]):
-            intent, confidence = "clinical_case", 0.92
-        elif self.has_any(text, intent_rules["continuity"]["examples"]):
-            intent, confidence = "continuity", 0.90
-        elif self.has_any(text, intent_rules["correction"]["examples"]):
-            intent, confidence = "correction", 0.90
-        elif self.has_any(text, intent_rules["doubt"]["examples"]):
-            intent, confidence = "doubt", 0.88
-        elif self.has_any(text, intent_rules["action"]["examples"]):
-            intent, confidence = "action", 0.80
-        elif self.has_any(text, intent_rules["concept_basic"]["examples"]) or q["type"] in {"definition","identity","time","place"}:
-            intent, confidence = "concept_basic", 0.93
-        elif self.has_any(text, intent_rules["concept_scoped"]["examples"]) or q["type"] in {"cause","function","process","comparison"} or text.endswith("?"):
-            intent, confidence = "concept_scoped", 0.84
-        else:
-            intent, confidence = "unknown", 0.45
-        depth = "normal"
-        for level, markers in self.language["depth"].items():
-            if self.has_any(text, markers):
-                depth = level
-                break
-        ambiguity = "too_short" if len(words) <= 2 else ("context_dependent" if intent == "continuity" or (q["type"] and not q["topic_candidate"]) else "clear")
-        needs_memory = intent in {"continuity","unknown","doubt"} or any(w in {"ele","ela","isso","isto","aquilo","esse","essa","este","esta","aquele","aquela"} for w in words)
-        needs_library = intent in {"concept_basic","concept_scoped","clinical_case"}
-        return ConversationReading(
-            intent=intent,
-            scope=q["topic_candidate"] or text,
-            depth=depth,
-            ambiguity={"clear":0.0,"too_short":0.45,"context_dependent":0.35}.get(ambiguity,0.25),
-            uncertainty=max(0.0, 1.0-confidence),
-            needs_memory=needs_memory,
-            needs_library=needs_library,
-            needs_diagnosis=intent == "clinical_case",
-            needs_reasoning=intent != "phatic",
-            linguistic_analysis=analysis,
-        )
+            return {"intent":"unknown","scope":None,"depth":"normal","ambiguity":1.0,"uncertainty":1.0,"needs_memory":False,"needs_library":False,"needs_diagnosis":False,"needs_reasoning":False,"confidence":0.0,"linguistic_analysis":{"analysis_status":"empty_input"}}
+        words=re.findall(r"[\wÀ-ÿ]+(?:[-'][\wÀ-ÿ]+)?",text,flags=re.UNICODE)
+        q=self.question(text)
+        verbs=self.verbs(words)
+        pronouns=[w for w in words if w in {"eu","tu","ele","ela","nós","vocês","eles","elas","isso","isto","aquilo","esse","essa","este","esta","aquele","aquela","quem","que","meu","minha","seu","sua","me","te","se","lhe"}]
+        articles=[w for w in words if w in {"o","a","os","as","um","uma","uns","umas"}]
+        subject=pronouns[0] if pronouns else None
+        if not subject and articles:
+            i=words.index(articles[0])
+            if i+1<len(words): subject=" ".join(words[i:i+2])
+        analysis={"tokens":words,"verbs":verbs,"possible_subject":subject,"question":q,"has_question_mark":text.endswith("?"),"sentence_count":max(1,len(re.findall(r"[.!?]+",text))),"analysis_status":"heuristic_structural_reading"}
+        rules=self.language["intent"]
+        if self.has_any(text,rules["phatic"]["examples"]): intent,confidence="phatic",0.98
+        elif self.has_any(text,rules["clinical_case"]["examples"]): intent,confidence="clinical_case",0.92
+        elif self.has_any(text,rules["continuity"]["examples"]): intent,confidence="continuity",0.90
+        elif self.has_any(text,rules["correction"]["examples"]): intent,confidence="correction",0.90
+        elif self.has_any(text,rules["doubt"]["examples"]): intent,confidence="doubt",0.88
+        elif self.has_any(text,rules["action"]["examples"]): intent,confidence="action",0.80
+        elif self.has_any(text,rules["concept_basic"]["examples"]) or q["type"] in {"definition","identity","time","place"}: intent,confidence="concept_basic",0.93
+        elif self.has_any(text,rules["concept_scoped"]["examples"]) or q["type"] in {"cause","function","process","comparison"} or text.endswith("?"): intent,confidence="concept_scoped",0.84
+        else: intent,confidence="unknown",0.45
+        depth="normal"
+        for level,markers in self.language["depth"].items():
+            if self.has_any(text,markers): depth=level; break
+        ambiguity="too_short" if len(words)<=2 else ("context_dependent" if intent=="continuity" or (q["type"] and not q["topic_candidate"]) else "clear")
+        needs_memory=intent in {"continuity","unknown","doubt"} or any(w in {"ele","ela","isso","isto","aquilo","esse","essa","este","esta","aquele","aquela"} for w in words)
+        needs_library=intent in {"concept_basic","concept_scoped","clinical_case"}
+        return {"intent":intent,"scope":q["topic_candidate"] or text,"depth":depth,"ambiguity":{"clear":0.0,"too_short":0.45,"context_dependent":0.35}.get(ambiguity,0.25),"uncertainty":max(0.0,1.0-confidence),"needs_memory":needs_memory,"needs_library":needs_library,"needs_diagnosis":intent=="clinical_case","needs_reasoning":intent!="phatic","confidence":confidence,"linguistic_analysis":analysis}
 
-LANGUAGE_ENGINE = LanguageEngine()
+LANGUAGE_ENGINE=LanguageEngine()
 
-def chunk_url(entry: dict[str, Any]) -> str:
-    name = entry["cache_file"].replace("\\", "/")
-    return "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/cache/" + name.split("portuguese_language_knowledge/")[-1]
+def chunk_url(entry):
+    name=entry["cache_file"].replace("\\","/")
+    prefix="aigar-c-2/AIGAR_LIBRARY/cache/"
+    return "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+prefix+name.split("portuguese_language_knowledge/")[-1]
 
-async def load_chunks() -> list[dict[str, Any]]:
-    entries = LIBRARY_INDEX.get("chunks", [])
+async def load_chunks():
     async def one(entry):
-        cid = entry["id"]
+        cid=entry["id"]
         if cid not in CHUNK_CACHE:
             try:
-                response = await fetch(chunk_url(entry))
-                if response.status >= 400:
-                    return None
-                CHUNK_CACHE[cid] = await response.text()
-            except Exception:
-                return None
-        return {**entry, "text": CHUNK_CACHE.get(cid, "")}
-    results = await asyncio.gather(*(one(e) for e in entries))
-    return [r for r in results if r and r.get("text")]
+                r=await fetch(chunk_url(entry))
+                if r.status>=400: return None
+                CHUNK_CACHE[cid]=await r.text()
+            except Exception: return None
+        return {**entry,"text":CHUNK_CACHE.get(cid,"")}
+    result=await asyncio.gather(*(one(e) for e in LIBRARY_INDEX.get("chunks",[])))
+    return [x for x in result if x and x.get("text")]
 
-async def library_search(query: str, reading: ConversationReading, limit: int = 5):
-    chunks = await load_chunks()
-    q = tokens(reading.scope or query)
-    if not q:
-        q = tokens(query)
-    candidates = []
-    qtype = reading.linguistic_analysis.get("question", {}).get("type")
+async def library_search(query,reading,limit=5):
+    chunks=await load_chunks()
+    q=tokens(reading.get("scope") or query)
+    if not q: q=tokens(query)
+    qtype=reading.get("linguistic_analysis",{}).get("question",{}).get("type")
+    candidates=[]
     for chunk in chunks:
         for sentence in sentences(chunk["text"]):
-            st = tokens(sentence)
-            overlap = len(q & st)
-            if not overlap:
-                continue
-            score = overlap / max(1, len(q))
-            exact = 1.0 if (reading.scope and reading.scope.lower() in sentence.lower()) else 0.0
-            definition = 0.0
-            if qtype == "definition":
-                lower = sentence.lower()
-                topic = (reading.scope or "").lower()
-                if topic and re.search(rf"\b{re.escape(topic)}\b\s+(é|são|significa|consiste|refere-se)", lower):
-                    definition = 2.0
-                elif any(marker in lower for marker in ["é uma", "é um", "são", "significa"]):
-                    definition = 0.35
-            candidates.append((score + exact + definition, chunk.get("score",0), sentence, chunk))
-    candidates.sort(key=lambda x: (-x[0], -float(x[1]), len(x[2])))
-    selected = []
-    seen = set()
-    for score, _, sentence, chunk in candidates:
-        key = sentence.strip()
-        if key in seen:
-            continue
-        seen.add(key)
-        selected.append({
-            "text": sentence,
-            "chunk_id": chunk["id"],
-            "source": chunk.get("source"),
-            "start_page": chunk.get("start_page"),
-            "end_page": chunk.get("end_page"),
-            "score": round(float(score), 6),
-        })
-        if len(selected) >= limit:
-            break
+            st=tokens(sentence); overlap=len(q&st)
+            if not overlap: continue
+            score=overlap/max(1,len(q))
+            exact=1.0 if (reading.get("scope") and reading["scope"].lower() in sentence.lower()) else 0.0
+            definition=0.0
+            if qtype=="definition":
+                lower=sentence.lower()
+                topic=(reading.get("scope") or "").lower()
+                if topic and re.search(rf"\b{re.escape(topic)}\b\s+(é|são|significa|consiste|refere-se)",lower): definition=2.0
+                elif any(m in lower for m in ["é uma","é um","são","significa"]): definition=0.35
+            candidates.append((score+exact+definition,float(chunk.get("sequence",0)),sentence,chunk))
+    candidates.sort(key=lambda x:(-x[0],x[1],len(x[2])))
+    selected=[]; seen=set()
+    for score,_,sentence,chunk in candidates:
+        if sentence in seen: continue
+        seen.add(sentence)
+        selected.append({"text":sentence,"chunk_id":chunk["id"],"source":chunk.get("source"),"start_page":chunk.get("start_page"),"end_page":chunk.get("end_page"),"score":round(score,6)})
+        if len(selected)>=limit: break
     return selected
 
-def answer_from_evidence(input_text: str, reading: ConversationReading, evidence: list[dict[str, Any]], memory: list[dict[str, Any]]) -> tuple[str, str]:
-    if reading.intent == "phatic":
-        return "Oi! Aurora aqui. Manda o que você quer construir que a gente organiza.", "social"
-    topic = (reading.scope or "esse assunto").strip(" ?")
-    if evidence:
-        qtype = reading.linguistic_analysis.get("question", {}).get("type")
-        if qtype == "definition":
-            prefix = f"{topic.capitalize()} — pelo material recuperado:"
-        elif qtype == "function":
-            prefix = f"A função de {topic} — pelo material recuperado:"
-        elif qtype == "cause":
-            prefix = f"Sobre a causa de {topic} — pelo material recuperado:"
-        else:
-            prefix = f"Encontrei conteúdo relevante sobre {topic}:"
-        body = " ".join(item["text"] for item in evidence[:3])
-        return prefix + "\n\n" + body, "source_grounded"
-    if reading.needs_library:
-        return f"Entendi a pergunta sobre {topic}. A biblioteca está conectada, mas não encontrei evidência local suficiente para responder com segurança.", "source_unavailable"
-    if reading.needs_memory and memory:
-        last = memory[-1].get("content")
-        return "Vou continuar a partir do contexto recente." + (f" O ponto anterior foi: {last}" if last else ""), "context_grounded"
-    return "Entendi a solicitação e organizei a intenção, mas não vou inventar conteúdo que não foi fundamentado.", "reasoned_without_library"
+def cors_headers(origin=None):
+    allowed=origin if origin in {"https://delyone.com","https://aigar-api.dr-delyone.workers.dev"} else "https://delyone.com"
+    return {"Access-Control-Allow-Origin":allowed,"Access-Control-Allow-Methods":"GET,POST,OPTIONS","Access-Control-Allow-Headers":"Content-Type","Vary":"Origin"}
 
-async def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
-    state = SESSIONS.setdefault(request.session_id, ConversationState(session_id=request.session_id))
-    reading = LANGUAGE_ENGINE.interpret(request.input)
-    state.reading = reading
-    memory = state.turns[-8:] if (reading.needs_memory or reading.intent == "continuity") else []
-    sources = []
+def make_response(data,status=200,origin=None):
+    h={"Content-Type":"application/json; charset=utf-8",**cors_headers(origin)}
+    return Response(json.dumps(data,ensure_ascii=False),status=status,headers=h)
+
+async def handle_ask(body):
+    text=body.get("input")
+    session_id=body.get("session_id") or "default"
+    if not isinstance(text,str) or not text.strip():
+        return {"error":"input obrigatório"}
+    state=SESSIONS.setdefault(session_id,{"session_id":session_id,"turns":[],"last_user_input":None,"last_response":None,"reading":{}})
+    reading=LANGUAGE_ENGINE.interpret(text)
+    state["reading"]=reading
+    memory=state["turns"][-8:] if (reading["needs_memory"] or reading["intent"]=="continuity") else []
+    sources=[]
     if memory:
-        sources.append(SourceTrace(kind="memory", id="runtime.recent_context", status="inferred", detail="Session-local continuity."))
-    evidence = await library_search(request.input, reading) if reading.needs_library else []
-    if reading.needs_library:
-        sources.append(SourceTrace(kind="library", id="github.versioned.library", status="confirmed" if evidence else "missing",
-            detail=f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."))
-    plan = {
-        "understand_before_answer": True,
-        "intent": reading.intent,
-        "depth": reading.depth,
-        "use_memory": bool(memory),
-        "use_library": reading.needs_library,
-        "use_diagnosis": False,
-        "answer_mode": "social" if reading.intent=="phatic" else ("source_grounded" if evidence else ("source_unavailable" if reading.needs_library else "reasoned_without_library")),
-        "question_type": reading.linguistic_analysis.get("question",{}).get("type"),
-        "semantic_goal": reading.linguistic_analysis.get("question",{}).get("semantic_goal"),
-        "topic": reading.scope,
-        "evidence": [e["text"] for e in evidence],
-        "steps": ["interpret","gather_available_context","select_relevant_evidence","reason","plan_response"],
-    }
-    text, mode = answer_from_evidence(request.input, reading, evidence, memory)
-    sources.append(SourceTrace(kind="reasoning", id="runtime.reasoning", status="confirmed" if evidence else "inferred",
-        detail=f"Resposta planejada em modo {mode}."))
-    sources.append(SourceTrace(kind="aurora", id="runtime.aurora", status="confirmed",
-        detail="Apresentação final no Runtime Cloudflare."))
-    state.last_user_input = request.input
-    state.last_response = text
-    state.turns.extend([{"role":"user","content":request.input},{"role":"assistant","content":text}])
-    if len(state.turns) > 40:
-        del state.turns[:-40]
-    confirmed = sum(1 for s in sources if s.status in {"confirmed","inferred"})
-    confidence = min(0.75, 0.35 + 0.1*confirmed)
-    return RuntimeResponse(text=text, state=state, sources=sources, confidence=confidence, plan=plan)
+        sources.append({"kind":"memory","id":"runtime.recent_context","status":"inferred","detail":"Session-local continuity."})
+    evidence=await library_search(text,reading) if reading["needs_library"] else []
+    if reading["needs_library"]:
+        sources.append({"kind":"library","id":"github.versioned.library","status":"confirmed" if evidence else "missing","detail":f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."})
+    mode="social" if reading["intent"]=="phatic" else ("source_grounded" if evidence else ("source_unavailable" if reading["needs_library"] else "reasoned_without_library"))
+    topic=(reading.get("scope") or "esse assunto").strip(" ?")
+    if mode=="social":
+        answer="Oi! Aurora aqui. Manda o que você quer construir que a gente organiza."
+    elif mode=="source_grounded":
+        qtype=reading["linguistic_analysis"].get("question",{}).get("type")
+        prefix=f"{topic.capitalize()} — pelo material recuperado:" if qtype=="definition" else f"Encontrei conteúdo relevante sobre {topic}:"
+        answer=prefix+"\n\n"+" ".join(e["text"] for e in evidence[:3])
+    elif mode=="source_unavailable":
+        answer=f"Entendi a pergunta sobre {topic}. A biblioteca está conectada, mas não encontrei evidência local suficiente para responder com segurança."
+    elif mode=="reasoned_without_library":
+        answer="Entendi a solicitação e organizei a intenção, mas não vou inventar conteúdo que não foi fundamentado."
+    else:
+        last=memory[-1]["content"] if memory else None
+        answer="Vou continuar a partir do contexto recente."+ (f" O ponto anterior foi: {last}" if last else "")
+    plan={"understand_before_answer":True,"intent":reading["intent"],"depth":reading["depth"],"use_memory":bool(memory),"use_library":reading["needs_library"],"use_diagnosis":False,"answer_mode":mode,"question_type":reading["linguistic_analysis"].get("question",{}).get("type"),"semantic_goal":reading["linguistic_analysis"].get("question",{}).get("semantic_goal"),"topic":reading.get("scope"),"evidence":[e["text"] for e in evidence],"steps":["interpret","gather_available_context","select_relevant_evidence","reason","plan_response"]}
+    sources += [{"kind":"reasoning","id":"runtime.reasoning","status":"confirmed" if evidence else "inferred","detail":f"Resposta planejada em modo {mode}."},{"kind":"aurora","id":"runtime.aurora","status":"confirmed","detail":"Apresentação final no Runtime Cloudflare."}]
+    state["last_user_input"]=text; state["last_response"]=answer
+    state["turns"] += [{"role":"user","content":text},{"role":"assistant","content":answer}]
+    if len(state["turns"])>40: state["turns"]=state["turns"][-40:]
+    confidence=min(0.75,0.35+0.1*sum(1 for s in sources if s["status"] in {"confirmed","inferred"}))
+    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan}
 
-@app.get("/health")
-async def health():
-    return {"ok": True, "service": "aigar-api", "runtime": "AIGAR", "version": "0.3.0-cloudflare", "status": "production_runtime", "backend": "python_workers"}
-
-@app.post("/perguntar", response_model=RuntimeResponse)
-async def perguntar(request: RuntimeRequest):
-    if not request.input.strip():
-        raise HTTPException(status_code=400, detail="input obrigatório")
-    return await run_runtime(request)
-
-Default = asgi.entrypoint(app)
+class Default(WorkerEntrypoint):
+    async def fetch(self, request):
+        origin=request.headers.get("Origin")
+        path=request.url.split("?",1)[0].rstrip("/")
+        if request.method=="OPTIONS":
+            return Response("",status=204,headers=cors_headers(origin))
+        if path.endswith("/health") and request.method=="GET":
+            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.3.0-cloudflare","status":"production_runtime","backend":"python_workers"},origin=origin)
+        if path.endswith("/perguntar") and request.method=="POST":
+            try:
+                body=await request.json()
+                result=await handle_ask(body)
+                if "error" in result: return make_response(result,400,origin)
+                return make_response(result,200,origin)
+            except Exception as exc:
+                return make_response({"ok":False,"service":"aigar-api","status":"runtime_error","message":str(exc)},500,origin)
+        return make_response({"ok":False,"service":"aigar-api","status":"not_found"},404,origin)
