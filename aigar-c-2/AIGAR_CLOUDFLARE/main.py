@@ -1145,11 +1145,14 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     data = await obj.arrayBuffer()
     # Workers AI's toMarkdown accepts a JS Blob. Python Workers expose JS objects
     # through the FFI, so we create the Blob without copying the PDF through D1.
-    from js import Blob, Array
+    from js import Blob, Array, Uint8Array
+    view = Uint8Array.new(data)
     parts = Array.new()
-    parts.push(data)
+    parts.push(view)
     # Let Workers AI infer the document type from the .pdf filename.
     blob = Blob.new(parts)
+    if int(getattr(blob, "size", 0) or 0) <= 0:
+        raise RuntimeError("PDF recuperado do R2 resultou em Blob vazio.")
     from pyodide.ffi import create_proxy
     file_item = create_proxy({"name": filename, "blob": blob})
     files = Array.new()
