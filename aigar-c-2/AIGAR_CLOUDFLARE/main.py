@@ -706,6 +706,7 @@ async def handle_ask(body):
     if memory:
         sources.append({"kind":"memory","id":"runtime.recent_context","status":"inferred","detail":"Session-local continuity."})
     evidence=await library_search(text,reading) if reading["needs_library"] else []
+    loaded_chunks=[{"id":c["id"],"sequence":c.get("sequence"),"source":c.get("source"),"start_page":c.get("start_page"),"end_page":c.get("end_page"),"text_length":len(c.get("text",""))} for c in await load_chunks()]
     if reading["needs_library"]:
         sources.append({"kind":"library","id":"github.versioned.library","status":"confirmed" if evidence else "missing","detail":f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."})
     mode="social" if reading["intent"]=="phatic" else ("source_grounded" if evidence else ("source_unavailable" if reading["needs_library"] else "reasoned_without_library"))
@@ -729,7 +730,7 @@ async def handle_ask(body):
     state["turns"] += [{"role":"user","content":text},{"role":"assistant","content":answer}]
     if len(state["turns"])>40: state["turns"]=state["turns"][-40:]
     confidence=min(0.75,0.35+0.1*sum(1 for s in sources if s["status"] in {"confirmed","inferred"}))
-    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan}
+    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan,"library":{"chunks_loaded":len(loaded_chunks),"chunks":loaded_chunks}}
 
 class Default(WorkerEntrypoint):
     async def fetch(self, request):
