@@ -1261,6 +1261,15 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         # Depending on the Python Workers version this can arrive as a dict
         # or as a JSON string, so normalize both forms here.
         payload = event
+        # Python WorkflowEvent may expose the API params through attributes.
+        for attr in ("params", "payload"):
+            try:
+                candidate = getattr(event, attr, None)
+            except Exception:
+                candidate = None
+            if candidate is not None:
+                payload = candidate
+                break
         if isinstance(payload, str):
             try:
                 payload = json.loads(payload)
@@ -1268,6 +1277,11 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
                 payload = {}
         if isinstance(payload, dict) and isinstance(payload.get("payload"), dict):
             payload = payload["payload"]
+        if isinstance(payload, dict) and isinstance(payload.get("params"), str):
+            try:
+                payload = json.loads(payload["params"])
+            except Exception:
+                pass
         if not isinstance(payload, dict):
             payload = {}
         document_id = str(payload.get("document_id") or "")
