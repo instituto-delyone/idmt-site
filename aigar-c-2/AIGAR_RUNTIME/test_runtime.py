@@ -17,14 +17,14 @@ def test_concept_routes_to_library_boundary():
     assert any(s.kind == "library" for s in result.sources)
 
 
-def test_historical_concept_without_question_mark_routes_to_library():
+def test_executable_language_is_connected_to_runtime():
     result = run_runtime(RuntimeRequest(
         input="O que foi a Revolução Agrícola",
-        session_id="test-agricultural-revolution",
+        session_id="test-executable-language",
     ))
-    assert result.state.reading.intent == "concept_scoped"
+    assert result.state.reading.intent == "concept_basic"
     assert result.state.reading.needs_library is True
-    assert any(s.kind == "library" for s in result.sources)
+    assert result.state.reading.scope == "o que foi a revolução agrícola"
 
 
 def test_continuity_uses_session_memory():
