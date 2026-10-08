@@ -698,6 +698,8 @@ async def load_chunk_text(entry):
 
 INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/AIGAR_LIBRARY/indexes?ref=main"
 INDEX_CACHE = None
+LIBRARY_BOOT_CACHE = None
+LIBRARY_BOOT_STATUS = None
 
 async def load_library_indexes():
     global INDEX_CACHE
@@ -740,28 +742,98 @@ async def load_library_indexes():
     INDEX_CACHE=indexes
     return INDEX_CACHE
 
-async def load_chunks():
-    indexes=await load_library_indexes()
-    entries=[]
-    seen=set()
+
+async def boot_library():
+    """Pre-carrega um chunk referencial de cada biblioteca disponível."""
+    global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS
+    if LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None:
+        return {
+            "ready": True,
+            "libraries": LIBRARY_BOOT_STATUS,
+            "loaded": len(LIBRARY_BOOT_CACHE),
+            "total": len(LIBRARY_BOOT_STATUS),
+            "mode": "warm_runtime_cache",
+        }
+
+    indexes = await load_library_indexes()
+    statuses = []
+    loaded = {}
+
+    # Um chunk referencial por biblioteca: pequeno o suficiente para o boot,
+    # mas suficiente para provar que a biblioteca está realmente acessível.
     for index in indexes:
-        for entry in index.get("chunks",[]):
-            cid=entry.get("id")
-            if not cid or cid in seen:
-                continue
-            seen.add(cid)
-            entries.append(entry)
+        source = index.get("source", {}) or {}
+        source_key = source.get("key") or "unknown"
+        chunks = index.get("chunks", []) or []
+        if not chunks:
+            statuses.append({
+                "source_key": source_key,
+                "source": source.get("name"),
+                "status": "error",
+                "detail": "Índice encontrado, mas sem chunks.",
+            })
+            continue
 
-    async def one(entry):
-        cid=entry["id"]
-        if cid not in CHUNK_CACHE:
-            text=await load_chunk_text(entry)
+        reference = sorted(
+            chunks,
+            key=lambda c: int(c.get("sequence", 0) or 0)
+        )[0]
+
+        cid = reference.get("id")
+        text = CHUNK_CACHE.get(cid) if cid else None
+        cache_origin = "runtime_cache" if text else None
+
+        if not text and cid:
+            text = await load_chunk_text(reference)
             if text:
-                CHUNK_CACHE[cid]=text
-        return {**entry,"text":CHUNK_CACHE.get(cid,"")}
+                CHUNK_CACHE[cid] = text
+                cache_origin = "remote_loaded"
 
-    result=await asyncio.gather(*(one(e) for e in entries))
-    return [x for x in result if x and x.get("text")]
+        if text:
+            loaded[cid] = {
+                **reference,
+                "text": text,
+            }
+            statuses.append({
+                "source_key": source_key,
+                "source": reference.get("source") or source.get("name"),
+                "status": "ready",
+                "reference_chunk": cid,
+                "sequence": reference.get("sequence"),
+                "start_page": reference.get("start_page"),
+                "end_page": reference.get("end_page"),
+                "text_length": len(text),
+                "cache_origin": cache_origin,
+            })
+        else:
+            statuses.append({
+                "source_key": source_key,
+                "source": reference.get("source") or source.get("name"),
+                "status": "error",
+                "reference_chunk": cid,
+                "sequence": reference.get("sequence"),
+                "start_page": reference.get("start_page"),
+                "end_page": reference.get("end_page"),
+                "detail": "Chunk referencial não pôde ser carregado.",
+            })
+
+    LIBRARY_BOOT_CACHE = loaded
+    LIBRARY_BOOT_STATUS = statuses
+    ready = bool(statuses) and all(x.get("status") == "ready" for x in statuses)
+    return {
+        "ready": ready,
+        "libraries": statuses,
+        "loaded": sum(1 for x in statuses if x.get("status") == "ready"),
+        "total": len(statuses),
+        "mode": "cold_boot",
+    }
+
+
+async def load_chunks():
+    """Compatibilidade: retorna somente o conjunto de referência já carregado."""
+    boot = await boot_library()
+    return list(LIBRARY_BOOT_CACHE.values()) if LIBRARY_BOOT_CACHE is not None else []
+
 
 SEMANTIC_EXPANSIONS = {
     "função": {"papel","finalidade","serve","servir","funcionamento"},
@@ -809,17 +881,70 @@ def source_relevance(query, source_key):
     return min(1.0, len(q & profile) / max(2, int(len(profile)*0.35)))
 
 async def library_search(query,reading,limit=5):
-    chunks=await load_chunks()
-    qinfo=reading.get("linguistic_analysis",{}).get("question",{})
-    qtype=qinfo.get("type")
-    topic=(qinfo.get("topic_head") or reading.get("scope") or "").lower().strip()
-    query_terms=semantic_expand(query)
-    topic_terms=semantic_expand(topic)
-    q=query_terms or topic_terms
-    candidates=[]
+    indexes = await load_library_indexes()
+    qinfo = reading.get("linguistic_analysis",{}).get("question",{})
+    qtype = qinfo.get("type")
+    topic = (qinfo.get("topic_head") or reading.get("scope") or "").lower().strip()
+    query_terms = semantic_expand(query)
+    topic_terms = semantic_expand(topic)
+    q = query_terms or topic_terms
+    candidates = []
     noise_markers=("isbn","ficha catalogográfica","sumário","referências","bibliografia","universidade federal")
     definition_markers=("é uma","é um","são","significa","consiste em","refere-se","define-se","definido como","definida como","constitui","constituída por")
     concept=find_linguistic_concept(topic)
+
+    # Primeiro escolhemos bibliotecas/chunks pelo índice. Só depois baixamos
+    # o texto dos candidatos. Assim o boot não precisa carregar todos os livros.
+    indexed_candidates=[]
+    for index in indexes:
+        source = index.get("source", {}) or {}
+        source_key = source.get("key") or ""
+        source_score = source_relevance(query, source_key)
+        chunks = index.get("chunks", []) or []
+        for chunk in chunks:
+            cid=chunk.get("id")
+            if not cid:
+                continue
+            chunk_meta = {**chunk, "source_key": source_key}
+            # O índice fornece identidade/página; o texto só é necessário
+            # quando o chunk entra na lista de candidatos.
+            page_hint = 0.0
+            if topic and str(chunk.get("source","")).lower().find(topic) >= 0:
+                page_hint = 0.05
+            indexed_candidates.append((
+                source_score + page_hint,
+                float(chunk.get("sequence",0) or 0),
+                chunk_meta
+            ))
+
+    indexed_candidates.sort(key=lambda x:(-x[0],x[1]))
+    # Para uma pergunta temática, trazemos alguns chunks por biblioteca
+    # potencialmente relevante; não o corpus inteiro.
+    selected_meta=[]
+    seen_sources=set()
+    for score,_,meta in indexed_candidates:
+        sk=meta.get("source_key","")
+        if sk in seen_sources and len(selected_meta)>=max(limit*4,8):
+            continue
+        selected_meta.append(meta)
+        seen_sources.add(sk)
+        if len(selected_meta)>=max(limit*4,8):
+            break
+
+    async def ensure_text(entry):
+        cid=entry["id"]
+        text=CHUNK_CACHE.get(cid)
+        if not text:
+            text=await load_chunk_text(entry)
+            if text:
+                CHUNK_CACHE[cid]=text
+        return {**entry,"text":text or ""}
+
+    chunks=[]
+    for meta in selected_meta:
+        item=await ensure_text(meta)
+        if item.get("text"):
+            chunks.append(item)
 
     for chunk in chunks:
         source_key=chunk.get("source_key","")
@@ -832,7 +957,7 @@ async def library_search(query,reading,limit=5):
             lexical_overlap=len(literal_q & literal)
             semantic_overlap=len(q & st)
             topic_overlap=len(topic_terms & st) if topic_terms else 0
-            topic_hit=1 if topic and re.search(rf"\\b{re.escape(topic)}\\b",lower) else 0
+            topic_hit=1 if topic and re.search(rf"\b{re.escape(topic)}\b",lower) else 0
 
             if not lexical_overlap and not semantic_overlap and not topic_overlap and not topic_hit and not source_score:
                 continue
@@ -887,6 +1012,7 @@ async def library_search(query,reading,limit=5):
         if len(selected)>=limit:
             break
     return selected
+
 
 MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
 
@@ -1366,8 +1492,17 @@ async def handle_ask(body):
     sources=[]
     if memory:
         sources.append({"kind":"memory","id":"runtime.recent_context","status":"inferred","detail":"Session-local continuity."})
+    library_boot=await boot_library()
     evidence=await library_search(text,reading) if reading["needs_library"] else []
-    loaded_chunks=[{"id":c["id"],"sequence":c.get("sequence"),"source":c.get("source"),"start_page":c.get("start_page"),"end_page":c.get("end_page"),"text_length":len(c.get("text",""))} for c in await load_chunks()]
+    loaded_chunks=[{
+        "id":c["id"],
+        "sequence":c.get("sequence"),
+        "source":c.get("source"),
+        "start_page":c.get("start_page"),
+        "end_page":c.get("end_page"),
+        "text_length":len(c.get("text","")),
+        "boot_reference":True
+    } for c in (LIBRARY_BOOT_CACHE.values() if LIBRARY_BOOT_CACHE else [])]
     if reading["needs_library"]:
         sources.append({"kind":"library","id":"github.versioned.library","status":"confirmed" if evidence else "missing","detail":f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."})
     qinfo=reading["linguistic_analysis"].get("question",{})
@@ -1404,7 +1539,7 @@ async def handle_ask(body):
     state["turns"] += [{"role":"user","content":text},{"role":"assistant","content":answer}]
     if len(state["turns"])>40: state["turns"]=state["turns"][-40:]
     confidence=min(0.75,0.35+0.1*sum(1 for s in sources if s["status"] in {"confirmed","inferred"}))
-    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan,"library":{"chunks_loaded":len(loaded_chunks),"chunks":loaded_chunks}}
+    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan,"library":{"ready":library_boot.get("ready",False),"libraries":library_boot.get("libraries",[]),"chunks_loaded":len(loaded_chunks),"chunks":loaded_chunks}}
 
 class Default(WorkerEntrypoint):
     async def fetch(self, request):
@@ -1467,6 +1602,12 @@ class Default(WorkerEntrypoint):
                 return make_response(data, status, origin)
             except Exception as exc:
                 return make_response({"ok":False,"status":"auth_validation_error","message":str(exc)},502,origin)
+        if path.endswith("/library/boot") and request.method=="GET":
+            try:
+                result=await boot_library()
+                return make_response({"ok":True,"library":result},200,origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"library_boot_error","message":str(exc)},500,origin)
         if path.endswith("/perguntar") and request.method=="POST":
             try:
                 body=await request.json()
