@@ -750,14 +750,28 @@ async def handle_ask(body):
     loaded_chunks=[{"id":c["id"],"sequence":c.get("sequence"),"source":c.get("source"),"start_page":c.get("start_page"),"end_page":c.get("end_page"),"text_length":len(c.get("text",""))} for c in await load_chunks()]
     if reading["needs_library"]:
         sources.append({"kind":"library","id":"github.versioned.library","status":"confirmed" if evidence else "missing","detail":f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."})
+    qinfo=reading["linguistic_analysis"].get("question",{})
+    qtype=qinfo.get("type")
+    topic_head=qinfo.get("topic_head") or reading.get("scope") or "esse assunto"
+    topic_scope=(reading.get("scope") or topic_head).strip(" ?")
     mode="social" if reading["intent"]=="phatic" else ("source_grounded" if evidence else ("source_unavailable" if reading["needs_library"] else "reasoned_without_library"))
-    topic=(reading.get("scope") or "esse assunto").strip(" ?")
     if mode=="social":
         answer="Oi! Aurora aqui. Manda o que você quer construir que a gente organiza."
     elif mode=="source_grounded":
-        qtype=reading["linguistic_analysis"].get("question",{}).get("type")
-        prefix=f"{topic.capitalize()} — pelo material recuperado:" if qtype=="definition" else f"Encontrei conteúdo relevante sobre {topic}:"
-        answer=prefix+"\n\n"+" ".join(e["text"] for e in evidence[:3])
+        if qtype=="definition":
+            concept=PORTUGUESE.get("core_concepts",{}).get(topic_head.lower(),{})
+            definition=concept.get("definition")
+            runtime_use=concept.get("runtime_use")
+            parts=[definition] if definition else []
+            if runtime_use:
+                parts.append(f"Na interpretação, o AIGAR usa esse conceito para: {runtime_use}.")
+            if evidence:
+                parts.append("O livro de Língua Portuguesa recuperado acrescenta este contexto:")
+                parts.extend(e["text"] for e in evidence[:2])
+            answer=f"{topic_head.capitalize()} — definição estruturada pelo conhecimento linguístico do AIGAR:\n\n"+" ".join(parts)
+        else:
+            prefix=f"Encontrei conteúdo relevante sobre {topic_scope}:"
+            answer=prefix+"\n\n"+" ".join(e["text"] for e in evidence[:3])
     elif mode=="source_unavailable":
         answer=f"Entendi a pergunta sobre {topic}. A biblioteca está conectada, mas não encontrei evidência local suficiente para responder com segurança."
     elif mode=="reasoned_without_library":
@@ -765,7 +779,7 @@ async def handle_ask(body):
     else:
         last=memory[-1]["content"] if memory else None
         answer="Vou continuar a partir do contexto recente."+ (f" O ponto anterior foi: {last}" if last else "")
-    plan={"understand_before_answer":True,"intent":reading["intent"],"depth":reading["depth"],"use_memory":bool(memory),"use_library":reading["needs_library"],"use_diagnosis":False,"answer_mode":mode,"question_type":reading["linguistic_analysis"].get("question",{}).get("type"),"semantic_goal":reading["linguistic_analysis"].get("question",{}).get("semantic_goal"),"topic":reading.get("scope"),"evidence":[e["text"] for e in evidence],"steps":["interpret","gather_available_context","select_relevant_evidence","reason","plan_response"]}
+    plan={"understand_before_answer":True,"intent":reading["intent"],"depth":reading["depth"],"use_memory":bool(memory),"use_library":reading["needs_library"],"use_diagnosis":False,"answer_mode":mode,"question_type":reading["linguistic_analysis"].get("question",{}).get("type"),"semantic_goal":reading["linguistic_analysis"].get("question",{}).get("semantic_goal"),"topic":topic_head,"evidence":[e["text"] for e in evidence],"steps":["interpret","gather_available_context","select_relevant_evidence","reason","plan_response"]}
     sources += [{"kind":"reasoning","id":"runtime.reasoning","status":"confirmed" if evidence else "inferred","detail":f"Resposta planejada em modo {mode}."},{"kind":"aurora","id":"runtime.aurora","status":"confirmed","detail":"Apresentação final no Runtime Cloudflare."}]
     state["last_user_input"]=text; state["last_response"]=answer
     state["turns"] += [{"role":"user","content":text},{"role":"assistant","content":answer}]
