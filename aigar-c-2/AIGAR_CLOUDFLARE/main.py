@@ -7,7 +7,7 @@ import re
 import hashlib
 import time
 from urllib.parse import urlparse
-from workers import WorkerEntrypoint, Response, fetch
+from workers import WorkerEntrypoint, WorkflowEntrypoint, Response, fetch
 
 LANGUAGE = json.loads(r'''{
   "id": "aigar_language_runtime_v1",
@@ -1034,6 +1034,18 @@ async def admin_upload(request, env, usuario):
             pass
         return 500, {"ok": False, "status": "metadata_error", "message": str(exc)}
 
+    workflow = binding(env, "AIGAR_LIBRARY_BUILDER")
+    workflow_status = "not_configured"
+    workflow_id = None
+    if workflow:
+        try:
+            instance = await workflow.create(params={"document_id": document_id})
+            workflow_status = "started"
+            workflow_id = str(instance.id)
+        except Exception as exc:
+            workflow_status = "error"
+            workflow_id = str(exc)[:500]
+
     return 201, {
         "ok": True,
         "status": "uploaded",
@@ -1049,7 +1061,8 @@ async def admin_upload(request, env, usuario):
             "uploaded_by": str(usuario.get("nome_usuario") or usuario.get("id") or "admin"),
             "chunk_count": 0,
         },
-        "next_step": "processing",
+        "next_step": "automatic_processing",
+        "processing": {"status": workflow_status, "workflow_id": workflow_id},
     }
 
 def plain_document(row):
@@ -1076,6 +1089,188 @@ def plain_document(row):
         "chunk_count": int(scalar("chunk_count",0) or 0),
         "error_message": str(scalar("error_message")) if scalar("error_message") else None,
     }
+
+
+
+CHUNK_PAGES = 25
+LIBRARY_R2_PREFIX = "libraries"
+
+def normalize_library_text(text):
+    text = (text or "").replace("\x00", " ")
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+def markdown_pages(markdown):
+    """Return [(page_number, text)] from Workers AI Markdown output."""
+    raw = normalize_library_text(markdown)
+    matches = list(re.finditer(r"(?m)^###\s+Page\s+(\d+)\s*$", raw))
+    if not matches:
+        return [(None, raw)] if raw else []
+    pages = []
+    for i, m in enumerate(matches):
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(raw)
+        body = normalize_library_text(raw[start:end])
+        if body:
+            pages.append((int(m.group(1)), body))
+    return pages
+
+def make_page_chunks(pages, pages_per_chunk=CHUNK_PAGES):
+    if not pages:
+        return []
+    if pages[0][0] is None:
+        text = pages[0][1]
+        # TXT/Markdown-style fallback: preserve the document and split by ~24k chars.
+        out = []
+        for start in range(0, len(text), 24000):
+            out.append((None, None, text[start:start + 24000]))
+        return out
+    out = []
+    for i in range(0, len(pages), pages_per_chunk):
+        group = pages[i:i + pages_per_chunk]
+        out.append((group[0][0], group[-1][0], "\n\n".join(x[1] for x in group)))
+    return out
+
+async def convert_r2_pdf_to_markdown(env, r2_key, filename):
+    bucket = binding(env, R2_BINDING)
+    ai = binding(env, "AI")
+    if not bucket:
+        raise RuntimeError("R2 binding ausente.")
+    if not ai:
+        raise RuntimeError("Workers AI binding ausente.")
+    obj = await bucket.get(r2_key)
+    if not obj:
+        raise RuntimeError("PDF não encontrado no R2.")
+    data = await obj.arrayBuffer()
+    # Workers AI's toMarkdown accepts a JS Blob. Python Workers expose JS objects
+    # through the FFI, so we create the Blob without copying the PDF through D1.
+    from js import Blob
+    blob = Blob.new([data], {"type": "application/pdf"})
+    result = await ai.toMarkdown(
+        {"name": filename, "blob": blob},
+        {"conversionOptions": {"output": {"format": "markdown"}, "pdf": {"metadata": False}}},
+    )
+    items = result if isinstance(result, list) else list(result)
+    if not items:
+        raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
+    item = items[0]
+    fmt = str(item.get("format") or "")
+    if fmt == "error":
+        raise RuntimeError(str(item.get("error") or "Falha na conversão do PDF."))
+    return str(item.get("data") or "")
+
+async def build_document_library(env, document_id):
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    if not db or not bucket:
+        raise RuntimeError("Persistência do AIGAR não está configurada.")
+
+    row = await db.prepare(
+        "SELECT id, filename, r2_key, sha256, status FROM documents WHERE id = ? LIMIT 1"
+    ).bind(document_id).first()
+    if not row:
+        raise RuntimeError("Documento não encontrado.")
+
+    filename = str(row.filename or "document.pdf")
+    r2_key = str(row.r2_key or "")
+    await db.prepare(
+        "UPDATE documents SET status = 'processing', error_message = NULL WHERE id = ?"
+    ).bind(document_id).run()
+
+    try:
+        markdown = await convert_r2_pdf_to_markdown(env, r2_key, filename)
+        pages = markdown_pages(markdown)
+        chunks = make_page_chunks(pages, CHUNK_PAGES)
+        if not chunks:
+            raise RuntimeError("Nenhum texto recuperável foi encontrado no PDF.")
+
+        source_digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
+        # Idempotency: remove old chunk metadata/artifacts before rebuilding.
+        old = await db.prepare(
+            "SELECT r2_key FROM document_chunks WHERE document_id = ?"
+        ).bind(document_id).all()
+        for old_row in old.results:
+            try:
+                await bucket.delete(str(old_row.r2_key))
+            except Exception:
+                pass
+        await db.prepare("DELETE FROM document_chunks WHERE document_id = ?").bind(document_id).run()
+
+        created = []
+        for seq, (start_page, end_page, text) in enumerate(chunks, start=1):
+            chunk_text = normalize_library_text(text)
+            if not chunk_text:
+                continue
+            chunk_id = f"{document_id}_chunk_{seq:04d}"
+            r2_chunk_key = f"{LIBRARY_R2_PREFIX}/{document_id}/chunks/chunk_{seq:04d}.md"
+            header = (
+                f"# {chunk_id}\n\n"
+                f"**Biblioteca:** {filename}\n"
+                f"**Fonte:** {filename}\n"
+                + (f"**Páginas:** {start_page}-{end_page}\n" if start_page is not None else "")
+                + f"**Checksum fonte:** {source_digest[:16]}\n\n---\n\n"
+            )
+            payload = (header + chunk_text + "\n").encode("utf-8")
+            await bucket.put(
+                r2_chunk_key,
+                payload,
+                {
+                    "httpMetadata": {"contentType": "text/markdown; charset=utf-8"},
+                    "customMetadata": {
+                        "document_id": document_id,
+                        "chunk_id": chunk_id,
+                        "sequence": str(seq),
+                        "source": filename,
+                        "start_page": str(start_page or ""),
+                        "end_page": str(end_page or ""),
+                    },
+                },
+            )
+            await db.prepare(
+                """INSERT INTO document_chunks
+                   (id, document_id, sequence, source, start_page, end_page,
+                    r2_key, text_length, checksum, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+            ).bind(
+                chunk_id, document_id, seq, filename, start_page, end_page,
+                r2_chunk_key, len(chunk_text), source_digest, int(time.time())
+            ).run()
+            created.append({
+                "id": chunk_id,
+                "sequence": seq,
+                "start_page": start_page,
+                "end_page": end_page,
+                "r2_key": r2_chunk_key,
+                "text_length": len(chunk_text),
+            })
+
+        await db.prepare(
+            "UPDATE documents SET status = 'ready', chunk_count = ?, error_message = NULL WHERE id = ?"
+        ).bind(len(created), document_id).run()
+        return {"document_id": document_id, "filename": filename, "chunk_count": len(created), "chunks": created}
+    except Exception as exc:
+        await db.prepare(
+            "UPDATE documents SET status = 'error', error_message = ? WHERE id = ?"
+        ).bind(str(exc)[:2000], document_id).run()
+        raise
+
+class LibraryBuilderWorkflow(WorkflowEntrypoint):
+    async def run(self, event, step):
+        payload = event.get("payload") if isinstance(event, dict) else None
+        payload = payload or {}
+        document_id = str(payload.get("document_id") or "")
+        if not document_id:
+            raise RuntimeError("document_id ausente no Workflow.")
+        @step.do("build-library", config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
+        async def build():
+            result = await build_document_library(self.env, document_id)
+            return {
+                "document_id": result["document_id"],
+                "filename": result["filename"],
+                "chunk_count": result["chunk_count"],
+            }
+        return await build()
 
 async def admin_documents(env):
     db = binding(env, D1_BINDING)
@@ -1193,6 +1388,20 @@ class Default(WorkerEntrypoint):
                 return make_response(data, status, origin)
             except Exception as exc:
                 return make_response({"ok":False,"status":"upload_error","message":str(exc)},500,origin)
+        if path.endswith("/admin/process") and request.method=="POST":
+            try:
+                _, status, data = await require_admin(request)
+                if status != 200:
+                    return make_response(data, status, origin)
+                body = await request.json()
+                document_id = str(body.get("document_id") or "")
+                workflow = binding(self.env, "AIGAR_LIBRARY_BUILDER")
+                if not document_id or not workflow:
+                    return make_response({"ok":False,"status":"processing_not_configured"},503,origin)
+                instance = await workflow.create(params={"document_id": document_id})
+                return make_response({"ok":True,"status":"started","workflow_id":str(instance.id),"document_id":document_id},202,origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"processing_error","message":str(exc)},500,origin)
         if path.endswith("/admin/documents") and request.method=="GET":
             try:
                 _, status, data = await require_admin(request)
