@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIGAR Developer Console</title>
+<style>
+:root{--bg:#071018;--p:#0d1824;--p2:#101f2e;--line:#22364a;--txt:#e8f0f7;--mut:#91a5b8;--a:#61d9ff;--b:#8c7cff;--ok:#54dfa0;--err:#ff6978}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#12304455,transparent 35%),var(--bg);color:var(--txt);font:14px system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1400px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{display:flex;gap:13px;align-items:center}.logo{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));color:#061018;font-weight:900;font-size:20px}h1{margin:0;font-size:23px}.sub{color:var(--mut);font-size:12px;margin-top:3px}.status{border:1px solid var(--line);border-radius:99px;padding:8px 12px;color:var(--mut)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--err);margin-right:7px}.dot.ok{background:var(--ok);box-shadow:0 0 12px #54dfa088}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.panel{background:linear-gradient(180deg,#102030,#0b1722);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 45px #0005}.head{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.body{padding:16px}label{display:block;color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px}input,textarea{width:100%;background:#07121c;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:11px;outline:0}textarea{min-height:120px;resize:vertical}.row{display:grid;grid-template-columns:1fr auto;gap:8px}.actions{display:flex;gap:8px;margin-top:10px}button{background:#142638;color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:9px 13px;cursor:pointer;font-weight:650}button:hover{border-color:#42617c}.primary{background:linear-gradient(135deg,var(--a),var(--b));color:#061018;border:0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.metric{background:#08131e;border:1px solid var(--line);border-radius:10px;padding:9px}.metric small{display:block;color:var(--mut);font-size:9px;text-transform:uppercase}.metric b{display:block;margin-top:4px;font-size:12px;word-break:break-word}.response{margin-top:12px;min-height:130px;padding:14px;background:#06111a;border:1px solid var(--line);border-radius:10px;white-space:pre-wrap;line-height:1.5}.kv{display:grid;grid-template-columns:145px 1fr;gap:7px;font-size:12px}.kv div:nth-child(odd){color:var(--mut)}pre{margin:0;background:#06111a;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;max-height:430px;font-size:11px;line-height:1.45}.gap{margin-top:16px}.tag{color:var(--mut);font-size:10px;border:1px solid var(--line);padding:4px 7px;border-radius:99px}@media(max-width:850px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><div class="logo">A</div><div><h1>AIGAR Developer Console</h1><div class="sub">Runtime · Linguagem · Biblioteca · Reasoning · Aurora</div></div></div><div class="status"><i id="dot" class="dot"></i><span id="st">offline</span></div></header>
+<div class="grid">
+<main>
+<section class="panel"><div class="head"><b>Runtime</b><span class="tag">Developer</span></div><div class="body">
+<label>API Base</label><div class="row"><input id="api" value="http://127.0.0.1:8000"><button onclick="health()">Health</button></div>
+<div class="gap"><label>Entrada</label><textarea id="q">O que é uma oração na língua portuguesa?</textarea><div class="actions"><button class="primary" onclick="ask()">Perguntar ao AIGAR</button><button onclick="clearAll()">Limpar</button></div></div>
+<div class="metrics"><div class="metric"><small>Intent</small><b id="intent">—</b></div><div class="metric"><small>Scope</small><b id="scope">—</b></div><div class="metric"><small>Depth</small><b id="depth">—</b></div><div class="metric"><small>Confidence</small><b id="conf">—</b></div></div>
+<div id="answer" class="response">A resposta do runtime aparecerá aqui.</div>
+</div></section>
+<section class="panel gap"><div class="head"><b>Leitura linguística</b><span class="tag">Language Layer</span></div><div class="body"><div id="reading" class="kv"></div><div class="gap"><label>Análise linguística</label><pre id="ling">—</pre></div></div></section>
+</main>
+<aside>
+<section class="panel"><div class="head"><b>Reasoning Plan</b><span class="tag">Execution</span></div><div class="body"><pre id="plan">—</pre></div></section>
+<section class="panel gap"><div class="head"><b>Evidence</b><span class="tag">Library</span></div><div class="body"><pre id="evidence">—</pre></div></section>
+<section class="panel gap"><div class="head"><b>Sources / Traces</b><span class="tag">Traceability</span></div><div class="body"><pre id="sources">—</pre></div></section>
+</aside>
+</div>
+<section class="panel gap"><div class="head"><b>Raw Runtime JSON</b><button onclick="copyJson()">Copiar JSON</button></div><div class="body"><pre id="raw">{}</pre></div></section>
+</div>
+<script>
+const $=id=>document.getElementById(id), base=()=>$("api").value.trim().replace(/\/+$/,"");
+const pretty=x=>JSON.stringify(x??null,null,2);
+function state(ok,t){$("dot").className="dot"+(ok?" ok":"");$("st").textContent=t}
+async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw Error("HTTP "+r.status);let d=await r.json();state(true,(d.runtime||"AIGAR")+" "+(d.version||""))}catch(e){state(false,"offline")}}
+function setReading(x={}){let f=["intent","scope","depth","ambiguity","uncertainty","needs_memory","needs_library","needs_diagnosis","needs_reasoning"];$("reading").innerHTML=f.map(k=>`<div>${k}</div><div>${x[k]??"—"}</div>`).join("");$("intent").textContent=x.intent??"—";$("scope").textContent=x.scope??"—";$("depth").textContent=x.depth??"—";$("ling").textContent=pretty(x.linguistic_analysis)}
+async function ask(){let input=$("q").value.trim();if(!input)return;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console"})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";$("raw").textContent=pretty(d);$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";setReading(d.state?.reading||{});state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
+function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";setReading({})}
+async function copyJson(){await navigator.clipboard.writeText($("raw").textContent)}
+health();
+</script>
+</body>
+</html>
