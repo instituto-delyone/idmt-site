@@ -763,59 +763,130 @@ async def load_chunks():
     result=await asyncio.gather(*(one(e) for e in entries))
     return [x for x in result if x and x.get("text")]
 
+SEMANTIC_EXPANSIONS = {
+    "função": {"papel","finalidade","serve","servir","funcionamento"},
+    "funciona": {"funcionamento","mecanismo","processo","operação"},
+    "explicar": {"explicação","conceito","definição","entendimento"},
+    "definição": {"conceito","significado","definição"},
+    "causa": {"motivo","razão","porque","origem"},
+    "efeito": {"consequência","resultado","impacto"},
+    "processo": {"etapas","mecanismo","procedimento","processo"},
+    "comparar": {"diferença","semelhança","comparação"},
+    "diferença": {"contraste","distinção","diferença"},
+    "limite": {"limites","continuidade","aproximação"},
+    "derivada": {"derivação","taxa","variação"},
+    "integral": {"integração","área","antiderivada"},
+    "computador": {"computação","processador","hardware","arquitetura"},
+    "arquitetura": {"organização","computador","processador","memória"},
+    "ética": {"moral","princípio","conduta","responsabilidade"},
+    "lógica": {"raciocínio","proposição","inferência","dedução"},
+    "matemática": {"cálculo","número","equação"},
+    "português": {"língua","linguagem","gramática","sintaxe","semântica"},
+}
+
+SOURCE_PROFILES = {
+    "portuguese_language_knowledge": {"português","gramática","língua","linguagem","sintaxe","semântica","oração","frase","período","verbo","sujeito","pronomes"},
+    "matematica_computacional": {"matemática","cálculo","limite","derivada","integral","função","equação","número","álgebra","geometria"},
+    "arquitetura_organizacao_computadores": {"arquitetura","computador","processador","memória","hardware","cpu","sistema","organização","barramento"},
+    "etica": {"ética","moral","princípio","conduta","responsabilidade","dever","valor","justiça"},
+    "raciocinio_logico_matematica": {"lógica","raciocínio","proposição","inferência","dedução","concurso","matemática","problema"},
+    "interacoes_aigar": {"aigar","aurora","conversa","memória","interação","diálogo"},
+    "sapiens": {"humanidade","história","evolução","civilização","sociedade","agricultura","revolução","harari"},
+}
+
+def semantic_expand(text):
+    base=tokens(text)
+    expanded=set(base)
+    for term in list(base):
+        expanded.update(SEMANTIC_EXPANSIONS.get(term,set()))
+    return expanded
+
+def source_relevance(query, source_key):
+    q=semantic_expand(query)
+    profile=SOURCE_PROFILES.get(source_key,set())
+    if not q or not profile:
+        return 0.0
+    return min(1.0, len(q & profile) / max(2, int(len(profile)*0.35)))
+
 async def library_search(query,reading,limit=5):
     chunks=await load_chunks()
     qinfo=reading.get("linguistic_analysis",{}).get("question",{})
     qtype=qinfo.get("type")
     topic=(qinfo.get("topic_head") or reading.get("scope") or "").lower().strip()
-    q=tokens(topic) or tokens(reading.get("scope") or query)
+    query_terms=semantic_expand(query)
+    topic_terms=semantic_expand(topic)
+    q=query_terms or topic_terms
     candidates=[]
     noise_markers=("isbn","ficha catalogográfica","sumário","referências","bibliografia","universidade federal")
     definition_markers=("é uma","é um","são","significa","consiste em","refere-se","define-se","definido como","definida como","constitui","constituída por")
     concept=find_linguistic_concept(topic)
+
     for chunk in chunks:
+        source_key=chunk.get("source_key","")
+        source_score=source_relevance(query,source_key)
         for sentence in sentences(chunk["text"]):
             lower=sentence.lower()
-            st=tokens(sentence)
-            overlap=len(q&st)
-            topic_hit=1 if topic and re.search(rf"\b{re.escape(topic)}\b",lower) else 0
-            if not overlap and not topic_hit:
+            st=semantic_expand(sentence)
+            literal=tokens(sentence)
+            literal_q=tokens(query)
+            lexical_overlap=len(literal_q & literal)
+            semantic_overlap=len(q & st)
+            topic_overlap=len(topic_terms & st) if topic_terms else 0
+            topic_hit=1 if topic and re.search(rf"\\b{re.escape(topic)}\\b",lower) else 0
+
+            if not lexical_overlap and not semantic_overlap and not topic_overlap and not topic_hit and not source_score:
                 continue
-            score=(overlap/max(1,len(q)))*0.8 + topic_hit*2.2
+
+            lexical_score=lexical_overlap/max(1,len(literal_q))
+            semantic_score=semantic_overlap/max(1,len(q))
+            topic_score=min(1.0,topic_overlap/max(1,len(topic_terms))) if topic_terms else 0.0
+            score=0.30*lexical_score + 0.40*semantic_score + 0.15*topic_score + 0.15*source_score + topic_hit*0.50
+
             if any(marker in lower for marker in noise_markers):
-                score-=2.0
-            bonus=0.0
+                score-=0.50
+
             if qtype=="definition":
                 if topic_hit and any(marker in lower for marker in definition_markers):
-                    bonus=4.0
+                    score+=0.80
                 elif topic_hit:
-                    bonus=0.6
+                    score+=0.15
                 if concept and any(marker in lower for marker in definition_markers):
-                    bonus+=0.5
+                    score+=0.10
             elif qtype=="function" and any(x in lower for x in ("função","serve","finalidade")):
-                bonus=2.0
+                score+=0.35
             elif qtype=="comparison" and any(x in lower for x in ("diferença","compar","semelhan","distin")):
-                bonus=1.5
-            candidates.append((score+bonus,float(chunk.get("sequence",0)),sentence,chunk))
-    candidates.sort(key=lambda x:(-x[0],x[1],len(x[2])))
+                score+=0.30
+            elif qtype=="cause" and any(x in lower for x in ("causa","porque","razão","motivo")):
+                score+=0.30
+
+            candidates.append((
+                score, semantic_score, lexical_score, source_score,
+                float(chunk.get("sequence",0)), sentence, chunk
+            ))
+
+    candidates.sort(key=lambda x:(-x[0],-x[1],-x[2],-x[3],x[4],len(x[5])))
     selected=[]
     seen=set()
-    for score,_,sentence,chunk in candidates:
-        if sentence in seen:
+    for score,semantic_score,lexical_score,source_score,_,sentence,chunk in candidates:
+        key=(chunk["id"],sentence)
+        if key in seen:
             continue
-        seen.add(sentence)
+        seen.add(key)
         selected.append({
             "text":sentence,
             "chunk_id":chunk["id"],
             "source":chunk.get("source"),
+            "source_key":chunk.get("source_key"),
             "start_page":chunk.get("start_page"),
             "end_page":chunk.get("end_page"),
-            "score":round(score,6)
+            "score":round(max(0.0,score),6),
+            "semantic_score":round(semantic_score,6),
+            "lexical_score":round(lexical_score,6),
+            "source_relevance":round(source_score,6)
         })
         if len(selected)>=limit:
             break
     return selected
-
 
 MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
 
@@ -1059,7 +1130,7 @@ class Default(WorkerEntrypoint):
         if request.method=="OPTIONS":
             return Response("",status=204,headers=cors_headers(origin))
         if path.endswith("/health") and request.method=="GET":
-            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.5.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
+            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.6.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
         if path.endswith("/auth/login") and request.method=="POST":
             try:
                 body=await request.json()
