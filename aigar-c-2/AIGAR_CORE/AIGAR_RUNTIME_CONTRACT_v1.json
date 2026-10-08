@@ -1,0 +1,45 @@
+{
+  "id": "AIGAR-RUNTIME-CONTRACT-v1",
+  "status": "foundation",
+  "input": {
+    "raw": "string"
+  },
+  "conversation_reading": {
+    "intent": "phatic|concept_basic|concept_scoped|clinical_case|action|correction|continuity|doubt|unknown",
+    "scope": "string|null",
+    "depth": "brief|simple|normal|technical|deep",
+    "ambiguity": {
+      "detected": "boolean",
+      "referent": "string|null"
+    },
+    "uncertainty": {
+      "meaning_missing": "boolean",
+      "source_missing": "boolean"
+    }
+  },
+  "routing": {
+    "needs_memory": "boolean",
+    "needs_library": "boolean",
+    "needs_diagnosis": "boolean",
+    "needs_reasoning": "boolean"
+  },
+  "result": {
+    "structured": "object|null",
+    "sources": "array",
+    "confidence": "number|null"
+  },
+  "response": {
+    "planned_depth": "brief|simple|normal|technical|deep",
+    "text": "string",
+    "source_trace": "array"
+  },
+  "rules": [
+    "Understand before answering.",
+    "Do not treat every input as keyword search.",
+    "Distinguish absence of source from absence of meaning.",
+    "Use recent context for ambiguous continuations when available.",
+    "Do not invent an unknown domain.",
+    "Keep specialized engines specialized.",
+    "Do not expose internal routing objects unless requested."
+  ]
+}
