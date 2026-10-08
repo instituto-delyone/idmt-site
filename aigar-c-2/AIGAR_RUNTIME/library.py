@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from ..AIGAR_LIBRARY.retriever import LibraryRetriever
+from AIGAR_LIBRARY.retriever import LibraryRetriever
 from .models import SourceTrace
 
 
