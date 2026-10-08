@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aigar-api",
+  "main": "main.py",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["python_workers"]
+}
