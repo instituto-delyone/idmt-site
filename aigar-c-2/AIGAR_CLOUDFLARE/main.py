@@ -625,14 +625,15 @@ async def library_search(query,reading,limit=5):
 MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
 
 async def medunity_admin_login(body):
-    response = await fetch(MEDUNITY_AUTH_URL + "/login", {
-        "method": "POST",
-        "headers": {"Content-Type": "application/json"},
-        "body": json.dumps({
+    response = await fetch(
+        MEDUNITY_AUTH_URL + "/login",
+        method="POST",
+        headers={"Content-Type": "application/json"},
+        body=json.dumps({
             "nome_usuario": body.get("nome_usuario"),
             "senha": body.get("senha"),
         }),
-    })
+    )
     data = await response.json()
     return response.status, data
 
@@ -640,10 +641,11 @@ async def medunity_me(request):
     authorization = request.headers.get("Authorization") or ""
     if not authorization.startswith("Bearer "):
         return 401, {"detail": "Autenticação necessária."}
-    response = await fetch(MEDUNITY_AUTH_URL + "/me", {
-        "method": "GET",
-        "headers": {"Authorization": authorization},
-    })
+    response = await fetch(
+        MEDUNITY_AUTH_URL + "/me",
+        method="GET",
+        headers={"Authorization": authorization},
+    )
     data = await response.json()
     if response.status >= 400:
         return response.status, data
