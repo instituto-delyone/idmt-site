@@ -622,9 +622,45 @@ async def library_search(query,reading,limit=5):
         if len(selected)>=limit: break
     return selected
 
+MEDUNITY_AUTH_URL = "https://medunity-api.dr-delyone.workers.dev"
+
+async def medunity_admin_login(body):
+    response = await fetch(MEDUNITY_AUTH_URL + "/admin/login", {
+        "method": "POST",
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps({
+            "nome_usuario": body.get("nome_usuario"),
+            "senha": body.get("senha"),
+        }),
+    })
+    data = await response.json()
+    return response.status, data
+
+async def medunity_me(request):
+    authorization = request.headers.get("Authorization") or ""
+    if not authorization.startswith("Bearer "):
+        return 401, {"detail": "Autenticação necessária."}
+    response = await fetch(MEDUNITY_AUTH_URL + "/me", {
+        "method": "GET",
+        "headers": {"Authorization": authorization},
+    })
+    data = await response.json()
+    if response.status >= 400:
+        return response.status, data
+    usuario = data.get("usuario") or {}
+    if usuario.get("perfil") != "admin":
+        return 403, {"detail": "Esta conta não possui acesso administrativo."}
+    return 200, data
+
+async def require_admin(request):
+    status, data = await medunity_me(request)
+    if status != 200:
+        return None, status, data
+    return data.get("usuario") or {}, 200, data
+
 def cors_headers(origin=None):
     allowed=origin if origin in {"https://delyone.com","https://aigar-api.dr-delyone.workers.dev"} else "https://delyone.com"
-    return {"Access-Control-Allow-Origin":allowed,"Access-Control-Allow-Methods":"GET,POST,OPTIONS","Access-Control-Allow-Headers":"Content-Type","Vary":"Origin"}
+    return {"Access-Control-Allow-Origin":allowed,"Access-Control-Allow-Methods":"GET,POST,OPTIONS","Access-Control-Allow-Headers":"Content-Type,Authorization","Vary":"Origin"}
 
 def make_response(data,status=200,origin=None):
     h={"Content-Type":"application/json; charset=utf-8",**cors_headers(origin)}
@@ -675,7 +711,20 @@ class Default(WorkerEntrypoint):
         if request.method=="OPTIONS":
             return Response("",status=204,headers=cors_headers(origin))
         if path.endswith("/health") and request.method=="GET":
-            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.3.0-cloudflare","status":"production_runtime","backend":"python_workers"},origin=origin)
+            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.4.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
+        if path.endswith("/auth/login") and request.method=="POST":
+            try:
+                body=await request.json()
+                status, data = await medunity_admin_login(body)
+                return make_response(data, status, origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"auth_proxy_error","message":str(exc)},502,origin)
+        if path.endswith("/auth/me") and request.method=="GET":
+            try:
+                _, status, data = await require_admin(request)
+                return make_response(data, status, origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"auth_validation_error","message":str(exc)},502,origin)
         if path.endswith("/perguntar") and request.method=="POST":
             try:
                 body=await request.json()
