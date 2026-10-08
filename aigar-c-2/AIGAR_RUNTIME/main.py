@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from fastapi import FastAPI
-from .models import RuntimeRequest, RuntimeResponse, ConversationState
-from .language import interpret
+
+from .models import RuntimeRequest, RuntimeResponse
+from .language_bridge import ExecutableLanguageAdapter
 from .conversation import ConversationStore
 from .memory import MemoryAdapter
 from .library import LibraryAdapter
@@ -10,19 +11,21 @@ from .diagnosis import DiagnosisAdapter
 from .reasoning import ReasoningEngine
 from .aurora import Aurora
 
-app = FastAPI(title="AIGAR Runtime", version="0.1.0")
+app = FastAPI(title="AIGAR Runtime", version="0.2.0")
 
 store = ConversationStore()
+language = ExecutableLanguageAdapter()
 memory = MemoryAdapter()
 library = LibraryAdapter()
 diagnosis = DiagnosisAdapter()
 reasoning = ReasoningEngine()
 aurora = Aurora()
 
+
 def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     state = store.get(request.session_id)
 
-    reading = interpret(request.input)
+    reading = language.interpret(request.input)
     state.reading = reading
 
     memory_context = []
@@ -69,9 +72,12 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     store.update(state, request.input, text)
 
     confirmed_or_connected = [
-        s for s in sources if s.status in {"confirmed", "inferred"}
+        source for source in sources
+        if source.status in {"confirmed", "inferred"}
     ]
-    confidence = 0.15 if any(s.status == "missing" for s in sources) else 0.35
+    confidence = 0.15 if any(
+        source.status == "missing" for source in sources
+    ) else 0.35
     if confirmed_or_connected:
         confidence = min(0.75, confidence + 0.1 * len(confirmed_or_connected))
 
@@ -83,14 +89,18 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
         plan=plan,
     )
 
+
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "runtime": "AIGAR", "version": "0.1.0"}
+    return {"ok": True, "runtime": "AIGAR", "version": "0.2.0"}
+
 
 @app.post("/perguntar", response_model=RuntimeResponse)
 def perguntar(request: RuntimeRequest) -> RuntimeResponse:
     return run_runtime(request)
 
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=False)
+
+    uvicorn.run("AIGAR_RUNTIME.main:app", host="127.0.0.1", port=8000, reload=False)
