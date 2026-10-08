@@ -719,7 +719,10 @@ async def load_library_indexes():
                 item for item in entries
                 if item.get("type")=="file" and item.get("name","").endswith(".index.json")
             ]
-            async def load_index(item):
+            # Carregamento sequencial é intencional: o boot não pode abrir
+            # vários requests externos simultaneamente e acabar caindo no fallback
+            # português por limite de subrequests/conexões.
+            for item in index_files:
                 try:
                     raw=await fetch(
                         item.get("download_url") or item.get("html_url"),
@@ -727,12 +730,12 @@ async def load_library_indexes():
                         headers={"Accept":"application/vnd.github+json"},
                     )
                     if raw.status >= 400:
-                        return None
-                    return json.loads(await raw.text())
+                        continue
+                    index=json.loads(await raw.text())
+                    if isinstance(index,dict) and index.get("chunks"):
+                        indexes.append(index)
                 except Exception:
-                    return None
-            loaded=await asyncio.gather(*(load_index(item) for item in index_files))
-            indexes=[index for index in loaded if isinstance(index,dict) and index.get("chunks")]
+                    continue
     except Exception:
         indexes=[]
 
