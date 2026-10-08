@@ -1,0 +1,927 @@
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 285
+ Referências
+ a DATTATREYA , G. “A systematic approach to teaching binary arithmetic in a first course” . IEEE Transactions on Education, fev. 1993.
+ b BE nhAM , J. “A geometric approach to presenting computer representations of integers” . SIGCSE Bulletin, dez. 1992.
+ c P ARh AMI , B. Computer arithmetic: algorithms and hardware design. Oxford: Oxford University Press, 2000.
+ d AnDERSOn , S. et al. “The IBM System/360 Model 91: floating -point execution unit” . IBM Journal of Research and Development, jan. 1967. 
+Reimpresso em Swartzlander, 1990, Volume 1.
+ e C OOnE n J. “ Underflow and denormalized numbers” . IEEE Computer, mar. 1981.
+ f E RCEGOVAC , M. e LAnG , T. Digital arithmetic. San Francisco: Morgan Kaufmann, 2004.
+ g F LYnn, M. e O BERMAn, S. Advanced computer arithmetic design. n ova York: Wiley, 2001.
+ h S WARTZLAn DER , E., editor. Computer arithmetic, Volumes I and II. Los Alamitos, CA: IEEE Computer Society Press, 1990.
+ i G OLDBERG , D. “What every computer scientist should know about floating -point arithmetic” . ACM Computing Surveys, mar. 1991.
+ j KnUTh, D. The art of computer programming, Volume 2: seminumerical algorithms. Reading, MA: Addison - Wesley, 1998.
+ k O VERTOn, M. Numerical computing with IEEE floating point arithmetic. Filadélfia, PA: Society for Industrial and Applied Mathematics, 2001.
+ l E VEn, G. e P AUL , W. “On the design of IEEE compliant floating -point units” . IEEE Transactions on Computers, mai. 2000.
+ m O BERMAn, S. e F LYnn, M. “Design issues in division and other floating -point operations” . IEEE Transactions on Computers, fev. 1997.
+ n O BERMAn, S. e F LYnn, M. “Division algorithms and implementations” . IEEE Transactions on Computers, ago. 1997.
+ o S ODERQUIST , P . e LEESER , M. “Area and performance tradeoffs in floating -point divide and square -root iImplementations” . ACM Computing 
+Surveys, set. 1996.
+ p K UCK , D.; P ARKER , D. e S AME h, A. "Analysis of rouding methods in floating -point arithmetic" . IEEE Transactions on Computeres, jul. 1977.
+ q E VEn , G. e SEIDEL , P . “A comparison of three rounding algorithms for IEEE floating -point multiplication” . IEEE Transactions on Computers, jul. 
+2000.
+ r SCh WARZ , E. e K RYGOWSKI , C. “The S/390 G5 floating -point unit” . IBM Journal of Research and Development, set./nov. 1999.
+Book 1.indb 285 19.11.09 14:38:01
+
+PRInCIPAIS POnTOS
+ Os elementos essenciais de uma instrução de computador são o 
+opcode (código de operação), que especifi ca a operação a ser realizada; as referências de operando de origem e destino, que especifi cam os locais de entrada e saída para a operação; e a referência da próxima instrução, que normalmente é implícita. Os opcodes especifi cam operações em uma das seguintes categorias 
+gerais: operações aritméticas e lógicas; movimentação de dados entre dois registradores, registrador e memória, ou dois locais de memória; E/S; e controle. As referências de operando especifi cam um local de registrador ou me-mória dos dados do operando. Os tipos dos dados podem ser endereços, números, caracteres ou dados lógicos. Um recurso arquitetural comum nos processadores é o uso da pilha, que pode ou não estar visível ao programador. As pilhas são usadas para gerenciar chamadas e retornos de procedimento, e podem ser forneci-das como uma forma alternativa de endereçar a memória. As operações básicas da pilha são PUSH, POP e operações sobre um ou dois locais no topo da pilha. As pilhas normalmente são implementadas para crescer de endereços maiores para endereços menores. Os processadores endereçáveis por byte podem ser categorizados como big-endian, little-endian ou bi-endian. Um valor numérico com 
+múltiplos bytes, armazenado com o byte mais signifi cativo no endereço numérico mais baixo, é armazenado no padrão big-endian. O estilo little-
+endian armazena o byte mais signifi cativo no endereço numérico mais alto. Um processador bi-endian pode trabalhar com os dois estilos.Conjuntos de instruções: características e funções
+10.1 Características das instruções de máquina
+  Elementos de uma instrução de máquina
+  Representação da instrução
+  Tipos de instrução
+  número de endereços
+  Projeto do conjunto de instruções
+10.2 Tipos de operandos
+  números
+  Caracteres
+  Dados lógicos
+10.3 Tipos de dados do Intel x86 e do ARM
+  Tipos de dados do x86
+  Tipos de dados do ARM
+10.4 Tipos de operações
+  Transferência de dados
+  Aritméticas
+  Lógicas
+  Conversão
+  Entrada/saída
+  Controle do sistema
+  Transferência de controle
+10.5 Tipos de operação Intel x86 e do ARM
+  Tipos de operação do x86
+  Tipos de operação do ARM
+10.6 Leitura recomendada
+Apêndice 10A PilhasApêndice 10B Little, Big e Bi-endian
+Grande parte do que discutimos neste livro não é prontamente aparente ao usuário ou programador. Se um programador 
+estiver usando uma linguagem de alto nível, como Pascal ou Ada, muito pouco da arquitetura da máquina básica é visível.
+Um limite onde o projetista de computador e o programador de computador podem ver a mesma máquina é o 
+conjunto de instruções de máquina. Do ponto de vista do projetista, o conjunto de instruções de máquina oferece os requisitos funcionais para o processador: implementar o processador é uma tarefa que em grande parte envolve imple-CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 286 19.11.09 14:38:02
+
+Capítulo 10 Conjuntos de instruções: características e funções 287
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18mentar o conjunto de instruções de máquina. O usuário que escolhe programar em linguagem de máquina (na realidade, 
+em linguagem de montagem; veja Apêndice B) fi ca ciente da estrutura do registrador e da memória, dos tipos de dados aceitos diretamente pela máquina e do funcionamento da ALU.Uma descrição do conjunto de instruções de máquina de um computador explica bastante sobre o processador. Conse-quentemente, focalizamos instruções de máquina neste capítulo e no seguinte.
+10.1 Características das instruções de máquina
+A operação do processador é determinada pelas instruções que ele executa, conhecidas como instruções de 
+máquina ou instruções do computador. A coleção de diferentes instruções que o processador pode executar é co-nhecida como conjunto de instruções do processador.
+ Elementos de uma instrução de máquina
+Cada instrução precisa conter as informações exigidas pelo processador para execução. A Figura 10.1, que re-
+pete a Figura 3.6, mostra as etapas envolvidas na execução da instrução e, por implicação, defi ne os elementos de uma instrução de máquina. Esses elementos são os seguintes:
+código de operação:
+  especifi ca a operação a ser realizada (por exemplo, ADD, E/S). A operação é especifi -
+cada por um código binário, conhecido como código de operação, ou opcode (operation code).Referência à operando fonte:
+  a operação pode envolver um ou mais operandos fontes, ou seja, operan-
+dos que são entradas para a operação.Referência à operando destino:
+  a operação pode produzir um resultado.
+Referência à próxima instrução:  isso diz ao processador onde buscar a próxima instrução após o término 
+da execução desta instrução.
+O endereço da próxima instrução a ser buscada poderia ser um endereço real ou um endereço virtual, depen-
+dendo da arquitetura. Geralmente, a distinção é transparente à arquitetura do conjunto de instruções. Na maior parte dos casos, a próxima instrução a ser buscada vem imediatamente após a instrução corrente. Nesses casos, não existe uma referência explícita à próxima instrução. Quando uma referência explícita é necessária, então o en-dereço da memória principal ou da memória virtual precisa ser fornecido. A forma como esse endereço é fornecido é discutida no Capítulo 11.
+Figura 10.1 Diagrama de estado do ciclo de instrução
+Cálculo do
+endereço de
+instruçãoDecodificação 
+da operação 
+da instruçãoCálculo do
+endereço do
+operandoOperação 
+dos dadosCálculo do
+endereço do
+operando
+Instrução completa, busca da 
+próxima instruçãoMúltiplos
+operandos
+Retorno de string ou vetor de dadosBusca do 
+operandoArmazenamento
+da operando
+Múltiplos
+resultadosBusca da 
+instrução
+Book 1.indb 287 19.11.09 14:38:03
+
+288 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Operandos fonte e destino podem estar em uma destas quatro áreas:
+memória principal ou virtual:  assim como as referências à próxima instrução, o endereço da memória 
+principal ou virtual precisa ser fornecido.
+Registrador do processador:  com raras exceções, um processador contém um ou mais registradores que 
+podem ser referenciados por instruções de máquina. Se houver apenas um registrador, a referência a ele pode ser implícita. Se houver mais de um registrador, então cada registrador recebe um nome ou número exclusivo, e a instrução precisa conter o número do registrador desejado.Imediato:
+  o valor do operando está contido em um campo na instrução sendo executada.
+dispositivo de e/s:  a instrução precisa especifi car o módulo e o dispositivo de E/S para a operação. Se a E/S 
+mapeada na memória for usada, esse é apenas outro endereço da memória principal ou virtual.
+ Representação da instrução
+Dentro do computador, cada instrução é representada por uma sequência de bits. A instrução é dividida em 
+campos, correspondentes aos elementos constituintes da instrução. Um exemplo simples de um formato de ins-trução aparece na Figura 10.2. Como outro exemplo, o formato de instrução do IAS aparece na Figura 2.2. Com a maioria dos conjuntos de instruções, mais de um formato é utilizado. Durante a execução da instrução, uma instru-ção é lida para um registrador de instrução (IR) no processador. O processador precisa ser capaz de extrair os dados dos diversos campos da instrução para realizar a operação exigida.
+É difícil tanto para o programador quanto para o leitor de livros-texto lidar com representações binárias das 
+instruções de máquina. Assim, tornou-se uma prática comum usar uma representação simbólica das instruções de 
+máquina. Um exemplo disso foi usado para o conjunto de instruções do IAS, na Tabela 2.1.
+Os opcodes são representados por abreviações, chamadas mnemônicos, que indicam a operação. Alguns exem-
+plos comuns são
+ADD Adiciona
+SUB Subtrai
+MUL MultiplicaDIV DivideLOAD Carrega dados da memóriaSTOR Armazena dados na memória
+Operandos também são representados simbolicamente. Por exemplo, a instrução
+ADD R, Y
+pode signifi car somar o valor contido no local de dados Y com o conteúdo do registrador R. Neste exemplo, Y refe-
+re-se ao endereço de um local na memória, e R refere-se a um registrador em particular. Observe que a operação é realizada sobre o conteúdo de um local, não sobre seu endereço.
+Assim, é possível escrever um programa em linguagem de máquina em forma simbólica. Cada opcode tem uma 
+representação binária fi xa e o programador especifi ca o local de cada operando simbólico. Por exemplo, o progra-mador poderia começar com uma lista de defi nições:
+X = 513
+Y = 514
+Figura 10.2 Um formato de instrução simples
+Opcode4 Bits
+16 BitsReferência ao operando Referência ao operando6 Bits 6 Bits
+Book 1.indb 288 19.11.09 14:38:04
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 289
+e assim por diante. Um programa simples aceitaria essa entrada simbólica, converteria os opcodes e as referências 
+dos operandos para forma binária e construiria as instruções de máquina binárias.
+Os programadores de linguagem de máquina são raros, quase inexistentes. A maioria dos programas hoje é 
+escrita em uma linguagem de alto nível ou, fora isso, linguagem de montagem, que discutimos no Apêndice B. 
+Porém, a linguagem de máquina simbólica continua sendo uma ferramenta útil para descrever instruções de má-quina e vamos utilizá-la para essa fi nalidade.
+ Tipos de instrução
+Considere uma instrução em linguagem de alto nível que poderia ser expressa em uma linguagem como BASIC 
+ou FORTRAN. Por exemplo,
+X = X + YEssa instrução orienta o computador a somar o valor armazenado em Y ao valor armazenado em X, colocando 
+o resultado em X. Como isso poderia ser feito com instruções de máquina? Vamos supor que as variáveis X e Y cor-respondam aos locais 513 e 514. Se consideramos um conjunto simples de instruções de máquina, essa operação poderia ser feita com três instruções:
+1. Carregue um registrador com o conteúdo do local de memória 513.
+2. Some o conteúdo do local de memória 514 ao registrador.
+3. Armazene o conteúdo do registrador no local de memória 513.
+Como podemos ver, uma única instrução em BASIC pode exigir três instruções de máquina. Isso é típico do 
+relacionamento entre uma linguagem de alto nível e uma linguagem de máquina. Uma linguagem de alto nível expressa operações em uma forma algébrica concisa, usando variáveis. Uma linguagem de máquina expressa ope-rações em uma forma básica envolvendo a movimentação de dados de e para os registradores.
+Com esse exemplo simples para nos guiar, vamos considerar os tipos de instruções que precisam ser incluídas 
+em um computador prático. Um computador deve ter um conjunto de instruções que permita ao usuário for-mular qualquer tarefa de processamento de dados. Outro modo de ver isso é considerar as capacidades de uma linguagem de programação de alto nível. Qualquer programa escrito em uma linguagem de alto nível, para ser executado, precisa ser traduzido para linguagem de máquina. Assim, o conjunto de instruções de máquina precisa ser sufi ciente para expressar qualquer uma das instruções de uma linguagem de alto nível. Com isso em mente, podemos categorizar os tipos de instrução da seguinte forma:
+processamento de dados:
+  instruções aritméticas e lógicas.
+Armazenamento de dados:  movimentação de dados para dentro ou fora do registrador e/ou locais de 
+memória.movimentação de dados:
+  instruções de E/S.
+controle:  instruções de teste e desvio.
+As instruções aritméticas oferecem capacidades de cálculo para o processamento de dados numéricos. As ins-
+truções lógicas (booleanas) operam sobre os bits de uma palavra como bits, e não como números; assim, elas ofe-
+recem capacidades de processamento de qualquer outro tipo de dado que o usuário possa querer empregar. Essas operações são realizadas principalmente sobre os dados nos registradores do processador. Portanto, deve haver instruções de memória para mover dados entre a memória e os registradores. As instruções de E/S são necessárias 
+para transferir programas e dados para a memória e os resultados de cálculos de volta ao usuário. As instruções de teste são usadas para testar o valor de uma palavra de dados ou o status de um cálculo. As instruções de desvio são 
+então usadas para desviar para um conjunto de instruções diferente, dependendo da decisão tomada.
+Vamos examinar os diversos tipos de instruções com mais detalhes mais adiante neste capítulo.
+ Números de endereços
+Uma das formas tradicionais de descrever a arquitetura do processador é em termos do número de endereços 
+contidos em cada instrução. Essa dimensão tornou-se menos signifi cativa com o aumento da complexidade de projeto do processador. Apesar disso, é útil neste ponto considerar e analisar essa distinção.
+Qual é o número máximo de endereços que poderia ser preciso em uma instrução? Evidentemente, as ins-
+truções aritméticas e lógicas exigirão mais operandos. Praticamente todas as operações aritméticas e lógicas são 
+Book 1.indb 289 19.11.09 14:38:05
+
+290 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+unárias (um operando de origem) ou binárias (dois operandos de origem). Assim, precisaríamos de um máximo de 
+dois endereços para referenciar operandos de origem. O resultado de uma operação precisa ser armazenado, suge-rindo um terceiro endereço, que define um operando de destino. Finalmente, após o término de uma instrução, a próxima instrução precisa ser buscada, e seu endereço é necessário.
+Essa linha de raciocínio sugere que uma instrução poderia plausivelmente ter que conter quatro referências 
+de endereço: dois operandos de origem, um operando de destino e o endereço da próxima instrução. Na maioria das arquiteturas, quase todas as instruções possuem um, dois ou três endereços de operando, com o endereço da próxima instrução sendo implícito (obtido pelo contador de programa – PC). A maioria das arquiteturas também possui algumas instruções de uso especial, com mais operandos. Por exemplo, as instruções de load e store múltiplo 
+da arquitetura ARM, descritas no Capítulo 11, designam até 17 operandos de registrador em uma única instrução.
+A Figura 10.3 compara instruções típicas de um, dois e três endereços, que poderiam ser usadas para calcular Y = 
+(A – B)/[C + (D × E)]. Com três endereços, cada instrução especifica dois locais de operandos de origem e um local de operando de destino. Como escolhemos não alterar o valor de qualquer um dos locais de operando, um local temporário, T, é usado para armazenar alguns resultados intermediários. Observe que existem quatro instruções e que a expressão original tinha cinco operandos.
+Formatos de instrução de três endereços não são comuns, pois exigem um formato de instrução relativamente 
+longo para manter as três referências de endereço. Com instruções de dois endereços, e para operações binárias, um endereço precisa realizar o trabalho duplo como um operando e como um resultado. Assim, a instrução SUB Y, B executa o cálculo Y – B e armazena o resultado em Y. O formato de dois endereços reduz o requisito de espaço, mas também introduz algumas coisas estranhas. Para evitar alterar o valor de um operando, a instrução MOVE é usada para mover um dos valores para um resultado ou local temporário antes de realizar a operação. Nosso programa de exemplo se expande para seis instruções.
+Mais simples ainda é a instrução de um endereço. Para que esta funcione, um segundo endereço precisa ser 
+implícito. Isso era comum nas máquinas mais antigas, com o endereço implícito sendo um registrador do proces-sador conhecido como acumulador (AC). O acumulador contém um dos operandos e é usado para armazenar o resultado. Em nosso exemplo, oito instruções são necessárias para realizar a tarefa.
+Na verdade, é possível termos zero endereços para algumas instruções. Instruções de zero endereços se aplicam 
+a uma organização de memória especial, chamada pilha. Uma pilha é um conjunto de locais do tipo last-in-first-out 
+(último a entrar, primeiro a sair). A pilha está em um local conhecido e, frequentemente, pelo menos os dois ele-
+Figura 10.3 Programas para executar =AY–B
+C + (D XE)
+Instrução Comentário
+(a) Instruções com três endereços
+(b) Instruções de dois endereços (c) Instruções de um endereçoInstrução ComentárioInstrução ComentárioSUB
+MPYADDDIVY , A, B
+T, D, E
+T, T, C
+Y, Y, TA
+D
+T
+YY
+TT
+YB
+E
+C
+T
+MOVESUBMOVEMPYADDDIVY, A
+Y, B
+Y, D
+T, E
+T, C
+Y, TA
+Y
+D 
+TT
+YYY
+TTT
+YB
+E
+C
+T 
+LOADMPYADDSTORLOADSUBDIVSTORD
+E
+C
+Y
+A
+B
+YYD
+ACACAC
+A
+ACACACACACAC
+Y
+ACACAC
+YE
+C
+B
+T
+Book 1.indb 290 19.11.09 14:38:05
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 291
+mentos do topo estão nos registradores do processador. Assim, instruções com zero endereços referenciariam os 
+dois elementos do topo da pilha. As pilhas são descritas no Apêndice 10A. Seu uso é explicado melhor mais adiante neste capítulo e no Capítulo 11.
+A Tabela 10.1 resume as interpretações das instruções com zero, um, dois ou três endereços. Em cada caso na 
+tabela, considera-se que o endereço da próxima instrução é implícito e que uma operação com dois operandos de origem e um operando de resultado deve ser realizada.
+O número de endereços por instrução é uma decisão básica de projeto. Menos endereços por instrução resulta 
+em instruções que são mais primitivas, exigindo um processador menos complexo. Isso também resulta em instru-ções de menor tamanho. Por outro lado, os programas contêm mais instruções no total, o que, em geral, resulta em tempos maiores de execução e programas maiores e mais complexos. Além disso, existe um limite importante en-tre instruções de um endereço e múltiplos endereços. Com instruções de um endereço, o programador geralmente tem à sua disposição apenas um registrador de uso geral, o acumulador. Com instruções de múltiplos endereços, é comum ter múltiplos registradores de uso geral. Isso permite que algumas operações sejam realizadas unicamente sobre registradores. Como as referências a registradores são mais rápidas que as referências à memória, tem-se rapi-dez na execução. Por motivos de fl exibilidade e capacidade de usar múltiplos registradores, a maioria das máquinas contemporâneas emprega uma mistura de instruções de dois e três endereços.
+As decisões de projeto envolvidas na escolha do número de endereços por instrução são complicadas por outros 
+fatores. Existe a questão de se um endereço referencia um local da memória ou um registrador. Como existem menos registradores, menos bits são necessários para uma referência de registrador. Além disso, conforme veremos no próximo capítulo, uma máquina pode oferecer uma série de modos de endereçamento e a especifi cação do modo exige um ou mais bits. O resultado é que a maioria dos projetos de processador envolve uma série de formatos de instrução.
+ Projeto do conjunto de instruções
+Um dos aspectos mais interessantes e mais analisados do projeto de computador é o projeto do conjunto de 
+instruções. O projeto de um conjunto de instruções é muito complexo, pois afeta muitos aspectos do sistema de computador. Ele defi ne muitas das funções realizadas pelo processador e, portanto, tem um efeito signifi cativo sobre a implementação do processador. O conjunto de instruções é o meio de o programador controlar o proces-sador. Assim, os requisitos do programador precisam ser considerados no projeto do conjunto de instruções.
+Pode ser surpresa para você saber que algumas das questões mais fundamentais em relação ao projeto dos 
+conjuntos de instruções continuam em discussão. Na realidade, nos últimos anos, o nível de divergência com rela-ção a esses fundamentos realmente cresceu. As questões básicas mais importantes de projeto são as seguintes:
+Repertório de operações:
+  quantas e quais operações oferecer, e que complexidade as operações de-
+verão ter.Tipos de dados:
+  os diversos tipos de dados sobre os quais as operações são realizadas.
+Número de endereços Representação simbólica Interpretação
+3 OP A, B, C A  B OP C
+2 OP A, B A  A OP B
+1 OP A AC  AC OP A
+0 OP T  (T – 1) OP TTabela 10.1 Utilização de endereços de instrução (instruções sem desvio)
+AC = acumulador
+T = topo da pilha(T – 1) = segundo elemento da pilhaA, B, C = locais de memória ou registradores
+Book 1.indb 291 19.11.09 14:38:06
+
+292 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Formato de instrução:  tamanho da instrução (em bits), número de endereços, tamanho dos diversos cam-
+pos, e assim por diante.
+Registradores:  número de registradores do processador que podem ser referenciados pelas instruções e 
+seu uso.endereçamento:
+  o modo ou modos pelos quais o endereço de um operando é especifi cado.
+Essas questões são altamente inter-relacionadas e precisam ser consideradas juntas no projeto de um conjunto 
+de instruções. Este livro, naturalmente, precisa considerá-las em alguma sequência, mas tentamos mostrar os inter-relacionamentos.
+Devido à importância desse assunto, muito da Parte 3 é dedicado ao projeto do conjunto de instruções. Após 
+esta seção introdutória, este capítulo examina os tipos de dados e o repertório de operações. O Capítulo 11 exa-mina os modos de endereçamento (que inclui uma consideração dos registradores) e os formatos de instrução. O Capítulo 13 examina o computador com conjunto de instruções reduzido (RISC). A arquitetura RISC põe em dúvida muitas das decisões de projeto do conjunto de instruções tradicionalmente feitas nos computadores comerciais.
+10.2 Tipos de operandos
+As instruções de máquina operam sobre dados. As categorias gerais de dados mais importantes são:
+Endereços. 
+Números. 
+Caracteres. 
+Dados lógicos. 
+Veremos, ao discutir os modos de endereçamento no Capítulo 11, que os endereços são, de fato, uma forma de 
+dados. Em muitos casos, alguns cálculos precisam ser realizados sobre a referência do operando em uma instrução para determinar o endereço da memória principal ou virtual. Nesse contexto, os endereços podem ser considera-dos como inteiros sem sinal.
+Outros tipos de dados comuns são números, caracteres e dados lógicos, e cada um destes é examinado rapida-
+mente nesta seção. Além disso, algumas máquinas defi nem tipos de dados ou estruturas de dados especializadas. Por 
+exemplo, pode haver operações de máquina que operam diretamente sobre uma lista ou uma string de caracteres.
+ Números
+Todas as linguagens de máquina incluem tipos de dados numéricos. Até mesmo no processamento de dados não 
+numéricos, existe a necessidade de os números atuarem como contadores, tamanhos de campo e assim por diante. 
+Uma distinção importante entre números usados na matemática comum e números armazenados em um compu-tador é que estes últimos são limitados. Isso é verdade em dois sentidos. Primeiro, existe um limite para a magnitude dos números representáveis em uma máquina e, segundo, no caso dos números de ponto fl utuante, um limite em sua precisão. Assim, o programador precisa entender as consequências do arredondamento, do overfl ow e do underfl ow.
+Três tipos de dados numéricos são comuns nos computadores:
+Inteiros binários ou ponto fi xo binário.
+ 
+Ponto fl utuante binário. 
+Decimal. 
+Examinamos os dois primeiros com alguns detalhes no Capítulo 9. Resta-nos dizer algumas palavras sobre os 
+números decimais.
+Embora internamente todas as operações do computador sejam binárias em natureza, os usuários humanos do 
+sistema lidam com números decimais. Assim, existe a necessidade de converter de decimal para binário na entrada e de binário para decimal na saída. Para aplicações onde existem muitas E/S e, comparadamente, poucos e simples 
+cálculos, é preferível armazenar e operar os números em forma decimal. A representação mais comum para essa fi nalidade é decimal agrupado (packed decimal).
+1
+1 Os livros-texto normalmente referem-se a isso como decimal codifi cado em binário (BCD, do inglês binary coded decimal). Estritamente 
+falando, o código BCD refere-se à codifi cação de cada dígito decimal por uma sequência exclusiva de 4 bits. Decimal agrupado refere-se ao 
+armazenamento de dígitos codifi cados em BCD usando um byte para cada dois dígitos.
+Book 1.indb 292 19.11.09 14:38:06
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 293
+Com o decimal agrupado, cada dígito decimal é representado por um código de 4 bits, no modo óbvio, com 
+dois dígitos armazenados por byte. Assim, 0 = 0000, 1 = 0001, ..., 8 = 1000 e 9 = 1001. Observe que esse é um 
+código inefi caz, pois somente 10 dos 16 valores possíveis em 4 bits são utilizados. Para formar números, códi-gos de 4 bits são enfi leirados, normalmente em múltiplos de 8 bits. Assim, o código para 246 é 0000 0010 0100 0110. Esse código certamente é menos compacto que a representação binária direta, mas evita o overhead da 
+conversão. Números negativos podem ser representados incluindo-se um dígito de sinal de 4 bits à esquerda ou à direita da sequência de dígitos decimais agrupados. Os valores de sinal padrão são 1100 para positivo (+) e 1101 para negativo (–).
+Muitas máquinas oferecem instruções aritméticas para realizar operações diretamente sobre números decimais 
+agrupados. Os algoritmos são muito semelhantes àqueles descritos na Seção 9.3, mas precisam considerar a ope-ração de carry decimal.
+ Caracteres
+Uma forma de dado comum é o texto, ou strings de caracteres. Embora os dados textuais sejam mais con-
+venientes para os seres humanos, eles não podem, em forma de caracteres, serem facilmente armazenados ou transmitidos por sistemas de processamento de dados e comunicações. Esses sistemas são projetados para dados binários. Assim, diversos códigos foram elaborados, nos quais os caracteres são representados por uma sequência de bits. Talvez o exemplo comum mais antigo seja o código Morse. Hoje, o código de caracteres mais utilizado é o International Reference Alphabet (IRA), mais conhecido como American Standard Code for Information Interchange 
+(ASCII; veja Apêndice F). Cada caractere nesse código é representado por um padrão exclusivo de 7 bits; assim, 128 caracteres diferentes podem ser representados. Esse é um número maior do que é necessário para representar os caracteres imprimíveis, e alguns dos padrões representam caracteres de controle. Alguns desses caracteres de con-
+trole têm a ver com o controle da impressão dos caracteres em uma página. Outros tratam de procedimentos de comunicação. Os caracteres codifi cados em IRA quase sempre são armazenados e transmitidos usando 8 bits por caractere. O oitavo bit pode ser defi nido como 0 ou usado como um bit de paridade, para detectar erros. Nesse úl-timo caso, o bit é defi nido de modo que o número total de 1s binários em cada octeto seja sempre ímpar (paridade ímpar) ou sempre par (paridade par).
+Observe, na Tabela F.1 (Apêndice F) que, para o padrão de bits IRA 011XXXX, os dígitos de 0 a 9 são represen-
+tados por seus equivalentes binários, 0000 a 1001, nos 4 bits mais à direita. Esse é o mesmo código do decimal agrupado. Isso facilita a conversão entre IRA de 7 bits e a representação decimal agrupada de 4 bits.
+Outro código usado para codifi car caracteres é o Extended Binary Coded Decimal Interchange Code (EBCDIC). 
+EBCDIC é usado em mainframes IBM. Este é um código de 8 bits. Assim como IRA, EBCDIC é compatível com deci-mal agrupado. No caso do EBCDIC, os códigos de 11110000 a 11111001 representam os dígitos de 0 a 9.
+ Dados lógicos
+Normalmente, cada palavra ou outra unidade endereçável (byte, meia-palavra e assim por diante) é tratada 
+como uma única unidade de dados. Porém, às vezes é útil considerar uma unidade de n bits como consistindo em 
+n itens de dados de 1 bit, com cada item tendo o valor 0 ou 1. Quando os dados são vistos dessa forma, eles são 
+considerados como sendo dados lógicos.
+Existem duas vantagens na visão orientada a bits. Primeiro, às vezes podemos querer armazenar um array de 
+itens de dados booleanos ou binários, em que cada item pode assumir apenas os valores 1 (verdadeiro) e 0 (falso). Com dados lógicos, a memória pode ser usada de modo mais efi ciente para esse armazenamento. Segundo, exis-tem ocasiões em que queremos manipular os bits de um item de dados. Por exemplo, se as operações de ponto fl utuante forem implementadas em software, precisamos ser capazes de deslocar bits signifi cativos em algumas operações. Outro exemplo: para converter de IRA para decimal agrupado, precisamos extrair os 4 bits mais à direita de cada byte.
+Observe que, nos exemplos anteriores, os mesmos dados são tratados às vezes como lógicos e outras vezes 
+como numéricos ou texto. O “tipo” de uma unidade de dados é determinado pela operação que está sendo reali-zada sobre ele. Embora isso normalmente não aconteça em linguagens de alto nível, quase sempre acontece com a linguagem de máquina.
+Book 1.indb 293 19.11.09 14:38:07
+
+294 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+10.3 Tipos de dados Intel x86 e do ARM
+ Tipos de dados do x86
+O x86 pode lidar com tipos de dados de 8 (byte), 16 (palavra), 32 (palavras duplas – doubleword), 64 (quatro pala-
+vras – quadword) e 128 (double quadword) bits de extensão. Para permitir o máximo de fl exibilidade nas estruturas de 
+dados e utilização de memória efi ciente, as palavras não precisam ser alinhadas em endereços de número par; pala-
+vras duplas não precisam ser alinhadas em endereços divisíveis uniformemente por 4; e quadwords não precisam ser 
+alinhadas em endereços divisíveis uniformemente por 8, e assim por diante. Porém, quando os dados são acessados por um barramento de 32 bits, as transferências de dados ocorrem em unidades de palavras duplas, começando em 
+endereços divisíveis por 4. O processador converte a requisição para valores desalinhados em uma sequência de solici-tações para a transferência do barramento. Assim como todas as máquinas Intel 80x86, o x86 usa o estilo little-endian; 
+ou seja, o byte menos signifi cativo é armazenado no endereço mais baixo (veja no Apêndice 10B uma discussão sobre os estilos de endian).
+Byte, word, doubleword, quadword e double quadword são chamados de tipos de dados gerais. Além disso, o x86 
+admite um conjunto impressionante de tipos de dados específi cos, que são reconhecidos e operados por instru-ções em particular. A Tabela 10.2 resume esses tipos.
+Tipo de dados Descrição
+GeralLocais de byte, palavra (16 bits), palavras duplas (32 bits), quatro palavras (64 bits) e quatro palavras duplas 
+(128 bits) com conteúdo binário arbitrário.
+números inteiros Um valor binário com sinal, contido em um byte, palavra ou palavras duplas, usando a representação de complemento a dois.
+números ordinais Um inteiro sem sinal contido em um byte, palavra ou palavras duplas.
+números em BCD (Binary coded 
+decimal) (BCD) não agrupadoUma representação de um dígito BCD no intervalo de 0 a 9, com um dígito em cada byte.
+Agrupado BCD Representação de byte agrupado de dois dígitos BCD; valor no intervalo de 0 a 99.
+Ponteiro nearUm endereço efetivo de 16, 32 ou 64 bits, que representa o deslocamento dentro de um segmento. Usado para todos os 
+ponteiros em uma memória não segmentada e para referências dentro de um segmento em uma memória segmentada.
+Ponteiro farUm endereço lógico consistindo em um seletor de segmento de 16 bits e um deslocamento de 16, 32 ou 64 bits. Ponteiros far 
+são usados para referência à memória em um modelo de memória segmentado, onde a identidade de um segmento sendo 
+acessado precisa ser especifi cada explicitamente.
+Campo de bitsUma sequência contígua de bits em que a posição de cada bit é considerada como uma unidade independente. Uma string de 
+bits pode começar em qualquer posição de bit de qualquer byte e pode conter até 32 bits.
+Cadeia de bits Uma sequência contígua de bits, contendo de zero a 232 – 1 bits.
+Cadeia de bytes Uma sequência contígua de bytes, palavras ou doublewords, contendo de zero a 232 – 1 bytes.
+Ponto fl utuante Ver Figura 10.4.
+SIMD agrupada (do inglês single instruc-
+tion, multiple data — única instrução, 
+múltiplos dados)Tipos de dados de 64 e 128 bits agrupados.Tabela 10.2 Tipos de dados x86
+Book 1.indb 294 19.11.09 14:38:08
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 295
+A Figura 10.4 ilustra os tipos de dados numéricos do x86. Os números inteiros com sinal estão em representação 
+de complemento a dois e podem ter 16, 32 ou 64 bits de extensão. Os em ponto flutuante na realidade referem-se a 
+um conjunto de tipos que são usados pela unidade de ponto flutuante e operados por instruções de ponto flutuan-te. As três representações de ponto flutuante se ajustam ao padrão IEEE 754.
+Os tipos de dados SIMD (única instrução, múltiplos dados) agrupados foram introduzidos à arquitetura x86 
+como parte das extensões do conjunto de instruções para otimizar o desempenho de aplicações de multimídia. Essas extensões incluem MMX (Multimedia Extensions) e SSE (Streaming SIMDextensions). O conceito básico é que múltiplos operandos são agrupados em um único item de memória referenciado e que esses múltiplos operandos são operados em paralelo. Os tipos de dados são os seguintes:
+Byte agrupado e inteiro de byte agrupado:
+  bytes agrupados em uma quadword de 64 bits ou double 
+quadword de 128 bits, interpretada como um campo de bit ou como um inteiro.palavra agrupada e inteiro de palavra agrupada:
+  palavras de 16 bits agrupados em uma quadword de 
+64 bits ou double quadword de 128 bits, interpretada como um campo de bit ou como um inteiro.doubleword agrupado e inteiro de 
+  doubleword agrupado: doublewords de 32 bits agrupados em uma 
+quad word de 64 bits ou double quadword de 128 bits, interpretada como um campo de bit ou como um inteiro.
+quadword agrupado e inteiro de quadword agrupado:  duas quadwords de 64 bits agrupadas em uma 
+double quadword de 128 bits, interpretada como um campo de bit ou como um inteiro.ponto flutuante de precisão simples agrupado e ponto flutuante de precisão dupla agrupado:
+  
+quatro valores de ponto flutuante de 32 bits ou dois valores de ponto flutuante de 64 bits agrupados em uma double quadword de 128 bits.
+Figura 10.4 Formatos de dados numéricos x86
+Bit de sinalBit de sinalBit de sinal
+Bit de inteiro
+Expoente Signi/f_icandoExpoente Signi/f_icandoExp Signi/f_icandoCompl. doisCompl. doisCompl. doisCompl. doisInteiro sem sinal de um bit
+Inteiro sem sinal de uma palavra
+Inteiro sem sinal de palavra dupla
+Inteiro sem sinal de quatro palavras
+Inteiro sinalizado de um bitInteiro sinalizado de uma palavraInteiro sinalizado de palavra duplaInteiro sinalizado de quatro palavras
+Ponto /f_lutuante de precisão simples
+Ponto /f_lutuante de dupla precisão 
+Ponto /f_lutuante de dupla
+precisão estendida07
+701 5
+150 31
+31
+310 63
+63
+63
+63 790
+0
+00
+0
+0 51
+0
+Book 1.indb 295 19.11.09 14:38:08
+
+296 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Tipos de dados do ARM
+Processadores ARM admitem tipos de dados de 8 (byte), 16 (meia-palavra) e 32 (palavra) bits de extensão. 
+Normalmente, o acesso de halfword precisa ser alinhado por halfword e os acessos de palavra precisam ser alinha-
+dos por palavra. Para tentativas de acesso desalinhadas, a arquitetura admite três alternativas.
+Caso padrão: 
+  O endereço é tratado como truncado, com os bits de endereço [1:0] tratados como zero para acesso por 
+palavra, e o bit de endereço [0] tratado como zero para acesso por meia-palavra.
+  Instruções ARM de única palavra são arquiteturalmente defi nidas para girar à direita os dados alinhados 
+por palavra transferidos por um endereço não alinhado por palavra de um, dois ou três palavras, depen-dendo do valor dos dois bits de endereço menos signifi cativos.
+Verifi cação de alinhamento: 
+  quando o bit de controle apropriado é defi nido, um sinal de abortar dados 
+indica uma falha de alinhamento para a tentativa de acesso desalinhado.Acesso desalinhado:
+  quando essa opção é habilitada, o processador usa um ou mais acessos à memória 
+para gerar a transferência exigida de bytes adjacentes de modo transparente ao programador.
+Para os três tipos de dados (byte, meia-palavra e palavra), uma interpretação sem sinal é admitida, em que o va-
+lor representa um inteiro sem sinal, não negativo. Os três tipos de dados também podem ser usados para os inteiros com sinal em complemento de dois.
+A maioria das implementações de processador ARM não oferece hardware de ponto fl utuante, o que economi-
+za energia e área. Se a aritmética de ponto fl utuante for exigida em tais processadores, ela deverá ser implementada em software. O ARM admite um coprocessador de ponto fl utuante opcional, que aceita os tipos de dados de ponto fl utuante de precisão simples e dupla, defi nidos no IEEE 754.
+SUPORTE PARA ENDIAN Um bit de estado (bit E) no registrador de controle do sistema é marcado e apa-
+gado sob controle do programa, usando a instrução SETEND. O bit E defi ne qual modo será usado endian para 
+ler e armazenar dados. A Figura 10.5 ilustra a funcionalidade associada ao bit E para uma operação load ou store de uma palavra. Esse mecanismo permite o load/store efi ciente de dados dinâmicos para projetistas de sistemas que sabem que precisam acessar estruturas de dados no tipo de endian oposto ao seu sistema operacional/
+ambiente. Observe que o endereço de cada byte de dados é fi xo na memória. Porém, a ordem de bytes em um registrador é diferente.
+Figura 10.5 Suporte a endian no ARM — Load/Store de palavra com o bit E
+Byte 3Bytes de dados na
+memória (valores de
+endereço ascendentes
+ do byte 0 ao byte 3)
+Registrador ARM
+Bit E do registrador de status do programa = 1 Bit E do registrador de status do programa = 0Registrador ARM Byte 2
+Byte 1
+Byte 0 Byte 00 31 0 31
+Byte 1 Byte 2 Byte 3 Byte 3 Byte 1Byte 0
+Byte 2
+Book 1.indb 296 19.11.09 14:38:09
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 297
+10.4 Tipos de operações
+O número de opcodes diferentes varia bastante de uma máquina para outra. Porém, os mesmos tipos gerais de 
+operações são encontrados em todas as máquinas. Uma categorização útil e típica é a seguinte:
+Tr  ansferência de dados.
+Aritmética. 
+Lógica. 
+Conversão. 
+E/S. 
+Contro  le do sistema.
+Transferência de controle. 
+A Tabela 10.3 (baseada em Hayes, 1998a) lista tipos de instrução comuns em cada categoria. Esta seção oferece 
+um breve estudo desses diversos tipos de operações, junto com uma breve discussão das ações tomadas pelo pro-
+cessador para executar determinado tipo de operação (resumidas na Tabela 10.4). Esse último tópico é examinado com mais detalhes no Capítulo 12.
+ Transferência de dados
+O tipo mais fundamental de instrução de máquina é a instrução de transferência. A instrução de transferência 
+de dados precisa especifi car várias coisas. Em primeiro lugar, o local dos operandos de origem e de destino. Cada 
+(Continua)Tabela 10.3 Operações comuns do conjunto de instruções
+Tipo Nome da operação Descrição
+Transferência de dadosMove (transferência) Transfere palavra ou bloco da origem ao destino
+Store (armazenar) Transfere palavra do processador para a memória
+Load (carregar) Transfere palavra da memória para o processador
+Exchange Troca o conteúdo da origem e do destino
+Clear (reset) Transfere palavra de 0s para o destino
+Set Transfere palavra de 1s para o destino
+Push Transfere palavra da origem para o topo da pilha
+Pop Transfere palavra do topo da pilha para o destino
+AritméticaAdd Calcula a soma de dois operandos
+Subtract Calcula a diferença de dois operandos
+Multiply Calcula o produto de dois operando
+Divide Calcula o quociente de dois operandos
+Absolute Substitui o operando pelo seu valor absoluto
+negate Troca o sinal do operando
+Increment Soma 1 ao operando
+Decrement Subtrai 1 do operando
+Book 1.indb 297 19.11.09 14:38:10
+
+298 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tipo Nome da operação Descrição
+LógicaAnD Realiza o AnD lógico
+OR Realiza o OR lógico
+nOT (complemento) Realiza o nOT lógico
+Exclusive-OR Realiza o XOR lógico
+Test Testa condição especificada; define flag(s) com base no resultado
+CompareFaz comparação lógica ou aritmética de dois ou mais operandos; 
+define flag(s) com base no resultado
+Set control variablesClasse de instruções para definir controles para fins de proteção, tratamento 
+de interrupção, controle de tempo etc.
+ShiftDesloca o operando para a esquerda (direita), 
+introduzindo constantes na extremidade
+RotateDesloca ciclicamente o operando para a esquerda (direita), 
+de uma extremidade à outra
+Transferência de controleJump (desvio) Transferência incondicional; carrega PC com endereço especificado
+Jump conditionalTesta condição especificada; ou carrega PC com endereço especificado 
+ou não faz nada, com base na condição
+Jump to subroutineColoca informação do controle do programa atual em local conhecido; 
+salta para endereço especificado
+Return Substitui conteúdo do PC por outro registrador de local conhecido
+ExecuteBusca operando do local especificado e executa como instrução; 
+não modifica o PC
+Skip Incrementa o PC para saltar para a próxima instrução
+Skip conditional Testa condição especificada; ou salta ou não faz nada, com base na condição
+halt Termina a execução do programa
+Wait (hold)Termina a execução do programa; testa condição especificada repetidamente; 
+retoma a execução quando a condição for satisfeita
+no operation nenhuma operação é realizada, mas a execução do programa continua
+Entrada/saídaInput (leitura)Transfere dados da porta de E/S ou dispositivo especificado para o destino 
+(por exemplo, memória principal ou registrador do processador)
+Output (escrita) Transfere dados da origem especificada para porta de E/S ou dispositivo
+Start I/O Transfere instruções para o processador de E/S para iniciar operação de E/S
+Test I/O Transfere informações de status do sistema de E/S para destino especificado
+ConversãoTranslateTraduz valores em uma seção da memória com base em 
+uma tabela de correspondências
+ConvertConverte o conteúdo de uma palavra de uma forma para outra 
+(por exemplo, decimal agrupado para binário)
+local pode ser memória, um registrador ou o topo da pilha. Segundo, a extensão dos dados a serem transferidos 
+precisa ser indicada. Terceiro, assim como todas as instruções com operandos, o modo de endereçamento para cada operando precisa ser especificado. Esse último ponto é discutido no Capítulo 11.Tabela 10.3 Operações comuns do conjunto de instruções (continuação)
+Book 1.indb 298 19.11.09 14:38:10
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 299
+A escolha das instruções de transferência de dados a incluir em um conjunto de instruções exemplifica os tipos de 
+escolhas que o projetista precisa tomar. Por exemplo, o local geral (memória ou registrador) de um operando pode ser 
+indicado na especificação do opcode ou no operando. A Tabela 10.5 mostra exemplos das instruções de transferência 
+de dados do IBM EAS/390 mais comuns. Observe que existem variantes para indicar a quantidade de dados a serem transferidos (8, 16, 32 ou 64 bits). Além disso, existem diferentes instruções para transferências registrador para registrador, registrador para memória, memória para registrador e memória para memória. Ao contrário, o VAX tem uma instrução de movimentação (MOV) com variantes para diferentes quantidades de dados a serem movidos, mas especifica se um ope -
+rando é registrador ou memória como parte do operando. A técnica do VAX é um pouco mais fácil para o programador, que precisa lidar com menos mnemônicos. Porém, ela também é menos compacta que a técnica do IBM EAS/390, pois Transferência de dadosTransfere dados de um local para outro
+Se a memória estiver envolvida:
+Determina o endereço da memória
+Realiza transformação de endereço de memória virtual para real
+Verifica cache
+Inicia leitura/escrita da memória
+AritméticaPode envolver transferência de dados, antes e/ou depois
+Realiza função na ALU
+Define códigos de condição e flags
+Lógica O mesmo que aritmética
+Conversão Semelhante a aritmética e lógica. Pode envolver lógica especial para realizar conversão
+Transferência de controle Atualiza contador de programa. Para chamada/retorno de sub-rotina, gerencia passagem e ligação de parâmetros
+E/SEmite comando para módulo de E/S
+Se E/S mapeada na memória, determina o endereço mapeado na memóriaTabela 10.4 Ações do processador para diversos tipos de operação
+Mnemônico da 
+operaçãoNomeNúmero de bits 
+transferidosDescrição
+L Load 32 Transfere de memória a registrador
+Lh Load halfword 16 Transfere de memória a registrador
+LR Load 32 Transfere de registrador a registrador
+LER Load (Short) 32 Transfere de registrador de ponto flutuante a registrador de ponto flutuante
+LE Load (Short) 32 Transfere de memória a registrador de ponto flutuante
+LDR Load (Long) 64 Transfere de registrador de ponto flutuante a registrador de ponto flutuante
+LD Load (Long) 64 Transfere de memória a registrador de ponto flutuante
+ST Store 32 Transfere de registrador a memória
+STh Store halfword 16 Transfere de registrador a memória
+STC Store Character 8 Transfere de registrador a memória
+STE Store (Short) 32 Transfere de registrador de ponto flutuante a memória
+STD Store (Long) 64 Transfere de registrador de ponto flutuante a memóriaTabela 10.5 Exemplos de operações de transferência de dados IBM EAS/390
+Book 1.indb 299 19.11.09 14:38:10
+
+300 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+o local (registrador versus memória) de cada operando deve ser especifi cado separadamente na instrução. Vamos voltar 
+a essa diferença quando discutirmos sobre os formatos de instrução, no próximo capítulo.
+ Em termos de ação do processador, as operações de transferência de dados talvez sejam o tipo mais simples. 
+Se a origem e o destino forem registradores, então o processador simplesmente faz com que os dados sejam trans-
+feridos de um registrador para outro; essa é uma operação interna ao processador. Se um ou ambos operandos estiverem na memória, então o processador deve realizar algumas ou todas as seguintes ações:
+1. Calcular o endereço de memória, com base no modo de endereço (discutido no Capítulo 11).
+2. Se o endereço se referir à memória virtual, traduzir de endereço virtual para real.
+3. Determinar se o item endereçado está na cache.
+4. Se não, emitir um comando para o módulo de memória.
+ Aritméticas
+A maioria das máquinas oferece as operações aritméticas básicas de adição, subtração, multiplicação e divisão. 
+Estas são invariavelmente fornecidas para números inteiros com sinal (ponto fi xo). Normalmente, elas também são fornecidas para números de ponto fl utuante e decimal agrupado.
+Outras operações possíveis incluem uma série de instruções de único operando, por exemplo:
+Absolute: 
+  apanha o valor absoluto do operando.
+negate:  inverte o sinal do operando.
+Increment:  soma 1 ao operando.
+decrement:  subtrai 1 do operando.
+A execução de uma instrução aritmética pode envolver operações de transferência de dados para posicionar 
+operandos para entrada na ALU, e entregar a saída da ALU. A Figura 3.5 ilustra as movimentações envolvidas nas operações de transferência de dados e aritméticas. Além disso, naturalmente, a parte da ALU do processador realiza a operação desejada.
+ Lógicas
+A maioria das máquinas também oferece uma série de operações para manipular bits individuais de uma pala-
+vra ou outras unidades endereçáveis, normalmente conhecidas como “bit twiddling” . Elas são baseadas em opera-ções booleanas (veja Capítulo 20).
+Algumas das operações lógicas básicas que podem ser realizadas sobre dados booleanos ou binários aparecem 
+na Tabela 10.6. A operação NOT inverte um bit. AND, OR e Exclusive-OR (XOR) são as funções lógicas mais comuns com dois operandos. EQUAL é um teste binário útil.
+Essas operações lógicas podem ser aplicadas bit a bit a unidades de dados lógicas de n bits. Assim, se dois re-
+gistradores contêm os dados
+(R1) = 10100101(R2) = 00001111
+Tabela 10.6 Operações lógicas básicas
+P Q NOT P P AND Q Q OR Q P XOR Q P = Q
+0 0 1 0 0 0 1
+0 1 1 0 1 1 0
+1 0 0 0 1 1 0
+1 1 0 1 1 0 1
+Book 1.indb 300 19.11.09 14:38:11
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 301
+então,
+(R1) AND (R2) = 00000101
+onde a notação (X) significa o conteúdo do local X. Assim, a operação AND pode ser usada como uma máscara que 
+seleciona certos bits em uma palavra e zeros dos bits restantes. Como outro exemplo, se dois registradores contêm
+(R1) = 10100101
+(R2) = 11111111
+então,
+(R1) XOR (R2) = 01011010
+Com uma palavra definida como todos 1s, a operação XOR inverte todos os bits na outra palavra (complemento a um).
+Além das operações lógicas bit a bit, a maioria das máquinas oferece uma série de funções de deslocamento 
+e rotação. As operações mais básicas são ilustradas na Figura 10.6. Com um deslocamento lógico, os bits de uma 
+palavra são deslocados para a esquerda ou para a direita. Em uma extremidade, o bit deslocado para fora se perde. Na outra extremidade, um 0 é deslocado para dentro. Os deslocamentos lógicos são úteis principalmente para isolar campos dentro de uma palavra. Os 0s que são deslocados para dentro de uma palavra afastam informações indesejadas, que são deslocadas para fora pela outra extremidade.
+Como um exemplo, suponha que queiramos transmitir caracteres de dados para um dispositivo de E/S 1 ca-
+ractere de cada vez. Se cada palavra da memória tiver 16 bits de extensão e tiver dois caracteres, temos que desa-
+grupar os caracteres antes que eles possam ser enviados. Para enviar os dois caracteres em uma palavra:
+1. Carregue a palavra em um registrador.
+2. Desloque para a direita oito vezes. Isso desloca o caractere restante para a metade direita do registrador.
+Figura 10.6 Operações de deslocamento e rotação
+• • •
+(a) Deslocamento lógico à direita0
+0
+• • •
+(e) Rotação à direita• • •
+(c) Deslocamento aritmético à direitaS• • •
+(b) Deslocamento lógico à esquerda
+• • •
+(f) Rotação à esquerda0
+• • •
+(d) Deslocamento aritmético à esquerdaS
+Book 1.indb 301 19.11.09 14:38:11
+
+302 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+3. Realize a E/S. O módulo de E/S lê os 8 bits de ordem mais baixa do barramento de dados.
+As etapas anteriores resultam em enviar os caracteres da esquerda. Para enviar o caractere da direita:
+1. Carregue a palavra novamente no registrador.
+2. Faça o AND com 0000000011111111. Isso mascara o caractere à esquerda.
+3. Realize a E/S.
+A operação de deslocamento aritmético trata os dados como um inteiro com sinal e não desloca o bit de 
+sinal. Em um deslocamento aritmético à direita, o bit de sinal é replicado para a posição de bit à sua direita. Em um deslocamento aritmético à esquerda, um deslocamento lógico à esquerda é realizado sobre todos os bits, menos o bit de sinal, que é retido. Essas operações podem agilizar certas operações aritméticas. Com números na notação de complemento de dois, um deslocamento aritmético à direita corresponde a uma divisão por 2, truncando nú-meros ímpares. Um deslocamento aritmético à esquerda e um deslocamento lógico à esquerda correspondem a uma multiplicação por 2 quando não existe overfl ow . Se houver overfl ow , as operações de deslocamento aritmético 
+e lógico à esquerda produzem diferentes resultados, mas o deslocamento aritmético à esquerda retém o sinal do número. Devido ao potencial para overfl ow , muitos processadores não incluem essa instrução, incluindo o PowerPC 
+e o Itanium. Outros, como o IBM EAS/390, oferecem a instrução. Curiosamente, a arquitetura x86 inclui um desloca-mento aritmético à esquerda, mas o defi ne como sendo idêntico a um deslocamento lógico à esquerda.
+As operações de rotação, ou deslocamento cíclico, preservam todos os bits como operando. Um uso de uma 
+rotação é para trazer cada bit sucessivamente para o bit mais à esquerda, onde pode ser identifi cado testando o sinal do dado (tratado como um número).
+Assim como as operações aritméticas, as operações lógicas envolvem a atividade da ALU e podem envolver 
+operações de transferência de dados. A Tabela 10.7 oferece exemplos de todas as operações de deslocamento e rotação discutidas nesta subseção.
+ Conversão
+Instruções de conversão são aquelas que mudam o formato ou operam sobre o formato dos dados. Um exem-
+plo é a conversão de decimal para binário. Um exemplo de uma instrução de edição mais complexa é a instrução Translate (TR) do EAS/390. Essa instrução pode ser usada para converter de um código de 8 bits para outro, e utiliza três operandos:
+TR R1 (L), R2
+O operando R2 contém o endereço do início de uma tabela de códigos de 8 bits. Os L bytes começando no 
+endereço especifi cado em R1 são traduzidos, cada byte sendo substituído pelo conteúdo de uma entrada de tabela 
+indexada por esse byte. Por exemplo, para traduzir de EBCDIC para IRA, primeiro criamos uma tabela de 256 bytes nos locais de armazenamento, digamos, 1000-10FF hexadecimal. A tabela contém os caracteres do código IRA na sequência da representação binária do código EBCDIC; ou seja, o código IRA é colocado na tabela no local relativo igual ao valor binário do código EBCDIC do mesmo caractere. Assim, os locais 10F0 a 10F9 terão os valores de 30 a 39, pois F0 é o código EBCDIC para o dígito 0, e 30 é o código IRA para o dígito 0, e assim por diante até o dígito 9. 
+Input Operação Resultado
+10100110 Deslocamento lógico à direita (3 bits) 00010100
+10100110 Deslocamento lógico à esquerda (3 bits) 00110000
+10100110 Deslocamento aritmético à direita (3 bits) 11110100
+10100110 Deslocamento aritmético à esquerda (3 bits) 10110000
+10100110 Rotação à direita (3 bits) 11010100
+10100110 Rotação à esquerda (3 bits) 00110101Tabela 10.7 Exemplos de operações de deslocamento e rotação
+Book 1.indb 302 19.11.09 14:38:12
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 303
+Agora, suponha que tenhamos o EBCDIC para os dígitos 1984 começando no local 2100 e queiramos traduzir para 
+IRA. Considere o seguinte:
+Locais 2100–2103 contêm F1 F9 F8 F4. 
+R1 contém 2100. 
+R2 contém 1000. 
+Então, se executarmos
+TR R1 (4), R2
+os locais 2100–2103 terão 31 39 38 34.
+ Entrada/saída
+As instruções de entrada/saída foram discutidas com alguns detalhes no Capítulo 7. Como vimos, existem di-
+versas técnicas que podem ser usadas, incluindo E/S programada independente, E/S programada mapeada na 
+memória, DMA e o uso de um processador de E/S. Muitas implementações oferecem apenas algumas instruções de E/S, com ações específi cas ditadas por parâmetros, códigos ou palavras de comando.
+ Controle do sistema
+As instruções de controle do sistema são aquelas que podem ser executadas apenas enquanto o processador 
+está em um certo estado privilegiado ou está executando um programa em uma área privilegiada especial da me-mória. Normalmente, essas instruções são reservadas para o uso do sistema operacional.
+Alguns exemplos de operações de controle do sistema são os seguintes. Uma instrução de controle do sistema pode 
+ler ou alterar um registrador de controle; discutimos os registradores de controle no Capítulo 12. Outro exemplo é uma instrução para ler ou modifi car uma chave de proteção de armazenamento, como a que é usada no sistema de memória do EAS/390. Outro exemplo é o acesso para processar blocos de controle em um sistema multiprogramado.
+ Transferência de controle
+Para todos os tipos de operação discutidos até aqui, a próxima instrução a ser realizada é aquela que, na me-
+mória, vem imediatamente após a instrução atual. Porém, uma fração signifi cativa das instruções em um programa tem como função mudar a sequência de execução de instruções. Para essas instruções, a operação realizada pelo processador é atualizar o contador de programa para conter o endereço de alguma instrução na memória.
+Existem vários motivos pelos quais as operações de transferência de controle são necessárias. Entre os mais 
+importantes estão os seguintes:
+1. No uso prático dos computadores, é essencial poder executar cada instrução mais de uma vez e, talvez, muitas milhares de vezes. Podem ser necessárias milhares ou talvez milhões de instruções para implementar uma aplicação. Seria impensável se cada instrução tivesse que ser escrita separadamente. Se uma tabela ou uma lista de itens tiver que ser processada, um loop de programa é necessário. Uma sequência de instruções é executada repetidamente para processar todos os dados.
+2. Praticamente todos os programas envolvem alguma tomada de decisão. Gostaríamos que o computador fi zes-se uma coisa se uma condição for verdadeira, e outra coisa se outra condição for verdadeira. Por exemplo, uma sequência de instruções calcula a raiz quadrada de um número. No início da sequência, o sinal do número é testado. Se o número for negativo, o cálculo não é realizado, mas uma condição de erro é informada.
+3. Compor corretamente um programa de computador de tamanho grande, ou mesmo médio, é uma tarefa extremamente difícil. É útil que haja mecanismos para dividir a tarefa em pedaços menores, que possam ser trabalhados um de cada vez.
+Agora, vamos passar a uma discussão das operações de transferência de controle mais comuns encontradas 
+nos conjuntos de instruções: desvio, salto e chamada de procedimento.
+INSTRUÇÕES DE DESVIO Uma instrução de desvio, também chamada de instrução de salto, tem como um de 
+seus operandos o endereço da próxima instrução a ser executada. Normalmente, é uma instrução de desvio condi-
+cional, ou seja, o desvio é tomado (atualizar o contador de programa para que seja igual ao endereço especifi cado no operando) somente se a condição for atendida. Caso contrário, a próxima instrução na sequência é executada 
+Book 1.indb 303 19.11.09 14:38:12
+
+304 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+(incrementar contador de programa normalmente). Uma instrução de desvio em que o desvio sempre é tomado é 
+um desvio incondicional.
+Existem duas maneiras comuns de gerar a condição a ser testada em uma instrução de desvio condicional. Primeiro, 
+a maioria das máquinas oferece um código de condição de 1 ou mais bits, que é definido como o resultado de algumas operações. Esse código pode ser imaginado como um registrador pequeno, visível ao usuário. Como um exemplo, uma operação aritmética (ADD, SUBTRACT e assim por diante) poderia definir um código de condição de 2 bits com um dos quatro valores a seguir: 0, positivo, negativo, overflow . Em tal máquina, poderia haver quatro instruções de desvio condi-
+cional diferentes:
+BRP X Desvia para local X se resultado for positivo.BRN X Desvia para local X se resultado for negativo.BRZ X Desvia para local X se resultado for zero.BRO X Desvia para local X se houver overflow.
+Em todos esses casos, o resultado referenciado é o resultado da operação mais recente que define o código de 
+condição. 
+Outra técnica que pode ser usada com um formato de instrução de três endereços é realizar uma comparação 
+e especificar um desvio na mesma interface. Por exemplo,
+BRE R1, R2, X Desvia para X se conteúdo de R1 = conteúdo de R2. A Figura 10.7 mostra exemplos dessas operações. Observe que um desvio pode ser para frente (uma instrução 
+com um endereço mais alto) ou para trás (endereço mais baixo). O exemplo mostra como um desvio incondicional 
+e um desvio condicional podem ser usados para criar um loop repetitivo de instruções. As instruções nos locais de 
+202 a 210 serão executadas repetidamente, até que o resultado de subtrair Y de X seja 0.
+INSTRUÇÕES DE SAL TO (sKIp) Outra forma de instrução de transferência de controle é a instrução de salto. A 
+instrução de salto inclui um endereço implícito. Normalmente, o salto implica que uma instrução seja pulada; assim, o endereço implícito é igual ao endereço da próxima instrução mais o tamanho de uma instrução.
+Como a instrução de salto não exige um campo de endereço de destino, ela está livre para realizar outras coisas. 
+Um exemplo típico é a instrução de incrementar e pular se for zero (ISZ  Increment-and-Skip-if-Zero). Considere o 
+seguinte pedaço de programa:
+301
+ • • •309 ISZ R1
+310 BR 301311
+Figura 10.7 Instruções de desvio
+Endereço 
+de memória
+Desvio 
+incondicionalInstrução
+200
+SUB X,Y
+BRZ 211
+BR 202Desvio 
+condicional
+BRE R1, R2, 235201
+202
+203
+210
+211
+225
+235Desvio 
+condicional
+Book 1.indb 304 19.11.09 14:38:13
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 305
+Nesse pedaço, as duas instruções de transferência de controle são usadas para implementar um loop iterativo. 
+R1 é definido como o negativo do número de iterações a serem realizadas. Ao final do loop, R1 é incrementado. Se 
+não for 0, o programa desvia de volta ao início do loop. Caso contrário, o desvio é pulado, e o programa continua com a próxima instrução após o final do loop.
+INSTRUÇÕES DE CHAMADA DE PROCEDIMENTO Talvez a inovação mais importante no desenvolvimento de 
+linguagens de programação seja o procedimento. Um procedimento é um programa de computação autocontido, que é incorporado em um programa maior. Em qualquer ponto no programa, o procedimento pode ser invocado, ou chamado. O processador é instruído a ir e executar o procedimento inteiro e depois retornar ao ponto onde 
+ocorreu a chamada.
+Os dois motivos principais para o uso de procedimentos são economia e modularidade. Um procedimento 
+permite que o mesmo trecho de código seja usado muitas vezes. Isso é importante por economia no esforço de programação e para fazer um uso mais eficiente do espaço de armazenamento no sistema (o programa precisa ser armazenado). Os procedimentos também permitem que grandes tarefas de programação sejam subdivididas em unidades menores. Esse uso da modularidade facilita bastante a tarefa de programação.
+O mecanismo de procedimento envolve duas instruções básicas: uma instrução de chamada que desvia do 
+local atual para o procedimento, e uma instrução de retorno que retorna do procedimento para o local do qual ele foi chamado. Ambas são formas de instruções de desvio.
+A Figura 10.8a ilustra o uso de procedimentos para construir um programa. Nesse exemplo, existe um 
+programa principal começando no local 4000. Esse programa inclui uma chamada ao procedimento PROC1, começando no local 4500. Quando essa instrução de chamada é encontrada, o processador suspende a exe -
+cução do programa principal e inicia a execução de PROC1 buscando a próxima instrução do local 4500. Dentro de PROC1, existem duas chamadas a PROC2 no local 4800. Em cada caso, a execução de PROC1 é suspensa e PROC2 é executado. A instrução RETURN faz com que o processador retorne ao programa que chamou e continue a execução na instrução após a instrução CALL correspondente. Esse comportamento é ilustrado na Figura 10.8b.
+Três pontos precisam ser observados:
+Figura 10.8 Procedimentos aninhados
+CALL Proc1Memória principal
+Programa
+principal
+Procedimento
+Proc1
+Procedimento
+Proc2Endereços
+4000
+4100
+4101
+4500
+48004600
+4601
+4650
+4651CALL Proc2
+CALL Proc2
+RETURN
+RETURN
+(a) Chamadas e retornos (b) Sequência de execução
+Book 1.indb 305 19.11.09 14:38:13
+
+306 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+1. Um procedimento pode ser chamado de mais de um local.
+2. Uma chamada de procedimento pode aparecer em outro procedimento. Isso permite o aninhamento de 
+procedimentos até uma profundidade qualquer.
+3. Cada chamada de procedimento corresponde a um retorno no programa chamado.
+Como gostaríamos de poder chamar um procedimento a partir de diversos pontos, o processador precisa, de 
+alguma forma, salvar o endereço de retorno para que este possa ocorrer corretamente. Existem três locais comuns 
+para armazenar o endereço de retorno:
+Registrador. 
+Início do procedimento chamado. 
+Topo da pilha. 
+Considere uma instrução em linguagem de máquina CALL X, que significa chamar procedimento no local X. Se a 
+técnica de registrador for usada, CALL X causa as seguintes ações:
+CP — XNR — PC+¢
+onde RN é um registrador que sempre é usado para essa finalidade, PC é o contador de programa e ∆ é o tama-nho da instrução. O procedimento chamado agora pode salvar o conteúdo de RN a ser usado para o retorno posterior.
+Uma segunda possibilidade é armazenar o endereço de retorno no início do procedimento. Nesse caso, CALL 
+X causa
+PC
+—X+1X—PC+¢
+Isso é muito prático. O endereço de retorno foi armazenado de forma segura.
+As duas técnicas anteriores funcionam e têm sido usadas. A única limitação dessas técnicas é que elas compli-
+cam o uso dos procedimentos reentrantes. Um procedimento reentrante é aquele em que é possível ter várias cha-
+madas abertas ao mesmo tempo. Um procedimento recursivo (aquele que chama a si mesmo) é um exemplo do uso desse recurso (veja Apêndice H). Se os parâmetros forem passados por meio de registradores ou da memória para o procedimento reentrante, algum código deverá ser responsável por salvar os parâmetros, de modo que os registradores ou o espaço da memória estejam disponíveis para outras chamadas de procedimento.
+Uma técnica mais geral e poderosa é usar uma pilha (veja, no Apêndice 10A, uma discussão sobre as pilhas). 
+Quando o processador executa uma chamada, ele coloca o endereço de retorno na pilha. Quando ele executa um retorno, usa o endereço armazenado na pilha. A Figura 10.9 ilustra o uso da pilha.
+Além de oferecer um endereço armazenado de retorno, normalmente também é preciso passar parâmetros 
+com uma chamada de procedimento. Estes podem ser passados em registradores. Outra possibilidade é armaze-nar os parâmetros na memória logo após a instrução CALL. Nesse caso, o retorno precisa ser para o local após os parâmetros. Novamente, essas duas técnicas possuem desvantagens. Se forem usados registradores, o programa 
+Figura 10.9 Uso da pilha para implementar sub-rotinas aninhadas da Figura 10.8
+(a) Conteúdo
+inicial da pilha•4101
+(b) Após
+CALL Proc1•41014601
+(c) CALL
+Proc2 inicial•4101
+(d) Após
+RETURN•41014651
+(e) Após
+CALL Proc2•4101
+(f) Após
+RETURN•
+(g) Após
+RETURN•
+Book 1.indb 306 19.11.09 14:38:14
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 307
+chamado e o programa que chama precisam ser escritos para garantir que os registradores sejam usados devida-
+mente. O armazenamento de parâmetros na memória difi culta a troca de um número variável de parâmetros. As duas técnicas impedem o uso de procedimentos reentrantes.
+Uma técnica mais flexível para a passagem de parâmetros é a pilha. Quando o processador executa uma 
+chamada, ele não apenas empilha o endereço de retorno, mas os parâmetros a serem passados ao proce-dimento chamado. O procedimento chamado pode acessar os parâmetros a partir da pilha. Ao retornar, os parâmetros de retorno também podem ser colocados na pilha. O conjunto inteiro de parâmetros, incluindo endereço de retorno, que é armazenado para uma chamada de procedimento é chamada de stack frame.
+Um exemplo aparece na Figura 10.10. O exemplo refere-se ao procedimento P em que as variáveis locais x1 
+e x2 são declaradas, e o procedimento Q, que P pode chamar e no qual as variáveis locais y1 e y2 são declaradas. 
+Nessa fi gura, o ponto de retorno para cada procedimento é o primeiro item armazenado no stack frame de pilha correspondente. Em seguida, é armazenado um ponteiro para o início do stack frame anterior. Isso é necessário se o número ou o tamanho dos parâmetros a serem empilhados for variável.
+10.5 Tipos de operação Intel x86 e do ARM
+ Tipos de operação do x86
+O x86 oferece uma complexa gama de tipos de operação, incluindo uma série de instruções especializa-
+das. A intenção foi oferecer ferramentas para quem implementa compiladores, capazes de produzir códigos otimizados em linguagem de máquina a partir dos programas em linguagens de alto nível. A Tabela 10.8 lista os tipos e oferece exemplos de cada um. A maioria destes refere-se a instruções convencionais, encontradas na maioria dos conjuntos de instrução de máquina, mas vários tipos de instruções são ajustados à arquite-tura x86 e são de interesse particular. O Apêndice A de Carter (1996
+b) lista as instruções do x86, junto com 
+os operandos para cada uma e o efeito da instrução sobre os códigos de condição. O Apêndice B do manual da linguagem de montagem NASM oferece uma descrição mais detalhada de cada instrução do x86. Os dois documentos estão disponíveis no site Web deste livro.
+Figura 10.10 Crescimento do frame de pilha usando procedimentos de exemplo P e Q
+Ponto de retornoAntigo ponteiro de framePonteiro
+de pilha
+x1x2
+P:Ponteirode frame
+Ponto de retornoAntigo ponteiro de framePonto de retornoPonteirode pilhay2
+y1
+x2
+x1
+P:Q:Ponteirode frameAntigo ponteiro de frame
+(a) P )b( está ativo Pchamou Q
+Book 1.indb 307 19.11.09 14:38:14
+
+308 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Instrução Descrição
+Movimentação de dados
+MOV Operação de movimentação entre registradores ou entre registrador e memória.
+PUSh Coloca operando na pilha.
+PUShA Coloca todos os registradores na pilha.
+MOVSXMove byte, palavra, palavra dupla, com extensão de sinal. Move um byte para uma palavra, ou uma palavra para uma palavra dupla, com 
+extensão de sinal para complemento de dois.
+LEA Carrega endereço efetivo. Carrega o deslocamento do operando de origem, em vez do seu valor, ao operando de destino.
+XLATTradução de tabela de pesquisa. Substitui um byte em AL por um byte de uma tabela de tradução codificada pelo usuário. Quando XLAT é executada, AL deverá ter um índice sem sinal para a tabela. XLAT muda o conteúdo de AL do índice de tabela para a entrada de tabela.
+In, OUT Operando de entrada, saída do espaço de E/S.
+Aritméticas
+ADD Adiciona operandos.
+SUB Subtrai operandos.
+MUL Multiplicação de inteiro sem sinal, com operandos de byte, palavra ou palavra dupla, e resultado de palavra, palavra dupla ou quatro palavras.
+IDIV Divisão com sinal.
+Lógicas
+AnDA nD dos operandos.
+BTSTeste e definição de bit. Opera sobre um operando de campo de bit. A instrução copia o valor atual de um bit para o flag CF e define o bit original como 1.
+BSF Varredura de bit adiante. Varre uma palavra ou palavra dupla para o bit 1 e armazena o número do primeiro bit 1 em um registrador.
+ShL/ShR Deslocamento lógico à esquerda ou à direita.
+SAL/SAR Deslocamento aritmético à esquerda ou à direita.
+ROL/ROR Rotação à esquerda ou à direita.
+SETcc Define um byte como zero ou 1, dependendo de qualquer uma das 16 condições definidas pelos flags de status.
+Transferência de controle
+JMP Salto incondicional.
+CALL Transfere o controle para outro local. Antes da transferência, o endereço da instrução após o CALL é colocado na pilha.
+JE/JZ Salto se igual/zero.
+LOOPE/LOOPZLoop se igual/zero. Esse é um salto condicional usando um valor armazenado no registrador ECX. A primeira instrução decrementa ECX antes de testá-lo para a condição de desvio.
+InT/InTO Interrompe/Interrompe se houver overflow . Transfere o controle para uma rotina de serviço de interrupção.
+Operações de string
+MOVS Move string de byte, palavra, palavra dupla. A instrução opera sobre um elemento de uma string, indexado pelos registradores ESI e EDI. Após cada operação de string, os registradores são automaticamente incrementados ou decrementados para apontarem para o próximo elemento da string.
+LODS Carrega byte, palavra ou palavra dupla de string.
+Suporte a linguagem de alto nível
+EnTER Cria um frame de pilha que pode ser usado para implementar as regras de uma linguagem de alto nível estruturada em bloco.
+LEAVE Reverte a ação de um EnTER anterior.
+BOUnDVerifica limites de array . Verifica se o valor no operando 1 está dentro dos limites inferior e superior. Os limites estão em dois locais de memória 
+adjacentes referenciados pelo operando 2. Uma interrupção ocorre se o valor estiver fora dos limites. Essa instrução é usada para verificar um índice de array .
+Controle de flag
+STC Define flag de carry .
+LAhF Carrega registro Ah a partir dos flags. Copia bits SF , ZF , AF , F e CF para o registrador A.Tabela 10.8 Tipos de operação do x86 (com exemplos de operações típicas)
+(Continua)
+Book 1.indb 308 19.11.09 14:38:15
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 309
+INSTRUÇÕES CALL/RETURN O x86 oferece quatro instruções para dar suporte à chamada ou ao retorno de 
+procedimento: CALL, ENTER, LEAVE, RETURN. Será instrutivo examinarmos o suporte oferecido por essas instruções. 
+Lembre-se, pela Figura 10.10, que um meio comum de implementar o mecanismo de chamada/retorno de proce-dimento é por meio de stack frame. Quando um novo procedimento é chamado, o seguinte deverá ser realizado na entrada do novo procedimento:
+Levar o ponto de retorno para a pilha.
+ 
+Levar o ponteiro do  frames atual para a pilha.
+Copiar o ponteiro de pilha como o novo valor do ponteiro de  frames .
+Ajustar o ponteiro de pilha para alocar um  frames .
+A instrução CALL coloca o valor do ponteiro de instrução atual na pilha e causa um salto para o ponto de entra-
+da do procedimento, colocando o endereço do ponto de entrada no ponteiro de instrução. Nas máquinas 8088 e 8086, o procedimento típico começava com a sequência
+PUSH EBP
+MOV EBP , ESP
+SUB ESP , espaço_para_locais
+onde EBP é o ponteiro de frame e ESP é o ponteiro de pilha. No 80286 e em máquinas posteriores, a instrução 
+ENTER realiza todas as operações mencionadas em uma única instrução.
+A instrução ENTER foi acrescentada ao conjunto de instruções para oferecer suporte direto para o compilador. 
+A instrução também inclui um recurso para dar suporte aos chamados procedimentos aninhados em linguagens como Pascal, COBOL e Ada (não encontrados em C ou FORTRAN). Acontece que existem melhores maneiras de tratar de chamadas de procedimentos aninhados para essas linguagens. Além do mais, embora a instrução ENTER economize alguns bytes de memória em comparação com a sequência PUSH, MOV, SUB (4 bytes contra 6 bytes), ela na realidade leva mais tempo para executar (10 ciclos de clock contra 6 ciclos de clock). Assim, embora possa parecer uma boa ideia para os projetistas de conjunto de instruções acrescentar esse recurso, ele complica a im-plementação do processador, enquanto oferece pouco ou nenhum benefício. Veremos que, em comparação, uma Tabela 10.8 Tipos de operação do x86 (com exemplos de operações típicas) (continuação) 
+Instrução Descrição
+Registrador de segmento
+LDS Carrega ponteiro para DS e para outro registrador.
+Controle do sistema
+hLT Termina a execução do programa.
+LOCKAtiva uma suspensão na memória compartilhada de modo que o Pentium tenha uso exclusivo dela durante a instrução que vem imediata-
+mente após o LOCK.
+ESCEscape para uma extensão do processador. Um código de escape que indica que as instruções seguintes devem ser executadas por um proces-sador numérico que admite cálculos com inteiro e ponto flutuante de alta precisão.
+WAITEspera até BUSY# negado. Suspende a execução do programa no Pentium até que o processador detecte que o pino BUSY esteja inativo, indicando que o coprocessador numérico terminou a execução.
+Proteção
+SGDT Armazena tabela de descritor global.
+LSL Carrega limite de segmento. Carrega um registrador especificado pelo usuário com um limite de segmento.
+VERR/VERW Verifica segmento para leitura/gravação.
+Gerenciamento de cache
+InVD Esvazia a memória cache interna.
+WBInVD Esvazia a memória cache interna após gravar linhas modificadas na memória.
+InVLPG Invalida uma entrada no translation lookaside buffer (TLB).
+Book 1.indb 309 19.11.09 14:38:15

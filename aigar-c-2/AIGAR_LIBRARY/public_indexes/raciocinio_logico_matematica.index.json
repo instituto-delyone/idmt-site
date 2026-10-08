@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+    "key": "raciocinio_logico_matematica",
+    "sha256": "5ec0078c91ef0c4e16c2e70773bab0134d64c91f1299b68f46dd6d5421bc1987",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-826EB0C22532",
+      "sequence": 1,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 26311,
+      "text_checksum": "4ea479cb4f4c2f13f803db45df745f13d8a09eda7824003653447ade8c31a851"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-FB7052DBF395",
+      "sequence": 2,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 51932,
+      "text_checksum": "6fb53b161f2ac719a7185db1e8461be7609607052e361966038bd05d1f9c348d"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-3238564A1668",
+      "sequence": 3,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 51,
+      "end_page": 75,
+      "text_length": 48244,
+      "text_checksum": "d53e0b65375db5c78944e00afc8c7aca4c4d6b653953f639cf4990734f257bac"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-E68DD1EAB4E7",
+      "sequence": 4,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 76,
+      "end_page": 100,
+      "text_length": 51082,
+      "text_checksum": "644a628867fe89321af5a2941afdee2cb3499d86a24476434a8f7c5f056b66e8"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-26D11EF77264",
+      "sequence": 5,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 101,
+      "end_page": 125,
+      "text_length": 48708,
+      "text_checksum": "e1b1fcd76e542125377f619cf0d2d2a9d08877cfc45ce7073a9b889c63b7260b"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-E5DB95ED1BE3",
+      "sequence": 6,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 126,
+      "end_page": 150,
+      "text_length": 56183,
+      "text_checksum": "f45003c9b538e45c74efd06c1869649b18480d8853d4664b90db00f1d93cb025"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-852F470E8C4B",
+      "sequence": 7,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 151,
+      "end_page": 175,
+      "text_length": 61602,
+      "text_checksum": "e782cc8b3647c00ed0bfe6247f3fb9693a0b9f99c7cd6b9ce4c4988cbdfeeb63"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-B90130B0337D",
+      "sequence": 8,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 176,
+      "end_page": 200,
+      "text_length": 64352,
+      "text_checksum": "e9607e87fe2803bbded0ed1c1575a7b5a343b5bd35b8b25c079f2200439580bb"
+    },
+    {
+      "id": "RACIOCINIO_LOGICO_MATEMATICA-8E1053DD2620",
+      "sequence": 9,
+      "source": "Raciocinio_Logico_e_Matematica_Para_Concursos_Cespe.pdf",
+      "source_key": "raciocinio_logico_matematica",
+      "start_page": 201,
+      "end_page": 201,
+      "text_length": 42,
+      "text_checksum": "6cd09d3b6ce59e377081009f983655fe2fa659600e21f968bb6dd40853899a5b"
+    }
+  ]
+}

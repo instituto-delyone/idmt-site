@@ -1,0 +1,1324 @@
+44. (Cespe – UnB – MPE-TO – 2006) Considere
+ uma argumentação em que duas premissas
+são da forma: 1. Nenhum A é B.
+2. Todo C é A.
+e a conclusão é da forma “Nenhum C é B”. Essa argumentação não pode ser
+considerada válida.
+Texto para questões 45 a 47
+Uma noção básica da lógica é a de que um argumento é composto de um conjunto e de
+sentenças denominadas premissas e uma outra sentença chamada de conclusão. Um
+argumento é
+ válido se, sempre que as premissas forem verdadeiras, a conclusão,
+necessariamente, for verdadeira.
+Com o auxílio dessas informações, julgue os itens a seguir.
+45. (Cespe – UnB – Censipam – 2006) Em “Eu sou bom, pois todo homem é bom”, a
+sentença “todo homem é bom” é a premissa do argumento.
+46. (Cespe – UnB – Censipam – 2006) É válido o seguinte argumento: “O Sol é uma estrela,
+e
+ toda estrela tem cinco pontas, logo o Sol tem cinco pontas”.
+47. (Cespe – UnB – Censipam – 2006) É válido o seguinte argumento: “A Terra é azul, e a
+Terra é um planeta, logo todo planeta é azul”.
+Texto para questões 48 e 49
+Proposições são frases para as quais se pode atribuir uma valoração verdadeira (V) ou
+falsa (F). Por exemplo, a frase “O planeta Terra é uma imensa planície” é uma
+ proposição
+porque a ela é possível atribuir a valoração falsa (F), e a frase “Onde fica a Antártica?” não
+é proposição porque é uma pergunta e, portanto, não faz sentido ser valorada como V ou F.
+Considere que P e Q sejam proposições e as seguintes notações: ¬P é a negação de P; P
+∨
+Q
+representa “P ou Q”; P
+∧
+Q representa “P e Q”. Uma proposição da forma P 
+→
+ Q é lida como
+“se P, então Q”. Define-se
+ que P 
+→
+ Q é F se a proposição P for V e a proposição Q for F, caso
+contrário, é V. Define-se P
+∨
+Q como F se P e Q forem F, caso contrário, é considerada V.
+Define-se P
+∧
+Q como V se P e Q forem V, caso contrário, é considerada F. Duas proposições
+são consideradas equivalentes quando elas têm exatamente as mesmas valorações V e F.
+Quando proposições da forma P e da forma P 
+→
+ Q são V, e estão presentes
+ em uma
+argumentação — sequência finita de proposições —, então Q pode ser inferida como V, e a
+argumentação está correta.
+Com base nessas informações e considerando as proposições
+P: “Gabriel não é culpado”; e
+Q: “A promotoria não condenará Gabriel”,
+julgue os itens seguintes.
+48. (Cespe – UnB – Prodest – 2006) Em uma argumentação, suponha que as proposições:
+“Se Gabriel não
+ é culpado, então a promotoria não condenará Gabriel” e “Gabriel é
+culpado” sejam ambas V. Nessa situação, é CORRETO inferir que “A promotoria
+condenará Gabriel”.
+
+49. (Cespe – UnB – Prodest – 2006) Em uma argumentação, suponha que as proposições
+“Se Gabriel não é culpado, então a promotoria não condenará Gabriel” e “A promotoria
+condenará Gabriel” sejam ambas V. Nessa situação, ao se inferir
+ que “Gabriel é
+culpado”, obtém-se uma argumentação CORRETA.
+Texto para questões 50 e 51
+Uma proposição é uma declaração que pode ser avaliada como verdadeira (V) ou falsa (F).
+Se P e Q representam proposições, as formas simbólicas ¬P, P
+∨
+Q, P
+∧
+Q e P
+→
+Q
+representam a composição de proposições pelo uso de operadores. A forma ¬P representa
+a negação de P e, portanto, é V quando P é F, e vice-versa.
+ A forma P
+∨
+Q representa a
+disjunção, ou seja, ou P ou Q, que é F se e somente se P e Q forem F. A forma PvQ
+representa a conjunção P e Q, que é V se e somente se P e Q forem V. A forma P
+→
+Q
+representa a implicação, ou seja, P implica Q (lê-se “se P então Q”), que é F se e somente
+se P for V e Q for F. Sempre que proposições da forma P e P
+→
+Q (ou ¬Q
+→
+¬P) são V, pode-se
+concluir que Q também é V e por
+ isso, uma sequência que contém essas proposições, sendo
+Q a última delas, constitui uma argumentação válida.
+Com base nessas informações, julgue os itens seguintes.
+50. (Cespe – UnB – Ancine – 2006) Considere a seguinte sequência de proposições.
+I. Se Nicole é considerada uma ótima atriz, então Nicole ganhará o prêmio de melhor
+atriz do ano.
+II. Nicole não é considerada uma ótima
+ atriz.
+III. Portanto, pode-se concluir que Nicole não ganhará o prêmio de melhor atriz do ano.
+Nesse caso, essa sequência constitui uma argumentação válida, porque, se as
+proposições I e II são verdadeiras, a proposição III também é verdadeira.
+51. (Cespe – UnB – Ancine – 2006) Suponha que as proposições I, II e III a seguir sejam
+verdadeiras.
+I. Se o filme 
+Dois filhos de Francisco
+ não teve a maior bilheteria de 2005, então esse
+filme não teve o maior número de cópias vendidas.
+II. Se o filme 
+Dois filhos de Francisco
+ teve a maior bilheteria de 2005, então esse filme
+foi exibido em mais de 300 salas de projeção.
+III. O filme 
+Dois filhos de Francisco
+ teve o maior número de cópias vendidas.
+Nessa situação, é correto concluir que a proposição “O filme 
+Dois filhos
+ de Francisco
+ foi
+visto em mais de 300 salas de projeção” é uma proposição verdadeira.
+Texto para questões 52 e 53
+ 
+ 
+argumento I
+argumento II
+P1 Toda pessoa saudável pratica esportes.
+P2 Alberto não é uma pessoa saudável.
+conclusão:
+ Alberto não pratica esportes.
+P1 Toda pessoa saudável pratica esportes.
+P2 Alberto pratica esportes.
+conclusão:
+ Alberto é saudável.
+
+52. (Cespe – UnB – TRT – 2005) O argumento I não é válido porque, mesmo que as
+premissas P1 e P2 sejam verdadeiras,
+ isto não acarreta que a conclusão seja
+verdadeira.
+53. (Cespe – UnB – TRT – 2005) O argumento II é válido porque toda vez que as premissas
+P1 e P2 forem verdadeiras, então a conclusão também será verdadeira.
+Texto para questões 54 e 55
+Uma argumentação verbal pode ser representada em forma simbólica implicativa do tipo
+(P1
+∧
+ P2
+∧
+ ... 
+∧
+ Pn) 
+→
+ Q, em que P1, P2, ..., Pn, chamadas premissas,
+ e Q, chamada
+conclusão, são proposições. Proposições são declarações para as quais se pode atribuir um
+valor V (verdadeiro) ou um valor F (falso). Uma forma implicativa, ou uma implicação,
+simplesmente representada por P 
+→
+ Q, é F se, e somente se, P for V e Q for F, caso
+contrário, a implicação é V. Em forma verbal, lê-se “se P então Q”. Uma argumentação
+verbal é válida se, e somente se, a implicação
+ que a define, em forma simbólica, for
+sempre V, isto é, se as premissas são supostas V, então, obrigatoriamente, a conclusão é V.
+Com base nessas informações, julgue a validade de cada argumentação descrita nos itens
+a seguir.
+54. (Cespe – UnB – Ancine – 2005) Premissa P1: Se esse número é maior do que 5, então o
+quadrado desse número é maior do que 25.
+Premissa P2: Esse número não
+ é maior do que 5.
+Conclusão Q: O quadrado desse número não é maior do que 25.
+A argumentação acima é valida.
+55. (Cespe – UnB – Ancine – 2005) Premissa P1: Se a casa for perto do lago, então
+poderemos nadar.
+Premissa P2: Não poderemos nadar.
+Conclusão Q: A casa não é perto do lago.
+A argumentação acima apresenta um sofisma.
+Com base nessas operações, novas proposições
+ podem ser construídas.
+Texto para questões 56 e 57
+Uma argumentação é uma sequência finita de proposições. Uma argumentação é válida
+sempre que a veracidade (V) de suas (n – 1) premissas acarreta a veracidade de sua n-
+ésima — e última — proposição.
+Com relação a esses conceitos, julgue os itens a seguir.
+56. (Cespe – UnB – Serpro – 2004) A sequência de proposições:
+“Se existem
+ tantos números racionais quanto números irracionais, então o conjunto dos
+números irracionais é infinito.”
+“O conjunto dos números irracionais é infinito.”
+“Existem tantos números racionais quanto números irracionais.”
+
+é uma argumentação da forma
+< P 
+→
+ Q
+< Q
+< P
+57. (Cespe – UnB – Serpro – 2004) A argumentação:
+“Se lógica é fácil, então Sócrates foi mico de circo.”
+“Lógica não é fácil.”
+“Sócrates não foi mico de circo.”
+é válida e tem a forma
+< P 
+→
+ Q
+< ¬P
+< ¬Q
+Texto para questões 58 a 61
+P 
+∨
+ Q
+¬P
+P 
+∨
+ Q
+¬Q
+P 
+→
+ Q
+P
+P 
+→
+ Q
+¬Q
+Q
+P
+Q
+¬P
+I
+II
+III
+IV
+ 
+As letras P, Q e R representam proposições, e os esquemas acima representam quatro
+formas de dedução, nas quais,
+ a partir das duas premissas (proposições acima da linha
+tracejada), deduz-se a conclusão (proposição abaixo da linha tracejada). Os símbolos ¬ e 
+→
+são operadores lógicos que significam, respectivamente, não e então, e a definição de 
+∨
+ é
+dada na seguinte tabela-verdade
+P
+Q
+P 
+∨
+ Q
+V
+V
+V
+V
+F
+V
+F
+V
+V
+F
+F
+F
+ 
+Considerando as informações acima e as do texto, julgue os itens que se seguem, quanto à
+forma de dedução.
+58. (Cespe – UnB – Serpro – 2004) Considere a seguinte argumentação. Se juízes fossem
+deuses, então juízes não cometeriam erros. Juízes cometem erros. Portanto, juízes não
+são deuses. Essa é uma dedução
+ da forma IV.
+
+59. (Cespe – UnB – Serpro – 2004) Considere a seguinte dedução.
+De acordo com a acusação, o réu roubou um carro ou roubou uma motocicleta. O réu
+roubou um carro. Portanto, o réu não roubou uma motocicleta. Essa é uma dedução da
+forma II.
+60. (Cespe – UnB – Serpro – 2004) Dadas as premissas P 
+→
+ Q; ¬Q; R 
+→
+ P, é possível fazer
+uma dedução de ¬R usando-se a forma de dedução
+ IV.
+61. (Cespe – UnB – Serpro – 2004) Na forma de dedução I, tem-se que a conclusão será
+verdadeira sempre que as duas premissas forem verdadeiras.
+Texto para questão 62
+Uma proposição é uma declaração que pode ser julgada como verdadeira — V —, ou falsa
+— F —, mas não como V e F simultaneamente. As proposições são, frequentemente,
+simbolizadas por letras maiúsculas: A, B, C, D etc.
+As proposições compostas são expressões construídas a partir de outras proposições,
+usando-se símbolos lógicos, como nos casos a seguir.
+A
+→
+B, lida como “se A, então B”, tem valor lógico F quando A for V e B for F; nos demais
+casos, será V; A
+∨
+B, lida como “A ou B”, tem valor lógico F quando A e B forem F; nos
+demais casos, será V; A
+∧
+B, lida como “A e B”, tem valor lógico V quando
+ A e B forem V; nos
+demais casos, será F; ¬A é a negação de A: tem valor lógico F quando A for V, e V, quando A
+for F.
+Uma sequência de proposições A1, A2, ..., Ak é uma dedução correta se a última
+proposição, Ak, denominada conclusão, é uma consequência das anteriores, consideradas
+V e denominadas premissas. Duas proposições são equivalentes quando têm os mesmos
+valores lógicos para todos
+ os possíveis valores lógicos das proposições que as compõem. A
+regra da contradição estabelece que, se, ao supor verdadeira uma proposição P, for obtido
+que a proposição P
+∧
+ (¬P) é verdadeira, então P não pode ser verdadeira; P tem de ser
+falsa.
+A partir dessas informações, julgue os itens que se seguem.
+62. (Cespe – UnB – PF – 2009) As proposições [A
+∨
+ (¬B)] 
+→
+ (¬A) e [(¬A) 
+∧
+B] 
+∨
+ (¬A) são
+equivalentes.
+Texto para questões 63 a 66
+Considere as proposições A, B e C a seguir.
+A: Se Jane é policial federal ou procuradora de justiça,
+então Jane foi aprovada em concurso público.
+B: Jane foi aprovada em concurso público.
+C: Jane é policial federal ou procuradora de justiça.
+63. (Cespe – UnB – PF – 2009) Nesse caso, se A e B forem V, então C também será V.
+64. (Cespe – UnB – PF – 2009) As proposições “Se o delegado não prender o chefe da
+quadrilha, então a operação agarra não será bem-sucedida” e “Se o delegado prender o
+chefe da quadrilha, então a operação agarra será bem-sucedida” são equivalentes.
+
+65. (Cespe – UnB – PF – 2009) Se A for a proposição “Todos os policiais são honestos”,
+então a proposição ¬A estará enunciada corretamente por “Nenhum
+ policial é honesto”.
+66. (Cespe – UnB – PF – 2009) Independentemente dos valores lógicos atribuídos às
+proposições A e B, a proposição [(A
+→
+B) 
+∧
+ (¬B)] 
+→
+ (¬A) tem somente o valor lógico F.
+67. (Cespe – UnB – PF – 2009) A sequência de proposições a seguir constitui uma dedução
+CORRETA.
+“Se Carlos não estudou, então ele fracassou na prova de Física.”
+“Se Carlos jogou futebol, então
+ ele não estudou.”
+“Carlos não fracassou na prova de Física.”
+“Carlos não jogou futebol.”
+68. (Cespe – UnB – PF – 2009) Considere que as proposições da sequência a seguir sejam
+verdadeiras.
+“Se Fred é policial, então ele tem porte de arma.”
+“Fred mora em São Paulo ou ele é engenheiro.”
+“Se Fred é engenheiro, então ele faz cálculos estruturais.”
+“Fred não tem porte de arma.”
+“Se Fred mora em São Paulo, então ele é policial.”
+Nesse caso, é CORRETO inferir que a proposição “Fred não mora em São Paulo” é uma
+conclusão verdadeira com base nessa sequência.
+Texto para questões 69 a 72
+Considere que, no argumento apresentado abaixo, as proposições
+P, Q, R e S sejam
+ as premissas e T, a conclusão.
+P: Jornalistas entrevistam celebridades ou políticos.
+Q: Se jornalistas entrevistam celebridades, então são irônicos
+ou sensacionalistas.
+R: Ou são irônicos, ou perspicazes.
+S: Ou são sensacionalistas, ou sagazes.
+T: Se jornalistas são perspicazes e sagazes, então entrevistam políticos.
+A respeito dessas proposições, julgue os itens seguintes.
+69. (Cespe – UnB – EBC – 2011) Caso sejam falsas as proposições “Jornalistas são
+perspicazes” e “Jornalistas são sagazes”, então também será falsa a conclusão do
+argumento.
+70. (Cespe – UnB – EBC – 2011) A proposição Q é logicamente equivalente a “Se jornalistas
+entrevistam celebridades e não são irônicos, então são sensacionalistas”.
+71. (Cespe – UnB – EBC – 2011) A conclusão do argumento
+ é uma proposição logicamente
+equivalente a “Jornalistas não são perspicazes ou não são sagazes ou entrevistam
+políticos”.
+72. (Cespe – UnB – EBC – 2011) Suponha que as proposições “Jornalistas são irônicos” e
+“Jornalistas são sensacionalistas” sejam falsas. Nesse caso, também será falsa a
+
+proposição “Se jornalistas entrevistam celebridades, são irônicos ou sensacionalistas”.
+Texto para 
+questão 73
+O ProJovem Campo oferece qualificação profissional e escolarização aos jovens
+agricultores familiares de 18 a 29 anos de idade que não concluíram o Ensino
+Fundamental. Os agricultores participantes recebem uma bolsa de R$ 1.200,00, em 12
+parcelas mensais e iguais, e têm de cumprir frequência de 75% da duração do curso, que é
+de 2 anos. O curso é oferecido em sistema de alternância
+ — intercalando-se tempo-escola
+e tempo-comunidade e o formato do seu programa é de responsabilidade de cada estado,
+de acordo com as características da atividade agrícola local. Internet:
+<http://.portal.mec.gov.br> (com adaptações).
+Considere que Maria, Carlos e Francisco sejam jovens agricultores familiares de um
+município que oferece vagas do ProJovem Campo. Considere, ainda, as seguintes
+proposições: P: Francisco tem 30 anos de idade;
+Q: A idade de Maria é igual a dois terços da idade de Carlos;
+R: Carlos é, no máximo, três anos mais novo que Francisco e apenas Carlos concluiu o
+ensino fundamental.
+Com referência às informações do texto e às proposições P, Q e R, julgue o próximo item.
+73. (Cespe – UnB – MEC – 2011) O argumento que tem como premissas P, Q e
+ R e conclusão
+“Apenas Maria pode receber qualificação profissional do ProJovem” é um argumento
+válido.
+Texto para questão 74
+A questão da desigualdade de gênero na relação de poder entre homens e mulheres é forte
+componente no crime do tráfico de pessoas para fins de exploração sexual, pois as vítimas
+são, na sua maioria, mulheres, meninas e adolescentes. Uma pesquisa realizada pelo
+Escritório
+ das Nações Unidas sobre Drogas e Crime (Unodc), concluída em 2009, indicou
+que 66% das vítimas eram mulheres, 13% eram meninas, enquanto apenas 12% eram
+homens e 9% meninos. Ministério da Justiça. Enfrentamento ao tráfico de pessoas:
+Relatório do Plano Nacional. Janeiro de 2010, p. 23 (com adaptações).
+Com base no texto acima, julgue o item a seguir.
+74. (Cespe – UnB – PC-ES – 2011) O
+ argumento “A maioria das vítimas era mulher. Marta
+foi vítima do tráfico de pessoas. Logo Marta é mulher” é um argumento válido.
+Texto para questões 75 e 76
+Um argumento constituído por uma sequência de três proposições — P1, P2 e P3, em que
+P1 e P2 são as premissas e P3 é a conclusão — é considerado válido se, a partir das
+premissas P1 e P2, assumidas como verdadeiras, obtém-se a conclusão
+ P3, também
+verdadeira por consequência lógica das premissas.
+A respeito das formas válidas de argumentos, julgue os próximos itens.
+75. (Cespe – UnB – PC-ES – 2011) Considere a seguinte sequência de proposições:
+P1: Existem policiais que são médicos.
+
+P2: Nenhum policial é infalível.
+P3: Nenhum médico é infalível.
+Nessas condições, é correto concluir que o argumento de premissas
+ P1 e P2 e
+conclusão P3 é válido.
+76. (Cespe – UnB – PC-ES – 2011) Se as premissas P1 e P2 de um argumento forem dadas,
+respectivamente, por “Todos os leões são pardos” e “Existem gatos que são pardos”, e a
+sua conclusão P3 for dada por “Existem gatos que são leões”, então essa sequência de
+proposições constituirá um argumento válido.
+Texto para questões 77 e 78
+Um argumento é uma sequência
+ finita de proposições, que são (F). Um argumento é válido
+quando contém proposições assumidas como verdadeiras — nesse caso, denominadas
+premissas — e as demais proposições são inseridas na sequência que constitui esse
+argumento porque são verdadeiras em consequência da veracidade das premissas e de
+proposições anteriores. A última proposição de um argumento é chamada conclusão.
+Perceber a
+ forma de um argumento é o aspecto primordial para se decidir sua validade.
+Duas proposições são logicamente equivalentes quando têm as mesmas valorações V ou F.
+Se uma proposição for verdadeira, então a sua negação será falsa, e vice-versa.
+Com base nessas informações, julgue os itens a seguir
+77. (Cespe – UnB – Previc – 2011) Suponha que um argumento tenha como premissas as
+seguintes
+ proposições.
+“Alguns participantes da Previc são servidores da União.”
+“Alguns professores universitários são servidores da União.”
+Nesse caso, se a conclusão for “Alguns participantes da Previc são professores
+universitários”, então essas três proposições constituirão um argumento válido.
+78. (Cespe – UnB – Previc – 2011) Considere o diagrama abaixo.
+Esse diagrama é uma
+ prova de que o argumento a seguir é válido, ou seja, as
+proposições I e II são premissas e a proposição III é uma conclusão, pois é verdadeira
+por consequência das premissas.
+I. Nenhum analista administrativo é dançarino.
+II. Todos os dançarinos são ágeis.
+III. Logo, nenhum analista administrativo é ágil.
+Texto para questões 79 e 80
+Argumento é a afirmação de que uma sequência
+ de proposições, denominadas premissas,
+acarreta outra proposição, denominada conclusão. Um argumento é válido quando a
+conclusão é verdadeira sempre que as premissas são todas verdadeiras.
+— Vou cortar o cabelo hoje, disse Joelson.
+— Não é preciso, pois seu cabelo está curto, retrucou Rute.
+— É que hoje vou a uma festa, vou procurar uma namorada, explicou Joelson.
+
+— Meu marido
+ está com o cabelo enorme, mas não quer cortá-lo, disse Rute.
+— Ele já é casado, não precisa cortar o cabelo, concluiu Joelson.
+Com base no fragmento de texto e no diálogo acima apresentados, julgue os itens que se
+seguem.
+79. (Cespe – UnB – TRE-ES – 2011) A partir das premissas
+“Se Joelson irá a uma festa e procurará uma namorada, então Joelson precisa cortar o
+cabelo”, “Se
+ Joelson é casado, então, não precisa cortar o cabelo” , “Se Joelson é
+casado, então, não procurará uma namorada”,
+pode-se concluir corretamente que Joelson não é casado.
+80. (Cespe – UnB – TRE-ES – 2011) O argumento cujas premissas são “Quem é casado não
+precisa cortar o cabelo” e “Quem vai procurar uma namorada precisa cortar o cabelo” e
+cuja conclusão é “Quem é casado não vai procurar
+ uma namorada” é válido.
+Texto para questões 81 a 86
+Denomina-se proposição toda frase que pode ser julgada como verdadeira — V — ou falsa
+— F —, mas não como V e F simultaneamente. As proposições simples são aquelas que não
+contêm mais de uma proposição como parte. As proposições compostas são construídas a
+partir de outras proposições, usando-se símbolos lógicos e parênteses para evitar
+ambiguidades. As proposições são usualmente simbolizadas por letras maiúsculas do
+alfabeto: A, B, C etc. Uma proposição composta na forma A 
+∨
+ B, chamada disjunção, é lida
+como “A ou B” e tem valor lógico F se A e B são F, e V, nos demais casos.
+Uma proposição composta na forma A 
+∧
+ B, chamada conjunção, é lida como “A e B” e tem
+valor lógico V se A e B são V, e F, nos demais casos. Uma proposição
+ composta na forma A
+→
+ B, chamada implicação, é lida como “se A, então B” e tem valor lógico F se A é V e B é F,
+e V, nos demais casos. Além disso, ¬A, que simboliza a negação da proposição A, é V se A
+for F, e é F se A for V.
+A partir do texto, julgue os itens a seguir.
+Uma dedução é uma sequência de proposições em que algumas são premissas e as demais
+são conclusões. Uma dedução é denominada
+ válida quando tanto as premissas quanto as
+conclusões são verdadeiras. Suponha que as seguintes premissas sejam verdadeiras.
+I. Se os processos estavam sobre a bandeja, então o juiz os analisou.
+II. O juiz estava lendo os processos em seu escritório ou ele estava lendo os processos na
+sala de audiências.
+III. Se o juiz estava lendo os processos em seu escritório, então os processos
+ estavam sobre
+a mesa.
+IV. O juiz não analisou os processos.
+V. Se o juiz estava lendo os processos na sala de audiências, então os processos estavam
+sobre a bandeja.
+A partir do texto e das informações e premissas acima, é correto afirmar que a proposição
+81. (Cespe – UnB – TRT-17
+a
+ Região – 2009) “Se o juiz não estava lendo os processos em seu
+escritório, então ele estava lendo
+ os processos na sala de audiências” é uma conclusão
+verdadeira.
+82. (Cespe – UnB – TRT17
+a
+ Região – 2009) “Se os processos não estavam sobre a mesa,
+
+então o juiz estava lendo os processos na sala de audiências” não é uma conclusão
+verdadeira.
+83. (Cespe – UnB – TRT-17
+a
+ REGIÃO – 2009) “Os processos não estavam sobre bandeja” é
+uma conclusão verdadeira.
+84. (Cespe – UnB – TRT-17
+a
+ REGIÃO
+ – 2009) “Se o juiz analisou os processos, então ele não
+esteve no escritório” é uma conclusão verdadeira.
+Nos diagramas acima, estão representados dois conjuntos de pessoas que possuem o
+diploma do curso superior de direito, dois conjuntos de juízes e dois elementos desses
+conjuntos: Mara e Jonas.
+Julgue os itens subsequentes tendo como referência esses diagramas e o texto.
+85.
+ (CESPE – UNB – TRT-17
+a
+ Região – 2009) A proposição “Mara é formada em direito e é
+juíza” é verdadeira.
+86. (Cespe – UnB – TRT-17
+a
+ Região – 2009) A proposição “Se Jonas não é um juiz, então
+Mara e Jonas são formados em direito” é falsa.
+Texto para questões 87 e 88
+Um entrevistador obteve de um suspeito a seguinte declaração: “Ora, se eu fosse um
+espião, então eu não amaria o meu país,
+ pois eu amo o meu país, ou sou um traidor da
+pátria, já que não é possível acontecer as duas coisas ao mesmo tempo. Agora, se eu não
+fosse um traidor da pátria, então eu amaria o meu país.
+Logo, eu não sou um espião e amo o meu país.”
+Considerando a lógica sentencial apresentada, julgue os itens subsequentes.
+87. (Cespe – UnB – ABIN – 2010) O argumento do suspeito é um argumento válido.
+88. (Cespe – UnB – ABIN – 2010) A negação da conclusão do argumento utilizado pelo
+suspeito é equivalente à seguinte proposição: “eu sou um espião ou não amo o meu
+país”.
+Texto para questões 89 a 91
+O sustentáculo da democracia é que todos têm o direito de votar e de apresentar a sua
+candidatura. Mas, enganoso é o coração do homem. Falhas administrativas e maior tempo
+no poder andam
+ de mãos dadas. Por isso, todos precisam ser fiscalizados. E a alternância
+no poder é imprescindível. Considerando o argumento citado, julgue os itens
+subsequentes.
+89. (Cespe – UnB – TRT-21
+a
+ Região – 2010) A afirmação “E a alternância no poder é
+imprescindível” é uma premissa desse argumento.
+90. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Esse é um argumento válido.
+
+91. (Cespe – UnB – TRT-21
+a
+ Região – 2010) A sentença “Falhas administrativas e maior
+tempo no poder andam de mãos dadas” é uma premissa desse argumento.
+Texto para questões 30 e 31
+1. C
+20. Certo
+38. Certo
+56. Certo
+74. Errado
+2. E
+21. A
+39. Certo
+57. Certo
+75. Errado
+3. D
+22. Certo
+40. Errado
+58. Certo
+76. Errado
+4. Errado
+23. Certo
+41. Errado
+59. Errado
+77. Errado
+5. Certo
+24. Certo
+42. Certo
+60. Certo
+78. Errado
+6. Errado
+25. Errado
+43. Certo
+61. Certo
+79. Errado
+7. Certo
+26. Certo
+44. Errado
+62. Certo
+80. Errado
+8. Errado
+27. Errado
+45. Certo
+63. Errado
+81. Certo
+9. Certo
+28. Errado
+46. Certo
+64. Errado
+82. Errado
+10. Certo
+29. Errado
+47. Errado
+65. Errado
+83. Certo
+11. Errado
+30. Certo
+48. Errado
+66. Errado
+84. Certo
+12. Certo
+31. Errado
+49. Certo
+67. Certo
+85. Errado
+13. Certo
+32. Errado
+50. Errado
+68. Certo
+86. Errado
+14. Errado
+33. Certo
+51. Certo
+69. Certo
+87. Errado
+15. Certo
+34. Certo
+52. Certo
+70. Errado
+88. Certo
+16. Errado
+35. Certo
+53. Errado
+71. Errado
+89. Errado
+17. Errado
+36. Errado
+54. Errado
+72. Certo
+90. Errado
+18. Errado
+37. Errado
+55. Errado
+73. Certo
+91. Certo
+19. B
+
+Capítulo 4
+Teoria dos Conjuntos
+4.1. Conjunto
+É um conceito intuitivo. Entende-se por conjunto todo agrupamento bem
+determinado de coisas, objetos, pessoas etc.
+Exemplo:
+Conjuntos das vogais.
+4.2. Representação do conjunto
+Existem três maneiras de representar um conjunto:
+•
+ Por enumeração, entre chaves; A = {1; 3; 5; 7; 9}
+•
+ Por uma característica; A = {x/x é
+ um número ímpar}
+•
+ Através de uma linha poligonal fechada (diagrama de venn); 
+4.3. Relação entre os conjuntos
+a) PERTINÊNCIA: Serve para indicar se um elemento pertence ou não a um
+determinado conjunto.
+Exemplo:
+Dado o conjunto A = {3; 4; 5; 6}, podemos dizer que: 3 
+∈
+ A; 1 
+∉
+ A; 6 
+∈
+ A.
+Símbolo: 
+∈
+ ou 
+∉
+b) IGUALDADE: Dois conjuntos A e B são iguais, se, e somente se,
+simultaneamente A estiver contido em B, e B estiver contido em A.
+Exemplo:
+A = {a; e; i}
+B = {e; i; a}
+Dizemos que A = B.
+Símbolo: =
+c) INCLUSÃO: É uma relação entre conjuntos.
+Exemplo:
+
+A = {1, 2, 3}
+B= {1; 2; 3; 4 ; 5}
+C = {6; 7; 9}
+Dizemos que A 
+⊂
+ B; C 
+⊄
+ A.
+Símbolo:
+ 
+⊂
+ 
+ou
+ 
+⊄
+4.4. Operações com conjuntos
+•
+ UNIÃO (
+∪
+) Chama-se união A com
+ B, o conjunto formado pelos elementos de
+A ou B.
+Fórmula para união de dois conjuntos: n (A
+∪
+B) = n (A) + n (B) – n (A 
+∩
+ B) 
+•
+INTERSECÇÃO (
+∩
+) Chama-se intersecção de A com B, o conjunto formado pelos
+elementos que pertecem a A e B.
+•
+ DIFERENÇA (
+−
+) Chama-se diferença entre dois conjuntos A e B, e indica-se
+por A – B, ao conjunto formado pelos elementos que pertencem a A e não
+pertencem a B.
+•
+ CONJUNTO DAS PARTES
+É dado pela fórmula P(A) = 2
+n
+ (n = elementos).
+Aplicação:
+1. Considere o diagrama acima onde o retângulo representa o conjunto universo S e os
+círculos representam os conjuntos A e B. Agora determine: a) o conjunto A = {a; b; c; d;
+e}
+b) o conjunto B= {f; g; h; i; d; e}
+c) o número de elementos de A = 5 elementos
+d) o número
+ de elementos de B = 6 elementos e) o número de subconjuntos de A: P (A) =
+2
+n
+ = 25 = 32
+f) o número de subconjuntos de B: P (B) = 2
+n
+ = 26 = 64
+g) A U B = {a; b; c ;d; e; f; g; h; i}
+h) A 
+∩
+ B = {d; e}
+i) A – B = {a ;b; c}
+4.5. Exercícios resolvidos
+1. Num grupo de 22 universitários há seis que cursam Matematica, 10 que cursam Letras
+e três que cursam Matematica e Letras.
+ Determine: a) Quantos não estão cursando nem
+Matematica nem Letras?
+b) Quantos estudam somente Matematica ?
+
+c) Quantos estudam somente Letras ?
+2. Numa pesquisa, verificou-se que das pessoas consultadas, 100 liam o jornal 
+Gazeta
+, 150
+liam o jornal 
+O Globo
+, 20 liam os dois jornais e 110 não liam nenhum dos dois jornais.
+Podemos afirmar que mais de 300 pessoas foram consultadas.
+3. Entrevistando 100 funcionarios públicos, descobriu-se que 20 deles gostam de Carne, 40
+gostam de peixe e 50 não gostam de nenhum dos dois. Dos funcionarios entrevistados, é
+correto dizer que 10 pessoas gostam de carne e peixe.
+4. Numa cidade, há mil famílias: 470 assinam o 
+Extra
+, 420 
+O Globo
+; 315, 
+O Dia
+; 140
+assinam 
+O Globo
+ e 
+O Dia
+; 220 o 
+Extra
+ e 
+O Dia
+; 110 o 
+Extra
+ e 
+O Globo
+; 75 assinam
+ os 3
+jornais. Determine: a) O número de famílias que não assinam jornal?
+b) O número de famílias que assinam somente o jornal 
+Extra
+?
+c) O número de famílias que assinam pelo menos dois jornais ?
+4.5.1. Gabarito dos exercícios resolvidos
+1. a) 9
+b) 3
+c) 7
+2. Certo
+3. Certo
+4) a) 180
+b) 215
+c) 320
+4.5.2. Solução dos exercícios resolvidos
+1.
+a) 9;
+b) 3;
+c) 7.
+2.
+UNIVERSO: 130 + 20 + 80 +
+ 110 = 340, logo é superior 300.
+3.
+
+n (A
+∩
+B) = 40 + 20 – 50 = 10.
+4.
+a) 180;
+b) 215;
+c) 320.
+4.6. Exercícios propostos
+Texto para questões 1 a 4
+Considere que os livros L, M e N foram indicados como referência bibliográfica para
+determinado concurso. Uma pesquisa realizada com 200 candidatos que se preparam para
+esse concurso usando esses livros revelou
+ que: 10 candidatos utilizaram somente o livro L;
+20 utilizaram somente o livro N;
+90 utilizaram o livro L;
+20 utilizaram os livros L e M;
+25 utilizaram os livros M e N;
+15 utilizaram os três livros.
+Considerando esses 200 candidatos e os resultados da pesquisa, julgue os itens seguintes.
+1. (Cespe – UnB – Sebrae – 2008) Mais de seis candidatos se prepararam para
+ o concurso
+utilizando somente os livros L e M.
+2. (Cespe – UnB – Sebrae – 2008) Mais de cem candidatos se prepararam para o concurso
+utilizando somente um desses livros.
+3. (Cespe – UnB – Sebrae – 2008) Noventa candidatos se prepararam para o concurso
+utilizando pelos menos dois desses livros.
+4. (Cespe – UnB – Sebrae – 2008) O número de candidatos que se prepararam para o
+concurso
+ utilizando o livro M foi inferior a 105.
+Texto para questões 5 e 6
+Em um estado, 720 escolas assinam os jornais A e B e 268 dessas escolas assinam apenas
+o jornal B.
+Com relação a essa situação, julgue as questões subsequentes.
+5. (Cespe – UnB – Sebrae – 2008) Se 284 escolas assinam apenas o jornal A, então mais de
+160 escolas assinam esses dois jornais.
+6. (Cespe – UnB – Sebrae
+ – 2008) Menos de 450 escolas assinam o jornal A.
+
+Texto para questões 7 a 9
+Trinta lojistas compraram, para revender, calças, camisas e vestidos, em uma fábrica de
+confecções. Sabe-se que dos 30 lojistas: I. apenas três compraram os três produtos
+referidos; II. nove compraram calças e vestidos;
+III. seis compraram camisas e vestidos;
+IV. três compraram apenas camisas;
+V. nove compraram camisas;
+VI. 15 compraram vestidos.
+7. (Cespe – UnB – Fundac-PB – 2008) A quantidade de lojistas que compraram apenas
+calças é igual a: a) 12;
+b) 10;
+c) 8;
+d) 6.
+8. (Cespe – UnB – Fundac-PB – 2008) O número de lojistas que compraram apenas vestidos
+é igual a: a) 2;
+b) 3;
+c) 4;
+d) 5.
+9. (Cespe – UnB – Fundac-PB – 2008) O número de
+ lojistas que compraram apenas calças e
+camisas é igual a: a) 6;
+b) 4;
+c) 2;
+d) 0.
+Texto para questão 10
+O item abaixo apresenta dados hipotéticos a respeito de uma pesquisa, também hipotética,
+seguidos de uma assertiva a ser julgada.
+10. (Cespe – UnB – Petrobras – 2004) Uma pesquisa foi feita entre estudantes, para
+identificar quem fala inglês ou espanhol. Entre os
+ pesquisados, 100 alunos
+responderam que falam inglês; 70 responderam que falam espanhol; 30 responderam
+que falam inglês e espanhol e 45 responderam que não falam nenhuma dessas duas
+línguas. Nessa situação, é correto afirmar que o número total de estudantes
+pesquisados foi de 185.
+Texto para questões 11 a 13
+Um instituto de ensino oferece três cursos profissionalizantes: de contabilidade,
+ de
+informática e de administração. As matrículas dos alunos desse instituto estão assim
+distribuídas: 100 em contabilidade, 70 em informática, 55 em administração, 30 em
+contabilidade e informática e 25 em informática e administração.
+Com base nessas informações e sabendo que nenhum aluno está matriculado, ao mesmo
+tempo, nos cursos de contabilidade e administração, julgue os itens que se
+ seguem.
+
+11. (Cespe – UnB – MEC – 2011) A quantidade de alunos matriculados apenas no curso de
+administração é igual ao dobro da de alunos matriculados apenas em informática.
+12. (Cespe – UnB – MEC – 2011) Se 15 alunos matriculados apenas em contabilidade
+trocarem de curso e se matricularem apenas em administração e se 10 alunos
+matriculados apenas em contabilidade se matricularem também
+ em informática, então
+informática será o curso com o maior número de alunos matriculados.
+13. (Cespe – UnB – MEC – 2011) O instituto possui mais de 200 alunos matriculados nos
+três cursos.
+Acerca de operações com conjuntos, julgue a questão subsequente.
+14. (Cespe – UnB – PC – 2011) Considere que os conjuntos A, B e C tenham o mesmo
+número de elementos, que A e B sejam disjuntos, que
+ a união dos três possuía 150
+elementos e que a interseção entre B e C possuía o dobro de elementos da interseção
+entre A e C. Nesse caso, se a interseção entre B e C possui 20 elementos, então B tem
+menos de 60 elementos.
+Texto para questões 15 a 19
+Em uma pesquisa, 200 entrevistados foram questionados a respeito do meio de transporte
+que usualmente utilizam para ir ao trabalho. Os 200
+ entrevistados responderam a
+indagação e, do conjunto dessas repostas, foram obtidos os seguintes dados: 35 pessoas
+afirmaram que usam transporte coletivo e automóvel próprio; 35 pessoas afirmaram que
+usam transporte coletivo e bicicleta; 11 pessoas afirmaram que usam automóvel próprio e
+bicicleta; 5 pessoas afirmaram que usam bicicleta e vão a pé;
+105 pessoas afirmaram que
+ usam transporte coletivo; 30 pessoas afirmaram que só vão a
+pé;
+ninguém afirmou usar transporte coletivo, automóvel e bicicleta; e o número de pessoas
+que usam bicicleta é igual ao número de pessoas que usam automóvel próprio.
+Com base nessa situação, julgue os itens subsequentes.
+15. (Cespe – UnB – TRE-ES – 2011) O número de pessoas que só usam bicicleta é inferior
+ao número de
+ pessoas que só usam automóvel próprio.
+16. (Cespe – UnB – TRE-ES – 2011) O número de pessoas que usam apenas transporte
+coletivo para ir ao trabalho é igual a 35.
+17. (Cespe – UnB – TRE-ES – 2011) O número de pessoas que usam transporte coletivo é o
+triplo do número de pessoas que vão a pé.
+18. (Cespe – UnB – TRE-ES – 2011) Caso se escolha, ao acaso, uma das pessoas
+entrevistadas,
+ a probabilidade de essa pessoa ir para o trabalho a pé será inferior a
+15%.
+19. (Cespe – UnB – TRE-ES – 2011) O número de pessoas que somente usam automóvel
+próprio é superior ao número de pessoas que só vão ao trabalho a pé.
+
+Texto para questões 20 a 23
+Considere que todos os 80 alunos de uma classe foram levados para um piquenique em
+que foram servidos salada, cachorro-quente e frutas.
+ Entre esses alunos, 42 comeram
+salada e 50 comeram frutas.
+Além disso, 27 alunos comeram cachorro-quente e salada, 22 comeram salada e frutas, 38
+comeram cachorro-quente e frutas e 15 comeram os três alimentos. Sabendo que cada um
+dos 80 alunos comeu pelo menos um dos três alimentos, julgue os próximos itens.
+20. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Quinze alunos comeram somente cachorro-
+quente.
+21. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Dez alunos comeram somente salada.
+22. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Cinco alunos comeram somente frutas.
+23. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Sessenta alunos comeram cachorro-quente.
+Com relação às operações com conjuntos, julgue o item abaixo.
+24. (Cespe – UnB – SGA – AC – 2008) Considere que os candidatos ao cargo de
+ programador
+tenham as seguintes especialidades: 27 são especialistas no sistema operacional
+Linux, 32 são especialistas no sistema operacional Windows e 11 desses candidatos são
+especialistas nos dois sistemas. Nessa situação, é correto inferir que o número total de
+candidatos ao cargo de programador é inferior a 50.
+4.6.1. Gabarito dos exercícios propostos
+1. Errado
+6. Errado
+11. Certo
+16. Certo
+21. Errado
+2. Certo
+7. A
+12. Errado
+17. Certo
+22. Certo
+3. Certo
+8. B
+13. Errado
+18. Errado
+23. Certo
+4. Errado
+9. D
+14. Errado
+19. Errado
+24. Certo
+5. Certo
+10. Certo
+15. Certo
+20. Errado
+
+Capítulo 5
+Análise Combinatória
+5.1. Princípio fundamental da contagem
+É um princípio multiplicativo em que multiplicamos as possibilidades de cada
+etapa do problema.
+Aplicação:
+De quantas maneiras podemos usar cinco camisetas e duas bermudas?
+Total: 5 × 2 = 10 possibilidades.
+5.2. Arranjo
+Chamam-se arranjos de k elementos tomados p a p (k 
+≥
+ p) e denotamos A
+k, p
+, o
+número de agrupamentos de p elementos escolhidos de um conjunto A com k
+elementos, que são diferentes pela ordem ou pela natureza de seus elementos. Os
+arranjos de k elementos tomados p a p são dados por: 
+Aplicação:
+Quantos números formados por 5 algarismos distintos podemos formar com os
+algarismos do conjunto A = {1, 2, 3, 4, 5, 6, 7}.
+Entretanto podemos lançar mão do princípio
+ da contagem para resolvermos tal
+tipo de questão. Observe abaixo:
+Possibilidades: 7 x 6 x 5 x 4 x 3 = 2.520. “Multiplicamos as possibilidades”.
+5.3. Fatorial
+Sendo k um número inteiro maior do que 1, define-se fatorial de k como o
+produto dos k números naturais consecutivos de k a 1. Representamos por k!.
+k! = k(k – 1) . (k – 2)...3.2.1, sendo k 
+∈
+ IN e k > 1
+Exemplos:
+2!
+ = 2.1 = 2
+
+3! = 3.2.1 = 6
+4! = 4.3.2.1 = 24
+5.4. Permutação simples
+Chama-se permutação de k elementos distintos de um conjunto a qualquer
+agrupamento desses k elementos numa ordem definida. Geralmente utilizamos a
+permutação quando o número de elementos for igual ao número de posições.
+Representamos por: P
+k
+ = k!
+Aplicação:
+Quantos anagramas podemos formar com as letras
+ da palavra PROVA?
+P
+5
+ = 5! = 5 x 4 x 3 x 2 x 1 = 120
+5.5. Permutações com repetições
+Chama-se permutação com repetições de n elementos distintos com 
+a
+1
+, 
+a
+2
+, ...,
+a
+n
+ elementos iguais entre si, então o número de permutações possíveis é dado
+por: 
+Aplicação:
+Com as letras da palavra Raciocínio, quantos anagramas podemos formar?
+5.6. Permutações circulares
+Chama-se
+ permutação circular de n elementos distintos dispostos ao redor de
+um círculo o número de classes que são obtidas dispondo esses elementos ao
+redor desse círculo, e representamos por: 
+P
+C
+ = (
+n
+ – 1)!
+Aplicação:
+De quantas formas 4 pessoas podem se sentar ao redor de uma mesa circular?
+P
+C
+ = (4 – 1)! = 3! = 3 · 2 · 1 = 6
+5.7. Combinação simples
+As combinações são agrupamentos
+ que diferem apenas pela natureza e não pela
+ordem de seus elementos. O número de combinações de k elementos tomados p a
+p (k 
+≥
+ p) é dado por:
+
+Aplicação:
+O número de maneiras que se pode escolher uma comissão de três elementos
+num conjunto de oito pessoas é igual a:
+5.8. Combinações com repetições
+Chamam-se combinações completas ou com repetições de n elementos tomados
+p a p, aos grupamentos que contêm p elementos, alguns ou todos iguais entre si,
+sendo dois desses grupamentos considerados distintos quando diferirem por pelo
+menos um elemento, as combinações completas de n elementos tomados p a p são
+dados por: 
+Aplicação:
+Quantas são as soluções inteiras e não negativas de x + y + z = 5?
+5.9. Exercícios resolvidos
+Texto para questões
+ 1 a 3
+Para a codificação de processos, o protocolo utiliza um sistema com cinco símbolos, sendo
+duas letras de um alfabeto com 26 letras e três algarismos, escolhidos entre os de 0 a 9.
+Supondo que as letras ocupem sempre as duas primeiras posições, julgue os itens que se
+seguem.
+1. (Cespe – TRT – 2004) O número de processos que podem ser codificados por esse
+sistema é superior a 650.000.
+2. (Cespe – TRT – 2004) O número de processos que podem ser codificados por esse
+sistema utilizando-se letras iguais nas duas primeiras posições do código é superior a
+28.000.
+3. (Cespe – TRT – 2004) O número de processos que podem ser codificados por esse
+sistema de modo que em cada código não haja repetição de letras e algarismos é
+superior a 470.000.
+Texto para questões 4 a 6
+Com base nas informações sobre permutação, julgue as questões relacionados aos
+anagramas que podem ser obtidos a partir da palavra VALOR.
+4. (Cespe – AFTN – 2008) O número de anagramas distintos é inferior a 100.
+5. (Cespe – AFTN – 2008) O número de anagramas distintos que começam com VL é igual a
+
+6.
+6. (Cespe – AFTN – 2008) O número de anagramas distintos que começam e terminam com
+vogal é superior a 15.
+Texto para questões 7 a 9
+O número de países representados nos Jogos Pan-Americanos realizados no Rio de Janeiro
+foi 42, sendo oito países da América Central, três da América do Norte, 12 da América do
+Sul e 19 do Caribe.
+Com base nessas informações, julgue os itens que se seguem.
+7. (Cespe – 2007) Se determinada modalidade esportiva foi disputada por apenas
+ três
+atletas, sendo um de cada país da América do Norte participante dos Jogos Pan-
+Americanos, então o número de possibilidades diferentes de classificação no 1
+o
+, 2
+o
+ e 3
+o
+lugares foi igual a seis.
+8. (Cespe – 2007) Considerando-se que, em determinada modalidade esportiva, havia
+exatamente um atleta de cada país da América do Sul participante dos Jogos Pan-
+Americanos, então o número de possibilidades
+ distintas de dois atletas desse
+continente competirem entre si é igual a 66.
+9. (Cespe – 2007) Há, no máximo, 419 maneiras distintas de se constituir um comitê com
+representantes de sete países diferentes participantes dos Jogos Pan-Americanos,
+sendo três da América do Sul, dois da América Central e dois do Caribe.
+5.9.1. Gabarito dos exercícios resolvidos
+1. Certo
+6. Errado
+2. Errado
+7. Certo
+3. Errado
+8. Certo
+4. Errado
+9. Errado
+5. Certo
+5.9.2. Solução dos exercícios resolvidos
+Percebemos de forma clara que esse problema se trata de um arranjo porque a
+ordem importa. Bizu: senhas, códigos, placas,...
+1. 26×26×10×10×10 = 676000 (Item certo, caso o problema não imponha nenhuma
+restrição, devemos repetir as possibilidades de cada etapa.)
+2. 26×1×10×10×10 = 26000 (Item errado, sempre que o problema
+ impuser posições iguais à
+possibilidade da outra posição será igual a um.) 3. 26×25×10×9×8 = 468000 (Item
+errado, percebemos que o problema fez uma restrição, não pode haver repetição,
+sempre que acontecer isso devemos diminuir um na posição seguinte.) 4. P
+5
+=
+5×4×3×2×1 = 120 (Item errado, geralmente aplicaremos a ideia de permutação a
+
+problemas relacionadas a palavras.) 5. VL/P
+3
+ =
+ 3×2×1 = 6 (Item certo, sempre que o
+problema falar sobre começo e fim significa que as letras estão presas, ou seja, não
+poderão ser permutadas.) 6. 2×3!×1 = 12 (Item errado, para primeira posição temos
+duas possibilidades, consequentemente, para última, temos apenas uma e, no meio, as
+três consoantes.) 7. 3×2×1 = 6 (Item certo, aplicamos o princípio da contagem, pois a
+ordem de escolha
+ importa.)
+8.
+(Item certo, nesse caso é um problema de combinação porque a ordem não
+importa.)
+9.
+C
+12,3 x
+ C
+8,2 x
+ C
+19,2
+ = 220 x 28 x 171 > 419.
+(Item errado, o princípio das combinações é multiplicativo e, de cara, o aluno
+percebe que se multiplicarmos os resultados dará um valor bem superior ao
+estabelecido no problema.)
+5.10. Exercícios propostos
+Com relação a contagem e combinatória, julgue os itens 1 e 2.
+1. (Cespe – UnB – Ipea – 2008) Considere que as senhas dos correntistas de um banco
+sejam formadas por sete caracteres em que os três primeiros são letras, escolhidas
+entre as 26 do alfabeto, e os quatro últimos, algarismos, escolhidos entre 0 e 9. Nesse
+caso, a quantidade de senhas distintas que podem ser formadas de modo que todas
+ elas
+tenham a letra A na primeira posição das letras e o algarismo 9 na primeira posição dos
+algarismos é superior a 600.000.
+2. (Cespe – UnB – Ipea – 2008) Considere que, para a final de determinada maratona,
+tenham sido classificados 25 atletas que disputarão uma medalha de ouro, para o
+primeiro colocado, uma de prata, para o segundo colocado, e uma de bronze, para o
+terceiro colocado. Dessa
+ forma, não havendo empate em nenhuma dessas colocações, a
+quantidade de maneiras diferentes de premiação com essas medalhas será inferior a
+10.000.
+Julgue os itens 3 a 5 seguintes, relativos a contagem.
+3. (Cespe – UnB – PMAC – 2008) Considere que dos quatro soldados melhores classificados
+
+nesse concurso, três serão escolhidos para capitanear as três equipes nos
+treinamentos de tiro e
+ defesa pessoal; cada soldado escolhido será o capitão de uma
+única equipe. Nessa situação, a quantidade de possibilidades de se escolher esses três
+soldados é superior a 20.
+4. (Cespe – UnB – PMAC – 2008) Com os algarismos 1, 3, 5 e 7, admitindo-se repetição, é
+possível formar mais de 60 senhas de três algarismos.
+5. (Cespe – UnB – PMAC – 2008) Considere que, em visita a uma discoteca,
+ um indivíduo
+escolheu dez CDs de cantores de sua preferência. Todos os CDs tinham o mesmo preço,
+mas esse indivíduo dispunha de dinheiro suficiente para comprar apenas quatro CDs.
+Nesse caso, a quantidade de maneiras diferentes que esse indivíduo dispõe para
+escolher os quatro CDs que irá comprar é inferior a 200.
+Texto para questões 6 a 8
+Define-se um anagrama de determinada palavra como
+ uma “palavra” formada a partir das
+letras da palavra dada, tenha ela sentido ou não, ou seja, um anagrama de determinada
+palavra é qualquer reagrupamento das letras dessa palavra.
+Com base nessas informações, julgue os itens seguintes.
+6. (Cespe – UnB – PMAC – 2008) Com a palavra ACRE, é possível formar menos de 20
+anagramas distintos.
+7. (Cespe – UnB – PMAC – 2008) Com a palavra ACRE
+ é possível formar mais de 10
+anagramas que começam com consoante e terminam com vogal.
+8. (Cespe – UnB – PMAC – 2008) Formando-se todos os possíveis anagramas da palavra
+ACRE, em mais de dez desses anagramas, as letras A e R aparecem juntas, nessa
+ordem ou na ordem inversa.
+Texto para questões 9 a 12
+Cada um dos itens a seguir apresenta uma informação seguida de uma assertiva a ser
+julgada a respeito de contagem.
+9. (Cespe – UnB – PMAC – 2008) No Brasil, as placas dos automóveis possuem três letras
+do alfabeto, seguidas de quatro algarismos. Então, com as letras A, B e C e com os
+algarismos 1, 2, 3 e 4 é possível formar mais de 140 placas distintas de automóveis.
+10. (Cespe – UnB – PMAC – 2008) Determinada cidade possui quatro praças, cinco escolas
+e seis centros
+ de saúde que deverão ser vigiados pela polícia militar. Diariamente, um
+soldado deverá escolher uma praça, uma escola e um centro de saúde para fazer a sua
+ronda. Nesse caso, o soldado disporá de mais de 150 formas diferentes de escolha dos
+locais para sua ronda.
+11. (Cespe – UnB – PMAC – 2008) Em determinada delegacia, há dez celas iguais e oito
+presidiários. Nesse caso, há mais de 1.800.000
+ maneiras diferentes de se colocar um
+presidiário em cada cela.
+
+12. (Cespe – UnB – PMAC – 2008) Um anagrama da palavra FORTALEZA é uma permutação
+das letras dessa palavra, tendo ou não significado na linguagem comum. A quantidade
+de anagramas que é possível formar com essa palavra é inferior a 180.000.
+Texto para questão 13
+O administrador de uma rede de computadores decidiu criar dois
+ tipos de códigos para os
+usuários. O primeiro tipo de código deve ser obtido de todas as possíveis combinações
+distintas — chamadas palavras — que podem ser formadas com todas as letras da palavra
+operadora.
+O segundo tipo de código deve conter de um a cinco caracteres e ser obtido usando-se as
+dez primeiras letras do alfabeto português e os algarismos de 0 a 4. O primeiro caractere
+desse
+ código deve ser sempre uma letra, que pode ser seguida de nenhum ou de até quatro
+símbolos, escolhidos entre as letras e os algarismos permitidos.
+Com base nessas informações, julgue o item a seguir.
+13. (Cespe – UnB – Sebrae – 2008) A quantidade de códigos — palavras — do primeiro tipo
+que o administrador obterá é superior a 45.000.
+Texto para questão 14
+Cartões numerados sequencialmente
+ de 1 a 10 são colocados em uma urna,
+completamente misturados. Três cartões são retirados ao acaso, um de cada vez, e uma
+vez retirado o cartão não é devolvido à urna.
+Com base nessas informações, julgue os itens que se seguem.
+14. (Cespe – UnB – Sebrae – 2008) Se o primeiro cartão for o número 7 e o segundo for o
+número 10, então a probabilidade de o terceiro cartão ser um número menor
+ do que 5 é
+igual a 1/2.
+15. (Cespe – UnB – MMA – 2008) Por definição, um anagrama de uma palavra é uma
+permutação das letras dessa palavra, formando uma sequência de letras que pode ou
+não ter significado em língua portuguesa. Dessa forma, a quantidade de anagramas que
+podem ser formados com a palavra CONABIO de modo que fiquem sempre juntas, e na
+mesma ordem, as letras de cada palavra utilizada
+ na formação dessa sigla é superior a
+7.
+16. (Cespe – UnB – MMA – 2008) Considere que seja necessária a presença de exatamente
+sete membros para a realização de uma reunião da CONABIO, sendo a presença do
+presidente e a de pelo menos um membro titular obrigatórias. Nessa situação, a
+quantidade de maneiras diferentes que essa comissão poderá ser formada para suas
+reuniões é inferior a 250.
+17. (Cespe – UnB – MMA – 2008) De acordo com informações apresentadas no endereço
+eletrônico 
+www.trtrio.gov.br/Administrativo
+, em fevereiro de 2008, havia 16 empresas
+contratadas para atender à demanda de diversos serviços do TRT-1
+a
+ Região, e a
+quantidade de empregados terceirizados era igual a 681.
+Com base nos dados do texto, a quantidade de maneiras distintas para se formar uma

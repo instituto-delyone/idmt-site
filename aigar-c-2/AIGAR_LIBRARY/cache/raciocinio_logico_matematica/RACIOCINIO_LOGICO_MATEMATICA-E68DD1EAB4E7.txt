@@ -1,0 +1,1471 @@
+2.3. Exercícios propostos
+Texto para questão 1
+Roberta, Rejane
+ e Renata são servidoras de um mesmo órgão público do Poder Executivo
+Federal. Em um treinamento, ao lidar com certa situação, observou-se que cada uma delas
+tomou uma das seguintes atitudes: A1: deixou de utilizar avanços técnicos e científicos que
+estavam ao seu alcance; A2: alterou texto de documento oficial que deveria apenas ser
+encaminhado para providências; A3: buscou evitar
+ situações procrastinatórias.
+Cada uma dessas atitudes, que pode ou não estar de acordo com o Código de Ética
+Profissional do Servidor Público Civil do Poder Executivo Federal (CEP), foi tomada por
+exatamente uma das servidoras. Além disso, sabe-se que a servidora Renata tomou a
+atitude A3 e que a servidora Roberta não tomou a atitude A1. Essas informações estão
+contempladas na tabela a seguir,
+ em que cada célula, correspondente ao cruzamento de
+uma linha com uma coluna, foi preenchida com V (verdadeiro) no caso de a servidora
+listada na linha ter tomado a atitude representada na coluna, ou com F (falso), caso
+contrário.
+A
+1
+A
+2
+A
+3
+Roberta
+F
+Rejane
+Renata
+V
+Com base nessas informações, julgue o item seguinte.
+1. (Cespe – UnB – INSS – 2008) Se P for a proposição “Rejane alterou texto de
+ documento
+oficial que deveria apenas ser encaminhado para providências” e Q for a proposição
+“Renata buscou evitar situações procrastinatórias”, então a proposição P
+→
+Q tem valor
+lógico V.
+Texto para questões 2 e 3
+Em um tribunal, tramitam três diferentes processos, respectivamente, em nome de Clóvis,
+Sílvia e Laerte. Em dias distintos da semana, cada uma dessas pessoas procurou, no
+tribunal,
+ informações acerca do andamento do processo que lhe diz respeito. Na tabela a
+seguir estão marcadas com V células cujas informações da linha e da coluna
+correspondentes e referentes a esses três processos sejam verdadeiras. Por exemplo,
+Sílvia foi procurar informação a respeito do processo de sua licença, e a informação sobre
+o processo de demissão foi solicitada na quinta-feira. Uma célula
+ é marcada com F quando
+a informação da linha e da coluna correspondente é falsa, isto é, quando o fato
+correspondente não ocorreu. Observe que o processo em nome de Laerte não se refere à
+contratação e que Sílvia não procurou o tribunal na quarta-feira.
+demissão
+contratação
+licença
+terça-feira
+quarta-feira
+quinta-feira
+Clóvis
+F
+Sílvia
+F
+F
+V
+F
+
+Laerte
+F
+F
+terça-feira
+F
+quarta-feira
+F
+quinta-feira
+V
+F
+F
+Com base nessas instruções e nas células já preenchidas, é possível preencher
+logicamente toda a tabela.
+ Após esse procedimento, julgue os itens a seguir.
+2. (Cespe – UnB – TRT – 2007) O processo em nome de Laerte refere-se a demissão e ele
+foi ao tribunal na quinta-feira.
+3. (Cespe – UnB – TRT – 2007) É verdadeira a proposição “Se Sílvia não tem processo de
+contratação, então o processo de licença foi procurado na quarta-feira”.
+4. (Cespe – UnB – BB – 2007) O quadro abaixo pode ser completamente
+ preenchido com
+algarismos de 1 a 6, de modo que cada linha e cada coluna tenham sempre algarismos
+diferentes.
+1
+3
+2
+5
+6
+1
+1
+6
+5
+5
+4
+2
+3
+2
+4
+4
+2
+3
+Texto para questões 5 a 7
+11
+6
+7
+10
+3
+7
+2
+7
+As células de fundo cinza do quadro acima, que ainda não possuem valor numérico, devem
+ser preenchidas com algarismos de 1 a 5, de forma que a soma dos algarismos de cada
+linha
+ deve ser igual ao algarismo indicado à sua esquerda, e a soma dos algarismos de
+cada coluna deve ser igual ao algarismo indicado em seu topo. Além disso, os algarismos
+não podem ser repetidos na mesma linha ou na mesma coluna.
+Com base nessas informações e no preenchimento do quadro acima, julgue os itens
+seguintes.
+5. (Cespe – UnB – PMV – 2007) A coluna mostrada abaixo poderia corresponder
+ a um
+preenchimento correto da coluna cujo algarismo indicado em seu topo é o 11.
+4
+3
+
+4
+6. (Cespe – UnB – PMV – 2007) A coluna mostrada abaixo poderia corresponder a um
+preenchimento correto da coluna cujo algarismo indicado em seu topo é o 6.
+3
+1
+2
+7. (Cespe – UnB – PMV – 2007) Após um preenchimento correto da tabela, é possível que a
+diagonal seja preenchida como mostra a figura abaixo.
+3
+1
+4
+Texto para questões 8 a 10
+A
+B
+C
+D
+E
+F
+G
+H
+I
+1
+3
+9
+8
+6
+7
+1
+2
+8
+2
+1
+3
+4
+6
+3
+6
+7
+4
+9
+8
+2
+4
+3
+7
+5
+6
+1
+4
+5
+9
+4
+8
+1
+2
+5
+6
+8
+5
+3
+2
+6
+9
+7
+1
+2
+4
+8
+6
+7
+8
+7
+9
+6
+2
+5
+3
+8
+9
+8
+7
+3
+9
+2
+Um quebra-cabeça que se tornou bastante popular é o chamado Sudoku. Para preenchê-lo,
+basta um pouco de raciocínio lógico. Na tabela acima, que ilustra esse jogo, cada célula é
+identificada por uma letra, que se refere à coluna, e por um algarismo, que se refere à
+respectiva linha. Após
+ preencher as células em branco com os algarismos de 1 a 9, de
+modo que cada algarismo apareça uma única vez em cada linha e em cada coluna, julgue
+os itens a seguir.
+8. (Cespe – UnB – Prodest – 2006) Está correto preencher com o algarismo 4 a célula B6.
+9. (Cespe – UnB – Prodest – 2006) Os algarismos 5 e 6 são os que preenchem as células B9
+e D9, respectivamente.
+10. (Cespe – UnB –
+ Prodest – 2006) As três células vazias do cruzamento das linhas 1, 2 e 3
+com as colunas G, H e I devem ser preenchidas com os algarismos 5, 9 e 3,
+respectivamente.
+
+Texto para questões 11 e 12
+Júlio, Carlos e Mariana são empregados de uma mesma empresa, mas têm especialidades
+diferentes e trabalham na empresa com diferentes sistemas operacionais. Sabe-se que: 
+•
+o especialista em desenvolvimento
+ de software usa o sistema Macintosh; 
+•
+ Mariana é
+especialista em redes de computadores; 
+•
+ o sistema Windows não é usado por Mariana; 
+•
+Júlio não é especialista em desenvolvimento de software.
+Execute o seguinte procedimento na tabela abaixo: preencha cada célula com V, se o
+cruzamento da informação da linha e da coluna for verdadeiro, e com F, se o cruzamento
+dessas informações
+ for falso. Observe que, para iniciar, estão marcadas algumas células
+com informações dadas acima e outras informações complementares.
+desenvolvimento de 
+software
+software
+ básico
+rede de computadores
+Linux
+Windows
+Macintosh
+Júlio
+F
+Carlos
+F
+Mariana
+F
+F
+V
+Linux
+F
+Windows
+F
+Macintosh
+V
+F
+F
+Após a execução do procedimento, que pode não preencher todas as células, julgue os
+itens subsequentes.
+11. (Cespe – UnB – Serpro – 2005) Júlio é especialista em software básico mas usa o
+sistema Windows.
+12. (Cespe – UnB – Serpro – 2005) Mariana
+ não é especialista em redes de computadores,
+mas Carlos usa o sistema Macintosh.
+Texto para questões 13 a 15
+Carlos e Joaquim ocupam cargos distintos em uma empresa, podendo ser técnico em
+programação ou técnico em administração. Eles foram escolhidos para comprar vários
+itens necessários ao serviço, incluindo computadores e mesas. Na tabela abaixo, há duas
+células marcadas com V (verdadeiro)
+ no ponto de cruzamento da informação de uma linha
+com a informação da coluna, significando que Carlos foi o único responsável pela compra
+dos computadores e que o técnico em programação foi o único que comprou as mesas.
+Com base nas informações apresentadas acima, julgue os seguintes itens:
+profissão
+compra
+técnico em programação
+técnico em administração
+computadores
+mesas
+nome
+Carlos
+V
+Joaquim
+compra
+computadores
+mesas
+V
+
+13. (Cespe – UnB – TRT – 2005) Se Carlos é técnico em programação, então Joaquim é
+técnico em administração.
+14. (Cespe – UnB – TRT – 2005) Se Joaquim comprou as mesas, então Carlos é técnico em
+administração.
+15. (Cespe – UnB – TRT – 2005) Se Joaquim não comprou as mesas, então os computadores
+foram comprados pelo técnico em programação.
+Texto para questões 16 a 18
+Na tabela abaixo estão especificados três filmes, três diretores e três distribuidoras de
+filmes.
+ Marque com V (verdadeiro) as células que correspondem ao cruzamento correto
+das informações das respectivas linhas e colunas e com F (falso) as demais. Para isso,
+considere as seguintes observações.
+• O filme 
+O coronel e o lobisomem
+ foi distribuído pela Fox.
+• Sérgio Goldenberg foi o diretor de 
+Bendito fruto
+, que não foi distribuído pela Columbia.
+Casa de Areia
+O Coronel e o
+Lobisomem
+Bendito Fruto
+Columbia
+Fox
+Paris/Riofilme
+Andrucha Waddington
+Maurício Farias
+Sérgio Goldenberg
+Columbia
+Fox
+Paris/Riofilme
+Considere que as correspondências entre filmes e diretores e, entre filmes e
+distribuidoras, seja uma correspondência biunívoca, isto é, cada filme teve um único
+diretor e uma única distribuidora, e vice-versa.
+ Por dedução lógica, marque na tabela
+acima com V ou F as células possíveis de serem preenchidas e julgue os seguintes itens.
+16. (Cespe – UnB – Ancine – 2005) Se for verdade que o filme dirigido por Andrucha
+Waddington foi distribuído pela Fox, então é verdade que o filme dirigido por Maurício
+Farias foi distribuído pela Columbia.
+17. (Cespe – UnB –Ancine – 2005) Se for verdade que Maurício
+ Farias dirigiu 
+Casa de areia
+,
+então é verdade que Andrucha Waddington dirigiu 
+O coronel e o lobisomem
+.
+18. (Cespe – UnB – Ancine – 2005) É verdadeiro que o filme dirigido por Sérgio Goldenberg
+não foi distribuído pela Paris/Riofilme e que o filme 
+Casa de areia
+ foi distribuído pela
+Columbia.
+Texto para questões 19 a 21
+Proposições são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, mas não como ambas, simultaneamente. As proposições são frequentemente
+representadas por letras maiúsculas e, a partir de proposições simples, novas proposições
+
+podem ser construídas utilizando-se símbolos especiais. Uma expressão da forma A
+→
+B,
+que é lida como “se A, então B”,
+ é F se A for V e se B for F e, nos demais casos, será
+sempre V. Uma expressão da forma A
+∧
+B, que é lida como “A e B”, é V se A e B forem V e,
+nos demais casos, será sempre F. Uma expressão da forma A
+∨
+B, que é lida como “A ou B”,
+é F se A e B forem F e, nos demais casos, será sempre V. Uma expressão da forma ¬A, a
+negação de A, é V se A for F e é F se A for V. Para preencher a tabela a seguir, considere
+que os filmes A e B sejam de categorias distintas — documentário ou ficção —, e, em um
+festival de cinema, receberam premiações diferentes — melhor fotografia ou melhor
+diretor. Tendo como base as células já preenchidas, preencha as outras células com V ou
+F, conforme o cruzamento da informação da linha e da coluna correspondentes constitua
+uma proposição verdadeira ou falsa, respectivamente.
+documentário
+ficção
+melhor
+fotografia
+melhor
+diretor
+filme A
+filme B
+V
+melhor fotografia
+melhor diretor
+F
+A partir do preenchimento das células da tabela e das definições apresentadas no texto,
+julgue os itens subsequentes.
+19.
+ (Cespe – UnB – BB – 2008) A proposição “O filme A é um filme de ficção” é V.
+20. (Cespe – UnB – BB – 2008) A proposição “O documentário recebeu o prêmio de melhor
+fotografia ou o filme B não recebeu o prêmio de melhor diretor” é V.
+21. (Cespe – UnB – BB – 2008) A proposição “Se o filme B é um documentário, então o filme
+de ficção recebeu o prêmio de melhor fotografia” é V.
+Texto para
+ questões 22 e 23
+Raul, Sidnei, Célio, João e Adélio, agentes administrativos do MS, nascidos em diferentes
+unidades da Federação: São Paulo, Paraná, Bahia, Ceará e Acre, participaram, no último
+final de semana, de uma reunião em Brasília – DF, para discutir projetos do MS. Raul,
+Célio e o paulista não conhecem nada de contabilidade; o paranaense foi almoçar com
+Adélio; Raul, Célio e João fizeram
+ duras críticas às opiniões do baiano; o cearense, Célio,
+João e Sidnei comeram um lauto churrasco no jantar, e o paranaense preferiu fazer
+apenas um lanche.
+Com base na situação hipotética apresentada acima, julgue os itens a seguir. Se
+necessário, utilize a tabela à disposição no espaço para rascunho.
+Raul
+Sidnei
+Célio
+João
+Adélio
+S. Paulo
+Paraná
+Bahia
+
+Ceará
+Acre
+22. (Cespe – UnB – ME – 2008) A proposição “Se Célio nasceu no Acre, então Adélio não
+nasceu no Ceará”, que pode ser simbolizada na forma A
+→
+(¬B), em que A
+ é a proposição
+“Célio nasceu no Acre” e B, “Adélio nasceu no Ceará”, é valorada como V.
+23. (Cespe – UnB – ME – 2008) Considere que P seja a proposição “Raul nasceu no Paraná”,
+Q seja a proposição “João nasceu em São Paulo” e R seja a proposição “Sidnei nasceu
+na Bahia”. Nesse caso, a proposição “Se Raul não nasceu no Paraná, então João não
+nasceu em São Paulo e Sidnei nasceu na Bahia” pode
+ ser simbolizada como (¬P) 
+→
+[(¬Q)
+∧
+R)] e é valorada como V.
+24. (Cespe – UnB – TCE – AC – 2009) Em uma investigação, um detetive recolheu de uma
+lixeira alguns pedaços de papéis semidestruídos com o nome de três pessoas: Alex,
+Paulo e Sérgio. Ele conseguiu descobrir que um deles tem 60 anos de idade e é pai dos
+outros dois, cujas idades são: 36 e 28 anos. Descobriu, ainda, que Sérgio era advogado,
+Alex era mais velho que Paulo, com diferença de idade inferior a 30 anos, e descobriu
+também que o de 28 anos de idade era médico e o outro, professor. Com base nessas
+informações, assinale a opção correta.
+a) Alex tem 60 anos de idade, Paulo tem 36 anos de idade e Sérgio tem 28 anos de idade.
+b) Alex tem 60 anos de idade, Paulo tem 28 anos de idade e Sérgio tem 36 anos de idade.
+c) Alex não tem 28 anos de idade e Paulo não é médico.
+d) Alex tem 36 anos de idade e Paulo é médico.
+e) Alex não é médico, e Sérgio e Paulo são irmãos.
+Texto para questões 25 e 26
+Um líder criminoso foi morto por um de seus quatro asseclas: A, B, C e D. Durante o
+interrogatório, esses indivíduos fizeram as seguintes declarações.
+• A afirmou que C matou o líder.
+• B afirmou
+ que D não matou o líder.
+• C disse que D estava jogando dardos com A quando o líder foi morto e, por isso, não
+tiveram participação no crime.
+• D disse que C não matou o líder.
+Considerando a situação hipotética apresentada acima e sabendo que três dos comparsas
+mentiram em suas declarações, enquanto um deles falou a verdade, julgue os itens
+seguintes.
+25. (Cespe – UnB – PF – Papiloscopista
+ – 2004) A declaração de C não pode ser verdadeira.
+26. (Cespe – UnB – PF – Papiloscopista – 2004) D matou o líder.
+Texto para questões 27 a 29
+Uma empresa incentiva o viver saudável de seus funcionários. Para isso, dispensa mais
+cedo, duas vezes por semana, aqueles envolvidos em alguma prática esportiva.
+Aproveitando a oportunidade, Ana, Bia, Clara e Diana decidiram se associar a uma
+
+academia de ginástica, sendo que escolheram atividades diferentes, quais sejam,
+musculação, ioga, natação e ginástica aeróbica.
+O intuito é manter a forma e, se possível, perder peso. No momento, o peso de cada
+funcionária assume um dos seguintes valores: 50 kg, 54 kg, 56 kg ou 60 kg. O que também
+se sabe é que: a) Ana não faz musculação e não pesa 54 kg.
+b) Bia faz ioga e não tem
+ 50 kg.
+c) A jovem que faz musculação pesa 56 kg e não é a Clara.
+d) A jovem com 54 kg faz natação.
+Com base nessas informações, é correto afirmar que: 27. (Cespe – UnB – TRT-21
+a
+ Região –
+2010) O peso de Ana é 56 kg.
+28. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Diana faz musculação.
+29. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Bia é mais pesada que Clara.
+2.3.1. Gabarito dos 
+exercícios propostos
+1. Certo
+7. Certo
+13. Certo
+19. Errado
+25. Certo
+2. Certo
+8. Errado
+14. Certo
+20. Certo
+26. Certo
+3. Errado
+9. Certo
+15. Errado
+21. Errado
+27. Errado
+4. Certo
+10. Certo
+16. Certo
+22. Errado
+28. Certo
+5. Errado
+11. Certo
+17. Certo
+23. Certo
+29. Certo
+6. Errado
+12. Errado
+18. Errado
+24. D
+
+Capítulo 3
+Lógica de Argumentação
+Argumento
+É uma associação de frases que tem como intuito gerar um resultado o qual
+chamaremos de conclusão.
+Exemplo de um argumento:
+Glória é baiana ou Glória é paulista.
+Glória não é paulista.
+Logo, Glória é baiana.
+Percebemos que o argumento é válido porque partindo da veracidade das
+premissas geramos uma conclusão que não é
+ duvidosa.
+3.1. Representação de um argumento
+Horizontal:
+P
+1
+; P
+2
+; P
+3
+; P
+4
+; ...........P
+N
+ 
+−
+ C
+Vertical:
+P
+1
+P
+2
+P
+3
+.
+.
+.
+P
+N
+_______________
+C
+Nota 1:
+As simbologias P
+1
+, P
+2
+, ....... .P
+N
+ são chamadas de premissas, e a letra C é a
+conclusão.
+Nota 2:
+Tal representação pode ser lida da seguinte maneira: C decorre de P
+1
+; P
+2
+; P
+3
+; P
+4
+;
+
+...........P
+N
+.
+3.2. Silogismo
+Observe o argumento abaixo:
+Alex é professor ou Alex é pintor.
+Alex não é pintor.
+Logo, Alex é professor.
+Chamamos todo argumento formado, apenas, por duas premissas e uma
+conclusão de silogismo.
+3.3. Validade de um argumento
+Podemos dizer que existem quatro casos que justificam a validade de um
+argumento. Observe cada caso abaixo: 
+Caso 1:
+ A veracidade
+ das frases é
+incompatível com a falsidade da conclusão. Tal princípio tem como base a
+tabuada lógica.
+Caso 2:
+ A condicional das conjunções das premissas tem que ser tautológica. Tal
+princípio tem como base a tabuada lógica.
+Caso 3:
+ A validade de um argumento pode ser confirmada através de sua
+estrutura. Para representarmos tal estrutura usaremos as regras de inferência.
+Caso 4:
+ Trataremos
+ esse caso à parte, pois terá como parte nuclear de seu
+raciocínio termos categóricos, ou seja, todo, algum e nenhum e suas variações.
+Observe algumas representações gráficas desses termos categóricos:
+a) Todos os homens são atletas.
+b) Nenhum professor é bonito.
+c) Algum professor é casado.
+Primeiro caso:
+ A veracidade das frases é incompatível com a falsidade
+ da
+conclusão. Tal princípio tem como base a tabuada lógica.
+
+Exemplo:
+Argumento válido: “A verdade garante a verdade.”
+...........= V
+...........= V
+.
+.
+.
+.
+.
+.............= V
+.......................
+.............= V
+Alex é professor ou Alex é pintor.
+Alex não é pintor.
+Logo, Alex é professor.
+Primeiro passo:
+ Atribuir o valor verdadeiro
+ às premissas.
+...........ou............ = V
+............................ = V
+.........................................
+............................=
+Segundo passo:
+ Verificar se a verdade das premissas irá garantir a verdade da
+conclusão (olhar a tabuada lógica).
+...........ou...........F = V
+............................ = V
+.........................................
+............................=
+Como partimos do princípio de que a frase Alex não é pintor é uma premissa
+verdadeira, então a frase Alex é pintor será uma premissa falsa, pois é sua negação
+lógica. Analise a estrutura acima.
+V...........ou...........F = V
+............................... =V
+.........................................
+............................=
+Para dar
+ verdade numa disjunção inclusiva com o segundo F, o primeiro
+obrigatoriamente tem que ser verdadeiro. Analise a estrutura acima.
+V...........ou...........F = V
+
+............................ = V
+.........................................
+...............................= V
+Concluímos assim que o argumento é válido, pois a verdade das premissas
+garantiu a verdade da conclusão. Observe
+ que a frase Alex é professor é a mesma
+que aparece na conclusão. Analise a estrutura acima.
+Segundo caso:
+ A condicional das conjunções das premissas tem de ser
+tautológica. Tal princípio tem como base a tabuada lógica.
+Exemplo:
+P
+1
+∧
+ P
+2
+∧
+ P
+3
+ 
+∧
+... 
+∧
+ P
+n
+ 
+→
+ C é uma tautologia.
+Alex é professor ou Alex é pintor.
+Alex não é pintor.
+Logo, Alex é professor.
+[(P 
+∨
+ Q )
+∧
+(~Q)] 
+→
+P
+1
+o
+2
+o
+P
+∨
+Q
+~Q
+[(P 
+∨
+ Q)
+∧
+(~Q)]
+P
+[(P 
+∨
+ Q )
+∧
+(~Q)] 
+→
+P
+V
+V
+V
+F
+F
+V
+V
+V
+F
+V
+V
+V
+V
+V
+F
+V
+V
+F
+F
+F
+V
+F
+F
+F
+V
+F
+F
+V
+Concluímos assim que o argumento é válido, pois a condicional das conjunções
+das premissas com a conclusão gerou uma tautologia. Tal princípio tem como
+base a tabuada lógica.
+Terceiro caso:
+ A validade de um argumento pode ser confirmada através de sua
+estrutura. Para representarmos tal estrutura usaremos as regras de inferência.
+Exemplo:
+REGRA MODUS PONENS: P 
+→
+ Q
+ 
+REGRA MODUS TOLENS: P 
+→
+ Q
+
+REGRA DO SILOGISMO HIPOTÉTICO: P 
+→
+ Q
+SILOGISMO DISJUNTIVO: P 
+∨
+ Q
+SILOGISMO CATEGÓRICO: TODO P é Q
+Nota 1
+Nesse caso, a validade do argumento não está associada ao conteúdo das
+premissas, e sim à estrutura lógica do argumento.
+Alex é professor ou Alex é pintor.
+Alex
+ não é pintor.
+Logo, Alex é professor.
+Concluímos assim que o argumento é válido, pois visualizando a estrutura
+percebemos que é um exemplo de silogismo disjuntivo. P 
+∨
+ Q
+ 
+Quarto caso:
+ Trataremos esse caso à parte, pois terá como parte nuclear de seu
+raciocínio termos categóricos, ou seja, todo, algum e nenhum e suas variações.
+Exemplo:
+Todos os cavalos têm asas.
+Todos os passarinhos são cavalos.
+Todos os passarinhos têm asas.
+Percebemos que todas as frases são falsas, entretanto, o argumento é válido.
+Nesse caso, especificamente, a validade do argumento não está associada à
+veracidade das premissas com a finalidade de garantir a verdade da conclusão e
+sim a estrutura que o termo categórico todo proporciona. Observe o silogismo
+categórico: TODO
+ P é Q
+Nota 2
+Para um argumento ser válido depende, portanto, apenas de sua estrutura e não
+de seu conteúdo ou da veracidade e inverdades das proposições que o sustentam,
+ou seja, posso ter, por exemplo, premissas e resultados falsos, mas mesmo assim o
+
+argumento será válido.
+3.4. Exercícios resolvidos
+Uma proposição é uma frase afirmativa que pode ser julgada como verdadeira
+ ou falsa,
+mas não como ambas. Uma dedução lógica é uma sequência de proposições, e é
+considerada correta quando, partindo-se de proposições verdadeiras, denominadas
+premissas, obtêm-se proposições sempre verdadeiras, sendo a última delas denominada
+conclusão.
+Considerando essas informações, julgue os itens a seguir, a respeito de proposições.
+1. (Cespe – UnB – Secad-TO – 2008)
+Considere
+ verdadeiras as duas premissas abaixo:
+“O raciocínio de Pedro está correto”, ou “O julgamento de Paulo foi injusto”.
+“O raciocínio de Pedro não está correto.”
+Portanto, se a conclusão for a proposição, “O julgamento de Paulo foi injusto”, tem-se
+uma dedução lógica correta.
+2. (Cespe – UnB – Secad-TO – 2008)
+Considere a seguinte sequência de proposições:
+(1) Se o crime foi
+ perfeito, então o criminoso não foi preso.
+(2) O criminoso não foi preso.
+(3) Portanto, o crime foi perfeito.
+Se (1) e (2) são premissas verdadeiras, então a proposição (3), a conclusão, é
+verdadeira, e a sequência é uma dedução lógica correta.
+3.4.1. Gabarito dos exercícios resolvidos
+1. Certo
+2. Errado
+3.4.2. Solução dos exercícios resolvidos
+1. (Cespe – UnB – Secad-TO – 2008)
+Representação:
+Tendo como referência o silogismo disjuntivo, podemos afirmar que 
+a questão
+está correta (observe o terceiro caso).
+2. (Cespe – UnB – Secad-TO – 2008)
+Representação:
+
+........
+→
+........= V
+....................= V
+..............................
+....................=
+Como partimos do princípio de que a frase “O criminoso não foi preso” é uma
+premissa verdadeira, então a frase “O crime foi perfeito” poderá ser uma premissa
+falsa ou verdadeira, pois na condicional, se o segundo for verdadeiro, para o
+resultado final ser verdadeiro também, a primeira frase poderá ser verdadeira ou
+falsa. Com isso, concluímos que o argumento não é válido,
+ pois a frase “O crime
+foi perfeito” aparece como conclusão do problema e, como vimos, o resultado não
+pode ser duvidoso. Item errado (primeiro caso).
+Nota:
+Geralmente para resolvermos os problemas de argumentação utilizaremos o
+primeiro caso, salvo o quarto caso.
+3.5. Exercícios propostos
+1. (Cespe – UnB – TRT – 2008) Tendo em vista as informações do texto I, considere que
+sejam
+ verdadeiras as proposições: (I) Todos advogados ingressam no tribunal por
+concurso público; (II) José ingressou no tribunal por concurso público; e (III) João não é
+advogado ou João não ingressou no tribunal por concurso público. Nesse caso, também
+é verdadeira a proposição: a) José é advogado.
+b) João não é advogado.
+c) Se José não ingressou no tribunal por concurso público, então
+ José é advogado.
+d) João não ingressou no tribunal por concurso público.
+e) José ingressou no tribunal por concurso público e João é advogado.
+2. (Cespe – UnB – TRT – 2008) Considere que são V as seguintes proposições:
+• “Se Joaquim é desembargador ou Joaquim é ministro, então Joaquim é bacharel em
+Direito”; • “Joaquim é ministro”.
+Nessa situação, conclui-se que também
+ é V a proposição:
+a) Joaquim não é desembargador.
+b) Joaquim não é desembargador, mas é ministro.
+c) Se Joaquim é bacharel em Direito então Joaquim é desembargador.
+d) Se Joaquim não é desembargador nem ministro, então Joaquim não é bacharel em
+Direito.
+e) Joaquim é bacharel em Direito.
+3. (Cespe – UnB – TRT– 2008) Considere que todas as proposições listadas abaixo são V.
+I. Existe uma mulher desembargadora ou existe uma mulher juíza.
+II. Se existe uma mulher juíza então existe uma mulher que estabelece punições ou
+existe uma mulher que revoga prisões.
+III. Não existe uma mulher que estabelece punições.
+
+IV. Não existe uma mulher que revoga prisões.
+Nessa situação, é CORRETO afirmar que, por consequência da veracidade das
+proposições acima, é
+ também V a proposição: a) Existe uma mulher que estabelece
+punições mas não revoga prisões.
+b) Existe uma mulher que não é desembargadora.
+c) Se não existe uma mulher que estabelece punições então existe uma mulher que revoga
+prisões.
+d) Não existe uma mulher juíza.
+e) Existe uma mulher juíza mas não existe uma mulher que estabelece punições.
+Texto para questões 4 a 6
+Uma proposição é uma frase que pode ser julgada como verdadeira — V — ou falsa — F —,
+mas não como V e F simultaneamente. Um raciocínio lógico é uma sequência de
+proposições, e é denominado raciocínio lógico correto quando, considerando como V
+algumas das proposições da sequência — denominadas premissas —, e por consequência
+dessa veracidade, as demais proposições da sequência — denominadas
+ conclusões —,
+também são V. Proposições são frequentemente simbolizadas por letras maiúsculas do
+alfabeto: A, B, C etc. Uma proposição da forma “se A, então B” é simbolizada por A 
+→
+ B e
+tem valor lógico F quando A é V e B é F, e nos demais casos é V. Uma proposição da forma
+“A ou B” é simbolizada por A 
+∨
+ B e tem valor lógico F quando A e B são F, nos demais casos
+é V. Considere como premissas
+ as proposições abaixo, que foram construídas a partir de
+alguns artigos do Código Municipal de Posturas da Prefeitura Municipal de Teresina: A:
+Todos os estabelecimentos comerciais devem dispor de lixeira para uso público.
+B: Todo proprietário de estabelecimento comercial é responsável pela manutenção da
+ordem no estabelecimento.
+C: Se Mário é o proprietário do terreno, então Mário
+ é o responsável pelo escoamento das
+águas pluviais que atingirem o terreno.
+D: João tem mais de 18 anos ou João não pode comprar bebidas alcoólicas.
+Considerando como V as proposições A, B, C e D e, com base nas definições acima, julgue
+os itens subsequentes.
+4. (Cespe – UnB – PRFVT – 2008) Considerando-se também como premissa, além da
+proposição B, a proposição “Jorge é responsável
+ pela manutenção da ordem no
+estabelecimento”, então, está CORRETO colocar como conclusão a proposição “Jorge é
+proprietário de estabelecimento comercial”.
+5. (Cespe – UnB – PRFVT – 2008) Se a proposição “Mário não é o responsável pelo
+escoamento das águas pluviais que atingirem o terreno” for também V, então a
+proposição “Mário não é o proprietário do terreno” é também V.
+6. (Cespe – UnB
+ – PRFVT – 2008) A sequência de proposições que tem como premissas a
+proposição D e a proposição “João não pode comprar bebidas alcoólicas”, e tem como
+conclusão a proposição “João não tem mais de 18 anos”, constitui um raciocínio lógico
+correto.
+7. (Cespe – UnB – PRFVT – 2008) Considere que as proposições “Nenhum proprietário de
+
+terreno está isento de mantê-lo limpo” e “Todo proprietário de
+ terreno paga imposto
+territorial pela sua propriedade” sejam as premissas de um argumento. Neste caso, se
+uma conclusão for a proposição “Nenhuma pessoa que paga imposto territorial pela
+propriedade de terreno está isenta de mantê-lo limpo”, então essa sequência de
+proposições não constitui um raciocínio lógico correto.
+Texto para questão 8
+Uma proposição é uma afirmação que pode ser julgada
+ como verdadeira — V —, ou falsa —
+F —, mas não como ambas. Uma proposição é simples quando não contém nenhuma outra
+proposição como parte de si mesma e, quando a proposição é formada pela combinação de
+duas ou mais proposições simples, é denominada proposição composta. Uma proposição
+simples é, normalmente, representada simbolicamente por letras maiúsculas do alfabeto.
+As expressões A
+→
+B e A 
+∨
+ B representam proposições compostas, que são lidas,
+respectivamente, como “se A então B” e “A ou B”. A primeira proposição tem valor lógico F
+quando A é V e B é F, nos demais casos é V; a segunda tem valor lógico F quando A e B são
+F, nos demais casos é V. A expressão ¬A também representa uma proposição composta,
+lida como “não A”, e tem valor lógico V quando A é F, e tem valor lógico F quando A é
+ V.
+Com base nessas definições, julgue o item subsequente.
+8. (Cespe – UnB – SGA-AC – 2008) Considere que as proposições listadas abaixo sejam
+todas V.
+I. Se Clara não é policial, então João não é analista de sistemas.
+II. Se Lucas não é policial, então Elias é contador.
+III. Clara é policial.
+Supondo que cada pessoa citada tenha somente uma profissão, então está correto
+concluir que a proposição “João é contador” é verdadeira.
+9. (Cespe – UnB – MMA – 2008) Considere como premissas de um argumento as seguintes
+proposições.
+I. Se a Secretaria de Recursos Hídricos e Ambiente Urbano do MMA não coordenasse o
+Programa Água Doce, então não haveria gestão dos sistemas de dessalinização.
+II. Há gestão dos sistemas de dessalinização.
+Nesse caso, ao se considerar
+ como conclusão a proposição A Secretaria de Recursos
+Hídricos e Ambiente Urbano do MMA coordena o Programa Água Doce, obtém-se um
+argumento válido.
+10. (Cespe – UnB – PC-ES – 2008) Considere que o delegado faça a seguinte afirmação para
+o acusado: “O senhor espanca a sua esposa, pois foi acusado de maltratá-la”. Nesse
+caso, é CORRETO afirmar que o argumento formulado pelo delegado constitui
+ uma
+falácia.
+11. (Cespe – UnB – PC-ES – 2008) Se as proposições “Se chove, as ruas da cidade de Vitória
+estão molhadas”; “As ruas da cidade de Vitória estão molhadas” e “Está chovendo na
+cidade de Vitória”, em que duas primeiras são premissas e a terceira é a conclusão de
+um argumento, então é correto afirmar que esse argumento é um argumento válido.
+
+Texto para questões 12 e 13
+Proposições
+ são frases declarativas que podem ser julgadas como verdadeiras (V) ou falsas
+(F), mas não cabem ambos os julgamentos. Proposições simples podem ser denotadas por
+letras maiúsculas do alfabeto. Expressões da forma A
+→
+B são proposições compostas,
+podem ser lidas como: se A então B, e são julgadas como F quando A é V e B é F, e nos
+demais casos é V. Expressões da forma A
+∨
+B também são proposições
+ compostas, podem
+ser lidas como: ou A ou B, e são julgadas como F quando A e B são F, e nos demais casos é
+V. Uma expressão da forma A
+∧
+B é uma proposição composta, que é V quando A e B são V, e
+nos demais casos é F, e é lida como: A e B. Além dessas proposições compostas, também
+considere como proposição composta uma expressão da forma ¬A, que representa a
+negação de A, e é julgada como F quando
+ A é V, e V quando A é F. Qualquer proposição pode
+ou não ser delimitada por parênteses.
+De acordo com as definições apresentadas no texto acima, julgue os itens subsequentes.
+12. (Cespe – UnB – Prefeitura Municipal de Vila Velha-ES – 2008) Considere-se que a
+proposição composta “Ou Branca de Neve não acordou ou o Príncipe Encantado sumiu”
+e a proposição simples “Branca de Neve acordou”
+ sejam ambas V. Nesse caso, é correto
+concluir que a proposição simples “O Príncipe Encantado sumiu” será necessariamente
+V.
+13. (Cespe – UnB – Prefeitura Municipal de Vila Velha-ES – 2008) Considere-se as
+seguintes proposições.
+I. Todos os banhistas de Vila Velha preservam limpas suas praias.
+II. Catarina é banhista de Vila Velha.
+III. Nenhum morador da cidade Alpha preserva limpas
+ suas praias.
+Se as proposições apresentadas forem verdadeiras, então a proposição “Catarina não é
+moradora da cidade Alpha” será necessariamente verdadeira.
+Texto para questão 14
+Os conjuntos e suas operações auxiliam o raciocínio lógico que pode levar à resolução de
+vários tipos de problemas.
+Usando as operações com conjuntos, julgue os itens seguintes.
+14. (Cespe – UnB –
+ Prefeitura Municipal de Vila Velha-ES – 2008) Considere as seguintes
+declarações: I. Todos os brasileiros são hospitaleiros.
+II. Nenhuma pessoa feliz dirige imprudentemente.
+III. Pessoas hospitaleiras são felizes.
+Se essas declarações forem verdadeiras, então, a declaração “Brasileiros dirigem
+imprudentemente” é também verdadeira.
+Texto para questões 15 e 16
+Considere as
+ seguintes proposições:
+I. Todos os cidadãos brasileiros têm garantido o direito de herança.
+II. Joaquina não tem garantido o direito de herança.
+III. Todos aqueles que têm direito de herança são cidadãos de muita sorte.
+
+Supondo que todas essas proposições sejam verdadeiras, é CORRETO concluir logicamente
+que: 15. (Cespe – UnB – Sebrae – 2008) Joaquina não é cidadã brasileira.
+16. (Cespe – UnB – Sebrae – 2008) Se Joaquina não é cidadã brasileira, então Joaquina não
+é de muita sorte.
+17. (Cespe – UnB – MCT – 2008) Considere as seguintes proposições.
+A: Nenhum funcionário do MCT é celetista.
+B: Todo funcionário celetista foi aprovado em concurso público.
+C: Nenhum funcionário do MCT foi aprovado em concurso público.
+Nesse caso, se A e B são as premissas
+ de um argumento e C é a conclusão, então esse
+argumento é válido.
+Texto para questões 18 a 19
+Proposição é uma sentença que pode ser julgada como verdadeira — V —, ou falsa — F —,
+mas não como V e F simultaneamente. Letras maiúsculas do alfabeto são frequentemente
+usadas para simbolizar uma proposição básica. A expressão A
+∧
+B simboliza a proposição
+composta “A e B” e tem valor lógico V
+ somente quando A e B forem V, nos demais casos,
+será F. A expressão A
+∨
+B simboliza a proposição composta “A ou B” e tem valor lógico F
+somente quando A e B forem F, nos demais casos, será V. A expressão da forma ¬A é a
+negação da proposição A, e possui valores lógicos contrários aos de A. A expressão A
+→
+B é
+uma proposição composta que tem valor lógico F somente quando A for V e B for F, e nos
+demais
+ casos, será V, e pode ser lida como: “se A então B”. Uma argumentação lógica
+correta consiste de uma sequência finita de proposições, em que algumas, denominadas
+premissas, são V, por hipótese, e as demais, as conclusões, são V por consequência da
+veracidade das premissas e de conclusões anteriores.
+18. (Cespe – UnB – TCE-AC – 2008) Considere que as seguintes proposições são premissas
+de um
+ argumento: • César é o presidente do Tribunal de Contas e Tito é um
+conselheiro.
+• César não é o presidente do Tribunal de Contas ou Adriano impõe penas disciplinares
+na forma da lei.
+• Se Adriano é o vice-presidente do Tribunal de Contas, então Tito não é o corregedor.
+Com base nas definições apresentadas no texto acima, assinale a opção em que a
+proposição apresentada, junto
+ com essas premissas, forma um argumento CORRETO.
+a) Adriano não é o vice-presidente do Tribunal de Contas.
+b) Se César é o presidente do Tribunal de Contas, então Adriano não é o corregedor.
+c) Se Tito é corregedor, então Adriano é o vice-presidente do Tribunal de Contas.
+d) Tito não é o corregedor.
+e) Adriano impõe penas disciplinares na forma da lei.
+19. (Cespe – UnB
+ – TCE-AC – 2008) Considere que as proposições abaixo sejam premissas
+de determinado argumento: • Se Roberto é brasileiro, então Roberto tem plena
+liberdade de associação.
+• Roberto não tem plena liberdade de associação ou Magnólia foi obrigada a associar-
+se.
+
+• Se Carlos não interpretou corretamente a legislação, então Magnólia não foi obrigada
+a associar-se.
+Assinale a opção que
+ correspondente à proposição que é verdadeira por consequência
+da veracidade dessas premissas.
+a) Roberto não é brasileiro nem tem plena liberdade de associação.
+b) Se Roberto é brasileiro, então Carlos interpretou corretamente a legislação.
+c) Se Carlos não interpretou corretamente a legislação, então Roberto é brasileiro.
+d) Carlos interpretou corretamente a legislação ou Magnólia
+ foi obrigada a associar-se.
+e) Se Magnólia foi obrigada a associar-se, então Roberto não tem plena liberdade de
+associação.
+Texto para questão 20
+Uma proposição é uma frase declarativa que pode ser julgada como verdadeira (V) ou falsa
+(F), mas não cabe ambos os julgamentos. Considere que proposições simples sejam
+simbolizadas por A, B, C etc. Qualquer expressão da forma ¬A, A
+∨
+B, A 
+→
+ B são proposições
+compostas. Proposições A e ¬A têm julgamentos contrários, isto é, quando A é V, então ¬A é
+F, e quando A é F, então ¬A é V. Uma proposição da forma A
+∨
+B (lida como A ou B) é F
+quando A e B são F, caso contrário é V, e uma proposição da forma A 
+→
+ B (lida como se A
+então B) é F quando A é V e B é F, caso contrário é V.
+A partir das informações acima, julgue o item seguinte.
+20. (Cespe – UnB – Prefeitura Municipal de Vila Velha-ES – 2008) Considere-se que a
+proposição simples “Michele mora na praia da Costa” e a proposição composta “Se
+Josué não é capixaba então Michele não mora na praia da Costa” sejam verdadeiras.
+Nesse caso, é CORRETO afirmar que a proposição “Josué é capixaba” é também
+verdadeira.
+21. (Cespe – UnB – Sead – CGE-PB – 2008) Considere as proposições:
+I. Ninguém será considerado culpado ou condenado sem julgamento.
+II. Todos os cidadãos brasileiros têm garantido o direito de herança.
+Assinale a opção correspondente à proposição logicamente equivalente à negação da
+proposição I do texto.
+a) Existe alguém que será considerado culpado ou condenado sem julgamento.
+b) Todos serão considerados culpados e condenados sem julgamento.
+c) Existe alguém que não será considerado culpado nem condenado sem julgamento.
+d) Todos serão considerados não culpados enquanto não forem julgados.
+e) Não existe alguém que não será considerado culpado ou não será julgado.
+22. (Cespe – UnB – Sead – CGE-PB – 2008) Suponha que sejam verdadeiras as seguintes
+proposições.
+III. Joaquina não tem garantido o direito de herança.
+IV. Todos aqueles que têm direito de herança são cidadãos de muita sorte.
+Se III e IV acima, e II, do texto anterior, são premissas de um argumento, assinale a
+opção correspondente à “conclusão”, que forma com essas premissas um argumento
+válido.
+a) Joaquina não é cidadã de muita sorte.
+
+b) Todos os que têm direito de herança são cidadãos brasileiros.
+c) Joaquina não é cidadã
+ brasileira.
+d) Ou todos não têm direito de herança ou todos não são cidadãos brasileiros.
+e) Se Joaquina não é cidadã brasileira, então Joaquina não é de muita sorte.
+23. (Cespe – UnB – SGA-PMAC – 2008) Considere a proposição composta Z: “Se André é
+soldado, então Bruno é cabo”, para todas as possíveis valorações V ou F das proposições
+simples A: “André é soldado” e B: “Bruno é cabo”
+ que tornam Z valorada como V. Para
+essas mesmas valorações dessas proposições simples, considere também as seguintes
+proposições.
+W: Se André não é soldado, então Bruno não é cabo.
+X: Se Bruno é cabo, então André é soldado.
+Y: Se Bruno não é cabo, então André não é soldado.
+Nesse caso, preenchendo a tabela abaixo, se necessário, é CORRETO concluir que, entre
+as três proposições
+ W, X e Y, apenas a Y é sempre V.
+A
+B
+¬A
+¬B
+Z: A 
+→
+ B
+W: ¬A 
+→
+ ¬B
+X: B 
+→
+ A
+Y: ¬B 
+→
+ ¬A
+V
+V
+Texto para questão 24
+Considere as seguintes informações a respeito de lógica:
+# proposição: sentença afirmativa que pode ser julgada como verdadeira (V) ou falsa (F),
+sendo representada por letra
+ maiúscula do alfabeto — A, B, C etc.; # proposição simples:
+proposição que não contém nenhuma outra proposição como parte; # conectivos: “e”,
+representado por 
+∧
+; “ou”, representado por 
+∨
+; “se ..., então ...”, representado por 
+→
+; #
+negação: “não”, representado por ¬;
+# tabelas-verdade para algumas proposições compostas são apresentadas a seguir:
+A
+B
+A 
+∧
+ B
+A 
+∨
+ B
+¬A
+A 
+→
+ B
+V
+V
+V
+V
+F
+V
+V
+F
+F
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+# leis de De Morgan: ¬(A
+∨
+B) significa ¬A
+∧
+¬B; e ¬(A
+∧
+B) significa ¬A
+∨
+¬B; # sentenças
+abertas, ou proposições abertas: os exemplos “x + 4 = 9” e “Ele foi um grande jogador de
+futebol” não são considerados
+ proposições, pois não podem ser julgados como V nem F, já
+que “x” e “Ele” são variáveis. O conjunto dos possíveis valores da variável é o conjunto-
+universo da proposição aberta. Uma forma de se passar de uma sentença aberta a uma
+proposição é pela quantificação da variável; # quantificadores: “qualquer que seja”, “ou
+para todo”, representado por 
+∀
+x; “existe”, representado por 
+$
+x. Por exemplo,
+ a proposição
+“(
+∀
+x. (x 
+∈
+ R. (x + 4 = 9)” é valorada como F, enquanto a proposição “(
+$
+x. (x 
+∈
+ R. (x + 4 = 9)”
+é valorada como V, pois x = 5 torna a proposição V. Se “Ele = Pelé”, então a proposição “Ele
+
+foi um grande jogador de futebol” é valorada como V, enquanto se “Ele = Tiradentes”, a
+mesma proposição é valorada como F. O subconjunto do conjunto universo que torna a
+proposição verdadeira é o
+ conjunto-verdade da proposição; # argumento: relação que
+associa um conjunto de proposições A1, A2, ..., An — denominadas premissas — a uma
+proposição B — denominada conclusão; # argumento válido: um argumento no qual a
+conclusão é uma consequência necessária de suas premissas, isto é, a verdade de suas
+premissas garante a verdade da conclusão.
+Tendo como base o texto, julgue o item
+ seguinte.
+24. (Cespe – UnB – SGA-PMAC – 2008) Considere que as proposições “Alguns
+flamenguistas são vascaínos” e “Nenhum botafoguense é vascaíno” sejam valoradas
+como V. Nesse caso, também será valorada como V a seguinte proposição: “Algum
+flamenguista não é botafoguense”.
+25. (Cespe – UnB – Sebrae – 2008) Considere as proposições a seguir.
+A: Todo marciano é péssimo jogador de futebol.
+B: Pelé é marciano.
+Nessa hipótese, a proposição Pelé é péssimo jogador de futebol é F.
+Texto para questões 26 e 27
+Uma proposição é uma afirmativa que pode ser julgada como verdadeira — V —, ou falsa —
+F —, mas não como ambas. Considere que A e B representam proposições, e que, a partir
+delas, proposições compostas são construídas. Expressões da forma A
+∨
+B, ¬A e A
+→
+B são
+proposições
+ compostas. Uma proposição da forma A
+∨
+B, lida como “A ou B”, é F quando A e
+B forem F e é V nos demais casos; ¬A, lida como “não A”, é V quando A for F e é F quando A
+for V; A
+→
+B, lida como “se A então B”, é F quando A for V e B for F, e é V nos demais casos.
+Considere a forma de raciocínio constituída por uma sequência de três proposições, em
+que as duas primeiras são denominadas premissas
+ e a terceira, conclusão. Um raciocínio
+que tem essa forma é denominado válido quando se consideram as premissas verdadeiras
+e, com isso, pode-se garantir que a conclusão seja também verdadeira.
+Com referência ao texto, julgue os itens a seguir.
+26. (Cespe – UnB – MPE-AM – 2008) Considerando-se como premissas as proposições
+“Nenhum pirata é bondoso” e “Existem piratas que são velhos”, se
+ a conclusão for
+“Existem velhos que não são bondosos”, então essas três proposições constituem um
+raciocínio válido.
+27. (Cespe – UnB – MPE-AM – 2008) Considere como premissas as proposições “Todos os
+hobits são baixinhos” e “Todos os habitantes da Colina são hobits”, e, como conclusão, a
+proposição “Todos os baixinhos são habitantes da Colina”. Nesse caso, essas três
+proposições constituem
+ um raciocínio válido.
+Texto para questão 28
+As afirmações que podem ser julgadas como verdadeiras (V) ou falsas (F), mas não como
+ambas, são chamadas proposições. As proposições são usualmente simbolizadas por letras
+maiúsculas: A, B, C etc. A expressão A
+→
+B, lida, entre outras formas, como “se A então B”,
+
+é uma proposição que tem valoração F quando A é V e B é F, e tem valoração V nos
+ demais
+casos. Uma expressão da forma ¬A, lida como “não A”, é uma proposição que tem
+valoração V quando A é F, e tem valoração F quando A é V. A expressão da forma A
+∧
+B, lida
+como “A e B”, é uma proposição que tem valoração V apenas quando A e B são V, nos
+demais casos tem valoração F. Uma expressão da forma A
+∨
+B, lida como “A ou B”, é uma
+proposição que tem valoração F apenas quando A e B são F;
+ nos demais casos, é V.
+Com base nessas definições, julgue os itens que se seguem.
+28. (Cespe – UnB – BB – 2007) Considere que as afirmativas “Se Mara acertou na loteria
+então ela ficou rica” e “Mara não acertou na loteria” sejam ambas proposições
+verdadeiras. Simbolizando adequadamente essas proposições pode-se garantir que a
+proposição “Ela não ficou rica” é também verdadeira.
+Texto
+ para questão 29
+Uma proposição é uma afirmação que pode ser julgada como verdadeira (V) ou falsa (F),
+mas não como ambas. As proposições são usualmente simbolizadas por letras maiúsculas
+do alfabeto, como, por exemplo, P, Q, R etc. Se a conexão de duas proposições é feita pela
+preposição “e”, simbolizada usualmente por v, então obtém-se a forma P
+∧
+Q, lida como “P
+e Q” e avaliada como V se P
+ e Q forem V, caso contrário, é F. Se a conexão for feita pela
+preposição “ou”, simbolizada usualmente por 
+∨
+, então obtém-se a forma P
+∨
+Q, lida como
+“P ou Q” e avaliada como F se P e Q forem F, caso contrário, é V. A negação de uma
+proposição é simbolizada por ¬P, e avaliada como V, se P for F, e como F, se P for V. Um
+argumento é uma sequência de proposições P1, P2, ..., Pn, chamadas premissas,
+ e uma
+proposição Q, chamada conclusão. Um argumento é válido, se Q é V sempre que P1, P2, ...,
+Pn forem V, caso contrário, não é argumento válido.
+A partir desses conceitos, julgue os próximos itens.
+29. (Cespe – UnB – BB – 2007) Considere a seguinte proposição:
+P: “Mara trabalha” e Q: “Mara ganha dinheiro”
+Nessa situação, é válido o argumento em que as premissas são “Mara não
+ trabalha ou
+Mara ganha dinheiro” e “Mara não trabalha”, e a conclusão é “Mara não ganha
+dinheiro”.
+Na lógica sentencial, denomina-se proposição uma frase que pode ser julgada como
+verdadeira (V) ou falsa (F), mas não como ambas. Assim, frases como “Como está o tempo
+hoje?” e “Esta frase é falsa” não são proposições porque a primeira é pergunta e a
+segunda não pode ser nem V nem F. As proposições
+ são representadas simbolicamente por
+letras maiúsculas do alfabeto — A, B, C etc. Uma proposição da forma “A ou B” é F se A e B
+forem F, caso contrário, é V; e uma proposição da forma “Se A então B” é F se A for V e B
+for F, caso contrário, é V. Um raciocínio lógico considerado correto é formado por uma
+sequência de proposições tais que a última proposição é verdadeira sempre que as
+proposições
+ anteriores na sequência forem verdadeiras.
+Considerando as informações contidas no texto acima, julgue os itens subsequentes.
+30. (Cespe – UnB – BB – 2007) É CORRETO o raciocínio lógico dado pela sequência de
+proposições seguintes: “Se Antônio for bonito ou Maria for alta, então José será
+aprovado no concurso.”
+
+“Maria é alta.”
+“Portanto José será aprovado no concurso.”
+31. (Cespe – UnB – BB – 2007) É correto o raciocínio lógico dado pela sequência de
+proposições seguintes: “Se Célia tiver um bom currículo, então ela conseguirá um
+emprego.”
+“Ela conseguiu um emprego.”
+“Portanto, Célia tem um bom currículo.”
+Texto para questões 32 e 33
+Um raciocínio lógico é considerado correto quando é constituído por uma sequência de
+proposições verdadeiras.
+ Algumas dessas proposições são consideradas verdadeiras por
+hipótese e as outras são verdadeiras por consequência de as hipóteses serem verdadeiras.
+De acordo com essas informações e fazendo uma simbolização de acordo com as definições
+incluídas no texto, julgue os itens subsequentes, a respeito de raciocínio lógico.
+32. (Cespe – UnB – Seger – 2007) Considere como verdadeira a seguinte
+ proposição
+(hipótese): “Joana mora em Guarapari ou Joana nasceu em Iconha.”
+Então, concluir que a proposição “Joana mora em Guarapari” é verdadeira constitui um
+raciocínio lógico correto.
+33. (Cespe – UnB – Seger – 2007) Se a proposição “A cidade de Vitória não fica em uma ilha
+e no estado do Espírito Santo são produzidas orquídeas” for considerada verdadeira por
+hipótese, então a
+ proposição “A cidade de Vitória não fica em uma ilha” tem de ser
+considerada verdadeira, isto é, o raciocínio lógico formado por essas duas proposições é
+correto.
+Texto para questões 34 a 37
+Considere as seguintes frases.
+I. Todos os empregados da Petrobras são ricos.
+II. Os cariocas são alegres.
+III. Marcelo é empregado da Petrobras.
+IV. Nenhum indivíduo alegre é rico.
+Admitindo que as quatro frases acima sejam verdadeiras e considerando suas implicações,
+julgue as questões que se seguem.
+34. (Cespe – UnB – Petrobras – 2007) Nenhum indivíduo rico é alegre, mas os cariocas,
+apesar de não serem ricos, são alegres.
+35. (Cespe – UnB – Petrobras – 2007) Marcelo não é carioca, mas é um indivíduo rico.
+36. (Cespe – UnB – Petrobras – 2007) Existe pelo
+ menos um empregado da Petrobras que é
+carioca.
+37. (Cespe – UnB – Petrobras – 2007) Alguns cariocas são ricos, são empregados da
+Petrobras e são alegres.
+38. (Cespe – UnB – Sead – PCPA – 2007) Considerando que, se as proposições da forma
+
+¬A
+∨
+B e A forem V, então B é também uma proposição V e, nesse caso, diz-se que a
+sequência formada por essas três proposições constitui um argumento válido,
+ assinale
+a opção que apresenta um argumento válido CORRETO.
+a) Manuela é assistente de informática ou Manuela não poderá fazer o concurso.
+Manuela não poderá fazer o concurso.
+Então Manuela não é assistente de informática.
+b) Os óculos do chefe não estavam sobre a mesa ou estavam no armário.
+Os óculos do chefe não estavam sobre a mesa.
+Então os óculos do chefe estavam no
+ armário.
+c) Zeca não é um administrador ou Zeca é responsável pelo almoxarifado da empresa.
+Zeca é um administrador.
+Então, Zeca é responsável pelo almoxarifado da empresa.
+d) O estado do Pará terá a maior área de preservação de floresta tropical ou o macaco-
+aranha será extinto.
+O macaco-aranha será extinto.
+Então, o estado do Pará não terá a maior área de preservação de
+ floresta tropical.
+39. (Cespe – UnB – MPE-TO – 2007) É CORRETO afirmar que, simbolizada adequadamente,
+a argumentação abaixo é válida.
+1. Se um casal é feliz, então os parceiros têm objetivos comuns.
+2. Se os parceiros têm objetivos comuns, então trabalham no mesmo Ministério Público.
+3. Há rompimento se o casal é infeliz.
+4. Há rompimento se os parceiros não trabalham no mesmo
+ Ministério Público.
+40. (Cespe – UnB – MPE-TO – 2007) A sequência de proposições abaixo não é uma
+argumentação válida.
+1. Se Filomena levou a escultura ou Silva mentiu, então um crime foi cometido.
+2. Silva não estava em casa.
+3. Se um crime foi cometido, então Silva estava em casa.
+4. Filomena não levou a escultura.
+41. (Cespe – UnB – MPE-TO – 2006) A proposição P: “Ser
+ honesto é condição necessária
+para um cidadão ser admitido no serviço público” é corretamente simbolizada na forma
+A 
+→
+ B, em que A representa “ser honesto” e B representa “para um cidadão ser
+admitido no serviço público”.
+42. (Cespe – UnB – MPE-TO – 2006) Considere uma argumentação em que as duas
+proposições simbólicas abaixo são premissas, isto é, têm avaliação V.
+1. (A
+∧
+¬B) 
+→
+ C
+2.
+ ¬C
+Neste caso, se a conclusão for a proposição (¬A
+∨
+B), tem-se uma argumentação válida.
+43. (Cespe – UnB – MPE-TO – 2006) Considere que as proposições “Todo advogado sabe
+lógica” e “Todo funcionário do fórum é advogado” são premissas de uma argumentação
+cuja conclusão é “Todo funcionário do fórum sabe lógica”. Então essa argumentação é
+válida.

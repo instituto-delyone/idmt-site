@@ -1,0 +1,651 @@
+Equações diferenciais ordinárias 172
+Exercício 7.51 Num livro intitulado ’Looking at History Through Mathematics’, MIT Press,
+Cambridge MA, 1968, N. Rashevsky considerou um modelo para um problema envolvendo o
+evolução de não conformistas na sociedade. (Conformista é a pessoa que adopta ou segue o
+conformismo (anglicanismo).) . Suponhamos que uma sociedade tem uma população de x(t)
+indivíduos no instante t, em anos, e que todos os não conformistas que acasalam com outros
+não conformistas têm uma descendência que também é não conformista. Por outro lado, para
+todas as outras descendências, existe uma proporção ﬁxa rque são ainda não conformistas.
+Se as taxas de natalidade e mortalidade para todos os indivíduos se assumir como sendo as
+constantesnem, respectivamente, e se conformistas e não conformistas acasalarem de forma
+aleatória, o problema pode ser expresso pelas equações diferenciais
+x0(t) = (nm)x(t)
+y0(t) = (nm)y(t) +rn(x(t)y(t));
+ondey(t)denota o número de não conformistas na população no instante t.
+1. Se a variável p(t) =y(t)=x(t)for introduzida para representar a proporção de não con-
+formistas na sociedade no instante t, mostre que o sistema de equações diferenciais se
+reduz a
+p0(t) =rn(1p(t)):
+2. Assumindo que p(0) = 0;01,n= 0;002,m= 0;015er= 0;1, aproxime a solução p(t)
+para os primeiros 50anos.
+3. Resolva a equação diferencial para p(t)de forma exacta, e compare o resultado com a
+solução numérica.
+
+Bibliograﬁa
+[1] Richard L. Burden e J. Douglas Faires, Numerical Analysis , Cengage Learning, 2011.
+[2] Rainer Kress, Numerical Analysis , Spinger, 1998.
+[3] Cleve Moler, Numerical Computing with Matlab , SIAM, 2004.
+[4] Heitor Pina, Métodos Numéricos , McGraw Hill, Lisboa, 1995.
+[5] Alﬁo Quarteroni e Fausto Saleri, Cálculo Cientíﬁco com o Matlab e o Octave , Spinger,
+2007.
+173
+
+174
+
+Apêndice A
+Projectos
+O projecto consiste num pequeno relatório de não mais de cinco páginas sobre um as-
+sunto. Do relatório não devem fazer parte listagens de programas nem outputsdirectos das
+execuções dos programas.
+Os critérios de avaliação serão os seguintes:
+Descrição do problema (clara e sucinta).
+Identiﬁcação dos métodos numéricos envolvidos na resolução (o que pode incluir
+alguma explicação se o método não foi explicado nas aulas).
+Implementação desses métodos em Matlab .
+Execução dos programas em Matlab em exemplos práticos (poucos mas relevantes).
+Análise dos resultados numéricos obtidos.
+O trabalho realizado deve ser submetido por correio electrónico na forma de um ﬁcheiro
+zipadocom a designação projectoX.zip onde Xdeve ser substituído pelo dígito do número
+do projecto. O ﬁcheiro zip deve incluir: todos os ﬁcheiros Matlab usados, um ﬁcheiro pdf
+com o relatório, denominado relatorioX.pdf , e um ﬁcheiro ascii, denominado README,
+contendo uma descrição sumária de todos os ﬁcheiros enviados.
+Projecto 1
+Dado o sistema linear Ax=bondeA= (aij)n
+i;j=12 Mn(R)eb2Rn, uma classe
+de métodos iterativos para aproximar a solução exacta do problema pode escrever-se na
+forma
+x(k+1)=Bx(k)+g; x(0)dado:
+DeﬁnindoA=DLU, onde
+D=2
+6664a11
+a22
+...
+ann3
+7775;
+175
+
+Projectos 176
+L=2
+66640
+a21 0
+.........
+an1 an;n103
+7775; U =2
+66640a12 a1n
+.........
+0an1;n
+03
+7775
+os métodos de Jacobi e Gauss-Seidel pertencem a esta classe de métodos fazendo, respec-
+tivamente,
+BJ=D1(L+U)egJ=D1b
+e
+BGS= (DL)1UegGS= (DL)1b
+Em certos problemas, estes métodos são divergentes ou têm convergência demasiado
+lenta. Uma estratégia para contornar estas diﬁculdades é a introdução de um parâmetro
+de relaxação ,!. Consideremos os métodos deﬁnidos por
+método de Jacobi com relaxação (JR):
+BJR(!) =!BJ+ (1!)I; gJR(!) =!gJ
+método de Gauss-Seidel com relaxação (GSR):
+BGSR(!) = (I!D1L)1[(1!)I+!D1U]; gGSR(!) = (1
+!DL)1b
+método de Gauss-Seidel com relaxação simétrico (GSRS):
+BGSRS (!) = (D!U)1(!L+(1!)D)(D!L)1(!U+(1!)D); gGSRS (!) =
+!(2!)(D!U)1D(D!L)1b
+Note-se que os métodos de Jacobi e Gauss-Seidel com relaxação != 1coincidem com
+os métodos de Jacobi e Gauss-Seidel.
+Considere o sistema Ax=b, onde
+A=2
+6666462 24 1 8 15
+23 50 7 14 16
+4 6 58 20 22
+10 12 19 66 3
+11 18 25 2 543
+77775; b =2
+66664110
+110
+110
+110
+1103
+77775
+1. Poderá deﬁnir algum dos métodos acima referidos para calcular a solução do pro-
+blema?
+2. Fazendo variar o parâmetro de relaxação no intervalo [5;5], calcule o raio espectral
+das matrizes de iteração dos métodos anteriores. Represente esta informação na
+forma de um gráﬁco.
+3. Para cada um dos métodos, determine o parâmetro de relaxação, !OPT, que torna a
+convergência destes mais rápida.
+4. Represente graﬁcamente o erro absoluto associado a cada um dos métodos em função
+do número de iterações efectuado.
+5. Para cada uma das funções obtidas na alínea anterior, ajuste uma curva do tipo
+y=aCkno sentido dos mínimos quadrados, onde aeCsão constantes a determinar
+ekrepresenta o número de iterações. O que representa a constante C?
+6. Qual dos métodos escolheria para resolver o sistema?
+
+Projectos 177
+Projecto 2
+Uma matriz A2M (R)pode ser factorizada como o produto de uma matriz ortogonal,
+Q, com uma matriz triangular superior, R. Esta factorização, chamada factorização QR ,
+pode ser construída aplicando o processo de ortogonalização de Gram-Schmidt (estudado
+em Álgebra Linear) às colunas de A. Segundo este processo, podemos reescrever as colunas
+da matrizAcomo combinação linear de uma base ortonormada. Essa base usa-se para
+construir a matriz Qe os coeﬁcientes da combinação linear usam-se para construir R.
+1. Faça uma função em Matlab que dada uma matriz A, calcule os factores da factoriza-
+ção QR usando o algoritmo de Gram-Schmidt. A função deve ter a seguinte sintaxe:
+function [Q,R] = factQR(A) .
+2. Recorrendo à função anterior, implemente uma nova função que calcule todos os
+valores próprios segundo o algoritmo descrito na Secção 6.2 dos apontamentos das
+aulas. Esta função deve admitir como argumentos de entrada
+uma matriz A, da qual queremos calcular os valores próprios
+uma tolerância tol, que deverá estar associada a um critério de paragem ade-
+quado
+o número máximo de iterações nmaxadmitidas
+3. Se aplicar o algoritmo anterior à matriz (sem o critério de paragem da tolerância)
+2
+6641 2 3 4
+4 3 2 1
+2 34 5
+4 3 213
+775
+o que acontece à estrutura da matriz das iterações? Qual a relação entre a estrutura
+dessa matriz e os valores próprios de A?
+Projecto 3
+Pretende-se calcular o valor aproximado do integral
+Zb
+af(x)dx
+de uma função f: [a;b]!R.
+OmétododeintegraçãodeRombergconsisteemaplicararegradostrapéziosemmalhas
+uniformes convenientes e depois combinar esses resultados de uma forma inteligente para
+obter uma melhor aproximação para o valor do integral.
+Seh=baeT(h)denotar o resultado obtido pela aplicação da regra dos trapézios
+composta com passo h, no intervalo [a;b]então a aproximação gerada pelo método de
+Romberg obtém-se através do algoritmo
+Am;0=Tba
+2m
+; m = 0;:::;n
+Am;q+1=4q+1Am;qAm1;q
+4q+11; q = 0;:::;n1
+m=q+ 1;:::;n:
+
+Projectos 178
+que pode ser representado através do diagrama
+A0;0
+&
+A1;0! A 1;1
+& &
+A2;0! A 2;1! A 2;2
+& & &
+A3;0! A 3;1! A 3;2! A 3;3
+& & & &
+...............
+& & & &
+An;0! An;1! An;2! An;3:::! An;n
+É possível mostrar, sob certas condições de regularidade da função f, que a sucessão
+anterior satisfaz
+Am;n=Zb
+af(x)dx+O ba
+2m2(n+1)!
+: (A.1)
+1. Implemente uma função em Matlab que, dado um intervalo [a;b], uma função f:
+[a;b]!Re os índices men, implemente o algoritmo anterior para calcular Am;n.
+2. Considere o integralZ
+0excos(x)dx=e+ 1
+2:
+(a) Faça uma tabela com o erro cometido na aproximação do integral anterior para
+valores denema variar entre 0 e 5.
+(b) Fixando n= 0;1;2e fazendomvariar, faça um gráﬁco com o erro absoluto
+cometido nas três aproximações em função de h(consideremsuﬁcientemente
+grande tal que o menor valor de hseja superior a 106). Qual a ordem de
+convergência dos três métodos? Os resultados que obtém são concordantes com
+a estimativa (A.1)?
+(c) Proceda de modo análogo à alínea anterior e compare as aproximações obtidas
+comAm;0,Am;1eAm;2, comoerrocometidocoma regra dostrapézios, Simpson
+e ponto médio. Estime as ordens de convergência dos métodos e com base
+nesse resultado, indique qual das seis regras utilizaria para aproximar o valor
+do integral.
+(d) Utilizandooscomandosde Matlab ticetoc,compareosseismétodosreferidos
+na alínea anterior relativamente aos tempos de execução ( Sugestão : represente,
+em função de h, o tempo que demora a executar cada um dos métodos).
+Projecto 4
+1. Resolva a equação integral
+Z1
+0(s2+t2)1=2u(t)dt=(s2+ 1)3=2s3
+3
+
+Projectos 179
+no intervalo [0;1]discretizando o integral usando a regra de Simpson composta com n
+pontostjigualmentedistanciados, usandoomesmo nparaobterospontosigualmente
+distanciados si. Resolva o sistema linear Ax=bresultante da discretização usando
+o método da eliminação de Gauss, considerando vários valores de na variar entre 3
+e 15, comparando os resultados com a única solução do sistema, u(t) =t. Que valor
+dendá os melhores resultados? Pode explicar porquê?
+2. Para cada valor de nconsiderado na alínea anterior, calcule o número de condição
+da matriz. Como se comporta o número de condição como função de n?
+3. Resolva o sistema linear obtido na alínea (a) usando o método da regularização,
+que consiste em aproximar a solução do sistama linear pela solução do problema de
+minimização
+min
+x(kyAxk2
+2+kxk2
+2);
+onde o parâmetro corresponde ao peso relativo dado à norma do resíduo e à norma
+dasolução. Oproblemademinimizaçãopodeservistocomoumproblemademínimos
+quadrados associado ao sistema
+ApI
+xy
+0
+:
+4. Para cada valor de trace um gráﬁco onde os eixos coordenados são a norma da
+solução e a norma do resíduo. Qual a forma da curva obtida à medida que varia?
+Essa forma sugere a existência de um valor óptimo para ?
+Projecto 5
+A ﬁgura mostra um indutor espiral plano, implementado em CMOS para uso em circuitos
+de RF. O indutor é caracterizado por quatro parâmetros-chave:
+n, o número de voltas (que é um múltiplo de 1=4, mas que não precisamos nos
+preocupar com isso);
+w, a largura do arame;
+d, o diâmetro interno;
+D, o diâmetro exterior.
+Figura A.1: Indutor espiral plano.
+A indutância Lde um indutor espiral plano é uma função complexa dos parâmetros
+n,w,d, eD. Ela pode ser encontrada através da resolução de equações de Maxwell, para
+
+Projectos 180
+o que é necessário um considerável tempo computacional, ou fabricando o indutor e me-
+dindo a indutância. Neste problema pretende-se desenvolver um modelo simples indutância
+aproximada da forma
+L=n1w2d3D4;
+onde,1,2,3e4são constantes reis que caracterizam o modelo aproximado. (Como
+Lé positivo, temos que  > 0, mas as constantes 2;:::; 4podem ser negativas.) Este
+modelo aproximado simples, se for suﬁcientemente preciso, pode ser usado para o projecto
+de indutores espirais planares. O ﬁcheiro DadosProjecto5.m , disponível na página das
+disciplina, contém dados de 50 indutores, obtidos a partir de medições.
+1. Faça o download do ﬁcheiro execute-o em Matlab na forma
+[n, w, d, D, L] =DadosProjecto5 . Isso gera cinco vectores n,w,d,D,Lde com-
+primento 50. Os i-ésimos elementos destes vectores são os parâmetros ni,wi(em
+m),di(emm),Di(emm) e a indutância Li(em nH) para o indutor i. Assim,
+por exemplo, w13dá a largura do ﬁo do indutor 13.
+2. Determine ,1,2,3e4tais que
+^Li=n1
+iw2
+id3
+iD4
+iLi; i = 1;:::;50:
+A solução deve incluir uma descrição clara de como foram determinados os parâme-
+tros, bem como seus valores numéricos reais.
+Note-se que não foi especiﬁcado o critério a usar para obter o modelo aproximado
+(isto é, o ajuste entre ^LieLi); esse critério, no entanto, terá que ser especiﬁcado.
+3. Pode deﬁnir-se o erro (em percentagem) entre ^LieLicomo
+ei= 100j^LiLij
+Li:
+Determine o erro médio para os 50 indutores, ou seja, (e1++e50)=50, para o
+modelo considerado.
+Projecto 6
+A ﬁgura mostra um sinal de comprimento de 1000, corrompido com ruído. O objectivo
+consiste em estimar o sinal original. Este processo é chamado de reconstrução do sinal,
+ou de eliminação do ruído, ou alisamento. Neste problema pretende-se aplicar um método
+baseado no algoritmo dos mínimos quadrados.
+Vamos representar o sinal corrompido como um vector xcorde tamanho 1000. Os
+valores podem ser obtidos fazendo xcor = DadosProjecto6 , onde DadosProjecto6.m é
+um ﬁcheiro que pode ser obtido a partir da página da disciplina. O sinal estimado (ou seja,
+a variável do problema) será representado por um vector xde tamanho 1000.
+A ideia do método é a seguinte. Suponhamos que o ruído no sinal é caracterizado por
+ser uma variável pequena e de variação rápida. Para reconstruir o sinal, decompõe-se xcor
+em duas partes
+xcor= ^x+v;
+
+Projectos 181
+Figura A.2: Sinal com ruído.
+ondevé pequena e de variação rápida e ^xestá próximo de xcor(^xxcor) e tem variação
+lenta ( ^xi+1^xi). Pode obter-se tal decomposição escolhendo xcomo sendo a solução do
+problema dos mínimos quadrados
+minimizarkxxcork2
+2+999X
+i=1(xi+2xi)2; (A.2)
+ondeéumaconstantepositiva. Oprimeirotermo kxxcork2
+2medeoquanto xsedesviade
+xcor. O segundo termo,P999
+i=1(xi+2xi)2, penaliza as rápidas mudanças do sinal entre duas
+amostras. Ao minimizar a soma ponderada de ambos os termos, obtemos uma estimativa
+xque está perto de xcor(ou seja, tem um pequeno valor de kxxcork2
+2) e varia lentamente
+(ou seja, tem um pequeno valor deP999
+i=1(xi+2xi)2). O parâmetro é usado para ajustar
+o peso relativo dos dois termos. O problema (A.2) é um problema dos mínimos quadrados,
+pois pode ser expresso como
+minimizarkAxbk2
+2;
+onde
+A=IpD
+; b =xcor
+0
+;
+eDé a matriz 9991000deﬁnida como
+D=2
+66666666641 1 0 0 0 0 0 0
+01 1 0 0 0 0 0
+0 01 1 0 0 0 0
+...........................
+0 0 0 0  1 1 0 0
+0 0 0 0  01 1 0
+0 0 0 0  0 01 13
+7777777775:
+A matriz é muito grande ( 19991000), mas também muito esparsa e, como tal, um
+bom algoritmo para o problema dos mínimos quadrados é o da factorização de Cholesky.
+1. Veriﬁque que as equações normais são dadas por
+(I+DTD)x=xcor (A.3)
+
+Projectos 182
+O Matlab fornece rotinas especiais para a resolução de equações lineares esparsas,
+e elas são utilizadas da forma seguinte. Existem dois tipos de matrizes: cheias (ou
+densas) e esparsas. Ao deﬁnir uma matriz, considera-se, por defeito, que ela é densa,
+a menos que se especiﬁque que ela é esparsa. Pode converter-se uma matriz densa
+numa esparsa usando o comando A = sparse(A) , e um matriz esparsa numa densa
+usando o comando A = full(A) .
+O comando para criar uma matriz esparsa nula de dimensão mnéA = sparse (m,
+n). O comando A= speye (n) cria a matriz identidade esparsa de dimensão nn.
+2. Resolva o problema dos mínimos quadrados (A.3) com o vector xcordeﬁnido em
+ch9ex9.m , para três valores de := 1,= 100e= 10000. Trace os três sinais
+reconstruídos x.
+3. Discuta o efeito de sobre a qualidade da estimativa x.
+Projecto 7
+Pretende-se simular a trajectória de uma bola de basebol do lançador ( pitcher) para o
+receptor ( catcher). Adoptando o referencial indicado na ﬁgura, as equações que descrevem
+o movimento da bola sãodx
+dt=v;dv
+dt=F;
+ondex(t) = (x(t);y(t);z(t))Tindicaaposiçãodabolanoinstante t,v= (vx(t);vy(t);vz(t))T
+a sua velocidade, e Fo vector cujas componentes são:
+Fx=F(v)vvx+Bw(vzsinvycos);
+Fy=F(v)vvy+Bwvxcos; (A.4)
+Fz=gF(v)vvzBwvxsin;
+ondevé o módulo de v,B= 4;1104uma constante normalizada, é o ângulo de
+lançamento, wo módulo da velocidade angular incutida à bola pelo lançador. F(v)é o
+coeﬁciente de atrito, usualmente deﬁnido por
+F(v) = 0;0039 +0;0058
+1 +e(v35)=5:
+Figura A.3: Referencial para o movimento da bola de basebol.
+
+Projectos 183
+1. Resolva o problema usando um método explícito, assumindo o valor inicial para o
+movimento da bola como sendo v(0) =v0(cos;0;sin)T;comv0= 38m/s,= 1
+grau e uma velocidade angular de 1801;047198radianos por segundo.
+2. Se x(0) = 0, ao ﬁm de quantos segundos (aproximadamente) a bola tocará no chão
+(i.e.,z= 0)?
+Projecto 8
+O problema de Kepler descreve o movimento de dois corpos que se atraem mutuamente.
+Se escolhermos um dos corpos como o centro do sistema de coordenadas, é possível mostrar
+que o movimento permanece sempre no mesmo plano.
+Denotando por q= (q1;q2)a posição do segundo corpo, a Lei de Newton permite
+concluir, mediante uma conveniente normalização, que o movimento é dado por
+d
+dtp
+q
+=JrH(p;q); J =01
+1 0
+;
+onde a energia total do sistema (o Hamiltoniano) é
+H(p;q) =H(p1;p2;q1;q2) =1
+2(p2
+1+p2
+2)1p
+q2
+1+q2
+2:
+1. Determine a solução numérica do problema no intervalo [0;T], considerando
+p1(0) = 0; p 2(0) =r
+1 +e
+1e; q 1(0) = 1e; q 2(0) = 0;
+com0e<1a excentricidade (pode considerar e= 0;2,0;4e0;6) eT=N2(a
+solução tem período 2) comN= 10;100;1000.
+Considere os métodos numéricos
+Euler explícito: ui+1=ui+hF(ui),
+Euler simpléctico: pi+1=pi+hf(pi;qi+1); qi+1=qi+hg(pi;qi+1);
+aplicados a um sistema da forma
+u0=d
+dtp
+q
+=f(p;q)
+g(p;q)
+=F(u):
+2. Compare os métodos numéricos quanto ao esforço computacional e à qualidade das
+órbitas obtidas.
+3. O sistema solar exterior tem sido muito estudado pelos astrónomos que pretendem
+saber o seu comportamento para um período de tempo de aproximadamente 100
+milhões de anos. Este problema é, de novo, um problema Hamiltoniano onde
+H(p;q) =1
+25X
+i=0m1
+ipT
+ipiG5X
+i=1i1X
+j=0mimj
+kqiqjk:
+Aquipeqsão super-vectores compostos pelos vectores pi;qi2R3. As unidades
+escolhidas são: massas relativas ao Sol (por forma a que a massa do Sol seja 1)
+
+Projectos 184
+mas, para ter em conta os planetas interiores, faz-se m0= 1;00000597682 ; distân-
+cias em UA (1 UA=149 597 879 km); tempo em dias e a constante gravitacional é
+G= 2;95912208286104:Considera-se o Sol imóvel na origem e os dados para os
+restantes planetas são os dados na seguinte tabela referente ao dia 5 de Setembro de
+1994 às 0h00.
+planeta massa posição inicial velocidade inicial
+-3,5023653 0,00565429
+Júpiter 0,000954786104043 -3,8169847 -0,00412490
+-1,5507963 -0,00190589
+9,0755314 0,00168318
+Saturno 0,000285583733151 -3,0458353 0,00483525
+-1,6483708 0,00192462
+8,3101420 0,00354178
+Urano 0,0000437273164546 -16,2901086 0,00137102
+-7,2521278 0,00055029
+11,4707666 0,00288930
+Neptuno 0,0000517759138449 -25,7294829 0,00114527
+-10,8169456 0,00039677
+-15,5387357 0,00276725
+Plutão 1=(1:3108) -25,2225594 -0,00170702
+-3,1902382 -0,00136504
+Determine a solução do problema para um período de 200 000 dias usando métodos
+com passoh= 10dias.
+Projecto 9
+Considere um ecossistema simples formado por coelhos e raposas. Os coelhos dispõem
+de alimentação em quantidade inﬁnita e as raposas comem os coelhos que conseguirem
+apanhar. Um modelo matemático clássico para estudar a interacção de duas espécies
+(predador-presa), conhecido por modelo de Lotka-Volterra, consiste no seguinte sistema de
+duas equações diferenciais ordinárias não lineares de primeira ordem:
+x0(t) =ax(t)cx(t)y(t); x (0) =x0;
+y0(t) =by(t) +dx(t)y(t); y (0) =y0;
+em quex(t)é o número de coelhos no instante t,y(t)o número de raposas no mesmo
+instante ea,b,cedsão constantes positivas representando o comportamento das duas
+espécies. Se c=d= 0as duas espécies não interaccionam, o que, nas circunstâncias
+deste problema, signiﬁca que os coelhos levam uma vida regalada e as raposas morrem de
+fome. Quando cedforem maiores que zero, as raposas têm oportunidade de rectiﬁcar esta
+situação.
+1. Investigue o comportamento deste ecossistema quando a= 2,b= 1ec=d= 0;01
+para vários valores iniciais das populações de coelhos e raposas, desde 2 ou 3 unidades
+até às centenas.
+2. Veriﬁque a existência de soluções periódicas, nomeadamente quando x0= 300,y0=
+150, em que o período é aproximadamente igual a 5unidades de tempo.
+
+Projectos 185
+3. Investigue também se há possibilidade de extinção de alguma das espécies, ou mesmo
+de ambas. Considere que, se a população de uma espécie descer abaixo de 2, essa
+espécie se extingue (por razões óbvias!).
+Projecto 10
+Para calcular a forma de uma calha de escoamento, por gravidade, com o objectivo de
+minimizarotempodedescargadeumdeterminadoprodutogranulado(Chiarella,Charlton,
+Roberts (1975)), é necessário resolver as seguintes equações não lineares pelo método de
+Newton
+8
+>>><
+>>>:fn(1;:::;N)sinn+1
+vn+1(1wn+1)sinn
+vn(1wn) = 0; n = 1;:::;N1
+fN(1;:::;N)yNX
+j=1tanjX= 0;
+onde
+(i)v2
+n=v2
+0+ 2gny2ynX
+j=11
+cosj; n = 1;:::;N,
+e
+(ii)wn=yvnNX
+j=11
+v3
+jcosj; n = 1;:::;N.
+A constante v0é a velocidade inicial do produto granulado, Xa coordenada em xdo
+extremo ﬁnal da calha, a força de atrito, No número de segmentos da calha e ga
+constante de gravidade. As variáveis jsão os ângulos que os respectivos segmentos da
+calha fazem com a vertical e vja velocidade das partículas no j-ésimo segmento da calha.
+1. Resolva o sistema para = (1;:::;N)usando o método de Newton com = 0,
+X= 2,y= 0;2,N= 20,v0= 0, eg= 32pés/seg2, onde os valores de vnewnsão
+dados por (i) e (ii). Aplique o método até que
+k(k+1)(k)k<102rad.
+2. Conclua, numericamente, que o método tem ordem de convergência 2.
+Projecto 11
+Uma matriz de Hilbert de ordem ntem entradas hij= 1=(i+j1)e, como tal, tem a
+forma
+H=2
+6666666411
+21
+3
+1
+21
+31
+4
+1
+31
+41
+5
+............3
+77777775:
+Paran= 2;3;:::, obtenha a matriz de Hilbert de ordem ne também o vector b=Hx, com
+xo vector de dimensão ncom todas as suas entradas iguais à unidade.
+
+Projectos 186
+1. Usando o método da eliminação de Gauss (ou a factorização de Cholesky, uma vez
+que a matriz Hé simétrica e positiva deﬁnida) resolva o sistema de equações lineares
+Hx=b, obtendo uma aproximação ^x.
+2. Calcule a norma inﬁnito do resíduo r=bH^xe do erro x=x^x, ondexé o
+vector de dimensão ncom todas as suas entradas iguais a um. Quão grande deverá
+ser o valor de npor forma a que o erro seja de 100% (isto é, não existem dígitos
+signiﬁcativos correctos na solução).
+3. Determine uma estimativa para o número de condição da matriz Hpara cada valor
+dene tente caracteriza-lo em função de n. À medida que o nvaria, de que forma
+o número de dígitos signiﬁcativos correctos da solução aproximada está relacionado
+com o número de condição da matriz?
+Projecto 12
+A intensidade de luz com comprimento de onda viajando através de uma grelha de
+difracção com naberturas a um ângulo é dada por
+I() =n
+k2
+sin2k;
+onde
+k=ndsin
+
+edé a distância entre cada abertura. Um laser de hélio-néon com comprimento de onda
+= 632;8109m emite uma banda estreita de luz, dada por 106<< 106, através
+de uma grelha com 10000 aberturas separadas por 104m.
+1. Obtenha um valor aproximado para a intensidade de luz total que sai da grelha
+Z106
+106I()d;
+usando os diferentes algoritmos estudados.
+2. Compare os resultados obtidos, evidenciando a ordem de convergência dos métodos
+usados.
+Projecto 13
+Considere uma esfera de ﬁo eléctrico de raio re condutividade . Pretende-se calcular a
+densidade de distribuição da corrente jem função de ret(o tempo), sabendo a distribuição
+inicial da densidade de carga (r). O problema pode ser resolvido usando a relação entre
+a densidade de corrente, o campo eléctrico e a densidade de carga e notando que, pela
+simetria do problema, j(r;t) =j(r;t)r=jrj, comj=jjj. Obtém-se assim
+j(r;t) =
+(r)et= 0; 
+ (r) =
+0r2Zr
+0(")"2d";
+onde0= 8;8591012farad / m é a constante dieléctrica do vácuo.
+
+Projectos 187
+1. Usando os métodos de quadratura estudados, determine a função j(r;0)parar=
+k=10m, parak= 1;:::;10,(") =e"e= 0;36W/(mK). Assegure-se que o erro de
+quadratura é inferior a 1010.
+2. Compare os resultados obtidos, evidenciando a ordem de convergência dos métodos
+usados.
+Projecto 14
+Considere o problema de valor de fronteira
+u00+u0= 1em]0;1[; u (0) =u(1) = 0;
+onde>0.
+1. Veriﬁque que a solução exacta é dada por
+u(x) =xex=1
+e1=1:
+2. Trace o gráﬁco da solução para = 0;1;0;01;0;001(é necessário uma abordagem
+inteligente para evitar o overﬂow para o caso em que = 0;001).
+3. Calcule e trace o gráﬁco da solução usando um método de diferenças ﬁnitas numa
+rede uniforme de espaçamento h= 1=n.
+4. Investigue a convergência do método numérico quando hdecresce usando a norma
+máxima e a norma
+kukp= 
+hnX
+i=1ju(ih)jp!1=p
+;
+quandop= 1ep= 2. Descreva o comportamento da convergência e como varia para
+os três valores de considerados.
+5. Sejam=n=2(assumindo que né par) eh1= x=m,h2= (1x)=m, com x2]0;1[
+um valor a ser deﬁnido. Considere os pontos da rede
+x=ih1; i= 0;1;:::;m; x m+i= x+ih2; i= 1;2;:::;m:
+Isto signiﬁca que se está a usar o espaçamento h1para os pontos
+0 =x0<x 1<<xm= x
+e o espaçamento h2para
+x=xm<xm+1<<xn= 1:
+Para o problema em causa considere-se
+x= 1jlogj:
+A malha resultante é chamada malha de Shishkin .
+Obtenha a solução numérica para o problema dado usando o método de diferenças
+ﬁnitas deﬁnido nesta malha e estude a sua convergência. Certiﬁque-se que está a
+deﬁnir o método numérico correctamente no ponto xm= x, onde os pontos vizinhos
+não estão igualmente distanciados.
+
+Projectos 188
+Projecto 15
+Uma fábrica produz eﬂuentes que contêm um poluente cuja concentração excede os limites
+normais. Para reduzir o nível de poluição, a fábrica decidiu adoptar o seguinte processo
+de tratamento: os eﬂuentes são primeiro enviados para um tanque contendo bactérias cuja
+ﬁnalidade é digerir o poluente e só depois são lançados num rio. Para estudar este processo,
+desenvolveu-se um modelo matemático baseado nas seguintes hipóteses:
+o tanque está equipado com um misturador que assegura que a concentração de
+poluente no tanque e à saída seja a mesma e, analogamente, para a concentração de
+bactérias;
+as bactérias reproduzem-se proporcionalmente ao alimento de que dispõem, i.e., à
+concentração de poluente;
+a digestão do poluente é também proporcional à concentração de bactérias.
+Sejam
+Vo volume do tanque (20 000 m3);
+Qo caudal de eﬂuentes (10 m3/h);
+p(t)a concentração de poluente à entrada do tanque ( 0;01a0;1g/m3);
+p(t)idem, no tanque à sua saída (g/m3);
+b(t)a concentração de bactérias no tanque e à sua saída (g/m3);
+plo limite normal estabelecido para a concentração de poluente ( 5104g/m3);
+Ra taxa de reprodução das bactérias ( 1;26m3/gh);
+Ma taxa de mortalidade das bactérias ( 105/h);
+Da taxa de digestão do poluente ( 0;1m3/gh).
+As equações correspondentes ao modelo adoptado são
+8
+><
+>:Vdp
+dt=QpQpDVbp;
+Vdb
+dt=RVpbMVbQb:
+1. Conﬁrme que o tanque possui um volume suﬁciente para garantir o objectivo preten-
+dido em regime estacionário, i.e., quando dp=dt = 0edb=dt = 0.
+2. A fábrica não opera todavia sempre nas mesmas condições pelo que o caudal de
+eﬂuentes e a sua concentração em poluentes podem sofrer variações em relação aos
+valores em regime estacionário. Pretende-se fazer uma análise de duas situações
+possíveis, determinando em particular se o limite de poluição é excedido ou não.
+Q= 15m3/h ep= 0;05g/m3durante 2 horas;
+Q= 10m3/h e um salto instantâneo do nível de poluição de 0;01para 0;1g/m3.
+Sempre que necessário usar como condições iniciais de pebos respectivos valores em
+regime estacionário.
+As autoridades sanitárias estão dispostas a tolerar que a concentração de poluente
+excedapl, mas não 2pl, durante um período limitado de 12 horas.

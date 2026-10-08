@@ -1,0 +1,612 @@
+DADOS DE ODINRIGHT
+Sobre a obra:
+A presente obra é disponibilizada pela equipe 
+eLivros
+ e seus diversos
+parceiros, com o objetivo de oferecer conteúdo para uso parcial em
+pesquisas e estudos acadêmicos, bem como o simples teste da
+qualidade da obra, com o fim exclusivo de compra futura.
+É expressamente proibida e totalmente repudíavel a venda, aluguel, ou
+quaisquer uso comercial do presente conteúdo.
+Sobre nós:
+O 
+eLivros
+ e seus parceiros disponibilizam conteúdo de dominio publico
+e propriedade intelectual de forma totalmente gratuita, por acreditar que
+o conhecimento e a educação devem ser acessíveis e livres a toda e
+qualquer pessoa. Você pode encontrar mais obras em nosso site:
+eLivros
+.
+Como posso contribuir?
+Você pode ajudar contribuindo de várias maneiras, enviando livros para
+gente postar 
+Envie um livro
+ ;)
+Ou ainda podendo ajudar financeiramente a pagar custo de servidores e
+obras que compramos para postar, 
+faça uma doação aqui
+ :)
+"Quando o mundo estiver unido na busca do conhecimento, e não
+mais lutando por dinheiro e poder, então nossa sociedade poderá
+enfim evoluir a um novo nível."
+eLivros
+eLivros
+.love
+.love
+
+Converted by 
+ePubtoPDF
+
+Em memória do meu pai,
+Shlomo Harari,
+com amor
+
+Parte um
+A Revolução Cognitiva
+ 
+1. A marca de uma mão humana de cerca de 30 mil anos atrás, na parede na caverna de Chauvet-
+Pont-d’Arc, no sul da França. Alguém tentou dizer “Estive aqui!”.
+
+1
+Um animal insignificante
+H
+Á
+ 
+CERCA
+ 
+DE
+ 13,5 
+BILHÕES
+ 
+DE
+ 
+ANOS
+, 
+A
+ 
+MATÉRIA
+, 
+A
+ 
+ENERGIA
+, 
+O
+ 
+TEMPO
+ 
+E
+ 
+O
+ 
+ESPAÇO
+surgiram naquilo que é conhecido como o Big Bang. A história dessas
+características fundamentais do nosso universo é denominada física.
+Por volta de 300 mil anos após seu surgimento, a matéria e a energia
+começaram a se aglutinar em estruturas complexas, chamadas átomos, que então
+se combinaram em moléculas. A história dos átomos, das moléculas e de suas
+interações é denominada química.
+Há cerca de 3,8 bilhões de anos, em um planeta chamado Terra, certas
+moléculas se combinaram para formar estruturas particularmente grandes e
+complexas chamadas organismos. A história dos organismos é denominada
+biologia.
+Há cerca de 70 mil anos, os organismos pertencentes à espécie 
+Homo
+sapiens
+ começaram a formar estruturas ainda mais elaboradas chamadas
+culturas. O desenvolvimento subsequente dessas culturas humanas é
+denominado história.
+Três importantes revoluções definiram o curso da história. A Revolução
+Cognitiva deu início à história, há cerca de 70 mil anos. A Revolução Agrícola a
+acelerou, por volta de 12 mil anos atrás. A Revolução Científica, que começou
+há apenas 500 anos, pode muito bem colocar um fim à história e dar início a algo
+completamente diferente. Este livro conta como essas três revoluções afetaram
+os seres humanos e os demais organismos.
+Muito antes de haver história, já havia seres humanos. Animais bastante
+similares aos humanos modernos surgiram por volta de 2,5 milhões de anos
+
+atrás. Mas, por incontáveis gerações, eles não se destacaram da miríade de
+outros organismos com os quais partilhavam seu habitat.
+Em um passeio pela África Oriental de 2 milhões de anos atrás, você
+poderia muito bem observar certas características humanas familiares: mães
+ansiosas acariciando seus bebês e bandos de crianças despreocupadas brincando
+na lama; jovens temperamentais rebelando-se contra as regras da sociedade e
+idosos cansados que só queriam ficar em paz; machos orgulhosos tentando
+impressionar as beldades locais e velhas matriarcas sábias que já tinham visto de
+tudo. Esses humanos arcaicos amavam, brincavam, formavam laços fortes de
+amizade e competiam por status e poder – mas os chimpanzés, os babuínos e os
+elefantes também. Não havia nada de especial nos humanos. Ninguém, muito
+menos eles próprios, tinha qualquer suspeita de que seus descendentes um dia
+viajariam à Lua, dividiriam o átomo, mapeariam o código genético e
+escreveriam livros de história. A coisa mais importante a saber acerca dos
+humanos pré-históricos é que eles eram animais insignificantes, cujo impacto
+sobre o ambiente não era maior que o de gorilas, vaga-lumes ou águas-vivas.
+Os biólogos classificam os organismos em espécies. Consideram que os
+animais pertencem a uma mesma espécie se eles tendem a acasalar uns com os
+outros, gerando descendentes férteis. Cavalos e jumentos têm um ancestral
+recente em comum e partilham muitos traços físicos, mas demonstram pouco
+interesse sexual uns pelos outros. Acasalam entre si se forem induzidos a isso –
+entretanto seus descendentes, chamados mulas, são estéreis. Mutações no DNA
+dos jumentos podem nunca ter passado para os cavalos, e vice-versa. Os dois
+tipos de animais são consequentemente considerados duas espécies diferentes,
+trilhando caminhos evolucionários distintos. Já um buldogue e um spaniel
+podem ser muito diferentes em aparência, mas são membros da mesma espécie,
+partilhando a mesma informação de DNA. Acasalam entre si alegremente, e seus
+filhotes, ao crescer, cruzam com outros cachorros e geram mais filhotes.
+As espécies que evoluíram de um mesmo ancestral são agrupadas em um
+
+“gênero”. Leões, tigres, leopardos e jaguares são espécies diferentes do gênero
+Panthera.
+ Os biólogos nomeiam os organismos com um nome duplo latino, o
+gênero seguido da espécie. Os leões, por exemplo, são chamados 
+Panthera leo
+, a
+espécie 
+leo
+ do gênero 
+Panthera.
+ Ao que tudo indica, todos os que estão lendo
+este livro são 
+Homo sapiens –
+ a espécie 
+sapiens
+ (sábia) do gênero 
+Homo
+(homem).
+Os gêneros, por sua vez, são agrupados em famílias, como a dos felídeos
+(leões, guepardos, gatos domésticos), a dos canídeos (lobos, raposas, chacais) e a
+dos elefantídeos (elefantes, mamutes, mastodontes). Todos os membros de uma
+família remontam a um mesmo patriarca ou matriarca original. Todos os gatos,
+por exemplo, dos menores gatos domésticos ao leão mais feroz, têm em comum
+um ancestral felídeo que viveu há cerca de 25 milhões de anos.
+O 
+Homo sapiens
+ também pertence a uma família. Esse fato banal
+costumava ser um dos segredos mais bem guardados da história. Durante muito
+tempo, o 
+Homo sapiens
+ preferiu conceber a si mesmo como separado dos
+animais, um órfão destituído de família, carente de primos ou irmãos e, o que é
+mais importante, sem pai nem mãe. Mas isso simplesmente não é verdade.
+Gostemos ou não, somos membros de uma família grande e particularmente
+ruidosa chamada grandes primatas. Nossos parentes vivos mais próximos
+incluem os chimpanzés, os gorilas e os orangotangos. Os chimpanzés são os
+mais próximos. Há apenas 6 milhões de anos, uma mesma fêmea primata teve
+duas filhas. Uma delas se tornou a ancestral de todos os chimpanzés; a outra é
+nossa avó.
+Esqueleto no armário
+O 
+Homo sapiens
+ guardou um segredo ainda mais perturbador. Não só temos
+
+inúmeros primos não civilizados, como um dia também tivemos irmãos e irmãs.
+Costumamos pensar em nós mesmos como os únicos humanos, pois, nos últimos
+10 mil anos, nossa espécie de fato foi a única espécie humana a existir. Porém, o
+verdadeiro significado da palavra humano é “animal pertencente ao gênero
+Homo
+”, e antes havia várias outras espécies desse gênero além do 
+Homo sapiens.
+Além disso, conforme veremos no último capítulo deste livro, num futuro não
+muito distante possivelmente teremos de enfrentar humanos não sapiens. Para
+melhor explicar este ponto, usarei o termo “sapiens” para designar membros da
+espécie 
+Homo sapiens
+, ao passo que reservarei o termo “humano” para me
+referir a todos os membros do gênero 
+Homo
+.
+Os humanos surgiram na África Oriental há cerca de 2,5 milhões de anos,
+a partir de um gênero anterior de primatas chamado 
+Australopithecus
+, que
+significa “macaco do Sul”. Por volta de 2 milhões de anos atrás, alguns desses
+homens e mulheres arcaicos deixaram sua terra natal para se aventurar e se
+assentar em vastas áreas da África do Norte, da Europa e da Ásia. Como a
+sobrevivência nas florestas nevadas do norte da Europa requeria características
+diferentes das necessárias à sobrevivência nas florestas úmidas da Indonésia, as
+populações humanas evoluíram em direções diferentes. O resultado foram várias
+espécies distintas, a cada uma das quais os cientistas atribuíram um nome latino
+pomposo.
+ 
+2. Nossos irmãos, de acordo com reconstruções especulativas (da esquerda para a direita): Homo
+rudolfensis (África Oriental); Homo erectus (Ásia Oriental); e Homo neanderthalensis (Europa e Ásia
+Ocidental). Todos são humanos.
+
+Os humanos na Europa e na Ásia Ocidental deram origem ao 
+Homo
+neanderthalensis
+ (“homem do vale do Neander”), popularmente conhecidos
+como “neandertais”. Os neandertais, mais robustos e mais musculosos do que
+nós, sapiens, estavam bem adaptados ao clima frio da Eurásia ocidental da era do
+gelo. As regiões mais ocidentais da Ásia foram povoadas pelo 
+Homo erectus
+,
+“Homem ereto”, que sobreviveu na região por quase 1,5 milhão de anos, sendo a
+espécie humana de maior duração. Esse recorde dificilmente será quebrado,
+mesmo por nossa própria espécie. É questionável se o 
+Homo sapiens
+ ainda
+existirá daqui a mil anos, de modo que 2 milhões de anos certamente está fora do
+nosso alcance.
+Na ilha de Java, na Indonésia, viveu o 
+Homo soloensis
+, “homem do vale
+do Solo”, que estava adaptado para a vida nos trópicos. Em outra ilha indonésia
+– a pequena ilha de Flores –, humanos arcaicos passaram por um processo que
+levou ao nanismo. Os humanos chegaram pela primeira vez à ilha de Flores
+quando o nível do mar estava excepcionalmente baixo, facilitando o acesso à
+ilha a partir do continente. Quando o nível do mar voltou a subir, algumas
+pessoas ficaram presas na ilha, que era pobre em recursos. As pessoas grandes,
+que necessitavam muita comida, morriam primeiro. Os indivíduos menores
+tinham muito mais chances de sobrevivência. Com o passar das gerações, as
+pessoas de Flores se tornaram anãs. Essa espécie única, conhecida pelos
+cientistas como 
+Homo floresiensis
+, chegava uma altura máxima de apenas um
+metro e pesava não mais de 25 quilos. Ainda assim, era capaz de produzir
+ferramentas de pedra e ocasionalmente conseguia abater alguns dos elefantes da
+ilha – embora, a bem da verdade, os elefantes também fossem uma espécie
+diminuta.
+Em 2010, outro irmão perdido foi resgatado do esquecimento, quando
+cientistas, escavando a caverna de Denisova, na Sibéria, descobriram um osso de
+dedo fossilizado. A análise genética comprovou que o dedo pertencia a uma
+espécie humana até então desconhecida, que foi denominada 
+Homo denisova
+.
+
+Sabe-se lá quantos de nossos parentes perdidos estão esperando para ser
+descobertos em outras cavernas, em outras ilhas e em outros climas.
+Enquanto esses humanos evoluíam na Europa e na Ásia, a evolução na
+África Oriental não parou. O berço da humanidade continuou a nutrir numerosas
+espécies novas, como o 
+Homo rudolfensis
+ (“homem do lago Rudolf”), o 
+Homo
+ergaster
+ (“homem trabalhador”) e, finalmente, nossa própria espécie, que, sem
+modéstia alguma, denominamos 
+Homo sapiens
+ (“homem sábio”).
+Alguns membros de algumas dessas espécies eram gigantes e outros,
+diminutos. Alguns eram caçadores destemidos, e outros, dóceis coletores de
+plantas. Alguns viviam em uma única ilha, ao passo que muitos perambulavam
+por continentes. Mas todos pertenciam ao gênero 
+Homo.
+ Eram seres humanos.
+É uma falácia comum conceber essas espécies como dispostas em uma
+linha reta de descendência, com os 
+ergaster
+ dando origem aos 
+erectus
+, os 
+erectus
+dando origem aos neandertais e os neandertais dando origem a nós. Esse modelo
+linear dá a impressão equivocada de que, em determinado momento, apenas um
+tipo de humano habitou a Terra e de que todas as espécies anteriores foram
+meros modelos mais antigos de nós mesmos. A verdade é que, de
+aproximadamente 2 milhões de anos a 10 mil anos atrás, o mundo foi habitado
+por várias espécies humanas ao mesmo tempo. E por que não? Hoje há muitas
+espécies de raposas, ursos e porcos. O mundo de 100 mil anos atrás foi habitado
+por pelo menos seis espécies humanas diferentes. É nossa exclusividade atual, e
+não a multiplicidade de espécies em nosso passado, que é peculiar – e, talvez,
+incriminadora. Como logo veremos, nós, sapiens, temos boas razões para
+reprimir a lembrança de nossos irmãos.
+O custo de pensar
+
+Apesar de suas muitas diferenças, todas as espécies humanas têm em comum
+várias características que as definem. Mais notadamente, os humanos têm o
+cérebro extraordinariamente grande em comparação com o de outros animais.
+Mamíferos pesando 60 quilos têm um cérebro com tamanho médio de 200
+centímetros cúbicos. Os primeiros homens e mulheres, há 2,5 milhões de anos,
+tinham cérebros de cerca de 600 centímetros cúbicos. Sapiens modernos
+apresentam um cérebro de 1200 a 1400 centímetros cúbicos. Os cérebros dos
+neandertais eram ainda maiores.
+Que a evolução devesse selecionar cérebros maiores pode nos parecer
+óbvio. Somos tão apaixonados por nossa inteligência superior que presumimos
+que, em se tratando de capacidade cerebral, mais deve ser melhor. Mas, se fosse
+assim, a família dos felídeos também teria produzido gatos capazes de fazer
+cálculos, e porcos teriam a esta altura lançado seus próprios programas espaciais.
+Por que cérebros gigantes são tão raros no reino animal?
+O fato é que um cérebro gigante é extremamente custoso para o corpo.
+Não é fácil de carregar, sobretudo quando envolvido por um crânio pesado. É
+ainda mais difícil de abastecer. No 
+Homo sapiens
+, o cérebro equivale a 2 ou 3%
+do peso corporal, mas consome 25% da energia do corpo quando este está em
+repouso. Em comparação, o cérebro de outros primatas requer apenas 8% de
+energia em repouso. Os humanos arcaicos pagaram por seu cérebro grande de
+duas maneiras. Em primeiro lugar, passaram mais tempo em busca de comida.
+Em segundo lugar, seus músculos atrofiaram. Como um governo desviando
+dinheiro da defesa para a educação, os humanos desviaram energia do bíceps
+para os neurônios. Dificilmente pensaríamos que essa é uma boa estratégia para
+a sobrevivência na savana. Um chimpanzé não pode ganhar uma discussão com
+um 
+Homo sapiens
+, mas pode parti-lo ao meio como uma boneca de pano.
+Hoje, nosso cérebro grande é uma vantagem, porque podemos produzir
+carros e armas que permitem nos locomovermos mais rápido que os chimpanzés
+e atirar neles de uma distância segura em vez de enfrentá-los em um combate
+
+corpo a corpo. Mas carros e armas são um fenômeno recente. Por mais de 2
+milhões de anos, as redes neurais dos humanos continuaram se expandindo, mas,
+com exceção de algumas facas de sílex e varetas pontiagudas, os humanos
+tiraram muito pouco proveito disso. Então, o que impulsionou a evolução do
+enorme cérebro humano durante esses 2 milhões de anos? Francamente, nós não
+sabemos.
+Outro traço humano singular é que andamos eretos sobre duas pernas. Ao
+ficar eretos, é mais fácil esquadrinhar a savana à procura de animais de caça ou
+de inimigos, e os braços, desnecessários para a locomoção, são liberados para
+outros propósitos, como atirar pedras ou sinalizar. Quanto mais coisas essas
+mãos eram capazes de fazer, mais sucesso tinham os indivíduos, de modo que a
+pressão evolutiva trouxe uma concentração cada vez maior de nervos e músculos
+bem ajustados nas palmas e nos dedos. Em consequência, os humanos podem
+realizar tarefas complexas com as mãos. Em particular, podem produzir e usar
+ferramentas sofisticadas. Os primeiros indícios de produção de ferramentas
+datam de aproximadamente 2,5 milhões de anos atrás, e a manufatura e o uso de
+ferramentas são os critérios pelos quais os arqueólogos reconhecem humanos
+antigos.
+Mas caminhar com a coluna ereta tem lá suas desvantagens. O esqueleto
+de nossos ancestrais primatas se desenvolveu durante milhões de anos para
+sustentar uma criatura que andava de quatro e tinha uma cabeça relativamente
+pequena. Adaptar-se a uma posição ereta foi um grande desafio, sobretudo
+quando a estrutura precisou sustentar um crânio extragrande. A humanidade
+pagou por sua visão elevada e suas mãos habilidosas com dores nas costas e
+rigidez no pescoço.
+As mulheres pagaram ainda mais. Um andar ereto exigia quadris mais
+estreitos, constringindo o canal do parto – e isso justamente quando a cabeça dos
+bebês se tornava cada vez maior. A morte durante o parto se tornou uma grande
+preocupação para as fêmeas humanas. As mulheres que davam à luz mais cedo,
+
+quando o cérebro e a cabeça do bebê ainda eram relativamente pequenos e
+maleáveis, se saíam melhor e sobreviviam para ter mais filhos. Em
+consequência, a seleção natural favoreceu nascimentos precoces. E, de fato, em
+comparação com outros animais, os humanos nascem prematuramente, quando
+muitos de seus sistemas vitais ainda estão subdesenvolvidos. Um potro pode
+trotar logo após o nascimento; um gatinho deixa a mãe para buscar alimento por
+conta própria com poucas semanas de vida. Os bebês humanos são indefesos e
+durante muitos anos dependem dos mais velhos para sustento, proteção e
+educação.
+Esse fato contribuiu enormemente para as extraordinárias habilidades
+sociais da humanidade e, ao mesmo tempo, para seus peculiares problemas
+sociais. Mães solitárias dificilmente conseguiam obter comida suficiente para
+sua prole e para si mesmas tendo crianças necessitadas sob seus cuidados. Criar
+filhos requeria ajuda constante de outros membros da família e de vizinhos. É
+necessária uma tribo para criar um ser humano. A evolução, assim, favoreceu
+aqueles capazes de formar fortes laços sociais. Além disso, como os humanos
+nascem subdesenvolvidos, eles podem ser educados e socializados em medida
+muito maior do que qualquer outro animal. A maioria dos mamíferos sai do útero
+como cerâmica vidrada saindo de um forno – qualquer tentativa de moldá-los
+novamente apenas irá rachá-los ou quebrá-los. Os humanos saem do útero como
+vidro derretido saindo de uma fornalha. Podem ser retorcidos, esticados e
+moldados com surpreendente liberdade. É por isso que hoje podemos educar
+nossos filhos para serem cristãos ou budistas, capitalistas ou socialistas,
+belicosos ou pacifistas.
+Presumimos que um cérebro grande, o uso de ferramentas, uma capacidade
+superior de aprender e estruturas sociais complexas são vantagens enormes.
+Parece óbvio que esses atributos tornaram a humanidade o animal mais poderoso
+da Terra. Mas os humanos desfrutaram de todas essas vantagens por 2 milhões
+de anos, durante os quais continuaram sendo criaturas fracas e marginais. Assim,
+
+humanos que viveram há 1 milhão de anos, apesar de seus cérebros grandes e
+ferramentas de pedra afiadas, viviam com medo constante de predadores,
+raramente caçavam animais grandes e subsistiam principalmente coletando
+plantas, pegando insetos, capturando animais pequenos e comendo a carniça
+deixada por outros carnívoros mais fortes.
+Um dos usos mais comuns das primeiras ferramentas de pedra foi abrir
+ossos para chegar até o tutano. Alguns pesquisadores acreditam que esse foi
+nosso nicho original. Assim como os pica-paus se especializam em extrair
+insetos dos troncos das árvores, os primeiros humanos se especializaram em
+extrair o tutano dos ossos. Por que o tutano? Bem, suponhamos que você esteja
+observando um bando de leões abater e devorar uma girafa. Você espera
+pacientemente até eles terminarem. Mas ainda não é a sua vez, porque primeiro
+as hienas e os chacais – e você não ousa se meter com eles – reviram as sobras.
+Só então você e seu bando ousam se aproximar da carcaça, olhando com cuidado
+à sua volta, e explorar o único tecido comestível que restou.
+Isso é essencial para entender nossa história e nossa psicologia. A posição
+do gênero 
+Homo
+ na cadeia alimentar era, até muito pouco tempo atrás,
+solidamente intermediária. Durante milhões de anos, os humanos caçaram
+criaturas menores e coletaram o que podiam, ao passo que eram caçados por
+predadores maiores. Somente há 400 mil anos que várias espécies de homem
+começaram a caçar animais grandes de maneira regular, e só nos últimos 100 mil
+anos – com a ascensão do 
+Homo sapiens
+ – esse homem saltou para o topo da
+cadeia alimentar.
+Esse salto espetacular do meio para o topo teve enormes consequências.
+Outros animais no topo da pirâmide, como os leões e os tubarões, evoluíram
+para essa posição gradualmente, ao longo de milhões de anos. Isso permitiu que
+o ecossistema desenvolvesse formas de compensação e equilíbrio que impediam
+que leões e tubarões causassem destruição em excesso. À medida que os leões se
+tornavam mais ferozes, a evolução fez as gazelas correrem mais rápido, as
+
+hienas cooperarem melhor, e os rinocerontes serem mais mal-humorados.
+Diferentemente, a humanidade ascendeu ao topo tão rapidamente que o
+ecossistema não teve tempo de se ajustar. Além disso, os próprios humanos não
+conseguiram se ajustar. A maior parte dos grandes predadores do planeta são
+criaturas grandiosas. Milhões de anos de supremacia os encheram de confiança
+em si mesmos. O sapiens, diferentemente, está mais para um ditador de uma
+república de bananas. Tendo sido até tão pouco tempo atrás um dos oprimidos
+das savanas, somos tomados por medos e ansiedades quanto à nossa posição, o
+que nos torna duplamente cruéis e perigosos. Muitas calamidades históricas, de
+guerras mortais a catástrofes ecológicas, resultaram desse salto apressado.
+Uma raça de cozinheiros
+Um passo importante rumo ao topo foi a domesticação do fogo. Já há 800 mil
+anos, algumas espécies humanas faziam uso esporádico do fogo. Por volta de
+300 mil anos atrás, os 
+Homo erectus,
+ os neandertais e os antepassados do 
+Homo
+sapiens
+ usavam o fogo diariamente. Os humanos agora tinham uma fonte
+confiável de luz e de calor e uma arma letal contra os leões à espreita. Não muito
+tempo depois, os humanos podem até mesmo ter começado a deliberadamente a
+fazer queimadas em suas áreas. Um fogo cuidadosamente manejado podia
+transformar bosques cerrados intransponíveis em campos cheios de animais de
+caça. Além disso, quando o fogo se apagava, os empreendedores da Idade da
+Pedra podiam caminhar pelos restos fumegantes e coletar animais, nozes e
+tubérculos carbonizados. Mas a melhor coisa que o fogo possibilitou foi o hábito
+de cozinhar.
+Alimentos que os humanos não conseguem digerir em sua forma natural –
+como trigo, arroz e batata – se tornaram itens essenciais da nossa dieta graças ao
+
+cozimento. O fogo não só mudava a química dos alimentos; mudava também sua
+biologia. Cozinhar matava germes e parasitas que infestavam os alimentos.
+Também passou a ser muito mais fácil para os humanos mastigar e digerir seus
+alimentos favoritos, como frutas, nozes, insetos e carniça, se cozidos. Enquanto
+os chimpanzés passam cinco horas por dia mastigando alimentos crus, uma hora
+é suficiente para as pessoas comerem alimentos cozidos.
+O advento do hábito de cozinhar possibilitou aos humanos comer mais
+tipos de comida, dedicar menos tempo à alimentação e se virar com dentes
+menores e intestino mais curto. Alguns estudiosos acreditam que existe uma
+relação direta entre o advento do hábito de cozinhar, o encurtamento do trato
+intestinal e o crescimento do cérebro humano. Considerando que tanto um
+intestino longo quanto um cérebro grande consomem muita energia, é difícil ter
+os dois ao mesmo tempo. Ao encurtar o intestino e reduzir seu consumo de
+energia, o hábito de cozinhar inadvertidamente abriu caminho para o cérebro
+enorme dos neandertais e dos sapiens.
+1
+O fogo também abriu a primeira brecha significativa entre o homem e os
+outros animais. O poder de quase todos os animais depende de seu corpo: a força
+de seus músculos, o tamanho de seus dentes, a envergadura de suas asas. Embora
+possam fazer uso de ventos e correntes, são incapazes de controlar essas forças
+da natureza e estão sempre limitados por sua estrutura física. As águias, por
+exemplo, identificam colunas térmicas emanando do solo, abrem suas asas
+gigantes e permitem que o ar quente as faça alçar voo, mas não podem controlar
+a localização das colunas térmicas, e sua capacidade máxima de carga é
+estritamente proporcional à envergadura de suas asas.
+Ao domesticar o fogo, os humanos ganharam controle de uma força
+obediente e potencialmente ilimitada. Ao contrário das águias, os humanos
+podiam escolher onde e quando acender uma chama, e foram capazes de
+explorar o fogo para inúmeras tarefas. O que é mais importante, o poder do fogo
+não era limitado pela forma, estrutura ou força do corpo humano. Uma única
+
+mulher com uma pedra ou vareta podia produzir fogo para queimar uma floresta
+inteira em uma questão de horas. A domesticação do fogo foi um sinal do que
+estava por vir.
+ 
+Mapa 1. O Homo sapiens conquista o globo.
+Os cuidadores de nossos irmãos
+Apesar dos benefícios do fogo, há 150 mil anos os humanos ainda eram criaturas
+marginais. Agora eles podiam espantar leões, se aquecer durante noites frias e
+queimar uma ou outra floresta. Mas, considerando todas as espécies juntas,
+possivelmente o número de humanos vivendo entre o arquipélago indonésio e a
+Península Ibérica ainda não passava de 1 milhão, um mero ponto no radar
+ecológico.
+Nossa espécie, 
+Homo sapiens
+, já estava presente no palco do mundo, mas,
+
+até então, estivera apenas vivendo sua vidinha num canto da África. Não
+sabemos exatamente onde ou quando animais que podem ser classificados como
+Homo sapiens
+ evoluíram pela primeira vez a partir algum tipo anterior de
+humano, mas a maioria dos cientistas concorda que há 150 mil anos a África
+Oriental estava povoada por sapiens que se pareciam exatamente como nós. Se
+um deles aparecesse em um necrotério moderno, o patologista local não notaria
+nada peculiar. Graças às bênçãos do fogo, eles tinham mandíbulas e dentes
+menores que seus ancestrais, ao passo que tinham cérebros enormes, iguais aos
+nossos em tamanho.
+Os cientistas também concordam que há cerca de 70 mil anos, sapiens da
+África Oriental se espalharam na península Arábica e de lá rapidamente tomaram
+o território da Eurásia.
+Quando o 
+Homo sapiens
+ chegou à Arábia, a maior parte da Eurásia já era
+ocupada por outros humanos. O que aconteceu com eles? Há duas teorias
+conflitantes. A “teoria da miscigenação” conta uma história de atração, sexo e
+miscigenação. À medida que os imigrantes africanos se espalharam pelo mundo,
+eles procriaram com outras populações humanas, e as pessoas, hoje, são
+resultado dessa miscigenação.
+Por exemplo, quando os sapiens chegaram ao Oriente Médio e à Europa,
+encontraram os neandertais. Esses humanos eram mais musculosos que os
+sapiens, tinham cérebro maior e eram mais bem adaptados a climas frios.
+Usavam ferramentas e fogo, eram caçadores exímios e, ao que parece, cuidavam
+dos doentes e debilitados (arqueólogos encontraram ossos de neandertais que
+viveram por muitos anos com várias deficiências físicas, indícios de que eram
+cuidados por seus parentes). Os neandertais muitas vezes são retratados em
+caricaturas como o arquetípico “homem das cavernas” bruto e estúpido, mas
+indícios recentes mudaram essa imagem.
+
+3. Reconstrução especulativa de uma criança neandertal. As evidências genéticas indicam que pelo
+menos alguns neandertais podem ter tido pele e cabelo claros.
+De acordo com a teoria da miscigenação, quando o 
+Homo sapiens
+ se
+espalhou por terras neandertais, os sapiens procriaram com neandertais até que
+as duas populações se fundiram. Se isso for verdade, então os eurasianos de hoje
+não são sapiens puros. São uma mistura de sapiens e neandertais. De forma
+semelhante, quando chegaram à Ásia Oriental, os sapiens se misturaram com os
+locais 
+Homo erectus
+, de forma que os chineses e coreanos são uma mistura de
+sapiens e 
+Homo erectus
+.
+A visão oposta, chamada de “teoria da substituição”, conta uma história
+muito diferente – uma história de incompatibilidade, repulsa e, talvez, até
+mesmo genocídio. Sapiens e neandertais tinham anatomias diferentes, e muito
+provavelmente hábitos de acasalamento e até mesmo odor corporal diferentes.
+Provavelmente tinham pouco interesse sexual uns pelos outros. Mesmo que um
+Romeu neandertal e uma Julieta sapiens se apaixonassem, não poderiam
+produzir descendentes férteis porque o abismo genético separando as duas
+
+populações já era intransponível. As duas populações teriam permanecido
+distintas, e quando os neandertais morreram, ou foram mortos, seus genes teriam
+morrido com eles. De acordo com essa teoria, sapiens substituíram todas as
+populações humanas anteriores sem se misturar com nenhuma delas. Nesse caso,
+a origem de todas as linhagens humanas existentes pode ser atribuída
+exclusivamente à África Oriental de 70 mil anos atrás.
+Muita coisa depende desse debate. De uma perspectiva evolutiva, 70 mil
+anos é um intervalo relativamente curto. Se a teoria da substituição estiver
+correta, todos os humanos existentes têm mais ou menos a mesma bagagem
+genética, e as distinções raciais entre eles são desprezíveis. Mas se a teoria da
+miscigenação estiver correta, pode muito bem haver entre africanos, europeus e
+asiáticos diferenças genéticas que remontam a centenas de milhares de anos
+atrás. Trata-se de uma dinamite política que poderia fornecer matéria-prima para
+teorias raciais explosivas.
+Nas últimas décadas, a teoria da substituição prevaleceu entre os cientistas.
+Tinha bases arqueológicas mais sólidas e era politicamente mais correta (os
+cientistas não tinham desejo algum de abrir a caixa de Pandora do racismo ao
+afirmar a existência de uma diversidade genética significativa entre as
+populações humanas modernas). Mas isso terminou em 2010, quando foram
+publicados os resultados de um esforço de quatro anos para mapear o genoma
+dos neandertais. Geneticistas conseguiram coletar DNA intacto de fósseis de
+neandertais em quantidade suficiente para fazer uma comparação detalhada com
+o DNA de humanos contemporâneos Os resultados desconcertaram a
+comunidade científica.
+Revelou-se que de 1% a 4% do DNA das populações modernas no Oriente
+Médio e na Europa são DNA de neandertal. Não é uma grande quantidade, mas é
+significante. Um segundo choque veio meses depois, quando foi mapeado o
+DNA extraído do dedo fossilizado de Denisova. Os resultados comprovaram que
+até 6% do DNA humano dos melanésios e dos aborígenes australianos modernos
+
+são DNA denisovano!
+Se esses resultados forem válidos – e é importante ter em mente que estão
+sendo realizadas mais pesquisas que podem tanto corroborar quanto modificar
+essas conclusões –, os defensores da teoria da miscigenação acertaram em pelo
+menos alguns aspectos. Mas isso não significa que a teoria da substituição esteja
+completamente errada. Uma vez que os neandertais e os denisovanos
+contribuíram apenas com uma pequena proporção de DNA para nosso genoma
+atual, é impossível falar de uma “fusão” entre os sapiens e outras espécies
+humanas. Embora as diferenças entre elas não fossem grandes o suficiente para
+evitar completamente a geração de descendentes férteis, eram suficientes para
+fazer que tais contatos fossem muito raros.
+Sendo assim, como devemos entender as relações biológicas entre sapiens,
+neandertais e denisovanos? Claramente, não eram espécies completamente
+distintas, como são os cavalos e os jumentos. Por outro lado, não eram apenas
+populações diferentes da mesma espécie, como os buldogues e os spaniels. A
+realidade biológica não é em preto e branco. Há também áreas cinza importantes.
+Quaisquer duas espécies que tenham evoluído de um único ancestral, como os
+cavalos e os jumentos, foram, em algum momento, apenas duas populações da
+mesma espécie, como os buldogues e os spaniels. Com o tempo, as diferenças
+entre elas se acumularam, até que elas seguiram caminhos evolutivos separados.
+Deve ter havido um ponto em que as duas populações já eram bem diferentes
+uma da outra, mas ainda capazes, em raras ocasiões, de ter relações sexuais e
+gerar descendentes férteis. Então houve mutação em mais um ou dois genes, e
+esse último fio que as conectava se perdeu para sempre.
+Ao que parece, há cerca de 50 mil anos, sapiens, neandertais e
+denisovanos se encontravam nesse limite. Eram espécies quase separadas, mas
+não totalmente. Como veremos no próximo capítulo, os sapiens já eram bem
+diferentes dos neandertais e dos denisovanos não só em seu código genético e
+em seus traços físicos, como também sua capacidade cognitiva e habilidades

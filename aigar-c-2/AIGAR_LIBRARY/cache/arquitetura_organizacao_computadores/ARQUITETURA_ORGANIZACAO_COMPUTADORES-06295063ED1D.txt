@@ -1,0 +1,857 @@
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 85
+3.5 Considere um microprocessador de 32 bits, com um barramento de dados de 16 bits, controlado por um clock de entrada de 8 Mh z. Suponha 
+que esse microprocessador tenha um ciclo de barramento cuja duração mínima seja igual a 4 ciclos de clock. Qual é a taxa de transferência de 
+dados máxima pelo barramento que esse microprocessador pode sustentar, em bytes/s? Para aumentar seu desempenho, seria melhor tornar seu barramento de dados externo de 32 bits ou dobrar a frequência de clock externa fornecida ao microprocessador? Informe quaisquer outras suposições que você faça e explique. Dica: determine o número de bytes que podem ser transferidos por ciclo de barramento.
+3.6 Considere um sistema de computação que contenha um módulo de E/S controlando um teletipo teclado/impressora simples. Os registradores 
+a seguir estão contidos no processador e conectados diretamente ao barramento do sistema:
+InPR: Registrador de entrada, 8 bitsOUTR: Registrador de saída, 8 bitsFGI: Flag de entrada, 1 bitFGO: Flag de saída, 1 bitIEn: Ativação de interrupção, 1 bit
+A entrada de teclado do teletipo e a saída da impressora no teletipo são controladas pelo módulo de E/S. O teletipo é capaz de codificar um 
+símbolo alfanumérico para uma palavra de 8 bits e decodificar uma palavra de 8 bits para um símbolo alfanumérico.
+ a. Descreva como o processador, usando os quatro primeiros registradores listados neste problema, pode alcançar a E/S com o teletipo.
+ b. Descreva como a função pode ser realizada de forma mais eficiente também empregando a IEn.
+3.7 Considere dois microprocessadores tendo barramentos de dados externos de 8 e 16 bits, respectivamente. Os dois processadores são idênticos 
+em outros aspectos e seus ciclos de barramento ocupam o mesmo espaço.
+ a. Suponha que todas as instruções e operandos tenham 2 bytes de extensão. Por que fator diferem as taxas de transferência de dados máximas?
+ b. Repita considerando que metade dos operandos e instruções tenham 1 byte de extensão.
+3.8 A Figura 3.26 indica um esquema de arbitração distribuído que pode ser usado com um barramento obsoleto conhecido como Multibus I. Os agentes são encadeados fisicamente em forma de margarida em ordem de prioridade. O agente mais à esquerda no diagrama recebe um sinal bus priority in (BPRn) indicando que nenhum agente com prioridade mais alta deseja o barramento. Se o agente não requisitar o barramento, ele ativa sua linha bus priority out (BPRO). n o início de um ciclo de clock, qualquer agente pode requisitar o controle do barramento reduzindo 
+sua linha BPRO. Isso abaixa a linha BPRn do próximo agente na cadeia, que por sua vez, precisa abaixar sua linha BPRO. Assim, o sinal propaga a extensão da cadeia. Ao final dessa reação em cadeia, deverá haver apenas um agente cujo BPRn está ativado e cujo BPRO não está. Esse agente tem prioridade. Se, no início de um ciclo de barramento, o barramento não estiver ocupado (BUSY inativo), o agente que tem prioridade pode apanhar o controle do barramento ativando a linha BUSY .
+É preciso um certo tempo para que o sinal BPR se propague do agente de prioridade mais alta para o de prioridade mais baixa. Esse tempo deve ser menor que o ciclo de clock? Explique.
+3.9 O barramento SBI do VAX utiliza um esquema de arbitração distribuído e síncrono. Cada dispositivo SBI (ou seja, processador, memória, mó-dulo de E/S) tem uma prioridade exclusiva e recebe uma linha de requisição de transferência (TR) exclusiva. O SBI tem 16 dessas linhas (TR0, TR1,...,TR15), com TR0 tendo a prioridade mais alta. Quando um dispositivo deseja usar o barramento, ele coloca uma reserva para um slot de 
+Terminador do 
+barramentoTerminador
+do barramento
+BPRN BPRO BP RN BPRO BPRN BPRO
+(prioridade mais alta)
+Mestre 1 Mestre 2 Mestre 3(prioridade mais baixa)Figura 3.26 Arbitração distribuída do barramento Multibus I
+Book 1.indb 85 19.11.09 14:36:14
+
+86 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+tempo futuro ativando sua linha TR durante o slot de tempo atual. Ao final do slot de tempo atual, cada dispositivo com uma reserva pendente 
+examina as linhas TR; o dispositivo com prioridade mais alta com uma reserva utiliza o próximo slot de tempo.
+Um máximo de 17 dispositivos pode ser conectados ao barramento. O dispositivo com prioridade 16 não tem linha TR. Por que não?
+3.10 n o SBI do VAX, o dispositivo com menor prioridade normalmente tem o tempo médio de espera mais baixo. Por esse motivo, o processador 
+normalmente recebe a prioridade mais baixa no SBI. Por que o dispositivo de prioridade 16 normalmente tem o tempo médio de espera mais 
+baixo? Sob que circunstâncias isso não seria verdadeiro?
+3.11 Para uma operação de leitura síncrona (Figura 3.19), o módulo de memória precisa colocar os dados no barramento suficientemente antes da transição de descida do sinal Read para permitir o estabelecimento do sinal. Suponha que o barramento do microprocessador tenha um clock de 10 Mhz e que o sinal Read comece a cair no meio da segunda metade de T
+3.
+ a. Determine a extensão do ciclo de instrução de leitura de memória.
+ b. Quando, no máximo, os dados da memória devem ser colocados no barramento? Permita 20 ns para o estabelecimento das linhas de dados.
+3.12 Considere um microprocessador que tenha uma sincronização de leitura de memória conforme mostra a Figura 3.19. Após alguma análise, um projetista determina que a memória não consegue oferecer dados de leitura a tempo por cerca de 180 ns.
+ a. Quantos estados de espera (ciclos de clock) precisam ser inseridos para a operação apropriada do sistema se a frequência do sinal de clock do barramento é de 8 Mhz?
+ b. Para forçar os estados de espera, uma linha de estado Ready é empregada. Quando o processador tiver emitido um comando Read, ele precisa esperar até que a linha Ready seja ativada antes de tentar ler dados. Em que intervalo de tempo devemos manter a linha Ready baixa a fim de forçar o processador a inserir o número requisitado de estados de espera?
+3.13 Um microprocessador tem uma sincronização de escrita na memória conforme mostra a Figura 3.19. Seu fabricante especifica que a largura do sinal Write pode ser determinada por T – 50, onde T é o período de clock em ns.
+ a. Que largura devemos esperar para o sinal Write se a frequência do sinal de clock do barramento é de 5 Mhz?
+ b. O manual do microprocessador especifica que os dados permanecem válidos por 20 ns após a transição de descida do sinal Write. Qual é a duração total da apresentação de dados válida para a memória?
+ c. Quantos estados de espera devemos inserir se a memória exigir a apresentação de dados válida por pelo menos 190 ns?
+3.14 Um microprocessador tem uma instrução direta de incremento de memória, que soma 1 ao valor em um local da memória. A instrução tem cinco estágios: buscar do opcode (quatro ciclos de clock do barramento), buscar do endereço do operando (três ciclos), buscar do operando 
+(três ciclos), soma de 1 ao operando (três ciclos) e armazenamento do operando (três ciclos).
+ a. Por que quantidade (em percentagem) que a duração da instrução aumentará se tivermos que inserir dois estados de espera do barra-mento em cada operação de leitura e escrita de memória?
+ b. Repita considerando que a operação de incremento use 13 ciclos em vez de 3 ciclos.
+3.15 O microprocessador Intel 8088 tem uma temporização do barramento de leitura semelhante à da Figura 3.19, mas requer quatro ciclos de clock do processador. Os dados válidos estão no barramento por uma quantidade de tempo que se estende para o quarto ciclo de clock do processador. Considere uma frequência do sinal de clock do processador de 8 Mhz.
+ a. Qual é a taxa máxima de transferência de dados?
+ b. Repita, mas considere a necessidade de inserir um estado de espera por byte transferido.
+3.16 O Intel 8086 é um processador de 16 bits semelhante, de várias maneiras, ao 8088 de 8 bits. O 8086 utiliza um barramento de 16 bits que pode transferir 2 bytes de cada vez, desde que o byte de mais baixa ordem tenha um endereço par. Porém, o 8086 permite operandos de palavra com alinhamento par ou ímpar. Se uma palavra com alinhamento ímpar for referenciada, dois ciclos de memória, cada um consistindo em quatro ciclos de barramento, são necessários para transferir a palavra. Considere uma instrução no 8086 que envolva dois operandos de 16 bits. Quanto tempo é necessário para buscar os operandos? Dê a faixa de respostas possíveis. Considere uma frequência de sinal de clock de 4 Mh z e nenhum estado de espera.
+3.17 Considere um microprocessador de 32 bits cujo ciclo de barramento tenha a mesma duração de um microprocessador de 16 bits. Suponha que, na média, 20% dos operandos e instruções tenham 32 bits de tamanho, 40% tenham 16 bits de tamanho e 40% tenham 8 bits de tamanho. Calcule o ganho ao buscar instruções e operandos com o microprocessador de 32 bits.
+3.18 O microprocessador do Problema 3.14 inicia o estágio de busca de operando da instrução de incremento direto da memória ao mesmo tempo em que um teclado ativa uma linha de requisição de interrupção. Depois de quanto tempo o processador entra no ciclo de processamento de interrupção? Considere uma frequência do sinal de clock do barramento de 10 Mhz.
+3.19 Desenhe e explique um diagrama de temporização para uma operação de escrita com um barramento PCI (semelhante à Figura 3.23).
+Book 1.indb 86 19.11.09 14:36:14
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 3 Visão de alto nível da função e interconexão do computador 87
+ Apêndice 3A Diagramas de temporização
+neste capítulo, os diagramas de temporização são usados para ilustrar sequências de eventos e dependências entre eventos. Para o leitor não 
+acostumado com diagramas de temporização, este apêndice oferece uma breve explicação.
+A comunicação entre os dispositivos conectados a um barramento ocorre ao longo de um conjunto de linhas capazes de transportar 
+sinais. Dois níveis de sinal (níveis de voltagem) diferentes, representando o binário 0 e o binário 1, podem ser transmitidos. Um diagrama 
+de temporização mostra o nível de sinal em uma linha como uma função do tempo (Figura 3.27a). Por convenção, o nível de sinal binário 1 é representado como um nível mais alto que o do binário 0. normalmente, o binário 0 é o valor padrão, ou seja, se nenhum dado ou outro sinal estiver sendo transmitido, então o nível em uma linha é aquele que representa o binário 0. Uma transição de sinal de 0 para 1 normal-mente é referenciada como a borda de subida do sinal; uma transição de 1 para 0 é considerada uma borda de descida. Essas transições não 
+são instantâneas, mas esse tempo de transição normalmente é pequeno em comparação com a duração de um nível de sinal. Por clareza, a transição normalmente é representada como uma linha inclinada, que exagera a quantidade de tempo relativa que a transição utiliza. Ocasionalmente, você verá diagramas que usam linhas verticais, o que incorretamente sugere que a transição é instantânea. Em um diagrama de temporização, pode acontecer que uma quantidade de tempo variável ou, pelo menos, irrelevante, se passe entre os eventos de interesse. Isso é representado por uma lacuna na linha de tempo.
+Os sinais às vezes são representados em grupos (Figura 3.27b). Por exemplo, se os dados forem transferidos um byte de cada vez, então oito 
+linhas são necessárias. Em geral, não é importante saber o valor exato sendo transferido em tal grupo, mas se os sinais estão presentes ou não.
+Uma transição de sinal em uma linha pode disparar um dispositivo conectado para fazer mudanças de sinal em outras linhas. Por exemplo, 
+se um módulo de memória detectar um sinal de controle de leitura (transição 0 ou 1), ele colocará sinais de dados nas linhas de dados. Esses 
+Figura 3.27 Diagramas de temporização
+Binário 0Binário 1
+Comando
+RespostaBorda de
+descidaBorda de
+subida
+Todas as
+linhas em 0Todas as 
+linhas em 0Cada linha 
+pode ser 0 ou 1Tempo
+(a) Sinal como função do tempo
+(b) Grupos de linhas
+(c) Dependências de causa-e-efeito
+(d) Sinal de clockEspaço
+de tempo
+Book 1.indb 87 19.11.09 14:36:15
+
+88 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+relacionamentos de causa e efeito produzem sequências de eventos. Setas são usadas nos diagramas de temporização para mostrar essas dependên-
+cias (Figura 3.27c).
+na Figura 3.27c, a barra superior no nome do sinal indica que o sinal está ativo baixo, conforme mostrado. Por exemplo, Command está ativo em 
+0 volts. Isso significa que Command = 0 é interpretado como o lógico 1, ou verdadeiro.
+Uma linha de clock normalmente faz parte de um barramento do sistema. Um clock eletrônico está conectado à linha de clock e oferece uma 
+sequência de transições repetitiva, regular (Figura 3.27d). Outros eventos podem ser sincronizados com o sinal de clock.
+ Referências
+ a TAnEn BAUM , A. e W OODh ULL , A. Operating systems: design and implementation. Upper Saddle River, nJ: Prentice hall, 1997.
+ b ShAn LEY, T. e AnDERSOn, D. PCI systems architecture. Richardson, TX: Mindshare Press, 1999.
+ c A BBOT , D. PCI bus demystified. nova York: Elsevier, 2004.
+Book 1.indb 88 19.11.09 14:36:15
+
+PRInCIPAIS POnTOS
+ A memória do computador é organizada em uma hierarquia. No nível mais 
+alto (mais perto do processador), estão os registradores do processador. Em 
+seguida, vêm um ou mais níveis de cache. Quando são usados múltiplos níveis, eles são indicados por L1, L2 e assim por diante. Em seguida, vem a memória principal, que normalmente é uma memória dinâmica de acesso aleatório e dinâmico (DRAM). Todos estes são considerados internos ao sistema de com-putação. A hierarquia continua com a memória externa, com o próximo nível geralmente sendo um disco rígido fi xo, e um ou mais níveis abaixo disso con-sistindo em mídia removível, como discos ópticos e fi ta. À medida que descemos na hierarquia da memória, encontramos custo/bit menor, capacidade maior e tempo de acesso mais lento. Seria bom usar apenas a memória mais rápida, mas, como ela é a memória mais cara, tro-camos tempo de acesso pelo custo, usando mais da memória mais lenta. O desafi o de projeto é organizar os dados e os programas na memória de modo que as palavras de memória acessadas normalmente estejam na me-mória mais rápida. Em geral, é provável que a maioria dos acessos futuros à memória princi-pal, feitos pelo processador, seja para locais acessados recentemente. Assim, a cache retém automaticamente uma cópia de algumas das palavras usadas recentemente, vindas das DRAM. Se a memória cache for projetada correta-mente, então, na maior parte do tempo, o processador solicitará palavras da memória que já estão na cache.Memória cacheCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+4.1 Visão geral do sistema de memória do 
+computador
+  Características dos sistemas de memória
+  A hierarquia de memória
+4.2 Princípios da memória cache
+4.3 Elementos do projeto da memória cache
+  Endereços da cache
+  Tamanho da memória cache
+  Função de mapeamento
+  Algoritmos de substituição
+  Política de escrita
+  Tamanho da linha
+  número de memórias caches
+4.4 Organização da cache do Pentium 4
+4.5 Organização da cache da ARM
+4.6 Leitura recomendada
+Apêndice 4A Características de 
+desempenho de memórias de dois níveis
+  Localidade
+  Operação da memória de dois níveis
+  Desempenho 
+Embora aparentemente simples em conceito, a memória do computador exibe talvez a gama mais variada de tipo, tec-nologia, organização, desempenho e custo do que qualquer recurso de um sistema de computação. Como consequên-
+cia, o sistema de computação típico é equipado com uma hierarquia de subsistemas de memória, algumas internas ao sistema (acessíveis diretamente pelo processador) e algumas externas (acessíveis pelo processador por meio de um mó-dulo de E/S).
+Este capítulo e o seguinte focalizam os elementos da memória interna, enquanto o Capítulo 6 é dedicado à memória 
+externa. Para começar, a primeira seção examina as principais características das memórias de computador. O restante do capítulo examina um elemento essencial de todos os sistemas de computação modernos: a memória cache.
+Book 1.indb 89 19.11.09 14:36:16
+
+90 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+4.1 Visão geral do sistema de memória do computador
+ Características dos sistemas de memória
+O assunto complexo da memória de computador pode ser melhor compreendido se classifi carmos os sistemas 
+de memória de acordo com suas principais características. As mais importantes estão listadas na Tabela 4.1.
+O termo localização na Tabela 4.1 indica se a memória é interna ou externa ao computador. A memória in-
+terna normalmente signifi ca a memória principal, mas existem outras formas de memória interna. O processador 
+requer sua própria memória local, na forma de registradores (por exemplo, veja a Figura 2.3). Além disso, conforme veremos, a parte da unidade de controle do processador também pode exigir sua própria memória interna. Vamos deixar a discussão desses dois últimos tipos de memória interna para capítulos posteriores. A cache é outra forma de memória interna. A memória externa consiste em dispositivos de armazenamento periféricos, como disco e fi ta, que são acessíveis ao processador por meio de controladores de E/S.
+Uma característica óbvia da memória é a sua capacidade. Para a memória interna, isso normalmente é expres-
+so em termos de bytes (1 byte = 8 bits) ou palavras. Os tamanhos comuns de palavra são 8, 16 e 32 bits. A capaci-dade da memória externa normalmente é expressa em termos de bytes.
+Um conceito relacionado é a unidade de transferência. Para a memória interna, a unidade de transferência é 
+igual ao número de linhas elétricas para dentro e para fora do módulo de memória. Isso pode ser igual ao tamanho da palavra, mas normalmente é maior, como 64, 128 ou 256 bytes. Para esclarecer esse ponto, considere três con-ceitos relacionados para a memória interna:
+palavra:
+  a unidade “natural” de organização da memória. O tamanho da palavra normalmente é igual 
+ao número de bits usados para representar um inteiro e ao tamanho da instrução. Infelizmente, existem muitas exceções. Por exemplo, o CRAY C90 (um modelo de supercomputador CRAY mais antigo) tem um tamanho de palavra de 64 bits, mas usa a representação de inteiros com 46 bits. A arquitetura Intel x86 tem uma grande variedade de tamanhos de instrução, expressos como múltiplos de bytes e uma palavra com tamanho de 32 bits.unidades endereçáveis:
+  em alguns sistemas, a unidade endereçável é a palavra. Porém, muitos sistemas 
+permitem o endereçamento no nível de byte. De qualquer forma, o relacionamento entre o tamanho em bits A de um endereço e o número N de unidades endereçáveis é 2
+A = N.
+Tabela 4.1 Principais características dos sistemas de memória do computador
+Localização
+Interna (por exemplo, registradores do processador, memória principal, 
+cache)
+Externa (por exemplo, discos ópticos, discos magnéticos, fi tas)
+Capacidade
+número de palavras
+número de bytes
+Unidade de transferência
+Palavra
+Bloco
+Método de acesso
+Sequencial
+Direto
+Aleatório
+AssociativoDesempenho
+Tempo de acesso
+Tempo de ciclo
+Taxa de transferência
+Tipo físico
+Semicondutor
+Magnético
+Óptico
+Magneto-óptico
+Características físicas
+Volátil/não volátil
+Apagável/não apagável
+Organização
+Módulos de memória
+Book 1.indb 90 19.11.09 14:36:16
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 91
+unidade de transferência:  para a memória principal, este é o número de bits lidos ou escritos na memória 
+de uma só vez. A unidade de transferência não precisa ser igual a uma palavra ou uma unidade endereçável. 
+Para a memória externa, os dados normalmente são transferidos em unidades muito maiores que uma pa-lavra e estas são chamadas de blocos.
+Outra distinção entre os tipos de memória é o método de acesso das unidades de dados, que inclui os se-
+guintes:
+Acesso sequencial:
+  a memória é organizada em unidades de dados chamadas registros. O acesso é feito 
+em uma sequência linear específica. A informação de endereçamento armazenada é usada para separar registros e auxiliar no processo de recuperação. Um mecanismo compartilhado de leitura-escrita é usado, e este precisa ser movido do seu local atual para o local desejado, passando e rejeitando cada registro intermediário. Assim, o tempo para acessar um registro qualquer é altamente variável. As unidades de fita, discutidas no Capítulo 6, são de acesso sequencial.Acesso direto:
+  assim como o acesso sequencial, o acesso direto envolve um mecanismo compartilhado 
+de leitura-escrita compartilhado. Porém, os blocos ou registros individuais têm um endereço exclusivo, ba-seado no local físico. O acesso é realizado pelo acesso direto, para alcançar uma vizinhança geral, mais uma busca sequencial, contagem ou espera, até alcançar o local final. Novamente, o tempo de acesso é variável. As unidades de disco, discutidas no Capítulo 6, são de acesso direto.Acesso aleatório:
+  cada local endereçável na memória tem um mecanismo de endereçamento exclusivo, 
+fisicamente interligado. O tempo para acessar determinado local é independente da sequência de acessos anteriores e é constante. Assim, qualquer local pode ser selecionado aleatoriamente, e endereçado e aces-sado diretamente. A memória principal e alguns sistemas de cache são de acesso aleatório.Associativo:
+  esse é o tipo de memória de acesso aleatório que permite fazer uma comparação de um certo 
+número de bit desejados dentro de uma palavra para uma combinação especificada, e faz isso para todas as palavras simultaneamente. Assim, uma palavra é recuperada com base em uma parte de seu conteúdo, em vez do seu endereço. Assim como a memória de acesso aleatório comum, cada local tem seu próprio mecanismo de endereçamento, e o tempo de recuperação é constante, independentemente do local ou padrões de acesso anteriores. As memórias cache podem empregar o acesso associativo.
+Do ponto de vista do usuário, as duas características mais importantes da memória são capacidade e desem-
+penho. Três parâmetros de desempenho são usados:
+Tempo de acesso (latência):
+  para a memória de acesso aleatório, esse é o tempo gasto para realizar uma 
+operação de leitura ou escrita, ou seja, o tempo desde o instante em que um endereço é apresentado à memória até o instante em que os dados foram armazenados ou se tornaram disponíveis para uso. Para a memória de acesso não aleatório, o tempo de acesso é o tempo gasto para posicionar o mecanismo de leitura-escrita no local desejado.Tempo de ciclo de memória:
+  esse conceito é aplicado principalmente à memória de acesso aleatório, e 
+consiste no tempo de acesso mais qualquer tempo adicional antes que um segundo acesso possa iniciar. Esse tempo adicional pode ser exigido para a extinção de transientes nas linhas de sinal ou para a regenera-ção de dados, se eles forem lidos destrutivamente. Observe que o tempo de ciclo de memória se refere ao barramento do sistema, e não do processador.Taxa de transferência:
+  essa é a taxa em que os dados podem ser transferidos para dentro ou fora de uma 
+unidade de memória. Para a memória de acesso aleatório, ela é igual a 1/(tempo de ciclo).
+Para a memória de acesso não aleatório, existe a seguinte relação:
+(4.1) TN=TA+n
+R
+ondeT
+N = tempo médio para ler ou escrever N bits
+TA = tempo de acesso médio
+n = número de bitsR = taxa de transferência em bits por segundo (bps)
+Book 1.indb 91 19.11.09 14:36:16
+
+92 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Diversas tecnologias de memória foram empregados. As mais comuns hoje são memória semicondutora, me-
+mória de superfície magnética, usada para disco e fi ta, e óptica e magneto-óptica.
+Várias características físicas de armazenamento de dados são importantes. Em uma memória volátil, a 
+informação se deteriora naturalmente ou se perde quando a energia elétrica é desligada. Em uma memória 
+não volátil, a informação uma vez gravada permanece sem deterioração até que seja deliberadamente muda-da; nenhuma energia elétrica é necessária para reter a informação. As memórias com superfície magnética são não voláteis. A memória semicondutora pode ser volátil ou não. A memória não apagável não pode ser alte-rada, exceto destruindo-se a unidade de armazenamento. A memória semicondutora desse tipo é conhecida como memória somente de leitura (ROM, do inglês read-only memory). Inevitavelmente, uma memória prática 
+não apagável também precisa ser não volátil.
+Para a memória somente de leitura, a organização é um aspecto fundamental de projeto. Com organização, 
+queremos dizer o arranjo físico de bits para formar palavras. O arranjo óbvio nem sempre é usado, conforme expli-camos no Capítulo 5.
+ A hierarquia de memória
+As restrições de projeto sobre a memória de um computador podem ser resumidas por três questões: Quanto? 
+Com que velocidade? Com que custo?
+A questão da quantidade é, de certa forma, livre. Se houver capacidade, as aplicações provavelmente serão 
+desenvolvidas para utilizá-la. A questão da velocidade, de certa forma, é mais fácil de responder. Para conseguir maior desempenho, a memória precisa ser capaz de acompanhar a velocidade do processador. Ou seja, enquanto o processador está executando instruções, não gostaríamos que ele tivesse que parar, aguardando por instruções ou operandos. A questão fi nal também precisa ser considerada. Para um sistema prático, o custo da memória deve ser razoável em relação a outros componentes.
+Como se pode esperar, existe uma relação entre as três características principais da memória, a saber: capacida-
+de, tempo de acesso e custo. Diversas tecnologias são usadas para implementar sistemas de memória e, por meio desse espectro de tecnologias, existem as seguintes relações:
+Tempo de acesso mais rápido, maior custo por bit.
+ 
+Maior capacidade, menor custo por bit. 
+Maior capacidade, tempo de acesso mais lento. 
+O dilema que o projetista enfrenta é claro. O projetista gostaria de usar tecnologias de memória que ofereces-
+sem grande capacidade de memória, tanto porque a capacidade é necessária quanto porque o custo por bit é bai-xo. Porém, para atender os requisitos de desempenho, ele precisa usar memórias caras, relativamente com menor capacidade e com menores tempos de acesso.
+Para sair desse dilema, é preciso não contar com um único componente ou tecnologia de memória, mas empre-
+gar uma hierarquia de memória. Uma hierarquia típica é ilustrada na Figura 4.1. Enquanto se desce na hierarquia, 
+ocorre o seguinte:
+a. Diminuição do custo por bit.b. Aumento da capacidade.c. Aumento do tempo de acesso.d. Frequência de acesso à memória pelo computador.
+Assim, memórias menores, mais caras e mais rápidas são complementadas por memórias maiores, mais baratas 
+e mais lentas. A chave para o sucesso dessa organização é o item (d): diminuição na frequência de acesso. Veremos 
+esse conceito com mais detalhes quando discutirmos sobre a memória cache, mais adiante neste capítulo, e a me-mória virtual, no Capítulo 8. Neste ponto, oferecemos uma rápida explicação.
+Book 1.indb 92 19.11.09 14:36:17
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 93
+Figura 4.1 A hierarquia de memória
+Memória 
+na placa
+Armazenamento
+fora da placa
+Armazenamento
+off-lineMemória 
+principal
+Disco magnéticoCD-ROM
+CD-RW
+DVD-RW
+DVD-RAM
+Fita magnéticaMemória CacheRegis-
+tradores
+exemplo 4.1 Suponha que o processador tenha acesso a dois níveis de memória. O nível 1 contém 
+1.000 palavras e tem um tempo de acesso de 0,01 µs; o nível 2 contém 100.000 palavras e tem um tempo de 
+acesso de 0,1 µs. Suponha que, se uma palavra a ser acessada estiver no nível 1, então o processador a acessa diretamente. Se estiver no nível 2, então a palavra primeiro é transferida para o nível 1 e depois é acessada pelo processador. Para simplificar, ignoramos o tempo necessário para o processador determinar se a palavra está no nível 1 ou no nível 2. A Figura 4.2 mostra o formato geral da curva que abrange essa situação. A figura mostra o tempo médio de acesso para uma memória de dois níveis como uma função da razão de acerto H, onde H é definido como a fração de todos os acessos à memória que são encontrados na memória mais 
+rápida (por exemplo, a cache), T
+1 é o tempo de acesso ao nível 1, e T2 é o tempo de acesso ao nível 2.1 Como 
+podemos ver, para altas percentagens de acesso ao nível 1, o tempo médio de acesso total é muito mais próximo daquele do nível 1 do que do nível 2.
+Em nosso exemplo, suponha que 95% dos acessos à memória sejam encontrados na cache. Então, o tempo 
+médio para acessar uma palavra pode ser expresso como:
+(0,95)(0,01 µs) + (0,05)(0,01 µs + 0,1 µs) = 0,0095 + 0,0055 = 0,015 µs
+O tempo de acesso médio é muito mais próximo de 0,01 µs do que de 0,1 µs, conforme desejado.
+O uso de dois níveis de memória para reduzir o tempo médio de acesso funciona em princípio, mas somente 
+se as condições de (a) a (d) se aplicarem. Empregando diferentes tecnologias, existe um espectro de sistemas de 
+memória que satisfaz as condições de (a) a (c). Felizmente, a condição (d) também geralmente é válida.
+A base para a validade da condição (d) é um princípio conhecido como localidade de referência (DENNING, 
+1968
+a). Durante o curso de execução de um programa, as referências de memória pelo processador, para ins-
+truções e para dados, tendem a se agrupar. Os programas normalmente contêm uma série de loops iterativos 
+1 Se a palavra acessada for encontrada na memória mais rápida, tem-se um acerto. Uma falha ocorre se a palavra acessada não for encon-
+trada na memória mais rápida.
+Book 1.indb 93 19.11.09 14:36:17
+
+94 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+e sub-rotinas. Quando um loop ou sub-rotina inicia sua execução, existem referências repetidas a um pequeno 
+conjunto de instruções. De modo semelhante, operações sobre tabelas e arrays envolvem o acesso a um con-junto de palavras de dados agrupadas. Durante um longo período de tempo os conjuntos mudam, mas para um pequeno período de tempo o processador trabalha com conjuntos fixos de referências à memória.
+De forma correspondente, é possível organizar dados pela hierarquia de modo que a percentagem de acessos 
+a cada nível sucessivamente inferior é muito menor que para o nível acima. Considere o exemplo de dois níveis, já apresentado. Suponha que a memória de nível 2 contenha todas as instruções e dados do programa. Os conjuntos atuais podem ser temporariamente colocados no nível 1. De vez em quando, um dos conjuntos no nível 1 terá que ser passado para o nível 2, para dar espaço para um novo conjunto chegando ao nível 1. Porém, na média, a maioria das referências será para instruções e dados contidos no nível 1.
+Esse princípio pode ser aplicado por mais de dois níveis de memória, conforme sugerido pela hierarquia mos-
+trada na Figura 4.1. O tipo de memória mais rápido, menor e mais caro consiste nos registradores internos ao pro-cessador. Normalmente, um processador terá algumas dezenas desses registradores, embora algumas máquinas contenham centenas de registradores. Pulando dois níveis abaixo, a memória principal é o principal sistema de memória interna do computador. Cada local na memória principal tem um endereço exclusivo. A memória princi-pal normalmente é estendida com uma memória cache menor, de maior velocidade. A cache normalmente não é visível ao programador ou, na verdade, ao processador. Esse é um dispositivo para organizar a movimentação de dados entre a memória principal e os registradores do processador, para melhorar o desempenho.
+As três formas de memória que descrevemos normalmente são voláteis e empregam a tecnologia semicondu-
+tora. O uso de três níveis explora o fato de que existem diversos tipos de memória semicondutora vem em diversos tipos, que diferem em velocidade e custo. Os dados são armazenados de forma mais permanente em dispositivos externos, de armazenamento em massa, sendo os mais comuns o disco rígido e a mídia removível, como disco magnético removível, fita e armazenamento óptico. A memória externa, não volátil, também é chamada de me-
+mória secundária ou memória auxiliar. Estas são usadas para armazenar arquivos de programa e dados e, nor-
+malmente, são visíveis ao programador apenas em termos de arquivos e registros, ao contrário de bytes ou palavras individuais. O disco também é usado para oferecer uma extensão à memória principal, conhecida como memória virtual, que será discutida no Capítulo 8.
+Outras formas de memória podem ser incluídas na hierarquia. Por exemplo, grandes mainframes IBM incluem 
+uma forma de memória interna conhecida como armazenamento expandido. Este usa uma tecnologia de semi-condutora que é mais lenta e menos dispendiosa do que a da memória principal. Estritamente falando, essa me-mória não se encaixa na hierarquia, mas é um apêndice: os dados podem ser movidos entre a memória principal e o armazenamento expandido, mas não entre o armazenamento expandido e a memória externa. Outras formas de memória secundária incluem os discos ópticos e magneto-ópticos. Finalmente, outros níveis podem ser efeti-Figura 4.2 Desempenho dos acessos envolvendo apenas o nível 1 (razão de acerto)
+0T1T1 T2
+T2
+1Tempo médio de acesso
+Fração de acessos envolvendo apenas 
+o nível 1 (razão de acerto)
+Book 1.indb 94 19.11.09 14:36:17
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 95
+vamente introduzidos à hierarquia por meio do uso de software. Uma parte da memória principal pode ser usada 
+como um buff er para manter temporariamente os dados que devem ser levados ao disco. Essa técnica, às vezes chamada de cache de disco,
+2 melhora o desempenho de duas maneiras:
+As gravações em disco são agrupadas. Em vez de muitas transferências de dados pequenas, temos algumas 
+transferências de dados grandes. Isso melhora o desempenho do disco e minimiza o envolvimento do pro-cessador.Alguns dados destinados para escrita podem ser referenciados por um programa antes da próxima cópia 
+ 
+no disco. Nesse caso, os dados são recuperados rapidamente da cache de disco, ao invés de lentamente do disco. 
+O Apêndice 4A examina as implicações de desempenho das estruturas de memória multinível.
+4.2 Princípios da memória cache
+O uso da memória cache visa obter velocidade de memória próxima das memórias mais rápidas que existem 
+e, ao mesmo tempo, disponibilizar uma memória de grande capacidade ao preço de memórias semicondutoras mais baratas. O conceito é ilustrado na Figura 4.3a. Existe uma memória principal relativamente grande e lenta junto com a memória cache, menor e mais rápida. A cache contém uma cópia de partes da memória principal. Quando o processador tenta ler uma palavra da memória, é feita uma verifi cação para determinar se a palavra está na cache. Se estiver, ela é entregue ao processador. Se não, um bloco da memória principal, consistindo em algum número fi xo de palavras, é lido para a cache e depois a palavra é fornecida ao processador. Devido ao fenômeno de localidade de referência, quando um bloco de dados é levado para a cache para satisfazer uma única referência de memória, é provável que haja referências futuras a esse mesmo local da memória ou a outras palavras no mesmo bloco.
+A Figura 4.3b representa o uso de múltiplos níveis de cache. A cache L2 é mais lenta e normalmente maior que 
+a cache L1, e a cache L3 é mais lenta e normalmente maior que a cache L2.
+A Figura 4.4 representa a estrutura de um sistema de cache/memória principal. A memória principal consiste 
+em até 2
+n palavras endereçáveis, com cada palavra tendo um endereço distinto de n bits. Para fi ns de mapeamento, 
+essa memória é considerada como sendo uma série de blocos de tamanho fi xo com K palavras cada. Ou seja, exis-
+tem M = 2n/K blocos na memória principal. A cache consiste em m blocos, chamados linhas.3 Cada linha contém K 
+palavras, mais um tag de alguns bits. Cada linha também inclui bits de controle (não mostrados), como um bit para indicar se a linha foi modifi cada desde que foi carregada na cache. A largura de uma linha, sem incluir tag e bits de controle, é o tamanho da linha. O tamanho da linha pode ter apenas 32 bits, com cada “palavra” sendo um único byte; nesse caso, o tamanho da linha é de 4 bytes. O número de linhas é consideravelmente menor que o número de blocos da memória principal (m << M). A qualquer momento, algum subconjunto dos blocos de memória re-side nas linhas na cache. Se uma palavra em um bloco de memória for lida, esse bloco é transferido para uma das linhas da cache. Como existem mais blocos do que linhas, uma linha individual não pode ser dedicada exclusiva e permanentemente a determinado bloco. Assim, cada linha inclui uma tag que identifi ca qual bloco em particular está atualmente sendo armazenado. O tag normalmente é uma parte do endereço da memória principal, conforme descrito posteriormente nesta seção.
+A Figura 4.5 ilustra a operação de leitura. O processador gera o endereço de leitura (RA, do inglês read address) 
+de uma palavra a ser lida. Se a palavra estiver na cache, ela é entregue ao processador. Caso contrário, o bloco contendo essa palavra é carregado na cache e a palavra é entregue ao processador. A Figura 4.5 mostra essas duas operações ocorrendo em paralelo e refl ete a organização mostrada na Figura 4.6, que é típica das organizações de cache modernas. Nessa organização, a cache se conecta ao processador por meio de linhas de dados, controle e endereço. As linhas de dados e endereços também se conectam a buff ers de dados e endereços, que se conectam a um barramento do sistema, do qual a memória principal é acessada. Quando ocorre um acerto de cache (cache hit ), 
+2 A cache de disco geralmente é uma técnica puramente do software, e não é examinada neste livro. Veja uma discussão em Stallings 
+(2009b).
+3 Referindo-se à unidade básica da cache, o termo linha, em vez de bloco, é usado por dois motivos: (1) para evitar confusão com um bloco 
+da memória principal, que contém o mesmo número de palavras de dados que uma linha de cache; e (2) porque uma linha de cache inclui 
+não apenas K palavras de dados, como um bloco da memória principal, mas também inclui tag e bits de controle.
+Book 1.indb 95 19.11.09 14:36:18
+
+96 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 4.3 Cache e memória principal
+CPUTransferência de palavra
+Rápida
+Mais rápida Menos 
+rápidaLentaTransferência de bloco
+Memória principal
+(a) Cache única
+(b) Organização de cache em três níveisCPUCache de 
+nível 1 (L1)Cache de 
+nível 2 (L2)Cache de 
+nível 3 (L3)Memória 
+principalLentaMemória 
+Cache
+Rápida
+Figura 4.4 Estrutura de cache/memória principal
+0
+12012
+C 
+ 13
+2n 1
+Tamanho 
+da palavraTamanho do bloco
+(K palavras)Bloco
+(K palavras )
+BlocoNúmero 
+de linha Tag Bloco
+(b) Memória principal(a) Memória cache•••
+•••Endereço 
+de memóriaos buffers de dados e endereço são desativados e a comunicação é apenas entre o processador e a memória cache, 
+sem tráfego no barramento do sistema. Quando ocorre uma falha de cache (cache miss), o endereço desejado é carregado no barramento do sistema e os dados são transferidos através do buffer de dados para a cache e para o processador. Em outras organizações, a cache é fisicamente interposta entre o processador e a memória principal para todas as linhas de dados, endereço e controle são ligadas à cache. Nesse último caso, para uma falha de cache, a palavra desejada primeiro é lida para a cache e depois transferida da cache para o processador.
+Book 1.indb 96 19.11.09 14:36:19
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 97
+Figura 4.5 Operação de leitura de cache
+Recebe endereço
+ RA da CPU
+Bloco 
+contendo RA
+está na cache?
+Busca palavra RA 
+e entrega
+à CPU
+FIMAcessa memória 
+principal para bloco
+contendo RA
+Aloca linha da 
+cache para bloco de
+memória principal
+Entrega palavra
+RA à CPUCarrega bloco da memória principal 
+na linha de cacheINÍCIO
+Não
+Sim
+Figura 4.6 Organização típica da memória cache
+ Memória
+ CacheProcessadorEndereço
+Buffer 
+de endereço
+Buffer 
+de dadosControle
+Dados
+Barramento do sistemaControle
+Book 1.indb 97 19.11.09 14:36:19
+
+98 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Uma discussão sobre os parâmetros de desempenho relacionados ao uso da cache pode ser vista no Apêndice 4A.
+4.3 Elementos do projeto da memória cache
+Esta seção oferece uma visão geral dos parâmetros de projeto de memória cache e informa alguns resulta-
+dos típicos. Ocasionalmente, nos referimos ao uso de caches na computação de alto desempenho (HPC, do inglês 
+high performance computing). A HPC lida com supercomputadores e software para supecomputador, especialmen-te para aplicações científi cas, que envolvem grandes quantidades de dados, cálculos de vetores e matrizes e uso de algoritmos paralelos. O projeto de memória cache para HPC é muito diferente daquele para outras plataformas de hardware e aplicações. Na verdade, muitos pesquisadores descobriram que aplicações HPC não funcionam bem em arquiteturas de computador que empregam memórias caches (BAIL, 1993
+c). Outros pesquisadores, desde 
+então, têm demonstrado que uma hierarquia de memória cache pode ser útil para melhorar o desempenho se o software de aplicação for ajustado para explorar a cache (WANG e TAFTI, 1999
+d); (PRESSEL, 2001e).4
+Embora haja um grande número de implementações de memória cache, existem alguns elementos bási-
+cos de projeto que servem para classificar e diferenciar as arquiteturas de memórias cache. A Tabela 4.2 lista os principais elementos.
+ Endereços de cache
+Quase todos os processadores não embutidos, e muitos processadores embutidos, admitem memória 
+virtual, um conceito discutido no Capítulo 8. Basicamente, a memória virtual é uma facilidade que permite que os programas enderecem a memória a partir de um ponto de vista lógico, sem considerar a quantidade de memória principal disponível fisicamente. Quando a memória virtual é usada, os campos de endereço das instruções de máquina contêm endereços virtuais. Para leituras e escritas da memória principal, uma unidade de gerenciamento da memória (MMU, do inglês memory management unit) física traduz cada endereço virtual 
+para um endereço físico na memória principal.
+Quando são usados endereços virtuais, o projetista do sistema pode escolher colocar a cache entre o 
+processador e a MMU ou entre a MMU e a memória principal (Figura 4.7). Uma cache lógica, também co-
+nhecida como cache virtual, armazena dados usando endereços virtuais. O processador acessa a cache 
+diretamente, sem passar pela MMU. Uma cache física armazena dados usando endereços físicos da memó-ria principal.
+4 Para ver uma discussão geral sobre HPC, consulte Dowd e Severance (1998f).Tabela 4.2 Elementos do projeto de cache
+Endereços de cache Política de escrita
+Lógicos Write-through
+Físicos Write-back
+Tamanho de cache Write once
+Função de mapeamento Tamanho de linha
+Direta Número de caches
+Associativa Um ou dois níveis
+Associativa em conjunto (set associative) Unifi cada ou separada
+Algoritmo de substituição
+Usado menos recentemente (LRU, do inglês least recently used)
+Primeiro a entrar, primeiro a sair (FIFO, do inglês fi rst-in-fi rst-out)
+Usado menos frequentemente (LFU, do inglês least frequently used) 
+Aleatório
+Book 1.indb 98 19.11.09 14:36:20
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 99
+Uma vantagem óbvia da cache lógica é que a velocidade de acesso a ela é maior do que para uma cache física, 
+pois a cache pode responder antes que a MMU realize uma tradução de endereço. A desvantagem é que a maioria 
+dos sistemas de memória virtual fornece, a cada aplicação, o mesmo espaço de endereços de memória virtual. Ou seja, cada aplicação vê uma memória virtual que começa no endereço 0. Assim, o mesmo endereço virtual em duas apli-cações diferentes refere-se a dois endereços físicos diferentes. A memória cache, portanto, precisa ser completamente esvaziada a cada troca de contexto de aplicação, ou então bits extras precisam ser adicionados a cada linha da cache para identifi car a que espaço de endereço virtual esse endereço se refere.
+O assunto de cache lógica versus física é complexo, e está fora do escopo deste livro. Para obter uma discussão 
+mais profunda, consulte Cekleov e Dubois (1997
+g) e Jacob, Ng e Wang (2008h).
+ Tamanho da memória cache
+O primeiro item na Tabela 4.2, o tamanho da memória cache, já foi discutido. Gostaríamos que o tamanho da 
+cache fosse pequeno o sufi ciente para que o custo médio geral por bit fosse próximo do custo médio da memó-ria principal isolada e grande o sufi ciente para que o tempo de acesso médio geral fosse próximo do tempo de acesso médio da cache isolada. Existem várias outras motivações para minimizar o tamanho da cache. O resulta-do é que caches grandes tendem a ser ligeiramente mais lentas que as pequenas — mesmo quando construídas com a mesma tecnologia de circuito integrado e colocadas no mesmo lugar no chip e na placa de circuito. A área disponível do chip e da placa também limita o tamanho da cache. Como o desempenho da cache é muito sensível à natureza da carga de trabalho, é impossível chegar a um único tamanho ideal de cache. A Tabela 4.3 lista os tamanhos de cache de alguns processadores atuais e antigos.Figura 4.7 Caches lógicas e físicas
+ProcessadorMemória 
+principalCacheEndereço lógico Endereço físico
+DadosMMU
+(a) Cache lógica
+ProcessadorMemória 
+principalCacheEndereço lógico Endereço físico
+DadosMMU
+(b) Cache física
+Book 1.indb 99 19.11.09 14:36:20
+
+100 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Tabela 4.3 Tamanhos de memória cache de alguns processadores
+Processador Tipo Ano de introdução Cache L1aCache L2 Cache L3
+IBM 360/85 Mainframe 1968 16 a 32 KB — —
+PDP-11/70 Minicomputador 1975 1 KB — —
+VAX 11/780 Minicomputador 1978 16 KB — —
+IBM 3033 Mainframe 1978 64 KB — —
+IBM 3090 Mainframe 1985 128 a 256 KB — —
+Intel 80486 PC 1989 8 KB — —
+Pentium PC 1993 8 KB/8 KB 256 a 512 KB —
+PowerPC 601 PC 1993 32 KB — —
+PowerPC 620 PC 1996 32 KB/32 KB — —
+PowerPC G4 PC/servidor 1999 32 KB/32 KB 256 KB a 1 MB 2 MB
+IBM S/390 G4 Mainframe 1997 32 KB 256 KB 2 MB
+IBM S/390 G6 Mainframe 1999 256 KB 8 MB —
+Pentium 4 PC/servidor 2000 8 KB/8 KB 256 KB —
+IBM SPServidor avançado/
+Supercomputador2000 64 KB/32 KB 8 MB —
+CRAY MTAbSupercomputador 2000 8 KB 2 MB —
+Itanium PC/servidor 2001 16 KB/16 KB 96 KB 4 MB
+SGI Origin 2001 Servidor avançado 2001 32 KB/32 KB 4 MB —
+Itanium 2 PC/servidor 2002 32 KB 256 KB 6 MB
+IBM POWER5 Servidor avançado 2003 64 KB 1,9 MB 36 MB
+CRAY XD-1 Supercomputador 2004 64 KB/64 KB 1 MB —
+IBM POWER6 PC/servidor 2007 64 KB/64 KB 4 MB 32 MB
+IBM z10 Mainframe 2008 64 KB/128 KB 3 MB 24 a 48 MB
+a Dois valores separados por uma barra referem-se a caches de instrução e dados.
+b As duas caches são apenas de instrução; não há caches de dados.
+ Função de mapeamento
+Como existem menos linhas de cache do que blocos da memória principal, é necessário haver um algoritmo 
+para mapear os blocos da memória principal às linhas de cache. Além do mais, é preciso haver um meio para deter-
+minar qual bloco da memória principal atualmente ocupa uma linha da cache. A escolha da função de mapeamen-to dita como a cache é organizada. Três técnicas podem ser utilizadas: direta, associativa e associativa em conjunto (set associative). Vamos examinar cada uma por sua vez. Em cada caso, examinamos a estrutura geral e depois um exemplo específi co.
+Exemplo 4.2 Para todos os três casos, o exemplo inclui os seguintes elementos:
+ A cache pode manter 64 KBytes. 
+ Os dados são transferidos entre a memória principal e a cache em blocos de 4 bytes cada. Isso signifi ca 
+que a cache é organizada como 16 K = 214 linhas de 4 bytes cada.
+ A memória principal consiste em 16 MBytes, com cada byte endereçável diretamente por um endereço 
+de 24 bits (224 = 16 M). Assim, para fi ns de mapeamento, podemos considerar que a memória principal 
+consiste em 4 M blocos de 4 bytes cada.
+Book 1.indb 100 19.11.09 14:36:21
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 101
+MAPEAMENTO DIRETO A técnica mais simples, conhecida como mapeamento direto, mapeia cada bloco da 
+memória principal a apenas uma linha de cache possível. O mapeamento é expresso como:
+i = j módulo m
+ondei = número da linha da cachej = número do bloco da memória principalm = número de linhas da cacheA Figura 4.8a mostra o mapeamento para os primeiros m blocos de memória principal. Cada bloco da memória princi-
+pal mapeia uma linha exclusiva da cache. Os próximos m blocos da memória principal mapeiam a cache da mesma forma; 
+ou seja, o bloco B
+m da memória principal mapeia a linha L0 da cache, o bloco Bm + 1 mapeia a linha L1, e assim por diante.
+A função de mapeamento é facilmente implementada por meio do endereço da memória principal. A Figura 
+4.9 ilustra o mecanismo geral. Para fins de acesso à cache, cada endereço da memória principal pode ser visto como consistindo em três campos. Os w bits menos significativos identificam uma palavra ou um byte dentro de 
+um bloco da memória principal; na maioria das máquinas modernas, o endereço está no nível de byte. Os s bits 
+restantes especificam um dos 2
+s blocos da memória principal. A lógica de cache interpreta esses s bits como uma 
+tag de s – r bits (parte mais significativa) e um campo de linha de r bits. O segundo campo identifica uma das m = 2r 
+linhas da cache. Resumindo,
+Tamanho do endereço = (  s + w) bits.
+Número de unidades endereçáveis = 2 s + w palavras ou bytes.
+Tamanho do bloco = tamanho da linha = 2 w palavras ou bytes.
+Número de blocos na memória principal = 2s+w
+2w=2s.
+Número de linhas na cache =  m = 2r.
+Tamanho da cache = 2 r + w palavras ou bytes.
+Tamanho da tag = (  s – r) bits.
+Figura 4.8 Mapeamento da memória principal para a cache: direto e associativo
+(a) Mapeamento diretoPrimeiros blocos m 
+ da memória principal
+(igual ao tamanho da cache)b
+L0
+Lm–1
+L0
+Lm–1Bm–1B0
+b = tamanho do bloco em bits
+t = tamanho da tag em bitsMemória cache
+m linhas
+bb t
+b t
+(b) Mapeamento associativoUm bloco de 
+memória principal
+Memória cache
+Book 1.indb 101 19.11.09 14:36:22
+
+102 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+O efeito desse mapeamento é que os blocos da memória principal são alocados nas linhas da cache como 
+mostrado na Tabela 4.4.
+Assim, o uso de uma parte do endereço como o número da linha oferece um mapeamento exclusivo de cada bloco 
+da memória principal à cache. Quando um bloco é armazenado na sua respectiva linha, é necessário marcar os dados para 
+distingui-los de outros blocos que podem ser alocados nessa linha. Os s – r bits mais significativos têm essa finalidade.
+exemplo 4.2a A Figura 4.10 mostra nosso sistema de exemplo usando o mapeamento direto.5 No exemplo, 
+m = 16 K = 214 e i = j módulo 214. O mapeamento torna-se
+Linha de cache endereço de memória inicial do bloco
+ 0 000000, 010000, ..., FF0000
+ 1 000004, 010004, ..., FF0004
+    o         o
+214 – 1 00FFFC, 01FFFC, ..., FFFFFC
+Observe que não existem dois blocos mapeados para o mesmo número de linha que tenham o mesmo número 
+de tag. Assim, os blocos com endereços iniciais 000000, 010000, ..., FF0000 possuem números de tag 00, 01, ..., FF, 
+respectivamente.
+Retornando à Figura 4.5, uma operação de leitura funciona da seguinte forma. O sistema da memória cache 
+recebe um endereço de 24 bits. O número de linha com 14 bits é usado como um índice para a cache acessar uma linha em particular. Se o número de tag com 8 bits for igual ao número de tag atualmente armazenado nesse linha, então o número da palavra com 2 bits é usado para selecionar um dos 4 bytes nessa linha. Caso contrário, o campo de tag-mais-linha com 22 bits é usado para buscar um bloco da memória principal. O endereço real que é usado para a busca é o campo de tag-mais-linha com 22 bits concatenado com dois bits 0, de modo que 4 bytes sejam apanhados a partir do início do bloco.
+5 Nesta e nas figuras seguintes, os valores de memória são representados em notação hexadecimal. Veja, no Capítulo 19, um manual básico 
+sobre sistemas numéricos (decimal, binário, hexadecimal).Figura 4.9 Organização da memória com mapeamento direto
+Palavra Linha TagWO
+W1
+W2W3
+Compare
+1 se é igual
+0 se é diferente
+0 se é igual1 se é diferenteW4j
+W(4j+1)
+W(4j+2)
+W(4j+3)Tag DadosMemória Cache
+L0
+LiEndereço de memória
+(Falha na cache)(Acerto na cache)ws – rw rs + w
+Memória principal
+BjB0
+s
+w
+Lm–1s – r
+Book 1.indb 102 19.11.09 14:36:22
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 103
+Tabela 4.4 Mapeamento dos blocos da memória principal nas linhas da cache
+Linha de cache Blocos de memória principal mapeados
+0 0, m, 2m, ..., 2s – m
+1 1, m + 1, 2m + 1, ..., 2s – m + 1
+o o
+m – 1 m – 1, 2m – 1, 3m – 1, …, 2s – 1
+Figura 4.10 Exemplo de mapeamento direto
+111111111111111111111100111111111111111111111000111111110000000000000000000101101111111111111100000101100011001110011100
+111111110000000000000100000101100000000000000004000101100000000000000000000000001111111111111100000000000000000000000000
+000000000000000000000100
+00000000111111111111100000
+00
+FFFF
+FF
+FF16
+16161600
+0013579246TagTag 
+(hexa) Endereço da memória principal (binário)
+Tag Dados
+32 bits
+Cache com 16 K linhas8 bits
+s t ib 2 s t ib 8Tag
+Endereço da memória principal =Linha PalavraNúmero
+de linhaLinha + Palavra
+Dados
+77777777
+11235813
+12345678FEDCBA98 FEDCBA98
+246824681122334413579246 00
+16
+FF
+16160000
+0001
+0CE7
+3FFE
+3FFF11235813
+FEDCBA98
+11223344
+12345678
+14 bits32 bits
+Memória principal de 16 MB
+Nota: Valores de endereço de memória
+estão em binário; outros valores em hexadecimal.
+Book 1.indb 103 19.11.09 14:36:23
+
+104 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 4.11 Organização da memória cache totalmente associativa
+Tag PalavraW0
+W1
+W2
+W3
+CompararW4j
+W(4 j+1)
+W(4 j+2)
+W(4 j+3)TagD adosMemória cache
+Endereço de memória
+(Falha na cache)(Acerto na cache)wwss+w
+Memória principal
+s
+w
+s1 se igual
+ 0 se diferente
+0 se igual
+1 se diferenteL0
+LjB0
+Bj
+Lm–1A técnica de mapeamento direto é simples e pouco dispendiosa para se implementar. Sua principal desvan-
+tagem é que existe um local de cache fixo para cada bloco. Assim, se um programa referenciar palavras repetida-
+mente de dois blocos diferentes, mapeados para a mesma linha, então os blocos serão continuamente trocados na cache, e a razão de acerto será baixa (um fenômeno conhecido como thrashing).
+simulador de cache vítima seletiva
+Uma técnica para diminuir a penalidade de falha é guardar o que foi descartado caso seja necessário novamen-
+te. Como os dados descartados já foram lidos, podem ser usados novamente a um custo pequeno. Essa reciclagem é possível usando uma victim cache. A victim cache foi proposta originalmente como um método para reduzir as 
+perdas de conflito das caches mapeadas diretamente sem afetar seu tempo de acesso. A victim cache é uma cache 
+totalmente associativa, cujo tamanho normalmente é de 4 a 16 linhas de cache, residindo entre uma cache L1 ma-peada diretamente e o próximo nível de memória. Esse conceito é explorado no Apêndice D.
+MAPEAMENTO ASSOCIATIVO O mapeamento associativo compensa a desvantagem do mapeamento direto, 
+permitindo que cada bloco da memória principal seja carregado em qualquer linha da cache (Figura 4.8b). Nesse caso, a lógica de controle da cache interpreta um endereço de memória simplesmente como um campo Tag e um campo Palavra. O campo Tag identifica o bloco da memória principal. Para determinar se um bloco está na cache, a lógica de controle da cache precisa comparar simultaneamente a tag de cada linha. A Figura 4.11 ilustra a lógica. Observe que nenhum campo no endereço corresponde ao número de linha, de modo que o número de linhas na cache não é determinado pelo formato do endereço. Resumindo,
+Tamanho do endereço = (
+  s + w) bits.
+Número de unidades endereçáveis = 2 s + w palavras ou bytes.
+Tamanho do bloco = tamanho da linha = 2 w palavras ou bytes.
+Número de blocos na memória principal 2s+w
+2w=2s= .
+Book 1.indb 104 19.11.09 14:36:24
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 105
+Número de linhas na cache = indeterminado. 
+Tamanho da tag =  s bits.
+exemplo 4.2b A Figura 4.12 mostra nosso exemplo usando o mapeamento associativo. Um endereço da 
+memória principal consiste em uma tag de 22 bits e um número do byte de 2 bits. A tag de 22 bits precisa ser 
+armazenada com o bloco de dados de 32 bits para cada linha na cache. Observe que são os 22 bits mais à es-querda (mais significativos) do endereço que formam a tag. Assim, o endereço hexadecimal de 24 bits 16339C tem a tag de 22 bits 058CE7. Isso pode ser visto facilmente na notação binária:
+endereço de memória 0001 0110 0011 0011 1001 1100 (binário)
+1 6 3 3 9 C (hexa)
+tag (22 bits mais à 
+esquerda)00 0101 1000 1100 1110 0111 (binário)
+0 5 8 C E 7 (hexa)
+Figura 4.12 Exemplo de mapeamento associativo
+111111111111111111111100111111111111111111111000111111111111111111110100000101100011001110011000
+000101100011001110011100
+000101100011001110100000000000000000000000000100000000000000000000000000 13579246
+FEDCBA98Tag Dados
+32 bits
+Cache com 16 K linhas22 bits
+Tag
+Endereço de memória principal =PalavraNúmero
+de linhaDados
+24682468112233443333333311223344 3FFFFE
+058CE7
+000000
+3FFFFF00000001
+3FFE
+3FFFFEDCBA98
+135792463FFFFD 3FFD 33333333
+24682468
+32 bits
+Memória principal de 16 MB
+2 bits 22 bits
+Nota: valores de endereço de memória em binário;
+ outros, em hexadecimal000000
+000001Tag (hexa)
+058CE7
+058CE8058CE6
+3FFFFE3FFFFD
+3FFFFFTagEndereço de memória principal (binário)
+Palavra
+Book 1.indb 105 19.11.09 14:36:24
+
+106 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Com o mapeamento associativo, existe flexibilidade em relação a qual bloco substituir quando um novo blo-
+co for lido para a cache. Os algoritmos de substituição, discutidos mais adiante nesta seção, são projetados para 
+maximizar a razão de acerto. A principal desvantagem do mapeamento associativo é a complexidade do circuito necessário para comparar as tags de todas as linhas da cache em paralelo.
+simulador de análise de tempo de cache
+MAPEAMENTO ASSOCIATIVO EM CONJUNTO (SET ASSOCIATIVE) O mapeamento associativo em conjunto é 
+um meio-termo que realça os pontos fortes das técnicas direta e associativa, enquanto reduz suas desvantagens.
+Neste caso, a cache é uma série de conjuntos, cada um consistindo em uma série de linhas. Os relaciona-
+mentos são:
+m = v × k
+i = j módulo v
+onde
+i = número do conjunto de cachej = número de bloco da memória principalm = número de linhas na cachev = número de conjuntosk = número de linhas em cada conjunto
+Isso é conhecido como mapeamento associativo em conjunto com k linhas por conjunto (k-way). Com o ma-
+peamento associativo em conjunto, o bloco B
+j pode ser mapeado para qualquer uma das linhas do conjunto j. A 
+Figura 4.13a ilustra esse mapeamento para os primeiros v blocos da memória principal. Assim como no mapea-
+mento associativo, cada palavra é mapeada para múltiplas linhas de cache. Para o mapeamento associativo em 
+conjunto, cada palavra é mapeada para todas as linhas de cache em um conjunto específico, de modo que o bloco B
+0 da memória principal é mapeada no conjunto 0, e assim por diante. Assim, a cache associativa em conjunto pode 
+ser implementada fisicamente como v caches associativas. Também é possível implementar a cache associativa em 
+conjunto como k caches de mapeamento direto, como mostra a Figura 4.13b. Cada cache mapeada diretamente é conhecida como uma via, consistindo em v linhas. As primeiras v linhas da memória principal são mapeadas 
+diretamente nas v linhas de cada via; o próximo grupo de v linhas da memória principal é mapeado de modo se-
+melhante, e assim por diante. A implementação mapeada diretamente em geral é usada para pequenos graus de associatividade (valores pequenos de k) enquanto a implementação com mapeamento associativo normalmente 
+é usada para graus de associatividade mais altos (JACOB, NG E WANG, 2008
+h).
+Para o mapeamento associativo em conjunto, a lógica de controle de cache interpreta um endereço de memória 
+como três campos: Tag, Set e Palavra. Os d bits especificam um dos v = 2d conjuntos. Os s bits dos campos Tag e Set 
+especificam um dos 2s blocos da memória principal. A Figura 4.14 ilustra a lógica de controle de cache. Com o mapea-
+mento totalmente associativo, a tag em um endereço de memória é muito grande e precisa ser comparada com a tag de cada linha na cache. Com o mapeamento associativo em conjunto com k vias, a tag em um endereço de memória 
+é muito menor e só é comparada com as k tags dentro de um único conjunto. Resumindo,
+Tamanho do endereço = (
+  s + w) bits.
+Número de unidades endereçáveis = 2 s + w palavras ou bytes.
+Tamanho do bloco = tamanho da linha = 2 w palavras ou bytes.
+Número de blocos na memória principal 2s+w
+2w=2s= .
+Número de linhas no conjunto =  k.
+Número de conjuntos =  v = 2d.
+Número de linhas na cache =  m = kv = k × 2d.
+Tamanho da cache =  k × 2d + w palavras ou bytes.
+Tamanho da tag = (  s – d) bits.
+Book 1.indb 106 19.11.09 14:36:24
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 107
+Figura 4.13 Mapeamento da memória principal na memória cache: associativa em conjunto com k linhas por conjunto (k-way)
+Primeiros v blocos
+da memória principal 
+(igual ao número de 
+conjuntos)memória cache - via 1 Memória cache - via kUm
+Conjunto
+(b) k caches mapeadas diretamente
+v linhas
+Bv–1B0 L0
+Lv–1Primeiros v blocos 
+da memória principal 
+(igual ao número de
+conjuntos)Memória cache - conjunto 0
+Memória cache - conjunto v - 1
+k linhas
+Bv–1B0 L0
+Lk–1
+(a) v caches mapeadas associativas
+exemplo 4.2c A Figura 4.15 mostra nosso exemplo usando o mapeamento associativo em conjunto com 
+duas linhas em cada conjunto, denominado associativo em conjunto com duas linhas por conjunto (2-way). O 
+número de conjunto com 13 bits identifica um conjunto exclusivo de duas linhas dentro da cache. Ele também oferece o número do bloco na memória principal, módulo 2
+13. Isso determina o mapeamento dos blocos nas 
+linhas. Assim, os blocos 000000, 008000,..., FF8000 da memória principal são mapeados no conjunto 0 da cache. Qualquer um desses blocos pode ser carregado em qualquer uma das duas linhas no conjunto. Observe que ne-nhum dos dois blocos mapeados no mesmo conjunto de cache possui o mesmo número de tag. Para uma ope-ração de leitura, o número de 13 bits é usado para determinar qual conjunto de duas linhas deve ser examinado. As duas linhas no conjunto são examinadas comparando com o número de tag do endereço a ser acessado.
+No caso extremo de v = m, k = 1, a técnica associativa em conjunto se reduz ao mapeamento direto, e para v = 1, 
+k = m, ela se reduz ao mapeamento associativo. O uso de duas linhas por conjunto (v = m/2, k = 2) é a organização 
+associativa em conjunto mais comum. Ela melhora significativamente a razão de acerto em relação ao mapeamen-to direto. A associação em conjunto com quatro linhas por conjunto (v = m/4, k = 4) cria uma melhoria adicional 
+modesta por um custo adicional relativamente pequeno (Mayberry e Efland, 1984,
+i Hill, 1989j). Outros aumentos no 
+número de linhas por conjunto têm pouco efeito.
+Book 1.indb 107 19.11.09 14:36:25
+
+108 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 4.14 Organização da memória cache associativa em conjunto com k linhas por conjunto
+Palavra Conjunto Tag
+CompareTag DadosCache
+F0Endereço de memória
+(Acerto na cache)s – dw d s – ds + w
+Memória principal
+s + wF1
+Fk 1
+Fk
+Fk i
+F2k 1Conjunto 0
+Conjunto 1B1B0
+Bj
+1 se combinar
+0 se não combinar
+0 se combinar1 se não combinar
+(Falha na cache)
+Figura 4.15 Exemplo de mapeamento associativo em conjunto com duas linhas por conjunto
+000101100111111111111100
+111111111111111111111000111111111000000000000000000101100011001110011100000101100000000000000000000000001111111111111000000000000000000000000000 13579246 000
+000
+000
+000 Tag 
+(hexa)
+Conjunto 
+32 bits
+Cache com 16K linhas9 bitsTagEndereço da memória principal =
+ Palavra
+Conjunto Número do conjuntoDados
+77777777
+11235813
+12345678FEDCBA98 FEDCBA98
+246824681122334402C
+02C
+02C
+02C
+1FF
+1FF
+1FF
+1FF77777777 13579246 00002C
+1FF
+02C02C0000
+0001
+0CE7
+1FFE
+1FFF02C
+24682468 1FF11235813
+11223344
+12345678
+32 bits32 bits 9 bitsFEDCBA982 bits 13 bits 9 bits
+111111111111111111111100111111111000000000000100000101100000000000000100000000001111111111111100000000000000000000000100TagEndereço da memória principal (binário)
+Conjunto + Palavra
+Nota: valores de endereço de
+memória em binário; outros,em hexadecimal.Memória principal de 16 MBConjunto
+Dados Dados
+Book 1.indb 108 19.11.09 14:36:26
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 109
+A Figura 4.16 mostra os resultados de um estudo de simulação do desempenho da cache associativa em conjun-
+to como uma função do tamanho da cache (Genu, 2004k). A diferença no desempenho entre mapeamento direto 
+e associativo em conjunto com 2 linhas por conjunto é signifi cativa até pelo menos um tamanho de cache de 64 
+KB. Observe também que a diferença entre duas linhas por conjunto e quatro vias a 4 KB é muito menor do que a diferença ao passar de 4 KB para 8 KB no tamanho da cache. A complexidade da cache aumenta em proporção com a associatividade e, nesse caso, não seria justifi cável contra o aumento no tamanho da cache para 8 ou mesmo 16 KBytes. Um ponto fi nal a ser observado é que, além de cerca de 32 KB, o aumento no tamanho da cache não ocasiona aumento signifi cativo no desempenho.
+Os resultados da Figura 4.16 são baseados na simulação da execução de um compilador GCC. Diferentes aplicações 
+podem gerar resultados diferentes. Por exemplo, Cantin e Hill (2001
+l) relatam os resultados para o desempenho da cache 
+usando muitos dos benchmarks SPEC CPU2000. Os resultados de Cantin e Hill (2001l) na comparação da razão de acerto 
+com o tamanho da cache seguem o mesmo padrão da Figura 4.16, mas os valores específi cos são um tanto diferentes.
+Simulador de cache
+Simulador de cache multitarefa
+ Algoritmos de substituição 
+Uma vez que a cache estiver cheia, e um novo bloco for trazido para a cache, um dos blocos existentes precisa 
+ser substituído. Para o mapeamento direto, existe apenas uma linha possível para qualquer bloco em particular e nenhuma escolha é possível. Para as técnicas associativa e associativa em conjunto, um algoritmo de substituição é necessário. Para alcançar alta velocidade, tal algoritmo precisa ser implementado em hardware. Diversos algoritmos foram experimentados. Mencionamos quatro dos mais comuns. Provavelmente, o mais efi caz seja o usado menos recentemente (LRU, do inglês least recently used): substitua aquele bloco no conjunto que permaneceu na cache 
+por mais tempo sem qualquer referência a ele. Para a associatividade em conjunto com duas linhas por conjunto, isso é facilmente implementado. Cada linha inclui um bit USE. Quando uma linha é referenciada, seu bit USE é defi -nido como 1, e o bit USE da outra linha nesse conjunto é defi nido como 0. Quando um bloco tiver que ser lido para o conjunto, a linha cujo bit USE for 0 é utilizada. Como estamos supondo que os locais de memória usados mais recentemente são mais prováveis de serem referenciados, LRU deverá oferecer a melhor razão de acerto. LRU tam-bém é relativamente fácil de implementar para uma cache totalmente associativa. O mecanismo de cache mantém uma lista separada de índices para todas as linhas na cache. Quando uma linha é referenciada, ela passa para a 
+Figura 4.16 Associatividade variável pelo tamanho da cache
+0,0
+1 kRazão de acerto
+2 k4 k8 k 16 k
+Tamanho da cache (bytes) Direto
+2 vias4 vias 8 vias16 vias
+32 k6 4 k 128 k2 56 k5 12 k1 M0,10,20,30,40,50,60,70,80,91,0
+Book 1.indb 109 19.11.09 14:36:27

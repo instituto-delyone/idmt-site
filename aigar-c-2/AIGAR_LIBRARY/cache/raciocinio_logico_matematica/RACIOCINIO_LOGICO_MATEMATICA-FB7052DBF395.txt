@@ -1,0 +1,2541 @@
+1. (Cespe – Finep – 2009)
+I. É proposição, por possuir somente um de dois valores lógicos
+ possíveis.
+II. Não é proposição, pois é uma declaração interrogativa.
+III. Não é proposição, pois é uma declaração exclamativa.
+IV. É proposição, por possuir somente um de dois valores lógicos possíveis.
+Com isso, I e IV seriam proposições.
+Gabarito
+: Letra A.
+2. (Cespe – PF – 2004)
+(¬ P) 
+∨
+ (¬ Q) é verdadeira. Item errado, pois (F) 
+∨
+ (F) = F (para resolvermos a
+questão
+ devemos partir desses valores P = V; Q = V).
+3. (Cespe – PF – 2004)
+R 
+→
+ (¬ T) é verdadeira. Item errado, pois (F) 
+→
+ (F ) = V (para resolvermos a
+questão devemos partir desses valores R = F; T = V).
+4. (Cespe – PF – 2004)
+(P 
+∧
+ R) 
+→
+ (¬ Q) é verdadeira. Item certo, pois (V 
+∧
+ F) 
+→
+ (F) = (F)
+→
+(F) = V
+(para resolvermos a questão devemos partir desses valores P = V; R = F; Q = V).
+5. (Cespe – TRT-5
+a
+ Região – 2008)
+(A 
+→
+ B) 
+↔
+ (C 
+→
+ D). Item certo, pois o número de linha de uma tabela-verdade
+é dado pela formula 2n (n = número de letras = proposições); 24 = 16 linhas > 15
+linhas.
+6. (Cespe – TRT-5
+a
+ Região – 2008)
+(¬A)Ú¬[(¬B)
+∧
+C] é V. Item errado, pois (F)Ú¬[(V)ÙV] = (F)Ú¬(V) = (F)
+∨
+(F)
+= F (para resolvermos a questão devemos partir desses valores A = V; B = F; C =
+ V).
+7. (Cespe – TRT-5
+a
+ Região – 2008)
+Todas as tabelas terão como base a nossa tabuada lógica, sendo assim,
+percebemos que a coluna (A 
+∨
+ B) = P 
+∨
+ Q, e (¬ A) 
+∧
+ (¬ B) é a negação (A 
+∨
+ B);
+então, para determinarmos a sua coluna, é só inverter a coluna (A 
+∨
+ B).
+1
+o
+2
+o
+(A
+∨
+B)
+(¬A)
+∧
+(¬B)
+(A
+∨
+B) 
+↔
+ (¬A)
+∧
+(¬B)
+V
+V
+V
+F
+F
+V
+F
+V
+F
+F
+F
+V
+V
+F
+F
+F
+F
+F
+V
+F
+Acompanhe
+ os cálculos da tabela:
+V 
+↔
+ F = F
+V 
+↔
+ F = F
+V 
+↔
+ F = F
+
+F 
+↔
+ V = F
+Como o resultado deu tudo falso, percebemos que estamos diante de uma
+contradição, então o item está errado.
+8. (Cespe – MPE – 2008)
+A = F.
+(¬ A) 
+∨
+ B = V. Se A é falso, então sua negação é V. Com isso, esse cálculo
+sentencial, (V) 
+∨
+ B, será sempre verdadeiro, pois na disjunção inclusiva “ou”,
+basta que
+ um seja verdadeiro para gerar um resultado verdadeiro; então, a palavra
+obrigatoriamente torna o item errado, porque a proposição B pode ser V ou F que
+o resultado continuará sendo verdadeiro.
+9. (Cespe – MCT – 2008)
+Negação da Disjunção: ¬ (P v Q) = (¬ P) 
+∧
+ (¬ Q)
+O cachorro mordeu a bola ou O prédio do MCT fica na Esplanada.
+Negação: O cachorro não mordeu a bola e o prédio do
+ MCT não fica na
+Esplanada. Entretanto, no item aparece o termo 
+nem
+, que significa 
+e não
+; então,
+notamos que o item está certo.
+Falando em termos práticos a negação do OU é o E e vice-versa.
+10. (Cespe – PM-AC – 2008)
+A: Todo bom soldado é pessoa honesta.
+Negação do todo: PEA + NÃO.
+Pelo menos um bom soldado não é pessoa honesta.
+Existe um bom soldado que não é pessoa honesta.
+Algum bom soldado não é pessoa honesta.
+Notamos que na negação das proposições podemos utilizar os antônimos
+honesto (desonesto); rico (pobre); com isso, notamos que o item esta errado, pois
+as proposições B e E não são a ¬A.
+11. (Cespe – BB – 2008)
+Nota 1:
+Falando em termos práticos:
+nega as duas frases e inverte a ordem;
+nega a primeira ou mantém a segunda.
+Nota 2:
+Grande pergunta do aluno: Professor, como eu vou saber que essa questão é de
+equivalência lógica? Muito fácil: Sempre que a questão der um resultado V e
+mantiver esse resultado V ... chegamos com isso à conclusão de que as frases se
+
+equivalem, pois possuem o mesmo valor lógico.
+Nota 3:
+Toda questão de equivalência à frase que temos como referência terá sempre
+duas frases equivalentes.
+ Observe o esquema acima.
+Frase:
+ “Se as operações de crédito no país aumentam, então os bancos ganham
+muito dinheiro.”
+Equivalência 1:
+ Se os bancos não ganham muito dinheiro, então as operações
+de crédito no país não aumentam.
+Equivalência 2:
+ As operações de crédito no país não aumentam ou os bancos
+ganham muito dinheiro.
+Com isso, chegamos à conclusão de que o item está certo.
+12. (Cespe – BB – 2008)
+Seguindo a explicação acima, percebemos que o item está errado, pois não
+basta só negar ... “tem que negar e inverter”.
+Frase:
+ “Se Antônio resolver corretamente esta prova, então ele passará no
+concurso.”
+Equivalência 1:
+ Se Antônio não passar no concurso, então ele não resolveu
+corretamente esta prova.
+Equivalência 2:
+ Antônio não resolveu corretamente
+ esta prova ou passou no
+concurso.
+13. (Cespe – TRT-5
+a
+ Região – 2008)
+Observe que todos os cálculos foram tirados da tabuada lógica. Partiremos
+sempre das duas primeiras colunas para encontrar o resultado nas outras.
+1
+o
+2
+o
+P
+∧
+Q
+P
+∨
+ Q
+P
+→
+Q
+P
+↔
+Q
+P
+∨
+ Q
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+V
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+(P
+→
+Q) = (¬P) 
+∨
+ (Q) são equivalentes; posso pegar direto na tabuada lógica.
+¬ (P 
+∨
+ Q) = é só inverter a coluna do (P
+∨
+Q).
+A
+B
+¬A
+(¬A) 
+∨
+ B
+¬ (A
+∨
+B)
+(¬A) 
+∨
+ B 
+→
+ ¬(A
+∨
+B)
+ 
+ 
+ 
+ 
+ 
+ 
+V
+V
+F
+V
+F
+V
+V
+F
+F
+F
+F
+F
+F
+V
+V
+V
+F
+V
+F
+F
+V
+V
+V
+V
+
+Acompanhe os cálculos da tabela:
+(¬A)
+∨
+B 
+→
+ ¬(A
+∨
+B)
+V
+→
+ F = F
+F
+→
+ F = V
+V
+→
+ F = F
+V
+→
+ V = V
+Como o resultado foi diferente do exposto na questão, percebemos que o item
+está errado.
+14. (Cespe – TRT-5
+a
+ Região – 2008)
+Observe que todos os cálculos foram tirados da tabuada lógica. Partiremos
+sempre das duas primeiras colunas para encontrar o resultado nas outras.
+Acompanhe os cálculos da tabela:
+¬(A
+∨
+B)
+→
+(¬A)
+∨
+B
+F
+→
+ V = V
+F
+→
+ F = V
+F
+→
+ V = V
+V
+→
+ V = V
+Como o resultado deu tudo verdadeiro, percebemos que estamos diante de uma
+tautologia, então o item está certo.
+15. (Cespe – TRT-5
+a
+ Região – 2008)
+Observe que todos os cálculos foram tirados da tabuada lógica.
+ Partiremos
+sempre das duas primeiras colunas para encontrar o resultado nas outras.
+1
+o
+2
+o
+P
+∧
+Q
+P
+∨
+ Q
+P
+→
+Q
+P
+↔
+Q
+P
+∨
+ Q
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+V
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+¬ (P 
+→
+ Q) = P 
+∧
+ (¬Q); como a estrutura representa a negação da condição,
+devemos inverter a coluna da condicional.
+A
+B
+¬B
+¬(A
+∧
+B)
+A
+∧
+(¬B)
+¬(A
+∧
+B) 
+→
+ A
+∧
+(¬B)
+V
+V
+F
+F
+F
+V
+V
+F
+V
+V
+V
+V
+F
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+F
+¬ (P 
+∧
+ Q) = é só inverter a coluna do (P 
+∧
+ Q).
+
+Acompanhe os cálculos que estão na tabela acima:
+¬ (A 
+∧
+ B) 
+→
+ A 
+∧
+ (¬ B).
+F
+→
+F = V
+V
+→
+V = V
+V
+→
+F = F
+V
+→
+F = F
+Como o resultado foi igual ao exposto na questão, percebemos que o item está
+correto.
+16. (Cespe
+ – TRT-5
+a
+ Região – 2008)
+Observe que todos os cálculos foram tirados da tabuada lógica. Partiremos
+sempre das duas primeiras colunas para encontrar o resultado nas outras.
+Acompanhe os cálculos que estão na tabela acima:
+A
+∧
+(¬B)
+→
+¬(A
+∧
+B)
+F
+→
+F = V
+V
+→
+V = V
+F
+→
+V = V
+F
+→
+V = V
+Como o resultado deu tudo verdadeiro, percebemos que estamos diante de uma
+tautologia; então, o item
+ está certo.
+17. (Cespe – TRT-5
+a
+ Região – 2008)
+Situação mínima = todas iguais = A = B = C = D = E = F = 2n = 21 = 2.
+Situação máxima = todas diferentes = A 
+≠
+ B 
+≠
+ C 
+≠
+ D 
+≠
+ E 
+≠
+ F = 2n = 26 = 64.
+Com isso, concluímos que o item esta certo, realmente 2
+≤
+ N 
+≤
+ 64.
+18. (Cespe – TRT-5
+a
+ Região – 2008)
+Observe que todos os cálculos foram tirados da tabuada lógica. Partiremos
+sempre
+ das duas primeiras colunas para encontrar o resultado nas outras.
+1
+o
+2
+o
+P
+∧
+Q
+P
+∨
+ Q
+P
+→
+Q
+P
+↔
+Q
+P
+∨
+ Q
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+V
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+P
+→
+Q=(¬Q)
+→
+(¬P) são equivalentes; posso pegar direto na tabuada lógica.
+A
+B
+¬A
+¬B
+A
+→
+B
+(¬B)
+→
+(¬A)
+[A
+→
+B]
+↔
+[(¬B)
+→
+(¬A)]
+V
+V
+F
+F
+V
+V
+V
+V
+F
+F
+V
+F
+F
+V
+
+F
+V
+V
+F
+V
+V
+V
+F
+F
+V
+V
+V
+V
+V
+Acompanhe os cálculos da tabela:
+[A
+→
+B]
+↔
+[(¬B)
+→
+(¬A)]
+V
+→
+ V = V
+F
+→
+ F = V
+V
+→
+ V = V
+V
+→
+ V = V
+Com base no cálculo acima, concluímos que o item esta certo, realmente a
+proposição é uma tautologia (resultado sempre verdadeiro).
+19. (Cespe – TRT-5
+a
+ Região – 2008)
+P: Todo jogador de futebol será craque algum dia.
+¬P: PEA + NÃO (MACETE)
+“Pelo menos um jogador não será
+ craque algum dia.”
+“Existe um jogador que não será craque algum dia.”
+“Algum jogador não será craque algum dia.”
+Notamos que a negação proposta pelo item está errada, pois não se encaixa em
+nenhuma das três formas possíveis de se negar o todo. Com isso, concluímos que
+o item está errado.
+20. (Cespe – TRT-5
+a
+ Região – 2008)
+Item errado, apesar de cada letra estar colocada no
+ lugar de sua frase
+correspondente, notamos que a representação simbólica do operador lógico “ou”
+está errada.
+21. (Cespe – TRT-5
+a
+ Região – 2008)
+Item correto, pois cada letra está colocada no lugar de sua frase correspondente,
+e percebemos que cada operador esta corretamente simbolizado. (Nas questões
+do Cespe, sempre que não for definido o valor do ou ... ou devemos considerá-lo
+com valor
+ de ou, por isso, na representação simbólica, foi usado o símbolo da
+disjunção inclusiva.) 22. (Cespe – TRT-5
+a
+ Região – 2008)
+(
+∀
+x)(x 
+∈
+ Q e x > 0)(x2 > x)
+O significado dessa sentença é: para todo X pertencente aos números racionais
+com X maior que zero, é verdade que x
+2
+ > x para todo X.
+x
+2
+ > x
+1
+2
+ > 1 = errado. Concluímos que a sentença não é válida para todo X.
+Com isso,
+ notamos que o item está correto; realmente a sentença é F, pois não é
+válida para todo X.
+23. (Cespe – TRT-5
+a
+ Região – 2008)
+
+x
+2
+ = 2; item errado, pois o único valor que torna essa sentença verdadeira é um
+número irracional 
+.
+1.15. Exercícios propostos
+Uma proposição é uma sentença que pode ser julgada como verdadeira (V) ou falsa (F). De
+acordo com essa definição, julgue os itens
+ a seguir.
+1. (Cespe – UnB – MCT – 2008) A sentença “O feijão é um alimento rico em proteínas” é
+uma proposição.
+2. (Cespe – UnB – MCT – 2008) A frase “Por que Maria não come carne vermelha?” não é
+uma proposição.
+3. (Cespe – UnB – BB – 2008) A frase “Quanto subiu o percentual de mulheres assalariadas
+nos últimos 10 anos?” não pode ser considerada uma proposição.
+4. (Cespe – UnB
+ – TRT-17
+a
+ Região – 2009) A sequência de frases a seguir contém
+exatamente duas proposições.
+“A sede do TRT-ES localiza-se no município de Cariacica.”
+“Por que existem juízes substitutos?”
+“Ele é um advogado talentoso.”
+5. (Cespe – UnB – Sebrae – 2008) A frase “Pedro e Paulo são analistas do Sebrae” é uma
+proposição simples.
+6. (Cespe – UnB – BB – 2007) Há duas proposições no
+ seguinte conjunto de sentenças:
+I. O BB foi criado em 1980.
+II. Faça seu trabalho corretamente.
+III. Manuela tem mais de 40 anos de idade.
+7. (Cespe – UnB – TRT-5
+a
+ Região – 2008) Considerando a proposição P:
+“Mário pratica natação e judô”, julgue o item seguinte.
+Simbolizando a proposição P por A
+∧
+B, então a proposição Q: “Mário pratica natação mas
+não pratica judô” é corretamente
+ simbolizada por A
+∨
+(¬B).
+Texto para questões 8 a 12
+Considere as sentenças abaixo.
+I. Fumar deve ser proibido, mas muitos europeus fumam.
+II. Fumar não deve ser proibido e fumar faz bem à saúde.
+III. Se fumar não faz bem à saúde, deve ser proibido.
+IV. Se fumar não faz bem à saúde e não é verdade que muitos europeus fumam, então
+fumar deve ser proibido.
+V. Tanto é falso
+ que fumar não faz bem à saúde como é falso que fumar deve ser proibido;
+consequentemente, muitos europeus fumam.
+Considere também que P, Q, R e T representem as sentenças listadas na tabela a seguir.
+P
+Fumar deve ser proibido.
+
+Q
+Fumar deve ser encorajado.
+R
+Fumar não faz bem à saúde.
+T
+Muitos europeus fumam.
+Com base nas informações acima, e considerando a notação introduzida no texto, julgue as
+questões seguintes.
+8. (Cespe – UnB – PF – Agente – 2004) A sentença I pode
+ ser corretamente representada
+por P 
+∧
+ (¬ T).
+9. (Cespe – UnB – PF – Agente – 2004) A sentença II pode ser corretamente representada
+por (¬ P) 
+∧
+ (¬ R).
+10. (Cespe – UnB – PF – Agente – 2004) A sentença III pode ser corretamente representada
+por R
+→
+P.
+11. (Cespe – UnB – PF – Agente – 2004) A sentença IV pode ser corretamente representada
+por (R 
+∧
+ (¬ T)) 
+→
+ P.
+12. (Cespe – UnB – PF
+ – Agente – 2004) A sentença V pode ser corretamente representada
+por T 
+→
+ ((¬ R) 
+∧
+ (¬ P)).
+Texto I para questões 13 e 14
+Uma sentença que possa ser julgada como verdadeira — V — ou falsa — F — é denominada
+proposição. Para facilitar o processo dedutivo, as proposições são frequentemente
+simbolizadas. Considere como proposições básicas as proposições simbolizadas por letras
+maiúsculas do
+ alfabeto, tais como, A, B, P, Q etc. Proposições compostas são formadas
+usando-se símbolos lógicos. São proposições compostas expressões da forma P
+∧
+Q que têm
+valor lógico V somente quando P e Q são V, caso contrário, valem F, e são lidas como “P e
+Q”; expressões da forma P
+∨
+Q têm valor lógico F somente quando P e Q são F, caso
+contrário, valem V, e são lidas como “P ou Q”; expressões da forma P
+→
+Q
+ têm valor lógico F
+somente quando P é V e Q é F, caso contrário, valem V, e são lidas como “se P então Q”.
+Expressões da forma ¬P simbolizam a negação de P, e são F quando P é V, e é V quando P é
+F.
+13. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Com base nas informações do texto I, é CORRETO
+afirmar que, para todos os possíveis valores lógicos, V ou F, que podem ser atribuídos a
+P e a Q, uma proposição
+ simbolizada por ¬ [P 
+→
+ (¬ Q)] possui os mesmos valores lógicos
+que a proposição simbolizada por: a) (¬P)
+∨
+Q;
+b) (¬Q)
+→
+P;
+c) ¬[(¬P)
+∧
+(¬Q)];
+d) ¬[¬(P
+→
+Q)];
+e) P
+∧
+Q.
+Texto II para questões 13 e 14
+De acordo com a forma de julgamento proposta no texto I, as várias proposições contidas no
+
+texto abaixo devem ser consideradas verdadeiras — V. Em 1932, o Governo Provisório,
+chefiado
+ por Getúlio Vargas, criou dois organismos destinados a solucionar conflitos
+trabalhistas: Comissões Mistas de Conciliação e Juntas de Conciliação e Julgamento. As
+primeiras tratavam de divergências coletivas, relativas a categorias profissionais e
+econômicas. Eram órgãos de conciliação, não de julgamento. As segundas eram órgãos
+administrativos, mas podiam impor a solução às partes. A Constituição
+ de 1946
+transformou a justiça do trabalho em órgão do Poder Judiciário. A justiça trabalhista
+estruturou-se com base nas Juntas de Conciliação e Julgamento, presididas por um juiz de
+Direito ou bacharel nomeado pelo Presidente da República para mandato de dois anos, e
+compostas pelos vogais indicados por sindicatos, representando os interesses dos
+trabalhadores e empregadores, para mandato também
+ de dois anos. A CF atribuiu a
+titulação de juiz aos representantes classistas, extinta pela EC n
+o
+ 24/1999, que também
+alterou a denominação das Juntas de Conciliação e Julgamento, que passaram a se
+chamar Varas do Trabalho. Os magistrados ingressam na carreira mediante concurso
+público de provas e títulos, exceção apenas é a admissão do quinto constitucional, pelo
+qual advogados (OAB) e procuradores
+ (MP) ingressam diretamente e sem concurso no
+tribunal, indicados pelas respectivas entidades. As juntas julgavam os dissídios individuais
+e os embargos opostos às suas decisões, quando o valor da causa não ultrapassava seis
+salários-mínimos nos estados de São Paulo e Rio de Janeiro (art. 894 da CLT, hoje com
+nova redação). O Tribunal Regional da 1
+a
+ Região tinha jurisdição no Distrito Federal,
+ Rio de
+Janeiro e Espírito Santo, sendo que, além das juntas já citadas, funcionavam as de Niterói,
+Campos, Petrópolis, Cachoeiro de Itapemirim e Vitória. Só existiam substitutos na sede e
+eram apenas quatro, que permaneceram nessa situação durante doze anos.
+Internet: 
+<www.trtrio.gov.br>
+ (com adaptações).
+14. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Com respeito às informações apresentadas
+ nos
+textos I a II, assinale a opção que representa uma proposição falsa — F.
+a) Se as Comissões Mistas de Conciliação não eram órgãos de julgamento, então elas não
+tratavam de divergências coletivas.
+b) Se o valor da causa não ultrapassasse seis salários-mínimos nos estados de São Paulo e
+Rio de Janeiro, então as juntas julgavam os dissídios individuais.
+c) O Tribunal Regional da 1
+a
+ Região possuía juntas em Cachoeiro de Itapemirim e em
+Campos.
+d) Um procurador pode ser indicado para ingressar no TRT-1
+a
+ Região sem realizar
+concurso público.
+e) Se as juntas não julgavam os embargos opostos à sua decisão, então as comissões o
+faziam.
+Texto para questão 15
+Proposições são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, mas não se admitem
+ os julgamentos V e F simultaneamente. As letras maiúsculas do
+alfabeto, A, B, C etc., são frequentemente utilizadas para representar proposições simples
+e, por isso, são denominadas letras proposicionais. Alguns símbolos lógicos utilizados para
+construir proposições compostas são: “¬” (não) – usado para negar uma proposição; “
+∧
+” (e)
+– usado para fazer a conjunção de proposições; “
+∨
+” (ou) – usado
+ para fazer a disjunção de
+
+proposições; “
+→
+” (implicação) – usado para relacionar condicionalmente as proposições,
+isto é, “A
+→
+B” significa “se A então B”. A proposição “¬A” tem valor lógico contrário ao de
+A; a proposição “A
+∨
+B” terá valor lógico F quando A e B forem F, caso contrário, será
+sempre V; a proposição “A
+∧
+B” terá valor lógico V quando A e B forem V, caso contrário,
+será sempre F; a proposição
+ “A
+→
+B” terá valor lógico F quando A for V e B for F, caso
+contrário será sempre V.
+15. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Considerando as definições apresentadas no
+texto anterior, as letras proposicionais adequadas e a proposição “Nem Antônio é
+desembargador nem Jonas é juiz”, assinale a opção correspondente à simbolização
+CORRETA dessa proposição.
+a) ¬(A
+∧
+B).
+b) (¬A)
+∨
+(¬B).
+c)
+ (¬A)
+∧
+(¬B).
+d) (¬A)
+→
+B.
+e) ¬[A
+∨
+(¬B)].
+16. (Cespe – UnB – MCT – 2008) Considere as proposições.
+A: 4 > 1;
+B: 3 < 6;
+C: 5 > 9;
+D: 8 > 11;
+E: A 
+→
+ B;
+F: A 
+→
+ C;
+G: A 
+→
+ D;
+H: C 
+→
+ D;
+I: C 
+→
+ B.
+Nesse caso, é correto afirmar que, nessa lista de nove proposições, apenas quatro são
+V.
+17. (Cespe – UnB – BB – 2007) Considere que as afirmativas “Se Mara
+ acertou na loteria
+então ela ficou rica” e “Mara não acertou na loteria” sejam ambas proposições
+verdadeiras. Simbolizando adequadamente essas proposições, pode-se garantir que a
+proposição “Ela não ficou rica” é também verdadeira.
+18. (Cespe – UnB – BB – 2007) Considere que a proposição “Sílvia ama Joaquim ou Sílvia
+ama Tadeu” seja verdadeira. Então pode-se garantir que a proposição “Sílvia
+ ama
+Tadeu” é verdadeira.
+19. (Cespe – UnB – MCT – 2008) A proposição “Se 3 + 3 = 9, então Pelé foi o pior jogador de
+futebol de todos os tempos” é valorada como F.
+20. (Cespe – UnB – PMVV – 2008) Considere-se que A represente a proposição “Branca de
+Neve come a maçã” e B, a proposição “Branca de Neve adormece”. Desse modo, se a
+proposição “Se Branca de Neve come a maçã então Branca de
+ Neve adormece” e a
+proposição “Branca de Neve não come a maçã” — ¬A — forem julgadas V, então a
+proposição ¬B — “Branca de Neve não adormece” — só pode ser julgada V.
+
+21. (Cespe – UnB – PMVV – 2008) Considere-se que a proposição composta “Ou Branca de
+Neve não acordou ou o Príncipe Encantado sumiu” e a proposição simples “Branca de
+Neve acordou” sejam ambas V. Nesse caso, é correto concluir
+ que a proposição simples
+“O Príncipe Encantado sumiu” será necessariamente V.
+22. (Cespe – UnB – MCT – 2008) Considere as seguintes proposições.
+A: 3 + 3 = 6 e 4 × 2 = 8;
+B: 3 + 1 = 6 ou 5 × 3 = 15;
+C: 4 – 2 = 2 ou 6 ÷ 3 = 4.
+Nesse caso, é correto afirmar que apenas uma dessas proposições é F.
+23. (Cespe – UnB – MCT – 2008) Considere as seguintes proposições.
+A: Se
+ 3 < 5, então 4 < 2.
+B: Se 5 é par, então todo palmeirense é são-paulino.
+C: Se São Paulo é a capital do Rio de Janeiro, então Brasília fica na Região Centro-Oeste.
+Nesse caso, há apenas uma proposição F.
+24. (Cespe – UnB – MRE – 2008) Considere que as proposições B e A 
+→
+ (¬B) sejam V. Nesse
+caso, o único valor lógico possível para A é V.
+25. (Cespe – UnB – MP – 2008) No fluxograma
+ ilustrado abaixo, as instruções devem ser
+executadas seguindo-se o fluxo das setas de acordo com a avaliação da proposição que
+ocorre em cada caixa oval. Nesse caso, quando A e B têm valorações contrárias, a
+execução do fluxograma termina em NEGA.
+26. (Cespe – UnB – Detran – 2009) Se a proposição A 
+∨
+ B 
+→
+ C é verdadeira, então C é
+necessariamente verdadeira.
+27. (Cespe – UnB – Detran
+ – 2009) A proposição (A 
+∨
+ B) 
+∧
+ [(¬ A) 
+∧
+ (¬ B)] é sempre falsa.
+Texto para questão 28
+Proposições são frases que podem ser julgadas como verdadeiras — V — ou como falsas —
+F —, mas não como ambas; são frequentemente simbolizadas por letras maiúsculas do
+alfabeto. A proposição simbolizada por A
+→
+B — lida como “se A, então B”, “A é condição
+suficiente para B”, ou “B é condição necessária para
+ A” — tem valor lógico F quando A é V
+e B é F; nos demais casos, seu valor lógico é V. A proposição A 
+∧
+ B — lida como “A e B” —
+tem valor lógico V quando A e B forem V e valor lógico F, nos demais casos. A proposição
+¬A, a negação de A, tem valores lógicos contrários aos de A.
+Com base nas definições apresentadas acima, julgue o item que se segue.
+28. (Cespe – UNB – BB – 2008) Toda proposição
+ simbolizada na forma A
+→
+B tem os mesmos
+valores lógicos que a proposição B
+→
+A.
+29. (Cespe – UnB – MCT – 2008) A tabela abaixo corresponde à tabela-verdade da
+
+proposição A 
+∧
+ B 
+→
+ A 
+∨
+ B.
+A
+B
+A 
+∧
+ B 
+→
+ A 
+∨
+ B
+V
+V
+V
+V
+F
+F
+F
+V
+F
+F
+F
+F
+30. (Cespe – UnB – BB – 2007)
+ A proposição simbolizada por (A 
+→
+ B) 
+→
+ (B 
+→
+ A) possui uma
+única valoração F.
+31. (Cespe – UnB – PMDF – 2009) A proposição (A 
+∧
+ B) 
+→
+ (A 
+∨
+ B) é uma tautologia.
+32. (Cespe – UnB – BB – 2008) Atribuindo-se todos os possíveis valores lógicos V ou F às
+proposições A e B, a proposição [(¬ A) 
+→
+ B] 
+∧
+ A terá três valores lógicos F.
+33. (Cespe – UnB – MS – 2008) Se A e B são proposições simples,
+ então, completando a
+coluna em branco na tabela abaixo, se necessário, conclui-se que a última coluna da
+direita corresponde à tabela-verdade da proposição composta A 
+→
+ (B
+→
+A).
+A
+B
+B 
+→
+ A
+A 
+→
+ (B 
+→
+ A)
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+V
+F
+34. (Cespe – UnB – MS – 2008) Se A e B são proposições, completando a tabela abaixo, se
+necessário, conclui-se que a proposição ¬(A 
+∨
+ B) 
+→
+ ¬A 
+∧
+ ¬ B é uma tautologia.
+A
+B
+B 
+∨
+ A
+¬A
+¬B
+¬(A
+∨
+B)
+¬A
+∧
+¬B
+¬(A
+∨
+B) 
+→
+ ¬A
+∧
+¬B
+V
+V
+V
+F
+F
+F
+F
+V
+35. (Cespe – UnB – Previc – 2011) A proposição (P 
+∨
+ Q) 
+→
+ (Q 
+∧
+ P) é uma tautologia.
+36. (Cespe – UnB – STJ – 2008)
+ Considerando-se as possíveis valorações V ou F das
+proposições A e B e completando-se as colunas da tabela abaixo, se necessário, é
+correto afirmar que a última coluna dessa tabela corresponde à tabela-verdade da
+proposição [A 
+∨
+ (¬B)] 
+→
+ [¬(A 
+∨
+ B)].
+A
+B
+¬B
+A
+∨
+ (¬B)
+A 
+∨
+ B
+¬(A 
+∨
+ B)
+[A
+∨
+ (¬B)] 
+→
+ [¬(A 
+∨
+ B)]
+V
+V
+F
+
+V
+F
+F
+F
+V
+V
+F
+F
+V
+37. (Cespe – UnB – STF – 2008) A última coluna
+ da tabela-verdade abaixo corresponde à
+proposição (¬P) 
+∨
+ (Q 
+→
+ R).
+P
+Q
+R
+¬P
+Q
+→
+R
+V
+V
+V
+V
+V
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+V
+F
+V
+V
+V
+F
+V
+F
+V
+F
+F
+V
+V
+F
+F
+F
+V
+38. (Cespe – UnB
+ – STF – 2008) A última coluna da tabela-verdade abaixo corresponde à
+proposição (P 
+∧
+ R) 
+→
+ Q.
+P
+Q
+R
+P
+∧
+R
+V
+V
+V
+V
+V
+V
+F
+V
+V
+F
+V
+F
+V
+F
+F
+V
+F
+V
+V
+F
+F
+V
+F
+V
+F
+F
+V
+F
+F
+F
+F
+V
+39. (Cespe – UnB – Sebrae – 2008) Considere o quadro abaixo, que apresenta algumas
+colunas da tabela-verdade
+ referente à proposição P 
+∧
+ [Q 
+→
+ R].
+P
+Q
+R
+P
+∧
+[Q
+→
+R]
+V
+V
+V
+V
+V
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+V
+V
+F
+V
+F
+F
+F
+F
+V
+F
+
+F
+F
+F
+F
+Nesse caso, pode-se afirmar que a última coluna foi preenchida de
+ forma totalmente
+correta.
+40. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Proposições compostas são denominadas
+equivalentes quando possuem os mesmos valores lógicos V ou F, para todas as possíveis
+valorações V ou F atribuídas às proposições simples que as compõem. Assinale a opção
+correspondente à proposição equivalente a “¬[[A
+∧
+(¬B)]
+→
+C]”.
+a) A
+∧
+(¬B)
+∧
+(¬C).
+b) (¬A)
+∨
+(¬B)
+∨
+C.
+c) C
+→
+[A
+∧
+(¬B)].
+d) (¬A)
+∨
+B
+∨
+C.
+e) [(¬A)
+∧
+B]
+→
+(¬C).
+Texto para questões 41 e 42
+Uma proposição é uma sentença que pode ser julgada como verdadeira — V —, ou falsa —
+F —, mas não V e F simultaneamente. Proposições simples são simbolizadas por letras
+maiúsculas A, B, C etc., chamadas letras proposicionais. São proposições compostas
+expressões da forma A
+∨
+B, que é lida como “A ou B” e tem valor lógico F
+ quando A e B
+forem F, caso contrário, será sempre V; A
+∧
+B, que é lida como “A e B” e tem valor lógico V
+quando A e B forem V, caso contrário será sempre F; ¬A, que é a negação de A e tem
+valores lógicos contrários aos de A.
+41. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Considerando todos os possíveis valores lógicos V
+ou F atribuídos às proposições A e B, assinale a opção correspondente à proposição
+composta que tem sempre valor lógico F.
+a) [A
+∧
+(¬B)]
+∧
+[(¬A)
+∨
+B].
+b) (A
+∨
+B)
+∨
+[(¬A)
+∧
+(¬B)].
+c) [A
+∧
+(¬B)]
+∨
+(A
+∧
+B).
+d) [A
+∧
+(¬B)]
+∨
+A.
+e) A
+∧
+[(¬B)
+∨
+A].
+42. (Cespe – UnB – TRT-1
+a
+ Região – 2008) Assinale a opção correspondente à proposição
+composta que tem exatamente dois valores lógicos F e dois valores lógicos V, para todas
+as possíveis atribuições de valores lógicos V ou F para as proposições
+ A e B.
+a) B
+∨
+(¬A).
+b) ¬(A
+∧
+B).
+c) ¬[(¬A)
+∧
+(¬B)].
+d) [(¬A)
+∨
+(¬B)]
+∧
+(A
+∧
+B).
+e) [(¬A)
+∨
+B]
+∧
+[(¬B)
+∨
+A].
+Texto para questões 43 a 45
+Uma proposição simples é uma frase afirmativa, constituída esquematicamente por um
+sujeito e um predicado, que pode ter um dos dois valores: falso — F —, ou verdadeiro — V
+
+—, excluindo-se qualquer outro. Novas proposições podem ser formadas a partir
+ de
+proposições simples e dos chamados conectivos: “e”, simbolizado por 
+∧
+; “ou”, simbolizado
+por 
+∨
+; “se ... então”, simbolizado por 
+→
+; e “se e somente se”, simbolizado por 
+↔
+. Também
+é usado o modificador “não”, simbolizado por ¬. As proposições são representadas por
+letras do alfabeto: A, B, C etc. São as seguintes as valorações para algumas proposições
+compostas:
+A
+B
+¬A
+A
+∨
+B
+A
+∧
+B
+A
+→
+B
+A
+↔
+B
+¬(A
+∨
+B)
+¬(A
+∧
+B)
+(¬A)
+∨
+(¬B)
+(¬A)
+∧
+(¬B)
+V
+V
+F
+V
+V
+V
+V
+F
+F
+V
+F
+F
+V
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+V
+F
+Há expressões que não podem ser valoradas como V nem como F, como, por exemplo: “Ele
+é contador”, “x + 3 = 8”. Essas expressões são
+ denominadas “proposições abertas”. Elas
+tornam-se proposições, que poderão ser julgadas como V ou F, depois de atribuídos
+determinados valores ao sujeito, ou variável. O conjunto de valores que tornam a
+proposição aberta uma proposição valorada como V é denominado “conjunto-verdade”.
+Com base nessas informações, julgue os itens que se seguem, a respeito de estruturas
+lógicas e lógica de argumentação.
+43. (Cespe – UnB – MPE-RR– 2008) Considere como V as seguintes proposições:
+A: Jorge briga com sua namorada Sílvia.
+B: Sílvia vai ao teatro.
+Nesse caso, ¬(A
+→
+B) é a proposição C: “Se Jorge não briga com sua namorada Sílvia,
+então Sílvia não vai ao teatro.”
+44. (Cespe – UnB – MPE-RR– 2008) Considere as seguintes proposições:
+A: Jorge briga com sua namorada Sílvia.
+B: Sílvia
+ vai ao teatro.
+Nesse caso, independentemente das valorações V ou F para A e B, a expressão ¬(A
+∨
+B)
+correspondente à proposição C: “Jorge não briga com sua namorada Sílvia e Sílvia não
+vai ao teatro.”
+45. (Cespe – UnB – MPE-RR– 2008) Se A e B são proposições, então ¬(A
+↔
+B) tem as mesmas
+valorações que [(¬A)
+→
+(¬B)]
+∧
+[(¬B)
+→
+(¬A)].
+Texto para questão 46
+Uma proposição é uma declaração que
+ pode ser afirmativa ou negativa. Uma proposição
+pode ser julgada verdadeira ou falsa. Quando ela é verdadeira, atribui-se o valor lógico V e,
+quando é falsa, atribui-se o valor lógico F. Uma proposição simples é uma proposição
+única, como, por exemplo, “Paulo é engenheiro”. As proposições simples são
+representadas por letras maiúsculas A, B, C etc. Ligando duas ou mais proposições
+simples entre
+ si por conectivos operacionais, podem-se formar proposições compostas.
+Entre os conectivos operacionais, podem-se citar: “e”, representado por 
+∧
+; “ou”,
+
+representado por 
+∨
+; “se, ..., então”, representado por 
+→
+; e “não”, representado por ¬. A
+partir dos valores lógicos de duas (ou mais) proposições simples A e B, pode-se construir a
+tabela-verdade de proposições compostas. Duas proposições são equivalentes
+ quando
+possuem a mesma tabela-verdade. A seguir, são apresentadas as tabelas-verdade de
+algumas proposições.
+A
+B
+A
+∧
+B
+A
+∨
+B
+A
+→
+B
+¬A
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+Com base nessas informações, julgue o item abaixo:
+46. (Cespe
+ – UnB – ME – 2008) Considere as seguintes proposições:
+A: Está frio.
+B: Eu levo agasalho.
+Nesse caso, a negação da proposição composta “Se está frio, então eu levo agasalho” —
+A
+→
+B — pode ser corretamente dada pela proposição “Está frio e eu não levo agasalho”
+— Av(¬B).
+47. (Cespe – UnB – ME – 2008) Considere as seguintes proposições:
+A: Maria não é mineira.
+B: Paulo é engenheiro.
+Nesse caso, a proposição “Maria não é mineira ou Paulo é engenheiro”, que é
+representada por A
+∨
+B, é equivalente à proposição “Se Maria é mineira, então Paulo é
+engenheiro”, simbolicamente representada por (¬A)
+→
+B.
+48. (Cespe – UnB – ME – 2008) O número de linhas da tabela-verdade de uma proposição
+composta (A
+∧
+B)
+∨
+C é igual a 6.
+49. (Cespe – UnB – ME – 2008) Uma proposição composta é uma
+ tautologia quando todos os
+seus valores lógicos são V, independentemente dos valores lógicos das proposições
+simples que a compõem. Então, a proposição [A
+∧
+(A
+→
+B)]
+→
+B é uma tautologia.
+Texto para questão 50
+As proposições podem ser combinadas de modo a representar outras proposições,
+denominadas proposições compostas. Para essas combinações, usam-se os denominados
+conectivos lógicos: v significando
+ “e”; 
+∨
+ significando “ou”; 
+→
+ significando “se ... então”;:
+significando “se e somente se”; e ¬ significando “não”. Por exemplo, com as notações do
+parágrafo anterior, a proposição “A Terra é plana e fumar faz mal à saúde” pode ser
+representada, simbolicamente, por A
+∧
+B. “A Terra é plana ou fumar faz mal à saúde” pode
+ser representada, simbolicamente, por A
+∨
+B. “Se a Terra é plana, então fumar faz
+ mal à
+saúde” pode ser representada, simbolicamente, por A 
+→
+ B. “A Terra não é plana” pode ser
+representada, simbolicamente, por ¬A. Os parênteses são usados para marcar a
+
+pertinência dos conectivos, por exemplo: (A 
+∧
+ B) 
+→
+ ¬A, significando que “Se a Terra é
+plana e fumar faz mal à saúde, então a Terra não é plana”.
+Pela lógica, se duas proposições são tais que uma é a negação de outra, então
+ uma delas é
+F. Dadas duas proposições em que uma contradiz a outra, então uma delas é V. Para
+determinar a valoração (V ou F) de uma proposição composta, conhecidas as valorações das
+proposições simples que as compõem, usam-se as tabelas abaixo, denominadas tabelas-
+verdade.
+A
+¬A
+A
+B
+A
+∧
+B
+A
+B
+A
+∨
+B
+A
+B
+A
+→
+B
+V
+F
+V
+V
+V
+V
+V
+V
+V
+V
+V
+F
+V
+F
+V
+F
+F
+V
+V
+F
+V
+V
+V
+F
+F
+V
+F
+V
+V
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+V
+Uma proposição composta que é valorada sempre como V, independentemente das
+valorações V ou F das proposições simples que a compõem, é denominada tautologia. Por
+exemplo, a proposição A 
+∨
+ (¬ A) é uma tautologia.
+Tendo como referência as informações apresentadas no texto, julgue o seguinte item.
+50. (Cespe – UnB – MS – 2008) Considere que a proposição “O Ministério da Saúde cuida
+das políticas públicas de saúde do Brasil e a educação fica a cargo do Ministério da
+Educação” seja escrita simbolicamente na forma P
+∧
+Q. Nesse caso, a negação da
+referida proposição é simbolizada
+ corretamente na forma ¬P
+∧
+¬Q, ou seja: “O Ministério
+da Saúde não cuida das políticas públicas de saúde do Brasil nem a educação fica a
+cargo do Ministério da Educação”.
+Texto para questões 51 e 52
+Proposições são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, de forma que um julgamento exclui o outro, e são simbolizadas por letras maiúsculas,
+como P, Q, R etc.
+ Novas proposições podem ser construídas usando-se símbolos especiais e
+parênteses. Uma expressão da forma P 
+→
+ Q é uma proposição cuja leitura é “se P então Q”
+e tem valor lógico F quando P é V e Q é F; caso contrário, é V. Uma expressão da forma P
+∨
+Q
+é uma proposição que se lê: “P ou Q”, e é F quando P e Q são F; caso contrário, é V. Uma
+expressão da forma P
+∧
+Q, que se lê “P e Q”, é V quando P e
+ Q são V; caso contrário, é F. A
+forma ¬P simboliza a negação da proposição P e tem valores lógicos contrários a P. Um
+argumento lógico válido é uma sequência de proposições em que algumas são chamadas
+premissas e são verdadeiras por hipótese, e as demais são chamadas conclusões e são
+verdadeiras por consequência das premissas.
+O Brasil faz parte de um grupo de 15 países denominados megadiversos,
+ que, juntos,
+abrigam cerca de 70% da biodiversidade do planeta. No Brasil, existem seis regiões com
+uma diversidade biológica própria, os chamados biomas. Por exemplo, o bioma caatinga, no
+nordeste do país, ocupa uma área de aproximadamente 844.452 km2; o bioma pantanal, no
+centro-oeste do país, ocupa uma área de aproximadamente 150.500 km2. A Comissão
+Nacional de Biodiversidade (Conabio),
+ que atua fundamentalmente na implementação da
+
+política nacional de biodiversidade, é constituída pelo presidente e mais 6 membros
+titulares, tendo estes 6 últimos 2 suplentes cada. No Programa Nacional de Florestas, há
+alguns projetos em andamento, como, por exemplo, o Plano Nacional de Silvicultura com
+Espécies Florestais Nativas (P1) e o Plano de Recuperação de Áreas Degradadas (P2).
+Com
+ base nessas informações e no texto acima, julgue os itens abaixo.
+51. (Cespe – UnB – MS – 2008) Considere a seguinte sequência de proposições:
+A: O bioma caatinga está limitado por um triângulo cuja base mede 1.117 km.
+B: O bioma caatinga está limitado por um triângulo cuja base mede 1.117 km e a altura
+desse triângulo com relação a essa base é inferior a 1.500 km. Nessa situação,
+ se a
+proposição A for verdadeira, então a proposição composta A 
+→
+ B é verdadeira.
+52. (Cespe – UnB – MS – 2008) Considere 3,14 como valor aproximado para B e que a
+proposição seguinte seja verdadeira: “O bioma pantanal pode ser inscrito em um círculo
+de raio aproximadamente igual a 219 km”. Nesse caso, será também verdadeira a
+seguinte proposição: “O bioma pantanal não pode ser inscrito em
+ um círculo de raio
+aproximadamente igual a 219 km ou esse bioma pode ser inserido em um círculo cuja
+fronteira — perímetro — mede mais de 1.370 km”.
+Texto para questões 53 a 55
+Uma proposição é uma frase que pode ser julgada como verdadeira — V — ou falsa — F —,
+mas não como V e F simultaneamente. Um raciocínio lógico é uma sequência de
+proposições, e é denominado raciocínio lógico correto
+ quando, considerando como V
+algumas das proposições da sequência — denominadas premissas —, e por consequência
+dessa veracidade, as demais proposições da sequência — denominadas conclusões —,
+também são V. Proposições são frequentemente simbolizadas por letras maiúsculas do
+alfabeto: A, B, C etc. Uma proposição da forma “se A, então B” é simbolizada por A 
+→
+ B e
+tem valor lógico F quando A é V
+ e B é F, e nos demais casos é V. Uma proposição da forma
+“A ou B” é simbolizada por A 
+∨
+ B e tem valor lógico F quando A e B são F, nos demais casos
+é V. Considere como premissas as proposições abaixo, que foram construídas a partir de
+alguns artigos do Código Municipal de Posturas da Prefeitura Municipal de Teresina: A:
+Todos os estabelecimentos comerciais devem dispor de lixeira para uso
+ público.
+B: Todo proprietário de estabelecimento comercial é responsável pela manutenção da
+ordem no estabelecimento.
+C: Se Mário é o proprietário do terreno, então Mário é o responsável pelo escoamento das
+águas pluviais que atingirem o terreno.
+D: João tem mais de 18 anos ou João não pode comprar bebidas alcoólicas.
+Considerando como V as proposições A, B, C e D e, com base nas
+ definições acima, julgue
+os itens subsequentes.
+53. (Cespe – UnB – PRFVT – 2008) A negação da proposição A é “Existem estabelecimentos
+comerciais que não dispõem de lixeira para uso público”.
+54. (Cespe – UnB – PRFVT – 2008) Se a proposição “Mário não é o responsável pelo
+escoamento das águas pluviais que atingirem o terreno” for também V, então a
+proposição “Mário não é o proprietário
+ do terreno” é também V.
+
+55. (Cespe – UnB – PRFVT – 2008) Uma proposição simbolizada por P
+→
+P
+∨
+Q possui um
+único valor lógico F para todos os possíveis valores lógicos atribuídos às proposições P e
+Q.
+56. (Cespe – UnB – Sebrae – 2008)
+2
+A
+B
+C
+D
+E
+F
+4
+G
+H
+1
+I
+J
+K
+L
+M
+Na tabela acima, as letras poderão assumir somente os valores 1, 2, 3 ou 4, seguindo as
+seguintes regras:
+• cada algarismo deverá aparecer em todas as linhas e em todas as colunas, mas não
+poderá haver algarismo repetido em nenhuma linha e em nenhuma coluna; • em
+cada uma das quatro minitabelas, de quatro células e separadas por linhas espessas,
+deverão
+ aparecer todos os quatro algarismos; • os algarismos nas células
+sombreadas não poderão ser alterados.
+Com base nessas informações, julgue os itens seguintes.
+I. Os valores das letras A, B, C, F, G e L são logicamente determinados a partir das
+informações acima.
+II. Necessariamente, H = 3.
+III. Se I = 3, então, necessariamente, E = 3.
+IV. Se H = 3, então é possível determinar,
+ de uma única forma, todos os valores das
+outras letras.
+Estão certos apenas os itens
+a) I e II;
+b) I e IV;
+c) II e III;
+d) III e IV.
+57. (Cespe – UnB – Sebrae – 2008)
+Considere que cada um dos cartões acima tenha um número em uma face e uma figura
+na outra, e que alguém fez a seguinte afirmação: “se, em um cartão, há um número
+ímpar em uma face, então, na outra
+ face, há um quadrado”. Para comprovar se essa
+afirmação é verdadeira, será necessário olhar a outra face: a) apenas dos cartões A e B;
+b) apenas dos cartões A, D e E;
+c) apenas dos cartões B, C e E;
+d) de todos os cartões.
+58. (Cespe – UnB – Sebrae – 2008) A proposição “João viajou para Paris e Roberto viajou
+para Roma” é um exemplo de proposição formada por duas proposições
+ simples
+relacionadas por um conectivo de conjunção.
+
+Texto para questões 59 a 61
+Os conectivos e, ou, não e o condicional se ... então são, simbolicamente, representados por
+∧
+, 
+∨
+, ¬ e 
+→
+, respectivamente. As letras maiúsculas do alfabeto, como P, Q e R,
+representam proposições. As indicações V e F são usadas para valores lógicos verdadeiro e
+falso, respectivamente, das proposições.
+Com base nessas informações, julgue os itens seguintes.
+59. (Cespe – UnB – Sebrae – 2008) A proposição “Tanto João não é norte-americano como
+Lucas não é brasileiro, se Alberto é francês” poderia ser representada por uma
+expressão do tipo P
+→
+[(¬Q)
+∧
+(¬R)].
+60. (Cespe – UnB – Sebrae – 2008) A proposição ¬(P
+∧
+Q) é equivalente à proposição
+(¬P)
+∨
+(¬Q).
+61. (Cespe – UnB – Sebrae – 2008) A proposição
+ [(P
+→
+Q)v(Q
+→
+R)]
+→
+(P
+→
+R) é uma tautologia.
+Texto para questão 62
+No retângulo a seguir, as células vazias só podem ser preenchidas com vogais e de modo
+que cada vogal apareça apenas uma vez em cada linha e em cada coluna.
+A
+E
+I
+O
+U
+De acordo com essas instruções e considerando as células de uma diagonal já
+preenchidas, julgue o item a seguir.
+62.
+ (Cespe – UnB – Secad-TO – 2008) Se for colocada a vogal I em todas as células da outra
+diagonal desse retângulo, então não será possível preenchê-lo na forma especificada.
+Texto para questões 63 e 64
+Uma proposição é uma afirmação que pode ser julgada como verdadeira — V —, ou falsa —
+F —, mas não como ambas. Uma proposição é simples quando não contém nenhuma outra
+proposição como parte
+ de si mesma e, quando a proposição é formada pela combinação de
+duas ou mais proposições simples, é denominada proposição composta. Uma proposição
+simples é, normalmente, representada simbolicamente por letras maiúsculas do alfabeto.
+As expressões A
+→
+B e A 
+∨
+ B representam proposições compostas, que são lidas,
+respectivamente, como “se A então B” e “A ou B”. A primeira proposição tem valor lógico
+ F
+quando A é V e B é F, nos demais casos é V; a segunda tem valor lógico F quando A e B são
+F, nos demais casos é V. A expressão ¬A também representa uma proposição composta,
+lida como “não A”, e tem valor lógico V quando A é F, e tem valor lógico F quando A é V.
+Com base nessas definições, julgue os itens subsequentes.
+
+63. (Cespe – UnB – SGA-AC – 2008) As proposições A
+→
+B e (¬B)
+→
+(¬A) têm a
+ mesma tabela
+verdade.
+64. (Cespe – UnB – SGA-AC – 2008) A proposição “Se a vítima não estava ferida ou a arma
+foi encontrada, então o criminoso errou o alvo” fica corretamente simbolizada na forma
+(¬A)
+∨
+B
+→
+C.
+Texto para questões 65 a 67
+Proposições são sentenças que podem ser julgadas como verdadeiras ou falsas, mas não
+admitem ambos os julgamentos. A esse respeito, considere que A represente
+ a proposição
+simples “É dever do servidor apresentar-se ao trabalho com vestimentas adequadas ao
+exercício da função”, e que B represente a proposição simples “É permitido ao servidor que
+presta atendimento ao público solicitar dos que o procuram ajuda financeira para realizar
+o cumprimento de sua missão”.
+Considerando as proposições A e B anteriores, julgue os itens subsequentes, com respeito
+ao Código de Ética Profissional do Servidor Público Civil do Poder Executivo Federal e às
+regras inerentes ao raciocínio lógico.
+65. (Cespe – UnB – INSS – 2008) Sabe-se que uma proposição na forma “Ou A ou B” tem
+valor lógico falso quando A e B são ambos falsos; nos demais casos, a proposição é
+verdadeira. Portanto, a proposição composta “Ou A ou B”, em que A e B são as
+proposições referidas
+ acima, é verdadeira.
+66. (Cespe – UnB – INSS – 2008) A proposição composta “Se A então B” é necessariamente
+verdadeira.
+67. (Cespe – UnB – INSS – 2008) Represente-se por ¬A a proposição composta que é a
+negação da proposição A, isto é, ¬A é falso quando A é verdadeiro e ¬A é verdadeiro
+quando A é falso. Desse modo, as proposições “Se ¬A então ¬B” e “Se A então B” têm
+valores lógicos iguais.
+Texto para questões 68 a 70
+Algumas sentenças são chamadas abertas porque são passíveis de interpretação para que
+possam ser julgadas como verdadeiras (V) ou falsas (F). Se a sentença aberta for uma
+expressão da forma 
+∀
+x
+P(
+x
+), lida como “para todo 
+x
+, P(
+x
+)”, em que 
+x
+ é um elemento
+qualquer de um conjunto U, e P(
+x
+) é uma propriedade a respeito dos elementos de U, então
+é preciso explicitar
+ U e P para que seja possível fazer o julgamento como V ou como F.
+A partir das definições acima, julgue os itens a seguir.
+68. (Cespe – UnB – INSS – 2008) Considere-se que U seja o conjunto dos funcionários do
+INSS, P(
+x
+) seja a propriedade “
+x
+ é funcionário do INSS” e Q(
+x
+) seja a propriedade “
+x
+ tem
+mais de 35 anos de idade”. Desse modo, é CORRETO afirmar que duas das formas
+apresentadas
+ na lista abaixo simbolizam a proposição “Todos os funcionários do INSS
+têm mais de 35 anos de idade.”
+(i) 
+∀
+x
+(se Q(
+x
+) então P(
+x
+)); (ii) 
+∀
+x
+(P(
+x
+) ou Q(
+x
+)); (iii) 
+∀
+x
+(se P(
+x
+) então Q(
+x
+)).
+
+69. (Cespe – UnB – INSS – 2008) Se U for o conjunto de todos os funcionários públicos e P(
+x
+)
+for a propriedade “
+x
+ é funcionário do INSS”, então é falsa a sentença 
+∀
+x
+P(
+x
+).
+70. (Cespe – UnB – PRF
+ – 2008) Em um posto de fiscalização da PRF, cinco veículos foram
+abordados por estarem com alguns caracteres das placas de identificação cobertos por
+uma tinta que não permitia o reconhecimento, como ilustradas abaixo, em que as
+interrogações indicam os caracteres ilegíveis.
+Os policiais que fizeram a abordagem receberam a seguinte informação: se todas as
+três letras forem vogais, então o número, formado por quatro algarismos, é par. Para
+verificar se essa informação está correta, os policiais deverão retirar a tinta das placas:
+a) I, II e V;
+b) I, III e IV;
+c) I, III e V;
+d) II, III e IV;
+e) II, IV e V.
+Texto para questões 71 e 72
+Proposições
+ são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, mas não como ambas. Se P e Q são proposições, então a proposição “Se P então Q”,
+denotada por P
+→
+Q, terá valor lógico F quando P for V e Q for F, e, nos demais casos, será V.
+Uma expressão da forma ¬P, a negação da proposição P, terá valores lógicos contrários aos
+de P. P
+∨
+Q, lida como “P ou Q”, terá valor lógico F quando
+ P e Q forem, ambas, F; nos
+demais casos, será V. Considere as proposições simples e compostas apresentadas abaixo,
+denotadas por A, B e C, que podem ou não estar de acordo com o art. 5
+o
+ da Constituição
+Federal.
+A: A prática do racismo é crime afiançável.
+B: A defesa do consumidor deve ser promovida pelo Estado.
+C: Todo cidadão estrangeiro que cometer crime político em território brasileiro
+ será
+extraditado.
+De acordo com as valorações V ou F atribuídas corretamente às proposições A, B e C, a
+partir da Constituição Federal, julgue os itens a seguir.
+71. (Cespe – UnB – INSS – 2008) Para a simbolização apresentada acima e seus
+correspondentes valores lógicos, a proposição B
+→
+C é V.
+72. (Cespe – UnB – INSS – 2008) De acordo com a notação apresentada acima, é correto
+afirmar
+ que a proposição (¬A)
+∨
+(¬C) tem valor lógico F.
+Texto para questões 73 a 75
+Uma proposição é uma sentença que pode ser julgada verdadeira (V) ou falsa (F). As
+proposições são normalmente representadas pelas letras maiúsculas A, B, C etc. A partir
+de proposições dadas, podem-se construir novas proposições compostas, mediante o
+emprego de símbolos lógicos chamados conectivos: “e”, indicado
+ pelo símbolo lógico 
+∧
+, e
+
+“ou”, indicado pelo símbolo lógico 
+∨
+. Usa-se o modificador “não”, representado pelo
+símbolo lógico ¬, para produzir a negação de uma proposição; pode-se, também, construir
+novas proposições mediante o uso do condicional “se A então B”, representado por A
+→
+B. O
+julgamento de uma proposição lógica composta depende do julgamento que se faz de suas
+proposições componentes.
+ Considerando os possíveis julgamentos V ou F das proposições A
+e B, tem-se a seguinte tabela-verdade para algumas proposições compostas.
+A
+B
+A
+∧
+B
+A
+∨
+B
+¬A
+A
+→
+B
+V
+V
+V
+V
+F
+V
+V
+F
+F
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+Considerando-se a proposição A, formada
+ a partir das proposições B, C etc. mediante o
+emprego de conectivos (
+∧
+ = e), (ou = 
+∨
+), ou de modificador (¬) ou de condicional (
+→
+), diz-se
+que A é uma tautologia quando A tem valor lógico V, independentemente dos valores
+lógicos de B, C etc. e diz-se que A é uma contradição quando A tem valor lógico F,
+independentemente dos valores lógicos de B, C etc. Uma proposição A é equivalente a uma
+proposição
+ B quando A e B têm as tabelas-verdade iguais, isto é, A e B têm sempre o
+mesmo valor lógico.
+Com base nas informações acima, julgue os itens a seguir.
+73. (Cespe – UnB – Serpro – 2008) A proposição (A
+∧
+B) 
+∧
+ (¬A 
+∨
+ B) é uma tautologia.
+74. (Cespe – UnB – Serpro – 2008) Em relação às proposições A:
+√
+16 = 
++
+ 4 e B: 9 é par, a
+proposição composta A
+→
+B é uma contradição.
+75. (Cespe – UnB
+ – Serpro – 2008) A proposição AvB é equivalente à proposição ¬B
+∧
+¬A.
+Texto para questões 76 e 77
+Proposições são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, mas não como ambas. Se P e Q são proposições, então a proposição “Se P então Q”,
+denotada por P
+→
+Q, terá valor lógico F quando P for V e Q for F, e, nos demais casos, será V.
+Uma expressão da forma ¬P, a
+ negação da proposição P, terá valores lógicos contrários aos
+de P. P
+∨
+Q, lida como “P ou Q”, terá valor lógico F quando P e Q forem, ambas, F; nos
+demais casos, será V. Considere as proposições simples e compostas apresentadas abaixo,
+denotadas por A, B e C, que podem ou não estar de acordo com o art. 5
+o
+ da Constituição
+Federal.
+A: A prática do racismo é crime afiançável.
+B: A defesa do
+ consumidor deve ser promovida pelo Estado.
+C: Todo cidadão estrangeiro que cometer crime político em território brasileiro será
+extraditado.
+De acordo com as valorações V ou F atribuídas corretamente às proposições A, B e C, a
+partir da Constituição Federal, julgue os itens a seguir.
+
+76. (Cespe – UnB – INSS – 2008) Para a simbolização apresentada acima e seus
+correspondentes valores
+ lógicos, a proposição B
+→
+C é V.
+77. (Cespe – UnB – INSS – 2008) De acordo com a notação apresentada acima, é correto
+afirmar que a proposição (¬A)
+∨
+(¬C) tem valor lógico F.
+Texto para questão 78
+Proposição é uma sentença que pode ser julgada como verdadeira — V —, ou falsa — F —,
+mas não como V e F simultaneamente. Letras maiúsculas do alfabeto são frequentemente
+usadas para simbolizar
+ uma proposição básica. A expressão A
+∧
+B simboliza a proposição
+composta “A e B” e tem valor lógico V somente quando A e B forem V, nos demais casos,
+será F. A expressão A
+∨
+B simboliza a proposição composta “A ou B” e tem valor lógico F
+somente quando A e B forem F, nos demais casos, será V. A expressão da forma ¬A é a
+negação da proposição A, e possui valores lógicos contrários aos de A. A expressão
+ A
+→
+B é
+uma proposição composta que tem valor lógico F somente quando A for V e B for F, e nos
+demais casos, será V, e pode ser lida como: “se A então B”. Uma argumentação lógica
+correta consiste de uma sequência finita de proposições, em que algumas, denominadas
+premissas, são V, por hipótese, e as demais, as conclusões, são V por consequência da
+veracidade das premissas e de conclusões anteriores.
+78. (Cespe – UnB – TCE – 2008) Ainda com base nas definições do texto, é correto afirmar
+que a proposição simbolizada por ((¬ A) 
+∨
+ B) 
+∧
+ (A 
+∨
+ (¬ B)) possui os mesmos valores
+lógicos que a proposição simbolizada por: a) (B 
+→
+ A) 
+∨
+ (¬ A 
+→
+ ¬ B);
+b) (B 
+∨
+ A) 
+∨
+ ((¬ A) 
+∨
+ (¬ B));
+c) (B 
+∧
+ A) 
+∨
+ ((¬ A) 
+∧
+ (¬ B));
+d) (B
+∨
+A)
+∨
+(¬A
+→
+¬B);
+e) (B
+→
+A)
+∨
+(¬A)
+∨
+(¬B)).
+A
+B
+C
+V
+F
+V
+F
+V
+F
+V
+F
+F
+79. (Cespe – UnB – TCE – 2008) Considere a tabela acima, que contém valorações de
+proposições simples A, B e C. Nesse caso, assinale a opção correspondente à proposição
+composta a partir de A, B e C que é sempre V para cada linha de valorações de A, B e C
+conforme a tabela: a) [A
+∧
+(¬B)
+∧
+C]
+∨
+[(¬A)
+∧
+B
+∧
+(¬C)]
+∨
+[A
+∧
+(¬B)
+∧
+(¬C)];
+b) [A
+∧
+B
+∧
+C]
+∨
+(¬A)
+∧
+B
+∧
+(¬C)]
+∨
+[A
+∧
+(¬B)
+∧
+(¬C)];
+c) [A
+∧
+(¬B)
+∧
+C]
+∨
+[A
+∧
+B
+∧
+(¬C)]
+∨
+[A
+∧
+(¬B)
+∧
+(¬C)];
+d) [A
+∧
+(¬B)
+∧
+C]
+∨
+[(¬A)
+∧
+B
+∧
+(¬C)]
+∨
+[¬A)
+∧
+B
+∧
+C];
+e) [A
+∧
+B
+∧
+C]
+∨
+[(¬A)
+∧
+B
+∧
+C]
+∨
+[A
+∧
+(¬B)
+∧
+(¬C)].
+Texto para questões 80 a 82
+Uma proposição é uma sentença que pode ser julgada verdadeira (V) ou falsa (F). As
+
+proposições normalmente são representadas pelas letras maiúsculas A, B, C etc. A partir
+de duas proposições, pode-se formar novas proposições compostas, empregando-se
+ o
+conectivo “e”, indicado por 
+∧
+; o conectivo “ou”, indicado por 
+∨
+, e o condicional “se A então
+B”, indicado por A
+→
+B. Emprega-se também o modificador “não”, indicado por ¬, para
+produzir a negação de uma proposição. O julgamento de uma proposição composta depende
+do julgamento de suas proposições componentes. Considerando todos os possíveis
+julgamentos V ou F para as proposições A e B, tem-se a
+ seguinte tabela-verdade para
+algumas proposições compostas.
+A
+B
+A
+∧
+B
+A
+∨
+B
+¬A
+A
+→
+B
+V
+V
+V
+V
+F
+V
+V
+F
+F
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+Duas proposições são equivalentes quando têm a mesma tabela-verdade. Com base nessas
+informações, julgue os itens a
+ seguir.
+80. (Cespe – UnB – Serpro – 2008) A proposição ¬B
+→
+A é equivalente à proposição A
+→
+B.
+81. (Cespe – UnB – Serpro – 2008) A coluna da tabela-verdade da proposição composta
+(A
+→
+B)
+→
+((¬B)
+→
+(¬A)) conterá somente valores lógicos V, independentemente dos
+valores lógicos de A e B.
+82. (Cespe – UnB – Serpro – 2008) A proposição ¬(A
+∧
+B) é equivalente à proposição
+(¬A
+∨
+¬B).
+Texto para questão
+ 83
+Uma proposição é uma frase declarativa que pode ser julgada como verdadeira (V) ou falsa
+(F), mas não cabe ambos os julgamentos. Considere que proposições simples sejam
+simbolizadas por A, B, C etc. Qualquer expressão da forma ¬A, A
+∨
+B, A 
+→
+ B são proposições
+compostas. Proposições A e ¬A têm julgamentos contrários, isto é, quando A é V, então ¬A é
+F, e quando A é F, então ¬A é V. Uma proposição
+ da forma A
+∨
+B (lida como A ou B) é F
+quando A e B são F, caso contrário é V, e uma proposição da forma A 
+→
+ B (lida como se A
+então B) é F quando A é V e B é F, caso contrário é V.
+A partir das informações acima, julgue os itens seguintes.
+83. (Cespe – UnB – Prefeitura-ES – 2008) Se A é V, B é F e C é V, então (¬A)
+∨
+(¬B) 
+→
+ C será
+necessariamente V.
+Texto para questões 84 a 92
+Na comunicação,
+ o elemento fundamental é a sentença, ou proposição simples, constituída
+esquematicamente por um sujeito e um predicado, sempre nas formas afirmativa ou
+negativa, excluindo-se as interrogativas e exclamativas. Toda proposição pode ser julgada
+como falsa (F), ou verdadeira (V), excluindo-se qualquer outra forma. Novas proposições

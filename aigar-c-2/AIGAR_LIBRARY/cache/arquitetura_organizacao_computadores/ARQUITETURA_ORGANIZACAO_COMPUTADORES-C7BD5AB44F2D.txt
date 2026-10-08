@@ -1,0 +1,543 @@
+ISBN 978-85-7605-564-8Computação
+www.pearson.com.brwww.pearson.com.br/stallings
+Professores e alunos encontram vasto material que complementa o conteúdo abordado no livro.Quatro vezes premiado como o melhor livro-texto de engenharia e 
+ciências da computação pela Text and Academic Authors Association, 
+Arquitetura e organização de computadores é bibliografia essencial a 
+estudantes e profissionais da área.
+Nesta oitava edição, William Stallings apresenta os fundamentos do 
+processador e do design de computadores completamente atualizados e vai além, abordando questões relacionadas à memória, à E/S e 
+a sistemas paralelos e trazendo exemplos concretos que auxiliam 
+nas escolhas necessárias durante a implementação de um sistema operacional atual.
+Acompanhando a rápida evolução da tecnologia, o conteúdo de 
+Arquitetura e organização de computadores não se restringe a suas 
+páginas: no site de apoio da obra, estudantes de ciências da computação, engenharia da computação e engenharia elétrica encontram capítulos e apêndices on-line (em inglês) e leituras complementares que 
+ampliam seu conhecimento, bem como simuladores e exercícios que 
+proporcionam a prática.ARQUITETURA E ORGANIZAÇÃO 
+DE COMPUTADORESARQUITETURA E ORGANIZAÇÃO 
+DE COMPUTADORES
+8a edição
+8a edição8a ediçãoWILLIAM STALLINGSSTALLINGS
+CVR_STAL5648_8_CVR.indd 1 08/11/2013 12:05:26
+
+Book 1.indb 2 19.11.09 14:35:30
+
+Inicio novo.indd 1 25.11.09 17:54:38
+
+Book 1.indb 2 19.11.09 14:35:30
+
+São Paulo 
+Brasil Argentina Colômbia Costa Rica Chile Espanha Guatemala México Peru Porto Rico VenezuelaTradução
+Daniel Vieira
+Ivan Bosnic
+Revisão Técnica
+Ricardo Pannain
+Professor Doutor do Centro de Ciências Exatas, Ambientais e de Tecnologias 
+da PUC-Campinas e do Instituto de Computação da UNICAMP
+ASSOCI AÇÃO BRASILEIRA DE DI REITOS REPROGR ÁFICOS
+Inicio novo.indd 3 25.11.09 17:54:38São Paulo
+Brasil Argentina Colômbia Costa Rica Chile Espanha 
+Guatemala México Peru Porto Rico Venezuela
+
+© 2010 by Pearson Education do Brasil
+Título original: Computer organization and architecture: designing for performance, eight edition 
+© 2009 by William Stallings
+Tradução autorizada a partir da edição original em inglês,
+publicada pela Pearson Education, Inc. sob o selo Prentice Hall.
+Todos os direitos reservados. Nenhuma parte desta publicação poderá ser reproduzida
+ou transmitida de nenhum modo ou por algum outro meio, eletrônico ou mecânico,
+incluindo fotocópia, gravação ou qualquer outro tipo de sistema de armazenamento
+e transmissão de informação, sem prévia autorização, por escrito, da Pearson Education do Brasil.
+Diretor editorial : Roger Trimer
+Gerente editorial : Sabrina Cairo
+Supervisor de produção editorial : Marcelo Françozo
+Editora : Marina S. Lupinetti
+Preparação : Mônica Santos
+Revisão : Regiane Miyashiro e Opportunity translations
+Capa : Alexandre Mieda sobre o projeto original de Kristine Carney 
+Diagramação : Raquel Coelho / Casa de Ideias
+a reimpressão — maio 2011
+Direitos exclusivos para a língua portuguesa cedidos à
+Pearson Education do Brasil,
+uma empresa do grupo Pearson Education
+Rua Nelson Francisco, 26, Limão
+CEP: 02712-100, São Paulo — SP
+Fone: (11) 2178-8686 — Fax: (11) 2178-8688
+e-mail: vendas@pearson.comDados Internacionais de Catalogação na Publicação (CIP)
+(Câmara Brasileira do Livro, SP, Brasil)
+Stallings, William
+Arquitetura e organização de computadores / 
+William Stallings. — 8. ed. — São Paulo : Pearson Pratice Hall, 2010.
+Título original: Computer organization and architecture.
+ISBN 978-85-7605-564-8Vários tradutores.
+1. Arquitetura de computadores. 2. Organização de computador I. Título.
+004.22 - CDD 3 7 7 01 - 90
+Índices para catálogo sistemático:
+1. Computadores : Arquitetura : Ciência da computação 004.22
+Inicio novo.indd 4 29/4/2011 15:36:13 4a reimpressão — novembro 2013
+
+Para Tricia (ATS), 
+minha amada esposa, 
+a pessoa mais amável e gentil
+Book 1.indb 5 19.11.09 14:35:34
+
+Book 1.indb 6 19.11.09 14:35:34
+
+Sumário
+Prefácio ................................................................................................................................... XI
+0. Guia do leitor ......................................................................................................................... 1
+0.1 Esboço do livro ....................................................................................................................................................................................1
+0.2 Mapa para leitores e professores .........................................................................................................................................................2
+0.3 Por que estudar arquitetura e organização de computadores? ............................................................................................................2
+0.4 Recursos da Internet e Web .................................................................................................................................................................3
+Parte 1 — Visão geral
+1. I ntrodução ............................................................................................................................. 6
+1.1 Organização e arquitetura ...................................................................................................................................................................61.2 Estrutura e função ...............................................................................................................................................................................7
+2. Evolução e desempenho do computador .................................................................................12
+2.1 Um breve histórico dos computadores ...............................................................................................................................................122.2 Projetando visando ao desempenho .................................................................................................................................................292.3 Evolução da arquitetura Intel x86 ......................................................................................................................................................342.4 Sistemas embarcados e a ARM ..........................................................................................................................................................352.5 Avaliação de desempenho .................................................................................................................................................................382.6 Leitura recomendada e sites Web ......................................................................................................................................................45
+Parte 2 — O sistema de computação
+3. Visão de alto nível da função e interconexão do computador ....................................................53
+3.1 Componentes do computador ...........................................................................................................................................................543.2 Função do computador .....................................................................................................................................................................563.3 Estrutura de interconexão .................................................................................................................................................................673.4 Interconexão de barramento .............................................................................................................................................................683.5 PCI .....................................................................................................................................................................................................763.6 Leitura recomendada e sites Web ......................................................................................................................................................83
+Inicio novo.indd 7 25.11.09 17:31:49
+
+VIII ARquITeTu RA e o RgAnIzA ção de compuTA doR es Sumário
+4. Memória cache ......................................................................................................................89
+4.1 Visão geral do sistema de memória do computador ..........................................................................................................................90
+4.2 Princípios da memória cache .............................................................................................................................................................95
+4.3 Elementos do projeto da memória cache...........................................................................................................................................98
+4.4 Organização da memória cache do Pentium 4 .................................................................................................................................113
+4.5 Organização de cache da ARM .........................................................................................................................................................1154.6 Leitura recomendada ......................................................................................................................................................................116
+5. Memória Interna .................................................................................................................128
+5.1 Memória principal semicondutora ..................................................................................................................................................1285.2 Correção de erro ..............................................................................................................................................................................1365.3 Organizações avançadas de DRAM ..................................................................................................................................................1405.4 Leitura recomendada e sites Web ....................................................................................................................................................145
+6. Memória externa ................................................................................................................149
+6.1 Disco magnético ..............................................................................................................................................................................1496.2 RAID ................................................................................................................................................................................................157
+6.3 Memória óptica ...............................................................................................................................................................................1646.4 Fita magnética ................................................................................................................................................................................1696.5 Leitura recomendada e sites Web ....................................................................................................................................................172
+7. Entrada/Saída .....................................................................................................................176
+7.1 Dispositivos externos .......................................................................................................................................................................1777.2 Módulos de E/S ...............................................................................................................................................................................1797.3 E/S programada ..............................................................................................................................................................................1817.4 E/S controlada por interrupção ........................................................................................................................................................1847.5 Acesso direto à memória .................................................................................................................................................................1917.6 Canais e processadores de E/S .........................................................................................................................................................1967.7 A interface externa: FireWire e InfiniBand .........................................................................................................................198
+7.8 Leitura recomendada e sites Web ....................................................................................................................................................205
+8. Suporte do sistema operacional ...........................................................................................210
+8.1 Visão geral do sistema operacional .................................................................................................................................................211
+8.2 Escalonamento ................................................................................................................................................................................2198.3 Gerenciamento de memória ............................................................................................................................................................2248.4 Gerenciamento de memória no Pentium .........................................................................................................................................234
+8.5 Gerenciamento de memória no ARM ...............................................................................................................................................238
+8.6 Leitura recomendada e sites Web ....................................................................................................................................................243
+Parte 3 — A unidade central do processamento
+9. Aritmética do computador ...................................................................................................249
+9.1 A Unidade Lógica e Aritmética (ALU) ...............................................................................................................................................249
+9.2 Representação de inteiros ...............................................................................................................................................................250
+Book 1.indb 8 19.11.09 14:35:35
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Sumário IX
+9.3 Aritmética com inteiros ...................................................................................................................................................................255
+9.4 Representação de ponto flutuante ..................................................................................................................................................2679.5 Aritmética de ponto flutuante .........................................................................................................................................................2729.6 Leitura recomendada e sites Web ....................................................................................................................................................280
+10. Conjuntos de instruções: características e funções ...............................................................286 
+10.1 Características das instruções de máquina ......................................................................................................................................287
+10.2 Tipos de operandos .........................................................................................................................................................................292
+10.3 Tipos de dados Intel x86 ..................................................................................................................................................................294
+10.4 Tipos de operações ..........................................................................................................................................................................297
+10.5 Tipos de operação Intel x86 e do ARM .............................................................................................................................................307
+10.6 Leitura recomendada ......................................................................................................................................................................315
+11. Conjuntos de instruções: modos e formatos de endereçamento ............................................329 
+11.1 Endereçamento ...............................................................................................................................................................................329
+11.2 Modos de endereçamento x86 e ARM .............................................................................................................................................335
+11.3 Formatos de instrução .....................................................................................................................................................................339
+11.4 Formatos de instruções x86 e ARM ..................................................................................................................................................346
+11.5 Linguagem de montagem ...............................................................................................................................................................350
+11.6 Leitura recomendada ......................................................................................................................................................................351
+12. Estrutura e função do processador ......................................................................................355
+12.1 Organização do processador ............................................................................................................................................................356
+12.2 Organização dos registradores.........................................................................................................................................................357
+12.3 Ciclo da instrução ............................................................................................................................................................................361
+12.4 Pipeline de instruções .....................................................................................................................................................................364
+12.5 Família de processadores x86 ..........................................................................................................................................................378
+12.6 Processador ARM .............................................................................................................................................................................385
+12.7 Leitura recomendada ......................................................................................................................................................................390
+13. Computadores com conjunto reduzido de instruções (RISC) ..................................................395
+13.1 Características da execução de instruções ........................................................................................................................................396
+13.2 Uso de um banco grande de registradores .......................................................................................................................................400
+13.3 Otimização de registradores baseada em compiladores ..................................................................................................................404
+13.4 Arquitetura com conjunto reduzido de instruções ...........................................................................................................................405
+13.5 Pipeline no RISC ..............................................................................................................................................................................410
+13.6 MIPS R4000 .....................................................................................................................................................................................413
+13.7 SPARC ..............................................................................................................................................................................................420
+13.8 Controvérsia de RISC versus CISC ......................................................................................................................................................424
+13.9 Leitura recomendada ......................................................................................................................................................................425
+14. Paralelismo em nível de instruções e processadores superescalares ......................................429
+14.1 Introdução .......................................................................................................................................................................................430
+14.2 Questões de projeto ........................................................................................................................................................................434
+14.3 Pentium 4........................................................................................................................................................................................441
+Book 1.indb 9 19.11.09 14:35:35
+
+X ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+14.4 ARM Cortex-A8 ................................................................................................................................................................................446
+14.5 Leitura recomendada ......................................................................................................................................................................452
+Parte 4 — A unidade de controle
+15. Operação da unidade de controle .......................................................................................461
+15.1 Micro-operações .............................................................................................................................................................................462
+15.2 Controle do processador ..................................................................................................................................................................466
+15.3 Implementação por hardware .........................................................................................................................................................475
+15.4 Leitura recomendada ......................................................................................................................................................................477
+16. Controle microprogramado ................................................................................................479
+16.1 Conceitos básicos.............................................................................................................................................................................480
+16.2 Sequenciamento de microinstruções ...............................................................................................................................................487
+16.3 Execução de microinstruções ...........................................................................................................................................................492
+16.4 TI 8800 ............................................................................................................................................................................................501
+16.5 Leitura recomendada ......................................................................................................................................................................510
+Parte 5 — Organização paralela
+17. Processamento paralelo ....................................................................................................514
+17.1 Organizações de múltiplos processadores .......................................................................................................................................515
+17.2 Multiprocessadores simétricos ........................................................................................................................................................517
+17.3 Coerência de cache e protocolo M ESI ..............................................................................................................................................523
+17.4 Multithreading e chips multiprocessadores......................................................................................................................................528
+17.5 Clusters ............................................................................................................................................................................................532
+17.6 Acesso não uniforme à memória .....................................................................................................................................................538
+17.7 Computação vetorial .......................................................................................................................................................................541
+17.8 Leitura recomendada e sites Web ....................................................................................................................................................552
+18. Computadores multicore ...................................................................................................559
+18.1 Questões sobre desempenho de hardware ......................................................................................................................................559
+18.2 Questões sobre desempenho de software .......................................................................................................................................563
+18.3 Organização multicore ....................................................................................................................................................................567
+18.4 Organização multicore X86 da Intel .................................................................................................................................................568
+18.5 ARM11 MPCore ...............................................................................................................................................................................571
+18.6 Leitura recomendada e sites Web ....................................................................................................................................................575
+Apêndice A .............................................................................................................................577
+Apêndice B .............................................................................................................................581Glossário ................................................................................................................................603Referências ............................................................................................................................611Índice ....................................................................................................................................613Sobre o autor ..........................................................................................................................625
+Book 1.indb 10 19.11.09 14:35:35
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Prefácio
+ Objetivos
+Este livro trata da estrutura e função dos computadores. Sua fi nalidade é apresentar, da forma mais clara e com-
+pleta possível, a natureza e as características dos sistemas computacionais da atualidade.
+Essa tarefa é desafi adora por diversos motivos. Primeiro, existe uma grande variedade de produtos que podem 
+justifi cadamente ostentar o nome de computador, desde microprocessadores de um único chip, que custam alguns 
+poucos dólares, até supercomputadores, que custam dezenas de milhões de dólares. A variedade existe não apenas no custo, mas também no tamanho, no desempenho e nas formas de aplicação. Segundo, o rápido ritmo das mu-danças que sempre caracterizou a tecnologia associada aos computadores continua sem descanso. Tais mudanças atingem todos os aspectos da tecnologia associada aos computadores, desde as tecnologias básicas do circuito inte-grado, usadas para construir componentes do computador, até o uso cada vez maior dos conceitos de organização paralela na combinação desses componentes.
+Apesar da variedade e do ritmo de mudança no campo da computação, certos conceitos fundamentais aplicam-
+se por toda a parte de modo consistente. A aplicação desses conceitos depende do estado atual da tecnologia e dos objetivos de preço/desempenho do projetista. A intenção deste livro é oferecer uma discussão profunda dos funda-mentos da organização e arquitetura do computador e relacioná-los a questões atuais de projeto.
+O tema desta obra engloba a seguinte questão: sempre foi importante projetar sistemas de computação para 
+que eles alcançassem alto desempenho; porém, nunca tal requisito foi mais forte ou mais difícil de satisfazer que hoje. Todas as características de desempenho básicas dos sistemas computacionais, incluindo a velocidade de pro-cessador, velocidade de memória, capacidade de memória e taxas de dados de interconexão, estão aumentando rapidamente e, além disso, elas estão aumentando em velocidades diferentes. Isso difi culta projetar um sistema balanceado, que maximize o desempenho e a utilização de todos os elementos. Assim, o projeto de um computa-dor cada vez mais se torna um jogo que consiste em mudar a estrutura ou a função em uma área para compensar uma divergência de desempenho em outra. Veremos esse jogo sendo jogado em diversas decisões de projeto no decorrer do livro.
+Um sistema computacional, como qualquer outro sistema, consiste em um conjunto de componentes inter-
+relacionados. O sistema é mais bem caracterizado em termos de estrutura (o modo como os componentes são interconectados) e função (a operação dos componentes individuais). Além do mais, a organização de um com-putador é hierárquica. Cada componente principal pode também ser descrito decompondo-o em seus principais subcomponentes e descrevendo sua estrutura e função. Para garantir a clareza e a facilidade de compreensão, essa organização hierárquica é descrita neste livro com uma abordagem top-down:
+Sistema computacional:
+  seus principais componentes são processador, memória e E/S.
+Processador:  seus principais componentes são unidade de controle, registradores, ALU e unidade de execu-
+ção de instrução.
+Book 1.indb 11 19.11.09 14:35:36
+
+XII ARquITeTuRA e oRgAnIzAção de compuTAdoRes Prefácio
+Unidade de controle:  oferece sinais de controle para a operação e coordenação de todos os componentes 
+do processador. Tradicionalmente, uma implementação com microprogramação tem sido usada onde os 
+principais componentes são memória de controle, lógica de sequência de microinstrução e registradores. Mais recentemente, a microprogramação tem se sobressaído menos, mas continua sendo uma técnica de implementação importante.
+O objetivo desta edição é apresentar o conteúdo utilizando um padrão que apresente o material novo em um 
+contexto claro. Isso minimiza as chances de que o leitor se perca, colaborando mais para a motivação do que acon-teceria com uma abordagem inversa à top-down.
+No decorrer da discussão, aspectos do sistema são vistos dos pontos de vista da arquitetura (os atributos de um 
+sistema visíveis a um programador de linguagem de máquina) e da organização (as unidades operacionais e suas interconexões que concretizam a arquitetura).
+ Exemplos de sistema
+Este texto tem por fi nalidade familiarizar o leitor com os princípios de projeto e com questões de implementa-
+ção dos sistemas operacionais atuais. Consequentemente, um tratamento puramente conceitual ou teórico seria inadequado. Para ilustrar os conceitos e associá-los a escolhas de projeto do mundo real, que precisam ser feitas, duas famílias de processadores foram escolhidas como exemplos:
+Arquitetura Intel x86:
+  a arquitetura x86 é a mais utilizada para sistemas computacionais não embarcados. O 
+x86 é essencialmente um computador com conjunto de instruções complexo (CISC) com alguns recursos RISC. Os membros recentes da família x86 utilizam princípios de projeto superescalar e multicore. A evolu-ção de recursos na arquitetura x86 oferece um estudo de caso exclusivo da evolução da maioria das carac-terísticas de projeto e da arquitetura de computador.ARM:
+  a arquitetura embarcada ARM é comprovadamente o processador embarcado mais utilizado, presente 
+em telefones celulares, iPods, equipamentos de sensor remoto e muitos outros dispositivos. O ARM é essen-cialmente um computador com conjunto reduzido de instruções (RISC). Os membros recentes da família ARM utilizam princípios de projeto superescalar e multicore.
+Muitos dos exemplos, mas não todos, são retirados dessas duas famílias de computadores: o Intel x86 e a família 
+de processadores embarcados ARM. Diversos outros sistemas, tanto atuais quanto históricos, oferecem exemplos de recursos importantes de projeto de arquitetura de computador.
+ Estrutura do texto
+Este livro é organizado em cinco partes (consulte o Capítulo 0 para ter uma visão geral):
+Visão geral 
+O sistema de computação 
+A unidade central de processamento 
+A unidade de controle 
+Organização paralela 
+Uma série de recursos pedagógicos, incluindo o uso de simulações interativas e diversas fi guras e tabelas, en-
+riquece o conteúdo desta edição. Cada capítulo contém uma lista de principais termos, perguntas de revisão, pro-blemas para resolver em casa, sugestões de leitura adicional e Site Webs recomendados. O livro também conta com extenso glossário e referência bibliográfi ca.
+ Público
+Esta obra é destinada ao público acadêmico e profi ssional. Como livro-texto, é intencionada para um a dois 
+semestres do curso de graduação acadêmica em ciência da computação, engenharia de computação e engenha-ria elétrica. Aborda todos os tópicos em CS 220 Computer Architecture, que é uma das áreas centrais do IEEE/ACM 
+Computer Curricula 2001.
+Book 1.indb 12 19.11.09 14:35:36
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Prefácio XIII
+Para o profi ssional interessado na área, o livro serve como um volume de referência básica e é adequado para 
+autoestudo.
+ Material complementar
+O site Web <www.prenhall.com/stallings_br/> oferece aos leitores que utilizam o livro, tanto pro-
+fessores quanto alunos, vasto material complementar. Nele, são encontrados:
+para professores*
+ Apresentações em PowerPoint. Figura e tabelas utilizadas no livro. Manual de soluções (em inglês) das perguntas e dos problemas apresentados em cada capítulo.
+para estudantes
+Indicação de um site de recursos do aluno de ciência da computação (em inglês) que contém links e do-
+ 
+cumentos úteis aos alunos em seu desenvolvimento contínuo. Este site inclui uma relevante revisão da 
+matemática básica: conselhos sobre pesquisa, escrita e trabalhos de casa; links para itens de recurso ciência da computação, como repositórios de relatório e bibliografi as; e outros links úteis.Um conjunto de problemas (em inglês) suplementares com soluções. Tais trabalhos podem ser usados por es-
+ 
+tudantes para melhorar seu conhecimento resolvendo esses problemas e, depois, verifi cando suas respostas.Três capítulos on-line (em inglês): Sistemas numéricos, Lógica digital e Arquitetura IA-64.
+ 
+Nove apêndices on-line (C a K, em inglês) que expandem o conteúdo abordado no livro. Os tópicos incluem 
+recursão e diversos assuntos relacionados à memória.Outros documentos úteis (em inglês) que tratam de temas abordados ao longo do livro. 
+ 
+Sites web úteis: uma relação de links nos quais os estudantes encontram grande quantidade de tópicos que 
+permitem leitura complementar (em inglês).Simulações interativas: um total de 20 simulações interativas ilustram as principais funções e algoritmos 
+ 
+na organização de computador e projeto de arquitetura. O companion website inclui também links para os sites com pacotes de software disponíveis para download que servem como estruturas para a imple-mentação do projeto. No livro, quando determinado tópico contar com simulação interativa, ele trará o ícone 
+.
+Manual de projetos  (em inglês) : importante componente importante de um curso de organização e arquitetura 
+de computador, este livro oferece um grau de suporte sem paralelo para os trabalhos de projeto sugeridos nas áreas de simulação interativa, projetos de pesquisa, projetos de simulação, projetos em linguagem de monta-gem, trabalhos de leitura/relatório, trabalhos de escrita. Veja mais detalhes no Apêndice A deste livro.Exercícios adicionais
+  : exercícios de múltipla escolha relacionados aos temas de cada capítulo.
+ O que há de novo na oitava edição
+Desde a publicação da sétima edição deste livro, o campo no qual ele se insere tem sofrido inovações e me-
+lhorias contínuas. Nesta nova edição, tento capturar tais mudanças e manter uma cobertura ampla e abrangente do campo inteiro. Para iniciar esse processo de revisão, a sétima edição deste livro foi extensivamente revisada por diversos professores que lecionam a matéria e por profi ssionais que trabalham na área. O resultado é que, em muitos lugares, a narrativa foi esclarecida e estreitada e as ilustrações foram melhoradas. Além disso, diversos novos problemas para resolver em casa “testados em campo” foram acrescentados.
+Além desses requintes para melhorar a pedagogia e a facilidade para o usuário, houve mudanças substanciais 
+em todo o livro. Aproximadamente a mesma organização de capítulos foi retida, mas grande parte do material foi revisada e um material novo foi acrescentado. As mudanças mais notáveis são as seguintes:
+* Material de uso exclusivo de professores, protegido por senha. Para adquirir sua senha, contate seu representante ou envie um e-mail para 
+universitários@pearsoned.com.
+Book 1.indb 13 19.11.09 14:35:37<www.pearson.com.br/stallings>
+
+XIV ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Processadores embarcados:  a oitava edição agora inclui cobertura dos processadores embarcados e as ques-
+tões de projeto exclusivas que eles apresentam. A arquitetura ARM é utilizada como um estudo de caso.
+Processadores multicore:  esta nova edição inclui uma cobertura do que se tornou o novo desenvolvimento 
+mais comum em arquitetura de computador: o uso de múltiplos processadores em um único chip. O capí-tulo 18 é dedicado a esse assunto.Memória cache:
+  o capítulo 4, que é dedicado à memória cache, foi extensivamente revisado, atualizado e 
+expandido para oferecer uma cobertura técnica e pedagógica mais ampla e melhorada por meio do uso de diversas fi guras, além de ferramentas de simulação interativas.Avaliação de desempenho:
+  o capítulo 2 inclui uma discussão signifi cativamente abrangente da avaliação de 
+desempenho, incluindo uma nova discussão de benchmarks e uma análise da lei de Amdahl.Linguagem de montagem:
+  um novo apêndice foi acrescentado, abordando linguagem de montagem e 
+montadores.Dispositivos lógicos programáveis:
+  a discussão dos PLDs no capítulo 20, sobre lógica digital, foi expandida 
+com a inclusão da introdução aos FPGAs (Field-Programmable Gate Arrays).SDRAM DDR:
+  DDR tornou-se a tecnologia de memória principal dominante em desktops e servidores, particu-
+larmente DDR2 e DDR3. A tecnologia DDR é explicada no capítulo 5, com detalhes adicionais no Apêndice K.Linear Tape Open (LTO):
+  LTO tornou-se o formato de “superfi ta” mais vendido, e bastante utilizado com siste-
+mas de computação grandes e pequenos, especialmente para backup. LTO é explicado no capítulo 6, com detalhes adicionais no Apêndice J.
+A cada nova edição, é muito difícil manter uma quantidade de páginas razoável enquanto se acrescenta ma-
+terial novo. Em parte, esse objetivo é realizado eliminando-se material obsoleto e estreitando-se a narrativa. Para esta edição, capítulos e apêndices que são de interesse menos geral foram colocados online, como arquivos PDF individuais. Isso permitiu uma expansão do material sem o aumento correspondente no tamanho e no preço.
+ Agradecimentos
+Esta nova edição foi benefi ciada com a revisão de diversas pessoas, que doaram generosamente parte de seu 
+tempo e experiência. As seguintes pessoas revisaram todo ou grande parte do manuscrito: Azad Azadmanesh (University of Nebraska-Omaha;: Henry Casanova (University of Hawaii); Marge Coahran (Grinnell College); Andree 
+Jacobsen (University of New Mexico); Kurtis Kredo (University of California — Davis); Jiang Li (Austin Peay State University); 
+Rachid Manseur (SUNY , Oswego); John Masiyowski (George Mason University); Fuad Muztaba (Winston-Salem State 
+University); Bill Sverdlik (Eastern Michigan University); e Xiaobo Zhou (University of Colorado Colorado Springs).
+Obrigado também às pessoas que forneceram críticas detalhadas de um único capítulo: Tim Mensch, Balbir 
+Singh, Michael Spratte (Hewlett-Packard), Francois-Xavier Peretmere, John Levine, Jeff Kenton, Glen Herrmannsfeldt, Robert Thorpe, Grzegorz Mazur (Institute of Computer Science, Warsaw University of Technology), Ian Ameline, Terje Mathisen, Edward Brekelbaum (Varilog Research Inc), Paul DeMone e Mikael Tillenius. Também gostaria de agradecer a Jon Marsh, da ARM Limited, pela crítica do material sobre ARM.
+A professora Cindy Norris, da Appalachian State University, o professor Bin Mu, da University of New Brunswick, 
+e o professor Kenrick Mock, da University of Alaska, gentilmente forneceram problemas para deveres de casa.
+Aswin Sreedhar, da University of Massachusetts, desenvolveu as tarefas de simulação interativa e também es-
+creveu o banco de testes.
+O professor Miguel Angel Vega Rodriguez, o professor Dr. Juan Manuel Sanchez Perez, e o professor Dr. Juan 
+Antonio Gomez Pulido, todos da University of Extremadura, Espanha, prepararam os problemas do SMPCache no manual de instrutores e escreveram o SMPCache User’s Guide.
+Todd Bezenek, da University of Wisconsin, e James Stine, da Lehigh University, prepararam os problemas 
+SimpleScalar no manual do instrutor, e Todd também foi o autor do SimpleScalar User’s Guide.
+Agradeço também a Adrian Pullin, do Liverpool Hope University College, que desenvolveu os slides do PowerPoint 
+para o livro.
+Finalmente, gostaria de agradecer às muitas pessoas responsáveis pela publicação do livro; todas realizaram um 
+excelente trabalho, como sempre. Isso inclui minha editora Tracy Dunkelberger, sua assistente Melinda Haggerty, e a gerente de produção Rose Kernan. Além disso, Jake Warde, da Warde Publishers, controlou as revisões; e Patricia 
+M. Daly fez a revisão do texto.
+Book 1.indb 14 19.11.09 14:35:37
+
+Este livro, com o site Web que o acompanha, trabalha com vasto material. 
+Neste capítulo, oferecemos uma visão geral ao leitor.
+0.1 Esboço do livro
+Este livro é organizado em cinco partes:Parte 1: oferece uma visão geral de organização e arquitetura do computador, e examina como o projeto do computador evoluiu.Parte 2: examina os principais componentes de um computador e suas interconexões, entre eles e com o mun-do exterior. Essa parte também inclui uma discussão detalhada da memória interna e externa e da entrada/saída (E/S). Finalmente, examinamos o relacionamento entre a arquitetura de um computador e o sistema operacio-nal rodando na arquitetura examinada.Parte 3: examina a arquitetura e a organização interna do processador. Essa parte começa com uma dis-cussão da aritmética do computador. Depois, ela examina a arquitetura do conjunto de instruções. O res-tante da parte lida com a estrutura e a função do processador, incluindo uma discussão das abordagens RISC (do inglês Reduced Instruction Set Computer — computador com conjunto reduzido de instruções) e 
+superescalar.Parte 4: discute a estrutura interna da unidade de controle do processador e o uso da microprogramação.Parte 5: lida com a organização paralela, incluindo o multiprocessamento simétrico, clusters e arquitetura 
+multicore.Diversos capítulos e apêndices on-line no site Web deste livro abordam tópicos adicionais, relevantes ao assunto.Um resumo mais detalhado de cada parte, capítulo por capítulo, aparece no início dessa parte.Este texto serve para familiarizá-lo com os princípios de projeto e as questões de implementação da organiza-
+ção e arquitetura do computador contemporâneo. Consequentemente, um tratamento puramente conceitual ou teórico seria inadequado. Este livro utiliza exemplos de uma série de máquinas diferentes para esclarecer e reforçar os conceitos apresentados. Muitos dos exemplos, mas não todos, são retirados de duas famílias de computadores: Guia do leitorCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+0.1 Esboço do livro
+0.2 Mapa para leitores e professores
+0.3 Por que estudar arquitetura e organização 
+de computador?
+0.4 Recursos da Internet e Web  Sites Web para este livro
+  Outros sites Web 
+  newsgroups USEnET
+Book 1.indb 1 19.11.09 14:35:38
+
+2 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 0 Guia do leitor
+a família Intel x86 e a família ARM (Advanced RISC Machine). Esses dois sistemas juntos compreendem a maior 
+parte das tendências atuais de projeto de computador. A arquitetura Intel x86 é basicamente um CISC (Complex 
+Instruction Set Computer — computador com conjunto complexo de instruções) com alguns recursos de RISC, en-
+quanto o ARM é basicamente um RISC. Os dois sistemas utilizam princípios de projeto superescalar e ambos ofere-cem suporte para confi gurações de múltiplos processadores e multicore.
+0.2 Mapa para leitores e professores
+Este livro segue uma abordagem top-down para a apresentação do material. Conforme discutiremos com mais 
+detalhes na Seção 1.2, um sistema de computação pode ser visto como uma estrutura hierárquica. No nível mais alto, estamos interessados nos principais componentes dos computadores: processador, E/S, memória, dispositivos periféricos. A Parte 2 do livro examina esses componentes e verifi ca cada um, exceto o processador, com certos detalhes. Essa técnica nos permite ver os requisitos funcionais externos que controlam o projeto do processador, preparando o terreno para a Parte 3. Na Parte 3, examinamos o processador com mais detalhes. Como temos o contexto fornecido pela Parte dois, podemos, na parte seguinte, ver as decisões de projeto que devem ser feitas de modo que o processador dê suporte à função geral do sistema de computação. Em seguida, na Parte 4, examina-mos a unidade de controle, que está no núcleo do processador. Novamente, o projeto da unidade de controle pode ser mais bem explicado no contexto da função que ele realiza dentro do contexto do processador. Finalmente, a Parte 5 examina os sistemas com múltiplos processadores, incluindo clusters, computadores com multiprocessado-res e computadores multicore.
+0.3 Por que estudar arquitetura e organização de computadores?
+O IEEE/ACM Computer Curricula 2001, preparado pela Joint Task Force on Computing Curricula da IEEE (Institute of 
+Electrical and Electronics Engineers), Computer Society e ACM (Association for Computing Machinery), lista a arquitetura do computador como um dos assuntos centrais que devem estar no currículo de todos os alunos de ciência da computação e engenharia da computação. O relatório diz o seguinte:
+O computador está no âmago da computação. Sem ele, a maior parte das disciplinas de computação hoje seria um ramo da matemática teórica. Para ser um profissional em qualquer campo da compu-tação hoje, não se deve considerar o computador como apenas uma caixa preta que executa progra-mas como que por mágica. Todos os alunos de computação deverão adquirir algum conhecimento e apreciação dos componentes funcionais de um sistema de computação, suas características, seu desempenho e suas interações. Também existem implicações práticas. Os alunos precisam entender arquitetura de computador a fim de estruturar um programa de modo que ele seja executado de forma mais eficiente em uma máquina real. Selecionando um sistema para usar, eles deverão ser capazes de entender a decisão entre diversos componentes, como velocidade de clock da CPU versus tamanho de 
+memória.
+Uma publicação mais recente da força-tarefa, Computer Engineering 2004 Curriculum Guidelines, enfatizou a im-
+portância da arquitetura e da organização de computador da seguinte forma:
+Arquitetura de computador é um componente chave da engenharia da computação, e o engenheiro de computador deverá ter um conhecimento prático desse assunto. Ela trata de todos os aspectos do proje-to, da organização e da integração da CPU no próprio sistema de computação. A arquitetura se estende para cima no software do computador, pois a arquitetura de um processador precisa cooperar com o sistema operacional e o software do sistema. É difícil projetar bem um sistema operacional sem o conhe-cimento da arquitetura básica. Além do mais, o projetista do computador precisa ter um conhecimento do software a fi m de implementar a arquitetura ideal.O currículo de arquitetura de computador precisa alcançar vários objetivos. Ele precisa oferecer uma visão geral da arquitetura do computador e ensinar aos alunos a operação de uma máquina de computação 
+Book 1.indb 2 19.11.09 14:35:38
+
+ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES Capítulo 0 Guia do leitor 3
+típica. Ele precisa abordar os princípios básicos, embora reconhecendo a complexidade dos sistemas 
+comerciais existentes. O ideal é que ele reforce tópicos que são comuns a outras áreas da engenharia de computação, por exemplo, ensinar o endereçamento indireto do registrador reforça o conceito de pon-teiros em C. Finalmente, os alunos precisam entender como diversos dispositivos periféricos interagem e são ligados a uma CPU.
+Clements (2000
+a) oferece os seguintes exemplos como motivos para estudar arquitetura de computador:
+1. Suponha que um aluno formado entre na indústria e lhe peça para selecionar o computador mais econô-mico para ser usado por toda uma grande organização. Um conhecimento das implicações de gastar mais para diversas alternativas, como uma cache maior ou uma taxa de clock de processador mais alta, é essencial para tomar essa decisão.
+2. Muitos processadores não são usados nos PCs ou servidores, mas em sistemas embarcados. Um projetista pode programar um processador em C que seja embutido em algum sistema de tempo real ou maior, como um controlador inteligente da eletrônica do automóvel. A depuração do sistema pode exibir o uso de um analisador lógico que apresenta o relacionamento entre solicitações de interrupção dos sensores do motor e código em nível de máquina.
+3. Os conceitos usados na arquitetura de computador encontram aplicação em outros cursos. Em particular, o modo como o computador oferece suporte arquitetural para linguagens de programação e facilidades do sistema operacional reforça os conceitos dessas áreas.
+Como podemos ver, analisando o sumário deste livro, a organização e a arquitetura do computador compreen-
+dem uma grande faixa de questões e conceitos de projeto. Um bom conhecimento geral desses conceitos será útil em outras áreas de estudo e no trabalho futuro após a graduação.
+0.4 Recursos da Internet e Web
+Existem diversos recursos disponíveis na Internet e na Web que dão suporte a este livro e ajudam os leitores a 
+acompanharem os desenvolvimentos neste setor.
+ Sites Web para este livro
+Existe uma página Web para este livro disponível em <www.prenhall.com/stallings_br>. Veja o prefácio no iní-
+cio do livro para obter uma descrição detalhada desse site.
+Também mantenho o Computer Science Student Resource Site (em inglês), disponível em <WilliamStallings.com/
+StudentSupport.html>. A /f_i nalidade desse site é oferecer documentos, informações e links para alunos de ciência da computação e pro/f_i ssionais. Links e documentos são organizados em seis categorias:
+ Math: inclui uma revisão básica de matemática, um manual de análise de /f_i la, um manual de sistema de 
+numeração e links para diversos sites de matemática.
+ How-to: conselhos e orientação para solucionar problemas de dever de casa, escrever relatórios técnicos e 
+preparar apresentações técnicas.
+ Research resources: links para importantes coleções de artigos, relatórios técnicos e bibliogra/f_i as.
+ Miscellaneous: diversos outros documentos e links úteis.
+ Computer science careers: links e documentos úteis para aqueles que estão considerando uma carreira 
+em ciência da computação.
+ Humor and other diversions: você precisa tirar sua atenção do trabalho de vez em quando.
+ Outros sites Web
+Existem diversos sites Web que oferecem informações relacionadas aos tópicos deste livro. Em capítulos subse-
+quentes, listas de sites Web especí/f_i cos podem ser encontradas na seção Leitura recomendada e sites Web. Como os 
+endereços de sites costumam mudar com frequência, o livro não oferece URLs. Para todos os sites listados no livro, o link apropriado poderá ser encontrado no site Web deste livro. Outros links não mencionados neste livro serão acrescentados ao site com o passar do tempo.
+Cap_0 (1-4).indd 3 25.11.09 17:30:42
+
+4 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A seguir estão alguns sites Web de interesse geral relacionados a organização e arquitetura de computador:
+ WWW computer Architecture Home page: um índice abrangente de informações relevantes a pesqui-
+sadores de arquitetura de computador, incluindo grupos de arquitetura e projetos, organizações técnicas, 
+literatura, emprego e informações comerciais.
+ cpu Info center: informações sobre processadores específi cos, incluindo artigos técnicos, informações de 
+produto e anúncios mais recentes.
+ processor emporium: coleção de informações interessantes e úteis.
+ Acm special Interest group on computer Architecture: informações sobre atividades e publicações do SIGARCH.
+ Ieee Technical committee on computer Architecture: cópias do boletim do TCCA.
+ Newsgroups USENET
+Diversos newsgroups USENET são dedicados a algum aspecto da organização e da arquitetura do computador. 
+Praticamente em todos os grupos da USENET existe uma alta relação sinal-ruído, mas vale a pena verifi car se algum atende às suas necessidades. Os mais relevantes são os seguintes:
+ comp.arch: um newsgroup geral para discussão de arquitetura de computador. Geralmente, é muito 
+bom.
+ comp.arch.arithmetic: discute algoritmos e padrões aritméticos do computador.
+ comp.arch.storage: discute produtos, tecnologia e uso prático.
+ comp.parallel: discute computadores paralelos e aplicações.
+ Referências
+ a CLEMEnTS , A. “The undergraduate curriculum in computer architecture” . IEEE Micro, mai./jun. 2000.
+Book 1.indb 4 19.11.09 14:35:39
+
+ASSUnTOS DA PARTE 1
+A finalidade da Parte 1 é oferecer uma base e um contexto para o restante deste 
+livro. Apresentamos aqui os conceitos fundamentais de organização e arquitetura 
+do computador.
+MAPA DA PARTE 1
+Capítulo 1 Introdução
+O Capítulo 1 introduz o conceito do computador como um sistema hierárquico. 
+Um computador pode ser visto como uma estrutura de componentes e sua função descrita em termos da função coletiva dos seus componentes em cooperação. Cada componente, por sua vez, pode ser descrito em termos de sua estrutura in-terna e função. Os principais níveis dessa visão hierárquica são apresentados. O restante do livro é organizado, de cima para baixo, usando esses níveis.
+Capítulo 2 Evolução e desempenho do computador
+O Capítulo 2 tem duas fi nalidades. Primeiro, uma discussão sobre a história da tec-nologia de computador, que é um modo fácil e interessante de ser apresentado aos conceitos básicos de organização e arquitetura do computador. O capítulo também mostra as tendências da tecnologia que tornaram o desempenho o foco do projeto de sistemas de computação e visualiza diversas técnicas e estratégias usadas para se alcançar um desempenho balanceado e efi ciente.
+1 2 3 4 PARTE
+Visão geral
+Book 1.indb 5 19.11.09 14:35:39
+
+Capítulo 1 Introdução
+Este livro trata da estrutura e da função dos computadores. Sua fi nalidade 
+é apresentar, da forma mais clara e completa possível, a natureza e as ca-
+racterísticas dos computadores dos dias modernos. Essa tarefa é desafi adora por dois motivos.
+Primeiro, existe uma considerável variedade de produtos, desde microcom-
+putadores de único chip, custando alguns poucos dólares, até supercompu-
+tadores, custando dezenas de milhões de dólares, que podem merecidamente ostentar o nome computador. A variedade 
+é exibida não apenas no custo, mas também no tamanho, no desempenho e na aplicação. Segundo, o rápido ritmo da mu-dança que sempre caracterizou a tecnologia do computador continua sem descanso. Essas mudanças abrangem todos os aspectos da tecnologia do computador, desde a tecnologia básica do circuito integrado, usada para construir componen-tes do computador, até o uso cada vez maior de conceitos de organização paralela na combinação desses componentes.
+Apesar da variedade e do ritmo da mudança no campo da computação, certos conceitos fundamentais se aplicam 
+de forma corrente. Sem dúvida, a aplicação desses conceitos depende do estado atual da tecnologia e dos objetivos de preço/desempenho do projetista. A intenção deste livro é fornecer uma discussão completa sobre os fundamentos de organização e arquitetura do computador e relacioná-los a questões contemporâneas de projeto de computador. Este capítulo apresenta a técnica descritiva a ser utilizada.
+1.1 Organização e arquitetura
+Ao descrever computadores, normalmente é feita uma distinção entre arquitetura de computador e organização 
+de computador. Embora seja difícil dar defi nições precisas para esses termos, existe um consenso sobre as áreas ge-rais cobertas por cada um (por exemplo, ver Vranesic (1980
+a), Siewiorek (1982b) e Bell (1978c); uma visão alternativa 
+interessante é apresentada em Reddi (1976d).
+Arquitetura de computador refere-se aos atributos de um sistema visíveis a um programador ou, em outras pala-
+vras, aqueles atributos que possuem um impacto direto sobre a execução lógica de um programa. Organização de 
+computador refere-se às unidades operacionais e suas interconexões que realizam as especifi cações arquiteturais. 
+Alguns exemplos de atributos arquiteturais incluem o conjunto de instruções, o número de bits usados para re-presentar diversos tipos de dados (por exemplo, números, caracteres), mecanismos de E/S e técnicas para endere-çamento de memória. Atributos organizacionais incluem os detalhes do hardware transparentes ao programador, como sinais de controle, interfaces entre o computador e periféricos e a tecnologia de memória utilizada.
+Por exemplo, é uma questão de projeto arquitetural se um computador terá uma instrução de multiplicação. É 
+uma questão organizacional se essa instrução será implementada por uma unidade de multiplicação especial ou por um mecanismo que faça uso repetido da unidade de adição do sistema. A decisão organizacional pode ser 
+baseada na antecipação da frequência de uso da instrução de multiplicação, na velocidade relativa das duas técni-cas e no custo e tamanho físico de uma unidade de multiplicação especial.IntroduçãoCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+1.1 Organização e arquitetura
+1.2 Estrutura e função  Função
+  Estrutura
+Book 1.indb 6 19.11.09 14:35:40
+
+Capítulo 1 Introdução 7
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18Historicamente, e ainda hoje, a distinção entre arquitetura e organização tem sido importante. Muitos fa-
+bricantes de computador oferecem uma família de modelos de computador, todos com a mesma arquitetura, 
+mas com diferenças na organização. Consequentemente, os diferentes modelos na família têm diferentes características de preço e desempenho. Além do mais, uma arquitetura em particular pode se espalhar por muitos anos e abranger diversos modelos de computador diferentes, com sua organização variando conforme a mudança da tecnologia. Um exemplo proeminente desses dois fenômenos é a arquitetura IBM System/370, introduzida inicialmente em 1970 e que incluía diversos modelos. O cliente com requisitos modernos pode-ria comprar um modelo mais barato, mais lento, e, se a demanda aumentasse, atualizar mais tarde para um modelo mais caro e mais rápido, sem ter que abandonar o software desenvolvido. Com o passar dos anos, a IBM introduziu muitos novos modelos com tecnologia melhorada para substituir outros modelos, oferecendo ao cliente maior velocidade, menor custo ou ambos. Esses modelos mais novos retinham a mesma arquite-tura, de modo que o investimento de software do cliente foi protegido. O interessante é que a arquitetura System/370, com algumas melhorias, sobreviveu até os dias de hoje como a arquitetura da linha de produtos de mainframe da IBM.
+Em uma classe de computadores chamada microcomputadores, o relacionamento entre arquitetura e or-
+ganização é muito próximo. As mudanças na tecnologia não apenas infl uenciam a organização, como também resultam na introdução de arquiteturas mais poderosas e mais fl exíveis. Geralmente, há menor requisito para com-patibilidade de geração a geração para essas máquinas menores. Assim, existe mais interação entre decisões de projeto organizacional e arquitetural. Um exemplo intrigante disso é o computador com conjunto de instruções reduzido (RISC) que examinamos no Capítulo 13.
+Este livro examina a organização e a arquitetura do computador. A ênfase talvez seja mais no lado da orga-
+nização. Porém, como uma organização de computador precisa ser projetada para implementar determinada especifi cação arquitetural, um tratamento completo da organização exige um exame detalhado também da arquitetura.
+1.2 Estrutura e função
+Um computador é um sistema complexo; computadores contemporâneos contêm milhões de componentes 
+eletrônicos elementares. Como, então, alguém poderia descrevê-los com clareza? A chave é reconhecer a natureza hierárquica dos sistemas mais complexos, incluindo o computador (Simon, 1996
+e). Um sistema hierárquico é um 
+conjunto de subsistemas inter-relacionados, cada um destes, por sua vez, hierárquico em estrutura até alcançarmos algum nível mais baixo de subsistema elementar. 
+A natureza hierárquica dos sistemas complexos é essencial para seu projeto e sua descrição. O projetista só 
+precisa lidar com um nível particular do sistema de cada vez. Em cada nível, o sistema consiste em um conjunto de componentes e seus inter-relacionamentos. O comportamento em cada nível depende somente de uma caracteri-zação simplifi cada e resumida do sistema, no próximo nível mais baixo. Em cada nível, o projetista está interessado na estrutura e na função:
+ estrutura: o modo como os componentes são inter-relacionados.
+ Função: a operação individual de cada componente como parte da estrutura.
+Em termos de descrição, temos duas escolhas: começar de baixo e subir até uma descrição completa, ou come-
+çar com uma visão de cima e decompor o sistema em suas subpartes. A evidência de diversos campos sugere que a abordagem de cima para baixo (ou top-down) é a mais clara e mais efi caz (Weinberg, 1975
+f).
+A abordagem usada neste livro vem desse ponto de vista. O sistema de computador será descrito de cima para 
+baixo. Começamos com os componentes principais de um computador, descrevendo sua estrutura e função, e prosseguimos para camadas sucessivamente mais baixas da hierarquia. O restante desta seção oferece uma visão geral muito breve desse plano de ataque.
+Book 1.indb 7 19.11.09 14:35:40
+
+8 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 1 Introdução
+ Função
+Tanto a estrutura quanto o funcionamento de um computador são, essencialmente, simples. A Figura 1.1 repre-
+senta as funções básicas que um computador pode realizar. Em termos gerais, existem apenas quatro:
+ Processamento de dados.
+ Armazenamento de dados. Movimentação de dados. Controle.
+O computador, naturalmente, precisa ser capaz de processar dados. Os dados podem assumir muitas formas e 
+o intervalo de requisitos de processamento é amplo. Porém, veremos que existem apenas alguns métodos funda-
+mentais ou tipos de processamento de dados.
+Também é essencial que um computador armazene dados. Mesmo que o computador esteja processando da-
+dos dinamicamente (ou seja, os dados entram, são processados e os resultados saem imediatamente), o computa-dor precisa armazenar temporariamente pelo menos as partes dos dados que estão sendo trabalhadas em deter-minado momento. Assim, existe pelo menos uma função de armazenamento de dados a curto prazo. Igualmente importante, o computador realiza uma função de armazenamento de dados a longo prazo. Os arquivos de dados são armazenados no computador para subsequente recuperação e atualização.
+O computador precisa ser capaz de movimentar dados entre ele e o mundo exterior. O ambiente operacional do 
+computador consiste em dispositivos que servem como suas origens ou destinos de dados. Quando os dados são recebidos ou entregues a um dispositivo conectado diretamente ao computador, o processo é conhecido como entrada/saída (E/S), e o dispositivo é referenciado como um periférico. Quando os dados são movimentados por 
+distâncias maiores, de ou para um dispositivo remoto, o processo é conhecido como comunicações de dados.
+Finalmente, é preciso haver controle dessas três funções, e esse controle é exercido por quem fornece instruções 
+ao computador. Dentro do computador, uma unidade de controle gerencia os recursos do computador e coordena o desempenho de suas partes funcionais em resposta a essas instruções.
+Nesse nível geral de discussão, o número de operações que podem ser realizadas é baixo. A Figura 1.2 represen-
+ta os quatro tipos possíveis de operações. O computador pode funcionar como um dispositivo de movimentação de dados (Figura 1.2a), simplesmente transferindo dados de um periférico ou linha de comunicações para outra. Ele também pode funcionar como um dispositivo de armazenamento de dados (Figura 1.2b), com dados transferi-dos do ambiente externo para o armazenamento do computador (leitura) e vice-versa (escrita). Os dois diagramas fi nais mostram operações envolvendo processamento de dados, sobre dados no armazenamento (Figura 1.2c) ou a caminho entre o armazenamento e o ambiente externo (Figura 1.2d).
+Ambiente operacional
+(origem e destino dos dados)Mecanismo 
+de controle
+Capacidade de 
+processamento 
+de dadosCapacidade de 
+armazenamento 
+de dados
+Aparato de 
+movimentação 
+de dadosFigura 1.1 Uma visão funcional do computador
+Book 1.indb 8 19.11.09 14:35:41
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 1 Introdução 9
+A discussão anterior pode parecer absurdamente generalizada. Certamente é possível, mesmo em um nível 
+superior da estrutura do computador, diferenciar uma série de funções, mas, para citar Siewiorek (1982g),
+Há consideravelmente pouca modelagem da estrutura do computador para caber na função a ser realizada. 
+Na raiz disso está a natureza de uso geral dos computadores, em que toda a especialização funcional ocorre no momento da programação, e não no momento do projeto.
+ Estrutura
+A Figura 1.3 é a representação mais simples possível de um computador. O computador interage de alguma 
+forma com seu ambiente externo. Em geral, todas essas ligações com o ambiente externo podem ser classifi cadas como dispositivos periféricos ou linhas de comunicação. Teremos algo a dizer sobre os dois tipos de ligação.
+Porém, a maior preocupação neste livro é a estrutura interna do próprio computador, que aparece na Figura 1.4. 
+Existem quatro componentes estruturais principais:
+ unidade central de processamento (cpu): controla a operação do computador e realiza suas funções de processamento de dados; normalmente é chamado apenas de processador.
+ memória principal: armazena dados.Movimentação
+Controle
+(a)Armazenamento Processamento
+Controle
+(d)Controle
+(c)(b)ControleMovimentação
+Movimentação MovimentaçãoArmazenamento
+Armazenamento ArmazenamentoProcessamento
+Processamento ProcessamentoFigura 1.2 Operações possíveis do computador
+Book 1.indb 9 19.11.09 14:35:41

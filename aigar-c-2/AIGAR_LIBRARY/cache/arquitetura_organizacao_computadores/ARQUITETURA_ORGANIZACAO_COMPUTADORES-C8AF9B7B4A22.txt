@@ -1,0 +1,943 @@
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 335
+ último-a‑entrar-primeiro-a-sair (last-in). A pilha é um bloco reservado de posições. Itens são adicionados ao topo 
+da pilha para que, a qualquer momento, o bloco esteja parcialmente preenchido. Associado à pilha, temos um 
+ponteiro cujo valor é o endereço do topo da pilha. Alternativamente, dois elementos do topo podem estar nos re-gistradores do processador. Nesse caso, o ponteiro da pilha referencia o terceiro elemento da pilha (Figura 10.14b). O ponteiro da pilha é mantido em um registrador. Assim, as referências das posições da pilha em memória são na verdade endereços indiretos dos registradores.
+O modo de endereçamento de pilha é uma forma de endereçamento implícito. As instruções da máquina não 
+precisam incluir uma referência de memória e sim operar no topo da pilha.
+11.2 Modos de endereçamento x86 e ARM
+ Modos de endereçamento x86
+Na Figura 8.21, o mecanismo de tradução de endereços x86 produz um endereço, chamado de endereço vir-
+tual ou efetivo, que é um off set dentro de um segmento. A soma do endereço inicial do segmento e do endereço efetivo produz um endereço linear. Se a paginação estiver sendo usada, este endereço linear tem que passar pelo mecanismo de tradução endereço de página para produzir um endereço físico. A seguir iremos ignorar este último passo porque ele é transparente para o conjunto de instruções e para o programador.
+O x86 é equipado com uma série de formas de endereçamento que vieram possibilitar execução eficien-
+te de linguagens de alto nível. A Figura 11.2 demonstra a lógica envolvida. O registrador de segmento deter-mina o segmento que é objetivo da referência. Existem seis registradores de segmento; aquele usado para uma referência específica depende do contexto da execução e da instrução. Cada registrador de segmento 
+Figura 11.2 Cálculo do modo de endereçamento x86
+Seletor
+Seletor
+Seletor
+Seletor
+Seletor
+SeletorSS
+GS
+FS
+ES
+DS
+CSRegistradores de segmento
+Permissão de acesso
+Limit
+Endereço BaseSS
+Permissão de acesso
+Limit
+Endereço BaseGS
+Permissão de acesso
+Limit
+Endereço BaseFS
+Permissão de acesso
+Limit
+Endereço BaseES
+Permissão de acesso
+Limit
+Endereço BaseDS
+Permissão de acesso
+Limite
+Endereço baseCSRegistradores de descriçãoRegistrador base
+Registrador indexador
+Fator de escala
+1, 2, 4, ou 8
+LimiteEndereço
+linearEndereço
+da base de
+segmentoEndereçoefetivoDeslocamento 
+(na instrução: 
+0, 8 ou 32 bits)
+Book 1.indb 335 19.11.09 14:38:30
+
+336 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+mantém um índice da tabela de descritores de segmentos (Figura 8.20), a qual, por sua vez, mantém o en-
+dereço inicial dos segmentos correspondentes. Associado a cada registrador de segmento visível a usuário temos um registrador de descritor de segmento (não visível para programador), o qual grava as permissões de acesso para o segmento assim como o endereço inicial e o limite (tamanho) do segmento. Além disso, existem dois registradores que podem ser usados na construção do endereço: registrador básico e registra-dor indexador.
+A Tabela 11.2 mostra os modos de endereçamento x86. Vamos analisar cada um deles.No modo imediato, o operando está incluído na instrução. O operando pode ser um byte, uma palavra ou uma 
+palavra dupla de dados.
+No modo em registrador operando, o operando está localizado em um registrador. Para instruções gerais, tais 
+como transferência de dados e instruções aritméticas e lógicas, o operando pode ser um dos registradores gerais de 32 bits (EAX, EBX, ECX, EDX, ESI, EDI, ESP , EBP), um dos registradores gerais de 16 bits (AX, BX, CX, DX, SI, DI, SP , BP) ou um dos registradores gerais de 8 bits (AH, BH, CH, DH, AL, BL, CL, DL). Existem também algumas instruções que referenciam registradores selecionadores de segmentos (CS, DS, ES, SS, FS, GS).
+Os modos de endereçamento restantes referenciam posições da memória. A posição da memória precisa estar 
+especificada em termos do segmento que contém a posição e offset do começo do segmento. Em alguns casos, o segmento é especificado explicitamente; em outros, ele é especificado pelas regras simples que definem um segmento padrão.
+No modo de deslocamento, offset do operando (o endereço efetivo da Figura 11.2) é mantido como parte 
+da instrução sendo um deslocamento de 8, 16 ou 32 bits. Com segmentação, todos os endereços das instruções se referem meramente a um offset dentro de um segmento. O modo de endereçamento por deslocamento é encontrado em poucas máquinas porque, conforme mencionado anteriormente, leva a instruções longas. No caso de x86, o valor de deslocamento pode ser de 32 bits, gerando uma instrução de 6 bytes. Endereçamento por deslocamento pode ser útil para referenciais variáveis globais.
+Os modos de endereçamento restantes são indiretos, porque a parte da instrução que se refere ao endereço 
+diz ao processador onde procurar pelo endereço. O modo base especifica que um dos registradores de 8, 16 ou 32 bits contém o endereço efetivo. Isto é equivalente ao que definimos como endereçamento indireto de registradores.
+Modo Algoritmo
+Imediato Operando = A
+Operando em registrador LA = R
+Deslocamento LA = (SR) + A
+Base LA = (SR) + B
+Base com deslocamento LA = (SR) + (B) + A
+Índice escalado com deslocamento LA = (SR) + (I) × S + A
+Base com índice e deslocamento LA = (SR) + (B) + (I) + A
+Base com índice escalado e deslocamento LA = (SR) + (I) × S + (B) + A
+Relativo LA = (PC) + A
+LA = endereço linear (linear address) R = registrador
+(X) = conteúdo de X B = registrador base
+SR = registrador de segmento (segment register) I = registrador indexado
+PC = contador de programador S = fator de escalarA = conteúdo de um campo de endereço da instruçãoTabela 11.2 Modos de endereçamento x86
+Book 1.indb 336 19.11.09 14:38:30
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 337
+No modo base com deslocamento, as instruções incluem um deslocamento a ser adicionado ao registrador 
+base, o qual pode ser qualquer um dos registradores de uso geral. Seguem os exemplos de uso deste modo:
+Usado pelo compilador para apontar o início de uma área de variável local. Por exemplo, o registrador básico 
+pode indicar o início de um stackframe, a qual contém as variáveis locais para o procedimento correspondente.
+Usado para indexar um vetor quando o número de elementos não for 1, 2, 4 ou 8 bytes e por isso não puder 
+ser indexado usando um registrador indexador. Neste caso, o deslocamento aponta para o começo do vetor e o registrador base mantém o resultado do cálculo para determinar o off set até um determinado elemento dentro do vetor.Usado para acessar um campo de um registro. O registrador base aponta para o início do registro, enquanto 
+ 
+o deslocamento é um off set até o campo.
+No modo de índice escalado com deslocamento, a instrução inclui um deslocamento a ser adicionado a um 
+registrador, chamado neste caso de registrador indexador. O registrador indexador pode ser qualquer um dos regis-tradores de uso geral exceto aquele chamado de ESP , o qual é normalmente usado para processamento de pilhas. Ao calcular o endereço efetivo, o conteúdo do registrador indexador é multiplicado por um fator escalar de 1, 2, 4 ou 8 e depois adicionado ao deslocamento. Este modo é muito conveniente para indexar vetores. O fator escalar de 2 pode ser usado para um vetor de inteiros de 16 bits. O fator escalar de 4 pode ser usado para inteiros de 32 bits ou números de ponto fl utuante. Finalmente, o fator escalar de 8 pode ser usado para um vetor números de ponto fl utuante de precisão dupla.
+O modo base com índice e deslocamento soma os conteúdos do registrador base, registrador indexador 
+e deslocamento para formar um endereço efetivo. Novamente, o registrador base pode ser qualquer um dos registradores de uso geral, exceto ESP . Por exemplo, este modo de endereçamento pode ser usado para acessar um vetor local dentro de uma estrutura de pilha. Ele também pode ser usado para suportar vetores bidimen-sionais; neste caso o deslocamento aponta para o início do vetor e cada registrador lida com uma dimensão do vetor.
+O modo base com índice escalado e deslocamento soma o conteúdo do registrador indexador multiplica-
+do por um fator escalar, o conteúdo do registrador base e deslocamento. Isso é útil se um vetor está armazenado dentro de uma pilha; neste caso, os elementos do vetor teriam tamanho de 2, 4 ou 8 bytes cada. Este modo fornece também indexação efi ciente de um vetor bidimensional quando os elementos do vetor têm tamanho de 2, 4 ou 8 bytes.
+Finalmente, o modo relativo pode ser usado em instruções de transferência de controle. Um deslocamento é 
+adicionado ao valor do contador de programa, o qual aponta para a próxima instrução. Neste caso, o deslocamento é tratado como um valor com sinal de um byte, palavra ou palavra dupla e esse valor incrementa ou decrementa o endereço dentro do contador de programa.
+ Modos de endereçamento ARM
+Normalmente, uma máquina RISC, diferentemente de uma máquina CISC, usa um conjunto de modos de ende-
+reçamento relativamente simples e direto. A arquitetura ARM difere um tanto dessa tradição ao prover um conjunto de modos de endereçamento relativamente rico. A forma mais conveniente de classifi car esses modos é de acordo com o tipo da instrução.
+1 
+ENDEREÇAMENTO DE CARGA/ARMAZENAMENTO (LOAD/STORE) Instruções para carregar e armazenar são as 
+únicas instruções que referenciam a memória. Isso é feito sempre indiretamente através de um registrador básico e um off set. Existem três alternativas no que diz respeito à indexação (Figura 11.3):
+off set
+  : para este modo de endereçamento, a indexação não é usada. Um valor de off set é adicionado ou 
+subtraído do valor que está no registrador base para formar o endereço de memória. Como um exemplo, a Figura 11.3a ilustra esse método com a instrução STRB r0, [r1, #12] da linguagem de montagem. Esta é a instrução para armazenar byte. Neste caso, o endereço base está no registrador r1 e o deslocamento é um valor imediato 12 decimal. O endereço resultante (base mais off set) é a posição onde o byte menos signifi -cativo de r0 será armazenado.
+1 De acordo com a nossa discussão sobre endereçamento x86, ignoramos a tradução do endereço virtual para o físico durante a discussão a seguir.
+Book 1.indb 337 19.11.09 14:38:31
+
+338 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+pré-indexação  : o endereço de memória é formado da mesma maneira como no endereçamento de offset. O 
+endereço de memória é também armazenado de volta no registrador base. Em outras palavras, o valor do re -
+gistrador base é incrementado ou decrementado pelo valor do offset. A Figura 11.3b ilustra este método com 
+a instrução STRB r0, [r1, #12]! da linguagem de montagem. O ponto de exclamação significa pré-indexação.pós-indexação
+  : o endereço de memória é o valor do registrador base. Um offset é adicionado ou subtraído 
+do valor do registrador base e o resultado é armazenado de volta no registrador base. A Figura 11.3c ilustra este método com a instrução STRB r0, [r1], #12 da linguagem de montagem.
+Observe que aquilo a que ARM se refere como registrador base atua, na verdade, como um registrador inde-
+xador para endereçamento de pré-indexação e pós-indexação. O valor de offset pode ser ou um valor imediato armazenado na instrução ou pode estar em outro registrador. Se o valor de offset estiver em um registrador, outro recurso útil estará disponível: endereçamento de registrador escalado. O valor no registrador de offset é escalado por um dos operadores de deslocamento: operador de deslocamento lógico esquerdo, operador de deslocamento 
+Figura 11.3 Métodos de indexação ARM
+0x200 0x2000x20C 0x20C 0xCr1
+r1
+Registrador
+básico
+original 
+(b) Pré-indexação
+(c) Pós-indexaçãoRegistrador
+de destino
+para STRRegistrador
+básico
+atualizado
+0x50x5r0OﬀsetSTRB r0, [r1, #12]!
+0x200 0x2000x20C0x20C 0xCr1
+r10x5
+0x5r0OﬀsetSTRBv r0, [r1], #120x200 0x2000x20C0xC
+r1
+Registrador
+básico
+original 
+(a) OﬀsetRegistrador
+de destino
+para STR0x50x5r0OﬀsetSTRB r0, [r1, #12]
+Registrador
+básico
+original Registrador
+de destino
+para STRRegistrador
+básico
+atualizado
+Book 1.indb 338 19.11.09 14:38:31
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 339
+lógico direito, operador de deslocamento aritmético direito, operador rotacional direito ou operador rotacional 
+direito estendido (o qual inclui bit de carry na rotação). A quantidade de deslocamento é especifi cada como um valor imediato na instrução.
+ENDEREÇAMENTO DE INSTRUÇÕES DE PROCESSAMENTO DE DADOS As instruções de processamento de da-
+dos usam endereçamento de registradores ou uma mistura de endereçamento de registradores e endereçamento imediato. Para endereçamento de registradores, o valor em um dos operandos do registrador pode ser escalado usando um dos cinco operadores de deslocamento defi nidos no parágrafo anterior.
+INSTRUÇÕES DE DESVIOS A única forma de endereçamento para instruções de desvios é o endereçamento ime-
+diato. A instrução de desvio contém um valor de 24 bits. Para calcular o endereço, o valor é deslocado à esquerda por 2 bits para que o endereço esteja dentro do limite de uma palavra. Por isso, o intervalo de endereços efetivos é de mais ou menos 32 MB a partir do contador de programa.
+ENDEREÇAMENTO DE CARGA/ARMAZENAMENTO MÚLTIPLO Instruções de carga múltipla carregam dados da me-
+mória para um subconjunto (possivelmente todos) de registradores de uso geral. Instruções de armazenamento múltiplo armazenam dados um subconjunto (possivelmente todos) de registradores de uso geral na memória. A lista de registradores para carregar ou armazenar é especifi cada dentro de um campo de 16 bits na instrução onde cada bit corresponde a um dos 16 registradores. Os modos de endereçamento de carga e armazenamento múltiplo produzem um intervalo sequencial de endereços de memória. O registrador de número mais baixo é armazena-do no endereço de memória mais baixo e o registrador de número mais alto no endereço de memória mais alto. Quatro modos de endereçamento são usados (Figura 11.4): incremento depois, incremento antes, decremento depois e decremento antes. Um registrador básico especifi ca um endereço da memória principal onde os valores dos registradores são armazenados ou carregados em posições ascendentes (incremento) ou descendentes (decre-mento). O incremento ou decremento inicia ou antes ou depois do primeiro acesso à memória.
+Essas instruções são úteis para bloqueios de leitura ou escrita, operações de pilha e sequências de saída dos 
+procedimentos.
+11.3 Formatos de instruções
+Um formato da instrução defi ne o layout de bits de uma instrução, no que diz respeito aos campos que a cons-
+tituem. Um formato da instrução tem que incluir um opcode e, implícita ou explicitamente, zero ou mais operan-
+dos. Cada operando explícito é referenciado usando um dos modos de endereçamento descritos na Seção 11.1. O formato deve, implícita ou explicitamente, indicar o modo de endereçamento para cada operando. Na maioria dos conjuntos de instruções, mais do que um formato de instrução é usado.
+Figura 11.4 Endereçamento de carga/armazenamento múltiplo
+0x20C
+0x2100x214
+0x20C (r0)(r1)(r4) (r0)(r1)(r4)
+(r0)(r1)(r4)
+(r0)(r1)(r4) 0x208
+0x204
+0x2000x218r10
+Registrador básicoIncremento
+depois (ID)Incremento
+antes (IA)Decremento
+depois (DD)Decremento
+antes (DA)LDMxx r10, {r0, r1, r4}
+STMxx r10, {r0, r1, r4}
+Book 1.indb 339 19.11.09 14:38:32
+
+340 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+O projeto de um formato da instrução é uma arte complexa e uma variedade impressionante de designs têm 
+sido implementados. Analisaremos os principais pontos de projeto, observando alguns rapidamente para ilustrar 
+esses pontos, e depois analisaremos as soluções x86 e ARM em detalhes.
+ Tamanho da instrução
+A questão mais básica enfrentada durante o projeto é o tamanho do formato da instrução. Esta decisão afeta, e é 
+afetada pelo, tamanho da memória, organização da memória, estrutura do barramento, complexidade e velocidade do processador. Esta decisão determina a riqueza e a fl exibilidade da máquina do ponto de vista do programador da linguagem de montagem.
+A troca mais óbvia aqui está entre o desejo por um conjunto poderoso de instruções e a necessidade de eco-
+nomizar o espaço. Programadores querem mais opcodes, mais operandos, mais modos de endereçamento e maior intervalo de endereços. Mais opcodes e mais operandos tornam a vida do programador mais fácil, porque pro-gramas mais curtos podem ser escritos para executar uma determinada tarefa. Da mesma forma, mais modos de endereçamento dão maior fl exibilidade ao programador para implementar certas funções, tais como manipulação de tabelas e múltiplos destinos de desvios. E, obviamente, com o aumento do tamanho da memória principal e com o uso crescente da memória virtual, os programadores querem poder endereçar intervalos de memória maio-res. Todas estas coisas (opcodes, operandos, modos de endereçamento, intervalos de endereços) requerem bits e levam a tamanhos maiores das instruções. Mas tamanhos maiores das instruções podem ser um desperdício. Uma instrução de 64 bits ocupa o dobro de espaço de uma instrução de 32 bits, mas provavelmente não é duas vezes mais útil.
+Por trás desta negociação básica, existem outras considerações. Ou o tamanho da instrução deveria ser igual ao 
+tamanho transferência de memória (em um sistema de barramento isso seria o tamanho da informação do barra-mento) ou um deveria ser múltiplo do outro. Caso contrário, não teremos um número inteiro de instruções durante um ciclo de busca. Uma consideração relacionada é a taxa de transferência da memória. Esta taxa não acompanhou o aumento na velocidade dos processadores. Assim, a memória pode se tornar um gargalo se o processador puder executar as instruções mais rapidamente do que as obtém. Uma solução para este problema é usar memória cache (veja a Seção 4.3); outra é usar instruções mais curtas. Desta forma, uma instrução de 16 bits pode ser obtida em uma taxa duas vezes maior do que uma instrução de 32 bits, mas provavelmente pode ser executada numa veloci-dade menos que duas vezes mais.
+Um recurso aparentemente mais comum, mas não menos importante, é que o tamanho da instrução deve ser 
+um múltiplo do tamanho de um caractere, o que é normalmente de 8 bits, e do tamanho de números de ponto fi xo. Para perceber isso, precisamos fazer o uso da defi nição infeliz da palavra, palavra (Frailey, 1983
+a). O tamanho de 
+memória de uma palavra é, de uma certa forma, uma unidade “natural” de organização. O tamanho de uma palavra normalmente determina o tamanho dos números de ponto fi xo (normalmente os dois são iguais). O tamanho de uma palavra é também comumente igual a, ou pelo menos totalmente relacionado ao, tamanho de transferência da memória. Como uma forma comum de dado é o caractere, gostaríamos que uma palavra armazenasse um nú-mero inteiro de caracteres. Caso contrário, haverá bits desperdiçados em cada palavra quando múltiplos caracteres forem armazenados ou um caractere terá que ultrapassar o limite de uma palavra. A importância deste ponto é tanta que a IBM, quando introduziu System/360 e quis empregar caracteres de 8 bits, tomou a radical decisão de mudar da arquitetura de 36 bits das séries 700/7000 para uma arquitetura de 32 bits.
+ Alocação de bits
+Analisamos alguns dos fatores que devem ser levados em consideração na hora de decidir o tamanho do for-
+mato instrução. Uma questão igualmente difícil é como alocar os bits nesse formato. As negociações aqui são complexas.
+Para um determinado tamanho da instrução, existe uma negociação clara entre o número de opcodes e da ca-
+pacidade de endereçamento. Mais opcodes obviamente signifi cam mais bits no campo de opcode. Para um formato 
+da instrução de um determinado tamanho, isso reduz o número de bits disponíveis para endereçamento. Existe um refi namento interessante nesta negociação: o uso de opcodes de tamanho variável. Nesta abordagem, existe um 
+tamanho mínimo de opcode, mas, para alguns opcodes, operações adicionais podem ser especifi cadas com uso de 
+Book 1.indb 340 19.11.09 14:38:32
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 341
+bits adicionais na instrução. Para uma instrução de tamanho fixo, isso deixa menos bits para endereçamento. Por 
+isso este recurso é usado para aquelas instruções que requerem menos operandos e/ou endereçamento menos poderoso.
+Os seguintes fatores relacionados são importantes para determinar o uso de bits de endereçamento.
+número de modos de endereçamento
+  : às vezes um modo de endereçamento pode ser indicado impli-
+citamente. Por exemplo, alguns opcodes podem sempre chamar a indexação. Em outros casos, os modos de 
+endereçamento devem ser explícitos e um ou mais bits de modo serão necessários.número de operandos
+  : vimos que menos endereços podem produzir programas mais longos e estranhos 
+(Figura 10.3). Instruções comuns em máquinas atuais fornecem dois operandos. Cada endereço de operan-do na instrução pode requerer seu próprio indicador de modo ou o uso de um indicador de modo pode ser limitado a apenas um dos campos de endereço.Registrador 
+  versus memória: uma máquina tem que ter registradores para que os dados possam ser tra-
+zidos dentro do processador para serem processados. Com apenas um único registrador visível ao usuário (normalmente chamado de acumulador), um endereço de operando é implícito e não consome nenhum bit da instrução. No entanto, programação com um único registrador é estranha e requer muitas instruções. Mesmo com vários registradores, apenas alguns poucos bits são necessários para especificar o registrador. Quanto mais esses registradores puderem ser usados para referenciar operandos, menos bits serão neces-sários. Uma série de estudos indica que um total de 8 a 32 registradores é desejável (Lunde, 1977
+b, Huck, 
+1983c). A maioria das arquiteturas atuais possui pelo menos 32 registradores.
+número de conjuntos de registradores  : a maioria das máquinas atuais possui um conjunto de regis-
+tradores de uso geral, normalmente com 32 ou mais registradores dentro do conjunto. Esses registradores podem ser usados para armazenar dados e para armazenar endereços para endereçamento por desloca-mento. Algumas arquiteturas, incluindo a x86, possuem dois ou mais conjuntos especializados (como dados e deslocamento). Uma vantagem desta última abordagem é que, para um número fixo de registradores, uma divisão funcional requer menos bits para serem usados na instrução. Por exemplo, com dois conjuntos de oito registradores, apenas 3 bits são requeridos para identificar um registrador; o opcode ou registrador 
+de modo irá determinar qual conjunto dos registradores está sendo referenciado.Intervalo de endereços
+  : para endereços que referenciam a memória, o intervalo de endereços que pode 
+ser referenciado está relacionado com o número de bits de endereço. Como isso impõe uma limitação séria, endereçamento direto é raramente usado. Com endereçamento por deslocamento, o intervalo está aberto até o tamanho do registrador de endereço. Mesmo assim, ainda é conveniente permitir deslocamentos grandes a partir do endereço no registrador, o que requer um número de bits de endereço relativamente grande dentro da instrução.granularidade do endereço
+  : para endereços que referenciam memória no lugar de registradores, outro 
+fator é a granularidade do endereçamento. Em um sistema com palavras de 16 ou 32 bits, um endereço pode referenciar uma palavra ou um byte de acordo com a preferência do projeto. Endereçamento de bytes é conveniente para manipulação de caracteres, porém exige mais bits de endereço para um tamanho fixo de memória.
+Assim, a pessoa responsável pelo projeto tem que considerar e equilibrar diversos fatores. Não está claro o quão 
+críticas são algumas dessas escolhas. Como exemplo podemos citar um estudo (Cragon, 1979
+d) que comparou 
+várias abordagens de formatos das instruções, inclusive o uso de pilha, registradores de uso geral, um acumulador e abordagens exclusivamente memória-para-registrador. Usando um conjunto consistente de hipóteses, nenhuma diferença significativo foi observada no espaço de código ou tempo de execução.
+Vamos observar rapidamente como dois projetos históricos de máquinas equilibram esses vários fatores.PDP-8 Um dos projetos de instrução mais simples para um computador de uso geral foi o feito para PDP-8 (Bell, 
+Newell e Siewiorek, 1978
+e). PDP-8 usa instruções de 12 bits e trata palavras de 12 bits. Existe um único registrador 
+de uso geral, o acumulador.
+Apesar das limitações deste projeto, o endereçamento é bastante flexível. Cada referência de memória consiste de 
+7 bits mais dois modificadores de 1 bit. A memória é dividida em páginas de tamanho fixo de 27 = 128 palavras cada. 
+O cálculo de endereços é baseado em referências à página 0 ou página corrente (página contendo esta instrução) conforme determinado pelo bit de página. O segundo bit modificador indica se endereçamento direto ou indireto 
+Book 1.indb 341 19.11.09 14:38:32
+
+342 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+está sendo usado. Estes dois modos podem ser usados em conjunto, então um endereço indireto é um endereço de 
+12 bits contido em uma palavra da página 0 ou na página corrente. Além disso, 8 palavras dedicadas na página 0 são “registradores” autoindexados. Quando uma referência indireta é feita a uma dessas posições, ocorre a pré-indexação.
+A Figura 11.5 mostra o formato da instrução PDP-8. Existe um opcode de 3 bits e três tipos de instruções. Para opcodes 
+de 0 a 5, o formato é uma instrução de referência à memória de endereço único incluindo um bit de página e um bit indi-reto. Assim, existem apenas seis operações básicas. Para aumentar o grupo de operações, opcode 7 define uma referência 
+de registrador ou microinstrução. Neste formato, os bits restantes são usados para codificar operações adicionais. Em ge -
+ral, cada bit define uma operação específica (por exemplo, limpar o acumulador) e esses bits podem ser combinados em uma única instrução. A estratégia de microinstrução tem sido usada desde o antigo PDP-1 e é, de certa forma, o precursor das máquinas microprogramadas de hoje, o que será discutido na Parte 4. Opcode 6 é operação de E/S; 6 bits são usados 
+para selecionar um dos 64 dispositivos e 3 bits especificam um comando de E/S em particular.
+O formato da instrução PDP-8 é incrivelmente eficiente. Ele suporta endereçamento indireto, endereçamento por 
+deslocamento e indexação. Com uso da extensão de opcode, ele suporta um total de aproximadamente 35 instruções. 
+Dada a limitação do tamanho da instrução de 12 bits, os projetistas dificilmente poderiam ter feito algo melhor.
+PDP-10 Um grande contraste ao conjunto de instruções PDP-8 é o PDP-10. Ele foi projetado para ser um sis-
+tema de tempo compartilhado em grande escala, com ênfase em ser fácil de programar, mesmo que hardware adicional fosse envolvido.
+Dentre os princípios empregados ao se projetar o conjunto de instruções, estão os seguintes (Bell, 1978
+f):
+ortogonalidade  : ortogonalidade é o princípio onde duas variáveis são independentes uma da outra. No 
+contexto de um conjunto de instruções, o termo significa que outros elementos de uma instrução são inde-pendentes do (não determinados por) opcode. Os projetistas de PDP-10 usam o termo para descrever o fato 
+de que um endereço é computado sempre do mesmo jeito, independentemente da opcode. Isto é diferente 
+de muitas máquinas onde o modo de endereçamento às vezes depende implicitamente do operador que está sendo usado.
+Figura 11.5 Formato da Instrução de PDP-8
+Instruções de referência de memória
+Opcode D/I Deslocamento
+11 5 432 0
+Instruções de Entrada/Saída
+110 Dispositivo
+11 98 32 0
+Instruções de referência de registradores
+Microinstruções de Grupo 1
+1 1 1 0 CLA CLL CMA CML RAR RAL BSW IAC
+0123
+Microinstruções de Grupo 2
+1110
+0123
+Microinstruções de Grupo 3
+1110
+0123456 7 8 9 10 11
+CLA SMA SZA SNL RSS OSR HLT 0
+D/I = endereço Direto/Indireto
+Z/C = página 0 ou atualCLA = limpar acumuladorCLL = limpar linkCMA = acumulador de complemento CML = link de complemento RAR = rotacionar acumulador para direitaRAT = rotacionar acumulador para esquerdaBSW = trocar byteIAC = incrementar acumuladorSMA = pular quando acumulador negativoSZA = pular quando acumulador zeroSNL = pular quando link não é zeroRSS = reverter sentido quando pularOSR = ou com troca de registradorHLT = pararMQA = quociente múltiplo no registradorMQL = carregar quociente múltiplo456 7 8 9 10 11
+CLA MQA 0 MQL 0 0 0 1
+456 7 8 9 10 11Z/C
+Opcode
+Book 1.indb 342 19.11.09 14:38:33
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 343
+Integridade  : cada tipo aritmético de dados (inteiro, ponto fi xo, ponto fl utuante) deve ter um conjunto de 
+operações completo e idêntico.
+endereçamento direto  : endereçamento básico com deslocamento, o qual deixa a organização da memó-
+ria a cargo do programador, foi substituído pelo endereçamento direto.
+Cada um destes princípios colabora em atingir o objetivo principal que é a facilidade de programação.O PDP-10 possui uma palavra de 36 bits e uma instrução de 36 bits. O formato fi xo da instrução é mostrado na 
+Figura 11.6. O opcode ocupa 9 bits, permitindo até 512 operações. Na verdade, um total de 365 instruções foi defi -
+nido. A maioria das instruções possui dois endereços, um dos quais é um dos 16 registradores de uso geral. Desta forma, a referência deste operando ocupa 4 bits. A referência do outro operando começa com um campo de ende-reço de memória de 18 bits, que pode ser usado como um operando imediato ou um endereço de memória. No último uso, são permitidos endereçamento indireto e indexação. Os mesmos registradores de uso geral são usados também como registradores indexadores.
+Uma instrução com tamanho de 36 bits é um verdadeiro luxo. Não há necessidade de inventar coisas esper-
+tas para obter mais opcodes; um campo de opcode de 9 bits é mais do que sufi ciente. O endereçamento também 
+é direto. Um campo de endereço de 18 bits torna endereçamento direto desejável. Indireção é fornecida para tamanhos de memória maiores que 2
+18. Para facilitar a programação, é fornecida a indexação para manipular 
+tabelas e para programas iterativos. Além disso, com um campo de operando de 18 bits, o endereçamento ime-diato se torna atraente.
+O projeto do conjunto de instruções PDP-10 atinge os objetivos mencionados anteriormente ( Lunde, 1977
+b). Ele 
+facilita a tarefa do programador ou compilador com o custo de uma utilização de espaço inefi ciente. Essa foi uma escolha consciente tomada por projetistas e, portanto, não pode ser considerada como uma falha no projeto.
+ Instruções de tamanho variável
+Os exemplos que vimos até agora usam um único tamanho fi xo de instrução e discutimos as negociações im-
+plicitamente nesse contexto. Mas, em vez disso, os projetistas poderiam ter escolhido oferecer uma variedade de formatos de instruções de tamanhos diferentes. Esta tática torna fácil fornecer um grande repertório de opcodes com tamanhos diferentes. O endereçamento pode ser mais fl exível com várias combinações de referências a registrado-res e à memória e com modos de endereçamento. Com instruções de tamanho variável, estas variações podem ser fornecidas de uma forma efi ciente e compacta.
+O principal preço a ser pago pelas instruções de tamanho variável é o aumento na complexidade do processa-
+dor. A queda nos preços de hardware, o uso de microprogramação (discutida na Parte 4) e um aumento geral no entendimento dos princípios de projeto dos processadores contribuíram para que esse preço se tornasse pequeno. No entanto, veremos que as máquinas RISC e as superescaláveis podem explorar o uso de instruções de tamanho fi xo para melhorar desempenho.
+O uso de instruções de tamanho variável não acaba com a necessidade de relacionar integralmente todos os 
+tamanhos das instruções com o tamanho da palavra. Como o processador não conhece o tamanho da próxima ins-trução a ser obtida, uma estratégia comum é buscar o número de bytes ou palavras pelo menos igual ao tamanho da maior instrução possível. Isso signifi ca que, às vezes, várias instruções são lidas. No entanto, como veremos no Capítulo 12, esta é uma boa estratégia a ser seguida em todos os casos.
+PDP-11 O PDP-11 foi projetado para oferecer um conjunto de instruções poderoso e fl exível dentro das limita-
+ções de um minicomputador de 16 bits (Bell et al. 1970
+g).
+Figura 11.6 Formato da instrução PDP-10
+Registrador
+indexadorEndereço de memória
+53 81 71 41 21 9 8 0
+I bit indiretoOpcode Registrador I
+Book 1.indb 343 19.11.09 14:38:33
+
+344 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+O PDP-11 utiliza um conjunto de oito registradores de uso geral de 16 bits. Dois desses registradores têm uma 
+importância adicional: um é usado como ponteiro de pilha para operações especiais de pilha e outro é usado como 
+contador de programa, o qual contém o endereço da próxima instrução.
+A Figura 11.7 mostra os formatos da instrução do PDP-11. Treze formatos diferentes são usados, incluindo tipos de 
+instrução de zero, um e dois endereços. O opcode pode variar de tamanho de 4 a 16 bits. Referências à registradores 
+têm o tamanho de 6 bits. Três bits identificam o registrador e 3 bits restantes identificam o modo de endereçamento. O PDP-11 possui um conjunto rico de modos de endereçamento. Uma vantagem de ligar o modo de endereçamento ao operando em vez do opcode, como é feito às vezes, é que qualquer modo de endereçamento pode ser usado com qualquer opcode. Conforme mencionamos, esta independência é conhecida como ortogonalidade.
+As instruções PDP-11 normalmente têm o tamanho de uma palavra (16 bits). Para algumas instruções, um ou 
+dois endereços de memória são adicionados para que instruções de 32 e 42 bits estejam disponíveis. Isso possibilita maior flexibilidade no endereçamento.
+O conjunto de instruções e a capacidade de endereçamento do PDP-11 é complexo. Isso aumenta o custo de hardware 
+e a complexidade de programação. A vantagem é que programas mais eficientes e compactos podem ser desenvolvidos.
+VAX A maioria das arquiteturas fornece um número relativamente pequeno de formatos fixos de instruções. 
+Isso pode causar dois problemas para os programadores. Primeiro, o modo de endereçamento e opcode não são 
+ortogonais. Por exemplo, para uma certa operação, um operando deve vir a partir de um registrador e outro da me-
+mória, ou ambos dos registradores e assim por diante. Segundo, apenas um número limitado de operandos pode 
+Oﬀset Opcode Opcode 3 2 1
+6 5 4
+7
+101112
+139 8R Origem Origem Destino Opcode
+4
+Opcode
+8Opcode
+10Opcode
+12CC
+4FP
+2Destino
+6Destino
+6
+Opcode
+13Opcode
+16Opcode
+4Origem
+6Destino
+6Endereço de memória
+16R
+3
+Opcode
+7Origem
+6
+Origem
+6
+Destino
+6
+Destino
+6Endereço de memória
+16
+Endereço de memória
+16
+Endereço de memória
+16
+Endereço de memória 1
+16Endereço de memória 2
+16R
+3
+Opcode
+8FP
+2
+Opcode
+10
+Opcode
+4Origem
+68 8 7 36 6 6
+Os números abaixo dos campos indicam o tamanho em bits.
+Origem e destino contêm cada um campo de modo de endereçamento de 3 bits e o número de registrador de 3 bits.FP indica um dos quatro registradores de ponto /f_lutuante.R indica um dos registradores de uso geral.CC é campo de código condicional.Figura 11.7 Formatos das instruções do PDP-11
+Book 1.indb 344 19.11.09 14:38:34
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 345
+ser acomodado: normalmente de dois a três. Como algumas operações inerentemente requerem mais operandos, 
+diversas estratégias devem ser empregadas para alcançar o resultado desejado usando duas ou mais instruções.
+Para evitar esses problemas, dois critérios foram usados ao projetar o formato de instrução VAX ( Strecker, 1978h):
+1. Todas as instruções devem ter um número “natural” de operandos.2. Todos os operandos devem ter a mesma generalidade na especificação.
+O resultado é um formato de instrução altamente variável. Uma instrução consiste de um opcode de 1 ou 2 
+bytes seguido de especificadores de operando de 0 a 6, dependendo do opcode. O tamanho mínimo da instrução 
+é 1 byte e instruções até 37 bytes podem ser construídas. A Figura 11.8 mostra alguns exemplos.
+A instrução VAX começa com um opcode de 1 byte. Isso é suficiente para lidar com a maioria das instruções VAX. 
+No entanto, como existem mais de 300 instruções diferentes, 8 bits não são suficientes. Os códigos hexadecimais 
+FD e FF indicam um opcode estendido, com o opcode atual sendo especificado no segundo byte.
+O restante da instrução consiste de até seis especificadores de operandos. Um especificador de operando está, no mí-
+nimo, num formato de 1 byte onde os quatros bits da esquerda representam o modo de endereçamento. A única exceção 
+a esta regra é o modo literal, o qual é sinalizado com 00 nos dois bits à extrema esquerda, deixando um espaço para um 
+literal de 6 bits. Por causa desta exceção, um total de 12 modos de endereçamento diferentes pode ser especificado.
+Um especificador de operando frequentemente consiste de apenas um byte, onde os 4 bits da extrema direita 
+especificam um dos 16 registradores de uso geral. O tamanho do especificador de operando pode ser estendido de duas formas. Primeira: um valor constante de um ou mais bytes podem seguir imediatamente o primeiro byte do especificador de operando. Um exemplo disto é o modo por deslocamento, onde um deslocamento de 8, 16 ou 
+Opcode para RSBFormato
+hexadecimalNotação Assembler e Descrição Explicação
+08 bits
+5
+D 4
+5 9
+B 0
+C 4
+6 4
+0 1
+A B
+1 9
+C 1
+0 5
+5 0
+4 2
+D FRSB
+Retorno da sub-rotina
+Opcode para CLRL
+Registrador R9CLRL R9Limpar registrador R9
+Opcode para MOVW
+Modo de deslocamento da 
+palavra, Registrador R4
+Modo de deslocamento de byte
+Registrador R1125 em hexadecima356 em hexadecimalMOVW 356(R4), 25(R11)
+Move uma palavra de um 
+endereço que é 356 maisconteúdo de R4 paraendereço que é 25 mais conteúdo de R11
+ADDL3 #5, R0, @A[R2]
+Adiciona 5 a um inteiro de 
+32 bits em R0 e armazena o resultado na posição cujo endereço é soma de A e quatro vezes o conteúdo de R2.
+Opcode para ADDL3
+Número 5 literalRegistrador de modo R0
+Quantidade de deslocamento de
+relativa à posição AÍndice pré-/f_ixado R2
+palavra relativa indireta(deslocamento de PC)Figura 11.8 Exemplos de instruções do VAX
+Book 1.indb 345 19.11.09 14:38:34
+
+346 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+32 bits é usado. Segunda: um modo indexado de endereçamento pode ser usado. Neste caso, o primeiro byte do 
+especifi cador de operando consiste de um código de modo de endereçamento de 4 bits 0100 e de um identifi ca-dor de um registrador índice de 4 bits. O restante do especifi cador de operando consiste do especifi cador básico de endereço, o qual, por sua vez, pode ter um tamanho de um ou mais bytes.
+O leitor pode estar se perguntando, conforme o fez o autor, que tipo de instrução requer seis operandos? 
+Surpreendentemente, VAX possui uma série dessas instruções. Considere
+ADDP6 OP1, OP2, OP3, OP4, OP5, OP6
+Esta instrução soma dois números decimais agrupados. OP1 e OP2 especifi cam o tamanho e o endereço inicial de 
+uma cadeia de números decimais; OP3 e OP4 especifi cam uma segunda string. Essas duas strings são somadas e o resul-
+tado é armazenado na cadeia de números decimais cujo tamanho e posição inicial são especifi cados por OP5 e OP6.
+O conjunto de instruções VAX fornece uma grande variedade de operações e modos de endereçamento. Isso dá 
+ao programador, como, por exemplo, um desenvolvedor de compiladores, uma ferramenta para desenvolvimento 
+de programas muito poderosa e fl exível. Na teoria, isso deveria levar a compilações efi cientes de programas escritos em linguagem de alto nível, para a linguagem de máquina e, em geral, ao uso efetivo e efi ciente de recursos do processador. O preço a ser pago por esses benefícios é o aumento da complexidade do processador se comparado a um processador com um conjunto de instruções e formatos mais simples.
+Retornaremos a este assunto no Capítulo 13 onde examinamos uma situação para conjuntos de instruções 
+muito simples.
+11.4 Formatos de instruções x86 e ARM
+ Formatos de instruções x86
+O x86 é equipado com uma variedade de conjuntos de instruções. Dos elementos descritos nesta seção apenas 
+o campo opcode está sempre presente. A Figura 11.9 ilustra o formato de instrução geral. As instruções são feitas de 
+0 a 4 prefi xos opcionais, um opcode de 1 ou 2 bytes, um especifi cador de endereço opcional (que consiste de byte 
+ModR/m e byte de Índice Escalar), um deslocamento opcional e um campo imediato opcional.
+Figura 11.9 Formato da instrução x86
+Modbytes 0 ou 1 0 ou 1 0 ou 1 0 ou 1
+4 o u 2 ,1 ,0 4 o u 2 ,1 ,0 s ety b 4 o u 3 ,2 ,1 ,0 1, 2 ou 3 0 ou 1 0 ou 1
+Pre/f_ixos da instrução Opcode
+01234567 01234567ModR/m SIB Deslocamento ImediatoPre/f_ixo da 
+instruçãoSeleção do
+segmentoSeleção do
+tamanho do
+operandoSeleção do
+tamanho do
+endereço
+Reg/Opcode R/M Escalar Índice Básico
+Book 1.indb 346 19.11.09 14:38:35
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 347
+Vamos primeiramente considerar os bytes de prefixo:
+prefixos da instrução  : o prefixo da instrução, se estiver presente, consiste do prefixo LOCK ou de um dos 
+prefixos de repetição. O prefixo LOCK é usado para garantir o uso exclusivo da memória compartilhada em 
+ambientes multiprocessados. Os prefixos de repetição especificam operações repetidas de uma string, o que 
+possibilita que x86 processe strings muito mais rapidamente do que com laços normais de software. Existem 
+cinco prefixos de repetição diferentes: REP , REPE, REPZ, REPNE e REPNZ. Quando o prefixo absoluto REP está presente, a operação especificada na instrução é executada repetidamente em elementos sucessivos da string; o número de repetições é especificado no registrador CX. O prefixo REP condicional faz com que a operação seja repetida até que o contador em CX chegue a zero ou até que a condição seja satisfeita.seleção do segmento
+  : determina explicitamente qual registrador de segmento que uma instrução deve 
+usar, alterando o registrador do segmento padrão gerado pelo x86 para essa instrução.Tamanho do operando
+  : uma instrução possui um tamanho padrão de operando de 16 ou 32 bits e o 
+prefixo do operando alterna entre operandos de 32 e 16 bits.Tamanho do endereço
+  : o processador pode endereçar memória usando endereços de 16 ou 32 bits. O ta-
+manho do endereço determina o tamanho do deslocamento usado nas instruções e o tamanho dos offsets de endereço gerados durante o cálculo do endereço efetivo. Um desses tamanhos é definido como padrão e o prefixo do tamanho do endereço alterna entre geração de endereço de 16 e 32 bits.
+A instrução em si inclui os seguintes campos:
+Opcode
+  : o campo opcode tem o tamanho de 1, 2 ou 3 bytes. O opcode pode também incluir bits que 
+especificam se a informação é byte ou tamanho cheio (16 ou 32 bits dependendo do contexto), direção da operação dos dados (para ou de memória) e se um campo de dados imediato deve ser estendido por um sinal.modR/m
+  : este byte, e o próximo, fornece o endereçamento da informação. O byte ModR/m especifica se 
+um operando está em um registrador ou na memória; se estiver na memória, então os campos dentro do byte especificam o modo de endereçamento a ser usado. O byte ModR/m consiste de três campos: campo Mod (2 bits) é combinado com o campo r/m para formar 32 valores possíveis: 8 registradores e 24 modos de indexação; o campo Reg/Opcode (3 bits) especifica ou um número de registrador ou mais três bits da infor-mação do opcode; o campo r/m (3 bits) pode especificar um registrador como sendo a posição de um ope-
+rando ou pode fazer parte do código do modo de endereçamento em combinação com o campo Mod.sIB
+  : codificação do byte ModR/m especifica a inclusão do byte SIB para determinar totalmente o modo 
+de endereçamento. O byte SIB consiste de três campos: campo Escalar (2 bits) define o fator de escala para indexação escalar; o campo Índice (3 bits) determina o registrador indexador; campo Base (3 bits) especifica o registrador base.deslocamento
+  : quando o especificador do modo de endereçamento indica que o deslocamento é usado, 
+um campo de valor inteiro com sinal para deslocamento de 8, 16 ou 32 bits é adicionado.Imediato
+  : fornece o valor de um operando de 8, 16 ou 32 bits.
+Diversas comparações podem ser úteis aqui. No formato x86, o modo de endereçamento é fornecido como 
+parte da sequência de opcode em vez de com cada operando. Como apenas um operando pode ter a informação sobre o modo de endereçamento, apenas um operando de memória pode ser referenciado em uma instrução. Ao contrário disso, o VAX carrega a informação sobre o modo de endereçamento com cada operando, possibilitando operações do tipo memória-para-memória. Por isso, as instruções x86 são mais compactas. No entanto, se uma operação memória-para-memória é necessária, o VAX pode executá-la em uma única instrução.
+O formato x86 permite o uso de offset para indexação de não apenas 1 byte, mas também de 2 e 4. Embora o 
+uso de offsets maiores para indexação resulte em instruções maiores, esse recurso permite a flexibilidade neces-sária. Por exemplo, é útil ao endereçar grandes vetores ou grandes stackframes. Ao contrário disso, o formato de 
+instrução de IBM S/370 não permite offsets maiores que 4K bytes (12 bits da informação de offset) e o offset deve ser positivo. Quando uma posição não está ao alcance desse offset, o compilador precisa de código extra para gerar o endereço necessário. Esse problema aparece especialmente quando se lida com stackframes que possuem 
+variáveis locais ocupando um espaço maior que 4K bytes. Segundo Dewar (1990
+i), “gerar código para S/370 é tão 
+doloroso por causa dessa restrição que houve até compiladores para S/370 que simplesmente optavam por limitar o tamanho do stackframe a 4K bytes” .
+Book 1.indb 347 19.11.09 14:38:35
+
+348 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Como podemos ver, a codifi cação do conjunto de instruções x86 é muito complexa. Isso tem a ver parcialmente 
+com a necessidade de manter compatibilidade com as máquinas 8086 e parcialmente com o desejo de uma parte 
+dos projetistas para fornecer toda a assistência possível ao projetista de compiladores para produzir um código efi ciente. É uma questão a ser discutida se um conjunto de instruções complexo como este é preferível ao extremo oposto, que é o conjunto de instruções RISC.
+ Formatos de instruções ARM
+Todas as instruções na arquitetura ARM têm o tamanho de 32 bits e seguem um formato regular (Figura 
+11.10). Os quatro primeiros bits da instrução são código condicional. Conforme discutido no Capítulo 10, na teoria todas as instruções ARM podem ser executadas condicionalmente. Os três próximos bits definem o tipo geral da instrução. Para a maioria das instruções, exceto as do tipo branch, os próximos cinco bits cons-tituem um opcode e/ou bits modificadores para a operação. Os 20 bits restantes são para endereçamento de operando. A estrutura regular dos formatos da instrução facilita o trabalho das unidades de decodificação da instrução.
+CONSTANTES IMEDIATAS Para atingir um intervalo maior de valores imediatos, o formato de processamento dos 
+dados imediato especifi ca o valor imediato e o valor rotacional. O valor imediato de 8 bits é estendido para 32 bits e depois rotacionado para direita por um número de bits igual a duas vezes o valor de rotação de 4 bits. Diversos exemplos são mostrados na Figura 11.11.
+CONJUNTO DE INSTRUÇÕES THUMB O conjunto de instruções Thumb é um subconjunto recodifi cado do 
+conjunto de instruções ARM. O Thumb foi projetado para melhorar o desempenho das implementações ARM que usam um barramento de dados de memória de 16 bits ou limitado e para permitir uma melhor densidade de código do que a fornecida pelo conjunto de instruções ARM. O conjunto de instruções Thumb contém um subconjunto do conjunto de instruções ARM de 32 bits recodifi cadas para instruções de 16 bits. A economia é obtida da seguinte maneira:
+1. As instruções Thumb não são condicionais, então o campo de código da condição não é usado. Além disso, 
+todas as instruções Thumb aritméticas e lógicas atualizam os fl ags de condição, então o bit para o fl ag de atualização não é necessário. Economia: 5 bits.
+0 0 Rd
+0 Quant. de deslocamento Deslocamento0Processamento de dados por
+deslocamento imediato
+Imediato Rotacionar 0 OpcodeOpcodeOpcode
+Processamento de
+dados imediato
+WB U Imediato 00
+1 CondOﬀset imediato para
+carregar/armazenar
+WB U 0 CondOﬀset de registrador para
+carregar/armazenar1 00
+1
+00 0 SS
+S
+LL
+LRmRmRm
+Lista de registradores WS U 1 CondCond
+Cond
+Cond
+Múltiplo carregar/armazenar
+Oﬀset de 24 bits 01 LPPP
+1 Cond Condição/condição com link
+S = para instruções de processamento de dados, signi/f_ica que a instrução atualiza o código da condição.
+S = para instruções múltiplas de carregar/armazenar, signi/f_ica se a execução da instrução é restrita ao modo supervisor.P, U, W = bits usados para distinguir diferentes tipos de modo de endereçamento.B = diferença entre um byte sem sinal (B == 1) e uma palavra (B == 0).L = para instruções de carregar/armazenar, usado para diferenciar entre carregar (L == 1) e armazenar (L == 0).L = para instruções condicionais, determina se o endereço de retorno é armazenado no registrador vinculado.Rd Rs
+Rd
+Rd
+RdRn
+Rn
+Rn
+Rn
+RnRn0Processamento de dados por
+deslocamento de registrador0123 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31
+Quant. de deslocamento Deslocamento
+Deslocamento
+011
+0Figura 11.10 Formatos da instrução ARM 
+Book 1.indb 348 19.11.09 14:38:36
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 349
+2. O Thumb possui apenas um subconjunto de operações do conjunto de instruções completo e usa apenas 
+um campo de opcode de 2 bits mais um campo de tipo de 3 bits. Economia: 2 bits.
+3. A economia restante de 9 bits vem da redução na especificação do operando. Por exemplo, as instru-ções Thumb referenciam apenas os registradores de r0 até r7, então apenas 3 bits são necessários para referências dos registradores, em vez de 4 bits. Os valores imediatos não incluem um campo rotacional de 4 bits.
+O processador ARM pode executar um programa consistindo de uma mistura de instruções Thumb e instruções 
+ARM de 32 bits. Um bit no registrador de controle do processador determina qual tipo de instrução está sendo exe-cutada no momento. A Figura 11.12 mostra um exemplo. A figura mostra tanto o formato geral como uma instância específica de uma instrução em ambos os formatos, 16 e 32 bits.Figura 11.11 Exemplos de uso de contantes imediatas ARM
+0000000000000000000 00000
+ror #0—intervalo 0 até 0x000000FF—passo 0x00000001 0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31
+000000000000000000000000
+ror #8—intervalo 0 até 0xFF000000—passo 0x01000000 0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31
+00 0000000000000000000000
+ror #30—intervalo 0 até 0x000003FC—passo 0x00000004 0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31
+01 10 0 0 01 0 00 1 01 01 11 0 0000 01 10 0 011ADD r3, #19
+ADDS r3, r3, #19
+Processamento de dados
+do formato imediato
+0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 3101 10 0 1 10 00100 1 10Somar/subtrair/comparar/mover
+formato imediato
+Sempre
+código
+condicionaAtualizar
+/f_lags
+condicionaisRotação
+zeroRd/Rn Opcode Imediato 00123456789 1 0 1 1 1 2 1 4 1 3 1 5
+01 Rotacionar Imediato 0 Cond Opcode Rd R nS01
+1Figura 11.12 Transformando a instrução ADD Thumb na instrução ARM equivalente
+Book 1.indb 349 19.11.09 14:38:37
+
+350 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+11.5 Linguagem de montagem
+Um processador pode entender e executar instruções de máquina. Essas instruções são simples números biná-
+rios armazenados no computador. Se o programador quisesse programar diretamente na linguagem de máquina, 
+então seria necessário informar o programa como dados binários.
+Considere a simples instrução BASIC:
+N = I + J + K
+Suponha que queiramos programar esta instrução na linguagem de máquina e inicializar I, J e K para 2, 3 e 4, 
+respectivamente. Isso é mostrado na Figura 11.13a. O programa inicia na posição 101 (hexadecimal). Memória é 
+reservada para as quatro variáveis iniciando na posição 201. O programa consiste de quatro instruções:
+1. Carrega o conteúdo da posição 201 em AC.2. Adiciona o conteúdo da posição 202 a AC.3. Adiciona o conteúdo da posição 203 a AC.4. Armazena o conteúdo de AC na posição 204.Este é claramente um processo tedioso e propenso a erros.Um pequeno avanço seria escrever o programa em hexadecimal no lugar de binário (Figura 10.11b). Podemos 
+escrever o programa como uma série de linhas. Cada linha contém o endereço de uma posição de memória e o código hexadecimal do valor binário para ser armazenado nessa posição. Depois precisamos de um programa que irá aceitar essa entrada, traduzir cada linha em um número binário e armazená-lo em uma posição específi ca.
+Para melhorar mais, podemos usar o nome simbólico ou o mnemônico de cada instrução. Isso resulta em um pro-
+grama simbólico mostrado na Figura 10.11c. Cada linha de entrada ainda representa uma posição de memória. Cada linha consiste de três campos, separados por espaços. O primeiro campo contém o endereço de uma posição. Para uma instrução, o segundo campo contém um símbolo de três letras para opcode. Quando se trata de uma instrução 
+que referencia à memória, então o terceiro campo contém o endereço. Para armazenar dados arbitrários em uma 
+Figura 11.13 Computação na fórmula N = I + J + K
+Endereço Conteúdo
+101 0010 0010 101 2201 101 2201
+102 0001 0010 102 1202 102 1202
+103 0001 0010 103 1203 103 1203
+104 0011 0010 104 3204 104 3204
+201 0000 0000 201 0002 201 0002
+202 0000 0000 202 0003 202 0003
+203 0000 0000 203 0004 203 0004
+204 0000 0000 204 0000 204 0000
+Programa hexadecimal )b( Programa binário )a(
+Endereço Instrução Rótulo Operação Operando
+101 LDA 201 FORMUL LDA I
+201 DAT 2 I DATA 2
+202 DAT 3 J DATA 3
+203 DAT 4 K DATA 4
+204 DAT 0 N DATA 0
+Programa assembly )d( Programa simbólico )c(Conteúdo Endereço
+102 ADD 202 ADD J
+103 ADD 203 ADD K
+104 STA 204 STA N
+Book 1.indb 350 19.11.09 14:38:38
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 351
+ posição, inventamos uma pseudoinstrução com o símbolo DAT. Isso é apenas uma indicação de que o terceiro campo 
+da linha contém um número hexadecimal para ser armazenado na posição especifi cada no primeiro campo.
+Para este tipo de entrada precisamos de um programa um pouco mais complexo. O programa aceita cada linha 
+de entrada, gera um número binário com base no segundo e terceiro (se estiver presente) campos e o armazena na 
+posição defi nida no primeiro campo.
+A utilização de um programa simbólico torna a vida muito mais fácil, mas ainda é estranho porque precisamos 
+dar um endereço absoluto para cada palavra. Isso signifi ca que o programa e os dados podem ser carregados em apenas uma posição da memória e nós precisamos saber essa posição antecipadamente. Pior ainda, suponha que queiramos mudar o programa um dia adicionando ou excluindo uma linha. Isso irá alterar os endereços de todas as palavras subsequentes.
+Um sistema bem melhor, e normalmente utilizado, é usar endereços simbólicos. Isso é ilustrado na Figura 10.11d. 
+Cada linha ainda consiste de três campos. O primeiro campo ainda é para endereço, porém um símbolo é usado no lugar de um endereço numérico absoluto. Algumas linhas não possuem endereço, o que implica que o endereço dessa linha é um a mais do que o endereço da linha anterior. Para instruções que referenciam memória, o terceiro campo também contém um endereço simbólico.
+Com estas últimas melhorias nós temos uma linguagem de montagem (linguagem assembly). Programas escritos 
+em linguagem de montagem (programas assembly) são traduzidos para linguagem de máquina por um assembler 
+(montador). Esse programa precisa fazer não apenas a tradução simbólica discutida anteriormente, como deve também atribuir endereços de memória para endereços simbólicos.
+O desenvolvimento da linguagem de montagem foi um grande marco na evolução da tecnologia de computa-
+dores. Foi o primeiro passo para linguagens de alto nível usadas atualmente. Embora poucos programadores usem linguagem de montagem, teoricamente todas as máquinas fornecem uma. Elas são usadas, quando usadas, para programas de sistema como compiladores e rotinas de E/S.
+O Apêndice B fornece uma explicação mais detalhada sobre a linguagem de montagem.
+11.6 Leitura recomendada
+As referências citadas no Capítulo 10 são igualmente aplicáveis ao material deste capítulo. Blaauw e Brooks 
+(1997j) contém uma discussão detalhada sobre formatos das instruções e modos de endereçamento. Além disso, 
+o leitor pode querer consultar Flynn, Johnson e Wakefi eld (1985k) que discutem e analisam questões de projeto do 
+conjuntos de instruções, particularmente aquelas relacionadas com formatos.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Auto-indexação Endereçamento imediato Pré-indexação
+Endereçamento por registrador base Indexação Endereçamento por registradores
+Endereçamento direto Endereçamento indireto Endereçamento indireto por registradores
+Endereçamento por deslocamento Formato da instrução Endereçamento relativo
+Endereço efetivo Pós-indexação Palavra
+Perguntas de revisão
+ 11.1 Defi na resumidamente endereçamento imediato.
+ 11.2 Defi na resumidamente endereçamento direto.
+ 11.3 Defi na resumidamente endereçamento indireto.
+ 11.4 Defi na resumidamente endereçamento de registradores.
+Book 1.indb 351 19.11.09 14:38:38
+
+352 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ 11.5 Defina resumidamente endereçamento indireto por registradores.
+ 11.6 Defina resumidamente endereçamento por deslocamento.
+ 11.7 Defina resumidamente endereçamento relativo.
+ 11.8 Qual é a vantagem da autoindexação?
+ 11.9 Qual é a diferença entre pós-indexação e pré-indexação?
+ 11.10 Quais fatores devem ser levados em conta para determinar o uso de bits de endereçamento de uma instrução?
+ 11.11 Quais são as vantagens e as desvantagens de usar o formato da instrução de tamanho variável?
+Problemas
+11.1 Dados os seguintes valores de memória e uma máquina de um endereço com um acumulador, quais valores as instruções a seguir carregam 
+no acumulador?
+Palavra 20 contém 40. 
+Palavra 30 contém 50. 
+Palavra 40 contém 60. 
+Palavra 50 contém 70. 
+a. CARREGAR IMEDIATO 20
+b. CARREGAR DIRETO 20
+c. CARREGAR InDIRETO 20
+d. CARREGAR IMEDIATO 30
+e. CARREGAR DIRETO 30
+f. CARREGAR InDIRETO 30
+11.2 O endereço armazenado no contador de programa é representado pelo símbolo X1. A instrução armazenada em X1 tem uma parte de endereço 
+(referência de operando) X2. O operando necessário para executar a instrução é armazenado na palavra de memória com endereço X3. Um re-gistrador indexador contém o valor X4. Qual é a relação entre essas diversas grandezas se o modo de endereçamento for (a) direto; (b) indireto; (c) PC relativo; (d) indexado?
+11.3 Um campo de endereço em uma instrução contém o valor decimal 14. Onde está o operando correspondente para
+a. endereçamento imediato?
+b. endereçamento direto?
+c. endereçamento indireto?
+d. endereçamento de registradores?
+e. endereçamento indireto de registradores?
+11.4 Considere um processador de 16 bits no qual aparece dentro da memória principal o seguinte conteúdo, começando na posição 200:
+200 Carregar em AC Modo
+201 500
+202 Próxima instrução
+A primeira parte da primeira palavra indica que esta instrução carrega um valor em um acumulador. O campo Modo especifica um modo de 
+endereçamento e, se apropriado, indica um registrador de origem; assuma que, quando usado, o registrador de origem é R1 e tem o valor 400. há 
+também um registrador base que contém o valor 100. O valor 500 na posição 201 pode ser uma parte do cálculo do endereço. Suponha que a posição 399 contém o valor 999, a posição 400 contém o valor 1.000, e assim por diante. Determine o endereço efetivo e o operando a ser carregado para os seguintes modos de endereçamento:
+a.Direto d.PC relativo g.Registrador indireto
+b.Imediato e.Deslocamento h.Autoindexação com incremento usando R1
+c.Indireto f.Registrador
+Book 1.indb 352 19.11.09 14:38:39
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 353
+11.5 A instrução de desvio no modo PC-relativo tem o tamanho de 3 bytes. O endereço da instrução, decimal, é 256028. Determine o endereço de 
+destino do desvio se o deslocamento com sinal na instrução for –31.
+11.6 A instrução de desvio no modo PC relativo é armazenada na memória no endereço 62010. Um desvio é feito para posição 53010. O campo de 
+endereço da instrução tem o tamanho de 10 bits. Qual é o valor binário na instrução?
+11.7 Quantas vezes o processador precisa referenciar a memória quando obtém e executa uma instrução no modo de endereçamento indireto se a 
+instrução for (a) um cálculo requerendo um único operando; (b) um desvio?
+11.8 O IBM 370 não oferece endereçamento indireto. Suponha que o endereço de um operando esteja na memória principal. Como você acessaria o 
+operando?
+11.9 Em Cook e Dande (1982l) os autores propõem que o modo de endereçamento PC-relativo seja substituído por outros modos, como o uso de 
+uma pilha. Qual é a desvantagem dessa proposta?
+11.10 O x86 inclui a seguinte instrução: 
+IMUL op1, op2, immediate
+Esta instrução multiplica op2, o qual pode ser registrador ou memória, pelo valor do operando imediato e guarda o resultado em op1, o 
+qual tem que ser um registrador. não existe nenhuma outra instrução de três operandos deste tipo no conjunto de instruções. Qual o possível 
+uso dessa instrução? (Dica : considere a indexação).
+11.11 Considere um processador que inclui um modo de endereçamento base com indexação. Suponha que uma instrução que emprega esse modo 
+de endereçamento e especifica um deslocamento de 1970 em decimal seja encontrada. Atualmente, o registrador base e o indexador contêm 
+os números decimais 48022 e 8, respectivamente. Qual é o endereço do operando?
+11.12 EA = (X)+ é o endereço efetivo igual ao conteúdo da posição X, com X sendo incrementado em tamanho de uma palavra depois que o endereço 
+efetivo é calculado; EA = – (X) é o endereço efetivo igual ao conteúdo da posição X, com X sendo decrementado em tamanho de uma palavra antes que o endereço efetivo seja calculado; EA = (X) – é o endereço efetivo igual ao conteúdo da posição X, com X sendo decrementado em tamanho de uma palavra depois que o endereço efetivo é calculado. Considere as seguintes instruções, cada uma no formato (Operação, Operando de Origem, Operando de Destino) e o resultado da operação sendo guardado no operando de destino. .
+a. OP X, (X)b. OP (X), (X) +
+c. OP (X) +, (X)
+d. OP – (X), (X)
+e. OP – (X), (X) +
+f. OP (X) +, (X) +
+g. OP (X) – , (X)
+Usando X como ponteiro da pilha, qual destas instruções pode pegar os dois primeiros elementos do topo da pilha, executar uma determi-
+nada operação (por exemplo, SOMAR origem com destino e armazenar no destino) e colocar o resultado de volta na pilha? Para cada instrução dessas, a pilha cresce em direção à posição 0 da memória ou na direção oposta?
+11.13 Suponha um processador baseado em pilha que inclui as operações de pilha PUSh e POP . As operações aritméticas envolvem automaticamen-
+te um ou dois elementos do topo da pilha. Comece com uma pilha vazia. Quais elementos restam na pilha depois que as instruções a seguir são executadas? PUSh 4 PUSh 7 PUSh 8 ADD PUSh 10 SUB MUL
+11.14 Justifique a afirmação de que uma instrução de 32 bits é provavelmente menos do que duas vezes mais útil do que uma instrução de 16 bits.
+11.15 Por que a decisão da IBM de mudar de 36 bits para 32 bits por palavra foi dolorosa e para quem ela o foi?
+11.16 Suponha um conjunto de instruções que usa um tamanho fixo de instrução de 16 bits. Especificadores de operandos têm o tamanho de 6 bits. 
+Book 1.indb 353 19.11.09 14:38:39
+
+354 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Existem instruções K de dois operandos e instruções L de zero operandos. Qual é o número máximo de instruções de um operando que podem 
+ser suportadas?
+11.17 Projete um opcode de tamanho variável que permita que tudo que está relacionado a seguir seja codificado em uma instrução de 36 bits:
+instruções com dois endereços de 15 bits e um registrador numérico de 3 bits 
+instruções com um endereço de 15 bits e um registrador numérico de 3 bits 
+instruções sem endereços ou registradores 
+11.18 Considere os resultados do Problema 10.6. Suponha que M seja um endereço de memória de 16 bits e que X, Y e Z sejam ou endereços de 16 bits 
+ou registradores numéricos de 4 bits. A máquina de um endereço usa um acumulador e as máquinas de dois e três endereços possuem 16 re-
+gistradores e instruções operando em todas as combinações de posições de memória e registradores. Assumindo opcodes de 8 bits e tamanhos 
+das instruções que sejam múltiplos de 4 bits, quantos bits cada máquina precisa para calcular X?
+11.19 Existe alguma justificativa possível para uma instrução com dois opcodes?
+11.20 O Zilog Z8001 de 16 bits possui o seguinte formato geral da instrução:
+15 14 13 12 11 1 09876543210
+Modo Opcode w/b Operando 2O perando 1
+O campo modo define como localizar operandos a partir dos campos operando. O campo w/b é usado em certas instruções para determinar se 
+os operandos são bytes ou palavras de 16 bits. O campo operando 1 pode (dependendo do conteúdo do campo modo) definir um dos 16 registra-
+dores de uso geral. O campo operando 2 pode definir qualquer registrador de uso geral exceto registrador 0. Quando o campo operando 2 for todo 
+zero, cada um dos opcodes originais assume um novo significado.
+a. Quantos opcodes são fornecidos em Z8001?b. Sugira uma maneira eficiente para prover mais opcodes e indique a negociação envolvida.
+ Referências
+ a F RAILEY , D. “Word length of a computer architecture: definitions and applications” . Computer Architecture News, jun. 1983.
+ b LUn DE, A. “Empirical evaluation of some features of instruction set processor architectures” . Communications of the ACM, mar. 1977.
+ c hUCK , T. Comparative analysis of computer architectures. Stanford University Technical Report no. 83-243, mai. 1983.
+ d CRAGOn, h. “An evaluation of code space requirements and performance of various architectures” . Computer Architecture News, fev. 1979. e B ELL, C.; nEWELL , A. e SIEWIOREK , D. “Structural levels of the PDP-8” . Em: BELL, C; MUDGE , J. e Mcn AMARA , J. Computer engineering: a DEC 
+view of hardware systems design. Bedford, MA: Digital Press, 1978. 
+ f B ELL, C.; K OTOK , A. hASTIn GS, T. e hILL , R. “The evolution of the DEC system-10” . Communications of the ACM, jan. 1978.
+ g B ELL, C; CADY , R.; McF ARLAnD, h.; D ELAGI , B.; O’L OUGh LIn, J. e nOOnAn , R. “A new architecture for minicomputers—the DEC PDP-11” . 
+Proceedings, Spring Joint Computer Conference, 1970.
+ h S TRECKER , W. “VAX-11/780: a virtual address extension to the DEC PDP-11 family” . Proceedings, National Computer Conference, 1978.
+ i D EWAR , R. e S MOSnA, M. Microprocessors: a programmer’s view. n ova York: McGraw-hill, 1990.
+ j B LAAUW , G. e B ROOKS , F . Computer architecture: concepts and evolution. Reading, MA: Addison-Wesley, 1997.
+ k F LYnn, M.; JO hnSOn, J.; e W AKEFIELD , S. “On instruction sets and their formats. ” IEEE Transactions on Computers, mar. 1985.
+ l C OOK , R. e DAn DE, n. “An experiment to improve operand addressing” . Proceedings, Symposium on Architecture Support for Programming 
+Languages and Operating Systems, mar. 1982.
+Book 1.indb 354 19.11.09 14:38:39
+
+PRInCIPAIS POnTOS
+ Um processador inclui tanto os registradores visíveis ao usuário como 
+os registradores de controle/estado. Os primeiros podem ser referenciados, implícita ou explicitamente, em instruções de máquina. Os registradores visíveis ao usuário podem ser de uso geral ou de uso específi co, como para armazenamento de números de ponto fi xo ou ponto fl utuante, endereços, índices e ponteiros de segmento. Os registradores de controle e estado são usados para controlar a operação do processador. Um exemplo óbvio é o contador de programa (program counter). Outro exemplo importante é palavra de estado do programa (PSW, do inglês program status word) que 
+contém uma série de bits de estado e condição. Isso inclui os bits para re-fl etir o resultado da mais recente operação aritmética, bits que habilitam interrupção e um indicador para saber se o processador está executando no modo supervisor ou usuário. Os processadores usam pipeline de instruções para acelerar a execução. Basicamente, o pipeline envolve quebrar o ciclo da instrução em um núme-ro de estágios separados que ocorrem em sequência, como ler a instrução, decodifi car a instrução, determinar o endereço do operando, ler os operan-dos, executar a instrução e escrever o resultado do operando. As instruções se movem por esses estágios como em uma linha de montagem, então cada estágio pode trabalhar em uma instrução diferente ao mesmo tempo. A ocorrência de desvios e dependências entre instruções complicam o pro-jeto e uso de pipelines.Estrutura e função do processador
+Este capítulo discute os aspectos do processador que não foram cobertos na Parte Três e nos prepara para uma discus-são sobre as arquiteturas RISC e superescalares nos capítulos 13 e 14.
+Começamos com um resumo sobre a organização do processador. Depois analisaremos os registradores, os quais 
+formam a memória interna do processador. Estaremos então aptos para retornar à discussão (iniciada na Seção 3.2) sobre o ciclo da instrução. Uma descrição do ciclo da instrução e uma técnica comum conhecida como pipelining de instruções completam a nossa descrição. O capítulo termina com uma análise de alguns aspectos das organizações x86 e ARM.CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+12.1 Organização do processador
+12.2 Organização dos registradores
+  Registradores visíveis ao usuário
+  Registradores de controle e estado
+  Exemplo de organização de registradores de microprocessadores
+12.3 Ciclo da instrução
+  Ciclo indireto
+  Fluxo de dados
+12.4 Pipeline de instruções
+  Estratégia do pipeline
+  Desempenho do pipeline
+  hazards do pipeline
+  Lidando com desvios
+  Pipeline de Intel 80486
+12.5 Família de processadores x86
+  Organização dos registradores
+  Processamento de interrupção
+12.6 Processador ARM
+  Organização do processador
+  Modos do processador
+  Organização dos registradores
+  Processamento de interrupção
+12.7 Leitura recomendada
+Book 1.indb 355 19.11.09 14:38:41
+
+356 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+12.1 Organização do processador
+Para entender a organização do processador, vamos considerar os requisitos que lhe são exigidos:
+Buscar instrução  : o processador lê uma instrução da memória (registrador, cache, memória principal).
+Interpretar a instrução  : a instrução é decodifi cada para determinar qual ação é requerida.
+obter os dados  : a execução de uma instrução pode requerer leitura de dados da memória ou um módulo 
+de E/S.
+processar os dados  : a execução de uma instrução pode requerer efetuar alguma operação aritmética ou 
+lógica com os dados.gravar os dados
+  : os resultados de uma execução podem requerer gravar dados para memória ou um 
+módulo E/S.
+Para fazer essas coisas, deve estar claro que o processador precisa armazenar alguns dados temporariamente. 
+Ele deve lembrar a posição da última instrução executante para que possa saber onde obter a próxima instrução a ser executada. Ele precisa armazenar instruções e dados temporariamente enquanto uma instrução está sendo executada. Em outras palavras, o processador precisa de uma pequena memória interna.
+A Figura 12.1 é uma visão simplifi cada do processador, indicando a sua conexão com o restante do sistema por 
+meio do barramento do sistema. Uma interface similar seria necessária para qualquer estrutura de interconexão entre as descritas no Capítulo 3. O leitor irá lembrar que os principais componentes do processador são uma unida‑
+de lógica e aritmética (ALU) e uma unidade de controle. A ALU faz os cálculos ou processamento de dados de fato. 
+A unidade de controle controla a movimentação de dados e das instruções que entram e saem do processador e controla a operação de ALU. Além disso, a fi gura mostra uma memória interna pequena que consiste de um con-junto de locais de armazenamento chamados de registradores.
+A Figura 12.2 é uma visão um pouco mais detalhada do processador. Os caminhos de transferência de 
+dados e controle lógico são destacados, inclusive um elemento chamado barramento interno do processador. 
+Este elemento é necessário para transferir dados entre vários registradores e ALU, porque a ALU na verdade opera apenas os dados que estejam na memória interna do processador. A figura mostra também os elemen-tos básicos típicos dela. Observe a semelhança entre a estrutura interna do computador como um todo e a estrutura interna do processador. Em ambos os casos, existe um pequeno conjunto de elementos principais (computador: processador, E/S, memória; processador: unidade de controle, ALU, registradores) conectados por caminhos de dados.
+Figura 12.1 CPU com barramento de sistema
+Barramento
+de controle Barramento
+de dados Barramento
+ de endereços
+Barramento
+do sistemaALURegistradores
+Unidade 
+de controle
+Book 1.indb 356 19.11.09 14:38:42
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 357
+12.2 Organização dos registradores
+Conforme discutimos no Capítulo 4, um sistema de computador emprega uma hierarquia de memória. Em 
+níveis mais altos da hierarquia, a memória é mais rápida, menor e mais cara (por bit). Dentro do processador, existe 
+um conjunto de registradores que funcionam como um nível de memória acima da memória principal e da cache dentro desta hierarquia. Os registradores no processador desempenham dois papéis:
+Registradores visíveis ao usuário
+  : possibilitam que o programador de linguagem de máquina ou assem-
+bly minimize as referências à memória, pela otimização do uso de registradores.Registradores de controle e estado
+  : usados pela unidade de controle para controlar a operação do proces-
+sador e por programas privilegiados do Sistema Operacional para controlar a execução de programas.
+Não há uma separação clara de registradores nessas duas categorias. Por exemplo, em algumas máquinas, o 
+contador de programas é visível ao usuário (por exemplo, o x86) mas, em muitos outros, não é. No entanto, para o propósito da discussão que segue, usaremos essas categorias.
+ Registradores visíveis ao usuário
+Um registrador visível ao usuário é aquele que pode ser referenciado pelos recursos da linguagem de máquina 
+que o processador executa. Podemos dividi-los em seguintes categorias:
+Uso geral. 
+Dados. 
+Endereços. 
+Códigos condicionais. 
+Registradores de propósito geral podem ser atribuídos para uma variedade de funções pelo programador. 
+Algumas vezes, seu uso dentro do conjunto de instruções é ortogonal para a operação. Isto é, qualquer registrador de uso geral pode conter um operando para qualquer opcode. Isso permite o verdadeiro uso dos registradores de 
+propósito geral. No entanto, frequentemente existem restrições. Por exemplo, pode haver registradores dedicados para ponto fl utuante e operações de pilha.Figura 12.2 Estrutura interna da CPU
+•
+••
+Unidade
+de controleRegistradores
+Aritmética e lógica
+ booleanaComplementador
+Barramento interno da CPUDeslocadorFlags de estadoUnidade aritmética e lógica
+Caminhos
+de controle
+Book 1.indb 357 19.11.09 14:38:43
+
+358 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Em alguns casos, os registradores de propósito geral podem ser usados para funções de endereçamento (por 
+exemplo, indireto por registradores, deslocamento). Em outros casos, existe uma separação clara ou parcial entre os 
+registradores de dados e os de endereços. Registradores de dados podem ser usados apenas para guardar dados 
+e não podem ser empregados para calcular o endereço de um operando. Registradores de endereços podem 
+ser, de certa forma, de uso geral ou podem ser dedicados para um modo de endereçamento em particular. Os exemplos incluem o seguinte:
+ponteiros de segmento
+  : em uma máquina com endereçamento segmentado (veja a Seção 8.3), um regis-
+trador de segmento guarda o endereço base do segmento. Pode haver múltiplos registradores: por exem-plo, um para o sistema operacional e um para o processo atual.Registradores de índice
+  : estes são usados para indexar endereços e podem ser autoindexados.
+ponteiros de pilha  : se houver endereçamento de pilha visível ao usuário, então normalmente haverá um 
+registrador dedicado que aponta para o topo da pilha. Isso permite o endereçamento implícito: ou seja, as instruções de pilha como push, pop e outras não precisam conter um operando de pilha explícito.
+Existem várias questões de projeto a serem discutidas aqui. Uma questão importante é se devemos usar regis-
+tradores somente de propósito geral ou se devemos especializar o seu uso. Nós já tocamos nessas questões em capítulos anteriores porque isso afeta o projeto do conjunto de instruções. Com a utilização de registradores espe-cíficos, normalmente pode estar implícito no opcode a que tipo de registrador um determinado especificador de 
+operando se refere. O especificador de operando deve identificar apenas um registrador dentro de um conjunto de registradores específicos em vez de um conjunto de todos os registradores, o que economiza bits. Por outro lado, esta especialização limita a flexibilidade do programador.
+Outra questão de projeto é o número de registradores a serem oferecidos, registradores de propósito geral ou 
+de dados mais os de endereços. Isso afeta novamente o conjunto de instruções porque mais registradores reque-rem mais bits para especificadores de operandos. Conforme discutido anteriormente, algo entre 8 e 32 registrado-res parece ideal ( LUNDE , 1977
+a). Menos registradores resultam em mais referências de memória; mais registradores 
+não reduzem de forma notável as referências de memória (por exemplo, veja WILLIAMS e STEVEN, 1990b). No en-
+tanto, uma nova abordagem que encontra vantagem no uso de centenas de registradores é mostrada em alguns sistemas RISC e discutida no Capítulo 13.
+Finalmente, temos a questão de tamanho do registrador. Registradores que guardam endereços obviamente 
+precisam ter pelo menos o tamanho suficiente para guardar o maior endereço possível. Registradores de dados deveriam ser capazes de guardar valores da maioria de tipos de dados. Algumas máquinas permitem que dois registradores contínuos sejam usados em conjunto para guardar valores de tamanho duplo.
+Uma categoria final de registradores, a qual é ao menos parcialmente visível ao usuário, guarda códigos condi-
+cionais (também chamados de flags). Códigos condicionais são bits definidos pelo hardware do processador como 
+resultado das operações. Por exemplo, uma operação aritmética pode produzir um resultado positivo, negativo, zero ou fora da capacidade. Além do resultado que é guardado no registrador ou na memória, um código con-dicional também é definido. O código pode ser testado na sequência como parte de uma operação de desvio condicional.
+Os bits de códigos condicionais são coletados em um ou mais registradores. Normalmente eles fazem parte do 
+registrador de controle. Geralmente, as instruções de máquina permitem que esses bits sejam lidos por referência implícita, mas o programador não pode alterá-los.
+Muitos processadores, inclusive aqueles baseados na arquitetura IA-64 e os processadores MIPS, nem sequer 
+usam códigos condicionais. Em vez disso, as instruções de desvios condicionais especificam uma comparação para ser feita e atuam no resultado dessa comparação, sem armazenar um código condicional. A Tabela 12.1, baseada em DeRosa e Levy (1987
+c), mostra as principais vantagens e desvantagens dos códigos condicionais.
+Em algumas máquinas, uma chamada de sub-rotina resultará automaticamente no salvamento de todos os 
+registradores visíveis ao usuário para serem restaurados no retorno. O processador efetua salvamento e restauração como parte da execução das instruções de chamada e retorno. Isso permite que cada sub-rotina use os registra-dores visíveis ao usuário independentemente. Em outras máquinas, é responsabilidade do programador salvar os conteúdos dos registradores visíveis ao usuário relevantes antes de uma chamada de sub-rotina, incluindo as ins-truções para este propósito dentro do programa.
+Book 1.indb 358 19.11.09 14:38:43
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 359
+ Registradores de controle e estado
+Existe uma variedade de registradores do processador que são empregados para controlar a operação do pro-
+cessador. Grande parte deles, na maioria das máquinas, não é visível ao usuário. Alguns podem ser visíveis às instru-
+ções da máquina executadas no modo de controle ou de sistema operacional.
+É claro que máquinas diferentes terão diferentes organizações dos registradores e usarão terminologia diferen-
+te. Mostramos aqui uma lista razoavelmente completa de tipos de registradores com uma breve descrição.
+Quatro registradores são essenciais para execução das instruções:
+contador de programas (pc)  : contém o endereço de uma instrução a ser lida.
+Registrador da instrução (IR)  : contém a instrução lida mais recentemente.
+Registrador de endereço de memória (mAR)  : contém o endereço de uma posição de memória.
+Registrador de buff er de memória (mBR)  : contém uma palavra de dados para ser escrita na memória ou 
+a palavra lida mais recentemente.
+Nem todos os processadores possuem registradores internos designados como MAR e MBR, mas é necessário 
+algum mecanismo de buff er equivalente pelo qual os bits a serem transferidos ao barramento do sistema são pro-cessados e os bits a serem lidos do barramento de dados são armazenados temporariamente é necessário.
+Normalmente, o processador atualiza o PC depois de ler cada instrução para que o PC sempre aponte para a 
+próxima instrução a ser executada. Uma instrução de desvio ou salto também irá modifi car o conteúdo de PC. A instrução lida é colocada em IR, onde o opcode e os especifi cadores de operando são analisados. Os dados são trocados com a memória com o uso de MAR e MBR. Em um sistema organizado com barramentos, MAR se conecta diretamente ao barramento de endereços e MBR se conecta diretamente ao barramento de dados. Registradores visíveis ao usuário, por sua vez, trocam dados com MBR.
+Os quatro registradores mencionados são usados para movimentar dados entre o processador e a memória. 
+Dentro do processador, os dados precisam ser apresentados à ALU para serem processados. Ela pode ter acesso direto ao MBR e aos registradores visíveis ao usuário. Alternativamente, pode haver outros registradores de buff er na vizinhança do ALU; esses registradores servem como registradores de entrada e saída para a ALU e para trocar dados com o MBR e com os registradores visíveis ao usuário.
+Muitos modelos de processador incluem um registrador ou conjunto de registradores frequentemente conhe-
+cido como palavra de estado do programa (PSW), o qual contém as informações de estado. Normalmente a PSW 
+contém códigos condicionais e outras informações de estado. Campos comuns ou fl ags incluem:
+sinal
+  : contém o bit de sinal do resultado da última operação aritmética.
+zero  : marcado quando o resultado é 0.Vantagens Desvantagens
+1. Como os códigos condicionais são defi nidos por instruções normais aritméticas ou 
+de movimentação de dados, eles devem reduzir o número de instruções de compa-
+ração e teste (COMPARE, TEST) necessárias.1. Códigos condicionais acrescentam complexidade, tanto para hardware como para 
+software. Os bits dos códigos condicionais são frequentemente modifi cados de maneiras diferentes por instruções diferentes, tornando a vida do microprogramador e do projetista de compiladores mais difícil.
+2. Instruções condicionais, como BRAnCh, são simplifi cadas em relação a instruções 
+compostas como TEST AnD BRAnCh.2. Códigos condicionais são irregulares; normalmente eles não fazem parte do 
+caminho principal de dados e, por isso, requerem conexões extras de hardware.
+3. Códigos condicionais facilitam desvios múltiplos. Por exemplo, uma instrução TEST 
+pode ser seguida de dois desvios, um para menor ou igual a zero e outro para maior que zero.3. Frequentemente, máquinas com códigos condicionais precisam adicionar 
+instruções especiais que não usam códigos condicionais para situações especiais de qualquer forma, como verifi cação de bits, controle de laços e operações atômicas de semáforos.
+4. Em uma implementação de pipeline, códigos condicionais requerem sincronização 
+especial para evitar confl itos.Tabela 12.1 Códigos condicionais
+Book 1.indb 359 19.11.09 14:38:43

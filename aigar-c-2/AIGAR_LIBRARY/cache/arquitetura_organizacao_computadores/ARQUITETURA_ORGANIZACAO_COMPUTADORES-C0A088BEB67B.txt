@@ -1,0 +1,1028 @@
+410 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+13.5 Pipeline no RISC
+ Pipeline com instruções regulares
+Conforme discutimos na Seção 12.4, o pipeline de instruções é frequentemente usado para melhorar o desem-
+penho. Vamos reconsiderar isso dentro do contexto de uma arquitetura RISC. A maioria das instruções é do tipo 
+registrador-para-registrador e um ciclo da instruções possui os dois estágios a seguir:
+I: Busca da instrução. 
+E: Execução. Efetua uma operação de ALU com saída e entrada de registradores. 
+Para operações de carregar e armazenar, três estágios são requeridos:
+I: Busca da instrução. 
+E: Execução. Cacular endereço de memória. 
+D: Memória. Operação registrador-para-memória ou memória-para-registrador. 
+A Figura 13.6a ilustra o tempo de uma sequência de instruções sem pipeline. Claramente, este é um processo de 
+muito desperdício. Até um pipeline muito simples pode substancialmente melhorar o desempenho. A Figura 13.6b mostra um esquema de pipeline de dois estágios, onde os estágios I e E de duas instruções diferentes são efetuados simultaneamente. Os dois estágios do pipeline são um de busca da instrução e um estágio de execução/memória que executa uma instrução, incluindo operações registrador-para-memória e memória-para-registrador. Desta forma ProcessadorNúmero de 
+tamanhos 
+de 
+instruçãoTamanho 
+máximo da 
+instrução em 
+bytesNúmero de 
+modos de 
+endereçamentoEndereçamento
+indiretoLeitura/escrita 
+combinada com 
+aritméticaNúmero 
+máximo de 
+operandos de 
+memóriaEndereçamento 
+não alinhado 
+permitidoNúmero 
+máximo de 
+usos da MMUNúmero de bits 
+para especifi cadores 
+de registradores 
+inteirosNúmero de 
+bits para 
+especifi cadores de 
+registradores PF
+AMD29000 14 1 não não 1 não 1 8 3a
+MIPS R2000 14 1 não não 1 não 1 5 4
+SPARC 14 2 não não 1 não 1 5 4
+MC88000 14 3 não não 1 não 1 5 4
+hP PA 14 10anão não 1 não 1 5 4
+IBM RT/PC 2a41 não não 1 não 14a3a
+IBM RS/6000 14 4 não não 1 sim 1 5 5
+Intel i860 14 4 não não 1 não 1 5 4
+IBM 3090 48 2bnãobsim 2 sim 4 4 2
+Intel 80486 12 12 15 nãobsim 2 sim 4 3 3
+nSC 32016 21 21 23 sim sim 2 sim 4 3 3
+MC68040 11 22 44 sim sim 2 sim 8 4 3
+VAX 56 56 22 sim sim 6 sim 24 4 0
+Clipper 4a8a9anão não 1 02 4a3a
+Intel 80960 2a8a9anão não 1 sima—5 3a
+a RISC que não está conforme a esta característica.
+b CISC que não está conforme a esta característica. Tabela 13.7 Características de alguns processadores
+Book 1.indb 410 19.11.09 14:39:16
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 411
+podemos observar que o estágio de busca de instrução da segunda instrução pode ser executado em paralelo com 
+a primeira parte do estágio execução/memória. No entanto, o estágio execução/memória da segunda instrução deve ser atrasado até que a primeira instrução esvazie o segundo estágio do pipeline. Este esquema pode aumentar em até duas vezes a taxa de execução de um esquema em série. Dois problemas impedem que o aumento máxi-mo da velocidade seja alcançada. Primeiro, assumimos que uma memória de acesso único é usada e que apenas um acesso à memória é possível por estágio. Isso requer a adição de um estágio de espera em algumas instruções. Segundo, uma instrução de desvio interrompe o fl uxo sequencial da execução. Para acomodar isso com o uso menor de circuitos, uma instrução NOOP pode ser inserida no fl uxo das instruções pelo compilador ou assembler.
+O pipeline pode ainda ser melhorado permitindo dois acessos à memória por estágio. Isso produz a sequência 
+mostrada na Figura 13.6c. Agora, até três instruções podem ser sobrepostas e o melhoramento é de fator de 3. Novamente, instrução de desvio faz com que a aceleração não atinja o máximo possível. Além disso, observe que as dependências de dados são afetadas. Se uma instrução precisa de um operando que é alterado por uma instrução anterior, um atraso é necessário. Novamente, isso pode ser conseguido com um NOOP .
+O pipeline discutido até agora funciona melhor se os três estágios forem de duração aproximadamente igual. 
+Como o estágio E normalmente envolve uma operação ALU, ele pode ser mais demorado. Neste caso, podemos dividi-lo em dois subestágios:
+E
+ 1: leitura do banco de registradores.
+E 2: operação da ALU e escrita em registrador.
+Por causa da simplicidade e regularidade de um conjunto de instruções RISC, o projeto de três ou quatro es-
+tágios é facilmente alcançado. A Figura 13.6d mostra o resultado com um pipeline de quatro estágios. Até quatro instruções podem estar em curso ao mesmo tempo e o potencial máximo do aumento da velocidade é um fator 
+de 4. Observe novamente o uso de NOOPs por causa dos atrasos de desvios e dados.
+ Otimização de pipeline
+Por causa da natureza simples e regular das instruções RISC, os esquemas de pipeline podem ser efi cientemen-
+te empregados. Há poucas variações na duração da execução de instruções e o pipeline pode ser elaborado para refl etir isso. No entanto, vimos que as dependências de dados e os desvios reduzem a taxa de execução total.
+DESVIO ATRASADO Para compensar essas dependências, técnicas de reorganização de código foram desenvol-
+vidas. Primeiro, vamos considerar as instruções de desvio. Desvio atrasado, uma maneira de aumentar a efi ciência do 
+pipeline, faz uso de um desvio que não toma efeito até depois da execução da instrução seguinte (por isso o tempo Figura 13.6 Os efeitos de pipeline
+I E1E2D 
+I E1E2
+I E1E2
+I E1E2
+I E1E2D 
+I E1E2
+I E1E2
+I E1E2
+I E1E2D NOOP
+NOOP
+Branch XI E D 
+I E 
+I E D I E 
+I E 
+I E D 
+NOOPBranch X
+NOOP
+NOOP
+(d) Tempo do pipeline de quatro estágios(b) Tempo do pipeline de dois estágiosI E D 
+I E 
+I E D 
+I E 
+I E D 
+Branch X
+(a) Execução sequencial
+I E D 
+I E 
+I E 
+I E D 
+I E 
+I E 
+I E D NOOP
+Branch X
+NOOP
+(c) Tempo do pipeline de três estágiosLoad rA MLoad rB M
+Add rC rA rB
+Store M rCLoad rA MLoad rB M
+Add rC rA rB
+Store M rC
+Load rA MLoad rB M
+Add rC rA rB
+Store M rCLoad rA M
+Load rB M
+Add rC rA rB
+Store M rC
+Book 1.indb 411 19.11.09 14:39:17
+
+412 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+atrasado). A posição da instrução imediatamente depois do desvio é referida como delay slot. Este procedimento 
+estranho é ilustrado na Tabela 13.8. Na coluna chamada de “desvio normal” podemos ver uma instrução normal em 
+linguagem de máquina.
+Depois que a linha 102 é executada, a próxima instrução a ser executada é 105. Para regularizar o pipeline, um 
+NOOP é inserido depois desse desvio. No entanto, um melhor desempenho é alcançado se as instruções nas linhas 101 e 102 forem trocadas.
+A Figura 13.7 mostra o resultado. A Figura 13.7a mostra a abordagem tradicional de pipeline, do tipo que foi 
+discutido no Capítulo 12 (para um exemplo veja as Figuras 12.11 e 12.12).
+A instrução JUMP é lida no tempo 3. No tempo 4, ela é executada ao mesmo tempo que a instrução 103 (instru-
+ção ADD) é lida. Como ocorre um JUMP , o qual atualiza o contador de programas, o pipeline precisa ser esvaziado com relação à instrução 103; no tempo 5, a instrução 105, a qual é o alvo de JUMP , é carregada. A Figura 13.7b mostra o mesmo pipeline tratado por uma organização RISC típica. O tempo é o mesmo. No entanto, por causa da inserção da instrução NOOP , nós não precisamos de circuitos para esvaziar o pipeline; o NOOP simplesmente é executado sem nenhum efeito. A Figura 13.7c mostra o uso do desvio atrasado. A instrução JUMP é lida no tempo 2, antes da instrução ADD, que é obtida no tempo 3. Observe, no entanto, que a instrução ADD é lida antes da execu-ção da instrução JUMP ter a chance de alterar o contador de programa. Por isso, durante o tempo 4, a instrução ADD é executada ao mesmo tempo que a instrução 105 é lida. Assim, as semânticas originais do programa são mantidas, mas um ciclo de clock a menos é necessário para execução.
+Esta troca de instruções funciona com sucesso para desvios incondicionais, chamadas e retornos. Para desvios 
+condicionais, este procedimento não pode ser aplicado cegamente. Se a condição testada para o desvio pode ser alterada pela instrução imediatamente anterior, então o compilador não deve fazer a troca, mas sim inserir uma ins-trução NOOP . Caso contrário, o compilador pode procurar inserir uma instrução útil depois do desvio. A experiên cia com os sistemas RISC de Berkeley e o IBM 801 é que a maioria das instruções de desvio condicional pode ser otimi-zada dessa maneira (Patterson e Sequin, 1982
+a; Radin, 1983o;).
+LEITURA ATRASADA Uma tática semelhante, chamada leitura atrasada (delay load), pode ser usada em instru-
+ções LOAD. Em instruções LOAD, o registrador que é o alvo da leitura é bloqueado pelo processador. O processador então continua a execução do fluxo de instruções até que alcance uma instrução que precisa desse registrador, ponto no qual ele fica ocioso até que a leitura esteja completada. Se o compilador puder rearranjar as instruções para que o trabalho útil possa ser feito enquanto ocorre leitura dentro do pipeline, a eficiência será aumentada.
+Simulador de laço desenrolado
+LAÇO DESENROLADO Outra técnica de compiladores para melhorar o paralelismo de instruções é o laço desen-
+rolado ( BACON , GRAHAM e SHARP , 1994u). Desenrolar replica, algumas vezes, o corpo de um laço em um número 
+de vezes chamado de fator de desenrolar (u), e faz a iteração pelo passo u em vez de passo 1.
+Endereço Desvio normal Desvio atrasado Desvio atrasado otimizado
+100 LOAD X, rA LOAD X, rA LOAD X, rA
+101 ADD 1, rA ADD 1, rA JUMP 105
+102 JUMP 105 JUMP 106 ADD 1, rA
+103 ADD rA, rB nOOP ADD rA, rB
+104 SUB rC, rB ADD rA, rB SUB rC, rB
+105 STORE rA, Z SUB rC, rB STORE rA, Z
+106 STORE rA, ZTabela 13.8 Desvio normal e atrasado
+Book 1.indb 412 19.11.09 14:39:17
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 413
+Figura 13.7 Uso de desvio atrasado
+(a) Pipeline tradicional100 LOAD X, rATime
+101 ADD 1, rA
+102 JUMP 105
+103 ADD rA, rB
+105 STORE rA, Z
+(b) Pipeline RISC com adição de NOOP100 LOAD X, rA1
+101 ADD 1, rA102 JUMP 106
+103 NOOP
+106 STORE rA, Z
+(c) Instruções invertidas100 LOAD X, Ar
+101 JUMP 105
+102 ADD 1, rA
+105 STORE rA, Z2 3 4 5 6 7
+IE
+IE
+IE
+IED
+I EDIE
+IE
+IE
+IED
+IE
+IE
+IE
+IED
+DI ED
+Desenrolar pode melhorar o desempenho:
+Reduzindo a sobrecarga de laço. 
+Aumentando o paralelismo de instruções, melhorando o desempenho do pipeline. 
+Melhorando a localidade de registradores, cache de dados ou TLB. 
+A Figura 13.8 ilustra todas essas três melhorias em um único exemplo. A sobrecarga de laço é cortada pela me-
+tade porque duas iterações são executadas antes do teste e o desvio é feito no topo do laço. Cresce o paralelismo 
+de instruções porque a segunda atribuição pode ser efetuada enquanto os resultados da primeira estão sendo armazenados, e as variáveis do laço sendo atualizadas. Se os elementos do vetor são atribuídos aos registradores, o posicionamento dos registradores vai melhorar porque a[i] e a[i + 1] são usados duas vezes no corpo do laço, reduzindo o número de leituras por iteração de três para dois.
+Como uma observação fi nal, podemos destacar que o projeto do pipeline de instruções não deve ser usado 
+de maneira isolada de outras técnicas de otimização aplicadas ao sistema. Por exemplo, Bradlee, Eggers e Henry (1991
+u) mostram que o escalonamento de instruções para o pipeline e a alocação dinâmica de registradores devem 
+ser considerados juntos para alcançar a melhor efi ciência.
+13.6 MIPS R4000
+Um dos primeiros chips RISC disponível comercialmente foi desenvolvido por MIPS Technology Inc. O sistema foi 
+inspirado por um sistema experimental, que também usava o nome MIPS, desenvolvido em Standford ( HENNESSY , 
+1984v). Nesta seção, analisamos o MIPS R4000. Ele possui substancialmente a mesma arquitetura e o mesmo 
+Book 1.indb 413 19.11.09 14:39:18
+
+414 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+conjunto de instruções de projetos MIPS anteriores: R2000 e R3000. A diferença mais signifi cativa é que o R4000 usa 
+64 em vez de 32 bits para os caminhos de dados internos e externos, endereços, registradores e ALU.
+O uso de 64 bits possui uma série de vantagens em relação a uma arquitetura de 32 bits. Ele permite um espaço 
+de endereçamento maior — grande o sufi ciente para um sistema operacional mapear mais do que um terabyte de arquivos diretamente para a memória virtual facilitando o acesso. Com 1 terabyte e discos maiores, comuns hoje em dia, o espaço de endereçamento de 4 GB de uma máquina de 32 bits torna-se limitado. Além disso, a capacida-de de 64 bits permite ao R4000 processar dados como números de ponto fl utuante de precisão dupla e cadeias de caracteres de até oito caracteres em uma única ação.
+O chip do processador R4000 é particionado em duas seções, uma contendo CPU e outra contendo um copro-
+cessador para gerenciamento de memória. O processador possui uma arquitetura muito simples. A intenção foi projetar um sistema no qual a lógica de execução de instruções fosse a mais simples possível, deixando espaço dis-ponível para lógica de melhoria de desempenho (por exemplo, a unidade de gerenciamento de memória inteira).
+ O processador suporta 32 registradores de 64 bits. Ele também possui uma cache de alta velocidade de 128 
+KB, sendo metade para instruções e metade para dados. Cache relativamente grande (IBM 3090 fornece cache de 128 a 256 KB) possibilita que o sistema guarde grandes conjuntos de códigos de programa e de dados locais para o processador, desocupando o barramento da memória principal e evitando a necessidade de um banco grande de registradores pela lógica de janelas.
+ Conjunto de instruções
+A Tabela 13.9 mostra o conjunto de instruções básico para todos os processadores da série MIPS R. Todas as instru-
+ções do processador são codifi cadas em um formato de uma única palavra de 32 bits. Todas as operações de dados 
+são de registrador para registrador; as únicas referências de memória são operação puramente de leitura/escrita.
+O R4000 não faz uso de códigos condicionais. Se uma instrução gera uma condição, os fl ags correspondentes 
+são armazenadas em um registrador de uso geral. Isso evita a necessidade, de uma lógica especial, para lidar com códigos condicionais porque eles afetam o mecanismo de pipeline e a reordenação de instruções pelo compilador. Em vez disso, os mecanismos já implementados para lidar com dependências de valores de registradores são em-pregados. Além disso, as condições mapeadas para bancos de registradores são sujeitas às mesmas otimizações em tempo de compilação de alocações e reúso como outros valores armazenados nos registradores.
+Como acontece com a maioria das máquinas RISC, o MIPS usa um tamanho único da instrução de 32 bits. Este 
+tamanho único da instrução simplifi ca a leitura e a decodifi cação da instrução e simplifi ca também a interação da doi=2, n-1
+a[i] = a[i] + a[i-1] * a[i+1]
+end do
+doi=2, n-2, 2
+a[i] = a[i] + a[i-1] * a[i+1]
+a[i+1] = a[i+1] + a[i] * a[i+2]
+end do
+if(mod(n-2, 2) = i) then
+a[n-1] = a[n-1] + a[n-2] * a[n]
+end if(a) Laço original
+(b) Laço desenrolado duas vezesFigura 13.8 Laço desenrolado
+Book 1.indb 414 19.11.09 14:39:18
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 415
+Tabela 13.9 Conjunto de instruções da série R de MIPS
+OP Descrição OP Descrição
+Instruções de Carregar/Armazenar SLLV Deslocamento à esquerda lógico variável
+LB Carregar byte SRLV Deslocamento à direita lógico variável
+LBU Carregar byte sem sinal SRAV Deslocamento à direita aritmético variável
+Lh Carregar metade da palavra Instruções de multiplicação/divisão
+LhU Carregar metade da palavra sem sinal MULT Multiplicar
+LW Carregar palavra MULTU Multiplicar sem sinal
+LWL Carregar palavra da esquerda DIV Dividir
+LWR Carregar palavra da direita DIVU Dividir sem sinal
+SB Armazenar byte MFhI Mover de hI
+Sh Armazenar metade da palavra MThI Mover para hI
+SW Armazenar palavra MFLO Mover de LO
+SWL Armazenar palavra da esquerda MTLO Mover para LO
+SWR Armazenar palavra da direita Instruções de salto e desvio
+Instruções aritméticas
+(ALU, com operando imediato)J Saltar
+ADDI Adicionar imediato JAL Saltar com ligação
+ADDIU Adicionar imediato sem sinal JR Saltar com registrador
+SLTI Atribuir 1 se menor que imediato JALR Saltar e ligar com registrador
+SLTIU Atribuir 1 se menor que imediato sem sinal BEQ Desviar quando igual
+AnDI AnD imediato BnE Desviar quando não igual
+ORI OR imediato BLEZ Desviar quando menor ou igual a zero
+XORI Exclusive-OR imediato BGTZ Desviar quando maior que zero
+LUI Carregar metade superior com o imediato BLTZ Desviar quando menor que zero
+Instruções aritméticas
+(operando 3, tipo R)BGEZ Desviar quando maior ou igual a zero
+ADD Adicionar BLTZAL Desviar quando menor que zero com ligação
+ADDU Adicionar sem sinal BGEZALDesviar quando maior ou igual a zero 
+com ligação
+SUB Subtrair Instruções do coprocessador
+SUBU Subtrair sem sinal LWCz Carregar palavra no coprocessador
+SLT Definir em menos que SWCz Armazenar palavra do coprocessador
+SLTU Definir em menos que sem sinal MTCz Mover para coprocessador
+AnD AnD MFCz Mover do coprocessador
+OR OR CTCz Mover controle para coprocessador
+XOR Exclusive-DR CFCz Mover controle do coprocessador
+nOR nOR COPz Operação do coprocessador
+Instruções de deslocamento BCzTDesviar quando coprocessador z 
+verdadeiro
+SLL Deslocamento à esquerda lógico BCzF Desviar quando coprocessador z falso
+SRL Deslocamento à direita lógico Instruções especiais
+SRA Deslocamento à direita aritmético SYSCALL Chamada de sistema
+Break Parada
+Book 1.indb 415 19.11.09 14:39:19
+
+416 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+leitura de instrução com a unidade de gerenciamento da memória virtual (isto é, as instruções não ultrapassam os 
+limites da palavra ou da página). Os três formatos de instrução (Figura 13.9) compartilham formatação comum de opcodes e referências a registradores, simplifi cando a decodifi cação das instruções. O efeito das instruções mais 
+complexas pode ser sintetizado em tempo de compilação.
+Apenas o modo de endereçamento de memória mais simples e mais frequentemente usado é implementado 
+no hardware. Todas as referências de memória consistem de um off set de 16 bits de um registrador de 32 bits. Por exemplo, a instrução “carregar palavra” (load word — lw) tem o formato de
+lw r2, 128(r3) /* carrega palavra no registrador 2 do oﬀsett 128 a partir do endereço armazenado no registrador 3*/ 
+Cada um dos 32 registradores de uso geral pode ser usado como registrador base. Um registrador, r0, sempre 
+contém 0.
+O compilador faz uso de múltiplas instruções de máquina para sintetizar modos de endereçamento típicos em 
+máquinas convencionais. Aqui está um exemplo de Chow et al. (1987
+w), o qual usa a instrução LUI (carregar superior 
+imediato na parte superior — load upper imediatte). Esta instrução carrega a metade superior de um registrador 
+com um valor imediato de 16 bits, defi nindo a metade inferior igual zero. Considere uma instrução da linguagem de montagem que usa um argumento imediato de 32 bits
+lw r2, #imm(r4) /* carrega palavra no registrador usando um oﬀset imediato #imm de 32 bits
+/* oﬀset do endereço no registrador 4 para registrador 2
+Esta instrução pode ser compilada para as seguintes instruções MIPS
+lui r1, #imm-hi /* onde #imm-hi são os 16 bits de ordem mais alta de #imm
+/* adiciona #imm-hi sem sinal para r4 e coloca em r1/* onde #imm-lo são 16 bits de ordem mais baixa de #immaddu r1, r1, r4lw r2, #imm-lo(r1)
+ Pipeline de instruções
+Com a sua arquitetura simplifi cada de instruções, o MIPS pode alcançar uma efi ciência grande em seu pipeline. É 
+instrutivo analisar a evolução do pipeline do MIPS, porque ela ilustra a evolução do pipeline no RISC de um modo geral.
+Operação
+Operação código da operação
+rs especi/f_icador de registrador de origemrt especi/f_icador de registrador de origem/destinoImediato deslocamento imediato, desvio ou endereçoAlvo endereço alvo do saltord especi/f_icador de registrador de destinoDeslocamento quantidade de deslocamentoFunção especi/f_icador de função de ALU/deslocamentoTipo I
+(imediato)rs6 55 16
+rt Imediato
+OperaçãoTipo J
+(jump)6 26
+Alvo
+OperaçãoTipo R
+(registrador)rs6 55 5
+rt rd56
+Deslocamento Função
+=
+=
+==
+=
+=
+==Figura 13.9 Formatos das instruções MIPS
+Book 1.indb 416 19.11.09 14:39:20
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 417
+Os primeiros sistemas RISC experimentais e a primeira geração de processadores RISC comerciais alcançam 
+velocidades de execução que se aproximam de uma instrução por um ciclo de clock do sistema. Para melhorar 
+esse desempenho, duas classes de processadores evoluíram para oferecer a execução de múltiplas instruções por ciclo de clock: arquiteturas superescalares e superpipeline. Uma arquitetura superescalares basicamente re -
+plica cada um dos estágios do pipeline para que duas ou mais instruções no mesmo estágio do pipeline possam ser processadas simultaneamente. Uma arquitetura superpipeline é aquela que usa estágios do pipeline cada vez mais minuciosos. Com mais estágios, mais instruções podem estar no pipeline ao mesmo tempo, aumen-tando o paralelismo.
+Ambas as abordagens possuem limitações. Com pipeline superescalar, as dependências entre as instruções em 
+diferentes pipelines podem tornar o sistema mais lento. Além disso, um aumento de lógica é necessário para coor-denar essas dependências. Com superpipeline, existe um overhead associado com a transferência de instruções de 
+um estágio para outro.
+O Capítulo 14 é dedicado a um estudo de arquiteturas superescalares. O MIPS R4000 é um bom exemplo de 
+uma arquitetura RISC com superpipeline.
+Simulador de pipeline de cinco estágios do MIPS R3000
+A Figura 13.10a mostra o pipeline de instruções de R3000. No R3000, o pipeline avança uma vez por ciclo de 
+clock. O compilador MIPS é capaz de reordenar instruções para preencher os delay slots com código de 70 a 90% do 
+tempo. Todas as instruções seguem a mesma sequência dos cinco estágios do pipeline:
+Busca de instrução. 
+Busca operando de origem no arquivo de registradores 
+Figura 13.10 Melhorando pipeline do R3000
+Ciclo de clock
+Ciclo
+Ciclo Ciclo Ciclo Ciclo CicloCiclo Ciclo Ciclo Ciclo CicloIF
+I-Cache
+(a) Pipeline do R3000 detalhado
+(b) Pipeline do R3000 modi/f_icado com latências reduzidasRF
+IDEC DA DTLB ITLB
+ITLB I-Cache ALU DTLB D-Cache RF WB
+(c) Pipeline do R3000 otimizado com acesso paralelo a TLB e cacheITLB ALU D-Cache TC RF WBIAD-Cache WB ALU OPRD MEM WB1 2 1 2 1 2 1 2 1 2
+IF = busca da instrução
+RD = leituraMEM = acesso à memóriaWB = atualizarI-Cache = acesso à cache de instruçõesRF = busca do operando do registradorD-Cache = acesso à cache de dadosITLB = tradução endereço da instruçãoIDEC = decodi/f_icação da instruçãoIA = calcular endereço da instruçãoDA = calcular endereço virtual de dadosDTLB = traduzir endereço de dadosTC = veri/f_icar rótulo de cache de dadosALU/H9278 /H9278 /H9278 /H9278 /H9278 /H9278 /H9278 /H9278/H9278 /H9278
+Book 1.indb 417 19.11.09 14:39:21
+
+418 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Operação de ALU ou geração de endereço de operando de dados. 
+Referência a dados de memória. 
+Atualizar o banco de registradores. 
+Conforme ilustrado na Figura 13.10a, não há apenas um paralelismo por causa do pipeline mas também um 
+paralelismo dentro da execução de uma única instrução. Um ciclo de clock de 60 ns é dividido em dois estágios 
+de 30 ns. Instruções externas e operações de acesso a dados da cache requerem, cada uma, 60 ns, assim como as principais operações internas (OP , DA, IA). A decodificação de uma instrução é uma operação mais simples, reque-rendo apenas um único estágio de 30 ns, sobreposta com leitura de registrador na mesma instrução. Cálculo de um endereço para uma instrução de desvio também sobrepõe a decodificação da instrução e leitura do registrador, de tal forma que um desvio na instrução i pode endereçar o acesso ICACHE da instrução i + 2. De maneira semelhante, 
+uma leitura na instrução i obtém os dados que são usados imediatamente por OP da instrução i + 1, enquanto um 
+resultado de ALU/deslocamento passa diretamente pela instrução i + 1 sem nenhum atraso. Este acoplamento 
+forte entre instruções torna o pipeline altamente eficiente.
+Analisando em mais detalhes, cada ciclo de clock é dividido em estágios separados denotados como 1 e 2. 
+As funções efetuadas em cada estágio são resumidas na Tabela 13.10.
+O R4000 incorpora uma série de avanços técnicos em relação ao R3000. O uso de tecnologia mais avançada per -
+mite que o tempo do ciclo de clock seja diminuído pela metade, para 30 ns, e que o tempo de acesso ao arquivo de registradores seja diminuídos pela metade. Além disso, há uma densidade maior no chip, o que possibilita que o cache de instruções e a de dados sejam incorporados nele. Antes de analisar o pipeline final do R4000, vamos considerar como o pipeline do R3000 pode ser modificado para melhorar o desempenho usando a tecnologia do R4000.
+A Figura 13.10b mostra o primeiro passo. Lembre que os ciclos desta figura são metade dos da Figura 13.10a. Como 
+não estão no mesmo chip, os estágios de cache de instrução e de dados demoram apenas metade do tempo; então eles ainda ocupam apenas um ciclo de clock. Novamente, por causa do aumento da velocidade de acesso ao banco de registradores, leituras e escritas de registradores ainda ocupam apenas metade de um ciclo de clock.
+Como as caches do R4000 estão no chip, a tradução do endereço virtual para físico pode atrasar o acesso à ca-
+che. Este atraso é reduzido com a implementação de caches indexadas virtualmente e usando o acesso à cache e tradução de endereços em paralelo. A Figura 13.10c mostra o pipeline otimizado do R3000 com suas melhorias. Por causa da compressão de eventos, a verificação do rótulo (tag) da cache de dados é feita separadamente no próximo ciclo depois do acesso à cache. Esta verificação determina se o item de dados está na cache.
+Tabela 13.10 Estágios do pipeline do R3000
+Estágio do pipeline Fase Função
+IF 1 Usando a TLB, traduz um endereço virtual da instrução para um endereço físico (depois da decisão do desvio)
+IF 2 Envia o endereço físico para endereço da instrução
+RD 1Retorna instrução da cache de instruções
+Compara rótulos e validade da instrução lida
+RD 2Decodifica instrução
+Lê banco de registradores
+Se for desvio, calcula endereço do alvo do desvio
+ALU 1 + 2 Se for uma operação registrador para registrador, operação aritmética ou lógica é executada
+ALU 1Se for um desvio, decide se o desvio deve ou não ser tomado
+Se for uma referência de memória (carregar ou armazenar), calcula o endereço virtual dos dados
+ALU 2 Se for uma referência de memória, traduz endereço virtual dos dados para endereço físico usando TLB
+MEM 1 Se for uma referência de memória, envia endereço físico para cache
+MEM 2 Se for uma referência de memória, retorna os dados da cache de dados e verifica as marcações
+WB 1 Escreve no banco de registradores
+Book 1.indb 418 19.11.09 14:39:21
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 419
+Em um sistema com superpipeline, o hardware existente é usado várias vezes por ciclo inserindo registra-
+dores de pipeline para dividir cada estágio. Essencialmente, cada estágio de superpipeline opera em um múl-
+tiplo da frequência base do clock, onde o múltiplo depende do grau do superpipeline. A tecnologia do R4000 tem a velocidade e a densidade para permitir superpipeline de grau 2. A Figura 13.11a mostra o pipeline do R3000 otimizado usando este superpipeline. Observe que isto é essencialmente a mesma estrutura dinâmica da Figura 13.10c.
+Outras melhorias podem ser feitas. Para o R4000, foi projetado um somador maior e mais especializado. Isso 
+torna possível executar operações da ALU com o dobro da velocidade. Outras melhorias permitem a execução de leituras e gravações com o dobro da velocidade. O pipeline resultante é mostrado na Figura 13.11b.
+O R4000 possui oito estágios de pipeline, o que significa que no máximo oito instruções podem estar no 
+pipeline ao mesmo tempo. O pipeline avança numa taxa de dois estágios por ciclo de clock. Os oito estágios do pipeline são:
+Busca da instrução primeira metade
+  : endereço virtual é apresentado à cache de instruções e à TLB.
+Busca da instrução segunda metade  : cache de instrução retorna a instrução e TLB gera endereço físico.
+Banco de registradores  : três atividades ocorrem em paralelo:
+Instrução é decodificada e a verificação de condições de bloqueios é feita (ou seja, esta instrução depen- 
+de do resultado de uma instrução anterior).Verificação do rótulo de cache de instruções é feita.
+ 
+Operandos são obtidos do banco de registradores. 
+executar instrução  : uma das três atividades pode ocorrer:
+Se a instrução é uma operação registrador-para-registrador, ALU executa a operação aritmética ou lógica. 
+Se a instrução é leitura ou escrita, o endereço virtual de dados é calculado. 
+Se a instrução é um desvio, o endereço virtual do alvo do desvio é calculado e as condições de desvio 
+são verificadas.
+primeira cache de dados  : endereço virtual é apresentado à cache de dados e à TLB.
+segunda cache de dados  : TLB gera o endereço físico e a cache de dados retorna a instrução.
+Verificação de rótulos  : marcações de cache são verificadas para leitura e escrita.
+Atualização  : o banco de registradores é atualizado com o resultado da instrução.
+Figura 13.11 Superpipeline teórico do R3000 e superpipeline real do R4000
+Ciclo de clock
+IF = busca de instrução primeira metade
+IS = busca de instrução segunda metadeRF = busca do operandos do registradorEX = executar instruçãoIC = cache de instrução(a) Implementação de superpipeline do pipeline otimizado do R30002
+(b) Pipeline do R40001 2 1 1 1 2 2 2
+DC = cache de dadosDF = cache de dados primeira metadeDS = cache de dados segunda metadeTC = veri/f_icação de rótulosIC2 IC1 RF ALU ALU DC1 DC2 TC1 TC2 WBIC1 IC2 RF ALU ALU DC1 DC2 TC1 TC2 WB
+Ciclo de clock
+IF IS RF DF DS TC WB EX
+IF IS RF DF DS TC WB EX/H9278
+/H9278 /H9278/H9278 /H9278/H9278 /H9278/H9278 /H9278
+Book 1.indb 419 19.11.09 14:39:21
+
+420 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+13.7 SPARC
+A arquitetura SPARC (arquitetura de processador escalável — scalable processor architecture) refere-se a uma 
+arquitetura defi nida pela Sun Microsystems. A Sun desenvolveu a sua própria implementação do SPARC, mas 
+também licencia a arquitetura para outros fabricantes para produzirem máquinas compatíveis com SPARC. A arquitetura SPARC é inspirada na máquina RISC I de Berkeley e o seu conjunto de instruções e a sua organização de registradores é baseada no modelo RISC da Berkeley.
+ Conjunto de registradores do SPARC
+Assim como acontece com o RISC de Berkeley, a SPARC também faz uso de janelas de registradores. Cada janela 
+consiste de 24 registradores e o número total de janelas depende da implementação e varia de 2 a 32 janelas. A Figura 13.12 ilustra uma implementação que suporta 8 janelas, usando um total de 136 registradores físicos; conforme indica a discussão na Seção 13.2, este parece ser um número razoável de janelas. Registradores físicos de 0 a 7 são registra-dores globais compartilhados por todos procedimentos. Cada processador enxerga registradores lógicos de 0 a 31. Registradores lógicos de 24 a 31, referenciados como ins, são compartilhados com o procedimento-pai; e registradores 
+lógicos de 8 a 15, referenciados como outs, são compartilhados com qualquer procedimento-fi lho. Estas duas partes 
+se sobrepõem com outras janelas. Novamente, como indica a discussão na Seção 12.1, a disponibilidade de 8 registra-dores para passagem de parâmetros deveria ser adequada na maioria dos casos (como exemplo, veja a Tabela 13.4).
+Figura 13.12 Layout das janelas de registradores SPARC com três procedimentos
+Registradores
+físicos
+135•••
+•••
+•••
+•••
+•••
+•••
+•••
+•••128InsRegistradores
+lógicos
+Procedimento A Procedimento B Procedimento C
+127
+120Locais
+119112Outs/Ins
+111104Locais
+103
+96Outs/Ins
+9588Locais
+8780Outs
+•
+•
+•
+7
+0Globais•••
+•••
+•••
+•••Ins
+Locais
+Outs
+•••
+•••
+•••Ins
+Locais
+Outs
+•••
+•••
+•••Ins
+LocaisR31C
+R24C
+R23C
+R16C
+R15C
+R8C R31B
+R24B
+R23B
+R16B
+R15B
+R8BR31 A
+R24 A
+R23 A
+R16 A
+R15A
+R8A 
+Outs
+•
+••
+R7
+R0Globais
+••••
+••
+R7
+R0Globais
+••••
+••
+R7
+R0Globais
+Book 1.indb 420 19.11.09 14:39:22
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 421
+A Figura 13.13 é outra visão de sobreposição de registradores. O procedimento que faz a chamada coloca 
+quaisquer parâmetros a serem passados em seus registradores outs; o procedimento chamado trata esses mesmos 
+registradores como seus registradores ins. O processador mantém um ponteiro da janela atual (CWP — current 
+window pointer), localizado no registrador de status do processador (PSR — processor status register), o qual aponta 
+para a janela do procedimento atualmente em execução. A máscara da janela inválida (WIM — window invalid 
+mask), também em PSR, indica quais janelas estão inválidas.
+Com a arquitetura SPARC de registradores, normalmente não é necessário salvar e restaurar registradores para 
+uma chamada de procedimento. O compilador é simplifi cado porque ele precisa se preocupar apenas com a alo-
+cação de registradores locais para um procedimento de uma maneira efi ciente e não precisa se preocupar com a alocação de registradores entre procedimentos.
+ Conjunto de instruções
+A Tabela 13.11 lista as instruções para arquitetura SPARC. A maioria das instruções referencia apenas ope-
+randos de registradores. Instrução registrador-para-registrador possui três operandos e pode ser expressa des-ta forma
+Rd;RS1 op S2
+onde Rd e RS1 são referências de registradores; S2 pode se referir ou a um registrador ou a um operando imediato de 
+13 bits. Registrador zero (R0) é defi nido no hardware com o valor 0. Esta forma é bem adaptada a programas típicos 
+que possuem uma grande proporção de escalares e constantes locais.
+As operações de ALU disponíveis podem ser agrupadas da seguinte forma:
+Adição de inteiros (com ou sem  carry).
+Subtração de inteiros (com ou sem  carry).
+Operadores booleanos AND, OR, XOR e suas negações. 
+Deslocamento lógico à esquerda, lógico ou aritmético à direita. 
+Figura 13.13 Janelas com oito registradores formando uma pilha circular no SPARC
+w4
+locaisw2
+locaisw0
+locais
+w6
+locais
+w6
+insw6
+outsw0
+outs
+w2
+outs
+w4
+outsw4
+ins
+w5
+locaisw5
+outs
+w5insw77
+locaisCWP
+WIM
+w7insw1
+locais
+w1
+outsw7
+outsw1ins
+w3
+locais
+w3
+outsw3insw2insw0ins
+Book 1.indb 421 19.11.09 14:39:23
+
+422 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+OP Descrição OP Descrição
+Instruções Carregar/Armazenar Instruções aritméticas
+LDSB Carregar byte com sinal ADD Adicionar
+LDSh Carregar meia palavra com sinal ADDCC Adicionar, modificação do ICC
+LDUB Carregar byte sem sinal ADDX Adicionar com transporte
+LDUh Carregar meia palavra sem sinal ADDXCCAdicionar com transporte, 
+modificação do ICC
+LD Carregar palavra SUB Subtrair
+LDD Carregar palavra dupla SUBCC Subtrair, modificação do ICC
+STB Armazenar byte SUBX Subtrair com carry
+STh Armazenar meia palavra SUBXCCSubtrair com transporte, 
+modificação do ICC
+STD Armazenar palavra MULSCC Passo múltiplo, modificação do ICC
+STDD Armazenar palavra dupla Instruções de salto/desvio
+Instruções de deslocamento BCC Desvio condicional
+SLL Deslocamento à esquerda lógico FBCC Desvio condicional de ponto flutuante
+SRL Deslocamento à direita lógico CBCC Desvio condicional do coprocessador
+SRA Deslocamento à direita aritmético CALL Chamada de procedimento
+Instruções booleanas JMPL Saltar e ligar
+AnD AnD TCC Trap na condição
+AnDCC AnD, modificação do ICC SAVE Avançar janela de registradores
+AnDn nAnD RESTORE Mover janelas para trás
+AnDnCC nAnD, modificação do ICC RETT Retornar de trap
+OR OR Outras instruções
+ORCC OR, modificação do ICC SEThI Modifica os 22 bits mais significativos
+ORn nOR UnIMP Instrução não implementada (trap)
+ORnCC nOR, modificação do ICC RD Ler um registrador especial
+XOR XOR WR Escrever um registrador especial
+XORCC XOR, modificação do ICC IFLUSh Esvaziar cache de instruções
+XnOR nOR exclusivo
+XnORCC nOR exclusivo, modificação do ICCTabela 13.11 Conjunto de instruções SPARC
+Todas estas instruções, exceto os deslocamentos, podem opcionalmente definir quatro código condicionais (ZERO, 
+NEGATIVO, OVERFLOW, CARRY). Inteiros com sinal são representados em forma de dois complementos de 32 bits.
+Apenas instruções simples de carregar e armazenar referenciam memória. Existem instruções de carregar e 
+armazenar separadas para palavra (32 bits), palavra dupla, meia palavra e byte. Para dois últimos casos, existem 
+instruções para carregar essas grandezas como números com ou sem sinal. Números com sinal são estendidos para preencher o registrador de destino de 32 bits. Números sem sinal são completados com zeros.
+O único modo de endereçamento disponível além do modo de registrador é o modo por deslocamento. Isto é, o en-
+dereço efetivo (EA) de um operando consiste de um deslocamento a partir de um endereço contido em um registrador:
+ou
+ EA = (RS1)+ (RS2)AE = ( RS1)+ S2
+dependendo se o segundo operando é imediato ou uma referência de registrador. Para executar uma leitura ou 
+escrita, um estágio extra é adicionado ao ciclo de instrução. Durante o segundo estágio, o endereço da memória é 
+Book 1.indb 422 19.11.09 14:39:24
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 423
+Tabela 13.12 Sintetizando outros modos de endereçamento com modos de endereçamento do SPARC
+Tipo de instrução Modo de endereçamento Algoritmo Equivalente do SPARC
+Registrador-para-registrador Imediato Operando = A S2
+Carregar, armazenar Direto EA = A R0 + S2
+Registrador-para-registrador Registrador EA = R RS1 + RS2
+Carregar, armazenar Indireto de registrador EA = (R) RS1 + 0
+Carregar, armazenar Deslocamento EA = (R) + A RS1 + S2
+S2 = pode ser um operando de registrador ou um operando imediato de 13 bits.calculado usando o ALU; leitura ou escrita ocorre no terceiro estágio. Este modo de endereçamento único é bem 
+versátil e pode ser usado para sintetizar outros modos de endereçamento, conforme indicado na Tabela 13.12.
+É instrutivo comparar a capacidade de endereçamento do SPARC com a do MIPS. O MIPS faz uso de um off set 
+de 16 bits, comparado com o off set de 32 bits do SPARC. Por outro lado, o MIPS não permite que um endereço seja construído a partr dos conteúdos de dois registradores.
+ Formato da instrução
+Assim como MIPS R4000, SPARC usa um conjunto simples de formatos da instrução de 32 bits (Figura 13.14). Todas 
+as instruções começam com um opcode de 2 bits. Para maioria das instruções, isso é estendido com bits de opcode 
+adicionais em outros lugares do formato. Para a instrução de Chamada (call), um operando de 30 bits é estendido com 
+dois bits 0 para direita para formar um endereço relativo ao PC de 32 bits na forma de complemento de dois. As instru-ções são alinhadas dentro de um limite de 32 bits para que esta forma de endereçamento seja sufi ciente.
+A instrução de Desvio inclui um campo condicional de 4 bits que corresponde ao padrão de 4 bits de código de 
+condição, para que qualquer combinação de condições possa ser testada. O endereço relativo ao PC de 22 bits é estendido com dois zeros para a direita para formar um endereço de 24 bits em complemento de dois. Um recurso incomum da instrução Desvio é o bit de anulação. Quando o bit de anulação é igual a zero, a instrução depois do desvio é sempre executada, independentemente se o desvio é tomado. Esta é a típica operação de atraso de desvio encontrada em muitas máquinas RISC e descrita na Seção 13.5 (veja a Figura 13.7). No entanto, quando o bit de anulação é igual a um, a instrução depois do desvio só é executada se o desvio é tomado. O processador suprime o efeito dessa instrução mesmo que ela já esteja no pipeline. Esse bit de anulação é útil porque torna mais fácil para o compilador preencher o delay slot que segue um desvio condicional. A instrução que é alvo do desvio sempre pode 
+ser colocada no delay slot, porque se o desvio não for tomado, a instrução pode ser anulada. Esta técnica é desejável 
+porque os desvios condicionais geralmente são tomados mais da metade das vezes.
+A instrução SETHI é uma instrução especial usada para carregar ou armazenar um valor de 32 bits. Este recurso é neces-
+sário para carregar e armazenar endereços e constantes grandes. A instrução SETHI defi ne os 22 bits de ordem mais alta de 
+um registrador com seu operando imediato de 22 bits e os 10 bits de ordem mais baixa com zeros. Uma constante ime-diata de até 13 bits pode ser especifi cada em um dos formatos gerais e tal instrução pode ser usada para preencher os 10 bits restantes do registrador. Uma instrução de carregar ou armazenar também pode ser usada para alcançar um modo de endereçamento direto. Para carregar um valor da posição K na memória, poderíamos usar as seguintes instruções SPARC:
+sethi %hi(K), %r8 ;carrega 22 bits de ordem mais alta do endereço da posição
+ ;K par a o r egistrador r 8
+ld [%r8 + %lo(K)], %r8 ;carrega conteúdo da posição K em r8
+As macros %hi e %lo são usadas para defi nir operandos imediatos consistindo de bits de endereço apropriado 
+de uma posição. Este uso de SETHI é semelhante ao uso da instrução LUI no MIPS.
+O formato de ponto fl utuante é usado para operações de ponto fl utuante. Dois registradores de origem e um 
+de destino são defi nidos.
+Book 1.indb 423 19.11.09 14:39:24
+
+424 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Finalmente, todas as outras operações, incluindo carregar, armazenar, operações aritméticas e lógicas usam 
+um dos dois últimos formatos mostrados na Figura 13.14. Um dos formatos usa dois registradores de origem e 
+um registrador de destino, enquanto outro usa um registrador de origem, um operando de 13 bits imediato e um registrador de destino.
+13.8 Controvérsia de RISC versus CISC
+Durante muitos anos, a tendência geral na arquitetura e organização de computadores foi aumentar a com-
+plexidade do processador: mais instruções, mais modos de endereçamento, mais registradores especializados e 
+assim por diante. O movimento RISC representa uma quebra fundamental com a fi losofi a por trás desta tendência. Naturalmente, o aparecimento de sistemas RISC e a publicação de artigos pelos seus proponentes exaltando as virtudes de RISC levaram a uma reação por parte daqueles envolvidos no projeto de arquiteturas CISC.
+O trabalho que foi feito avaliando os méritos da abordagem RISC pode ser agrupado em duas categorias:
+quantitativa
+  : tenta comparar o tamanho do programa e a velocidade de execução dos programas em 
+máquinas RISC e CISC que usam tecnologias comparáveis.qualitativa
+  : analisa questões como suporte para linguagem de alto nível e uso otimizado do estado atual 
+de VLSI.
+A maior parte do trabalho em avaliações quantitativas foi feito por aqueles que trabalham em sistemas RISC 
+(PATTERSON e PIEPHO , 1982p; HEATH , 1984q; PATTERSON , 1984x) e foi, em grande parte, favorável à abordagem 
+RISC. Outros analisaram a questão e não fi caram convencidos ( COLWELL et al., 1985y; FLYNN, MITCHELL e MULDER, 
+1987z; DAVIDSON e VAUGHAN , 1987aa). Existem vários problemas ao se tentar fazer tais comparações ( SERLIN , 1986bb):
+Não existem pares de máquinas RISC e CISC que sejam comparáveis em custo de ciclo de vida, nível de 
+tecno logia, sofi sticação do compilador, suporte de sistema operacional e assim por diante.Não existe nenhum conjunto de programas de teste defi nitivo. Os desempenhos variam com o programa.
+ 
+É difícil separar os efeitos de hardware dos efeitos provenientes da capacidade em escrever compiladores. Figura 13.14 Formatos da instrução SPARC
+Op Formato da
+chamadaDeslocamento relativo ao PC 03 2
+Formato do
+desvioOp Cond Op2
+OpFormato de
+SETHI
+Formato do
+ponto /f_lutuante2
+Dest5
+Op23
+Constante imediata2221 4 3 22
+9 65 2 5 5
+Formatos
+gerais2 5 6 8 51 5Deslocamento relativo ao PC 
+Op Dest Op3 Orig-1 Orig-2 FO-op
+Op Dest Op3 Orig-1 0 Orig-2 Ignorado
+Op Dest Op3 Orig-1 1 Constante imediataa
+Book 1.indb 424 19.11.09 14:39:25
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 425
+A maioria das análises comparativas sobre RISC foram feitas em máquinas “brinquedos” em vez de produtos 
+comerciais. Além disso, a maioria das máquinas comercialmente disponíveis possui propagandas que as 
+destacam como uma mistura de características RISC e CISC. Assim, uma comparação justa com uma máqui-na comercial real CISC (por exemplo, VAX, Pentium) é difícil.
+A avaliação qualitativa é, quase que por defi nição, subjetiva. Vários pesquisadores voltaram a sua atenção 
+para tal avaliação ( COLWELL et al., 1985
+y; WALLICH , 1985cc), mas os resultados são, na melhor das hipóteses, 
+ambíguos e certamente sujeitos à replica ( PATTERSON e HENNESSY , 1985dd) e, é claro, à tréplica ( COLWELL et 
+al., 1985ee).
+Em anos mais recentes, a controvérsia RISC versus CISC sumiu quase que totalmente. Isso aconteceu porque 
+houve uma convergência gradual das tecnologias. Com o aumento da densidade dos chips e da velocidade do hardware, os sistemas RISC se tornaram mais complexos. Ao mesmo tempo, em um esforço para obter o máximo desempenho, os modelos CISC focaram em questões tradicionalmente associadas com RISC, como um aumento no número de registradores de uso geral e mais ênfase no projeto do pipeline de instruções.
+13.9 Leitura recomendada
+Dois artigos clássicos sobre RISC são Patterson (1985ff ) e Henneessy (1984v). Outro artigo de pesquisa é Stallings 
+(1988gg). Descrições de dois esforços pioneiros RISC são fornecidos por Radin (1983o) e Patterson e Sequin (1982a).
+Kane e Heinrich (1992 hh) cobrem a máquina comercial MIPS em detalhes. Mirapuri, Woodacre e Vasseghi (1992ii) 
+fornecem uma boa visão de MIPS R4000. Basheteen, Lui e Mullan (1991jj) discutem a evolução do pipeline do R3000 
+para superpipeline do R4000. SPARC é coberto com bastantes detalhes em Dewar e Smosna (1990kk).
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Computador com conjunto complexo de instruções (CISC) Linguagem de alto nível (hLL) Banco de registradores
+Desvio atrasado Computador com conjunto reduzido de instruções (RISC) Janela de registradores
+Leitura atrasada SPARC
+Perguntas de revisão
+ 13.1 Quais são algumas das características peculiares típicas da organização RISC?
+ 13.2 Explique brevemente duas abordagens básicas para minimizar operações registrador-memória em máquinas RISC.
+ 13.3 Se um buff er circular de registradores é usado para tratar variáveis locais para procedimentos aninhados, descreva duas abordagens para lidar com variáveis globais.
+ 13.4 Quais são algumas características típicas de uma arquitetura de conjunto de instruções RISC?
+ 13.5 O que é um desvio atrasado?
+Problemas
+13.1 Considerando o padrão chamada-retorno da Figura 4.21, quantos overfl ows e underfl ows (dos quais cada um causa um salvar/restaurar do regis-
+trador) irão ocorrer com um tamanho de janela de:
+a. 5?b. 8?
+c. 16?
+13.2 na discussão sobre a Figura 13.2, foi afi rmado que apenas as duas primeiras partes de uma janela são salvas ou restauradas. Por que não é neces-
+sário salvar os registradores temporários?
+Book 1.indb 425 19.11.09 14:39:26
+
+426 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+13.3 Desejamos determinar o tempo de execução para um certo programa usando vários esquemas de pipeline discutidos na Seção 13.5. Seja 
+N = número de instruções executadas 
+D = número de acessos à memória J = número de instruções de salto Para o esquema sequencial simples (Figura 13.6a), o tempo de execução é 2N + D estágios. Desenvolva fórmulas para pipeline de dois, três e quatro estágios.
+13.4 Reorganize a sequência de código da Figura 13.6d para reduzir número de nOOPs.
+13.5 Considere o seguinte pedaço de código em uma linguagem de alto nível: for I in...100 loop
+forI in1...100 loop
+S ← S Q(I).VAL
+end loop;
+Assuma que Q seja um vetor de registros de 32 bits e o campo VAL está nos 4 primeiros bytes de cada registro. Usando código x86, podemos compilar este pedaço de programa a seguir
+MOV
+IMULMOVADDINCCMPJNEECX, 1EAX, ECX, 32EBX, Q[EAX]S, EBXECXECX, 101LP;usa registrador ECX para guardar I;obtém offset em EAX;carrega campo VAL;adiciona para S;incrementa I;compara com 101;laço até I = 100LP:
+Este programa faz uso da instrução IMUL, a qual multiplica o segundo operando pelo valor imediato no terceiro operando e coloca o resultado 
+no primeiro operando (veja o Problema 10.13). Um defensor de RISC gostaria de demonstrar que um compilador inteligente pode eliminar instruções complexas desnecessárias como IMUL. Forneça demonstração reescrevendo o programa x86 acima sem o uso da instrução IMUL.
+13.6 Considere o seguinte laço:
+S : 0;
+forK : 1 to 100 do
+S : S K;
+Uma tradução direta disso para uma linguagem de montagem genérica ficaria parecida com algo assim:
+LPLD
+LDSUBBEQADDJMP;guarda valor de S em R1;guarda valor de K em R2;S : = S – K;feito se K = 100;senão incrementa K;de volta para o início do laçoR1, 0R2, 1R1, R1, R2R2, 100, EXITRE, RE, 1LP
+Um compilador para uma máquina RISC irá introduzir encaixes de atraso neste código para que o processador possa empregar o mecanismo 
+de desvio atrasado. Instrução JMP é fácil de lidar, porque esta instrução é sempre seguida de instrução SUB; portanto, podemos simplesmente guardar uma cópia da instrução SUB em um delay slot depois de JMP . BEQ representa uma dificuldade. não podemos deixar o código como está, 
+porque a instrução ADD seria então executada muitas vezes a mais. Portanto, uma instrução nOP é necessária. Mostre o código resultante.
+13.7 Uma máquina RISC pode fazer mapeamento de registradores simbólicos para registradores reais e também o rearranjo de instruções para 
+eficiên cia do pipeline. Uma questão interessante surge relacionada à ordem em que essas duas instruções deveriam ser feitas. Considere o 
+seguinte pedaço do programa:
+LD SR1, A ;carregar A no registrador simbólico 1
+LD SR2, B ;carregar B no registrador simbólico 2ADD SR3, SR1, SR2 ;adicionar conteúdo de SR1 e SR2 e armazenar SR3LD SR4, CLD SR5, D
+ADD SR6, SR4, SR5
+a. Faça primeiro o mapeamento de registradores e depois qualquer reordenação possível de instruções. Quantos registradores de máquinas 
+são usados? houve alguma melhoria do pipeline?
+Book 1.indb 426 19.11.09 14:39:27
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 427
+b. Começando com o programa original, faça agora a reordenação de instruções e depois qualquer mapeamento possível. Quantos registra-
+dores de máquinas são usados? houve alguma melhoria do pipeline?
+13.8 Adicione entradas para os seguintes processadores na Tabela 13.7:a. Pentium II
+b. ARM
+13.9 Em muitos casos, instruções de máquinas comuns que não estão listadas como parte do conjunto de instruções do MIPS podem ser sintetizadas 
+com uma única instrução MIPS. Mostre isso para o seguinte:
+a. Mover de registrador para registrador.b. Incrementar, decrementar.
+c. Complementar.
+d. negar.
+e. Esvaziar.
+13.10 Uma implementação SPARC possui K janelas de registradores. Qual é o número N de registradores físicos?
+13.11 SPARC não possui uma série de instruções comumente usadas em máquinas CISC. Algumas delas são facilmente simuladas usando ou regis-
+trador R0, o qual é sempre definido como 0, ou um operando constante. Essas instruções simuladas são chamadas de pseudoinstruções e são reconhecidas pelo compilador SPARC. Mostre como simular as seguintes pseudoinstruções, cada uma com uma única instrução SPARC. Em todas elas, src e dst se refere a registradores. (Dica : um armazenamento em R0 não tem nenhum efeito).
+a. MOV src, dstb. COMPARE src1, src2
+c. TEST src1
+d. nOT dst
+e. nEG dst
+f. InC dst
+g. DEC dst
+h. CLR dsti. nOP
+13.12 Considere o seguinte pedaço de código:
+ifK > 10
+L : K 1
+else
+L : K 1;
+Uma tradução direta para assembler SPARC poderia ficar da seguinte forma:
+L2:L1:sethi %hi(K),%r8
+ld [%r8 + %lo(k)] %r8
+cmp %r8, 10ble L1noop sethi %hi(k), %r9ld [%r9 + %lo(k)] %r9inc %r9sethi %hi(L), %r10st %r9, [%r10 + %lo(L)]b L2nop sethi %hi(K),%r11ld [%r11 + %lo(K)], %r12dec %r12sethi %hi(L), %r13st %r12, [%r13 + %lo(L)] + %lo(L);carrega 22 bits de ordem mais alta do endereço da posição;K no registrador r8;carrega conteúdo da posição K em r8;compara conteúdo de r8 com 10□;desvio se (r8) ≤ 10
+;carrega conteúdo da posição K em r9
+;adiciona 1 para (r9)
+;armazena (r9) na posição L
+;carrega conteúdo da posição K em r12
+;subtrai 1 de (r12)
+;armazena (r12) na posição L
+O código contém um nop depois de cada instrução de desvio para permitir operação de desvio atrasado.
+Book 1.indb 427 19.11.09 14:39:28
+
+428 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+a. Otimizações comuns de compiladores, que nada têm a ver com máquinas RISC, são geralmente eficientes em efetuar duas transformações 
+no código acima mencionado. Observe que duas leituras são desnecessárias e que duas escritas podem ser combinadas se a escrita for movida para um lugar diferente no código. Mostre o programa após fazer essas duas alterações.
+b. Agora é possível fazer algumas otimizações específicas do SPARC. nop depois de ble pode ser substituído movendo outra instrução para 
+esse delay slot e definindo o bit de anulação na instrução ble (expresso como ble,a L1). Mostre o programa depois dessa mudança.
+c. Existem agora duas instruções desnecessárias. Remova-as e mostre o programa resultan te.
+ Referências
+ a P ATTERSOn, D. e S EQUIn, C. “A VLSI RISC” . Computer, set. 1982.
+ b LUn DE, A. “Empirical evaluation of some features of instruction set processor architectures” . Communications of the ACM, mar. 1977.
+ c hUCK , T. Comparative analysis of computer architectures. Stanford University Technical Report no. 83-243, mai. 1983.
+ d TAnEn BAUM , A. “Implications of structured programming for machine architecture” . Communications of the ACM, mar. 1978.
+ e KATEVEn IS, M. Reduced instruction set computer architectures for VLSI. Dissertação de PhD. Computer Science Department, University of California at 
+Berkeley, outubro de 1983. Reimpresso por MIT Press, Cambridge, MA, 1985.
+ f R AGA n-KELLEY , R. e C LARK , R. “Applying RISC theory to a large computer” . Computer Design, nov. 1983.
+ g T AMIR , Y . e SEQUIn, C. “Strategies for managing the register file in RISC” . IEEE Transactions on Computers, nov. 1983.
+ h ChAITIn, G. “Register allocation and spilling via graph coloring” . Proceedings, SIGPLAN Symposium on Compiler Construction, jun. 1982.
+ i ChOW , E. et al. “Engineering a RISC compiler system” . Proceedings, COMPCON Spring ‘86, mar. 1986.
+ j C OUTAnT , D.; h ammond, C.; e Kelley, J. “Compilers for the new generation of h ewlett-Packard computers” . Proceedings, COMPCON Spring ‘86, mar. 1986.
+ k ChOW , F . e hEnnESSY , J. “The priority-based coloring approach to register allocation” . ACM Transactions on Programming Languages, out. 1990.
+ l B RADLEE , D.; EGGERS , S. e hEn RY, R. “The effect on risc performance of register set size and structure versus code generation strategy” . Proceedings, 
+18th Annual International Symposium on Computer Architecture, mai. 1991.
+ m hUGUET , M. e LAnG ,T. “Architectural support for reduced register saving/restoring in single-window register files” . ACM Transactions on Computer 
+Systems, fev. 1991.
+ n hEnnESSY , J., et al. “hardware/software tradeoffs for increased performance” . Proceedings, Symposium on Architectural Support for Programming 
+Languages and Operating Systems, mar. 1982.
+ o R ADIn, G. “The 801 minicomputer” . IBM Journal of Research and Development, mai. 1983.
+ p P ATTERSOn, D. e P IEPhO, R. “Assessing RISCs in high-level language support” . IEEE Micro, nov. 1982.
+ q hEATh, J. “Re-evaluation of RISC 1” . Computer Architecture News, mar. 1984.
+ r M YERS , G. “The evaluation of expressions in a storage-to-storage architecture” . Computer Architecture News, jun. 1978.
+ s M ASh EY, J. “CISC vs. RISC (or what is RISC really)” . USENET comp.arch newsgroup, article 46782, fev. 1995.
+ t B ACO n, F .; G RAhAM, S. e ShARP , O” . Compiler transformations for high-performance computing” . ACM Computing Surveys, dez. 1994.
+ u B RADLEE , D.; EGGERS , S. e hEn RY, R. “Integrating register allocation and instruction scheduling for RISCs” . Proceedings, Fourth International 
+Conference on Architectural Support for Programming Languages and Operating Systems, abr. 1991.
+ v hEnnESSY , J. “VLSI processor architecture” . IEEE Transactions on Computers, dez. 1984.
+ w ChOW , E. et al. “h ow many addressing modes are enough?” Proceedings, Second International Conference on Architectural Support for Programming 
+Languages and Operating Systems, out. 1987.
+ x P ATTERSOn, D. “RISC watch” . Computer Architecture News, mar. 1984.
+ y C OLWELL , R. et al. “Computers, complexity, and controversy” . Computer, set. 1985.
+ z F LYnn, M.; M ITChELL, C. e M ULDER , J. “And now a case for more complex instruction sets” . Computer, set. 1987.
+ aa DAVIDSOn , J. e VAUG hAn , R. “The effect of instruction set complexity on program size and memory performance” . Proceedings, Second International 
+Conference on Architectural Support for Programming Languages and Operating Systems, out. 1987.
+ bb S ERLIn, O. “MIPS, dhrystones, and other tales” . Datamation, jun. 1986.
+ cc W ALLICh, P . “Toward simpler, faster computers” . IEEE Spectrum, ago. 1985.
+ dd P ATTERSOn, D. e hEnnESSY , J. “Response to ‘computers, complexity, and controversy. ’“ Computer, nov. 1985.
+ ee C OLWELL , R. et al. "More controversy about 'computers, complexity, and controversy'" . Computer, dez. 1985. 
+ ff P ATTERSOn, D. “Reduced instruction set computers” . Communications of the ACM. jan. 1985.
+ gg S TALLIn GS, W. “Reduced instruction set computer architecture” . Proceedings of the IEEE, jan. 1988.
+ hh KAnE, G. e h EInRICh, J. MIPS RISC architecture. Englewood Cliffs, nJ: Prentice hall, 1992.
+ ii M IRAPURI , S.; W OODACRE , M. e V ASSEGhI, n. “The MIPS R4000 processor” . IEEE Micro, abr. 1992.
+ jj B ASh TEEn, A., L UI, I. e M ULLAn, J. "A superpipeline approach to the MIPS architecture" . Proceedings, COMPCON Spring '91, fev. 1991. 
+ kk D EWAR , R. e S MOSnA, M. Microprocessors: a programmer’s view. n ova York: McGraw hill, 1990.
+Book 1.indb 428 19.11.09 14:39:28
+
+PRInCIPAIS POnTOS
+ Um processador superescalar é aquele em que múltiplos e independen-
+tes pipelines de instruções são usados. Cada pipeline consiste de múltiplos es-
+tágios, de tal forma que cada pipeline possa lidar com múltiplas instruções ao mesmo tempo. Os pipelines múltiplos introduzem um nível de paralelismo, possibilitando que múltiplos fl uxos de instruções sejam processados ao mes-mo tempo. Um processador superescalar explora o que é conhecido como paralelismo em nível de instruções, o que se refere ao grau em que as ins-truções de um programa podem ser executadas em paralelo. Um processador superescalar normalmente busca múltiplas instruções ao mesmo tempo e depois tenta localizar instruções próximas que sejam independentes umas das outras e, portanto, podem ser executadas em paralelo. Se a entrada de uma instrução depende da saída da instrução anterior, então a instrução posterior não pode completar a execução ao mesmo tempo ou antes da instrução anterior. Uma vez identifi cadas tais dependências, o processador pode executar e completar instruções em uma ordem diferente do código de máquina original. O processador pode eliminar algumas dependências desnecessárias com o uso de registradores adicionais e renomeando referências de regis-tradores no código original. Considerando que os processadores RISC puros frequentemente em-pregam desvios atrasados para maximizar a utilização do pipeline de ins-truções, este método é menos apropriado para uma máquina superescalar. Em vez disso, a maioria de máquinas superescalares usa a previsão de des-vio tradicional para melhorar a efi ciência.Paralelismo em nível de instruções e processadores 
+superescalares
+14.1 Introdução
+  Superescalar versus superpipeline
+  Limitações
+14.2 Questões de projeto
+  Paralelismo em nível de instruções e 
+paralelismo de máquina
+  Política sobre emissão de instruções
+  Renomeação de registradores
+  Paralelismo de máquina
+  Previsão de desvio
+  Execução superescalar
+  Implementação superescalar
+14.3 Pentium 4
+  Front end
+  Lógica de execução fora de ordem (out -of -order execution)
+  Unidades de execução de inteiros e de pontos fl utuantes
+14.4 ARM C ortex -A8
+  Unidade de busca de instruções
+  Unidade de decodifi cação de instruções
+  Unidade de execução de inteiros
+  Pipeline SIMD e de ponto fl utuante
+14.5 Leitura recomendadaCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Uma implementação superescalar de uma arquitetura de processador é aquela onde as instruções comuns — aritmé-
+ticas de inteiros e de pontos fl utuantes, leituras, escritas e desvios condicionais — podem ser iniciadas simultanea-
+mente e executadas independentemente. Tais implementações levantam uma série de complexas questões de projeto relacionadas ao pipeline de instruções.
+O projeto superescalar chegou à cena pouco depois da arquitetura RISC. Embora a arquitetura de conjunto de instru-
+ções simplifi cada de uma máquina RISC leve, por si só, a técnicas superescalares, a abordagem superescalares pode ser usada tanto e nas arquiteturas RISC como nas CISC.
+Book 1.indb 429 19.11.09 14:39:29
+
+430 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Considerando que o período de espera para a chegada de máquinas RISC comerciais desde o início da verda-
+deira pesquisa RISC com o IBM 801 e o RISC I de Berkeley foi de sete ou oito anos, as primeiras máquinas superes-
+calares se tornaram disponíveis comercialmente dentro de apenas um ou dois anos depois de inventado o termo superescalar. A abordagem superescalar se tornou agora o método padrão para implementação de microprocessa-dores de alto desempenho.
+Neste capítulo, começamos com uma introdução à abordagem superescalar, confrontando -a com superpipeli-
+ne. A seguir, apresentamos as principais questões de projeto associadas com a implementação superescalar. Depois analisamos vários exemplos importantes da arquitetura superescalar.
+14.1 Introdução
+O termo superescalar, criado em 1987 ( AGERWALA e COCKE , 1987a), refere -se a uma máquina que é projetada 
+para melhorar o desempenho da execução de instruções escalares. Na maioria das aplicações, a maior parte das operações é de grandezas escalares. Consequentemente, a abordagem superescalar representa o próximo passo na evolução de processadores de uso geral e de alto desempenho.
+A essência da abordagem superescalar é a habilidade de executar instruções independente e concorrente-
+mente em pipelines diferentes. O conceito pode ser ainda mais explorado permitindo que as instruções sejam executadas em uma ordem diferente da ordem do programa. A Figura 14.1 mostra, em termos gerais, a abordagem superescalar. Existem muitas unidades funcionais onde cada uma é implementada com um pipeline, o que suporta execução paralela de várias instruções. Neste exemplo, duas instruções de inteiros, duas introduções de pontos fl utuantes e uma de memória (leitura ou escrita) podem ser executadas ao mesmo tempo.
+Muitos pesquisadores investigaram processadores superescalar e suas pesquisas indicam que algum grau de 
+melhoria de desempenho é possível. A Tabela 14.1 apresenta as vantagens de desempenho reportadas. As diferen-ças em resultados surgem das diferenças tanto no hardware da máquina simulada quanto das aplicações sendo simuladas.
+ Superescalar versus superpipeline
+Uma abordagem alternativa para alcançar melhor desempenho é conhecida como superpipeline, termo criado 
+em 1988 ( JOUPPI , 1988b). O superpipeline explora o fato de que muitos estágios de pipeline executam tarefas que 
+requerem menos do que metade de um ciclo de clock. Assim, a velocidade interna de clock dobrada possibilita o de-sempenho de duas tarefas em um ciclo de clock externo. Vimos um exemplo desta abordagem com o MIPS R4000.
+A Figura 14.2 compara as duas abordagens. A parte superior do diagrama ilustra um pipeline comum, usado 
+como base para comparação. O pipeline base consegue iniciar uma instrução por ciclo de clock e pode executar um estágio de pipeline por ciclo de clock.
+O pipeline tem quatro estágios: busca instrução, decodifi cação da operação, executar operação e atualização 
+do resultado. O estágio de execução é preenchido com linhas cruzadas para facilidade de compreensão. Observe 
+Figura 14.1 Organização superescalar geral
+Banco de registradores de inteiros
+MemóriaUnidades
+funcionais de
+pipelineBanco de registradores de pontos flutuantes
+Book 1.indb 430 19.11.09 14:39:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 14 Paralelismo em nível de instruções e processadores superescalares 431
+Tabela 14.1 Acelerações reportadas das máquinas do tipo superescalar
+Referência Aumento de velocidade (speed up)
+Tjaden e Flynn, 1970c1,8
+Kuck, Parker e Sameh, 1977d8
+Weiss e Smith, 1984e1,58
+Acosta, Kjelstup e Torng, 1986f2,7
+Sohi, 1990g1,8
+Smith, Johnson e horowitz, 1989h2,3
+Jouppi, 1989i2,2
+Lee, Kwok e Briggs, 1991j7
+Figura 14.2 Comparação da abordagem superescalar e superpipeline
+Buscar
+0Instruções sucessivas
+Tempo em ciclos básicos9Chave:
+Decodi/f_icarExecução
+Escrever
+Superpipeline
+SuperescalarPipeline simples 
+de 4 estágios
+12345 678
+Book 1.indb 431 19.11.09 14:39:31
+
+432 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+que, embora várias instruções estejam sendo executadas concorrentemente, apenas uma está no seu estágio de 
+execução a qualquer tempo.
+A próxima parte do diagrama mostra uma implementação de superpipeline capaz de executar dois estágios 
+de pipeline por ciclo de clock. Uma forma alternativa de analisar isso é que as funções executadas em cada estágio podem ser divididas em duas partes que não se sobrepõem e cada uma pode ser executada na metade de ciclo de clock. Uma implementação de superpipeline que se comporta desta forma é considerada como de nível 2. Finalmente, a parte mais baixa do diagrama mostra uma implementação superescalares capaz de executar duas instâncias de cada estágio em paralelo. Implementações de superpipeline e as superescalares de níveis mais altos também são possíveis.
+Tanto a implementação de superpipeline como a superescalar ilustradas na Figura 14.2 possuem o mesmo 
+número de instruções executando ao mesmo tempo em determinado estado. O processador de superpipeline fi ca para trás do processador superescalar no início do programa e a cada alvo de desvio.
+ Limitações
+A abordagem superescalar depende da habilidade de executar múltiplas instruções em paralelo. O termo 
+paralelismo em nível de instruções refere -se ao grau em que, em média, as instruções de um programa podem ser executadas em paralelo. Uma combinação de otimização baseada em compilador e técnicas de hardware pode ser usada para maximizar o paralelismo em nível de instruções. Antes de analisar as técnicas de design usadas em máquinas superescalares para aumentar o paralelismo em nível de instruções, precisamos olhar as limitações fundamentais do paralelismo com as quais o sistema deve lidar. Johnson (1991
+k) apresenta 
+cinco limitações:
+Dependência de dados verdadeira. 
+Dependência procedural. 
+Confl itos de recursos. 
+Dependência de saída. 
+Antidependência. 
+Analisamos as primeiras três destas limitações no restante desta seção. Uma discussão sobre as duas últimas 
+precisa aguardar o desenrolar da próxima seção.
+DEPENDÊNCIA DE DADOS VERDADEIRA Considere a seguinte sequência:1
+ADD EAX, ECX ;carrega o registrador EAX com o conteúdo
+ de ECX mais o conteúdo de EAXMOV EBX, EAX ;carrega EBX com o conteúdo de EAX
+A segunda instrução pode ser obtida e decodifi cada, mas não pode ser executada até que a primeira execute. 
+O motivo é que a segunda instrução precisa de dados produzidos pela primeira. Esta situação é conhecida como 
+dependência de dados verdadeira (também chamada de dependência de fl uxo ou dependência de escrita 
+após leitura [WAR, do inglês write after read]).
+A Figura 14.3 do inglês esse dependência em uma máquina superescalar de nível 2. Sem dependências, duas instru-
+ções podem ser obtidas e executadas em paralelo. Se houver uma dependência de dados entre a primeira e a segunda instrução, então a segunda é atrasada por tantos ciclos de clock quantos forem necessários para remover a dependência. Em geral, qualquer instrução tem que ser atrasada até que todos os seus valores de entrada tenham sido produzidos.
+Em um pipeline simples, como o mostrado na parte superior da Figura 14.2, a sequência de instruções acima 
+mencionada não causaria nenhum atraso. No entanto, considere o seguinte, onde uma das leituras ocorre na me-mória em vez de um registrador:
+MOV EAX, eff ;carregar registrador EAX com conteúdo
+ do endereço de memória efetivo eff
+MOV EBX, EAX ;carregar EBX com conteúdo de EAX
+1 Para linguagem de montagem Intel x86, o símbolo “;” (ponto e vírgula) inicia um campo de comentário.
+Book 1.indb 432 19.11.09 14:39:32
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 14 Paralelismo em nível de instruções e processadores superescalares 433
+Um processador RISC típico leva dois ou mais ciclos para executar uma leitura de memória quando a leitura 
+é um acesso à cache. Pode levar dezenas ou até centenas de ciclos para uma falha de cache em todos os níveis 
+de cache por causa do atraso de um acesso à memória fora do chip. Uma maneira de compensar este atraso é o compilador reordenar as instruções para que uma ou mais instruções subsequentes que não dependem da leitura de memória possam seguir pelo pipeline. Este esquema é menos eficiente no caso de um pipeline superescalar: as instruções independentes executadas durante a leitura provavelmente serão executadas no primeiro ciclo da leitura, deixando o processador sem fazer nada até que a leitura complete.
+DEPENDÊNCIAS PROCEDURAIS Conforme discutimos no Capítulo 12, a presença de desvios em uma sequência 
+de instruções complica a operação do pipeline. As instruções que vêm depois de um desvio (tomado ou não) pos-suem uma dependência procedural com o desvio e não podem ser executadas até que o desvio seja executado. A Figura 14.3 ilustra o efeito de um desvio em um pipeline superescalar de nível 2.
+Como já vimos, este tipo de dependência procedural afeta também um pipeline escalar. A consequência para 
+um pipeline superescalar é mais severa, porque uma oportunidade de magnitude maior é perdida com cada atraso.
+Se as instruções de tamanho variável forem usadas, então outro tipo de dependência procedural surge. 
+Como o tamanho de nenhuma instrução particular é conhecido, ela deve ser pelo menos parcialmente deco -
+dificada antes que a próxima possa ser obtida. Esta é uma das razões por que as técnicas superescalares são mais prontamente aplicáveis para uma arquitetura RISC, ou uma parecida com RISC, com seu tamanho fixo de instruções.
+CONFLITO DE RECURSOS Um conflito de recursos é uma competição de duas ou mais instruções pelo mesmo 
+recurso e ao mesmo tempo. Exemplos de recursos incluem memória, cache, barramentos, entradas para banco de registradores e unidades funcionais (por exemplo, somador da ALU).Figura 14.3 Efeito das dependências
+i0
+i1
+i0
+i1
+i0
+i1/desvio
+i2
+i3i4i5
+i0
+i1Buscar
+Tempo em ciclos básicos012345 6789Chave
+Decodi/f_icarExecutar
+Escrever
+Sem dependência
+Dependência de dados
+(i1 usa dados computados por i0)
+Dependência procedural
+Conf lito de recurso (i0 e i1
+usam a mesma unidade 
+funcional)
+Book 1.indb 433 19.11.09 14:39:32
+
+434 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Em termos de pipeline, um confl ito de recurso mostra o comportamento parecido de uma dependência de 
+dados (Figura 14.3). No entanto, há algumas diferenças. Para começar, os confl itos de recursos podem ser evitados 
+com a duplicação de recursos, considerando que uma dependência de dados verdadeira não pode ser eliminada. Além disso, quando uma operação leva muito tempo para se completar, confl itos de recursos podem ser minimi-zados pelo pipeline na unidade funcional apropriada.
+14.2 Questões de projeto
+ Paralelismo em nível de instruções e paralelismo de máquina
+Jouppi e Wall (1989l) fazem uma distinção importante entre dois conceitos relacionados: paralelismo em nível 
+de instruções e paralelismo de máquina. O paralelismo em nível de instruções existe quando as instruções de 
+uma sequência são independentes e, assim, podem ser executadas em paralelo por sobreposição.
+Como um exemplo do conceito de paralelismo, considere dois pedaços de código a seguir ( JOUPPI , 1989i):
+Load R1 ←R2 Add R3 ←R3, “1”
+Add R3 ←R3, “1” Add R4 ←R3, R2
+Add R4 ←R4, R2 Store [R4] ←R0
+As três instruções à esquerda são independentes e, na teoria, todas poderiam ser executadas em paralelo. Ao 
+contrário disso, as três instruções à direita não podem ser executadas em paralelo porque a segunda instrução usa o resultado da primeira e a terceira usa o resultado da segunda.
+O grau do paralelismo em nível de instruções é determinado pela frequência da dependência de dados ver-
+dadeira e das dependências procedurais no código. Estes fatores, por sua vez, são dependentes da arquitetura do conjunto de instruções e da aplicação. O paralelismo em nível de instruções é também determinado pelo que Jouppi e Wall (1989
+l) denominam como latência da operação: o tempo até que o resultado de uma operação esteja 
+disponível para uso como um operando em uma instrução subsequente. A latência determina quanto atraso uma dependência de dados ou procedural irá causar.
+O paralelismo de máquina é uma medida da habilidade do processador para obter vantagem do paralelismo 
+em nível de instruções. Ele é determinado pelo número de instruções que podem ser obtidas e executadas ao mes-mo tempo (o número de pipelines paralelos) e pela velocidade e sofi sticação dos mecanismos que o processador usa para localizar instruções independentes.
+O paralelismo em nível de instruções e o de máquina são fatores importantes para melhorar o desempenho. 
+Um programa pode não ter paralelismo em nível de instruções sufi ciente para obter a vantagem total do paralelis-mo de máquina. O uso de uma arquitetura com conjunto de instruções de tamanho fi xo, como em RISC, melhora o paralelismo em nível de instruções. Por outro lado, o paralelismo de máquina limitado irá limitar o desempenho, não se importando com qual a natureza do programa.
+ Política de emissão de instruções
+Conforme mencionado, o paralelismo de máquina não é simplesmente uma questão de ter múltiplas instâncias 
+de cada estágio do pipeline. O processador também deve ser capaz de identifi car o paralelismo em nível de má-quina e orquestrar a busca, a decodifi cação e a execução de instruções em paralelo. Johnson (1991
+k) usa o termo 
+emissão da instrução (instruction issue) para se referir ao processo de iniciação da execução da instrução em unidades funcionais do processador e o termo política de emissão de instruções para se referir ao protocolo 
+usado para a emissão instruções. Em geral, podemos dizer que a emissão da instrução ocorre quando a instrução é movida do estágio de decodifi cação para o primeiro estágio de execução do pipeline.
+Basicamente, o processador está tentando olhar para frente do ponto atual de execução para localizar instruções 
+que podem ser trazidas no pipeline e executadas. Três tipos de ordenação são importantes nesta consideração:
+A ordem em que as instruções são lidas.
+ 
+A ordem em que as instruções são executadas. 
+A ordem em que as instruções atualizam o conteúdo dos registradores e as posições de memória. 
+Book 1.indb 434 19.11.09 14:39:33

@@ -1,0 +1,1105 @@
+Equações não lineares 72
+-1 -0.5 0.5 1
+-2.5-2-1.5-1-0.5
+Figura 4.6: Corolário do Teorema de Rolle.
+Exercício 4.7 Usando o método de Rolle, localize todas as raízes reais de
+P3(x)x32x5 = 0:
+Resolução: A função derivada, deﬁnida pela expressão 3x22, tem dois zerosp
+2=3e
++p
+2=3. Os números de Rolle da equação dada são
+1;r
+2
+3; +r
+2
+3; +1:
+Como a função dada é contínua em Re
+ri1 p
+2=3 +p
+2=3 +1
+P3(ri) +,
+temos que a única raiz real da equação dada está no intervalo ]p
+2=3;+1[.
+Note-se que o intervalo que contém todas as raízes da equação algébrica pode ser obtido
+recorrendo ao seguinte resultado.
+Teorema 4.14 (Cauchy) SejaPn(x) = 0uma equação algébrica, com Pnum polinómio
+da forma (4.14). Todos os zeros de Pnestão incluídos no círculo do plano complexo
+ =fz2C:jzj1 +g;com= max
+k=0;:::;n1ak
+an:
+Um resultado alternativo é o seguinte.
+Teorema 4.15 (Newton) SejaPn(x) = 0uma equação algébrica. Se, para x=L,L>0,
+o polinómio Pne as suas sucessivas derivadas forem não negativas, então Lconstitui um
+limite superior das raízes positivas de Pn(x) = 0.
+Demonstração: SejaPnum poliómio de grau n. Fazendo o seu desenvolvimento de em
+série Taylor, em torno de x=L, temos que
+Pn(x) =Pn(L) +P0
+n(L)(xL) +P00
+n(L)
+2!(xL)2++P(n)
+n(L)
+n!(xL)n:
+Assim é fácil concluir que, nas hipótese do teorema, Pn(x)>0para todo o x>L, o que
+prova o pretendido.
+
+Equações não lineares 73
+Um limite inferior lpara as raízes negativas de Pn(x) = 0poderia ser obtido usando o
+resultado anterior, atendendo a que as raízes negativas de uma equação algébrica Pn(x) =
+0, ondePné um polinómio de grau n, são as raízes positivas, com sinal contrário, de
+Qn(x)(1)nPn(x) = 0.
+Exercício 4.8 Prove a aﬁrmação anterior.
+Exercício 4.9 Determine limites superiores e inferiores para as raízes reais de x32x5 = 0:
+Resolução: SejaP3(x) =x32x5. Atendendo a que
+0 1 2 3
+P3(x) +
+P0
+3(x) +
+P00
+3(x) +
+P000
+3(x) +,
+L= 3é limite superior das raízes de P3(x) = 0. Para determinar um limite inferior das
+raízes, consideremos Q3(x)(1)3P3(x) =x32x+ 5:Ora, atendendo a que
+0 1
+Q3(x)+
+Q0
+3(x) +
+Q00
+3(x) +
+Q000
+3(x) +,
+temos quel=1é limite inferior das raízes de P3(x) = 0.
+Outro resultado muito útil para determinar o número de zeros reais positivos de um
+polinómio foi enunciado por René Descartes (1596-1650) em 1637: “O número de zeros reais
+positivos de um polinómio é limitado pelo número de varições de sinal da sucessão dos seus
+coeﬁcientes”. Mais tarde, Gauss demonstrou que “o número de zeros reais positivos de um
+poliómio (contando com a multiplicidade) tem a mesma paridade do número de variações
+de sinal da sucessão dos seus coeﬁcientes”. Temos então o seguinte teorema.
+Teorema 4.16 (Regra de Sinal de Descartes) O número de raízes reais positivas da
+equaçãoPn(x) = 0, sendoPndado por (4.14), é igual ao número de variações de sinal da
+sucessãofan;an1;:::;a 0gou um número inferior mas da mesma paridade.
+Demonstração: Vamos efectuar a demonstração por indução.
+Comecemos por considerar n= 1, isto é,Pnum polinómio de grau um. Neste caso o
+resultado é óbvio pois a raiz de Pn(x) = 0, comPn(x) =a1x+a0, só é positiva quando e
+só quandoa1a0>0.
+Suponhamos agora que o resultado é válido para todos os polinómios de grau n1e
+consideremos Pnum polinómio de grau ndado por (4.14), com an>0(sem perda de gene-
+ralidade). Se a0=Pn(0)>0, o número de variações de sinal da sucessão dos coeﬁcientes
+dePntem que ser par pois o primeiro e o último termo da sucessão são positivos. Por outro
+lado, o número de raízes positivas de pn(x) = 0também é par pois lim
+x!+1Pn(x) = +1:
+A mesma argumentação poderia ser usada no caso de a0=Pn(0)<0; neste caso,
+tanto o número de varições de sinal da sucessão dos coeﬁcientes de Pncomo o número de
+
+Equações não lineares 74
+zeros positivos de Pnsão ímpares. Concluímos então que o número de raízes positivas de
+Pn(x) = 0tem a mesma paridade do número de variações de sinal.
+Falta apenas provar que o número de variações de sinal limita o número de raízes
+positivas. Suponhamos que Pn(x) = 0temmraízes reais positivas e que o número de
+variações de sinal da sucessão dos seus coeﬁcientes é V <m. Assim sendo, temos que ter
+mV+ 2(para manter a paridade). Mas, pelo Teorema de Rolle, P0
+ntem que ter pelo
+menosV+ 1raízes reais positivas, o que contraria a hipótese de indução uma vez que o
+número de variações de sinal dos coeﬁcientes de P0
+n(polinómio de grau n1) é inferior
+aV. LogomV.
+NotemosquearegradesinaldeDescartesnãotememcontaamultiplicidadedasraízes.
+No entanto, podemos aﬁrmar o resultado demonstrado por Gauss, isto é que o número de
+raízes reais positivas de Pn(x) = 0(contando com a multiplicidade) tem a mesma paridade
+do número de variações de sinal da sucessão dos seus coeﬁcientes.
+Exercício 4.10 Usando a regra de sinal de Descartes, determine o número de raízes reais de
+P3(x) = 0, ondeP3(x) =x32x5:
+Resolução: Comecemos pelas raízes positivas. Como a sucessão de sinais dada pelos coe-
+ﬁcientes do polinómio é f+;;g, temos que o número de variações de sinal é 1e,
+como tal, existe uma raiz positiva de P3(x) = 0. Para as raízes negativas consideremos
+o polinómio auxiliar Q3(x) = (1)3P3(x) =x32x+ 5:Como a sucessão de sinais
+dada pelos coeﬁcientes do polinómio Q3éf+;;+g, temos que o número de variações
+de sinal é 2e, como tal, existem 2ou0raízes negativas de P3(x) = 0.
+4.6.1 Algoritmo de Hörner
+O cálculo dos zeros de um polinómio é feito, na maioria das vezes, recorrendo ao método
+de Newton. Quando se aplica este método há necessidade de calcular, em cada iteração, o
+valor do polinómio e da sua derivada num ponto. Esse cálculo deve ser efectuado de forma
+eﬁciente uma vez que grande parte do esforço computacional a ele se deve.
+Suponhamos que se pretende calcular Pn(z), comPnum polinómio dado por (4.14).
+Considerando o polinómio escrito na forma canónica (tal como em (4.14)), efectuamos n
+adições/subtracções e 2n1multiplicações/divisões. Considerando a forma encaixada
+Pn(x) =a0+x(a1+x(a2++x(an1+anx)));
+ao calcular Pn(z)só efectuamos nadições/subtracções e nmultiplicações/divisões. Esta
+forma está na base do algoritmo de William George Hörner (1786-1837).
+Algoritmo 4.3 Algoritmo de Hörner
+Dados:ai,i= 0;1;:::;n, ez
+b:=an
+Parakden1até0fazer
+b:=ak+bz
+Resultado: Pn(z) =b
+
+Equações não lineares 75
+SePnfor um polinómio dado por (4:14)ezum número real temos que
+Pn(x) = (xz)Qn1(x;z) +b0; (4.15)
+ondeQn1é um polinómio de grau n1, que depende de z, dado por
+Qn1(x;z) =bnxn1+bn1xn2++b2x+b1; (4.16)
+designado por polinómio associado a Pn. Note-se que o valor de Pn(z) =b0, ou seja, temos
+o seguinte resultado demonstrado por Paolo Ruﬃni (1765-1822).
+Teorema 4.17 (Ruﬃni) O valor numérico de Pn(z)de um polinómio Pnemx=zé
+igual ao resto da divisão de Pn(x)por(xz).
+A chamada regra de Ruﬃni , que consiste em substituir (4.14) e (4.16) em (4.15) e
+igualando os coeﬁcientes de potências de xdo mesmo grau, permite obter os valores bi,
+i= 1;:::;n, e o valor de b0de acordo com o algoritmo de Hörner. O mesmo algoritmo
+permite obter facilmente os valores da derivada de Pndado por (4.14) num dado ponto z.
+Assim, uma vez que, por (4.15),
+P0
+n(x) = (xz)Q0
+n1(x;z) +Qn1(x;z);
+temos queP0
+n(z) =Qn1(z;z).
+Algoritmo 4.4 Valores da derivada de um polinómio
+Dados:ai,i= 0;1;:::;n, ez
+q:= 0
+b:=an
+Parakden1até0fazer
+q:=b+qz
+b:=ak+bz
+Resultado: Pn(z) =beP0
+n(z) =q
+4.6.2 O método de Newton-Hörner
+Vamos começar por considerar o caso em que Pn, dado por (4.14), tem apenas zeros reais
+simples. Neste caso, podemos aplicar qualquer um dos métodos iterativos estudados. No
+entanto, sugerimos o seguinte procedimento.
+1. Determina-se a localização dos zeros n<n1<< 2< 1.
+2. Partindo de um valor x(0)> 1, usando o método de Newton, calcula-se uma apro-
+ximação numérica para o maior zero 1, com a precisão desejada.
+3. Pelo algoritmo de Hörner/Ruﬃni divide-se Pn(x)porx1e regressa-se ao passo 2
+para determinar 2. Este processo é conhecido por deﬂacção . Repetindo sucessiva-
+mente este processo, determinamos numericamente todos os zeros do polinómio.
+4. Para reﬁnar as aproximações obtidas, aplica-se o método de Newton a Pnsendo as
+aproximaç˜ es iniciais os valores obtidos no passo 3.
+
+Equações não lineares 76
+Ométodo de Newton-Hörner pode ser descrito da seguinte forma. Dada uma estimativa
+inicialr(0)
+jpara a raiz j, calcular, para cada k0até à convergência
+r(k+1)
+j =r(k)
+jPn(r(k)
+j)
+Qn1(r(k)
+j;r(k)
+j):
+Exercício 4.11 Construa o algoritmo implícito no procedimento descrito anteriormente.
+No caso de alguma das raízes ter multiplicidade m> 1podemos escrever
+Pn(x) = (x)mPnm(x);
+onde o polinómio pnm, de graunm, é tal quePnm()6= 0. A aproximação desta raiz
+é feita com recurso ao método de Newton modiﬁcado
+r(k+1)=x(k)mPn(r(k))
+P0n(r(k)); k = 0;1;2;:::: (4.17)
+Exercício 4.12 Provequese forumzerodemultiplicidade mdeumpolinómio P, ométodo
+de Newton modiﬁcado (4.17) converge localmente (quais as condições de convergência?) e de
+forma quadrática para .
+Para calcular as raízes complexas de uma equação algébrica o método da bissecção não
+pode ser usado. Quanto ao método de Newton, ele só convergirá para uma raiz complexa
+se a aproximação inicial for um número complexo (e se forem satisfeitas as condições de
+convergência), sendo todo o processo realizado com aritmética complexa. Note-se que,
+após determinada uma raiz complexa, ﬁcamos imediatamente a conhecer outra raiz (a sua
+conjugada).
+4.7 Sistemas de equações não lineares
+Nesta secção vamos descrever, de forma sucinta, a aplicação do método de Newton à
+resolução numérica de sistemas de equações não lineares.
+Consideremos o ponto x= (x1;:::;xn)2Rne a aplicação F, suﬁcientemente regular,
+deﬁnida por
+F: Rn!Rn
+(x1;:::;xn)! (f1(x1;:::;xn);:::;fn(x1;:::;xn)):
+É nosso objectivo determinar a solução = (1;:::;n)do sistema de nequações em n
+incógnitas8
+><
+>:f1(x1;:::;xn) = 0
+......
+fn(x1;:::;xn) = 0;
+que, noutra notação, pode ser escrito na forma
+F(x) = 0; (4.18)
+com
+x=2
+6664x1
+x2
+...
+xn3
+7775; F (x) =2
+6664f1(x)
+f2(x)
+...
+fn(x)3
+7775; 0 =2
+66640
+0
+...
+03
+7775: (4.19)
+
+Equações não lineares 77
+A resolução de sistemas de equações não lineares por processos analíticos pode ser
+bastante difícil ou mesmo impossível. Nesse caso temos necessidade de recorrer a méto-
+dos numéricos no sentido de obter uma solução aproximada. Iremos considerar métodos
+iterativos da forma
+x(k+1)= (x(k)); k = 0;1;:::; (4.20)
+com
+(x) =2
+66641(x)
+2(x)
+...
+n(x)3
+7775; (4.21)
+que determinem uma sucessão de aproximações para uma raiz da equação vectorial
+(4.18), a partir de uma dada aproximação inicial
+x(0)=2
+6664x1
+x2
+...
+xn3
+7775(0)
+: (4.22)
+Uma questão essencial quando se lida com métodos iterativos tem a ver com a con-
+vergência do processo: dada uma sucessão de aproximações fx(k)ggerada pelo processo
+iterativo, como saber se ela é convergente para a solução do sistema?
+Deﬁnição 4.5 (Convergência) Asucessão devectores fx(k)gdiz-seconvergente para2
+Rnse, para todo o  > 0, existe uma ordem k0tal que, para todo o k > k 0, se tem
+kx(k)k<:Nesse caso escreve-se lim
+k!+1x(k)=:
+De notar que a noção de convergência depende do conceito de norma. Uma vez que
+é possível considerar várias normas, uma questão legítima seria a de saber se é possível
+que uma sucessão de vectores convirja quando se considera uma determinada norma e
+divirja quando se considera outra. Para as normas mais usuais (dadas no Exercício 1.1) é
+possível demonstrar que se uma sucessão de vectores convergir segundo uma das normas ela
+também converge quando se considera outra qualquer. Por este facto diz-se que estamos
+em presença de normas equivalentes .
+Consideremos agora o problema da deﬁnição de critérios de paragem para processos
+iterativos aplicados ao cálculo das raízes de sistemas de equações não lineares F(x) = 0.
+Sejafx(k)ga sucessão de aproximações gerada pelo processo iterativo convergente para a
+soluçãodo sistema. Os critérios de paragem mais frequentes são:
+1. Critério do erro absoluto: kx(k)x(k1)k";
+2. Critério do erro relativo: kx(k)x(k1)k"kx(k)k;
+3. Critério do valor da função: kF(x(k))k"1;com"1";
+4. Critério do número máximo de iterações: k=kmax:
+Antes de passarmos à deﬁnição dos processos iterativos vamos considerar o problema da
+determinaçãodaaproximaçãoinicialque, parasistemasdeequações, podeserumproblema
+de difícil resolução. Na prática existem processos que permitem, a priori, determinar
+
+Equações não lineares 78
+boas estimativas iniciais para a solução pretendida. Esses processos dependem muito do
+problema em questão e como tal não são passíveis de um tratamento generalizado.
+Existe, no entanto, uma forma de poder obter uma boa aproximação inicial quando
+os sistemas são de pequena dimensão. Essa forma é a localização gráﬁca. Este processo
+consiste na mera generalização do efectuado na secção anterior e, como tal, não iremos
+fazer a sua abordagem na forma geral mas sim recorrendo a um exemplo.
+Exemplo 4.8 Considere-se o sistema de equações não lineares
+x2+y2= 1
+xy+x= 1:
+Traçando o gráﬁco de f1(x;y) = 0ef2(x;y) = 0, com
+f1(x;y) =x2+y21
+f2(x;y) =xy+x1;
+veriﬁcamos que uma solução do sistema é (x;y) = (1;0)e que a outra está próxima de
+(x;y)(0)= (1;1).
+-1.5 -1-0.5 0.5 11.5
+-4-3-2-112
+x y+2 2= 1x y+ x =1
+Figura 4.7: Localização gráﬁca.
+Sejadadoosistemadeequaçõesnãolineares F(x) = 0deﬁnidopor(4.19). Pretendemos
+determinar uma aproximação para a raiz = (1;:::;n)do referido sistema sendo dada
+uma aproximação inicial (4.22). Suponhamos que F2C2(V), comVuma vizinhança de
+. Pela fórmula de Taylor temos que, se x(0)2V,
+F() =F(x(0)) +JF(x(0))(x(0)) +;
+onde
+JF(x) =2
+66664@f1
+@x1(x)@f1
+@xn(x)
+.........
+@fn
+@x1(x)@fn
+@xn(x)3
+77775
+é amatriz de Jacobi deFno pontox. ComoF() = 0e supondo det (JF(x))6= 0, para
+todo ox2V;podemos deﬁnir o processo iterativo
+x(k+1)=x(k)J1
+F(x(k))F(x(k)); k = 0;1:::;
+
+Equações não lineares 79
+que pretendemos que seja convergente para . Este processo iterativo é designado por
+método de Newton oumétodo de Newton-Raphson .
+AntesdeapresentaroalgoritmoquetraduzométododeNewton, notemosquepodemos
+evitar, em cada iteração, o cálculo da matriz inversa J1
+F(x(k))se ﬁzermos
+JF(x(k))x(k)=F(x(k))
+x(k)=x(k+1)x(k): (4.23)
+Algoritmo 4.5 Método de Newton
+Dados:x(0),"ek=kmax
+x:=x(0)
+k:= 0
+erro :="+ 1
+Enquantoerro>" ek<kmaxfazer
+Sedet (JF(x)) = 0então parar
+k:=k+ 1
+ResolverJF(x)=F(x)
+x:=x+
+erro :=kk
+Resultado: x
+Notemos que o carácter local da convergência deste método nos obriga a ter o cuidado
+de escolher uma aproximação inicial que esteja suﬁcientemente próxima da solução que
+pertendemos determinar.
+Exercício 4.13 Determine uma aproximação para a solução de
+F(x) = 0,x2+y21 = 0
+xy+x1 = 0;
+diferente de (1;0), efectuando duas iterações de método de Newton. Indique uma estimativa
+para o erro cometido.
+Resolução: Seja= (1;2)a solução pretendida. Como vimos, a aproximação inicial pode
+ser dada por (x;y)(0)= (1;1).
+Para não sobrecarregar a notação consideremos (x;y)(k)= (xk;yk),k= 0;1;:::. Como
+JF(xk;yk) =2xk2yk
+yk+ 1xk
+;
+temos que
+det (JF(xk;yk))6= 0,x2
+ky2
+kyk6= 0:
+Apliquemos o método de Newton na forma (4.23).
+
+Equações não lineares 80
+Primeira iteração.
+Comox2
+0y2
+0y0=16= 0podemos efectuar a primeira iteração do método.
+Assim
+2x02y0
+y0+ 1x0x0
+y0
+=x2
+0+y2
+01
+x0y0+x01
+,2 2
+2 1x0
+y0
+=1
+1
+:
+Daqui sai quex0
+y0
+=0;5
+0
+)x1
+y1
+=0;5
+1
+:
+Segunda iteração.
+Comox2
+1y2
+1y1=1;756= 0podemos efectuar a segunda iteração do método.
+Assim obtemos, de modo análogo,
+1 2
+2 0;5x1
+y1
+=0;25
+0
+:
+Daqui sai que
+x1
+y1
+=1=28
+1=7
+)x2
+y2
+=15=28
+6=7
+:
+Temos assim que
+15
+28;6
+7
+= (0;5357;0;8571);
+sendo uma estimativa para o erro cometido dada por
+kx(2)k1kx(2)x(1)k1= max1
+28;1
+7
+=1
+7= 0;1429:
+4.8 Problemas
+4.8.1 Exercícios para resolver nas aulas
+Exercício 4.14 Sejaf:R!Rdeﬁnida por f(x) =jxjex,x2R.
+1. Mostre que a função ftem um único zero no intervalo [1;0].
+2. Usando o método da bissecção, determine um valor aproximado para o zero isolado na
+alínea anterior, com um erro absoluto que não exceda 0.15.
+Exercício 4.15 Um avião em voo descreve uma trajetória em que a altitude, para t2[0;1]
+(minutos), pode ser traduzida pela expressão
+h(t) = (t1)ett+ 3:
+1. Seja2]0;1[o instante para o qual o avião está mais perto do solo. Mostre que o
+método da bissecção, quando aplicado a uma função conveniente, no intervalo [0;1],
+gera uma sucessão que converge para .
+2. Efetue 4 iterações do método da bissecção para determinar uma aproximação para e
+indique um majorante para o erro absoluto cometido.
+
+Equações não lineares 81
+Exercício 4.16 (Matlab) Use o método da bissecção para aproximar a solução, com erro
+inferior a 102, da equação x+ 0;5 + 2 cos(x) = 0no intervalo [0;5;1].
+Exercício 4.17 (Matlab) Determine o número mínimo de iterações necessárias para apro-
+ximar, pelo método da bissecção e com uma precisão de 101, a solução de x3x1 = 0no
+intervalo [1;2]. Determine tal aproximação com a precisão indicada.
+Exercício 4.18 (Matlab) A componente forçada de uma tensão transitória para um dado
+circuito pode ser traduzida pela expressão
+E(t) =e0;06tsin(2t):
+Usando o método da bissecção duas vezes, determine a tensão máxima deste circuito.
+Exercício 4.19 (Matlab) Dada a função
+f(x) = coshx+ cosx
+;
+para
+= 1;2;3, averigúe, em cada caso, se ftem zeros e, caso existam, aproxime o seu valor
+pelo método da bissecção, com um erro inferior a 1010.
+Exercício 4.20 (Matlab) A equação de um gás é deﬁnida por
+
+p+a(N=V )2
+(VNb) =kNT;
+em quepé a pressão, Vo volume ocupado pelo gás à temperatura T,aebsão dois coeﬁcientes
+que dependem do gás considerado, Né o número de moléculas contidas no volume Veké
+a constante de Boltzmann ( k= 1;38065031023). Aproxime o volume Vocupado por
+1000 moléculas de dióxido de carbono à temperatura T= 300K e pressão p= 3;5107Pa,
+pelo método da bissecção, com um erro inferior a 1012. Para o dióxido de carbono, tem-se
+a= 0;401Pa,b= 42;7106m3.
+Exercício 4.21 Considere a equação f(x) =e2xex2.
+1. Determine um intervalo de amplitude 1que contenha o zero da função f.
+2. Mostre que pode aproximar o zero localizado na alínea pelo método de Newton.
+3. Obtenha uma aproximação fazendo duas iterações do método de Newton e indique uma
+estimativa para o erro absoluto cometido na aproximação.
+Exercício 4.22 Considere a equação e1=xx= 0.
+1. Mostre que a equação anterior tem uma única raiz no intervalo [1,2].
+2. Considere a aproximação inicial x(0)= 1. Veriﬁque o método de Newton converge.
+3. Aproxime a raiz fazendo duas iterações do método de Newton usando a aproximação
+inicial anterior.
+Exercício 4.23 Considere a equação
+ex3x2= 0;
+que tem três raízes reais 1<  2<  3tais que12[0;6;0;4],22[0;8;1;0],
+32[3;6;3;8]:Mostre que o método de Newton, escolhendo convenientemente a aproximação
+inicialx(0)2[3;6;3;8], converge para a raiz 3e utilize este método para obter um valor
+aproximado x(k)de3tal quejx(k)x(k1)j<103.
+
+Equações não lineares 82
+Exercício 4.24 Considere a função fdeﬁnida por f(x) =exlnx,x > 0:Utilizando o
+método de Newton, aproxime a abcissa do seu ponto de inﬂexão, em segunda aproximação,
+partindo de um intervalo com amplitude inferior ou igual a 1. Indique uma estimativa para o
+erro cometido.
+Exercício 4.25 Use o método de Newton para aproximar, com erro inferior a 104, o valor
+dexcorrespondente ao ponto do gráﬁco de y=x2mais próximo de (1;0).
+Exercício 4.26 Aplicar o método de Newton ao cálculo da raiz quadrada de um número
+positivoa. Proceder de maneira análoga para calcular a raiz cúbica de a.
+Exercício 4.27 (Matlab) Um projéctil é lançado com uma velocidade v0e um ângulo 
+num túnel de altura he atinge o seu máximo quando for tal que
+sin() =q
+2gh=v2
+0;
+ondeg= 9;8m/s2é a aceleração da gravidade. Calcular utilizando o método de Newton,
+supondo que v0= 10m/s eh= 1m.
+Exercício 4.28 (Matlab) Considere o sistema mecânico representado por quatro barras rí-
+gidasai,i=1,2,3,4. Para qualquer valor admissível do ângulo formado pelas barras a1ea4,
+determinamos o valor do ângulo correspondente formado pelas barras a1ea2. Partindo da
+identidade vectorial a1a2a3a4= 0e observando que a barra a1está sempre alinhada
+com o eixo dos x, podemos obter a seguinte relação entre e
+a1
+a2cosa1
+a4coscos() =a2
+1+a2
+2a2
+3+a2
+4
+2a2a4;
+ondeaié o comprimento da i-ésima barra. Esta igualdade chama-se equação de Freudenstein ,
+e pode escrever-se do seguinte modo: f() = 0, em que
+f(x) =a1
+a2cosa1
+a4cosxcos(x) +a2
+1+a2
+2a2
+3+a2
+4
+2a2a4:
+Só para valores especiais de é que existe uma expressão explícita da solução. Reﬁra-se
+ainda que não existe solução para todos os valores de , e que a solução existindo poderá não
+ser única. A ﬁm de resolver a equação para qualquer valor de a variar entre 0 e , deveremos
+recorrer a métodos numéricos. Aproxime o valor de recorrendo ao método de Newton, com
+2[0;2
+3]e com uma tolerância de 105. Suponha que os comprimentos das barras são,
+respectivamente, a1= 10cm,a2= 13cm,a3= 8cm ea4= 10cm. Para cada valor de 
+considerar dois dados iniciais x(0)=0;1ex(0)=2
+3.
+Exercício 4.29 (Matlab) Considere a função f(x) =ex2x2.
+1. Localize as raízes da equação f(x) = 0.
+2. Determine uma estimativa para a maior raiz, usando o método de Newton, com 5, 10 e
+15 iterações.
+3. Repita a alínea anterior, recorrendo ao método da bissecção. Compare os resultados
+obtidos.
+
+Equações não lineares 83
+Exercício 4.30 Mostre que
+x=1
+2cosx
+tem uma única solução . Obtenha, em seguida, um intervalo [a;b]que contenha e tal que,
+para todo o x(0)nesse intervalo, a sucessão
+x(n+1)=1
+2cosx(n); n = 0;1;2;:::;
+convirja para . Justiﬁque.
+Exercício 4.31 Considere a equação 3x2ex= 0.
+1. Mostrequeaequaçãoanteriortemapenasumaraizrealnegativaedetermineumintervalo
+com amplitude um, I, que a contenha.
+2. Considere o método iterativo deﬁnido por x(k+1)=(x(k)), com
+(x) =r
+ex
+3:
+Mostre que, qualquer que seja a aproximação inicial x(0)2I, o método converge para a
+raiz anterior.
+3. Determineonúmerodeiteraçõesquedeveráefetuarcomométododadonaalíneaanterior
+por forma a obter uma aproximação para a raiz da equação com uma estimativa para o
+erro absoluto que não exceda 0;5103.
+Exercício 4.32 O número de ouro , pode ser obtido como solução positiva da equação
+x= 1 +1
+x:
+1. Mostre que a equação anterior tem uma única raiz positiva em [1;5;2]e conclua que
+2[1;5;2].
+2. Pretende-se determinar um valor aproximado para usando o método do ponto ﬁxo
+xn+1= 1 +1
+xn:Mostre que o método anterior converge para , qualquer que seja
+x(0)2[1;5;2].
+3. Determine quantas iterações são necessárias efetuar para obter uma aproximação para 
+com duas casas decimais corretas.
+Exercício 4.33 Determine os extremos locais da função f(x) =x3
+3+ 10 sinx;com um erro
+inferior a 104, usando o método iterativo do ponto ﬁxo.
+Exercício 4.34 Determine uma aproximação para a maior raiz de ex4x2= 0;usando o
+método do ponto ﬁxo. Indique um majorante do erro da aproximação obtida.
+Exercício 4.35 SejaNa função iteradora do método de Newton considerado como uma
+iteração do ponto ﬁxo. Mostre que
+0
+N() = 11
+m;
+ondeé um zero de fde multiplicidade m. Deduzir que o método de Newton converge
+quadraticamente se for uma raiz simples de f(x) = 0e linearmente no caso contrário.
+
+Equações não lineares 84
+Exercício 4.36 (Matlab) Considere a equação exx2 = 0.
+1. Veriﬁque que a equação dada tem uma única solução no intervalo [1;2].
+2. Para aproximar o valor da solução pretende-se utilizar o método do ponto ﬁxo, com uma
+das seguintes funções iteradoras:
+1(x) =ex2;  2(x) = ln(x+ 2) e3(x) =x0;1(exx2):
+Indique qual ou quais das funções garante a convergência do método para a referida
+solução. Escolha uma aproximação inicial aproxime a solução da equação com um número
+de iterações suﬁcientes por forma a que o valor absoluto da diferença entre duas iterações
+consecutivas não exceda 104.
+3. RecorraaométododeNewtonparaaproximaramesmasoluçãoecomparecomoresultado
+obtido na alínea anterior.
+Exercício 4.37 (Matlab) Considere a equação lnx1
+x= 0.
+1. Veriﬁque que a equação dada tem uma única solução no intervalo [1;2].
+2. Para aproximar o valor da solução pretende-se utilizar o método do ponto ﬁxo, com uma
+das seguintes funções iteradoras:
+1(x) =e1
+xe2(x) = 1=ln(x):
+Indique qual das funções garante a convergência do método para a referida solução,
+qualquer que seja o ponto inicial. Escolha uma aproximação inicial e aproxime a solução
+da equação com um número de iterações suﬁcientes por forma a que o valor absoluto da
+diferença entre duas iterações consecutivas não exceda 104
+3. Recorra ao método da bissecção para aproximar a mesma solução e compare com o
+resultado obtido na alínea anterior.
+Exercício 4.38 Considere a equação x64x5+ 6x42x3kx2+mxn= 0:
+1. Determine m,nekde modo a que esta equação admita 1como raiz tripla.
+2. Localize as raízes da equação e determine a menor delas pelo método que considerar mais
+conveniente.
+Exercício 4.39 Considere a equação polinomial x3+kx2+ 2x1 = 0;comk0.
+1. Determine o conjunto de todos os valores de kpara os quais a equação tem uma única
+raiz no intervalo [0;1].
+2. Tome para ko menor valor inteiro positivo do conjunto obtido na alínea anterior e faça
+a separação completa das raízes da equação dada.
+3. Aproxime a menor raiz real daquela equação pelo método de Newton.
+
+Equações não lineares 85
+Exercício 4.40 (Matlab) Considere o polinómio P(x) =x336x2+ 188x240:
+1. Veriﬁque que um dos zeros de P(x)se localiza no intervalo [29;5;31].
+2. Para aproximar o zero referido na alínea anterior, podem ser usadas diferentes estratégias
+como, por exemplo:
+(a) método da bissecção no referido intervalo, com tol = 104;
+(b) método de Newton, com a aproximação inicial x(0)= 29;5e tol= 104.
+Compare os resultados obtidos com os dois métodos.
+3. Para aproximar o mesmo zero de P(x)use o método do ponto ﬁxo com a função iteradora
+g(x) = (240 + 36 x2x3)=188:
+Considere as seguintes aproximações iniciais x(0)= 1,x(0)= 3ex(0)= 31e compare os
+resultados obtidos, fazendo tol = 104.
+Exercício 4.41 (Matlab) Determine todas as raízes reais de x3+x2+ 2x1 = 0e
+x3x2+ 3x+ 1 = 0usando o algoritmo de Newton-Hörner.
+Exercício 4.42 Considere a seguinte função F:R2!R2:
+F(x) =x2
+1+x2
+22
+exp(x11) +x3
+22
+:
+1. Identiﬁque uma das raízes, , deF(x) = 0.
+2. Efectue uma iteração do Método de Newton para aproximar a partir do ponto inicial
+x(0)= (2;1=2).
+Exercício 4.43 Determine uma aproximação para a solução de
+x2+y2= 4
+x2y2= 1
+localizada no segundo quadrante, efetuando duas iterações do método de Newton.
+Exercício 4.44 Aplique duas iterações do método de Newton ao sistema de equações não
+lineares (
+ex11 = 0
+ex21 = 0;
+começando com x(0)= (10;10). O que é que aconteceria se continuasse a aplicar o método
+de Newton?
+Exercício 4.45 (Matlab) O seguinte sistema de equações não lineares possui duas soluções,
+uma das quais é (x;y) = (3;0),
+x22x+y23 = 0
+x(6x) +y9 = 0:
+Localize e determine a outra solução efectuando cinco iterações do método de Newton.
+
+Equações não lineares 86
+Exercício 4.46 (Matlab) Considere o sistema de equações não lineares
+x2
+1+x2
+2 = 1
+sin(x1
+2) +x3
+2= 0:
+1. Localize graﬁcamente as duas soluções do sistema.
+2. Efectue duas iterações do método de Newton, partindo da aproximação inicial x(0)=
+(1;1).
+3. Repita a alínea anterior com x(0)= (1;1). O que pode concluir?
+Exercício 4.47 (Matlab) Recorra ao método de Newton para determinar uma solução do
+sistema x= 0;7 sinx+ 0;2 cosy
+y= 0;7 cosx0;2 siny
+próxima de (0;5;0;5).
+Exercício 4.48 (Matlab) Pretende construir-se uma ponte entre duas margens de um rio
+que, porrazõeseconómicas, sejaomaiscurtapossível. Sabendoque, naregiãoondesepretende
+construir a ponte, as margens do rio têm a forma das curvas y=exey= lnx, determine um
+valor aproximado do comprimento da ponte.
+Exercício 4.49 Efectue duas iterações do método de Newton para calcular o mínimo local
+da função quadrática
+f(x1;x2) =x2
+14x1x2+x2
+2:
+4.8.2 Exercícios de aplicação à engenharia
+Exercício 4.50 Para determinar a queda de pressão em escoamentos de líquidos em tubos
+cilíndricos, torna-se necessário obter o chamado factor de atrito, f, que é dado pela relação
+empírica
+1pf=1
+kln
+Rep
+f
++
+145;6
+k
+;
+em queké a rugosidade e Reo número (adimensional) de Reynolds do escoamento. Para um
+valor dek= 0;28e um número de Reynolds Re= 3750, determine o valor de f.
+Exercício 4.51 Baseado no trabalho de Frank-Kamenetski (1955), as temperaturas no inte-
+rior de um material com fontes de calor embebidas podem ser determinadas pela equação
+e0;5tcosh (e0;5t) =p
+0;5Ler:
+DadoLer= 0;088, determine t.
+
+Equações não lineares 87
+Exercício 4.52 A concentração, C, de uma bactéria poluente num lago decresce de acordo
+com a expressão
+C= 80e2t+ 20e0;1t;
+ondetrepresenta o tempo. Determine o tempo necessário para que a concentração de bactérias
+ﬁque reduzida a 10.
+Exercício 4.53 Um medicamento administrado a um doente produz uma concentração na
+corrente sanguínea dada por
+c(t) =Atet=3mg/ml;
+thoras depois de injectadas Aunidades. A concentração máxima de segurança é de 1mg/ml.
+1. Que quantidade deve ser injectada para que seja atingida a concentração máxima de
+segurança e em que altura ocorre esse máximo?
+2. Uma concentração adicional do mesmo medicamento deve ser administrada no doente
+depois da concentração ter descido para 0;25mg/ml. Determine quando é que a segunda
+injecção deve ser administrada (em minutos).
+3. Assumindo que a concentração após injecções consecutivas é aditiva e que 0;75%da
+quantidade original injectada é administrada na segunda injecção, em que altura deve ser
+dada a terceira injecção?
+Exercício 4.54 Em engenharia ambiental, a equação que se segue pode ser usada para cal-
+cular o nível de oxigénio, c, existente num rio a jusante de um local de descarga de esgoto,
+c= 1015(e0;1xe0;5x);
+em quexrepresenta a distância a partir do local de descarga. Usando um método à sua escolha,
+determine o local (a partir da descarga) em que o nível de oxigénio atinge o valor 4.
+Sugestão: Sabe-se que o referido local se encontra, no máximo, a 5 km a jusante do local
+de descarga.
+Exercício 4.55 Em engenharia oceânica, a equação para a altura de uma determinada onda
+num cais é dada por
+h=h0
+sin2x
+
+cos2tv
+
++ex
+:
+Determine uma aproximação para o valor de xsabendo que h= 0;5h0,= 20,t= 10e
+v= 50.
+Exercício 4.56 Num escoamento com superfície livre pode deﬁnir-se uma camada junto ao
+fundo (designada por camada limite) onde as características do escoamento são signiﬁcativa-
+mente diferentes das que se veriﬁcam acima dessa camada. Pode provar-se que a espessura da
+camada limite é = 5z, sendoz, para um escoamento com determinadas características, dado
+porjzjlogj75zj= 2:
+1. Localize graﬁcamente as raízes reais desta equação.
+2. Determine a segunda aproximação dada pelo método de Newton para a espessura da
+camada limite, .
+3. Indique um limite superior para o erro cometido na aproximação obtida na alínea anterior.
+
+Equações não lineares 88
+Exercício 4.57 De Santis (1976) deduziu uma relação para o factor de compressibilidade dos
+gases reais da forma
+z=1 +y+y2y3
+(1y)3;
+ondey=b=4, sendoba correcção de van der Waals e o volume molar. Se z= 0;892qual
+o valor dey?
+Exercício 4.58 Pretende construir-se um depósito semi-esférico, de raio r, para armazenar
+um líquido até uma altura h. Sabendo que o volume do referido líquido é dado pela expressão
+V=
+2r33r2h+h3
+3;
+qual o raio com que se deve construir o depósito se se pretender guardar no máximo 250 litros
+de líquido a uma altura de 2 metros?
+Exercício 4.59 Um corpo de massa 1kg, que se move apenas ao longo de uma linha recta
+e que inicialmente se encontra em repouso no ponto de coordenadas x= 2, ﬁca sujeito a uma
+força cuja intensidade em cada instante té dada por
+F(t) =1 + 2t3t2:
+Localize e separe os instantes de tempo em que o corpo passa pela origem do referencial.
+
+Capítulo 5
+Interpolação
+Sejafumafunçãorealdeﬁnidanumconjuntodepontos x0;x1;:::;xn. Pretende-secalcular
+o valor def(x), comx6=xi,i= 0;1;:::;n. Tal situação é muito frequente, por exemplo,
+no contexto das equações diferenciais. Quando se usam métodos numéricos para aproximar
+a solução de uma equação diferencial esta ﬁca apenas conhecida num conjunto de pontos.
+A interpolação permite assim encontrar uma função que passa por esse conjunto de pontos
+e que pode funcionar como uma aproximação à solução da equação.
+Em linhas gerais, o conceito de interpolação consiste em determinar uma função (x) =
+a0 0(x) ++an n(x), gerada por uma certa família de funções f kgn
+k=0, por forma a
+que
+f(xi) = (xi); i = 0;1;:::;n:
+A função nestas condições é designada por função interpoladora defnospontos de suporte
+(interpolação) x0;x1;:::;xn.
+Nada nos garante que o problema da interpolação tenha sempre solução. Por exemplo,
+fazendo 0(x) = 1e 1(x) =x2, não existe nenhuma função (x) =a0+a1x2que passe
+nos pontos (1;1)e(1;0).
+5.1 Interpolação polinomial de Lagrange
+Um caso particular de interpolação com grande importância devido ao grande número
+de aplicações é a interpolação polinomial. Além disso, as fórmulas desenvolvidas para a
+interpolação polinomial estão na base do desenvolvimento de muitos métodos numéricos
+para o cálculo de raízes de equações não lineares, cálculo de integrais e derivadas, bem
+como a resolução de equações diferenciais.
+No caso da interpolação polinomial, as funções geradoras são, por exemplo, k(x) =xk,
+k= 0;1;:::;n.
+Deﬁnição 5.1 Sejafuma função deﬁnida num intervalo [a;b]e conhecida nos pontos da
+partição
+a=x0<x 1<<xn1<xn=b: (5.1)
+Um polinómio Pque satisfaz
+f(xi) =P(xi); i = 0;1;:::;n; (5.2)
+é chamado polinómio interpolador (de Lagrange) defnos pontos da partição dada.
+89
+
+Interpolação 90
+Exercício 5.1 Dada a tabela
+xi 2;3 2;4 2;5 2;6
+logxi0;361728 0;380211 0;397940 0;414973,
+determine o valor aproximado de log 2;45, usando interpolação polinomial.
+Resolução: Vamos calcular o polinómio P3de grau menor ou igual a 3, interpolador de
+y= logxnos pontos 2;3,2;4,2;5e2;6. De acordo com a deﬁnição temos P3(2;3) =
+0;361728,P3(2;4) = 0;380211,P3(2;5) = 0;397940, eP3(2;6) = 0;414973. Isto é, se
+P3(x) =a0+a1x+a2x2+a3x3, temos que
+8
+>><
+>>:a0+ 2;3a1+ 5;29a2+ 12;167a3= 0;361728
+a0+ 2;4a1+ 5;76a2+ 13;824a3= 0;380211
+a0+ 2;5a1+ 6;25a2+ 15;625a3= 0;397940
+a0+ 2;6a1+ 6;76a2+ 17;576a3= 0;414973:
+Sendo o sistema possível e determinado tal polinómio existe e é único. Assim
+P3(x) =0;404885 + 0;528963x0;107300x2+ 0;009667x3
+é o polinómio pretendido. Temos então que log 2;45P3(2;45) = 0;389170. Compare-
+-se este valor com o valor exacto log 2;45 = 0;38916608:::. Note-se que o erro cometido
+na aproximação não excede 0;4105.
+A determinação do polinómio interpolador por este processo é pouco eﬁciente e pouco
+estável. Quanto à eﬁciência, note-se que a resolução do sistema linear requer (n+ 1)3=3 +
+(n+1)2(n+1)=3multiplicações/adições( O(n3)operações). Paraalémdepoucoeﬁciente,
+este processo também é pouco estável: na prática veriﬁca-se que este método não permite
+ir além de valores de nda ordem da dezena quando se trabalha em aritmética com 6 ou 7
+decimais.
+5.1.1 Existência e unicidade. Fórmula de Lagrange
+O método de determinar um polinómio interpolador usado no exercício anterior não é
+eﬁciente nem estável. Apresentaremos, neste capítulo, alguns métodos mais eﬁcientes para
+a sua determinação.
+O próximo teorema estabelece a existência e unicidade do polinómio de grau inferior
+ou igual aninterpolador de uma função em n+ 1pontos distintos. Além disso, indica-nos
+um processo que permite a sua determinação.
+Teorema 5.1 (Lagrange) Sejafuma função deﬁnida num intervalo [a;b]e conhecida
+nos pontos da partição (5.1). Existe um e um só polinómio Pnde grau menor ou igual a
+ninterpolador de fnos pontos dados.
+Demonstração: Consideremos o polinómio Pndeﬁnido por
+Pn(x) =nX
+i=0f(xi)`i(x); (5.3)
+em que
+`i(x) =nY
+j=0;j6=ixxj
+xixj; i = 1;:::;n: (5.4)
+
+Interpolação 91
+Notemos que cada `ié um polinómio de grau n. Além disso
+`i(xj) =1i=j
+0i6=j;
+isto é`i(xj) =i;jondei;jrepresenta o símbolo de Kronecker, em honra de Leopold
+Kronecker (1823-1891). Portanto a função Pné um polinómio de grau menor ou igual a
+nque veriﬁca as condições de interpolação (5.2), o que prova a existência de solução do
+problema em causa.
+Para provar a unicidade, suponhamos que PneQnsão dois polinómios de grau menor
+ou igual aninterpoladores de fnos pontos da partição dada. Então o polinómio
+Rn(x) =Pn(x)Qn(x)
+anula-se, pelo menos, nos pontos xi,i= 0;1;:::;n. ComoRné um polinómio de grau
+menor ou igual a n, ele só pode ter n+ 1zeros se for identicamente nulo. Assim sendo,
+Pn(x) =Qn(x), para todo o x, o que prova o pretendido.
+As expressões (5.3) e (5.4) deﬁnem a fórmula de Lagrange para calcular o polinómio
+interpolador de fnos pontos (5.1).
+O resultado anterior diz-nos que por n+ 1pontos passa um e um só polinómio de grau
+n. Assim temos que, se a funçao fa interpolar for um polinómio de grau ncoincide com
+o seu polinómio interpolador do mesmo grau, podendo assim ser escrita na forma
+f(x) =nX
+i=0f(xi)`i(x):
+Exercício 5.2 Dada a tabela
+xi 1 2 3 4
+f(xi)4 15 40 85,
+determine uma aproximação para f(1:5), usando interpolação cúbica.
+Resolução: Temos que
+`0(x) =(x2)(x3)(x4)
+(1)(2)(3)=1
+6(x2)(x3)(x4);
+`1(x) =(x1)(x3)(x4)
+(1)(1)(2)=1
+2(x1)(x3)(x4);
+`2(x) =(x1)(x2)(x4)
+(2)(1)(1)=1
+2(x1)(x2)(x4);
+`3(x) =(x1)(x2)(x3)
+(3)(2)(1)=1
+6(x1)(x2)(x3):
+Assim
+P3(x) =3X
+i=0f(xi)`i(x) == 1 +x+x2+x3:
+
+Interpolação 92
+Atendendo à fórmula de Lagrange podemos construir o seguinte algoritmo para calcular
+o valor de Pn(x), sendoPno polinómio interpolador de fnosn+ 1pontos distintos
+x0;x1;:::;xn.
+Algoritmo 5.1 Fórmula de Lagrange
+Dados:xi,i= 0;1;:::;nex
+P:= 0
+Paraide0aténfazer
+`:= 1
+Parajde0aténfazer
+Sej6=ientão`:=`(xxj)=(xixj)
+P:=P+f(xi)`
+Resultado: Pn(x) =P
+Exercício 5.3 Mostre que fórmula de Lagrange pode ser escrita na forma
+Pn(x) =nX
+i=0f(xi)w(x)
+(xxi)w0(xi); (5.5)
+sendo
+w(x) =nY
+j=0(xxj): (5.6)
+Resolução: Atendendo a (5.6) temos que
+w0(x) =nX
+i=0nY
+j=0;j6=i(xxj))w0(xi) =nY
+j=0;j6=i(xixj);
+e como tal
+`i(x) =w(x)
+(xxi)w0(xi);
+o que prova o pretendido.
+Para determinar o esforço computacional necessário à obtenção do polinómio interpo-
+lador pela fórmula de Lagrange, note-se que, supondo as constantes
+Fi=f(xi)
+w0(xi); i = 0;:::;n;
+calculadas a priori, o cálculo do valor do polinómio interpolador num determinado ponto
+pode ser dado por
+Pn(x) =w(x)F0
+xx0++Fn
+xxn
+:
+Este cálculo requer n(n+ 1)multiplicações e n(n+ 2)adições, isto é,O(n2)operações, o
+que torna a fórmula de Lagrange muito mais eﬁciente que o processo matricial.
+A fórmula de Lagrange possui, no entanto, o inconveniente de obrigar a refazer os
+cálculos dos polinómios (5.4) sempre que ocorra uma alteração nos pontos de suporte. Na
+prática esta situação acontece com frequência, por exemplo, quando pretendemos passar
+depnapn+1, pela adição de mais um ponto xn+1ao suporte de interpolação, a ﬁm de
+estudar o comportamento do erro. (Este problema é resolvido pelo algoritmo de Newton
+das diferenças divididas, que não será objecto de estudo nesta disciplina.)
+
+Interpolação 93
+5.1.2 Erro de interpolação
+Pordeﬁnição, opolinómiointerpoladorcoincidecomafunçãonumdadoconjuntodepontos
+de suporte. Interessa-nos saber, no entanto, se para os outros pontos do domínio da função,
+o polinómio interpolador constitui uma boa ou uma má aproximação para a função. Nesse
+sentido temos o seguinte teorema, que apresentamos sem demonstração.
+Teorema 5.2 SejaPno polinómio de grau menor ou igual a ninterpolador da função f
+nos pontos da partição (5.1). Se f2Cn([a;b])e sef(n+1)for contínua em ]a;b[, então
+para cadax2[a;b]existe=(x)2]a;b[tal que
+e(x) =f(x)Pn(x) =f(n+1)()
+(n+ 1)!w(x); (5.7)
+ondew(x)é a função dada por (5.6).
+Na prática, o erro de interpolação num ponto xé usado na forma
+je(x)j=jf(x)Pn(x)jMn+1
+(n+ 1)!jw(x)j; (5.8)
+onde
+Mn+1= max
+x2[a;b]f(n+1)(x):
+Note-se a semelhança existente entre a fórmula do erro na interpolação e na fórmula
+de Taylor. A diferença está que, enquanto a primeira usa informação em vários pontos
+distintos, a segunda recorre apenas a um único ponto.
+Exercício 5.4 Determine uma estimativa para o erro que se cometeu na aproximação efec-
+tuada no Exercício 5.1.
+Resolução: Neste caso temos, atendendo a (5.8),
+je3(x)j=jlogxP3(x)jM4
+4!j(x2;3)(x2;4)(x2;5)(x2;6)j;
+onde
+M4= max
+x2[2;3;2;6]f(4)(x)= max
+x2[2;3;2;6]6
+x4ln 10= 0;093116:
+Fazendox= 2;45vem
+jlog 2;45P3(2:45)j0;093116
+24j(2;452;3)(2;452;4)(2;452;5)(2;452;6)j;
+ou sejaje3(2;45)j0;917105.
+
+Interpolação 94
+Exercício 5.5 Considere a função f(x) = cosxparaxem[0;]. Determine o número de
+pontos a considerar no intervalo dado para que o erro máximo da aproximação de f(x)por um
+polinómio interpolador nesses pontos seja inferior a 0;5.
+Resolução: Temos que, para x2[0;],
+jf(x)Pn(x)jmax
+x2[0;]f(n+1)(x)
+(n+ 1)!jw(x)j=jw(x)j
+(n+ 1)!n+1
+(n+ 1)!:
+Resta assim determinar qual o menor valor de nque satisfaz
+n+1
+(n+ 1)!0;5:
+Por tentativas...
+n= 6)7
+7!= 0;599
+n= 7)8
+8!= 0;235:
+Logo, 8 é o menor número de pontos que garante a aproximação pretendida.
+Exercício 5.6 Sejafumafunçãonascondiçõesdoteoremaanterioretalque(5.8)severiﬁca.
+SejaPno seu polinómio interpolador nos pontos da partição (5.1).
+1. Mostre que o seu erro de interpolação veriﬁca
+jf(x)Pn(x)jMn+1
+4(n+ 1)hn+1;8x2[a;b]; (5.9)
+comh= max
+i=1;:::;n(xixi1).
+2. Mostre que se a partição (5.1) for uniforme se tem
+jf(x)Pn(x)jMn+1
+4(n+ 1)nn+1(ba)n+1;8x2[a;b]:
+Resolução: Vamos apenas demonstrar (5.9). Para tal, basta provar que
+max
+x2[a;b]jw(x)jhn+1n!
+4;
+comwa função nodal (5.6). Vamos efectuar a demonstração por indução.
+Paran= 1temos quew(x) = (xx0)(xx1). Assim, temos que
+w0(x) = 0)x=x0+x1
+2:
+Como tal,
+max
+x2[a;b]jw(x)j= max
+jw(a)j;wx0+x1
+2;jw(b)j
+=wx0+x1
+2h2
+4:
+
+Interpolação 95
+Suponhamos que (5.9) se veriﬁca para ne provemos a sua veracidade para n+ 1, isto é,
+que
+max
+x2[a;b]n+1Y
+j=0(xxj)hn+2(n+ 1)!
+4;
+coma=x0exn+1=b. Dadox2[a;b]temos quex2[a;xn]oux2[xn;b].
+Consideremos a primeira hipótese. Temos então
+max
+x2[a;b]n+1Y
+j=0(xxj)= max
+x2[a;b]nY
+j=0(xxj)jxbjhn+1n!
+4(n+ 1)h=hn+2(n+ 1)!
+4;
+o que prova o pretendido. O caso em que se considera a segunda hipótese demonstra-se
+de forma análoga.
+Consideremos uma função fdeﬁnida num intervalo [a;b]onde está deﬁnida uma par-
+tição uniforme (5.1) e seja Pno seu polinómio interpolador de Lagrange. Provámos, no
+exercício anterior, que
+max
+x2[a;b]jf(x)Pn(x)jMn+1
+4(n+ 1)nn+1(ba)n+1;
+para todo o x2[a;b]. Se existir uma constante positiva Mtal que
+Mn+1M;8n2N; (5.10)
+concluímos que
+lim
+n!+1
+max
+x2[a;b]jf(x)Pn(x)j
+lim
+n!+1M
+4(n+ 1)nn+1(ba)n+1
+= 0:
+Nestecaso, oprocessodeinterpolaçãoéconvergente, istoé, oaumentodograudopolinómio
+implica um aumento de precisão.
+No entanto existem funções para as quais não podemos concluir que um aumento do
+grau do provoca um aumento da proximidade do polinómio interpolador com a função
+interpolada. Isso acontece quando não é possível encontrar um majorante (5.10) para as
+derivadas da função. O Exercício 5.43 ilustra esta situação.
+5.1.3 Fórmula de Newton
+Consideremos as seguintes funções
+ 0(x) = 1; i(x) =i1Y
+j=0(xxi); i= 1;:::;n:
+Atendendo a que o conjunto f ign
+i=0constitui uma base do conjunto dos polinómios de
+grau inferior ou igual a n(prove), existem constantes ci;i= 0;:::;n;tais que o polinómio
+interpolador de Lagrange é dado por
+Pn(x) =nX
+i=0ci i(x): (5.11)
+
+Interpolação 96
+Para determinar c0note-se que, se Pn(x)poder ser escrito na forma (5.11), temos que
+c0=Pn(x0) =f(x0):
+De forma similar temos que c1pode ser determinado calculando Pnno pontox1. Assim
+f(x0) +c1(x1x0) =Pn(x1) =f(x1))c1=f(x1)f(x0)
+x1x0:
+Denotando por f[x0;x1]a diferença dividida de primeira ordem
+f(x1)f(x0)
+x1x0
+e prosseguindo de forma idêntica deduzimos que
+c2=f(x2)f(x0)f[x0;x1](x2x0)
+(x2x0)(x2x1)=f[x2;x1]f[x1;x0]
+x2x0;
+que denotamos por f[x0;x1;x2]:Podemos deste modo obter um processo recursivo para a
+determinação dos coeﬁcientes do polinómio se atendermos à seguinte deﬁnição.
+Deﬁnição 5.2 (Diferenças divididas) Sejafuma função deﬁnida nos pontos da parti-
+ção (5.1) do intervalo [a;b]R. A
+f[xi;xi+1] =f(xi+1)f(xi)
+xi+1xi
+chama-se diferença dividida de primeira ordem defrelativamente aos argumentos xiexi+1.
+As diferenças divididas de ordem superior deﬁnem-se recursivamente. Assim, deﬁne-se
+diferença dividida de ordem krelativamente aos argumentos xi;xi+1;:::xi+k, comi+k<n,
+por
+f[xi;xi+1;:::;xi+k] =f[xi+1;xi+2;:::;xi+k]f[xi;xi+1;:::;xi+k1]
+xi+kxi:
+Usando a deﬁnição anterior pode demonstrar-se que
+ci=f[x0;:::;xi]; i = 1;:::;n:
+Substituindo este valor na expressão (5.11) que deﬁne Pn(x)obtemos
+Pn(x) =f(x0) +f[x0;x1](xx0) +f[x0;x1;x2](xx0)(xx1)
+++f[x0;x1;:::;xn](xx0)(xx1)(xxn1)
+=f(x0) +nX
+i=1f[x0;x1;:::;xi]i1Y
+j=0(xxj); (5.12)
+conhecida por fórmula interpoladora de Newton das diferenças divididas . Abusivamente é
+usual designar por polinómio interpolador de Newton o polinómio calculado por (5.12).

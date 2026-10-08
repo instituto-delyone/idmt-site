@@ -1,0 +1,842 @@
+10 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 1 Introdução
+ e/s: move dados entre o computador e seu ambiente externo.
+ Interconexão do sistema: algum mecanismo que oferece comunicação entre CPU, memória principal e 
+E/S. Um exemplo comum de interconexão do sistema é por meio de um barramento do sistema, consistindo 
+em uma série de fios condutores aos quais todos os outros componentes se conectam.
+Pode haver um ou mais de cada um dos componentes mencionados. Tradicionalmente, havia apenas um único 
+processador. Nos anos recentes, aumentou o uso de múltiplos processadores em um único computador. Algumas 
+Figura 1.4 O computador: estrutura de alto nível
+Memória 
+principalE/S
+CPUCOMPUTADOR
+Barramento 
+do sistema
+ALURegistradores
+Unidade
+de controleCPU
+Barramento
+interno
+UNIDADEDE CONTROLE
+Lógica de 
+sequenciação
+Memória
+de controleRegistradores e 
+decodificadores
+ da unidade
+ de controleFigura 1.3 O computador
+COMPUTADOR
+• Armazenamento
+• Processamento PERIFÉRICOSLINHAS DE COMUNICAÇÃO
+Book 1.indb 10 19.11.09 14:35:42
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 1 Introdução 11
+questões de projeto relacionadas a múltiplos processadores afloram e são discutidas com o prosseguimento do 
+texto; a Parte 5 trata desses tipos de computadores.
+Cada um desses componentes será examinado com detalhes na Parte 2. Porém, para nossos propósitos, o 
+componente mais interessante (e, de algumas formas, o mais complexo) é a CPU. Seus principais componentes estruturais são os seguintes:
+ unidade de controle: controla a operação da CPU e, portanto, do computador.
+ unidade aritmética e lógica (ALu, do inglês arithmetic and logic unit): realiza as funções de processa-
+mento de dados do computador.
+ Registradores: oferece armazenamento interno à CPU.
+ Interconexão da cpu: algum mecanismo que oferece comunicação entre unidade de controle, ALU e 
+registradores.
+Cada um desses componentes será examinado com certos detalhes na Parte 3, onde veremos que a comple-
+xidade é acrescentada com o uso de técnicas de organização paralela e pipeline. Finalmente, existem várias téc-
+nicas de implementação da unidade de controle; uma técnica comum é uma implementação microprogramada. Essencialmente, uma unidade de controle microprogramada opera executando microinstruções que definem a funcionalidade da unidade de controle. Com essa técnica, a estrutura da unidade de controle pode ser representa-da, como na Figura 1.4. Essa estrutura será examinada na Parte 4.
+Principais termos e perguntas de revisão
+Principais termos
+Unidade aritmética e lógica (ALU)Organização do computador Processador
+Unidade de controle Registradores
+Unidade central de processamento (CPU) Entrada/saída (E/S) Barramento do sistema
+Arquitetura do computador Memória principal
+Perguntas de revisão
+ 1.1 Qual é, em termos gerais, a distinção entre a organização e a arquitetura do computador?
+ 1.2 Qual é, em termos gerais, a distinção entre a estrutura e a função do computador?
+ 1.3 Quais são as quatro funções principais de um computador?
+ 1.4 Liste e defina resumidamente os principais componentes estruturais de um computador.
+ 1.5 Liste e defina resumidamente os principais componentes estruturais de um processador.
+ Referências
+ a V RAnESIC , Z. e ThURBER , K. “Teaching computer structures” . Computer, jun. 1980.
+ b S IEWIOREK , D.; B ELL, C. e nEWELL , A. Computer structures: principles and examples. n ova York: McGraw-hill, 1982.
+ c B ELL, C; M UDGE , J. e M CnAMARA , J. Computer engineering: a DEC view of hardware systems design. Bedford, MA: Digital Press, 1978.
+ d R EDDI , S. e F EUSTEL , E. “A conceptual framework for computer architecture” . Computing Surveys, jun. 1976.
+ e S IMOn, h. The sciences of the artificial. Cambridge, MA: MIT Press, 1996.
+ f W EInBERG , G. An introduction to general systems thinking. n ova York: Wiley, 1975.
+ g S IEWIOREK , D.; B ELL, C. e nEWELL , A. Computer structures: principles and examples. n ova York: McGraw-hill, 1982.
+Book 1.indb 11 19.11.09 14:35:42
+
+Capítulo 2 Evolução e desempenho do computador
+Evolução e desempenho do computador
+Vamos começar nosso estudo dos computadores com um breve histórico. O histórico por si só é interessante 
+e também tem a finalidade de oferecer uma visão geral da estrutura e da função do computador. Em seguida, 
+focalizamos a questão do desempenho. Uma consideração da necessidade pela utilização balanceada dos recursos do computador oferece um contexto que será útil por todo o livro. Finalmente, veremos rapidamente a evolução dos dois sistemas que servem como exemplo-chave no decorrer do livro: as famílias de processadores Intel x86 e ARM.
+2.1 Um breve histórico dos computadores
+ A primeira geração: válvulas
+ENIAC O ENIAC (Electronic Numerical Integrator And Computer), projetado e construído na Universidade da 
+Pensilvânia, foi o primeiro computador digital eletrônico de uso geral do mundo. O projeto foi uma resposta às PRInCIPAIS POnTOS
+ A evolução dos computadores tem sido caracterizada pelo aumento na ve-
+locidade do processador, diminuição no tamanho do componente, aumento no tamanho da memória e aumento na capacidade e velocidade da E/S. Um fator responsável pelo grande aumento na velocidade do processa-dor é o encolhimento no tamanho dos componentes do microproces-sador; isso reduz a distância entre os componentes e, portanto, aumenta a velocidade. Contudo, os verdadeiros ganhos na velocidade nos anos re-centes têm vindo da organização do processador, incluindo o uso inten-so das técnicas de pipeline e execução paralela e do uso de técnicas de execução especulativas (tentativa de execução de instruções futuras que poderiam ser necessárias). Todas essas técnicas são projetadas para manter o processador ocupado pelo máximo de tempo possível. Uma questão crítica no projeto de sistema de computador é equilibrar o 
+desempenho dos diversos elementos de modo que os ganhos no desem-penho em uma área não sejam prejudicados por um atraso em outras áreas. Em particular, a velocidade do processador aumentou mais rapidamente do que o tempo de acesso da memória. Diversas técnicas são usadas para com-pensar essa divergência, incluindo caches, caminhos de dados mais largos da memória ao processador, e chips de memória mais inteligentes.CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+2.1 Um breve histórico dos computadores
+  A primeira geração: válvulas
+  A segunda geração: transistores
+  A terceira geração: circuitos integrados
+  Gerações posteriores
+2.2 Projetando visando desempenho
+  Velocidade do microprocessador
+  Balanço do desempenho
+  Melhorias na organização e 
+arquitetura do chip
+2.3 Evolução da arquitetura Intel x862.4 Sistemas embarcados e o ARM
+  Sistemas embarcados
+  Evolução do ARM
+2.5 Avaliação de desempenho
+  Velocidade do clock e instruções por segundo
+  Benchmarks
+  Lei de Amdahl
+2.6 Leitura recomendada e sites Web
+Book 1.indb 12 19.11.09 14:35:43
+
+Capítulo 2 Evolução e desempenho do computador 13
+necessidades dos EUA durante a Segunda Guerra Mundial. O Ballistics Research Laboratory (BRL) do Exército, uma 
+agência responsável por desenvolver tabelas de faixa e trajetória para novas armas, estava tendo dificuldade para 
+fornecer essas tabelas com precisão e dentro de um espaço de tempo razoável. Sem essas tabelas de disparo, as novas armas e artilharia eram inúteis aos artilheiros. O BRL empregou mais de 200 pessoas que, usando calculadoras de mesa, solucionavam as equações de balística necessárias. A preparação das tabelas para uma única arma exigiria muitas horas, até mesmo dias, de uma pessoa.
+John Mauchly, professor de engenharia elétrica na Universidade da Pensilvânia, e John Eckert, um de seus alu-
+nos formados, propôs construir um computador de uso geral usando válvulas para a aplicação do BRL. Em 1943, o Exército aceitou essa proposta, e foi iniciado o trabalho no ENIAC. A máquina resultante era enorme, pesava 30 toneladas, ocupando 1 500 pés quadrados de superfície e contendo mais de 18 000 válvulas. Quando estava em operação, ela consumia 140 kilowatts de potência. Ela também era substancialmente mais rápida que qualquer computador eletromecânico, capaz de realizar 5 000 adições por segundo.
+O ENIAC era uma máquina decimal, ao invés de binária. Ou seja, os números eram representados em formato 
+decimal e a aritmética era realizada no sistema decimal. Sua memória consistia em 20 “acumuladores” , cada um capaz de manter um número decimal de 10 dígitos. Um anel de 10 válvulas representava cada dígito. A qualquer momento, somente uma válvula estava no estado LIGADO, representando um dos 10 dígitos. A principal desvan-tagem do ENIAC foi que ele tinha que ser programado manualmente, por meio da ligação de chaves e conexão e desconexão de cabos.
+O ENIAC foi concluído em 1946, muito tarde para ser usado no esforço da guerra. Em vez disso, sua primeira 
+tarefa foi realizar uma série de cálculos complexos que foram usados para ajudar a determinar a viabilidade da bomba de hidrogênio. O uso do ENIAC para um propósito diferente daquele para o qual foi construído de -
+monstrou sua natureza de uso geral. O ENIAC continuou a operar sob a gerência do BRL até 1955, quando foi desmontado.
+A MÁQUINA DE VON NEUMANN A tarefa de entrar e alterar programas para o ENIAC era extremamente en-
+fadonha. O processo de programação poderia ser facilitado se o programa pudesse ser representado em uma forma adequada para armazenamento na memória junto com os dados. Então, um computador poderia obter suas instruções lendo-as da memória, e um programa poderia ser criado ou alterado definindo-se os valores de uma parte da memória.
+Essa ideia, conhecida como conceito de programa armazenado, normalmente é atribuída aos projetistas do 
+ENIAC, principalmente o matemático John von Neumann, que foi consultor no projeto ENIAC. Alan Turing desen-volveu a ideia praticamente ao mesmo tempo. A primeira publicação da ideia foi em uma proposta de 1945 de von Neumann para um novo computador, o EDVAC (Electronic Discrete Variable Computer).
+Em 1946, von Neumann e seus colegas começaram o projeto de um novo computador de programa armaze-
+nado, conhecido como computador IAS, no Princeton Institute for Advanced Studies. O computador IAS, embora não concluído antes de 1952, é o protótipo de todos os computadores de uso geral.
+A Figura 2.1 mostra a estrutura geral de um computador IAS (compare com a parte do meio da Figura 1.4). Ela 
+consiste em:
+ Uma memória principal, que armazena dados e instruções.
+1
+ Uma unidade lógica e aritmética (ALU) capaz de operar sobre dados binários.
+ Uma unidade de controle, que interpreta as instruções na memória e faz com que sejam executadas.
+ Equipamento de entrada e saída (E/S) operado pela unidade de controle.
+Essa estrutura foi esboçada na proposta inicial de von Neumann, que vale a pena citar neste ponto (VON 
+Neumann, 1993a):
+2.2 primeiro: como o dispositivo é principalmente um computador, ele terá que realizar as operações ele-
+mentares da aritmética mais frequentemente. São elas adição, subtração, multiplicação e divisão. Portanto, é razoável que ele contenha unidades especializadas apenas para essas operações.
+1 Neste livro, a menos que observado de outra forma, o termo instrução refere-se a uma instrução de máquina que é interpretada e executada 
+diretamente pelo processador, ao contrário de uma instrução em uma linguagem de alto nível, como Ada ou C++, que primeiro precisa ser 
+compilada para uma série de instruções de máquina antes que seja executada.0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 13 19.11.09 14:35:43
+
+14 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Deve-se observar, porém, que embora esse princípio como tal provavelmente seja seguro, o modo espe-
+cífico em que é realizado exige uma análise mais criteriosa. Em qualquer velocidade, uma parte aritmética 
+central do dispositivo provavelmente terá que existir, e isso constitui a primeira parte específica: CA (do inglês 
+Central Arithmetic).2.3 segundo: o controle lógico do dispositivo, ou seja, a sequenciação apropriada de suas operações, 
+pode ser executado de forma mais eficiente por um órgão de controle central. Se o dispositivo tiver que ser flexível, ou seja, de propósito geral, então deve-se distinguir entre as instâncias específicas da-
+das para isso, definindo um problema em particular e as unidades gerais de controle que fazem essas instruções — não importa quais sejam — serem executadas. O primeiro deverá ser armazenado de al-
+guma maneira; o segundo é representado por partes operacionais definidas do dispositivo. Por controle 
+central, queremos dizer apenas essa última função, e as unidades que o realizam formam a segunda 
+parte específica: CC.2.4 Terceiro: qualquer dispositivo que tiver que executar sequências de operações longas e complicadas 
+(especificamente de cálculos) precisa ter uma memória considerável [...](b) As instruções que controlam um problema complicado podem constituir um material considerável, principalmente se o código for circunstancial (que é na maioria dos arranjos). Esse material precisa ser relembrado.Em qualquer velocidade, a memória total constitui a terceira parte específica do dispositivo: M.2.6 As três partes específicas, CA, CC e M, correspondem aos neurônios associativos no sistema nervoso hu-mano. Ainda falta discutir os equivalentes dos neurônios sensoriais ou aferentes e os neurônios motores ou 
+eferentes. Estas são as unidades de entrada e saída do dispositivo.O dispositivo precisa ser capaz de manter contato de entrada e saída (sensorial e motor) com algum meio específico desse tipo. O meio será chamado de meio de gravação exterior do dispositivo: R (do inglês 
+recording).2.7 quarto: o dispositivo precisa ter unidades para transferir [...] informações de R para suas partes especí-
+ficas C e M. Essas unidades formam sua entrada, a quarta parte específica: I (do inglês input). Veremos que é 
+melhor fazer todas as transferências de R (por I) para M, e nunca diretamente de C.2.8 quinto: o dispositivo precisa ter unidades para transferir [...] de suas partes específicas C e M para R. Essas 
+unidades formam sua saída, a quinta parte específica: O (do inglês output). Veremos novamente que é melhor 
+fazer todas as transferências de M (por O) para R, e nunca diretamente de C.Figura 2.1 Estrutura de um computador IAS 
+Memória
+principal (M)Unidade central de processamento (CPU)
+Unidade
+lógica e aritmética
+ (CA)
+Unidade de
+controle do 
+programa 
+(CC) Equipamento de E/S (E,S)
+Book 1.indb 14 19.11.09 14:35:43
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 15
+Com raras exceções, todos os computadores de hoje têm essa mesma estrutura e função geral, e são conhe-
+cidos como máquinas de von Neumann. Assim, vale a pena, neste ponto, descrever rapidamente a operação do 
+computador IAS (Burks, 1946b). Após Hayes (1998c), a terminologia e a notação de Von Neumann são alteradas 
+como a seguir para conformar mais de perto com o uso moderno; os exemplos e as ilustrações que acompanham esta discussão são baseados nesse último texto.
+A memória do IAS consiste em 1 000 locais de armazenamento, chamados palavras (words), de 40 dígitos bi-
+nários (bits) cada.
+2 Tanto dados quanto instruções são armazenados lá. Números são representados em formato 
+binário e cada instrução é um código binário. A Figura 2.2 ilustra esses formatos. Cada número é representado por um bit de sinal e um valor de 39 bits. Uma palavra também pode conter duas instruções de 20 bits, com cada ins-trução consistindo em um código de operação de 8 bits (opcode), especificando a operação a ser realizada, e um endereço de 12 bits, designando uma das palavras na memória (numeradas de 0 a 999).
+A unidade de controle opera o IAS buscando instruções da memória e executando-as uma de cada vez. Para 
+explicar isso, um diagrama de estrutura mais detalhado é necessário, conforme indicado na Figura 2.3. Essa figura revela que a unidade de controle e a ALU contêm locais de armazenamento, chamados registradores, definidos da 
+seguinte forma:
+ Registrador de buffer de memória (mBR, do inglês memory buffer register): contém uma palavra a ser 
+armazenada na memória ou enviada à unidade de E/S, ou é usada para receber uma palavra da memória ou de uma unidade de E/S.
+ Registrador de endereço de memória (mAR, do inglês memory address register): especifica o endereço 
+na memória da palavra a ser escrita ou lida no MBR.
+ Registrador de instrução (IR, do inglês instruction register): contém o opcode de 8 bits da instrução que 
+está sendo executada.
+ Registrador de buffer de instrução (IBR, do inglês instruction buffer register): empregado para manter 
+temporariamente a próxima instrução a ser executada.
+ contador de programa (pc, do inglês program counter): contém o endereço do próximo par de instru-
+ções a ser apanhado da memória.
+2 Não existe uma definição universal para o termo palavra. Em geral, uma palavra é um conjunto ordenado de bytes ou bits, que 
+é a unidade normal na qual a informação pode ser armazenada, transmitida ou operada dentro de determinado computador. Normalmente, se um processador tem um conjunto de instruções de tamanho fixo, então o tamanho da instrução é igual ao ta-manho da palavra.Figura 2.2 Formatos de memória do IAS
+(a) Palavra de númeroBit de sinal0 39
+(b) Palavra de instruçãoOpcode EndereçoInstrução esquerda
+08 20 93 821
+Instrução direita
+Opcode Endereço
+Book 1.indb 15 19.11.09 14:35:44
+
+16 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Figura 2.3 Estrutura expandida do computador IAS
+AC
+IBR PC
+IR
+•
+••Circuitos
+de controle
+EndereçosSinais de
+controleInstruções e
+dados
+MARMBRMQ
+ Circuitos
+ lógicos aritméticos Unidade lógica e aritmética
+Unidade de controle do programaEquipamento 
+de entrada/saída
+Memória 
+principal 
+ Acumulador (A c) e quociente multiplicador (mq, do inglês multiplier quotient): empregado para man-
+ter temporariamente operandos e resultados de operações da ALU. Por exemplo, o resultado de multiplicar 
+dois números de 40 bits é um número de 80 bits; os 40 bits mais significativos são armazenados no AC e o menos significativos no MQ.
+O IAS opera realizando repetidamente um ciclo de instrução, como mostra a Figura 2.4. Cada ciclo de instrução 
+consiste em dois subciclos. Durante o ciclo de busca (fetch cycle), o opcode da próxima instrução é carregado no IR 
+e a parte de endereço é carregada no MAR. Essa instrução pode ser retirada do IBR ou pode ser obtida da memória carregando-se uma palavra no MBR, e depois para o IBR, IR e MAR.
+Book 1.indb 16 19.11.09 14:35:44
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 17
+Figura 2.4 Fluxograma parcial da operação do IAS 
+Início
+Próxima
+ instrução está
+no MBR?MAR PC
+MBR M(MAR)
+IR IBR (0:7)
+MAR IBR (8:19)IR MBR (20:27)
+MAR MBR (28:39)Instrução
+esquerda necessária?IBR MBR (20:39)
+IR MBR (0:7)
+MAR MBR (8:19)
+PC PC + 1Sim
+Sim
+SimNão
+Não
+M(X) = conteúdos de localização de memória cujo endereço é X(i:j ) = bits de i a j Sem necessidadede acesso à memória
+Decodificar instrução no IR
+AC M(X) Vai para M (X, 0:19) Se AC > 0 então vai
+ para M(X, 0:19)AC AC + M(X)
+ AC > 0?
+MBR RM B ) R AM ( M M(MAR) PC MAR
+AC CA R BM AC + MBRCiclo 
+de busca
+Ciclo de
+execução
+Por que a indireção? Essas operações são controladas por circuitos eletrônicos e resultam no uso de caminhos 
+de dados. Para simplificar a eletrônica, somente um registrador é usado para especificar o endereço na memória 
+para uma leitura ou escrita e somente um registrador é usado para a origem ou o destino.
+Quando o opcode está no IR, o ciclo de execução é realizado. O circuito de controle interpreta o opcode e executa 
+a instrução enviando os sinais de controle apropriados para que os dados sejam movidos ou uma operação seja realizada pela ALU.
+O computador IAS tinha um total de 21 instruções, listadas na Tabela 2.1. Estas podem ser agrupadas da seguin-
+te forma:
+ Transferência de dados: movem dados entre memória e registradores da ALU ou entre dois registradores 
+da ALU.
+ desvio incondicional: normalmente, a unidade de controle executa instruções em sequência a partir da memória. Essa sequência pode ser alterada por uma instrução de desvio, que facilita operações repetitivas.
+ desvio condicional: o desvio pode se tornar dependente de uma condição, permitindo assim pontos de decisão.
+ Aritméticas: operações realizadas pela ALU.
+Book 1.indb 17 19.11.09 14:35:45
+
+18 Arquitetur A e org Aniz Ação de comput Adores Capítulo 2 Evolução e desempenho do computador
+ modificação de endereço: permite que os endereços sejam calculados na ALU e depois inseridos em 
+instruções armazenadas na memória. Isso permite a um programa uma flexibilidade de endereçamento 
+considerável.
+A Tabela 2.1 apresenta as instruções em um formato simbólico, de fácil leitura. Na realidade, cada instrução 
+precisa estar de acordo com o formato da Figura 2.2b. A parte do opcode (primeiros 8 bits) especifica qual das 21 
+instruções deve ser executada. A parte de endereço (12 bits restantes) especifica qual dos 1.000 locais de memória deverá estar envolvido na execução da instrução.
+A Figura 2.4 mostra vários exemplos de execução de instrução pela unidade de controle. Observe que cada 
+operação requer várias etapas, algumas muito complicadas. A operação de multiplicação requer 39 suboperações, uma para cada posição de bit, exceto o bit de sinal.
+COMPUTADORES COMERCIAIS A década de 1950 viu o nascimento da indústria do computador com duas 
+empresas, Sperry e IBM, dominando o mercado.
+Tipo de instrução Opcode Representação simbólica Descrição
+Transferência de dados00001010 LOAD MQ Transfere o conteúdo de MQ para AC
+00001001 LOAD MQ,M(X) Transfere o conteúdo do local de memória X para MQ
+00100001 STOR M(X) Transfere o conteúdo de AC para o local de memória X
+00000001 LOAD M(X) Transfere M(X) para o AC
+00000010 LOAD – M(X) Transfere – M(X) para o AC
+00000011 LOAD |M(X)| Transfere o valor absoluto de M(X) para o AC
+00000100 LOAD – |M(X)| Transfere -|M(X)| para o acumulador
+Desvio incondicional00001101 JUMP M(X,0:19) Apanha a próxima instrução da metade esquerda de M(X)
+00001110 JUMP M(X,20:39) Apanha a próxima instrução da metade direita de M(X)
+Desvio condicional00001111 JUMP+ M(X,0:19)Se o número no AC for não negativo, apanha a próxima instrução da metade 
+esquerda de M(X)
+00010000 JUMP+ M(X,20:39)Se o número no AC for não negativo, apanha a próxima instrução da 
+metade direita de M(X)
+Aritmética00000101 ADD M(X) Soma M(X) a AC; coloca o resultado em AC
+00000111 ADD |M(X)| Soma |M(X)| a AC; coloca o resultado em AC
+00000110 SUB M(X) Subtrai M(X) de AC; coloca o resultado em AC
+00001000 SUB |M(X)| Subtrai |M(X)| de AC; coloca o resto em AC
+00001011 MUL M(X)Multiplica M(X) por MQ; coloca os bits mais significativos do resultado em AC; 
+coloca bits menos significativos em MQ
+00001100 DIV M(X) Divide AC por M(X); coloca o quociente em MQ e o resto em AC
+00010100 LSH Multiplica o AC por 2; ou seja, desloca à esquerda uma posição de bit
+00010101 RSH Divide o AC por 2; ou seja, desloca uma posição à direita
+Modificação de endereço00010010 STOR M(X,8:19) Substitui campo de endereço da esquerda em M(X) por 12 bits mais à direita de AC
+00010011 STOR M(X,28:39) Substitui campo de endereço da direita em M(X) por 12 bits mais à direita de ACtabela 2.1 O conjunto de instruções do IAS
+Cap_2 (12-50).indd 18 25.11.09 17:29:27
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 19
+Em 1947, Eckert e Mauchly formaram a Eckert-Mauchly Computer Corporation para manufaturar com-
+putadores comercialmente. Sua primeira máquina de sucesso foi o UNIVAC I (Universal Automatic Computer), 
+que foi comissionado pelo Birô do Censo dos Estados Unidos da América para os cálculos de 1950. A Eckert-Mauchly Computer Corporation tornou-se parte da divisão UNIVAC da Sperry-Rand Corporation, que cons-truiu uma série de máquinas sucessoras.
+O UNIVAC I foi o primeiro computador comercial de sucesso. Ele tinha como fi nalidade aplicações científi cas e 
+comerciais. O primeiro artigo descrevendo o sistema listava cálculos algébricos de matriz, problemas estatísticos, cobranças de prêmio para uma companhia de seguros e problemas de logística como exemplos das tarefas que ele poderia realizar.
+O UNIVAC II, que tinha maior capacidade de memória e maior desempenho que o UNIVAC I, foi entregue no 
+fi nal da década de 1950 e ilustrava várias tendências que permaneceram características da indústria de compu-tação. Primeiro, os avanços na tecnologia permitiram que as empresas continuassem a construir computadores maiores e mais poderosos. Segundo, cada empresa tentou tornar suas novas máquinas compatíveis
+3 com as 
+máquinas mais antigas, ou os programas escritos para as máquinas mais antigas poderiam ser executados nas novas máquinas. Essa estratégia foi adotada na esperança de reter a base de clientes; ou seja, quando um cliente decide comprar uma nova máquina, ele provavelmente a recebe da mesma empresa, para evitar perder o inves-timento nos programas.
+A divisão UNIVAC também iniciou o desenvolvimento de computadores da série 1100, que deveria ser sua 
+principal fonte de receita. Essa série ilustra uma distinção que existia na época. O primeiro modelo, o UNIVAC 1103 e seus sucessores, por muitos anos, foram voltados principalmente para aplicações científi cas, envolven-do cálculos grandes e complexos. Outras empresas se concentraram em aplicações comerciais, que envolviam grandes quantidades de dados de texto. Essa separação, em grande parte, desapareceu, mas fi cou evidente por muitos anos.
+A IBM, então o principal fabricante de equipamento de processamento de cartão perfurado, entregou seu 
+primeiro computador de programa armazenado, o 701, em 1953. O 701 era voltado principalmente para aplica-ções científi cas (Bashe et al., 1981
+d). Em 1955, a IBM introduziu o produto 702, que tinha uma série de recursos 
+de hardware que o capacitavam para aplicações comerciais. Estes foram os primeiros de uma longa série de computadores 700/7000, que estabeleceram a IBM como o fabricante de computadores esmagadoramente dominante.
+ A segunda geração: transistores
+A primeira mudança importante no computador eletrônico veio com a substituição da válvula pelo transistor. 
+O transistor é menor, mais barato e dissipa menos calor que uma válvula, mas pode ser usado da mesma forma que uma válvula para construir computadores. Diferente da válvula, que exige fi os, placas de metal, uma cápsula de vidro e um vácuo, o transistor é um dispositivo de estado sólido, feito de silício.
+O transistor foi inventado na Bell Laboratórios em 1947 e, por volta da década de 1950, deu início a uma revo-
+lução eletrônica. Porém, não foi antes da década de 1950 que os computadores transistorizados foram disponibili-zados comercialmente. A IBM novamente foi a primeira empresa a oferecer a nova tecnologia. A NCR e, com mais sucesso, a RCA foram as pioneiras com algumas máquinas pequenas a transistor. A IBM veio pouco depois com a série 7000.
+O uso do transistor defi ne a segunda geração de computadores. Foi bastante aceito classifi car os computadores 
+em gerações com base na tecnologia de hardware fundamental empregada (Tabela 2.2). Cada nova geração é caracterizada por maior desempenho de processamento, maior capacidade de memória e tamanho menor que a anterior.
+Mas também existem outras mudanças. A segunda geração viu a introdução de unidades lógicas e aritméticas 
+e unidades de controle mais complexas, o uso de linguagens de programação de alto nível e a disponibilidade do software de sistema com o computador.
+3 Também chamadas compatíveis para trás (downward compatible). O mesmo conceito, do ponto de vista do sistema mais antigo, é conhecido 
+como compatível para frente (foward compatible).
+Book 1.indb 19 19.11.09 14:35:45
+
+20 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Tabela 2.2 Gerações de computador
+Geração Datas aproximadas Tecnologia Velocidade típica (operações por segundo)
+1 1946 – 1957 Válvula 40.000
+2 1958 – 1964 Transistor 200.000
+3 1965 – 1971 Integração em escala pequena e média 1.000.000
+4 1972 – 1977 Integração em escala grande 10.000.000
+5 1978 – 1991 Integração em escala muito grande 100.000.000
+6 1991- Integração em escala ultragrande 1.000.000.000
+A segunda geração é digna de nota também pelo surgimento da Digital Equipment Corporation (DEC). A DEC 
+foi fundada em 1957 e, nesse ano, entregou seu primeiro computador, o PDP-1. Esse computador e essa empresa 
+iniciaram o fenômeno do minicomputador, que se tornaria tão proeminente na terceira geração.
+O IBM 7094 Desde a introdução da série 700 em 1952 até a introdução do último membro da série 7000 em 
+1964, essa linha de produtos IBM passou por uma evolução que é típica dos produtos de computação. Os membros sucessivos da linha de produtos mostram desempenho maior, capacidade maior e/ou menor custo.
+A Tabela 2.3 ilustra essa tendência. O tamanho da memória principal, em múltiplos de 2
+10 palavras de 36 bits, 
+cresceu de 2K (1K = 210) para 32K palavras,4 enquanto o tempo para acessar uma palavra de memória, tempo de ciclo 
+de memória, caiu de 30 µs para 1,4 µs. O número de opcodes cresceu de modestos 24 para 185.
+A última coluna indica a velocidade de execução relativa da CPU. As melhorias de velocidade são alcançadas 
+pela eletrônica melhorada (por exemplo, uma implementação de transistor é mais rápida que uma implementação de válvula) e circuitos mais complexos. Por exemplo, o IBM 7094 inclui um Instruction Backup Register, usado para 
+armazenar a próxima instrução. A unidade de controle apanha duas palavras adjacentes da memória para uma busca de instrução. Exceto pela ocorrência de uma instrução de desvio, que normalmente é pouco frequente, isso significa que a unidade de controle precisa acessar a memória para uma instrução em apenas metade dos ciclos de instrução. Essa pré-busca reduz significativamente o tempo médio do ciclo de instrução.
+Tabela 2.3 Exemplo de membros da série IBM 700/7000
+Número 
+do modeloPrimeira 
+entregaTecnologia 
+de CPUTecnologia 
+de memóriaTempo 
+de ciclo 
+(µs)Tamanho 
+de memória 
+(K)Número de 
+opcodesNúmero de 
+registradores 
+de índicePonto 
+flutuante 
+hardwiredE/S 
+sobreposta 
+(canais)Sobreposição 
+de busca de 
+instruçãoVelocidade 
+(relativa 
+ao 701)
+701 1952 VálvulasTubos 
+eletrostáticos30 2–4 24 0 não não não 1
+704 1955 Válvulas Core 12 4–32 80 3 sim não não 2,5
+709 1958 Válvulas Core 12 32 140 3 sim sim não 4
+7090 1960 Transistor Core 2,18 32 169 3 sim sim não 25
+7094 I 1962 Transistor Core 2 32 185 7sim 
+(precisão 
+dupla)sim sim 30
+7094 II 1964 Transistor Core 1,4 32 185 7sim 
+(precisão 
+dupla)sim sim 50
+4 Uma discussão dos usos dos prefixos numéricos, como kilo e giga, pode ser encontrada em um documento de suporte no Computer Science 
+Student Resource Site, disponível em <WiIliamStallings.com/StudentSupport.html>.
+Book 1.indb 20 19.11.09 14:35:45
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 21
+O restante das colunas da Tabela 2.3 se tornará claro com a continuação do texto.
+A Figura 2.5 mostra uma confi guração grande (muitos periféricos) de um IBM 7094, que representa os compu-
+tadores de segunda geração (Bell, 1971e). Várias diferenças do computador IAS merecem ser mencionadas. A mais 
+importante delas é o uso de canais de dados. Um canal de dados é um módulo de E/S independente, com seu 
+próprio processador e seu próprio conjunto de instruções. Em um sistema de computador com esses dispositivos, a CPU não executa completamente instruções de E/S. Essas instruções são armazenadas em uma memória prin-cipal para serem executadas por um processador de uso específi co no próprio canal de dados. A CPU inicia uma transferência de E/S enviando um sinal de controle ao canal de dados, instruindo-o a executar uma sequência de instruções na memória. O canal de dados realiza sua tarefa independentemente da CPU e sinaliza à CPU quando a operação termina. Esse arranjo libera a CPU de um peso considerável de processamento.
+Outro recurso novo é o multiplexador, que é o ponto de término central para os canais de dados, a CPU e a 
+memória. O multiplexador escalona o acesso à memória da CPU e dos canais de dados, permitindo que esses dis-positivos atuem independentemente.
+ A terceira geração: circuitos integrados
+Um transistor isolado, autocontido, é chamado de componente discreto. Pelos anos 1950 e início dos anos 1960, 
+o equipamento eletrônico era composto principalmente de componentes discretos  transistores, resistores, ca-
+pacitores e assim por diante. Os componentes discretos eram fabricados separadamente, empacotados em seus próprios invólucros e soldados ou ligados em placas de circuito tipo masonite, que eram então instaladas nos computadores, osciloscópios e outros equipamentos eletrônicos. Sempre que um equipamento eletrônico exigia um transistor, um pequeno tubo de metal, contendo uma peça de silício do tamanho de uma cabeça de alfi nete, tinha que ser soldado a uma placa de circuito. O processo de manufatura inteiro, do transistor à placa de circuito, era dispendioso e complicado.
+Esses fatos da vida estavam começando a criar problemas na indústria do computador. Os primeiros computa-
+dores de segunda geração continham cerca de 10 000 transistores. Esse número cresceu para centenas de milhares, tornando a manufatura de máquinas mais novas e mais poderosas cada vez mais difícil.
+Figura 2.5 Confi guração de um IBM 7094
+CPU
+MemoryData
+channelMag tape
+units
+Card
+punch
+Line
+printer
+Card
+reader
+Drum
+Disk
+Disk
+Hyper
+tapes
+T eleprocessing
+equipmentData
+channel
+Data
+channel
+Data
+channelMulti
+plexorCPU
+MemóriaCanal de
+ dadosUnidade de /f_ita 
+ magnética
+Perfuradora de cartões
+Impressora de linhas
+ Leitora de cartões
+Tambor
+Disco
+Disco
+Hiper/f_itas
+Equipamento de
+teleprocessamentoCanal de
+ dados
+Canal de
+ dados
+Canal de
+ dadosMultiplexador
+Book 1.indb 21 19.11.09 14:35:46
+
+22 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Em 1958, chegou a realização que revolucionou a eletrônica e iniciou a era da microeletrônica: a invenção 
+do circuito integrado, que define a terceira geração de computadores. Nesta seção, oferecemos uma breve 
+introdução à tecnologia dos circuitos integrados. Depois, examinamos talvez os dois membros mais importan-tes da terceira geração, ambos introduzidos no início dessa era: o IBM System/360 e o DEC PDP-8.
+MICROELETRÔNICA Microeletrônica significa literalmente “pequena eletrônica” . Desde os primórdios da eletrônica 
+digital e da indústria da computação, tem havido uma tendência persistente e consistente em direção à redução no tama-nho dos circuitos eletrônicos digitais. Antes de examinarmos as implicações e os benefícios dessa tendência, precisamos dizer algo sobre a natureza da eletrônica digital. Uma discussão mais detalhada pode ser encontrada no Capítulo 20.
+Os elementos básicos de um computador digital, como sabemos, precisam realizar funções de armazenamen-
+to, movimentação, processamento e controle. Somente dois tipos fundamentais de componentes são necessários (Figura 2.6): portas e células de memória. Uma porta é um dispositivo que implementa uma função booleana ou lógica simples, como IF A AND B ARE TRUE THEN C IS TRUE (porta AND). Esses dispositivos são chamados de portas 
+porque controlam o fluxo de dados de modo semelhante às portas de canal. A célula de memória é um dispositivo que pode armazenar um bit de dados; ou seja, o dispositivo pode estar em um de dois estados estáveis de cada vez. Interconectando grandes quantidades desses dispositivos fundamentais, podemos construir um computador. Podemos relacionar isso com nossas quatro funções básicas da seguinte forma:
+ Armazenamento de dados: fornecido por células de memória.
+ processamento de dados: fornecido por portas.
+ movimentação de dados: os caminhos entre os componentes são usados para movimentar dados da 
+memória para a memória e da memória pelas portas até a memória.
+ controle: os caminhos entre os componentes podem transportar sinais de controle. Por exemplo, uma porta terá 
+uma ou duas entradas de dados mais uma entrada de sinal de controle que ativa a porta. Quando o sinal de contro -
+le é ON, a porta realiza sua função sobre as entradas de dados e produz uma saída de dados. De modo semelhante, a célula de memória armazenará o bit que está em seu fio de entrada quando o sinal de controle ESCRITA for ON, 
+e colocará o bit que está na célula em seu fio de saída quando o sinal de controle LEITURA for ON.
+Assim, um computador consiste em portas, células de memória e interconexões entre esses elementos. As por-
+tas e células de memória são, por sua vez, construídas de componentes eletrônicos digitais simples.
+O circuito integrado explora o fato de que componentes como transistores, resistores e condutores podem ser 
+fabricados a partir de um semicondutor como o silício. Essa é uma extensão da arte do estado sólido para fabricar um circuito inteiro em um pequeno pedaço de silício, ao invés de montar componentes discretos, feitos de partes separadas de silício no mesmo circuito. Muitos transistores podem ser produzidos ao mesmo tempo em um único wafer de silício. Igualmente importantes, esses transistores podem ser conectados com um processo de metaliza-ção para formar circuitos.
+A Figura 2.7 representa os principais conceitos de um circuito integrado. Um wafer fino de silício é dividido 
+em uma matriz de pequenas áreas, cada uma com poucos milímetros quadrados. O padrão de circuito idêntico é fabricado em cada área, e o wafer é dividido em chips. Cada chip consiste em muitas portas e/ou células de me -
+mória mais uma série de pontos de conexão de entrada e saída. Esse chip é então empacotado em um invólucro 
+Função lógica
+ BooleanaEntrada
+Sinal deativação
+(a) PortaSaída•
+••Célula de
+ armazenamento
+ binárioEntrada
+Leitura
+Escrita
+(b) Célula de memória SaídaFigura 2.6 Elementos fundamentais do computador
+Book 1.indb 22 19.11.09 14:35:46
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 23
+que o protege e oferece pinos para conexão com dispositivos além do chip. Diversos desses pacotes podem en-
+tão ser interconectados em uma placa de circuito impresso para produzir circuitos maiores e mais complexos.
+Inicialmente, somente algumas portas ou células de memória poderiam ser confiavelmente manufaturadas 
+e empacotadas. Esses primeiros circuitos integrados são conhecidos como integração em pequena escala (SSI, do 
+inglês small-scale integration). Com o passar do tempo, foi possível empacotar mais e mais componentes no mesmo 
+chip. Esse crescimento na densidade é ilustrado na Figura 2.8; essa é uma das tendências tecnológicas mais mar-cantes já registradas.
+5 Essa figura reflete a famosa lei de Moore, que foi proposta por Gordon Moore, cofundador 
+da Intel, em 1965 (Moore, 1965f). Moore observou que o número de transistores que poderia ser colocado em um 
+único chip estava dobrando a cada ano e previu corretamente que esse ritmo continuaria no futuro próximo. Para a surpresa de muitos, incluindo Moore, o ritmo continuou ano após ano e década após década. O ritmo diminuiu para dobrar a cada 18 meses na década de 1970, mas sustentou essa taxa desde então.
+As consequências da lei de Moore são profundas:1. O custo de um chip permaneceu praticamente inalterado durante esse período de rápido crescimento em densidade. Isso significa que o custo da lógica do computador e do circuito de memória caiu em uma taxa considerável.
+2. Como os elementos lógicos e da memória são colocados muito próximos em chips mais densamente em-pacotados, a extensão do caminho elétrico é encurtada, aumentando a velocidade de operação.
+3. O computador torna-se menor, fazendo com que seja mais conveniente colocá-lo em diversos ambientes.4. Há uma redução nos requisitos de potência e resfriamento.5. As interconexões no circuito integrado são muito mais confiáveis do que as conexões de solda. Com mais circuitos em cada chip, existem menos conexões entre chips.
+IBM SYSTEM/360 Por volta de 1964, a IBM tinha uma firme compreensão do mercado de computador, com sua sé -
+rie de máquinas 7000. Nesse ano, ela anunciou o System/360, uma nova família de produtos de computador. Embora 
+5 Observe que o eixo vertical usa uma escala logarítmica. Uma revisão básica das escalas logarítmicas está no documento de revisão de 
+matemática no Computer Science Student Support Site, disponível em <WilliamStallings.com/StudentSupport.html>.Figura 2.7 Relacionamento entre wafer, chip e porta
+Wafer
+Chip
+Porta
+ Chip 
+ empacotado
+Book 1.indb 23 19.11.09 14:35:47
+
+24 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+o anúncio em si não tenha sido surpresa, ele continha algumas notícias desagradáveis para os atuais clientes da IBM: 
+a linha de produtos 360 era incompatível com as máquinas IBM mais antigas. Assim, a transição para o 360 seria difícil para a base de clientes atual. Esse foi um passo corajoso para a IBM, mas a empresa o achou necessário para romper algumas das restrições da arquitetura 7000 e produzir um sistema capaz de evoluir com a nova tecnologia de circuito integrado (Padegs, 1981
+h; Gifford, 1987i). A estratégia compensou financeira e tecnicamente. O 360 foi o sucesso da 
+década e concretizou a IBM como o fornecedor de computadores dominante, com uma fatia de mercado de mais de 70%. E, com algumas modificações e extensões, a arquitetura do 360 permanece até hoje na arquitetura dos computa-dores mainframe
+6 da IBM. Alguns exemplos usando essa arquitetura podem ser encontrados no decorrer deste texto.
+O System/360 foi a primeira família de computadores planejada do setor. A família cobria uma grande faixa 
+de desempenho e custo. A Tabela 2.4 indica algumas das principais características dos diversos modelos em 1965 (cada membro da família é distinguido por um número de modelo). Os modelos eram compatíveis no sentido de que um programa escrito para um modelo deveria ser capaz de ser executado por outro modelo da série, com diferença apenas no tempo gasto para executar.
+O conceito de uma família de computadores compatíveis foi moderno e extremamente bem-sucedido. Um 
+cliente com requisitos modestos e um orçamento correspondente poderia começar com um Modelo 30 relativa-mente barato. Mais tarde, se as necessidades do cliente aumentassem, seria possível atualizar para uma máquina mais rápida com mais memória, sem sacrificar o investimento no software já desenvolvido. As características de uma família são as seguintes:
+ conjunto de instruções semelhante ou idêntico: em muitos casos, exatamente o mesmo conjunto de 
+instruções de máquina é aceito em todos os membros da família. Assim, um programa que executa em uma máquina também será executado em qualquer outra. Em alguns casos, o extremo inferior da família tem um conjunto de instruções que é um subconjunto daquele do topo da família. Isso significa que os programas podem subir, mas não descer.
+6 O termo mainframe é usado para os computadores maiores e mais poderosos, que não sejam supercomputadores. As características típicas 
+de um mainframe são que ele admite um grande banco de dados, tem hardware de E/S elaborado e é usado como recurso de processa-mento de dados central.Figura 2.8 Crescimento na contagem de transistores da CPU (BOHR, 2003g)Transistores por chip
+1970 1980 1990CPU com 1 bilhão
+de transistores
+2000 2010103104105106107108109
+Book 1.indb 24 19.11.09 14:35:47
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 25
+Tabela 2.4 Principais características da família System/360
+Característica Modelo 30 Modelo 40 Modelo 50 Modelo 65 Modelo 75
+Tamanho máximo da memória (bytes) 64K 256K 256K 512K 512K
+Taxa de dados da memória (MBytes/seg) 0,5 0,8 2,0 8,0 16,0
+Tempo do ciclo do processador ( µs) 1,0 0,625 0,5 0,25 0,2
+Velocidade relativa 1 3,5 10 21 50
+número máximo de canais de dados 3 3 4 6 6
+Taxa de dados máxima em um canal (Kbytes/s) 250 400 800 1 250 1 250
+ sistema operacional semelhante ou idêntico: o mesmo sistema operacional básico está disponível para 
+todos os membros da família. Em alguns casos, recursos adicionais são acrescentados aos membros de mais alto nível.
+ Velocidade aumentada: a taxa de execução de instruções aumenta, dos membros mais baixos aos mais altos da família.
+ número cada vez maior de portas de e/s: o número de portas de E/S aumenta, dos membros mais bai-
+xos aos mais altos da família.
+ Tamanho de memória crescente: o tamanho da memória principal aumenta, dos membros mais baixos aos mais altos da família.
+ maior custo: em determinado ponto no tempo, o custo de um sistema aumenta dos membros mais baixos 
+aos mais altos da família.
+Como esse conceito de família poderia ser implementado? As diferenças foram conseguidas com base em três 
+fatores: velocidade básica, tamanho e grau de simultaneidade (Stevens, 1964
+j). Por exemplo, velocidade maior na 
+execução de determinada instrução poderia ser obtida pelo uso de um circuito mais complexo na ALU, permitindo que as suboperações sejam executadas em paralelo. Outra forma de aumentar a velocidade era aumentar a largura do caminho de dados entre a memória principal e a CPU. No Modelo 30, somente 1 byte (8 bits) poderia ser apa-nhado da memória principal de cada vez, contra 8 bytes por vez no Modelo 75.
+O System/360 não apenas ditou o curso futuro da IBM, mas também teve um impacto profundo sobre a indús-
+tria inteira. Muitos de seus recursos tornaram-se padrão de outros computadores grandes.
+DEC PDP-8 No mesmo ano que a IBM entregou o primeiro System/360, ocorreu outra primeira remessa im-
+portantíssima: o PDP-8, da Digital Equipment Corporation (DEC). Na época em que o computador padrão exigia uma sala com ar condicionado, o PDP-8 (apelidado de minicomputador pelo setor, em decorrência da minissaia da época) era pequeno o suficiente para poder ser colocado sobre uma bancada de laboratório ou embutido em outro equipamento. Ele não podia fazer tudo o que o mainframe fazia, mas a US$ 16 000, ele era barato o suficiente para que cada técnico de laboratório tivesse um. Ao contrário, a série de computadores mainframe System/360, introduzida apenas alguns meses antes, custava centenas de milhares de dólares.
+O baixo custo e o pequeno tamanho do PDP-8 permitiram que outro fabricante adquirisse um PDP-8 e o inte-
+grasse a um sistema total para revenda. Esses outros fabricantes passaram a ser conhecidos como original equip-
+ment manufacturers (OEMs), e o mercado de OEM tornou-se e continua a ser um segmento importante do mercado de computadores.
+O PDP-8 foi um sucesso imediato e fez a fortuna da DEC. Essa máquina e outros membros da família PDP-8 
+que a seguiram (Tabela 2.5) alcançaram um estado de produção reservados inicialmente para computadores IBM, com cerca de 50 000 máquinas vendidas nos doze anos seguintes. Conforme a história oficial da DEC relata, o PDP-8 “estabeleceu o conceito de minicomputadores, preparando o caminho para uma indústria multibilionária” . Ela também estabeleceu a DEC como o fornecedor de minicomputadores número um e, na época em que o PDP-8 alcançou o fim de sua vida útil, a DEC era o fabricante de computadores número dois, atrás somente da IBM.
+Book 1.indb 25 19.11.09 14:35:47
+
+26 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+Tabela 2.5 Evolução do PDP-8 (VOELKER, 1988k)
+Modeloentregue 
+inicialmentecusto do processador 
++ 4K palavras de 
+memória de 
+12 bits ($ 1000s)Taxa de dados da 
+memória 
+(palavras/µ s)Volume (pés 
+cúbicos)Inovações e 
+melhorias
+PDP-8 4/65 16,2 1,26 8,0Produção automática de 
+wire-wrapping
+PDP-8/5 9/66 8,79 0,08 3,2Excecução sequencial 
+de instruções
+PDP-8/1 4/68 11,6 1,34 8,0Circuitos integrados em 
+média escala
+PDP-8/L 11/68 7,0 1,26 2,0 Gabinete menor
+PDP-8/E 3/71 4,99 1,52 2,2 Omnibus
+PDP-8/M 6/72 3,69 1,52 1,8Gabinete com a metade 
+do tamanho e com menos 
+slots que o 8/E
+PDP-8/A 1/75 2,6 1,34 1,2Memória semicondutora; 
+processador de ponto 
+fl utuante
+Ao contrário da arquitetura comutada central (Figura 2.5) usada pela IBM em seus sistemas 700/7000 e 360, os 
+modelos mais recentes do PDP-8 usavam uma estrutura que agora é praticamente universal para microcompu-
+tadores: a estrutura de barramento, ilustrada na Figura 2.9. O barramento do PDP-8, chamado Omnibus, consiste em 96 caminhos de sinal separados, usados para transportar sinais de controle, endereço e dados. Como todos os componentes do sistema compartilham um conjunto comum de caminhos de sinal, seu uso precisa ser controlado pela CPU. Essa arquitetura é altamente fl exível, permitindo que os módulos sejam conectados ao barramento para criar várias confi gurações.
+ Gerações posteriores
+Além da terceira geração, existe pouco consenso geral sobre a defi nição das gerações de computadores. 
+A Tabela 2.2 sugere ter havido diversas gerações posteriores, com base nos avanços na tecnologia de circuito integrado. Com a introdução da integração em grande escala (LSI, do inglês large-scale integration), mais de 1 000 
+componentes podem ser colocados em um único chip de circuito integrado. A integração em escala muito grande (VLSI, do inglês very-large-scale integration) alcançou mais de 10 000 componentes por chip, enquanto 
+os chips com integração em escala ultragrande (ULSI, do inglês ultra-large-scale integration) podem conter mais 
+de um milhão de componentes.
+Controlador
+ do consoleCPU
+OmnibusMemória principalMódulo de E/SMódulo de E/S
+• • •Figura 2.9 Estrutura de barramento do PDP-8
+Book 1.indb 26 19.11.09 14:35:48
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 27
+Com o rápido ritmo da tecnologia, a alta taxa de introdução de novos produtos e a importância do software e 
+das comunicações, além do hardware, a classificação por geração torna-se menos clara e menos significativa. Pode-
+se dizer que a aplicação comercial de novos desenvolvimentos resultou em uma mudança importante no início da década de 1970 e que os resultados dessas mudanças ainda estão sendo estudados. Nesta seção, mencionamos dois dos mais importantes desses resultados.
+MEMÓRIA SEMICONDUTORA A primeira aplicação da tecnologia de circuito integrado aos computa-
+dores foi a construção do processador (a unidade de controle e a unidade lógica e aritmética) em chips de circuito integrado. Mas também descobriu-se que essa mesma tecnologia poderia ser usada para construir memórias.
+Nas décadas de 1950 e 1960, a maior parte da memória do computador era construída a partir de pequenos 
+anéis de material ferromagnético, cada um com cerca de 1/16 de polegada de diâmetro. Esses anéis eram mon-tados em grades de pequenos fios suspensos em pequenas telas dentro do computador. Magnetizado em uma direção, um anel (chamado core) representava 1; magnetizado na outra direção, ele representava 0. A memória de 
+núcleo magnético era relativamente rápida; era necessário apenas um milionésimo de segundo para ler um bit armazenado na memória. Mas ela era cara, volumosa e usava leitura destrutiva: o simples ato de ler um core apa-gava os dados armazenados nele. Portanto, era necessário instalar circuitos para restaurar os dados assim que eles fossem extraídos.
+Então, em 1970, a Fairchild produziu a primeira memória de semicondutor relativamente grande. Esse chip, 
+aproximadamente com o tamanho de um único core, poderia manter 256 bits de memória. Ela era não destrutiva e muito mais rápida que o core; levava apenas 70 bilionésimos de segundo para ler um bit. Porém, o custo por bit era mais alto do que o do core.
+Em 1974, ocorreu um evento embrionário: o preço por bit da memória semicondutora caiu para menos 
+que o preço por bit da memória core. Depois disso, houve um declínio contínuo e rápido no custo da me -
+mória acompanhado por um aumento correspondente na densidade da memória física. Isso preparou o caminho para máquinas menores e mais rápidas do que aquelas de alguns anos antes, com memórias maio -
+res e mais caras. Os desenvolvimentos na tecnologia da memória, juntamente com os desenvolvimentos na tecnologia de processador — a serem discutidos em seguida —, mudaram a natureza dos computadores em menos de uma década. Embora os computadores volumosos e caros continuem sendo uma parte do panorama, o computador também foi levado ao “usuário final” , como máquinas de escritório e computado -
+res pessoais.
+Desde 1970, a memória semicondutora tem passado por 13 gerações: 1K, 4K, 16K, 64K, 256K, 1M, 4M, 16M, 64M, 
+256M, 1G, 4G, e, no momento em que este livro era escrito, 16 Gbits em um único chip (1K = 2
+10, 1M = 220, 1G = 
+230). Cada geração forneceu quatro vezes a densidade de armazenamento da geração anterior, acompanhada pelo 
+custo por bit e tempo de acesso em declínio.
+MICROPROCESSADORES Assim como a densidade dos elementos nos chips de memória continuava a subir, a 
+densidade dos elementos dos chips do processador subiram. Com o passar do tempo, mais e mais elementos eram colocados em cada chip, de modo que menos e menos chips eram necessários para construir um único processa-dor do computador.
+Uma descoberta inovadora foi alcançada em 1971, quando a Intel desenvolveu seu 4004. Ele foi o primeiro chip 
+a conter em si todos os componentes de uma CPU: nascia o microprocessador.
+O 4004 pode somar dois números de 4 bits e pode multiplicar apenas pela adição repetida. Pelos padrões de 
+hoje, o 4004 é desesperadamente primitivo, mas ele marcou o início de uma evolução contínua da capacidade e do poder do microprocessador.
+Essa evolução pode ser vista mais facilmente no número de bits com que o processador lida de cada vez. 
+Não existe uma medida clara disso, mas talvez a melhor medida seja a largura do barramento: o número de bits de dados que podem ser trazidos ou enviados do processador de cada vez. Outra medida é o número de bits no acumulador ou no conjunto de registradores de uso geral. Normalmente, essas medidas coincidem, mas nem sem-pre. Por exemplo, diversos microprocessadores foram desenvolvidos para operarem sobre números de 16 bits nos registradores, mas só podem ler e escrever 8 bits de cada vez.
+O próximo passo importante na evolução do microprocessador foi a introdução, em 1972, do Intel 8008. Esse foi 
+o primeiro microprocessador de 8 bits e tinha quase o dobro da complexidade do 4004.
+Book 1.indb 27 19.11.09 14:35:48
+
+28 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Nenhum desses passos teria o mesmo impacto do próximo evento importante: a introdução do Intel 8080 em 
+1974. Esse foi o primeiro microprocessador de uso geral. Enquanto o 4004 e o 8008 tinham sido projetados para 
+aplicações específicas, o 8080 foi projetado para ser a CPU de um microcomputador de uso geral. Assim como o 8008, o 8080 é um microprocessador de 8 bits, porém, é mais rápido, tem um conjunto de instruções mais rico e uma grande capacidade de endereçamento.
+Praticamente na mesma época, microprocessadores de 16 bits começaram a ser desenvolvidos. Porém, somen-
+te no final da década de 1970 é que apareceram os poderosos microprocessadores de 16 bits de uso geral. Um des-tes foi o 8086. O próximo passo nessa tendência ocorreu em 1981, quando a Bell Laboratórios e a Hewlett-Packard desenvolveram microprocessadores de 32 bits, de único chip. A Intel introduziu seu microprocessador de 32 bits, o 80386, em 1985 (Tabela 2.6).
+Tabela 2.6 Evolução dos microprocessadores Intel
+(a) Processadores da década de 1970
+4004 8008 8080 8086 8088
+Introduzido 1971 1972 1974 1978 1979
+Velocidades de clock 108 khz 108 khz 2 Mh z 5 Mh z, 8 Mh z, 10 Mhz 5 Mhz, 8 Mhz
+Largura do barramento 4 bits 8 bits 8 bits 16 bits 8 bits
+número de transistores 2 300 3 500 6 000 29 000 29 000
+Dimensão mínima da tecnologia de 
+fabricação ( µm)10 6 3 6
+Memória endereçável 640 bytes 16 KB 64 KB 1 MB 1 MB
+(b) Processadores da década de 1980
+80286 386TM DX 386TM SX 486TM DX CPU
+Introduzido 1982 1985 1988 1989
+Velocidades de clock 6–12,5 Mhz 16 –33 Mhz 16 –33 Mhz 25 –50 Mhz
+Largura do barramento 16 bits 32 bits 16 bits 32 bits
+número de transistores 134.000 275.000 275.000 1,2 milhão
+Dimensão mínima da tecnologia de 
+fabricação ( µm)1,5 1 1 0,8–1
+Memória endereçável 16 MB 4 GB 16 MB 4 GB
+Memória virtual 1 GB 64 TB 64 TB 64 TB
+Cache – – – 8 kB
+(c) Processadores da década de 1990
+486TM SX Pentium Pentium Pro Pentium II
+Introduzido 1991 1993 1995 1997
+Velocidades de clock 16–33Mhz 60 –166 Mhz 150 –200 Mhz 200 –300 Mhz
+Largura do barramento 32 bits 32 bits 64 bits 64 bits
+número de transistores 1,185 milhão 3,1 milhões 5,5 milhões 7,5 milhões
+Dimensão mínima da tecnologia de 
+fabricação ( µm)1 0,8 0,6 0,35
+Memória endereçável 4 GB 4 GB 64 GB 64 GB
+Memória virtual 64 TB 64 TB 64 TB 64 TB
+Cache 8kB 8kB 512 kB L1 e 1 MB L2 512 kB L2
+(Continua)
+Book 1.indb 28 19.11.09 14:35:48
+
+ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES Capítulo 2 Evolução e desempenho do computador 29
+(d) Processadores recentes
+Pentium III Pentium 4 Core 2 Duo Core 2 Quad
+Introduzido 1999 2000 2006 2008
+Velocidades de clock 450–660 MHz 1,3 –1,8 GHz 1,06 –1,2 GHz 3 GHz
+Largura do barramento 64 bits 64 bits 64 bits 64 bits
+Número de transistores 9,5 milhões 42 milhões 167 milhões 820 milhões
+Dimensão mínima da tecnologia de 
+fabricação (nm)250 180 65 45
+Memória endereçável 64 GB 64 GB 64 GB 64 GB
+Memória virtual 64 TB 64 TB 64 TB 64 TB
+Cache 512 KB L2 256 KB L2 2 MB L2 6 MB L2
+2.2 Projetando visando ao desempenho
+Ano após ano, o custo dos sistemas de computação continua a cair drasticamente, enquanto o desempenho 
+e a capacidade desses sistemas continua a subir de forma igualmente drástica. Em uma loja de atacado local, você 
+pode conseguir um computador pessoal por menos de US$ 1 000, com desempenho melhor que o de um main-frame IBM de 10 anos atrás. Assim, temos praticamente potência de computação “grátis” . E essa revolução tecnoló-gica contínua permitiu o desenvolvimento de aplicações de incrível complexidade e poder. Por exemplo, as aplica-ções de desktop que exigem a grande potência dos sistemas atuais baseados em microprocessador incluem
+ processamento de imagens;
+ reconhecimento de voz;
+ videoconferência;
+ criação de multimídia;
+ anotação de arquivos de voz e vídeo; e
+ modelagem de simulação.
+Os sistemas de estação de trabalho agora admitem aplicações de engenharia e cientí/f_i cas altamente so/f_i stica-
+das, além de sistemas de simulação, e têm a capacidade de suportar aplicações de imagem e vídeo. Além disso, as 
+empresas estão contando com servidores cada vez mais poderosos para lidar com o processamento de transação e banco de dados, e para dar suporte a redes cliente/servidor massivas, que substituíram os imensos centros de computador mainframe do passado.
+O que é fascinante sobre tudo isso, do ponto de vista da arquitetura e da organização do computador, é que, 
+por um lado, os blocos de montagem básicos para os milagres do computador de hoje são praticamente os mes-mos daqueles do computador IAS de 50 anos atrás, enquanto, por outro lado, as técnicas para espremer a última gota de desempenho dos materiais em mãos têm se tornado cada vez mais so/f_i sticadas.
+Essa observação serve como um princípio de orientação para a apresentação neste livro. Enquanto prosseguir-
+mos pelos diversos elementos e componentes de um computador, dois objetivos são buscados. Primeiro, o livro explica a funcionalidade fundamental em cada área em consideração, e segundo, explora as técnicas exigidas para alcançar o máximo de desempenho. No restante desta seção, destacamos alguns dos fatores mais fortes para se alcançar o máximo de desempenho. 
+ Velocidade do microprocessador
+O que dá aos processadores Intel x86 ou computadores mainframe da IBM essa potência incrível é a busca im-
+placável de velocidade pelos fabricantes de chip de processador. A evolução dessas máquinas continua a compro-
+var a lei de Moore, mencionada anteriormente. Como essa lei sustenta, os fabricantes de chips podem desencadear Tabela 2.6 Evolução dos microprocessadores Intel (continuação)
+Cap_2 (12-50).indd 29 10.09.10 11:22:00
+
+30 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+uma nova geração de chips a cada três anos  com quatro vezes a quantidade de transistores. Em chips de memó-
+ria, isso quadruplicou a capacidade da memória de acesso aleatório e dinâmico (DRAM, do inglês dynamic random-
+access memory), ainda a tecnologia básica para a memória principal, a cada três anos. Nos microprocessadores, a adição de novos circuitos, e o aumento de velocidade que vem da redução das distâncias entre eles, melhorou o desempenho de quatro a cinco vezes a cada três anos ou mais desde que a Intel lançou sua família x86 em 1978.
+Mas a velocidade bruta do microprocessador não alcança seu potencial a menos que receba um fl uxo constante de 
+trabalho para fazer na forma de instruções de computador. Qualquer coisa que atrapalhe esse fl uxo suave mina a potên-
+cia do processador. Consequentemente, enquanto os fabricantes de chips estiverem ocupados aprendendo a fabricar chips com densidade cada vez maior, os projetistas de processadores deverão aparecer com técnicas ainda mais elabora-das para alimentar o monstro. Entre as técnicas embutidas nos processadores contemporâneos estão as seguintes:
+ previsão de desvio: o processador antecipa o código de instrução apanhado da memória e prevê quais 
+desvios, ou grupos de instruções, provavelmente serão processados em seguida. Se o processador acertar na maior parte do tempo, ele poderá buscar antecipadamente as instruções corretas e mantê-las em um buff er, de modo que o processador continue ocupado. Os exemplos mais sofi sticados dessa estratégia pre-veem não apenas o próximo desvio, mas múltiplos desvios adiante. Assim, a previsão de desvio aumenta a quantidade de trabalho disponível para o processador executar.
+ Análise de fl uxo de dados: o processador analisa quais instruções são dependentes dos resultados uma 
+da outra, ou dos dados, para criar uma sequência otimizada de instruções. De fato, as instruções são escalo-nadas para serem executadas quanto estiverem prontas, independentemente da ordem original do progra-ma. Isso impede atrasos desnecessários.
+ execução especulativa: usando a previsão de desvio e a análise do fl uxo de dados, alguns processadores especulativamente executam instruções antes do seu surgimento real na execução do programa, manten-do os resultados em locais temporários. Isso permite que o processador mantenha seus mecanismos de execução o mais ocupados possível, executando instruções que provavelmente serão necessárias.
+Estas e outras técnicas sofi sticadas tornam-se necessárias pelo poder completo do processador. Elas fazem com 
+que seja possível explorar a velocidade bruta do processador.
+ Balanço do desempenho
+Embora a potência do processador tenha corrido na frente em velocidade espantosa, outros componentes críticos 
+do computador não a acompanharam. O resultado é uma necessidade de procurar o equilíbrio do desempenho: um ajuste da organização e da arquitetura para compensar a diferença entre as capacidades dos diversos componentes.
+Em nenhum outro lugar o problema criado por tais diferenças é mais crítico do que na interface entre o proces-
+sador e a memória principal. Considere a história representada na Figura 2.10. Embora a velocidade do processador tenha aumentado rapidamente, a velocidade com que os dados podem ser transferidos entre a memória principal e o processador fi cou para trás. A interface entre o processador e a memória principal é o caminho mais crítico no compu-tador inteiro, pois é responsável por transportar um fl uxo constante de instruções do programa e dados entre os chips de memória e o processador. Se a memória ou o caminho deixar de manter o ritmo com as demandas insistentes do processador, este entra em um estado de espera, e perde-se um tempo valioso de processamento.
+Existem várias maneiras de um arquiteto de sistemas atacar esse problema, todas refl etidas nos projetos con-
+temporâneos de computador. Considere os seguintes exemplos:
+ Aumentar o número de bits que são recuperados ao mesmo tempo, tornando a DRAM “mais larga” em vez de “mais profunda” e usando caminhos de dados largos no barramento.
+ Alterar a interface da DRAM para torná-la mais efi ciente, incluindo uma cache
+7 ou outro esquema de 
+buff ering no chip de DRAM.
+ Reduzir a frequência de acesso à memória incorporando estruturas de cache cada vez mais complexas e efi cientes entre o processador e a memória principal. Isso inclui a incorporação de uma ou mais caches no chip do processador, bem como uma cache, fora do chip, próxima do chip do processador.
+7 Uma cache é uma memória rápida, relativamente pequena, interposta entre uma memória maior e mais lenta e a lógica que acessa a 
+memória maior. A cache mantém dados acessados recentemente e é projetada para agilizar o acesso subsequente aos mesmos dados. As 
+caches são discutidas no Capítulo 4.
+Book 1.indb 30 19.11.09 14:35:49
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 31
+ Aumentar a largura de banda de interconexão entre os processadores e a memória usando barramentos de velo-
+cidade mais alta e usando uma hierarquia de barramentos para armazenar e estruturar o fl uxo de dados.
+Outra área de foco de projeto é o tratamento dos dispositivos de E/S. À medida que os computadores se tornam 
+mais rápidos e mais capazes, aplicações mais sofi sticadas são desenvolvidas para dar suporte ao uso de periféricos 
+com demandas intensivas de E/S. A Figura 2.11 oferece alguns exemplos de dispositivos periféricos típicos em uso nos computadores pessoais e estações de trabalho. Esses dispositivos criam demandas consideráveis de vazão de dados. Embora a geração atual de processadores possa tratar dos dados lançados por esses dispositivos, ainda resta o problema de movimentar esses dados entre o processador e o periférico. As estratégias aqui incluem esquemas de caching e buff ering, mais o uso de barramentos de interconexão de maior velocidade e estruturas de barra-mentos mais elaboradas. Além disso, o uso de confi gurações de processador múltiplo pode auxiliar a satisfazer as demandas de E/S.
+A chave em tudo isso é o equilíbrio. Os projetistas constantemente lutam para equilibrar as demandas de vazão 
+e processamento dos componentes do processador, memória principal, dispositivos de E/S e estruturas de interco-nexão. Esse projeto precisa ser constantemente repensado para lidar com dois fatores em constante evolução:
+A taxa em que o desempenho está mudando nas diversas áreas da tecnologia (processador, barramentos, 
+ 
+memória, periféricos) difere bastante de um tipo de elemento para outro.Novas aplicações e novos dispositivos periféricos constantemente mudam a natureza da demanda sobre o 
+ 
+sistema em termos do perfi l de instrução típico e dos padrões de acesso aos dados.
+Assim, o projeto do computador é uma forma de arte em constante evolução. Este livro tenta apresentar os 
+fundamentos nos quais essa forma de arte é baseada e apresentar uma análise do estado atual dela.
+ Melhorias na organização e na arquitetura do chip
+À medida que os projetistas lutam com o desafi o de balancear o desempenho do processador com o da me-
+mória principal e de outros componentes do computador, permanece a necessidade de aumentar a velocidade do processador. Para isso, existem três técnicas:
+ Aumentar a velocidade de hardware do processador. Esse aumento deve-se fundamentalmente ao encolhi-mento do tamanho das portas lógicas no chip do processador, de modo que mais portas possam ser reuni-das mais de perto, aumentando a taxa de clock. Com portas mais próximas, o tempo de propagação para os 5001 0001 5002 0002 5003 0003 500
+1992 1994 1996 1998 2000 2002MHz
+MemóriaLógicaFigura 2.10 Diferença de desempenho entre lógica e memória (Borkar, 2003l)
+Book 1.indb 31 19.11.09 14:35:50
+
+32 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+sinais é significativamente reduzido, permitindo um aumento de velocidade do processador. Um aumento 
+na taxa de clock significa que operações individuais são executadas mais rapidamente.
+ Aumentar o tamanho e a velocidade das caches interpostas entre o processador e a memória principal. Em particular, dedicando uma parte do próprio chip do processador à cache, os tempos de acesso à cache caem significativamente.
+ Fazer mudanças na organização e na arquitetura do processador, que aumentam a velocidade efetiva da execução da instrução. Tipicamente, isso envolve o uso do paralelismo de uma forma ou de outra.
+Tradicionalmente, o fator dominante nos ganhos de desempenho tem sido em aumentos na velocidade do 
+clock e densidade lógica. A Figura 2.12 ilustra essa tendência para chips de processador Intel. Porém, à medida que a velocidade do clock e a densidade lógica aumentam, diversos obstáculos se tornam mais significativos (Intel Research and Development, 2004
+m):
+ potência: à medida que a densidade da lógica e a velocidade do clock em um chip aumentam, tam-
+bém aumenta a densidade de potência (Watts/cm2). A dificuldade de dissipar o calor gerado em chips 
+de alta densidade e velocidade está se tornando um sério problema de projeto (Gibbs, 2004n; Borkar, 
+2003e).
+ Atraso de R c: a velocidade em que os elétrons podem fluir em um chip entre os transistores é limitada pela 
+resistência (R) e capacitância (C) dos fios de metal que os conectam; especificamente, o atraso aumenta à medida que o produto RC aumenta. À medida que os componentes no chip diminuem de tamanho, as in-terconexões de fio se tornam mais finas, aumentando a resistência. Além disso, os fios estão mais próximos, aumentando a capacitância.
+ Latência da memória: as velocidades de memória limitam as velocidades do processador, conforme já foi discutido.
+Assim, haverá mais ênfase nas abordagens de organização e arquitetura para melhorar o desempenho. A Figura 
+2.12 destaca as principais mudanças feitas no decorrer dos anos para aumentar o paralelismo e, portanto, a eficiên-cia computacional dos processadores. Essas técnicas são discutidas em outros capítulos do livro.
+A partir do final da década de 1980, e continuando por cerca de 15 anos, duas estratégias principais têm sido 
+usadas para aumentar o desempenho além do que pode ser alcançado simplesmente aumentando a velocidade Figura 2.11 Taxas de dados típicas dos dispositivo de E/S
+Teclado
+101102103104105
+Taxa de dados (bps)106107108109MouseModemEthernetDisco rígidoMonitor gráficoGigabit Ethernet
+DisqueteImpressora a laserEscânerDisco óptico
+Book 1.indb 32 19.11.09 14:35:50
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 33
+do clock. Primeiro, tem havido um aumento na capacidade da cache. Agora, existem normalmente dois ou três 
+níveis de cache entre o processador e a memória principal. À medida que a densidade do chip tem aumentado, mais da memória cache tem sido incorporada no chip, permitindo um acesso mais rápido a ela. Por exemplo, o chip Pentium original dedicava cerca de 10% da área do chip a uma cache. O chip do Pentium 4 mais recente dedica cerca de metade de sua área às caches.
+Segundo, a lógica de execução de instrução dentro de um processador tornou-se cada vez mais complexa 
+para permitir a execução paralela das instruções dentro do processador. Duas técnicas de projeto dignas de nota são pipeline e superescalar. Um pipeline funciona como uma linha de montagem em uma fábrica, permitindo que diferentes estágios de execução de diferentes instruções ocorram ao mesmo tempo pelo pipeline. Uma técnica superescalar basicamente permite múltiplos pipelines dentro de um único processador, de modo que as instruções que não dependem umas das outras possam ser executadas em paralelo.
+Essas duas técnicas estão alcançando um ponto sem retorno. A organização interna dos processadores contem-
+porâneos é excessivamente complexa e capaz de comprimir muito paralelismo do fluxo de instruções. Parece pro-vável que aumentos mais significativos nessa direção serão relativamente modestos (Gibbs, 2004
+n). Com três níveis 
+de cache no chip do processador, cada um oferecendo capacidade substancial, também parece que os benefícios da cache estejam chegando a um limite.
+Porém, simplesmente contar com o aumento na taxa de clock para aumentar o desempenho faz com que nos 
+deparemos com o problema de dissipação de potência já citado. Quanto maior a taxa de clock, maior a quantidade de potência a ser dissipada, sem falar que alguns limites físicos fundamentais já estão sendo atingidos.
+Com todas essas dificuldades em mente, os projetistas passaram para uma técnica fundamentalmente nova 
+para melhorar o desempenho: colocar múltiplos processadores no mesmo chip, com uma grande cache comparti-lhada. O uso de múltiplos processadores no mesmo chip, também conhecido como múltiplos cores, ou multicore, 
+oferece o potencial de aumentar o desempenho sem aumentar a taxa de clock. Estudos indicam que, dentro de um processador, o aumento no desempenho é aproximadamente proporcional à raiz quadrada do aumento na Figura 2.12 Desempenho do microprocessador Intel (Gibbs, 2004n)
+110Pipeline de
+ instruçãoCache de memóriainternaMúltiplasinstruções por cicloExecução especulativafora de ordemExtensões demultimídia do MMXCache de nível 2 de alta velocidadePipeline mais longa, aritmética de velocidadedupla
+Hyperthreading
+ (multicore)
+100
+198816 MHzMelhorias na arquitetura do chip
+25 MHz33 MHz50 MHz66 MHz200 MHz300 MHz733 MHz2.000 MHz3.060 MHz
+1990 Desempenho máximo teórico
+ (milhões de operações por segundo)
+ 19941.00010.000
+Aumentos navelocidade do clock
+1992 1996 1998 2000 2002 2004
+Book 1.indb 33 19.11.09 14:35:50
+
+34 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+complexidade (Borkar, 2003l). Mas, se o software puder suportar o uso efetivo de múltiplos processadores e, então, 
+dobrar o número de processadores, quase dobra também seu desempenho. Assim, a estratégia é usar dois proces-
+sadores mais simples no chip, ao invés de um mais complexo.
+Além disso, com dois processadores, caches maiores são justifi cadas. Isso é importante porque o consumo de 
+potência da lógica da memória em um chip é muito menor do que o da lógica de processamento. Nos próximos anos, podemos esperar que a maior parte dos novos chips de processador tenha múltiplos processadores.
+2.3 Evolução da arquitetura Intel x86
+No decorrer deste livro, contamos com muitos exemplos concretos de projeto e implementação de computa-
+dor para ilustrar os conceitos e esclarecer as escolhas. Quase sempre, o livro conta com exemplos de duas famílias 
+de computadores: o Intel X86 e a arquitetura ARM. As ofertas de x86 atuais representam os resultados de décadas de esforço de projeto em computadores com conjunto complexo de instruções (CISC). O x86 atual incorpora os sofi sticados princípios de projeto antigamente encontrados apenas em mainframes e supercomputadores e serve como um excelente exemplo de projeto CISC. Uma técnica alternativa de projeto de processador é o computador com conjunto reduzido de instruções (RISC). A arquitetura ARM é usada em uma grande variedade de sistemas embarcados e é um dos sistemas baseados em RISC mais poderosos e bem projetados no mercado.
+Nesta seção e na seguinte, oferecemos uma rápida visão geral desses dois sistemas.Em termos de fatia de mercado, a Intel é considerada, a décadas, o fabricante número um de microprocessa-
+dores para sistemas não embarcados, uma posição da qual parece improvável recuar. A evolução de seu principal produto microprocessador serve como um bom indicador da tecnologia de computador em geral.
+A Tabela 2.6 mostra essa evolução. É interessante que, à medida que os microprocessadores se tornaram mais 
+rápidos e muito mais complexos, a Intel realmente acelerou o ritmo. A Intel costumava desenvolver microproces-sadores, um após o outro, a cada quatro anos, mas agora espera manter os concorrentes acuados, retirando um ou dois anos desse tempo de desenvolvimento, como tem feito com a maioria das gerações recentes do x86.
+Vale a pena listar alguns dos destaques da evolução da linha de produtos da Intel:
+8080: 
+  o primeiro microprocessador de uso geral do mundo. Esta era uma máquina de 8 bits, com um cami-
+nho de dados de 8 bits para a memória. O 8080 foi usado no primeiro computador pessoal, o Altair.8086: 
+  uma máquina muito mais poderosa, de 16 bits. Além de um caminho de dados mais largo e registra-
+dores maiores, o 8086 ostentava uma cache de instruções, ou fi la, que fazia a pré-busca de algumas instru-ções antes que fossem executadas. Uma variante desse processador, o 8088, foi usado no primeiro computa-dor pessoal da IBM, assegurando o sucesso da Intel. O 8086 é o primeiro aparecimento da arquitetura x86.80286: 
+  esta extensão do 8086 permitia o endereçamento de uma memória de 16 MB, em vez de apenas 
+1 MB.80386: 
+  a primeira máquina de 32 bits da Intel e uma reformulação geral do produto. Com uma arquitetura 
+de 32 bits, o 80386 competia em complexidade e potência com os minicomputadores e mainframes intro-duzidos alguns anos antes. Esse foi o primeiro processador da Intel a aceitar multitarefa, signifi cando que poderia executar vários programas ao mesmo tempo.80486: 
+  o 80486 introduziu o uso de tecnologia de cache muito mais sofi sticada e poderosa, e pipeline so-
+fi sticado de instrução. O 80486 também ofereceu um coprocessador matemático embutido, tirando da CPU principal operações matemáticas complexas.pentium:
+  com o Pentium, a Intel introduziu o uso de técnicas superescalares, que permitem que múltiplas 
+instruções sejam executadas em paralelo.pentium pro:
+  o Pentium Pro continuou o movimento em direção à organização superescalar, iniciada com 
+o Pentium, com o uso agressivo de renomeação de registrador, previsão de desvio, análise de fl uxo de dados e execução especulativa.pentium II: 
+  o Pentium II incorporou a tecnologia MMX da Intel, que foi projetada especifi camente para 
+processar dados de vídeo, áudio e gráfi co de forma efi ciente.pentium III: 
+  o Pentium III incorpora instruções adicionais de ponto fl utuante para dar suporte ao software 
+gráfi co 3D.
+Book 1.indb 34 19.11.09 14:35:51

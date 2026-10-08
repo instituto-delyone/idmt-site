@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "etica.pdf",
+    "key": "etica",
+    "sha256": "06e54c88593641072181188cc6bef92aab06aa6040d60f863fe12a12f2a0f40e",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "ETICA-631B9D6E7B85",
+      "sequence": 1,
+      "source": "etica.pdf",
+      "source_key": "etica",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 53440,
+      "text_checksum": "952ac35b8c67a9973976ea445cf8e675bd1083adf1c89967fb979e04d8905d84"
+    },
+    {
+      "id": "ETICA-09EDDCC57A0C",
+      "sequence": 2,
+      "source": "etica.pdf",
+      "source_key": "etica",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 67110,
+      "text_checksum": "224f20b68c06595514a8209ab0f9117096cb6b298dc9063c6121c49fef626579"
+    },
+    {
+      "id": "ETICA-EA2514E067DC",
+      "sequence": 3,
+      "source": "etica.pdf",
+      "source_key": "etica",
+      "start_page": 51,
+      "end_page": 56,
+      "text_length": 7667,
+      "text_checksum": "da1b40c423aedc0d9cd29e8861ab60abad15a6d30ce646dd4d497b7b1ae4319a"
+    }
+  ]
+}

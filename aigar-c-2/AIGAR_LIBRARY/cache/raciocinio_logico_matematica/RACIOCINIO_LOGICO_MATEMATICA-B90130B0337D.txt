@@ -1,0 +1,1670 @@
+Premissa 3: Como sou usuário e não levo uma grande quantidade, não escondi a droga.
+Conclusão: Se eu estivesse levando uma grande quantidade, não seria usuário.
+Considerando a
+ situação hipotética apresentada acima, julgue os itens a seguir.
+73. (Cespe/UnB – Polícia Federal – Agente – 2012) A proposição correspondente à negação
+da premissa 2 é logicamente equivalente a “Como eu não sou traficante, não estou
+levando uma grande quantidade de droga ou não a escondi”.
+74. (Cespe/UnB – Polícia Federal – Agente – 2012) Se a proposição “Eu não sou traficante”
+for verdadeira,
+ então a premissa 2 será uma proposição verdadeira,
+independentemente dos valores lógicos das demais proposições que a compõem.
+75. (Cespe/UnB – Polícia Federal – Agente – 2012) Sob o ponto de vista lógico, a
+argumentação do jovem constitui argumentação válida.
+76. (Cespe/UnB – Polícia Federal – Agente – 2012) Se P e Q representam, respectivamente,
+as proposições “Eu não sou traficante”
+ e “Eu sou usuário”, então a premissa 1 estará
+corretamente representada por PvQ.
+Texto para questões 77 a 79
+Dez policiais federais — dois delegados, dois peritos, dois escrivães e quatro agentes —
+foram designados para cumprir mandado de busca e apreensão em duas localidades
+próximas à superintendência regional. O grupo será dividido em duas equipes.
+Para tanto, exige-se que cada
+ uma seja composta, necessariamente, por um delegado, um
+perito, um escrivão e dois agentes.
+Considerando essa situação hipotética, julgue os itens que se seguem.
+77. (Cespe/UnB – Polícia Federal – Agente – 2012) Se todos os policiais em questão
+estiverem habilitados a dirigir, então, formadas as equipes, a quantidade de maneiras
+distintas de se organizar uma equipe dentro de um veículo
+ com cinco lugares —
+motorista e mais quatro passageiros — será superior a 100.
+78. (Cespe/UnB – Polícia Federal – Agente – 2012) Há mais de 50 maneiras diferentes de
+compor as referidas equipes.
+79. (Cespe/UnB – Polícia Federal – Agente – 2012) Se cinco dos citados policiais forem
+escolhidos, aleatoriamente e independentemente dos cargos, então a probabilidade de
+que esses escolhidos constituam
+ uma equipe com a exigência inicial será superior a
+20%.
+Texto para questões 80 e 81
+Em uma página da Polícia Federal, na Internet, é possível denunciar crimes contra os
+direitos humanos. Esses crimes incluem o tráfico de pessoas — aliciamento de homens,
+mulheres e crianças para exploração sexual — e a pornografia infantil — envolvimento de
+menores de 18 anos de idade em atividades sexuais
+ explícitas, reais ou simuladas, ou
+exibição dos órgãos genitais do menor para fins sexuais.
+Com referência a essa situação hipotética e considerando que, após a análise de 100
+
+denúncias, tenha-se constatado que 30 delas se enquadravam como tráfico de pessoas e
+como pornografia infantil; outras 30 não se enquadravam em nenhum desses dois crimes e
+que, em relação a 60 dessas denúncias, havia
+ apenas a certeza de que se tratava de
+pornografia infantil, julgue os itens subsequentes, acerca dessas 100 denúncias
+analisadas.
+80. (Cespe/UnB – Polícia Federal – Agente – 2012) Dez denúncias foram classificadas
+apenas como crime de tráfico de pessoas.
+81. (Cespe/UnB – Polícia Federal – Agente – 2012) Os crimes de tráfico de pessoas foram
+mais denunciados que os de pornografia infantil.
+Texto para questões 82 a 84
+Julgue os próximos itens, considerando proposição P, a seguir:
+O desenvolvimento científico do país permanecerá estagnado se, e somente se, não houver
+investimento em pesquisa acadêmica no Brasil.
+82. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) A proposição P é
+logicamente equivalente a “Se não houver investimento em pesquisa acadêmica
+ no
+Brasil, então o desenvolvimento científico do país permanecerá estagnado, e se houver
+investimento em pesquisa acadêmica no Brasil, então o desenvolvimento do país não
+permanecerá estagnado”.
+83. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) A negação da
+proposição P está corretamente enunciada da seguinte forma: “Ou o desenvolvimento
+científico do país permanecerá estagnado,
+ ou não haverá investimento em pesquisa
+acadêmica no Brasil”.
+84. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) Se a proposição P for
+verdadeira, então as proposições “O desenvolvimento científico do país permanece
+estagnado” e “Há investimento em pesquisa acadêmica no Brasil” terão os mesmos
+valores lógicos.
+Texto para questões 85 a 87
+Considere o argumento formado
+ pelas proposições de 1 a 4 enunciadas a seguir.
+Proposição 1: Se ocorre desenvolvimento científico no Brasil, então o país dispõe de
+recursos humanos capacitados.
+Proposição 2: Se o Brasil dispõe de recursos humanos capacitados, então o país realizou
+investimentos consistentes, contínuos, de longo prazo e de porte para construir sua
+competência científica.
+Proposição 3: O Brasil realizou
+ investimentos consistentes, contínuos, de longo prazo e de
+porte para construir sua competência científica.
+Proposição 4: Ocorre desenvolvimento científico no Brasil.
+Com base no argumento acima, julgue os itens a seguir.
+85. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) Um argumento que
+tenha como premissas as proposições 1, 2 e 4 e como conclusão a proposição 3 é
+ um
+
+argumento válido.
+86. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) É possível que a
+proposição 2 seja verdadeira, ainda que a proposição “O Brasil dispõe de recursos
+humanos capacitados” seja falsa.
+87. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) Um argumento que
+tenha como premissas as proposições 1, 2 e 3 e como conclusão a proposição 4 é um
+argumento
+ válido.
+Texto para questões 88 e 89
+Com 7 cientistas de uma universidade serão formados dois grupos de pesquisa — grupo I,
+com 4 cientistas, e grupo II, com 3 cientistas — para estudar diferentes aspectos de um
+mesmo problema. Em cada grupo, um dos cientistas será o líder do grupo.
+Diante dessa situação, julgue os itens que se seguem.
+88. (Cespe/UnB – MCT – Assistente em Ciência
+ e Tecnologia – 2012) Há mais de 50
+maneiras distintas de se escolher 2 cientistas para serem os líderes dos grupos.
+89. (Cespe/UnB – MCT – Assistente em Ciência e Tecnologia – 2012) Após escolha do líder
+de cada grupo, serão iguais a quantidade de maneiras distintas de se distribuírem os 5
+cientistas restantes nos dois grupos e a quantidade de maneiras distintas de se
+selecionarem 3 cientistas
+ para compor o grupo I.
+Texto para questões 90 a 92
+A Mesa Diretora da Câmara dos Deputados, responsável pela direção dos trabalhos
+legislativos e pelos serviços administrativos da Casa, compõe-se de Presidência —
+presidente, 1
+o
+ e 2
+o
+ vice-presidentes — e de Secretaria — 1
+o
+, 2
+o
+, 3
+o
+ e 4
+o
+ secretários e 1
+o
+, 2
+o
+,
+3
+o
+ e 4
+o
+ suplen-
+tes —, devendo cada um desses cargos ser ocupado por um deputado
+ diferente, ou seja, um
+mesmo deputado não pode ocupar mais de um desses cargos. Supondo que, por ocasião da
+composição da Mesa Diretora, qualquer um dos 513 deputados possa assumir qualquer um
+dos cargos na Mesa, julgue os itens a seguir.
+90. (Cespe/UnB – Câmara dos Deputados – Analista Legislativo – 2012) O número
+correspondente à quantidade de maneiras diferentes de se compor a Mesa Diretora
+ da
+Câmara dos Deputados pode ser expresso por 513!/502!.
+91. (Cespe/UnB – Câmara dos Deputados – Analista Legislativo – 2012) Sabendo-se que,
+entre os 513 deputados, 45 são do sexo feminino, então o número correspondente à
+quantidade de maneiras distintas de se compor a Mesa Diretora de forma que pelo
+menos um dos 11 cargos seja ocupado por deputada pode ser expresso por 45!/34!.
+92. (Cespe/UnB
+ – Câmara dos Deputados – Analista Legislativo – 2012) Existem menos de
+125.000.000 de maneiras diferentes de se escolher a Presidência da Mesa Diretora da
+Câmara dos Deputados.
+
+Texto para questões 93 a 95
+Em uma comissão parlamentar de inquérito, um lobista, ao esclarecer que não teria
+recebido dinheiro de certo empresário para pressionar pela aprovação de projeto de lei de
+interesse da
+ empresa deste, assim argumentou: “Não conheço esse empresário nem ouvi
+falar de sua empresa. Se não conheço o empresário nem ouvi falar de sua empresa, não
+forneci meus dados bancários a ele. Se não forneci meus dados bancários a ele, ele não
+depositou dinheiro em minha conta. Se ele não depositou dinheiro em minha conta, eu não
+recebi dinheiro para pressionar pela aprovação desse projeto de lei.
+Logo, eu não ouvi falar dessa empresa nem recebi dinheiro para pressionar pela votação
+desse projeto de lei”. A partir da situação hipotética descrita acima, julgue os itens a
+seguir.
+93. (Cespe/UnB – Câmara dos Deputados – Analista Legislativo – 2012) A proposição “Se
+não forneci meus dados bancários a ele, ele não depositou dinheiro em minha conta” é
+logicamente equivalente a “Se esse
+ empresário depositou dinheiro em minha conta,
+então eu forneci meus dados bancários a ele”.
+94. (Cespe/UnB – Câmara dos Deputados – Analista Legislativo – 2012) A negação da
+proposição “Não conheço esse empresário nem ouvi falar de sua empresa” pode ser
+expressa por “Conheço esse empresário e ouvi falar de sua empresa”.
+95. (Cespe/UnB – Câmara dos Deputados – Analista Legislativo – 2012)
+ Admitindo-se que a
+proposição “Eu não recebi dinheiro para pressionar pela aprovação desse projeto de lei”
+seja verdadeira, também será verdadeira a proposição “Se ele não depositou dinheiro
+em minha conta, eu não recebi dinheiro para pressionar pela aprovação desse projeto
+de lei”, mesmo que seja falsa a proposição “Ele não depositou dinheiro em minha
+conta”.
+Texto para questões 96 a 98
+André, João e Pedro são os analistas responsáveis pela execução de nove tarefas, sendo
+que cada um deles executa tarefas distintas dos demais e cada analista executa pelo
+menos uma tarefa.
+Sabe-se também que a quantidade das tarefas de Pedro é maior ou igual à quantidade das
+tarefas de João e esta é maior ou igual à quantidade das tarefas de André, e que o número
+correspondente à quantidade
+ de tarefas de Pedro é um número par.
+Com base nesses dados, julgue os itens seguintes acerca das quantidades de tarefas
+executadas pelos analistas.
+96. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Não há maneira de executar as
+tarefas de modo que algum analista execute a mesma quantidade de tarefas de outro
+analista.
+97. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) É possível
+ algum analista executar
+cinco tarefas a mais que outro.
+98. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Com relação às quantidades de
+tarefas que cada analista executa, é correto afirmar que existem três possibilidades
+
+distintas.
+Texto para questões 99 e 100
+Edna, Marta e Sandra são analistas de apenas uma das áreas: informática, orçamento e
+serviço social, mas não necessariamente
+ nessa ordem. Nesse sentido, considere as
+proposições a seguir.
+P: Edna é analista na área de informática.
+Q: Marta não é analista na área de informática.
+R: Sandra não é analista na área de serviço social.
+Sabendo-se que apenas uma dessas proposições é verdadeira, é correto afirmar que:
+99. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Marta não é analista de orçamento.
+100. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Sandra é analista de serviço social.
+Texto para questões 101 e 102
+Sabendo-se que em uma empresa que possui 80 empregados, 40 são mulheres e, dos
+homens, 30 atuam na área administrativa, julgue os itens subsequentes.
+101. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Se 1/3 dos empregados da área
+administrativa forem mulheres,
+ então menos de 30 mulheres não atuam na área
+administrativa.
+102. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Caso se escolha um empregado
+dessa empresa ao acaso, a probabilidade de ele ser homem e não atuar na área
+administrativa será superior a 1/6
+Texto para questão 103
+Considerando que P e Q sejam proposições simples, julgue o item que se segue.
+103. (Cespe/UnB – MP-PI
+ – Analista Ministerial – 2012) A proposição composta [P
+∧
+Q] 
+∨
+[(¬Q)
+→
+P] é uma tautologia.
+Texto para questões 104 e 105
+Considerando que de quatro analistas de informática e três analistas de orçamento deve-
+se constituir uma equipe de cinco analistas, julgue os itens seguintes.
+104. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Se for determinado que a equipe
+tenha apenas dois analistas
+ de orçamento, então ela poderá ser formada de, no
+máximo, dez maneiras distintas.
+105. (Cespe/UnB – MP-PI – Analista Ministerial – 2012) Se for determinado que a equipe
+tenha apenas dois analistas de informática, então ela poderá ser formada de seis
+maneiras distintas.
+Texto para questões 106 a 110
+
+Por ocasião da apuração da frequência dos 21 servidores de uma repartição pública no
+ mês
+de julho de 2011, indicou-se por S
+X
+ o conjunto dos servidores que faltaram ao serviço
+exatamente x dias úteis naquele mês, sendo 0 
+≤
+ x 
+≤
+ 21. Indicando por N
+X
+ a quantidade de
+elementos do conjunto S
+X
+, julgue os itens a seguir.
+106. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) O conjunto S
+0
+ U S
+1
+ U S2 U ... U S
+21
+contém todos os servidores da repartição.
+107. (Cespe/UnB – MP-PI –
+ Técnico Ministerial – 2012) Há dois números inteiros a e b, com
+0 
+≤
+ a 
+≤
+ 21 e 0 
+≤
+ b 
+≤
+ 21, tais que o conjunto S
+a
+ 
+∩
+ S
+b
+ é não vazio.
+108. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Se N
+3
+ = 5, então 5 servidores
+faltaram exatamente 3 dias no mês de julho de 2011.
+109. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Se os conjuntos S
+0
+, S
+1
+, S
+2
+, S
+3
+ e S
+4
+forem não vazios, então a probabilidade
+ de um servidor da repartição, selecionado ao
+acaso, ter faltado ao serviço no máximo 4 dias úteis no mês de julho de 2011 é igual a 
+.
+110. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Se cada servidor que não faltou ao
+trabalho em nenhum dia útil de julho de 2011 ganhasse um dia de folga nos primeiros
+cinco dias úteis de janeiro de 2012, e se N
+0
+ = 10, então existiriam 
+ maneiras distintas
+de distribuir esses servidores de modo que exatamente 2 tirassem folga a cada dia.
+Texto para questões 111 a 115
+A fim de minimizar o risco de desvios de recursos públicos por meio da segregação de
+funções, uma repartição estabeleceu as seguintes regras para os processos de aquisição
+de bens/serviços: R1: Se o servidor participa da elaboração das especificações técnicas,
+não participa
+ do julgamento das propostas;
+R2: Se o servidor participa do julgamento das propostas, não atesta o recebimento dos
+bens/serviços;
+R3: Se o servidor atesta o recebimento dos bens/serviços, não ordena seu pagamento.
+Com base nessas informações, julgue os próximos itens.
+111. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) A negação da proposição R3 é
+equivalente a “O servidor atesta
+ o recebimento dos bens/serviços e ordena seu
+pagamento”.
+112. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Um servidor que tenha participado
+da elaboração das especificações técnicas para a aquisição de determinado produto e
+posteriormente tenha ordenado seu pagamento, não tendo participado de outras etapas,
+terá quebrado as regras estabelecidas pela repartição.
+113. (Cespe/UnB – MP-PI
+ – Técnico Ministerial – 2012) A proposição “Se um servidor
+participa da elaboração das especificações técnicas, então não atesta o recebimento dos
+bens/serviços” é uma conclusão válida a partir das premissas R1 e R2.
+
+114. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Supondo-se que cada etapa deva
+ser realizada por apenas um servidor, então o número mínimo de servidores que a
+repartição
+ deve ter de modo a cumprir as regras estabelecidas é igual a 4.
+115. (Cespe/UnB – MP-PI – Técnico Ministerial – 2012) Se P e Q representam,
+respectivamente, as proposições “O servidor participa da elaboração das especificações
+técnicas” e “O servidor participa do julgamento das propostas”, então a regra R1 pode
+ser representada por P
+→
+(¬Q).
+Texto para questões 116 a 118
+Proposições
+ são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, de forma que um julgamento exclui o outro, e são simbolizadas por letras maiúsculas,
+como P, Q, R e S. A partir de proposições conhecidas, novas proposições podem ser
+construídas usando-se símbolos especiais. Alguns desses símbolos são apresentados na
+tabela abaixo.
+símbolo
+nome
+notação
+leitura
+valor
+~
+negação
+~p
+não P
+contrário ao de P: V, se P for F; ou F, se P for V
+∧
+conjunção
+P
+∧
+Q
+P e Q
+V, se P e Q forem V; caso contrário, será F
+∨
+disjunção
+P
+∨
+Q
+P ou Q
+F, se
+ P e Q forem F; caso contrário, será V
+→
+condicional
+P
+→
+Q
+se P, então Q
+F, se P for V e Q for F; caso contrário, será V
+↔
+bicondicional
+P
+↔
+Q
+P se, e somente se, Q
+V, se P e Q tiverem os mesmos valores; caso contrário, será F
+Considerando as definições acima e a proposição {(P
+∨
+Q)
+→
+[R
+∧
+(~S)]}
+∨
+[(P
+∧
+S)
+↔
+(Q
+∧
+R)],
+julgue os itens a seguir.
+116. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) A negação da referida
+proposição é a proposição
+ {[(P
+∨
+Q)
+∧
+[(~R)
+∨
+S]}
+∧
+{[(~P)
+∨
+(~S)]
+↔
+(~Q)
+∨
+(~R)]}.
+117. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) Essa proposição é
+logicamente equivalente à proposição {[(~R)
+∨
+S]
+→
+[(~P)
+∧
+(~Q)]}
+∨
+[(P
+∧
+S)
+↔
+(Q
+∧
+R)].
+118. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) Se P e S forem V e Q e R
+forem F, então o valor lógico da proposição em questão será F.
+Texto para questões 119 a 121
+Na auditoria de uma empresa, o auditor concluiu que: “Ocorreu desvio de recursos se, e
+somente se, o gerente financeiro e o presidente da empresa estiveram envolvidos nesse
+desvio”.
+Considerando que a conclusão do auditor corresponde a uma proposição verdadeira, julgue
+os itens seguintes.
+119. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) Considere que a
+proposição-conclusão
+ do auditor possa ser escrita, simbolicamente, na forma P
+↔
+Q
+∧
+R,
+em que P, Q e R sejam proposições adequadamente escolhidas. Nesse caso, a negação
+
+da proposição-conclusão do auditor estará corretamente escrita na forma
+[(~P)
+∧
+(Q
+∧
+R)]
+∨
+[~(Q
+∧
+R)
+∧
+P].
+120. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) A proposição “Se o
+gerente financeiro esteve envolvido no desvio mas o presidente não, então
+ não ocorreu
+desvio de recursos” é verdadeira.
+121. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) A proposição “Não
+ocorreu desvio se, e somente se, nem o gerente financeiro nem o presidente estiveram
+envolvidos” é verdadeira.
+Texto para questões 122 a 124
+Um argumento lógico válido é uma sequência de proposições, em que algumas são
+denominadas premissas e são verdadeiras
+ e as demais, denominadas conclusões, são
+verdadeiras por consequência das premissas.
+Considere as seguintes premissas:
+< Algumas auditorias cometem erros.
+< Existem erros aceitáveis e outros, não aceitáveis.
+< Não é aceitável um erro que cause prejuízo aos cofres públicos.
+Com base nessas premissas, julgue os itens subsequentes, relativos a argumento lógico
+válido.
+122.
+ (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) O argumento constituído
+das premissas acima e da conclusão “Se o erro não é aceitável, então houve prejuízo
+aos cofres públicos” é um argumento lógico válido.
+123. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) Considere que as
+proposições acima são premissas de um argumento em que a conclusão é a proposição:
+“Se uma auditoria
+ comete erro que cause prejuízo aos cofres públicos, então, a
+auditoria não é aceitável” é um argumento lógico válido.
+124. (Cespe/UnB – TCE-ES – Auditor de Controle Externo – 2012) O argumento constituído
+das premissas acima e da conclusão “Se uma auditoria cometeu erro e não houve
+prejuízo aos cofres públicos, então o erro é aceitável” é um argumento lógico válido.
+Texto para questões
+ 125 a 129
+Considerando que as proposições lógicas simples sejam representadas por letras
+maiúsculas e utilizando os símbolos usuais para os conectivos lógicos — v para a
+conjunção “e”; w para a disjunção “ou”; ¬ para a negação “não”; ÷ para a implicação “se
+...,então ...”; ø para a equivalência “se ..., e somente se ...” —, julgue os próximos itens.
+125. (Cespe/UnB – Secretaria Estadual
+ de Saúde-ES – Especialista em Gestão, Regulação e
+Vigilância em Saúde – 2011) A proposição “O jovem moderno é um solitário conectado
+com o mundo, pois ele vive em seu quarto diante do computador e ele não se relaciona
+com as pessoas à sua volta” pode ser representada, simbolicamente, por P
+→
+(Q
+∧
+R), em
+que P, Q e R são proposições simples adequadamente escolhidas.
+
+126. (Cespe/UnB – Secretaria
+ Estadual de Saúde-ES – Especialista em Gestão, Regulação e
+Vigilância em Saúde – 2011) A proposição “A assistência médica de qualidade e gratuita
+é um direito de todos assegurado na Constituição da República” pode ser representada
+simbolicamente por uma expressão da forma P
+∧
+Q, em que P e Q são proposições
+simples escolhidas adequadamente.
+127. (Cespe/UnB – Secretaria Estadual de Saúde-ES –
+ Especialista em Gestão, Regulação e
+Vigilância em Saúde – 2011) A expressão {(P
+→
+Q)
+∧
+[(¬P)
+→
+(¬R)]}
+→
+(R
+→
+Q), em que P, Q e
+R são proposições simples, é uma tautologia.
+128. (Cespe/UnB – Secretaria Estadual de Saúde-ES – Especialista em Gestão, Regulação e
+Vigilância em Saúde – 2011) A proposição “O trânsito nas grandes cidades está cada vez
+mais caótico; isso é consequência de nossa economia ter
+ como importante fator a
+produção de automóveis” pode ser representada, simbolicamente, por uma expressão
+da forma P
+→
+Q, em que P e Q são proposições simples escolhidas adequadamente.
+129. (Cespe/UnB – Secretaria Estadual de Saúde-ES – Especialista em Gestão, Regulação e
+Vigilância em Saúde – 2011) Se P, Q, R e S são proposições simples, então a proposição
+expressa por {[(P
+→
+Q)
+↔
+(R
+∧
+S)]
+∧
+(R
+∧
+S)}
+→
+(P
+→
+Q)
+ é uma tautologia.
+Texto para questões 130 a 132
+Dos 24 repórteres que buscam notícias para um telejornal local, metade sai às ruas em
+busca de notícias todos os dias e cada um tem a obrigação de trazer à redação exatamente
+uma matéria.
+A outra metade permanece na redação, editando suas matérias e planejando as atividades
+do dia seguinte. Das 12 matérias que chegam diariamente à redação,
+ em razão de
+limitações de tempo, apenas 10 vão ao ar. O editor chefe escolhe, pela ordem, aquelas de
+maior impacto, seguidas daquelas que darão maior audiência.
+Antes, porém, de ir ao ar, cada matéria passa pelos seguintes processos de controle de
+qualidade: 1
+o
+ relevância; 2
+o
+ adequação ao tempo; 3
+o
+ revisão linguística; 4
+o
+ diagramação do
+texto. Esse controle de qualidade é feito por 4 profissionais,
+ todos capacitados para realizar
+qualquer dos processos de controle e, em cada dia, cada um realiza apenas um dos
+processos.
+Com base nessa situação, julgue os itens a seguir.
+130. (Cespe/UnB – EBC – Jornalista – 2011) O editor chefe dispõe de 12!/2 maneiras
+diferentes de escolher as 10 notícias que irão ao ar.
+131. (Cespe/UnB – EBC – Jornalista – 2011) Considere que Pedro, Paulo, Joana
+ e Maria
+sejam os responsáveis pelos processos de controle de qualidade das matérias
+jornalísticas e que eles tenham se organizado de maneira que, em determinado dia,
+Pedro tenha executado o 1
+o
+ processo, Paulo, o 2
+o
+, Joana, o 3
+o
+ e Maria, o 4
+o
+. Com base
+nessa situação, é correto afirmar que, se, a cada dia, essa equipe se organiza de forma
+diferente para a execução desses processos, então, para
+ que a organização observada
+no primeiro dia se repita, serão necessários, pelo menos, 30 dias.
+132. (Cespe/UnB – EBC – Jornalista – 2011) Considere que, a cada dia, a saída dos
+
+repórteres às ruas em busca de notícias não dependa das atividades exercidas no dia
+anterior. Nesse caso, a quantidade de maneiras distintas de se selecionarem os
+repórteres que irão às ruas em busca de notícias em
+ determinado dia é igual a 24!/12!
+Texto para questões 133 a 136
+O ensino tradicional é um modelo que se inspira na ideia de que a mente das crianças é
+uma tábula rasa, um espaço em branco sobre o qual os diversos conteúdos devem ser
+inscritos seguindo-se um método rigoroso de exposição e avaliação. Mais do que qualquer
+outra aptidão, ele valoriza o acúmulo de conhecimento. As escolas de
+ ensino tradicional
+representam, para muitos pais, a esperança de sucesso dos seus filhos na vida
+profissional. “Caso estudem em uma escola de ensino tradicional, quando fizerem
+vestibulares, meus filhos serão aprovados, desde que não tenham problemas emocionais”,
+pensam alguns pais.
+Apesar das altas taxas de aprovação nos melhores vestibulares do país e da procura
+crescente por essas escolas,
+ questionam-se os efeitos colaterais proporcionados por esse
+modelo: o custo emocional como preço alto demais por essas boas colocações.
+Internet: 
+<www.revistaepoca.globo.com>
+ (com adaptações).
+Tendo como referência o texto acima, julgue os itens subsequentes.
+133. (Cespe/UnB – EBC – Jornalista – 2011) A proposição “Caso estudem em escola de
+ensino tradicional, quando fizerem vestibulares
+ meus filhos serão aprovados, desde
+que não tenham problemas emocionais” é logicamente equivalente a “Meus filhos não
+estudam em escola de ensino tradicional, não farão vestibular, têm problemas
+emocionais ou serão aprovados no vestibular”.
+134. (Cespe/UnB – EBC – Jornalista – 2011) Suponha que X e Y representem,
+respectivamente, as proposições “A mente das crianças é uma tábula rasa sobre
+ a qual
+os diversos conteúdos devem ser inscritos” e “A mente das crianças é um espaço em
+branco sobre o qual os diversos conteúdos devem ser inscritos”. Nesse caso, a
+proposição “A mente das crianças é uma tábula rasa, um espaço em branco sobre o
+qual os diversos conteúdos devem ser inscritos” estará corretamente simbolizada por
+X
+∨
+Y.
+135. (Cespe/UnB – EBC – Jornalista – 2011) Considere que
+ P, Q, R e S representem,
+respectivamente, as proposições “Meus filhos estudam em escola de ensino
+tradicional”, “Meus filhos farão vestibulares”, “Meus filhos não têm problemas
+emocionais” e “Meus filhos serão aprovados nos vestibulares”. Nesse caso, é correto
+afirmar que a proposição “Caso estudem em escola de ensino tradicional, quando
+fizerem vestibulares meus filhos serão aprovados, desde que
+ não tenham problemas
+emocionais” estará corretamente simbolizada por P
+∧
+Q
+∧
+R
+→
+S.
+136. (Cespe/UnB – EBC – Jornalista – 2011) Caso seja verdadeira a proposição “Meus filhos
+serão aprovados nos vestibulares”, também será verdadeira a proposição “Caso
+estudem em escola de ensino tradicional, quando fizerem vestibulares, meus filhos
+serão aprovados, desde que não tenham problemas emocionais”, independentemente
+do valor lógico das outras proposições que a compõem.
+
+Texto para questões 137 e 138
+Uma empresa multinacional mudou suas regras, para dar ao presidente de sua filial no
+Brasil o poder de indicar um empregado de perfil técnico para ocupar o cargo de diretor-
+geral, quando vago. Anteriormente, o diretor executivo substituía, automaticamente, o
+diretor-geral. Com a nova regra, na necessidade
+ de substituição do diretor-geral, em caso
+de impedimento do titular ou vacância do cargo de diretor executivo, o presidente da filial
+no Brasil indicará o substituto interino do diretor-geral, entre empregados de conduta
+ilibada e notório saber na área de atuação da empresa. A mudança foi realizada em
+parágrafo do contrato social que trata das atribuições do cargo de diretor executivo, que
+passou
+ a ter a obrigação de substituir o diretor-geral. O atual diretor-geral está de férias e
+não voltará a comandar a empresa, conforme já afirmou a presidência da multinacional.
+Tendo como referência a situação acima apresentada, julgue os próximos itens.
+137. (Cespe/UnB – EBC – Gestor de Atividade Jornalística – 2011) Se as proposições “O
+diretor-geral está de férias” e “O diretor-geral voltará
+ a comandar a empresa” forem
+verdadeiras, será verdadeira a proposição “O diretor-geral está de férias, mas não
+voltará a comandar a empresa”.
+138. (Cespe/UnB – EBC – Gestor de Atividade Jornalística – 2011) Se P, Q e R
+representarem, respectivamente, as proposições “O cargo de diretor executivo está
+vago”, “O titular do cargo de diretor executivo está impedido de substituir o diretor-
+geral”
+ e “O presidente da filial brasileira indica o substituto interino”, então P
+∨
+Q
+→
+R
+representará, simbolicamente, a proposição “Em caso de vacância do cargo de diretor
+executivo ou de impedimento do titular desse cargo em substituir o diretor-geral, o
+presidente da filial brasileira indicará o substituto interino”.
+Texto para questões 139 a 143
+O estafe de uma nova instituição pública será
+ composto por 15 servidores: o diretor-geral,
+seu secretário executivo e seus 2 subsecretários — 1 de assuntos administrativos e 1 de
+fomento —, 4 diretores — de administração e finanças, de infraestrutura, executivo e de
+pessoal — e, ainda, sete assessores ligados a esses cargos. Para a composição desse
+estafe, dispõe-se de 20 pessoas, todas igualmente qualificadas para assumir qualquer um
+dos cargos
+ vagos. Entretanto, por motivos internos, apenas 5 delas podem assumir cargos
+de direção. As pessoas escolhidas para os cargos de assessoria desempenham funções
+similares.
+Considerando a situação acima, julgue os itens que se seguem.
+139. (Cespe/UnB – EBC – Gestor de Atividade Jornalística – 2011) Supondo que já tenham
+sido preenchidos todos os cargos de direção, de secretário executivo
+ e de
+subsecretários, a quantidade de maneiras distintas de se escolherem as pessoas para
+preencher os sete cargos de assessores é superior a 700.
+140. (Cespe/UnB – EBC – Gestor de Atividade Jornalística – 2011) A quantidade de
+maneiras distintas de se escolhem as pessoas para preencher os 15 cargos de modo
+que as restrições internas sejam respeitadas é igual a 15!/7!.
+
+141. (Cespe/UnB –
+ EBC – Gestor de Atividade Jornalística – 2011) Se os “motivos internos”
+não existissem, a quantidade de maneiras distintas de se escolherem as pessoas para
+preencher os 15 cargos seria igual a 20!/7!.
+142. (Cespe/UnB – EBC – Gestor de Atividade Jornalística – 2011) A quantidade de
+maneiras diferentes de serem preenchidos os cinco cargos de direção é superior a 100.
+143. (Cespe/UnB – EBC
+ – Gestor de Atividade Jornalística – 2011) Supondo que já tenham
+sido preenchidos os cargos de direção, a quantidade de maneiras distintas de se
+escolherem as pessoas para preencher os cargos de secretário e de subsecretário é
+superior a 3.000.
+Texto para questões 144 a 146
+Uma empresa jornalística realizará processo seletivo para preencher 3 cargos de direção
+— de jornalismo, de produção,
+ de fotografia —, 4 cargos de coordenação de fotografia
+jornalística — social, esportiva, cultural e policial —, além dos assistentes, um para cada
+diretoria ou coordenação. Supondo que haja 27 candidatos e que todos eles possuam as
+habilidades necessárias para assumir qualquer um dos cargos e que cada cargo será
+ocupado por apenas um profissional, julgue os itens que se seguem.
+144. (Cespe/UnB
+ – EBC – Jornalista/Reportagem Cinematógrafica – 2011) Se os 4
+candidatos mais bem classificados no processo seletivo forem ocupar os cargos de
+coordenação, então, conhecidos esses 4 mais bem classificados, a quantidade de
+maneiras distintas de distribuí-los nos cargos de coordenação será inferior a 20.
+145. (Cespe/UnB – EBC – Jornalista/Reportagem Cinematógrafica – 2011) Considerando
+que os
+ ocupantes dos cargos de direção e de coordenação sejam escolhidos antes dos
+assistentes, então, a quantidade de maneiras distintas de serem escolhidos os 4
+assistentes que poderão assumir qualquer coordenação será superior a 5.000.
+146. (Cespe/UnB – EBC – Jornalista/Reportagem Cinematógrafica – 2011) A quantidade de
+maneiras diferentes de serem escolhidos os 3 diretores é superior a 20.000.
+Texto para questões 147 a 150
+situação 1
+Quando o dispositivo estiver ligado e conectado ao PC, não carregue a bateria.
+situação 2
+Quando o dispositivo estiver ligado e conectado ao PC, não carregue a bateria.
+Como exigência dos tempos modernos, o jornalista deve dominar as novas tecnologias para
+facilitar o seu trabalho. Por exemplo, enquanto o usuário de telefone celular (dispositivo)
+do tipo smartphone transfere seus arquivos, áudios, vídeos e fotos para o computador (PC),
+por meio de um cabo apropriado,
+ a bateria desse dispositivo pode ser carregada.
+Suponha que um aparelho permita ao usuário selecionar (situação 1) ou não selecionar
+(situação 2) o comando mostrado acima. A partir dessas informações, e considerando que
+
+P, Q e R representem, respectivamente, as proposições “O dispositivo está ligado”, “O
+dispositivo está conectado ao PC” e “A bateria não está carregando”, julgue os itens a
+seguir, acerca de lógica proposicional.
+147. (Cespe/UnB – EBC – Jornalista/Reportagem Cinematógrafica – 2011) As proposições
+P
+∧
+Q
+→
+R e P
+→
+[Q
+→
+R] são logicamente equivalentes.
+148. (Cespe/UnB – EBC – Jornalista/Reportagem Cinematógrafica – 2011) A proposição
+“Quando o dispositivo estiver ligado e conectado ao PC, a bateria não estará carregando”
+pode ser corretamente representada por P
+∧
+Q
+→
+R.
+149. (Cespe/UnB – EBC – Jornalista/Reportagem
+ Cinematógrafica – 2011) Simbolicamente,
+P
+→
+[Q
+→
+R] representa a proposição “Se o dispositivo estiver ligado, então, caso o
+dispositivo esteja conectado ao PC, a bateria não estará carregando”.
+150. (Cespe/UnB – EBC – Jornalista/Reportagem Cinematógrafica – 2011) Supondo-se que
+sejam verdadeiras as proposições P, Q e “A bateria está carregando”, é correto concluir
+que o usuário optou pela situação
+ 2.
+Texto para questões 151 a 153
+Considerando que, em uma empresa, haja 5 candidatos, de nomes distintos, a 3 vagas de
+um mesmo cargo, julgue os próximos itens.
+151. (Cespe/UnB – EBC – Analista de Advocacia – 2011) Considere todas as listas possíveis
+formadas por 3 nomes distintos dos candidatos. Nesse caso, se Alberto, Bento e Carlos
+forem candidatos, dois desses nomes aparecerão
+ em mais de 5 dessas listas.
+152. (Cespe/UnB – EBC – Analista de Advocacia – 2011) Considere todas as listas possíveis
+formadas por 3 nomes distintos dos candidatos. Nessa situação, se Alberto, Bento e
+Carlos forem candidatos, 3 dessas listas conterão apenas um desses nomes.
+153. (Cespe/UnB – EBC – Analista de Advocacia – 2011) A quantidade de maneiras distintas
+de se escolher 3 pessoas
+ entre os 5 candidatos é igual a 20.
+Texto para questões 154 e 155
+Para acessar os caixas eletrônicos de um banco, os clientes fornecem uma senha
+composta por três pares de letras do alfabeto.
+A senha de determinado cliente contém um par de vogais e dois pares de consoantes, não
+necessariamente nessa ordem, e é formada da seguinte maneira: 1
+o
+ par: retirado da lista
+CI, UM, XV;
+2
+o
+ par: retirado da lista XM, AE, YO;
+3
+o
+ par: retirado da lista: CD, PM, EU.
+Sabe-se também que a senha desse cliente contém 3 letras da palavra CRETA.
+A partir dessas informações, julgue os itens a seguir.
+154. (Cespe/UnB – EBC – Analista de Advocacia – 2011) A senha desse cliente é formada
+por letras distintas.
+
+155. (Cespe/UnB – EBC – Analista de Advocacia – 2011) A palavra
+ XAROPE contém 4 letras
+que aparecem na senha do referido cliente.
+Texto para questões 156 e 157
+Considerando as proposições simples P e Q e a proposição composta R simbolizada por
+(P
+∨
+Q)
+∧
+(~P)
+→
+(P
+∧
+Q)
+∨
+(~Q), julgue os itens subsequentes.
+156. (Cespe/UnB – EBC – Analista de Advocacia – 2011) Se P tem valor lógico F, então,
+independentemente de Q ser V ou F, R será sempre F.
+157. (Cespe/UnB
+ – EBC – Analista de Advocacia – 2011) Considerando todos os possíveis
+valores lógicos V ou F para as proposições P e Q, é correto afirmar que a proposição
+(P
+∨
+Q)
+∧
+(~ P) possui 3 valores lógicos F.
+Texto para questões 158 a 160
+Uma pesquisa de opinião, para verificar a viabilidade das candidaturas de um candidato a
+prefeito e de um candidato a vereador de determinado município, entrevistou
+ 2.000
+pessoas: 980 responderam que votariam apenas no candidato a prefeito; 680 responderam
+que votariam apenas no candidato a vereador ou que não votariam em nenhum dos dois
+candidatos.
+Considerando essa situação, julgue os itens a seguir
+158. (Cespe/UnB – EBC – Analista de Advocacia – 2011) A probabilidade de um
+entrevistado, escolhido ao acaso, ter respondido que votaria nos dois candidatos
+ é igual
+a 0,17.
+159. (Cespe/UnB – EBC – Analista de Advocacia – 2011) A probabilidade de um
+entrevistado, escolhido ao acaso, ter respondido que votaria no candidato a prefeito é
+superior a 0,68.
+160. (Cespe/UnB – EBC – Analista de Advocacia – 2011) Se a probabilidade de um
+entrevistado, escolhido ao acaso, ter respondido que votaria no candidato a vereador for
+igual a 0,40, então 220
+ dos entrevistados responderam que não votariam em nenhum
+dos dois candidatos.
+Texto para questões 161 a 163
+O quadro de pessoal de uma empresa conta com 7 analistas: 2 da área de contabilidade e 5,
+de arquivologia. Em 4 dias consecutivos, desses 7 analistas, estiveram presentes aos
+trabalhos: no dia 1: Bárbara, Diogo, Marta e Sandra;
+no dia 2: Diogo, Fernando, Hélio e Sandra;
+no dia 3: Bárbara, Célio, Diogo e Hélio;
+no dia 4: Célio, Fernando, Marta e Sandra.
+Sabendo que, em cada um desses 4 dias, dos presentes, 1 era analista de contabilidade e
+3, de arquivologia; que cada um dos analistas de contabilidade esteve presente em apenas
+2 dias; e que Fernando é analista de arquivologia, julgue os itens seguintes.
+
+161. (Cespe/UnB – EBC – Nível médio/técnico
+ – 2011) Todas as mulheres são analistas de
+arquivologia.
+162. (Cespe/UnB – EBC – Nível médio/técnico – 2011) Célio é analista de arquivologia.
+163. (Cespe/UnB – EBC – Nível médio/técnico – 2011) Hélio é analista de contabilidade.
+Texto para questões 164 e 165
+As entrevistas e as análises dos currículos dos candidatos Carlos e Sérgio, realizadas pelo
+setor de recursos humanos de
+ uma empresa, revelaram que a probabilidade de Sérgio ser
+contratado é igual a ½; que a probabilidade de apenas Carlos ser contratado é igual a ¼;
+que a probabilidade de Carlos não ser contratado é 7/12.
+Nessa situação hipotética, a probabilidade de
+164. (Cespe/UnB – EBC – Nível médio/técnico – 2011) os dois candidatos serem contratados
+é igual a 1/6.
+165. (Cespe/UnB – EBC – Nível médio/técnico
+ – 2011) nenhum dos dois candidatos ser
+contratado é igual a 1/3.
+Texto para questão 166
+Considerando as proposições simples p e q e a proposição composta r: p
+∨
+q
+→
+p
+∧
+q, julgue o
+item abaixo.
+166. (Cespe/UnB – EBC – Nível médio/técnico – 2011) Considerando todos os possíveis
+valores lógicos das proposições p e q, é correto afirmar que a proposição r possui 3
+valores lógicos F.
+Texto
+ para questões 167 e 168
+Entre os 6 analistas de uma empresa, 3 serão escolhidos para formar uma equipe que
+elaborará um projeto de melhoria da qualidade de vida para os empregados da empresa.
+Desses 6 analistas, 2 desenvolvem atividades na área de ciências sociais e os demais, na
+área de assistência social.
+Julgue os itens que se seguem, relativos à composição da equipe acima mencionada.
+167. (Cespe/UnB – EBC – Nível médio/técnico – 2011) Se os 2 analistas que desenvolvem
+atividades na área de ciências sociais fizerem parte da equipe, então a quantidade de
+maneiras distintas de se compor essa equipe será superior a 6.
+168. (Cespe/UnB – EBC – Nível médio/técnico – 2011) Se a equipe for formada por 2
+analistas da área de assistência social e 1 analista da área de ciências
+ sociais, então
+ela poderá ser composta de 12 maneiras distintas.
+Texto para questões 169 a 172
+Cartões pré-pagos ganham novos consumidores no Brasil. O uso de cartões de crédito pré-
+pagos deixou de ser apenas uma opção para quem vai viajar para fora do país. O sistema,
+
+utilizado por turistas que recorrem aos bancos e às financeiras para não carregar no bolso
+altas quantias em moedas estrangeiras,
+ passou a valer também para quem não tem conta-
+corrente e deseja fazer gastos apenas dentro do país.
+A novidade tem chegado rapidamente ao mercado. Das oito instituições financeiras
+consultadas pela reportagem, sete já implantaram o sistema e uma está com o projeto em
+fase de aprovação. Para as empresas, trata-se de uma evolução dos cartões tradicionais,
+pois os pré-pagos têm maior alcance.
+ Podem ser usados, por exemplo, pelo público jovem,
+por ser uma maneira mais prática de se repassar a mesada. No Brasil, 39,5% das pessoas
+adultas não têm conta-corrente. Por isso, são vistas como as possíveis interessadas em
+adotar o dinheiro de plástico, sem correr o risco de perder o controle.
+Internet: 
+<www.correioweb.com.br>
+ (com adaptações).
+A partir do texto acima, julgue os itens
+ a seguir.
+169. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) Considerando
+as sete instituições financeiras que já implantaram o serviço de cartão de crédito pré-
+pago, se um cliente desejar contratar esse serviço com três delas, ele poderá escolhê-
+las de mais de 40 maneiras distintas.
+170. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) Infere-se
+ das
+informações do texto que a probabilidade de uma pessoa adulta selecionada ao acaso,
+no Brasil, possuir conta-corrente é superior a 60%.
+171. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) A proposição
+“Os cartões pré-pagos são uma evolução dos cartões tradicionais, pois podem ser
+usados, por exemplo, pelo público jovem” é equivalente a “Se podem ser usados, por
+exemplo,
+ pelo público jovem, então os cartões pré-pagos são uma evolução dos cartões
+tradicionais”.
+172. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) A negação da
+sentença “quem não tem conta-corrente e deseja fazer gastos apenas dentro do país” é
+equivalente a “quem tem conta-corrente e não deseja fazer gastos apenas dentro do
+país”.
+Texto para questões 173 a 176
+A fim de convencer um cliente a contratar os serviços de cartão pré-pago, o gerente de
+uma instituição financeira argumentou com as seguintes proposições: P1: Se uma pessoa
+não possui conta-corrente nem cartão pré-pago, então ela efetua seus pagamentos em
+dinheiro.
+P2: Se uma pessoa efetua seus pagamentos em dinheiro, então ela carrega muito dinheiro
+no bolso.
+P3: Se uma pessoa carrega
+ muito dinheiro no bolso, então ela corre o risco de ser
+assaltada.
+P4: Se uma pessoa possui conta-corrente mas não possui cartão pré-pago, então ela efetua
+seus pagamentos com débito em conta.
+P5: Se uma pessoa efetua seus pagamentos com débito em conta, então ela corre o risco de
+perder o controle financeiro.
+
+Com base na situação apresentada acima, julgue os itens subsequentes.
+173. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) P3 é
+logicamente equivalente à proposição “Se uma pessoa não carrega muito dinheiro no
+bolso, então ela não corre o risco de ser assaltada”.
+174. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) O argumento
+composto pelas premissas P1, P2 e P3 e pela conclusão “Se uma pessoa possui conta-
+corrente
+ ou cartão pré-pago, então ela não corre o risco de ser assaltada” é um
+argumento válido.
+175. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) Admitindo-se
+que seja verdadeira a proposição “uma pessoa efetua seus pagamentos em dinheiro”, é
+correto concluir que P1 será verdadeira independentemente do valor lógico das
+proposições “uma pessoa não possui conta-corrente” e
+ “uma pessoa não possui cartão
+pré-pago”.
+176. (Cespe/UnB – Assembleia Legislativa-CE – Analista Legislativo – 2011) A negação da
+proposição P5 é logicamente equivalente à proposição “Uma pessoa efetua seus
+pagamentos com débito em conta e não corre o risco de perder o controle financeiro”.
+Texto para questões 177 a 181
+As empresas A e B disputam a preferência dos consumidores no segmento
+ de provimento
+de rede sem fio em uma pequena cidade. Uma pesquisa com os 1.000 usuários do serviço
+nessa cidade revelou que: < 300 usuários estão insatisfeitos com a qualidade do serviço; os
+restantes estão satisfeitos;
+< 400 usam somente os serviços providos pela empresa A;
+< 200 usam os serviços prestados pelas duas empresas;
+< três quintos dos usuários insatisfeitos usam somente
+ os serviços da empresa A.
+A partir dessas informações e indicando por n(X) a quantidade de elementos do conjunto X,
+por I o conjunto dos consumidores insatisfeitos; por A e B os conjuntos dos consumidores
+usuários dos serviços das empresas A e B, respectivamente, julgue os itens a seguir.
+177. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Infere-se das informações
+que pelo menos
+ um dos usuários insatisfeitos usa somente os serviços prestados pela
+empresa B.
+178. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) A quantidade de
+consumidores que são usuários somente dos serviços providos pela empresa B é igual à
+quantidade daqueles que usam somente os serviços da empresa A.
+179. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) [IUA]
+∩
+[IUB] corresponde
+ ao
+conjunto dos usuários insatisfeitos com a qualidade do serviço ou que usam os serviços
+das duas empresas.
+180. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) A quantidade de usuários
+insatisfeitos com a qualidade do serviço ou que usam os serviços prestados pelas duas
+empresas é superior a 500.
+
+181. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Há mais clientes satisfeitos
+do que clientes que usam somente os serviços de uma única empresa.
+Texto para questões 182 a 187
+As empresas A e B atuam no segmento de provimento de rede sem fio em uma pequena
+cidade. Com a finalidade de conquistar novos clientes, a empresa B realizará uma
+campanha publicitária. Nesse sentido, P1, P2 e P3, a seguir, constituem as proposições de
+análise da empresa B antes da escolha da
+ estratégia a ser adotada na campanha
+publicitária.
+P1: Vamos conquistar clientes que ainda não usam serviços de rede sem fio [estratégia 1]
+ou vamos lançar uma ofensiva para conquistar clientes da empresa A [estratégia 2].
+P2: Se adotarmos a estratégia 1 e se os potenciais clientes que ainda não usam serviços de
+rede sem fio não possuírem computadores, então não conseguiremos aumentar
+ nossa
+clientela.
+P3: Se adotarmos a estratégia 2 e a empresa A reagir, então não conseguiremos aumentar
+nossa clientela.
+A partir dessas informações, julgue os itens a seguir.
+182. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Representando-se,
+respectivamente, por p, q e r as proposições “Adotamos a estratégia 2”, “A empresa A
+reage” e “Não conseguiremos aumentar nossa clientela”,
+ a proposição P3 estará
+corretamente simbolizada da seguinte forma: p
+∨
+q 
+→
+ r.
+183. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) A tabela-verdade da
+proposição P3 contém 8 linhas.
+184. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) A negação da proposição P2
+estará corretamente enunciada da seguinte forma: “Adotamos a estratégia 1 e os
+potenciais clientes que ainda não usam
+ serviços de rede sem fio não possuem
+computadores, mas conseguiremos aumentar nossa clientela”.
+185. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Considerando que a
+proposição P1 seja verdadeira, é correto afirmar que o emprego, nessa proposição, do
+conectivo lógico “ou” implica que a empresa B não poderá adotar as estratégias 1 e 2
+simultaneamente.
+186. (Cespe/UnB – SEBRAE –
+ Analista Técnico Trainee – 2011) Considere que a empresa B
+adote a estratégia 1 e que os potenciais clientes que ainda não usam serviços de rede
+sem fio possuam computadores. Nesse caso, independentemente do valor lógico da
+proposição “não conseguiremos aumentar a nossa clientela”, a proposição P2 será
+verdadeira.
+187. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Se P2 e P3 forem
+verdadeiras, então será também verdadeira a proposição “Não conseguiremos
+aumentar nossa clientela”.
+Texto para questões 188 a 191
+
+Considere a seguinte sentença, adaptada do item 1.7.1 do Comunicado n
+o
+ 1 de abertura do
+Processo Seletivo de Trainee n
+o
+ 1/2011 do SEBRAE: “Após o término do Programa de
+Trainee, se o candidato selecionado obtiver bom desempenho nas avaliações do Programa
+de
+ Formação e Desenvolvimento, se ele se adequar ao perfil estabelecido no programa e se
+houver disponibilidade de vagas no quadro efetivo de empregados, então o candidato
+selecionado será contratado por tempo indeterminado”.
+Considerando que JS seja um dos candidatos selecionados a que se refere a sentença
+acima, julgue os itens a seguir.
+188. (Cespe/UnB – SEBRAE – Analista Técnico Trainee
+ – 2011) A negação da proposição
+“Para todo candidato selecionado, se houver disponibilidade de vagas no quadro efetivo
+de empregados, então o candidato selecionado será contratado por tempo
+indeterminado” estará corretamente enunciada da seguinte forma: “Para todo
+candidato selecionado, se não houver disponibilidade de vagas no quadro efetivo de
+empregados, então o candidato selecionado não será
+ contratado por tempo
+indeterminado”.
+189. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) A substituição, nas duas
+ocorrências, na sentença acima, da expressão “o candidato selecionado” por JS faz que
+a sentença, que é uma sentença aberta, seja transformada em uma proposição.
+190. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Se o conjunto-verdade da
+sentença aberta coincidir
+ com seu conjunto universo, então todo candidato selecionado
+será contratado por tempo indeterminado.
+191. (Cespe/UnB – SEBRAE – Analista Técnico Trainee – 2011) Suponha que JS seja um
+elemento do conjunto-verdade da sentença aberta, que ele tenha obtido bom
+desempenho nas avaliações do Programa de Formação e Desenvolvimento, que ele se
+adapte ao perfil estabelecido no programa e que haja disponibilidade
+ de vagas no
+quadro efetivo de empregados.
+Nesse caso, é correto afirmar que JS será contratado por tempo indeterminado.
+Texto para questões 192 a 200
+Para os itens seguintes, serão consideradas como proposições apenas as sentenças
+declarativas, que mais facilmente são julgadas como verdadeiras — V — ou falsas — F —,
+deixando de lado as sentenças interrogativas, exclamativas, imperativas
+ e outras. As
+proposições serão representadas por letras maiúsculas do alfabeto: A, B, C etc. Para a
+formação de novas proposições, denominadas proposições compostas, a partir de outras,
+usam-se os conectivos “e”, “ou”, “se ..., então” e “se e somente se” e o modificador “não”,
+ou “não é verdade que”, simbolizados, respectivamente, por 
+∧
+, 
+∨
+, 
+→
+, 
+↔
+ e ¬. Dessa forma,
+A
+∧
+B é lido como “A e B”; A
+∨
+B é
+ lido como “A ou B”; A
+→
+B é lido como “se A, então B”; A
+↔
+B
+é lido como “A, se e somente se B”, significando, nesse caso, que A
+→
+B e B
+→
+A; ¬A é lido
+como “não A”. Uma proposição é simples quando, em sua formulação, não se emprega
+nenhum dos conectivos. A cada proposição supõe-se associado um julgamento ou um valor
+lógico, V ou F, que se excluem. Para associar esses valores V ou F às proposições
+compostas,
+ usam-se, como critério, as tabelas-verdade, como a seguir.
+
+A
+B
+A
+∧
+B
+A
+∨
+B
+A
+→
+B
+A
+↔
+B
+¬A
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+F
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+V
+As proposições em que a tabela-verdade contém apenas V são denominadas tautologias, ou
+logicamente verdadeiras. Se a tabela-verdade contiver apenas F, a proposição será
+logicamente falsa.
+Duas proposições A e B são equivalentes se suas tabelas-verdade forem iguais. Sentenças
+como “x + 3 = 5”, “Ele é um
+ político”, “x é jogador de futebol” são denominadas sentenças
+abertas; essas sentenças, como estão, não poderão ser julgadas como V ou F, pois os
+sujeitos, no caso, são variáveis. Essas expressões tornam-se proposições depois de
+substituída a variável por elemento determinado, permitindo o julgamento V ou F.
+Uma afirmação formada por um número finito de proposições A1, A2, ..., An, que tem
+ como
+consequência outra proposição, B, é denominada argumento. As proposições A1, A2, ..., An
+são as premissas e B é a conclusão. Se, em um argumento, a conclusão for verdadeira
+sempre que todas as premissas forem verdadeiras, então o argumento será denominado
+argumento válido.
+Tendo como referência as informações do texto, julgue os itens a seguir
+192. (Cespe/UnB – SEBRAE – Trainee –
+ 2010) Entre as frases apresentadas a seguir,
+identificadas por letras de A a E, apenas duas são proposições.
+A: Pedro é marceneiro e Francisco, pedreiro.
+B: Adriana, você vai para o exterior nessas férias?
+C: Que jogador fenomenal!
+D: Todos os presidentes foram homens honrados.
+E: Não deixe de resolver a prova com a devida atenção.
+193. (Cespe/UnB – SEBRAE – Trainee – 2010)
+ Com relação às frases a seguir, identificadas
+por letras de A a D, todas são proposições simples e mais de uma delas é V.
+A: A Lua é um planeta.
+B: O sistema de governo no Brasil é o parlamentarista.
+C: Todo número natural é o quadrado de um número real.
+D: Os conjuntos dos números pares e dos números primos são disjuntos.
+194. (Cespe/UnB – SEBRAE – Trainee – 2010) As proposições
+ “Não precisa mais capturar,
+digitar ou ditar o código de barras” e “O débito não é automático, o pagamento só é
+efetuado após a sua autorização” são, ambas, compostas de três proposições simples.
+195. (Cespe/UnB – SEBRAE – Trainee – 2010) Publicada na revista Veja (de 28/4/2010, p.
+10), a frase “A indústria editorial se adapta, ou morre” pode ser simbolizada na forma
+A
+∨
+B, que é equivalente
+ a [¬A]
+→
+B, desde que as proposições A e B sejam
+convenientemente escolhidas.
+196. (Cespe/UnB – SEBRAE – Trainee – 2010) A proposição “Se você é cliente, cadastre-se
+
+no sítio 
+www.fgjkh.com.br
+ ou procure a sua seguradora” estará corretamente
+simbolizada na forma A
+→
+[B
+∨
+C], desde que A, B e C sejam convenientemente
+escolhidas.
+197. (Cespe/UnB – SEBRAE – Trainee – 2010) As frases “Transforme
+ seus boletos de papel
+em boletos eletrônicos” e “O carro que você estaciona sem usar as mãos” são, ambas,
+proposições abertas.
+198. (Cespe/UnB – SEBRAE – Trainee – 2010) A proposição “Se o presidente Lula é
+paulista, então o Pelé é maratonista” é V.
+199. (Cespe/UnB – SEBRAE – Trainee – 2010) Considerando as proposições simples que
+compõem a frase “A música nos conecta a nós mesmos, aos
+ outros e à alma do Brasil”,
+é correto afirmar que a tabela-verdade da proposição referente a essa frase tem 8
+linhas.
+200. (Cespe/UnB – SEBRAE – Trainee – 2010) A negação da proposição “A ginástica te
+transforma e o futebol te dá alegria” está assim corretamente enunciada: “A ginástica
+não te transforma nem o futebol te dá alegria”.
+201. (Cespe/UnB – SEBRAE – Trainee – 2010) A proposição
+ [¬B]
+∨
+{[¬B]
+→
+A} é uma
+tautologia.
+202. (Cespe/UnB – SEBRAE – Trainee – 2010) A proposição [¬B]
+∧
+[A
+→
+B] é logicamente
+falsa.
+203. (Cespe/UnB – SEBRAE – Trainee – 2010) Considere a seguinte sentença aberta: “x é
+um número real e x² > 5”. Nesse caso, se x = 2, então a proposição será F, mas, se x = –
+3, então a proposição será V.
+204. (Cespe/UnB – SEBRAE – Trainee – 2010) Considere a sequência
+ de proposições a
+seguir.
+A1: O concurso destina-se a selecionar candidatos a cargos dos níveis fundamental,
+médio e superior.
+A2: 2.700 candidatos se inscreveram para o concurso.
+A3: Nenhum candidato se inscreveu a cargos de níveis diferentes.
+A4: A quantidade de inscritos para os cargos de nível médio foi o dobro da quantidade de
+inscritos para os cargos de nível superior.
+A5: A quantidade de inscritos para os cargos de nível fundamental foi o triplo da
+quantidade de inscritos para os cargos de nível médio.
+B: Apenas 300 candidatos se inscreveram para os cargos de nível superior.
+Nesse caso, se as proposições de A1 a A5 forem premissas verdadeiras de um
+argumento e se B for a conclusão, então elas constituirão um argumento válido.
+205. (Cespe/UnB – SEBRAE
+ – Trainee – 2010) Considere que A, B e C sejam proposições
+simples, distintas, e que a proposição D seja definida por D = [A
+↔
+B]
+→
+[¬A]
+→
+C.
+Nesse caso, a tabela-verdade da proposição D tem 16 linhas.
+
+Texto para questões 206 a 209
+Os conjuntos A, B, C e D são tais que A e B são disjuntos de C e D e suas partes têm as
+quantidades de elementos conforme mostra a tabela a seguir.
+subconjunto
+elementos
+[A/B]
+∪
+[C/D]
+15
+C
+18
+[A
+∩
+B]
+∪
+[C
+∩
+D]
+24
+A
+∩
+B
+8
+A
+∪
+B
+32
+[C/D]
+∪
+[D/C]
+25
+Com relação a esses conjuntos e subconjuntos e aos números de elementos, julgue os
+itens seguintes.
+206. (Cespe/UnB – SEBRAE – Trainee – 2010) CUD tem mais de 40 elementos.
+207. (Cespe/UnB – SEBRAE – Trainee – 2010) [A/B]U[B/A] tem mais de 25 elementos.
+208. (Cespe/UnB – SEBRAE – Trainee – 2010) C/D tem mais de 4 elementos.
+209. (Cespe/UnB – SEBRAE – Trainee – 2010) D/C tem mais de 20 elementos.
+Texto para questões 210 e 211
+Com relação a operações com conjuntos, julgue os itens seguintes.
+210. (Cespe/UnB – SEBRAE – Trainee – 2010) É possível que
+ existam conjuntos A e B com A
+≠
+ B e que A 
+∪
+ B = A 
+∩
+ B.
+211. (Cespe/UnB – SEBRAE – Trainee – 2010) Considerando que, em um concurso público
+no qual as provas para determinado cargo constituíam-se de conhecimentos básicos
+(CB) e de conhecimentos específicos (CE), 430 inscritos fizeram as provas e, deles, 210
+foram aprovados em CB, 230 foram aprovados em CE e apenas 16 foram aprovados nas
+duas
+ provas, então é correto afirmar que menos de 10 desses candidatos foram
+
+reprovados nas duas provas.
+Texto para questões 212 a 215
+O jogo de dominó tradicional é jogado com 28 peças, igualmente divididas entre 4 jogadores
+sentados face a face em torno de uma mesa retangular. As peças são retangulares e
+possuem uma marcação que as divide em duas metades iguais; em cada metade: ou não há
+nada gravado, ou está gravado um determinado número de buracos que representam
+números. As metades representam 7 números: 1, 2, 3, 4, 5, 6 e 0, sendo este último
+representado por uma metade sem marcação. Cada número ocorre em 7 peças distintas.
+Em 7 peças, denominadas buchas, o número aparece nas duas metades. Existe também
+uma variação de dominó conhecida como double nine, em que as metades representam
+ os
+números 0, 1, 2, 3, 4, 5, 6, 7, 8 e 9, em um total de 55 peças.
+M. Lugo. How to play better dominoes. New York: Sterling Publishing Company, 2002 (com
+adaptações).
+A partir dessas informações, julgue os itens subsequentes.
+212. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Uma variação de dominó cujas
+metades representem os números 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 e 12 terá
+ um total de
+82 peças.
+213. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) No dominó tradicional, os 4
+jogadores podem se sentar à mesa de 6 maneiras distintas.
+214. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Considere que cada jogador, na sua
+vez, retire as 7 peças ao mesmo tempo. Nesse caso, as peças de um dominó tradicional
+poderão ser divididas entre os 4 jogadores de 
+.
+215. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Entre todas as possíveis divisões
+das peças de um dominó tradicional entre os 4 jogadores, em mais de 100 milhões delas
+algum deles começará o jogo com todas as 7 buchas.
+Texto para questões 216 a 219
+Art. 1
+o
+ O Tribunal Regional Eleitoral do Estado da Bahia (TRE/BA), com sede na capital do
+estado e jurisdição em todo o território estadual,
+ compõe-se: I mediante eleição, pelo voto
+secreto: a) de dois juízes, entre os desembargadores do tribunal de justiça;
+b) de dois juízes, entre juízes de direito, escolhidos pelo tribunal de justiça; II de um juiz
+federal escolhido pelo tribunal regional federal respectivo; III por nomeação, pelo
+presidente da República, de dois juízes, entre seis advogados de notável saber jurídico e
+idoneidade
+ moral, indicados pelo Tribunal de Justiça.
+Art. 20. O TRE/BA, mediante eleição secreta, elegerá o presidente entre os juízes da classe
+de desembargador, cabendo ao outro a vice-presidência.
+Art. 29. O corregedor regional eleitoral será escolhido, por escrutínio secreto, entre os
+membros do TRE/BA, exceto o presidente; se eleito o vice-presidente, este acumulará as
+duas funções.
+Art.
+ 31. Parágrafo único – O corregedor será substituído, nas suas férias, licenças, faltas
+
+ou impedimentos, pelo membro mais antigo do TRE/BA, excluído o presidente.
+Com base nos artigos acima, transcrito com adaptações, do Regimento Interno do TRE/BA,
+julgue os itens a seguir, referentes a raciocínio lógico.
+216. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Considere que o Tribunal de
+Justiça tenha 53 desembargadores e 117 juízes de direito, que o juiz federal tenha sido
+escolhido pelo TRF, os 6 advogados tenham sido indicados pelo Tribunal de Justiça e
+que todos esses juristas tenham igual possibilidade de compor o TRE/BA. Nesse caso, é
+correto afirmar que o TRE/BA pode ser formado, com esses juristas, de mais de 109
+maneiras distintas.
+217. (Cespe/UnB – TRE-BA – Técnico
+ Judiciário – 2009) Sabendo que um anagrama é
+qualquer ordenação formada com as letras de uma palavra, tendo ou não significado,
+então, com a palavra CORREGEDOR será possível formar 151.200 anagramas distintos.
+218. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Se o membro mais antigo do
+TRE/BA for um juiz da classe de desembargador, então ele estará impedido de
+substituir o corregedor quando
+ necessário.
+219. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) A negação da proposição “O
+presidente é o membro mais antigo do tribunal e o corregedor é o vice-presidente” é “O
+presidente é o membro mais novo do tribunal e o corregedor não é o vice-presidente”.
+Texto para questões 220 e 221
+Os 100 empregados de uma empresa foram convocados para escolher, entre 5 opções, o
+novo logotipo
+ da empresa. O empregado poderá escolher, no momento do voto, a cédula I ou
+a cédula II. Caso ele escolha a cédula I, deverá listar as 5 opções de logotipo, na ordem de
+sua preferência, que serão assim pontuadas: 1
+a
+ – 5 pontos; 2
+a
+ – 4 pontos; 3
+a
+ – 3 pontos; 4
+a
+ –
+2 pontos; 5
+a
+ – 1 ponto. Se escolher a cédula II, deverá indicar 3 das 5 opções, e cada uma
+receberá 3 pontos.
+Acerca dessa escolha
+ de logotipo, julgue os itens seguintes.
+220. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Considerando que não haverá votos
+brancos ou nulos, o número de votos distintos possíveis para cada empregado é igual a
+130.
+221. (Cespe/UnB – TRE-BA – Técnico Judiciário – 2009) Se apenas 35 empregados optarem
+pela cédula II, então qualquer das opções de logotipo receberá pelo menos 170 pontos.
+Gabarito de provas recentes
+1. Errado
+46. Certo
+91. Errado
+136. Certo
+181. Errado
+2. Certo
+47. Errado
+92. Errado
+137. Errado
+182. Errado
+3. Errado
+48. Certo
+93. Certo
+138. Certo
+183. Certo
+4. Certo
+49. Certo
+94. Errado
+139. Certo
+184. Certo
+5. Certo
+50. Errado
+95. Certo
+140. Certo
+185. Errado
+
+6. Certo
+51. Certo
+96. Errado
+141. Errado
+186. Certo
+7. Errado
+52. Errado
+97. Certo
+142. Certo
+187. Errado
+8. Certo
+53. Errado
+98. Certo
+143. Errado
+188. Errado
+9. Errado
+54. Errado
+99. Certo
+144. Errado
+189. Certo
+10. Errado
+55. Errado
+100. Errado
+145. Errado
+190. Errado
+11. Certo
+56. Certo
+101. Certo
+146. Errado
+191. Certo
+12. Errado
+57. Certo
+102. Errado
+147. Certo
+192. Certo
+13. Errado
+58. Certo
+103. Errado
+148. Certo
+193. Errado
+14. Certo
+59. Errado
+104. Errado
+149. Certo
+194. Errado
+15. Errado
+60. Errado
+105. Certo
+150. Certo
+195. Certo
+16. Errado
+61. Certo
+106. Certo
+151. Certo
+196. Certo
+17. Errado
+62. Certo
+107. Certo
+152. Certo
+197. Errado
+18. Certo
+63. Errado
+108. Certo
+153. Errado
+198. Certo
+19. Certo
+64. Certo
+109. Errado
+154. Certo
+199. Certo
+20. Certo
+65. Errado
+110. Certo
+155. Errado
+200. Errado
+21. Errado
+66. Certo
+111. Certo
+156. Errado
+201. Certo
+22. Errado
+67. Certo
+112. Errado
+157. Certo
+202. Errado
+23. Certo
+68. Errado
+113. Errado
+158. Certo
+203. Certo
+24. Certo
+69. Errado
+114. Errado
+159. Errado
+204. Certo
+25. Certo
+70. Certo
+115. Certo
+160. Certo
+205. Errado
+26. Errado
+71. Errado
+116. Errado
+161. Errado
+206. Certo
+27. Errado
+72. Errado
+117. Certo
+162. Certo
+207. Errado
+28. Certo
+73. Certo
+118. Certo
+163. Certo
+208. Errado
+29. Certo
+74. Errado
+119. Errado
+164. Certo
+209. Certo
+30. Certo
+75. Certo
+120. Certo
+165. Errado
+210. Errado
+31. Errado
+76. Certo
+121. Errado
+166. Errado
+211. Certo
+32. Certo
+77. Errado
+122. Errado
+167. Errado
+212. Errado
+33. Errado
+78. Errado
+123. Certo
+168. Certo
+213. Certo
+34. Certo
+79. Certo
+124. Errado
+169. Errado
+214. Certo
+35. Errado
+80. Errado
+125. Errado
+170. Certo
+215. Certo
+36. Certo
+81. Certo
+126. Errado
+171. Certo
+216. Certo
+37. Certo
+82. Certo
+127. Certo
+172. Errado
+217. Certo
+38. Errado
+83. Certo
+128. Certo
+173. Errado
+218. Errado
+39. Errado
+84. Errado
+129. Certo
+174. Errado
+219. Errado
+40. Certo
+85. Certo
+130. Certo
+175. Certo
+220. Certo
+41. Certo
+86. Certo
+131. Errado
+176. Certo
+221. Errado
+42. Errado
+87. Errado
+132. Errado
+177. Errado
+43. Errado
+88. Errado
+133. Certo
+178. Certo
+44. Certo
+89. Certo
+134. Errado
+179. Certo

@@ -1,0 +1,1310 @@
+1. (Cespe – UNB – MDS – 2008) Se uma casa localizada na referida comunidade for
+escolhida ao acaso para receber uma visita de um representante do governo, a
+probabilidade de ela ter exatamente um dormitório é inferior ou igual a 0,10.
+2. (Cespe – UNB – MDS – 2008) Se duas casas localizadas na citada comunidade
+ forem
+escolhidas por meio de um sorteio aleatório, a probabilidade de que ambas tenham
+paredes de barro é igual a 0,75.
+Com os algarismos 1, 2, 4, 5, 6 e 8 deseja-se formar números de três algarismos, não
+sendo permitida a repetição de algarismos em um mesmo número. Julgue os itens
+subsequentes com relação a esses números.
+3. (Cespe – UNB – MDS – 2008) Escolhendo-se um desses números ao
+ acaso, a
+probabilidade de ele ser múltiplo de cinco é inferior a 0,15.
+4. (Cespe – UNB – MDS – 2008) Escolhendo-se um desses números ao acaso, a
+probabilidade de ele ser menor que 300 é superior a 0,3.
+Texto para questão 5
+Cartões numerados sequencialmente de 1 a 10 são colocados em uma urna,
+completamente misturados. Três cartões são retirados ao acaso, um de cada vez, e uma
+vez retirado
+ o cartão não é devolvido à urna.
+Com base nessas informações, julgue os itens que se seguem.
+5. (Cespe – UNB – Serpro – 2008) Se o primeiro cartão for o número 7 e o segundo for o
+número 10, então a probabilidade de o terceiro cartão ser um número menor do que 5 é
+igual a 1/2.
+6. (Cespe – UNB – TRT – 2008) Se, entre as 16 empresas contratadas para atender aos
+serviços diversos do TRT,
+ houver quatro empresas que prestem serviços de informática
+e duas empresas que cuidem da manutenção de elevadores, e uma destas for escolhida
+aleatoriamente para prestar contas dos custos de seus serviços, a probabilidade de que
+a empresa escolhida seja prestadora de serviços de informática ou realize a
+manutenção de elevadores será igual a: a) 0,125;
+b) 0,250;
+c) 0,375;
+d) 0,500;
+e) 0,625.
+7. (Cespe – UNB – TRT – 2008) Considere que, em 2005, foram julgados 640 processos dos
+quais 160 referiam-se a acidentes de trabalho; 120, a não recolhimento de contribuição
+
+do INSS; e 80, a acidentes de trabalho e não recolhimento de contribuição de INSS.
+Nesse caso, ao se escolher aleatoriamente um desses processos julgados, a
+probabilidade dele se referir a acidentes de trabalho
+ ou ao não recolhimento de
+contribuição do INSS é igual a: a) 3/64;
+b) 5/64;
+c) 5/16;
+d) 7/16;
+e) 9/16.
+8. (Cespe – UNB – TRT – 2008) Em um setor de uma fábrica trabalham 10 pessoas que
+serão divididas em dois grupos de cinco pessoas cada para realizar determinadas
+tarefas. João e Pedro são duas dessas pessoas. Nesse caso, a probabilidade de João e
+Pedro ficarem no mesmo
+ grupo é: a) inferior a 0,36;
+b) superior a 0,36 e inferior a 0,40;
+c) superior a 0,40 e inferior a 0,42;
+d) superior a 0,42 e inferior a 0,46;
+e) superior a 0,46.
+9. (Cespe – UNB – MMA – 2008) Suponha que as probabilidades de os planos P1 e P2,
+referidos no texto, terem 100% de suas metas atingidas sejam, respectivamente, iguais
+a 3/7 e 2/5, e que ambos estejam em andamento
+ independentemente um do outro.
+Nesse caso, a probabilidade de pelo menos um desses planos ter suas metas
+plenamente atingidas é superior a 0,7.
+10. (Cespe – UNB – MPE-RR – 2008) Em uma urna há cem bolas numeradas de 1 a 100.
+Nesse caso, a probabilidade de se retirar uma bola cuja numeração seja um múltiplo de
+dez ou de 25 será inferior a 0,13.
+11. (Cespe – UNB – MPE-RR – 2008) Um dado
+ não viciado é lançado duas vezes. Nesse caso,
+a probabilidade de se ter um número par no primeiro lançamento e um número
+múltiplo de três no segundo lançamento é igual a 1/6.
+12. (Cespe – UNB – ME – 2008) Se uma gaveta de arquivo contiver sete processos distintos:
+três referentes à compra de materiais hospitalares e quatro referentes à construção de
+postos de saúde, então, retirando-se ao
+ acaso, simultaneamente, três processos dessa
+gaveta, a probabilidade de que pelo menos dois desses processos sejam referentes à
+compra de materiais hospitalares será superior a 0,4.
+13. (Cespe – UNB – Secad-TO – 2008) Considere que nove rapazes e seis moças, sendo três
+delas adolescentes, se envolvam em um tumulto e sejam detidos para interrogatório.
+Se a primeira pessoa chamada para ser interrogada
+ for escolhida aleatoriamente,
+então a probabilidades de essa pessoa ser uma moça adolescente é igual a 0,2.
+14. (Cespe – UNB – Secad-TO – 2008) Considere-se que, das 82 varas do trabalho
+relacionadas no sítio do TRT da 9
+a
+ Região, 20 ficam em Curitiba, 6 em Londrina e duas
+em Jacarezinho. Considere-se, ainda, que, para o presente concurso, haja vagas em
+todas as varas, e um candidato aprovado
+ tenha igual chance de ser alocado em
+qualquer uma delas. Nessas condições, a probabilidade de um candidato aprovado no
+
+concurso ser alocado em uma das varas de Curitiba, ou de Londrina, ou de Jacarezinho
+é superior a 1/3.
+Texto para questões 15 e 16
+Entre os 150 candidatos aprovados em um concurso, 50 são mulheres e 100 candidatos têm
+no máximo 22 anos de idade. Um candidato deve ser escolhido
+ como representante do
+grupo e essa escolha deverá ser feita por meio de sorteio.
+Considerando essa situação hipotética, julgue os itens seguintes.
+15. (Cespe – UNB – PMV – 2007) A probabilidade de que o representante sorteado seja uma
+mulher é igual a 1/3.
+16. (Cespe – UNB – PMV – 2007) A chance de o representante sorteado ter mais de 22 anos
+de idade é igual a 40%.
+17. (Cespe
+ – UNB – MPE-AM – 2007) Considere que a prova objetiva de um concurso tenha
+cinco questões de múltipla escolha, com quatro opções cada uma. Considere também
+que as questões sejam independentes e que um candidato responda a todas elas
+aleatoriamente. Nessa situação, a probabilidade de ele acertar todas as questões é
+inferior a 0,05%.
+Texto para questão 18
+Os princípios de contagem, na matemática,
+ incluem: I. Princípio da Soma: se um evento E1
+pode ocorrer de N1 maneiras distintas, E2, de N2 maneiras distintas, ..., Ek, de Nk
+maneiras distintas, e se quaisquer dois eventos não podem ocorrer simultaneamente,
+então um dos eventos pode ocorrer em N1 + N2 + ... + Nk maneiras distintas. II. Princípio
+da Multiplicação: considere que E1, E2, ..., Ek são eventos que ocorrem sucessivamente;
+ se
+o evento E1 pode ocorrer de N1 maneiras distintas, o evento E2 pode ocorrer de N2 maneira
+distintas, ..., o evento Ek pode ocorrer de Nk maneiras distintas, então todos esses eventos
+podem ocorrer, na ordem indicada, em N1 × N2 × ... × Nk maneiras distintas.
+Considerando o texto acima e a informação do portal 
+www.mp.to.gov.br
+, de que, no
+Ministério Público do Estado do Tocantins (MPE-TO),
+ há 85 promotores de justiça e 12
+procuradores de justiça, julgue os itens.
+18. (Cespe – UNB – MPE-TO – 2007) Se quatro dos procuradores de justiça são mulheres,
+então a probabilidade de se escolher, ao acaso, somente entre os procuradores, um
+procurador de justiça que seja mulher é inferior a 1/2.
+Texto para questões 19 e 20
+Em um escritório, trabalham 4 digitadores, que recebem salário
+ de R$ 800,00 cada, 3
+assistentes, com salário de R$ 1.200,00 cada, dois analistas, com salário de R$ 2.000,00
+cada e 1 consultor, com salário de R$ 3.500,00.
+Admitindo que cada um desses profissionais exerça apenas a sua função, julgue os itens
+seguintes.
+19. (Cespe – UNB – Sebrae – 2007) Escolhendo-se aleatoriamente dois empregados desse
+
+escritório, a probabilidade de o primeiro ser digitador
+ e de o segundo ser analista é
+igual a 0,08.
+20. (Cespe – UNB – Sebrae – 2007) Escolhendo-se aleatoriamente um desses empregados,
+a probabilidade de o escolhido ser assistente é superior a 0,25.
+Texto para questões 21 e 22
+Um investigador, ao chegar ao local de um crime, tem de executar 10 tarefas, entre as
+quais se incluem: “procurar a arma do crime”, “buscar por impressões digitais”
+ e
+“verificar se houve arrombamento de portas e janelas”. O investigador tem autonomia para
+decidir em que ordem as dez tarefas serão executadas.
+Com base nessa situação, julgue os itens seguintes.
+21. (Cespe – UNB – Censipam – 2006) A probabilidade de a tarefa “procurar a arma do
+crime” ser executada em terceiro lugar é inferior a 3!/10!.
+22. (Cespe – UNB – Censipam – 2006) A probabilidade
+ de a tarefa “verificar se houve
+arrombamento de portas e janelas” ser executada imediatamente após a tarefa “buscar
+por impressões digitais” é inferior a 1/12.
+Texto para questões 23 a 25
+João e Cláudio são digitadores de um escritório de advocacia. Na sala onde eles trabalham,
+quatro computadores, numerados de 1 a 4, estão à disposição dos dois empregados, que
+poderão escolhê-los de forma
+ aleatória, para trabalhar.
+Com base nessas informações, julgue os itens seguintes.
+23. (Cespe – UNB – IPAJM – 2006) Em determinado dia, escolhidos os computadores a
+probabilidade de que a soma dos números desses computadores seja igual a 5 é
+superior a1/3.
+24. (Cespe – UNB – IPAJM – 2006) A probabilidade de que a soma dos números dos
+computadores escolhidos em determinado dia seja
+ maior ou igual a 4 é igual a 13/16.
+25. (Cespe – UNB – MPE-TO – 2006) Em um lote de 20 processos, há três processos cujos
+pareceres estão errados. Aleatoriamente, um após o outro, três processos foram
+retirados desse lote. Nesse caso, a probabilidade de que os três processos retirados não
+estejam com os pareceres errados é superior a 0,6.
+Texto para questão 26
+Considere que dois controladores
+ de recursos públicos de um Tribunal de Contas estadual
+serão escolhidos para auditar as contas de determinada empresa estatal e que, devido às
+suas qualificações técnicas, a probabilidade de José ser escolhido para essa tarefa seja de
+3/8, enquanto a probabilidade de Carlos ser escolhido seja de 5/8.
+Em face dessas considerações, julgue o item subsequente.
+26. (Cespe – UNB – MPE-TO – 2006)
+ Considere que, na certeza de que Carlos tenha sido
+escolhido, a probabilidade de José ser escolhido é 1/5. Nessas condições, a
+
+probabilidade de José e Carlos serem ambos escolhidos é menor 
+que 1/4
+.
+Texto para questões 27 e 28
+Dentro da estrutura organizacional do TCU, o colegiado mais importante é o Plenário, que
+é composto por nove ministros, dois auditores e sete procuradores. A ele,
+ seguem-se as 1
+a
+e 2
+a
+ Câmaras, compostas, respectivamente, por três ministros, um auditor e um
+procurador, escolhidos entre os membros que compõe o Plenário do TCU, sendo que as
+duas câmaras não têm membros em comum.
+Considerando que, para a composição das duas câmaras, todos os ministros, auditores e
+procuradores que compõem o Plenário possam ser escolhidos, e que a escolha seja feita de
+maneira
+ aleatória, julgue os itens seguintes.
+27. (Cespe – UNB – TRT – 2005) Considere que as duas Câmaras tenham sido formadas.
+Nesse caso, a probabilidade de um procurador, membro do Plenário, selecionado ao
+acaso, fazer parte da 2
+a
+ Câmara, sabendo-se que ele não faz parte da 1
+a
+ Câmara, é
+superior a 0,15.
+28. (Cespe – UNB – TRT – 2005) Considere que as duas Câmaras tenham sido formadas.
+Nessa
+ situação, a probabilidade de um ministro, membro do Plenário, selecionado ao
+acaso, fazer parte de uma das duas câmaras é superior a 0,7.
+Texto para questão 29
+A Diretoria da Associação dos Servidores de uma pequena empresa deve ser formada por
+cinco empregados escolhidos entre os dez de nível médio e os 15 de nível superior.
+A respeito dessa restrição, julgue os itens seguintes.
+29. (Cespe – UNB – TCU – 2007) Se a diretoria fosse escolhida ao acaso, a probabilidade de
+serem escolhidos três empregados de nível superior seria maior que a probabilidade de
+serem escolhidos dois empregados de nível médio.
+Texto para questões 30 e 31
+Em um concurso público, registrou-se a inscrição de cem candidatos. Sabe-se que 30
+desses candidatos inscreveram-se para o cargo de
+ escriturário, 20, para o cargo de
+auxiliar administrativo, e apenas dez candidatos se inscreveram para os dois cargos. Os
+demais candidatos inscreveram-se em outros cargos.
+Julgue os itens a seguir, considerando que um candidato seja escolhido aleatoriamente
+nesse conjunto de cem pessoas.
+30. (Cespe – UNB – BRB – 2005) A probabilidade de que o indivíduo escolhido seja
+candidato ao cargo
+ de auxiliar administrativo é superior a 1/4.
+31. (Cespe – UNB – BRB – 2005) A probabilidade de que o indivíduo escolhido seja
+candidato ao cargo de escriturário ou ao cargo de auxiliar administrativo é igual a1/2.
+Texto para questão 32
+
+10. DOS CRITÉRIOS DE AVALIAÇÃO E DE CLASSIFICAÇÃO NA PRIMEIRA ETAPA
+10.1. Todos os candidatos serão submetidos a duas provas objetivas — uma de
+Conhecimentos Básicos (P1), composta de 50 itens, e outra de Conhecimentos Específicos
+(P2), composta de 70 itens — e a uma prova discursiva.
+10.2. A nota em cada item das provas objetivas, feita com base nas marcações da folha de
+respostas, será igual a: 1,00 ponto, caso a resposta do candidato esteja em concordância
+com o gabarito oficial definitivo da prova; – 1,00 ponto, caso a resposta
+ do candidato esteja
+em discordância com o gabarito oficial definitivo da prova; 0,00, caso não haja marcação ou
+haja marcação dupla (C e E).
+10.3. O cálculo da nota em cada prova objetiva, comum às provas de todos os candidatos,
+será igual à soma algébrica das notas obtidas em todos os itens que a compõem.
+10.4. Será reprovado nas provas objetivas e eliminado do concurso o candidato que
+ se
+enquadrar em pelo menos um dos itens a seguir: a) obtiver nota inferior a 8,00 pontos na
+prova de Conhecimentos Básicos (P1);
+b) obtiver nota inferior a 17,00 pontos na prova de Conhecimentos Específicos (P2);
+c) obtiver nota inferior a 36,00 pontos no conjunto das provas objetivas.
+10.5. Para cada candidato não eliminado segundo os critérios definidos no subitem 10.4,
+será
+ calculada a nota final nas provas objetivas (NFPO) pela soma algébrica das notas
+obtidas nas duas provas objetivas.
+11. DA NOTA FINAL NA PRIMEIRA ETAPA
+11.1. A nota final na primeira etapa (NFIE) do concurso público será a soma da nota final
+nas provas objetivas (NFPO) e da nota na prova discursiva (NPD).
+11.2. Os candidatos serão ordenados por cargo/área/localidade de vaga de acordo
+ com os
+valores decrescentes de NFIE.
+12. DOS CRITÉRIOS DE DESEMPATE
+12.1. Em caso de empate na classificação, terá preferência o candidato que, na seguinte
+ordem: a) obtiver maior nota na prova discursiva;
+b) obtiver maior nota na prova de Conhecimentos
+Específicos (P2);
+c) obtiver maior número de acertos na prova de
+Conhecimentos Específicos (P2);
+d) obtiver maior
+ número de acertos na prova de
+Conhecimentos Básicos (P1).
+Julgue o item seguinte, de acordo com as normas estabelecidas no texto acima, adaptado
+do Edital n
+o
+ 25/2004 – DGP/DPF – REGIONAL, de 15 de julho de 2004.
+32. (Cespe – UNB – PF – 2004) De acordo com o texto acima, se um candidato marcar ao
+acaso todas as respostas dos 120 itens que compõem as duas provas objetivas, a
+probabilidade
+ de ele ser reprovado nessas provas será igual a 8/50 x 17/70 x 36/120.
+Texto para questão 33
+Estimou-se que, na região Norte do Brasil, em 2009, havia 1.074.700 analfabetos com 15
+anos de idade ou mais, em uma população total de, aproximadamente, 10.747.000
+habitantes, e que na região Centro-Oeste, no mesmo ano, havia 840.433 analfabetos com
+15 anos de idade ou mais, em uma população total
+ de, aproximadamente, 10.505.415
+
+habitantes.
+A partir dessas informações, julgue o item subsequente.
+33. (Cespe – UNB – Previc – 2011) A probabilidade de uma pessoa com 15 anos de idade ou
+mais escolhida ao acaso em 2009, na região Norte ou na região Centro-Oeste, ser
+analfabeta é inferior a 20%.
+Texto para questões 34 a 36
+Considerando que, em uma concessionária de veículos, tenha
+ sido verificado que a
+probabilidade de um comprador adquirir um carro de cor metálica é 1,8 vez maior que a de
+adquirir um carro de cor sólida e sabendo que, em determinado período, dois carros foram
+comprados, nessa concessionária, de forma independente, julgue as questões a seguir.
+34. (Cespe – UNB – Previc – 2011) A probabilidade de que ao menos um dos dois carros
+comprados seja de cor
+ sólida é igual a 460/784.
+35. (Cespe – UNB – Previc – 2011) A probabilidade de que os dois carros comprados sejam
+de cor metálica é 3,24 vezes maior que a probabilidade de que eles sejam de cor sólida.
+36. (Cespe – UNB – Previc – 2011) A probabilidade de que somente um dos dois carros
+comprados seja de cor metálica é superior a 50%.
+Texto para questões 37 e 38
+Dois jogadores lançam
+ simultaneamente, em turnos, 
+cinco
+ dados de seis faces numeradas
+de 1 a 6, buscando obter a maior pontuação possível, de acordo com as regras estipuladas.
+Dois exemplos de combinações pontuadas no jogo são a sequência máxima — o jogador
+obtém as faces de números 1, 2, 3, 4 e 5 — e a chance — a pontuação do jogador é a soma
+dos números das faces dos 5 dados. A combinação Yathzee, que dá nome ao
+ jogo, ocorre
+quando as faces dos 
+cinco
+ dados apresentam o mesmo número. Internet:
+<www.hasbro.com>
+ (com adaptações).
+Com base no texto acima e considerando um único lançamento simultâneo dos cinco dados,
+julgue as questões a seguir.
+37. (Cespe – UNB – MEC – 2011) A probabilidade de se obter a sequência máxima é inferior
+a 750/7776.
+38. (Cespe – UNB – MEC – 2011) A probabilidade de
+ se obter um Yathzee é igual a 1/1296.
+Texto para questão 39
+No início de cada ano, em determinado instante, 60% da população do município A migra
+para o município B, 40% da população do município B migra para o A, permanecendo os
+demais habitantes em seus respectivos municípios. No final do ano de 2009, no município
+A, havia cem mil habitantes e, no município B, 50 mil habitantes. Supondo
+ que as
+populações de A e B se modifiquem apenas conforme essa regra, julgue o item abaixo.
+39. (Cespe – UNB – MEC – 2011) A probabilidade de um habitante de um dos municípios se
+mudar, em determinado ano, para o outro município e, no ano seguinte, retornar ao seu
+
+município de origem é inferior a 40%.
+Texto para questão 40
+A questão da desigualdade de gênero na relação de poder entre
+ homens e mulheres é forte
+componente no crime do tráfico de pessoas para fins de exploração sexual, pois as vítimas
+são, na sua maioria, mulheres, meninas e adolescentes. Uma pesquisa realizada pelo
+Escritório das Nações Unidas sobre Drogas e Crime (UNODC), concluída em 2009, indicou
+que 66% das vítimas eram mulheres, 13% eram meninas, enquanto apenas 12% eram
+homens e 9% meninos. Ministério da
+ Justiça. Enfrentamento ao tráfico de pessoas:
+Relatório do Plano Nacional. Janeiro de 2010, p. 23 (com adaptações).
+40. (Cespe – UNB – PC – 2011) Se for escolhida ao acaso uma das vítimas indicadas na
+pesquisa, a probabilidade de que ela seja ou do sexo feminino ou um menino será
+inferior a 80%.
+Texto para questões 41 a 43
+Em uma cidade, mil habitantes foram entrevistados a respeito
+ de suas relações com os
+bancos A e B. Dos entrevistados, 450 eram correntistas apenas do banco A, 480 eram
+correntistas do banco B, 720 eram correntistas de apenas um desses bancos e o restante
+não era correntista de nenhum desses dois bancos. A respeito dessa pesquisa, é correto
+afirmar que a probabilidade de um dos entrevistados: 41. (Cespe – UNB – BRB – 2011) Ser
+correntista dos dois bancos
+ é superior a 0,20.
+42. (Cespe – UNB – BRB – 2011) Não ser correntista de nenhum dos bancos é igual a 0,08.
+43. (Cespe – UNB – BRB – 2011) Ser correntista apenas do banco B é inferior a 0,25.
+44. (Cespe – UnB – ANCINE – 2005) Suponha que, na apreensão de um lote de 60 DVDs
+pirateados, constatou-se que 12 são DVDs de shows e 8 são DVDs de filmes de ação.
+Nessa situação, é igual a 0,8
+ a probabilidade de que um DVD, escolhido ao acaso nesse
+lote, não seja nem de show nem filme de ação.
+Texto para questões 45 e 46
+Julgue os itens seguintes, acerca de contagem e probabilidades.
+45. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Se, em um concurso público com o total de 145
+vagas, 4.140 inscritos concorrerem a 46 vagas para o cargo de técnico e 7.920 inscritos
+concorrerem para
+ o cargo de analista, com provas para esses cargos em horários
+distintos, de forma que um indivíduo possa se inscrever para os dois cargos, então a
+probabilidade de que um candidato inscrito para os dois cargos obtenha uma vaga de
+técnico ou de analista será inferior a 0,025.
+46. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Considere que a corregedoria-geral da justiça
+do trabalho de determinado estado
+ tenha constatado, em 2007, que, no resíduo de
+processos em fase de execução nas varas do trabalho desse estado, apenas 23% tiveram
+solução, e que esse índice não tem diminuído. Nessa situação, caso um cidadão tivesse,
+
+em 2007, um processo em fase de execução, então a probabilidade de seu processo não
+ser resolvido era superior a 4/5.
+Texto para questões 47 a 49
+Considere o texto abaixo,
+ a respeito de dez alunos, em que cada um recebeu uma camiseta,
+e cada camiseta tinha uma única cor.
+Cinco meninos; três cores.
+Cinco meninas; quatro cores.
+Equipes formadas,
+Expectativas geradas,
+De glória ou dores.
+Com base nas informações acima, julgue os itens que se seguem.
+47. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Considere que três alunos tenham camisetas
+azuis,
+ três tenham camisetas brancas, dois tenham camisetas vermelhas, um tenha
+camiseta verde e um tenha camiseta preta. Nessas condições, existem 72 × 5! maneiras
+diferentes de se colocarem os dez alunos em fila, de tal forma que alunos com
+camisetas de mesma cor fiquem sempre juntos.
+48. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Se três meninos trocarem de camisetas com
+três meninas, então, após a
+ troca, as chances de dois meninos terem camisetas de
+cores iguais será de 100%.
+49. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Considerando que as camisetas sejam de
+apenas cinco cores diferentes, então, a probabilidade de três alunos terem camisetas
+da mesma cor será igual a 1.
+Texto para questões 50 e 51
+Suponha que determinado partido político pretenda ter candidatos próprios para os
+ cargos
+de governador, senador e deputado federal e que tenha, hoje, 5 possíveis nomes para o
+cargo de governador, 7 para o cargo de senador e 12 para o cargo de deputado federal.
+Como todos os pré-candidatos são muito bons, o partido decidiu que a escolha da chapa
+(governador, senador e deputado federal) será por sorteio. Considerando que todos os
+nomes têm chances iguais de serem escolhidos,
+ julgue os itens seguintes.
+50. (Cespe – UnB – TRT-21
+a
+ Região – 2010) Caso João e Roberto sejam pré-candidatos ao
+cargo de senador e Maria e Ana sejam pré-candidatas ao cargo de deputado federal, a
+chance de que a chapa sorteada tenha qualquer um desses nomes será maior que 49%.
+51. (Cespe – UnB – TRT-21
+a
+ Região – 2010) A probabilidade de uma chapa ser sorteada é
+maior que 
+.
+Texto para
+ questões 52 e 53
+Considerando que José seja um dos pré-candidatos ao cargo de governador, a
+probabilidade de que José esteja na chapa sorteada será maior que 0,1.
+
+Segurança: de que forma você cuida
+da segurança da informação de sua empresa?
+resultado da enquete, com 500 votos
+resposta
+% de usuários que deram essa resposta
+I instalei antivívus, anti-
+spam
+ e 
+firewall
+ e cuido da atualização todos os dias
+41,6
+II passo e atualizo antivírus todos os dias
+29
+III não tenho ideia de como é feita a segurança dos dados de minha empresa
+13
+IV instalei antivírus, anti-
+spam
+ e 
+firewall
+, mas não cuido da atualização
+10
+V passo e atualizo antivírus uma vez por mês
+6,4
+Pequenas empresas grandes negócios, n
+o
+ 222, jul./2007, p. 8 (com adaptações)
+52. (Cespe – UnB – BB – 2007) Na amostra de 500 entrevistados, escolhendo-se um deles
+ao acaso, a probabilidade de ele não ter dado a resposta I nem a II é superior a 0,3.
+53. (Cespe – UnB – BB – 2008) Considere que a população
+ feminina mundial em 1997 era
+de 2,8 bilhões. Nessa situação, a probabilidade de se selecionar ao acaso, dentro dessa
+população, uma mulher que estava no mercado de trabalho mundial é superior a 0,33.
+Texto para questões 54 a 57
+Uma pesquisa, realizada com 900 pessoas que contraíram empréstimos bancários e
+tornaram-se inadimplentes, mostrou a seguinte divisão dessas pessoas, de acordo com
+ a
+faixa etária.
+idade (em anos)
+até 30
+de 31 a 40
+de 41 a 50
+mais de 50
+140
+250
+356
+154
+A partir da tabela acima e considerando a escolha, ao acaso, de uma pessoa entre as 900
+que participaram da referida pesquisa, julgue os itens subsequentes.
+54. (Cespe – UnB – BB – 2008) A probabilidade de essa pessoa não ter menos de 41 anos de
+idade é inferior a 0,52.
+55. (Cespe – UnB – BB – 2008) A probabilidade de essa pessoa ter de 41 a 50 anos de idade,
+sabendo-se
+ que ela tem pelo menos 31 anos, é superior a 0,5.
+56. (Cespe – UnB – BB – 2008) A probabilidade de a pessoa escolhida ter de 31 a 40 anos de
+idade é inferior a 0,3.
+57. (Cespe – UnB – BB – 2008) A chance de a pessoa escolhida ter até 30 anos de idade ou
+
+mais de 50 anos de idade é superior a 30%.
+Texto para questões 58 e 59
+Uma moeda é jogada para o alto 10 vezes. Em cada jogada,
+ pode ocorrer 1 (cara) ou 0
+(coroa) e as ocorrências são registradas em uma sequência de dez dígitos, como, por
+exemplo, 0110011010. Considerando essas informações, julgue os próximos itens.
+58. (Cespe – UnB – TRT-16
+a
+ Região – 2005) O número de sequências nas quais é obtida pelo
+menos uma cara é inferior a 512.
+59. (Cespe – UnB – TRT-16
+a
+ Região – 2005) A probabilidade de serem obtidas sequências
+nas quais ocorra coroa nas primeiras 3 jogadas é inferior a 1 / 4.
+Texto para questões 60 e 61
+Considere que em um escritório trabalham 11 pessoas: 3 possuem nível superior, 6 têm o
+nível médio e 2 são de nível fundamental. Será formada, com esses empregados, uma
+equipe de 4 elementos para realizar um trabalho de pesquisa. Com base nessas
+informações, julgue os itens seguintes, acerca
+ dessa equipe.
+60. (Cespe – UnB – TRT-10
+a
+ Região – 2004) Se a equipe for formada escolhendo-se as
+pessoas de maneira aleatória, então a probabilidade de que essa equipe contenha todos
+os empregados de nível superior será inferior a 0,03.
+61. (Cespe – UnB – TRT-10
+a
+ Região – 2004) Se a equipe for formada escolhendo-se as
+pessoas de maneira aleatória, então a probabilidade de que essa equipe
+ contenha pelo
+menos uma pessoa de nível fundamental será inferior a 0,55.
+62. (Cespe – UnB – MPE – TO) Em um lote de 20 processos, há 3 processos cujos pareceres
+estão errados. Aleatoriamente, um após o outro, 3 processos foram retirados desse lote.
+Nesse caso, a probabilidade de que os 3 processos retirados não estejam com os
+pareceres errados é superior a 0,6.
+63. (Cespe – UnB – MS –
+ 2008) Se uma gaveta de arquivo contiver 7 processos distintos: 3
+referentes à compra de materiais hospitalares e 4 referentes à construção de postos de
+saúde, então, retirando-se ao acaso, simultaneamente, 3 processos dessa gaveta, a
+probabilidade de que pelo menos dois desses processos sejam referentes a compra de
+materiais hospitalares será superior a 0,4.
+Texto para questões 64 a 68
+Considere que tenham sido recolhidas para análise amostras de óleo de quatro campos
+petrolíferos da bacia de Campos, na seguinte proporção: 5 amostras do campo de Albacora,
+10 do campo de Marlim, 7 do campo de Espadarte e 8 amostras do campo de Barracuda.
+Considere, também, que, durante o procedimento de análise, as amostras tenham sido
+selecionadas de maneira aleatória, entre as 30 amostras anteriormente
+ mencionadas.
+Com base nessas informações, julgue os itens subsequentes.
+64. (Cespe – UnB – PETROBRAS – 2008) A probabilidade de uma amostra selecionada ao
+
+acaso ser proveniente do campo de Marlim é inferior a 0,35.
+65. (Cespe – UnB – PETROBRAS – 2008) A probabilidade de uma amostra selecionada ao
+acaso não ser proveniente do campo de Barracuda é superior a 0,25.
+66. (Cespe – UnB –
+ PETROBRAS – 2008) A chance de uma amostra selecionada ao acaso
+ser proveniente do campo de Espadarte ou do campo de Albacora é inferior a 37%.
+67. (Cespe – UnB – PETROBRAS – 2008) A probabilidade de duas amostras selecionadas ao
+acaso, e independentemente da ordem da escolha, serem provenientes do campo de
+Marlim é superior a 0,1.
+68. (Cespe – UnB – PETROBRAS – 2008) A chance de duas amostras
+ selecionadas ao acaso,
+e independentemente da ordem da escolha, serem provenientes uma do campo de
+Espadarte e outra do campo de Barracuda é inferior a 5%.
+69. (Cespe – UnB – TRT-9
+a
+ Região – 2007) De 100 processos guardados em um armário,
+verificou-se que 10 correspondiam a processos com sentenças anuladas, 20 estavam
+solucionados sem mérito e 30 estavam pendentes, aguardando a decisão de
+ juiz, mas
+dentro do prazo vigente. Nessa situação, a probabilidade de se retirar desse armário um
+processo que esteja com sentença anulada, ou que seja um processo solucionado sem
+mérito, ou que seja um processo pendente, aguardando a decisão de juiz, mas dentro do
+prazo vigente, é igual a 3/5.
+Texto para questão 70
+Cartões numerados sequencialmente de 1 a 10 são colocados em uma urna,
+completamente misturados. Três cartões são retirados ao acaso, um de cada vez, e uma
+vez retirado o cartão não é devolvido à urna.
+Com base nessas informações, julgue o item que se segue.
+70. (Cespe – UnB – SERPRO – 2005) Se o primeiro cartão for o número 7 e o segundo for o
+número 10, então a probabilidade de o terceiro cartão ser um número menor do que 5 é
+igual a 1/2.
+71. (Cespe
+ – UnB – MPE – RR – 2008) Em uma urna há 100 bolas numeradas de 1 a 100.
+Nesse caso, a probabilidade de se retirar uma bola cuja numeração seja um múltiplo de
+10 ou de 25 será inferior a 0,13.
+72. (Cespe – UnB – MPE – RR – 2008) Um dado não viciado é lançado duas vezes. Nesse
+caso, a probabilidade de se ter um número par no primeiro lançamento e um número
+múltiplo de 3 no segundo lançamento
+ é igual a 1/6.
+Texto para questão 73
+Considerando que, em um torneio de basquete, as 11 equipes inscritas serão divididas nos
+grupos A e B, e que, para formar o grupo A, serão sorteadas 5 equipes, julgue os itens que
+se seguem.
+73. (Cespe – UNB – DPF – 2009) Considerando que cada equipe tenha 10 jogadores, entre
+
+titulares e reservas, que os uniformes de 4 equipes sejam completamente
+ vermelhos,
+de 3 sejam completamente azuis e de 4 equipes os uniformes tenham as cores azul e
+vermelho, então a probabilidade de se escolher aleatoriamente um jogador cujo
+uniforme seja somente vermelho ou somente azul será inferior a 30%.
+Texto para questões 74 a 76
+Um baralho de cartas contém 52 cartas de 4 tipos de naipes diferentes: paus (
+♣
+), espadas
+(
+♠
+), copas (
+♥
+) e ouros (
+♦
+). Em cada
+ naipe, que consiste de 13 cartas, 3 dessas cartas contêm
+as figuras do rei, da dama e do valete, respectivamente.
+Com base nessas Informações, julgue os itens subsequentes.
+74. (Cespe – UnB – TCU – 2004) A probabilidade de se extrair aleatoriamente uma carta de
+um baralho e ela conter uma das figuras citadas no texto é igual a 3/13.
+75. (Cespe – UnB – TCU – 2004) Sabendo que há 4 ases
+ em um baralho comum, sendo um
+de cada naipe, conclui-se que a probabilidade de ser extrair uma carta e ela não ser um
+ás de ouros é igual a 1/52.
+76. (Cespe – UnB – TCU – 2004) A probabilidade de se extrair aleatoriamente uma carta e
+ela conter uma figura ou ser uma carta de paus é igual a 11/26.
+77. (Cespe – UnB – TRT-9
+a
+ REGIÃO – 2007) Considere-se que, das 82 varas do trabalho
+relacionadas
+ no sítio do TRT da 9
+a
+ Região, 20 ficam em Curitiba, 6 em Londrina e 2 em
+Jacarezinho. Considere-se, ainda, que, para o presente concurso, haja vagas em todas
+as varas, e um candidato aprovado tenha igual chance de ser alocado em qualquer uma
+delas. Nessas condições, a probabilidade de um candidato aprovado no concurso ser
+alocado em uma das varas de Curitiba, ou de Londrina, ou de Jacarezinho
+ é superior a
+1/3.
+Texto para questão 78
+Para o bom desempenho das funções dos agentes, os departamentos de polícia
+frequentemente realizam compras de equipamentos. Para certa compra licitada, um
+fabricante ofereceu 6 modelos de radiotransmissores. Com base nessa situação, julgue o
+item que se segue.
+78. (Cespe – UNB – PC – ES – 2010) Suponha que, para cada lote de 3 radiotransmissores
+de determinado modelo, a probabilidade de 1 deles apresentar defeito é 0,25, de 2 deles
+apresentarem defeito é 0,025, e de 3 apresentarem defeito é 0,0005. Nessa situação,
+considerando-se que, se pelo menos 1 dos radiotransmissores de um lote apresentar
+defeito, todo o lote será rejeitado, é correto afirmar que a probabilidade de se rejeitar
+um lote é inferior a 25%.
+6.10.1. Gabarito dos exercícios 
+propostos
+1. Errado
+17. Errado
+33. Certo
+49. Certo
+65. Errado
+2. Errado
+18. Certo
+34. Certo
+50. Errado
+66. Errado
+
+3. Errado
+19. Certo
+35. Certo
+51. Errado
+67. Certo
+4. Certo
+20. Certo
+36. Errado
+52. Errado
+68. Errado
+5. Certo
+21. Errado
+37. Certo
+53. Certo
+69. Certo
+6. Certo
+22. Errado
+38. Certo
+54. Errado
+70. Certo
+7. Certo
+23. Errado
+39. Errado
+55. Errado
+71. Certo
+8. D
+24. Certo
+40. Errado
+56. Certo
+72. Certo
+9. Errado
+25. Errado
+41. Certo
+57. Certo
+73. Errado
+10. Certo
+26. Certo
+42. Errado
+58. Errado
+74. Certo
+11. Certo
+27. Errado
+43. Errado
+59. Certo
+75. Errado
+12. Certo
+28. Errado
+44. Errado
+60. Certo
+76. Certo
+13. Certo
+29. Errado
+45. Certo
+61. Errado
+77. Certo
+14. Errado
+30. Errado
+46. Errado
+62. Errado
+78. Errado
+15. Certo
+31. Errado
+47. Certo
+63. Errado
+16. Errado
+32. Errado
+48. Errado
+64. Certo
+
+Capítulo 7
+Provas Recentes
+Texto para questões 1 a 4
+P: Se não há autorização legislativa ou indicação dos recursos financeiros
+correspondentes, então, não há abertura de créditos suplementares ou de créditos
+especiais.
+Considerando a proposição acima, que tem por base o art. 167, inciso V, da Constituição
+Federal de 1988, julgue os itens seguintes.
+1. (Cespe/UnB – TRE-RJ
+ – Analista Judiciário – 2012) Na proposição P, a negação do
+consequente estaria corretamente expressa por: “Há abertura de créditos
+suplementares ou há abertura de créditos especiais”.
+2. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) A negação da proposição P pode ser
+corretamente expressa por: “Se há autorização legislativa ou indicação dos recursos
+financeiros correspondentes, então
+ há abertura de créditos suplementares ou de
+créditos especiais”.
+3. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) Considere que as proposições “Há
+autorização legislativa” e “Há abertura de créditos suplementares” sejam verdadeiras
+e que as proposições “Há indicação de recursos financeiros” e “Há abertura de créditos
+especiais” sejam falsas. Nesse caso, a proposição P será verdadeira.
+4. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) A proposição P é logicamente
+equivalente à proposição “Se há abertura de créditos suplementares ou de créditos
+especiais, então há autorização legislativa ou indicação dos recursos financeiros
+correspondentes”.
+Texto para questões 5 a 7
+Para cada subconjunto A de 
+Ω
+ = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, defina P(A) como o produto dos
+elementos de A e adote a convenção P(Ø) = 1. Com base nessa situação, julgue os itens a
+seguir.
+5. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) Se A = {1, 3, 4, 6}, então P(A) = 72.
+6. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) Se A e B são subconjuntos de 
+Ω
+ e A 
+⊂
+B, então P(A) 
+≤
+ P(B).
+7. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) Se A 
+⊂
+ 
+Ω
+ e se algum elemento de
+ A é
+um número ímpar, então P(A) será, necessariamente, um número ímpar.
+
+Texto para questões 8 e 9
+A Agência Nacional de Telecomunicações (ANATEL) elevou para nove a quantidade de
+dígitos dos números dos telefones celulares da região de São Paulo, com o objetivo de
+evitar a escassez de combinações numéricas.
+De acordo com a ANATEL, a principal razão de se adotar o nono dígito como forma
+ de
+ampliar as possibilidades numéricas para os números dos celulares é preservar a
+padronização da forma de discagem utilizada pelos usuários para a realização de
+chamadas locais e de longa distância. Com a inclusão do nono dígito, que corresponde ao
+algarismo 9 no início do número, ficam liberadas, para os números de celulares, as
+combinações com os oito algarismos dos números que só eram usados
+ para telefones fixos
+e que começavam com 2, 3, 4 e 5, além do 1. O zero após o 9 não será usado, a fim de não
+haver confusão com as chamadas a cobrar, que são ativadas mediante o número 90. Com
+base nas informações acima, julgue os próximos itens.
+8. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) A partir da medida anunciada, a
+quantidade de possíveis linhas de telefone celular na referida
+ região será superior ao
+dobro da quantidade máxima que era possível antes da adoção dessa medida.
+9. (Cespe/UnB – TRE-RJ – Analista Judiciário – 2012) Caso o algarismo zero fosse admitido
+após o número 9, mais de dez milhões de novas linhas poderiam ser habilitadas.
+Texto para questões 10 a 13
+Com a finalidade de reduzir as despesas mensais com energia elétrica na sua repartição, o
+gestor mandou instalar, nas áreas de circulação, sensores de presença e de claridade
+natural que atendem à seguinte especificação: P: A luz permanece acesa se, e somente se,
+há movimento e não há claridade natural suficiente no recinto.
+Acerca dessa situação, julgue os itens seguintes.
+10. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) Se fiscais visitarem um
+local da repartição
+ em horário no qual haja claridade natural suficiente e, enquanto se
+movimentarem nesse local, a luz permanecer acesa, será correto inferir que o
+dispositivo instalado atende à especificação P.
+11. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) A especificação P pode ser
+corretamente representada por p
+↔
+(q 
+∧
+ r), em que p, q e r correspondem a proposições
+adequadas e os símbolos 
+↔
+ e 
+∧
+ representam, respectivamente, a bicondicional e a
+conjunção.
+12. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) Em recinto onde tiver sido
+instalado um dispositivo que atenda à especificação P, a luz permanecerá acesa
+enquanto não houver claridade natural suficiente.
+13. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) A negação da especificação
+P é logicamente equivalente
+ à proposição “A luz não permanece acesa se, e somente
+se, não há movimento ou há claridade natural suficiente no recinto”.
+
+Texto para questões 14 a 17
+Verificando a regularidade da aquisição de dispositivos sensores de presença e movimento
+para instalação em uma repartição pública, os fiscais constataram que os proprietários
+das empresas participantes da licitação eram parentes.
+Diante
+ dessa constatação, o gestor argumentou da seguinte maneira:
+P: As empresas participantes do certame foram convidadas formalmente ou tomaram
+conhecimento da licitação pela imprensa oficial.
+Q: Os proprietários das empresas convidadas formalmente não eram parentes.
+R: Se os proprietários das empresas convidadas formalmente não eram parentes e os
+proprietários das empresas participantes
+ da licitação eram parentes, então as empresas
+participantes não foram convidadas formalmente.
+Conclusão: As empresas participantes tomaram conhecimento da licitação pela imprensa
+oficial.
+A partir das informações acima apresentadas, julgue os itens a seguir.
+14. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) Incluindo entre as
+premissas a constatação da equipe de fiscalização,
+ o argumento do gestor será um
+argumento válido.
+15. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) A partir da argumentação
+do gestor é correto inferir que todas as empresas que tomaram conhecimento do
+certame pela imprensa oficial participaram da licitação.
+16. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) Se alguma das premissas,
+P, Q ou R, for uma proposição falsa,
+ então o argumento apresentado será inválido.
+17. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) O fato de determinado
+argumento ser válido implica, certamente, que todas as suas premissas são
+proposições verdadeiras.
+Texto para questões 18 a 19
+Em um conjunto E de empresas, indica-se por Ex o subconjunto de E formado pelas
+empresas que já participaram de pelo menos x procedimentos
+ licitatórios, em que x = 0, 1,
+2, ..., e por N
+X
+ a quantidade de elementos do conjunto E
+X
+.
+Julgue os itens seguintes, a respeito desses conjuntos.
+18. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) Se x e y forem números
+inteiros não negativos e x 
+≤
+ y, então E
+Y
+ 
+⊂
+ E
+X
+.
+19. (Cespe/UnB – TCU-DF – Auditor de Controle Externo – 2012) A probabilidade de uma
+empresa selecionada ao
+ acaso no conjunto E já ter participado de exatamente 10
+procedimentos licitatórios é igual a 
+.
+Texto para questões 20 e 21
+Acerca da proposição R: “A população aprende a votar ou haverá novos atos de corrupção”,
+
+julgue os itens seguintes.
+20. (Cespe/UnB – PM-CE – Soldado – 2012) A proposição “Enquanto a população não
+aprender a votar, haverá novos casos de corrupção” tem o mesmo valor
+ lógico da
+proposição R.
+21. (Cespe/UnB – PM-CE – Soldado – 2012) Se P e Q forem, respectivamente, as
+proposições “A população aprende a votar” e “Haverá novos atos de corrupção”, então a
+proposição R estará corretamente assim simbolizada: PvQ.
+Texto para questões 22 a 24
+Para o policiamento ostensivo e ininterrupto de uma cidade, o comando local estabeleceu a
+escala de 24 horas de
+ plantão por 48 horas de folga para cada policial local e, em cada
+plantão, por razões de segurança, determinou que nenhum policial poderá trabalhar
+sozinho.
+Com base nas informações da situação hipotética acima apresentada, julgue os itens que
+se seguem.
+22. (Cespe/UnB – PM-CE – Soldado – 2012) Caso o comando local disponha de 12 policiais e
+4 deles devam estar de plantão a cada dia, então,
+ nesse caso, haverá mais de 500
+maneiras distintas de se escolher a equipe que trabalhará no primeiro dia.
+23. (Cespe/UnB – PM-CE – Soldado – 2012) Para que a escala atenda ao estabelecido, o
+comando local necessita de, pelo menos, 6 policiais.
+24. (Cespe/UnB – PM-CE – Soldado – 2012) Considere que, entre os 12 policiais do comando
+local, sejam sorteados dois prêmios distintos e que um
+ mesmo policial não receba os
+dois prêmios. Nesse caso, existem mais de 100 maneiras distintas de se distribuírem
+esses prêmios.
+Texto para questões 25 a 28
+Proposições são sentenças que podem ser julgadas como verdadeiras — V — ou falsas — F
+—, de forma que um julgamento exclui o outro, e são simbolizadas por letras maiúsculas,
+como P, Q, R etc. Novas proposições podem ser construídas
+ usando-se símbolos lógicos.
+Uma expressão da forma P
+→
+Q é uma proposição cuja leitura é “se P, então Q” e terá valor
+lógico F quando P for V e Q for F; caso contrário, será sempre V. Uma expressão da forma P
+∨
+ Q é uma proposição que se lê: “P ou Q”, e será F quando P e Q forem F; caso contrário,
+será sempre V. Uma expressão da forma P 
+∧
+ Q, que se lê “P e Q”, será V quando P e Q
+forem V; caso contrário,
+ será sempre F. Uma expressão da forma P 
+↔
+ Q, que se lê “P, se e
+somente se Q” será V quando P e Q tiverem o mesmo valor lógico, caso contrário, será
+sempre F. A forma ¬P simboliza a negação de P e tem valores lógicos contrários aos de P.
+A partir das informações acima, julgue os itens que se seguem.
+25. (Cespe/UnB – ANCINE – Técnico Administrativo – 2012) A negação da proposição “Todo
+ator sabe cantar e dançar” é equivalente a “Existe ator que não sabe cantar ou que não
+sabe dançar”.
+
+26. (Cespe/UnB – ANCINE – Técnico Administrativo – 2012) A proposição [P 
+∨
+ Q] 
+↔
+ [(¬P) 
+∧
+Q] tem somente o valor lógico V, independentemente dos valores lógicos de P e Q.
+27. (Cespe/UnB – ANCINE – Técnico Administrativo – 2012) A proposição ¬{P 
+∨
+ Q 
+→
+ (¬R)} é
+logicamente equivalente à proposição
+ {(¬P) 
+∧
+ (¬Q)} 
+→
+ R.
+28. (Cespe/UnB – ANCINE – Técnico Administrativo – 2012) A proposição “Se todo diretor é
+excêntrico e algum excêntrico é mau ator, então algum diretor é mau ator” é
+logicamente equivalente à proposição “Algum diretor não é excêntrico ou todo
+excêntrico é bom ator ou algum diretor é mau ator”.
+Texto para questões 29 a 31
+Após reunião de diretores de uma instituição
+ financeira, em que se discutiu acerca da
+melhor maneira de os clientes efetivarem, de modo seguro, suas operações financeiras via
+Internet, o diretor de tecnologia solicitou a programação de um novo sistema que
+atendesse à especificação (E) seguinte.
+E: A operação financeira será efetivada se, e somente se, o cliente digitar sua senha
+corretamente ou confirmar determinado dado pessoal solicitado
+ pelo sistema.
+Com base nessa situação, julgue os itens seguintes.
+29. (Cespe/UnB – Banco da Amazônia – Técnico Científico/TI – 2012) Caso o novo sistema
+atenda à especificação E, então a operação financeira desejada será efetivada se o
+cliente confirmar o dado pessoal solicitado pelo sistema, mesmo que ele não digite sua
+senha.
+30. (Cespe/UnB – Banco da Amazônia – Técnico Científico
+ – 2012) A especificação E pode
+ser simbolicamente representada por A 
+↔
+ [B 
+∨
+ C], em que A, B e C sejam proposições
+adequadas e os símbolos 
+↔
+ e 
+∨
+ representem, respectivamente, a bicondicional e a
+disjunção.
+31. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) Considere que, durante a
+fase de testes, o sistema tenha efetivado uma operação financeira desejada após o
+cliente ter digitado
+ a sua senha corretamente. Nesse caso, é correto inferir que o novo
+sistema não atende à especificação E.
+Texto para questões 32 a 34
+Nas últimas semanas, muito se tem falado sobre a redução nas taxas de juros anunciada
+por bancos públicos brasileiros.
+Entretanto, conforme destaca uma associação de consumidores, não é tão simples assim
+se beneficiar das novas taxas. A associação foi
+ conferir se, de fato, o consumidor consegue
+ter acesso a taxas mais baixas. A conclusão foi que, em várias linhas anunciadas, a
+diferença ainda não pode ser verificada pelo consumidor e ainda é difícil encontrar
+informações a respeito de como se beneficiar da redução.
+Redução dos juros anunciada pelos bancos públicos é para poucos.
+Internet: 
+<www.jj.telecheque.com.br>
+ (com adaptações).
+Ciente da situação apresentada no texto acima, um jornalista apresentou o seguinte
+
+argumento, em uma reportagem sobre esse assunto:
+P1: O consumidor somente terá acesso a taxas mais baixas para financiar a compra de
+veículo se possuir histórico de pagamentos em dia, possuir conta no banco e dispuser de
+alto valor para a entrada, e se o prazo do financiamento for curto.
+P2: Se o consumidor
+ possuir histórico de pagamentos em dia e conta no banco, então ele
+terá disciplina para poupar.
+P3: Se o consumidor tiver disciplina para poupar, então ele não precisará financiar o
+veículo.
+P4: Se o prazo do financiamento for curto e o consumidor dispuser de alto valor para a
+entrada, então este não precisará financiar o veículo.
+Conclusão: Se o consumidor não precisa financiar o
+ veículo, então ele tem acesso a taxas
+mais baixas para financiamento.
+Considerando as informações apresentadas, julgue os itens que se seguem.
+32. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) A premissa P1 pode ser
+simbolicamente representada por A 
+↔
+ [B 
+∧
+ C], em que A, B e C sejam proposições
+adequadamente escolhidas e os símbolos 
+↔
+ e 
+∧
+ representem, respectivamente, a
+bicondicional
+ e a conjunção.
+33. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) O argumento do
+jornalista é um argumento válido, no sentido da lógica proposicional.
+34. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) A conclusão do
+argumento do jornalista também pode ser expressa da seguinte forma: Quem não
+precisa financiar o automóvel tem acesso a taxas mais baixas para financiamento.
+Texto para questões 35 e 36
+O gerente de determinado banco, que possui, para seu controle, uma planilha eletrônica
+contendo informações sobre todos os 500 clientes da agência, verificou que 200 clientes
+possuíam os seguintes produtos: seguro de vida e empréstimo.
+Acerca dessa situação, julgue os itens seguintes.
+35. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) As
+ informações
+apresentadas permitem inferir que menos de 200 clientes são contratantes de algum
+seguro.
+36. (Cespe/UnB – Banco da Amazônia – Técnico Científico – 2012) É correto inferir que 300
+clientes não são contratantes de seguro de vida ou não são contratantes de empréstimo.
+Texto para questões 37 a 40
+Proposições são sentenças que podem ser julgadas como verdadeiras — V —ou falsas
+ — F
+—, de forma que um julgamento exclui o outro, e são simbolizadas por letras maiúsculas,
+como P, Q, R etc. Novas proposições podem ser construídas usando-se símbolos lógicos.
+Uma expressão da forma P 
+→
+ Q é uma proposição cuja leitura é “se P, então Q” e terá valor
+lógico F quando P for V e Q for F; caso contrário, será sempre V. Uma expressão da forma P
+∨
+ Q é uma proposição que se lê: “P ou
+ Q”, e será F quando P e Q forem F; caso contrário,
+
+será sempre V. Uma expressão da forma P 
+∧
+ Q, que se lê “P e Q”, será V quando P e Q
+forem V; caso contrário, será sempre F. Uma expressão da forma P 
+↔
+ Q, que se lê “P, se e
+somente se Q”, será V quando P e Q tiverem o mesmo valor lógico, caso contrário, será
+sempre F. A forma ¬P simboliza a negação de P e tem valores lógicos contrários aos de P.
+A partir dessas informações, julgue os itens que se seguem.
+37. (Cespe/UnB – ANCINE – Técnico em Regulação – 2012) A proposição [P 
+↔
+ Q] 
+→
+ [(¬P) 
+∨
+(¬Q)] tem somente o valor lógico V, independentemente dos valores lógicos de P e Q.
+38. (Cespe/UnB – ANCINE – Técnico em Regulação – 2012) A proposição [(¬P) 
+∨
+ Q] 
+→
+ (R 
+∧
+S) é logicamente equivalente a [P 
+→
+ Q]
+→
+[R 
+∧
+ S].
+39. (Cespe/UnB –
+ ANCINE – Técnico em Regulação – 2012) A proposição “Um engenheiro
+de som é desnecessário em um filme se, e somente se, o filme em questão é mudo” é
+logicamente equivalente a “Um engenheiro de som é desnecessário e o filme em
+questão é mudo ou um engenheiro de som é necessário e o filme em questão não é
+mudo”.
+40. (Cespe/UnB – ANCINE – Técnico em Regulação – 2012) A proposição “Se roteirista
+ não
+for diretor, então dublador não será maquiador” é logicamente equivalente à proposição
+“Se algum dublador for maquiador, então algum roteirista será diretor”.
+Texto para questões 41 a 44
+Julgue os itens a seguir tendo como base a seguinte proposição P:
+“Se eu for barrado pela lei da ficha limpa, não poderei ser candidato nessas eleições, e se
+eu não registrar minha candidatura
+ dentro do prazo, não concorrerei a nenhum cargo
+nessas eleições”.
+41. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012) A
+proposição P é logicamente equivalente a “Se eu for barrado pela lei da ficha limpa ou
+não registrar minha candidatura dentro do prazo, não poderei concorrer a nenhum
+cargo nessas eleições”.
+42. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação
+ de Computador – 2012) Se as
+proposições “Eu não registrei minha candidatura dentro do prazo” e “Não poderei
+concorrer a nenhum cargo nessas eleições” forem falsas, também será falsa a
+proposição P, independentemente do valor lógico da proposição “Eu serei barrado pela
+lei da ficha limpa”.
+43. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012) A negação
+da proposição “Se
+ eu não registrar minha candidatura dentro do prazo, também não
+poderei concorrer a nenhum cargo” estará corretamente expressa por “Se eu registrar
+minha candidatura dentro do prazo, então poderei concorrer a algum cargo”.
+44. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012)
+Simbolicamente, a proposição P pode ser expressa na forma (p 
+→
+ q) 
+∧
+ (r 
+→
+ s), em que
+p, q, r e
+ s são proposições convenientes e os símbolos 
+→
+ e 
+∧
+ representam,
+respectivamente, os conectivos lógicos “se ..., então” e “e”.
+
+Texto para questões 45 a 47
+Nas eleições municipais de uma pequena cidade, 30 candidatos disputam 9 vagas para a
+câmara de vereadores. Na sessão de posse, os nove eleitos escolhem a mesa diretora, que
+será composta por presidente, primeiro e segundo secretários,
+ sendo proibido a um
+mesmo parlamentar ocupar mais de um desses cargos. Acerca dessa situação hipotética,
+julgue os itens seguintes.
+45. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012) A
+quantidade de maneiras distintas de se formar a mesa diretora da câmara municipal é
+superior a 500.
+46. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012) A
+quantidade de maneiras distintas para se formar a câmara de vereadores dessa cidade
+é igual a 30!/(9! × 21!).
+47. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Operação de Computador – 2012) Sabendo-
+se que um eleitor vota em apenas um candidato a vereador, é correto afirmar que a
+quantidade de maneiras distintas de um cidadão escolher um candidato é superior a 50.
+Texto para questões 48 a 53
+O cenário político de uma pequena cidade tem sido movimentado por denúncias a respeito
+da existência de um esquema de compra de votos dos vereadores. A dúvida quanto a esse
+esquema persiste em três pontos, correspondentes às proposições P, Q e R, abaixo: P: O
+vereador Vitor não participou do esquema;
+Q: O prefeito Pérsio sabia do esquema;
+R: O chefe de gabinete do prefeito foi o
+ mentor do esquema.
+Os trabalhos de investigação de uma CPI da câmara municipal conduziram às premissas
+P1, P2 e P3 seguintes:
+P1: Se o vereador Vitor não participou do esquema, então o prefeito Pérsio não sabia do
+esquema.
+P2: Ou o chefe de gabinete foi o mentor do esquema, ou o prefeito Pérsio sabia do esquema,
+mas não ambos.
+P3: Se o vereador Vitor não participou do esquema,
+ então o chefe de gabinete não foi o
+mentor do esquema.
+Considerando essa situação hipotética, julgue os itens seguintes, acerca de proposições
+lógicas.
+48. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) Das
+premissas P1, P2 e P3, é correto afirmar que “O chefe de gabinete foi o mentor do
+esquema ou o vereador Vitor participou do esquema”.
+49. (Cespe/UnB –
+ TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) A
+premissa P1 é logicamente equivalente à proposição “Se o prefeito Pérsio sabia do
+esquema, então o vereador Vitor participou do esquema”.
+50. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) A
+
+premissa P2 pode ser corretamente representada por Rv Q.
+51. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação
+ de Sistemas – 2012) A
+premissa P3 é logicamente equivalente à proposição “O vereador Vitor participou do
+esquema ou o chefe de gabinete não foi o mentor do esquema”.
+52. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012)
+Considerando que as proposições P e R sejam verdadeiras, então, nesse caso, a
+premissa P3 será falsa.
+53. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação
+ de Sistemas – 2012) A partir
+das premissas P1, P2 e P3, é correto inferir que o prefeito Pérsio não sabia do esquema.
+Texto para questões 54 a 57
+Na campanha eleitoral de determinado município, seis candidatos a prefeito participarão
+de um debate televisivo. Na primeira etapa, o mediador fará duas perguntas a cada
+candidato; na segunda, cada candidato fará uma pergunta a cada um dos outros
+adversários; e, na terceira etapa, o mediador selecionará aleatoriamente dois candidatos e
+o primeiro formulará uma pergunta para o segundo responder. Acerca dessa situação,
+julgue os itens seguintes.
+54. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) Na
+terceira etapa do debate serão feitas mais perguntas que na primeira etapa.
+55. (Cespe/UnB – TRE-RJ – Técnico
+ Judiciário/Programação de Sistemas – 2012) Menos de
+10 perguntas serão feitas na primeira etapa do debate.
+56. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) Mais de
+20 perguntas serão feitas na segunda etapa do debate.
+57. (Cespe/UnB – TRE-RJ – Técnico Judiciário/Programação de Sistemas – 2012) A
+quantidade de maneiras distintas de o mediador selecionar os dois
+ candidatos para a
+terceira etapa do debate é igual à quantidade de perguntas que serão feitas na segunda
+etapa.
+Texto para questões 58 a 62
+O exercício da atividade policial exige preparo técnico adequado ao enfrentamento de
+situações de conflito e, ainda, conhecimento das leis vigentes, incluindo interpretação e
+forma de aplicação dessas leis nos casos concretos. Sabendo disso, considere
+ como
+verdadeiras as proposições seguintes.
+P1: Se se deixa dominar pela emoção ao tomar decisões, então o policial toma decisões
+ruins.
+P2: Se não tem informações precisas ao tomar decisões, então o policial toma decisões
+ruins.
+P3: Se está em situação de estresse e não teve treinamento adequado, o policial se deixa
+dominar pela emoção ao tomar decisões.
+P4: Se teve treinamento
+ adequado e se dedicou nos estudos, então o policial tem
+
+informações precisas ao tomar decisões.
+Com base nessas proposições, julgue os itens a seguir.
+58. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) A negação de P4 é logicamente
+equivalente à proposição “O policial teve treinamento adequado e se dedicou nos
+estudos, mas não tem informações precisas ao tomar decisões”.
+59. (Cespe/UnB
+ – Polícia Civil-CE – Inspetor – 2012) A partir das proposições P2 e P4, é
+correto inferir que “O policial que tenha tido treinamento adequado e tenha se dedicado
+nos estudos não toma decisões ruins” é uma proposição verdadeira.
+60. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Da proposição P3 é correto concluir
+que também será verdadeira a proposição “O policial que tenha tido treinamento
+adequado não se deixa dominar pela emoção ao tomar decisões, mesmo estando em
+situações de estresse”.
+61. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Considerando que P1, P2, P3 e P4
+sejam as premissas de um argumento cuja conclusão seja “Se o policial está em
+situação de estresse e não toma decisões ruins, então teve treinamento adequado”, é
+correto afirmar que esse argumento é válido.
+62. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) A proposição formada pela conjunção
+de P1 e P2 é logicamente equivalente à proposição “Se se deixa dominar pela emoção
+ou não tem informações precisas ao tomar decisões, então o policial toma decisões
+ruins”.
+63. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Admitindo-se como verdadeiras as
+proposições “O policial teve treinamento
+ adequado” e “O policial tem informações
+precisas ao tomar decisões”, então a proposição “O policial se dedicou nos estudos”
+será, necessariamente, verdadeira.
+Texto para questões 64 a 69
+Estudo divulgado pelo Instituto de Pesquisas Econômicas Aplicadas (IPEA) revela que, no
+Brasil, a desigualdade social está entre as maiores causas da violência entre jovens.
+Um dos fatores que evidenciam
+ a desigualdade social e expõem a população jovem à
+violência é a condição de extrema pobreza, que atinge 12,2% dos 34 milhões de jovens
+brasileiros, membros de famílias com renda per capita de até um quarto do salário-
+mínimo, afirma a pesquisa.
+Como a violência afeta mais os pobres, é usual fazer um raciocínio simplista de que a
+pobreza é a principal causadora da violência entre os jovens,
+ mas isso não é verdade. O fato
+de ser pobre não significa que a pessoa será violenta. Existem inúmeros exemplos de atos
+violentos praticados por jovens de classe média.
+Internet: <http://amaivos.uol.com.br> (com adaptações).
+Tendo como referência o texto acima, julgue os itens seguintes.
+64. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Das proposições “Se há corrupção,
+aumenta-se
+ a concentração de renda”, “Se aumenta a concentração de renda,
+
+acentuam-se as desigualdades sociais” e “Se se acentuam as desigualdades sociais, os
+níveis de violência crescem” é correto inferir que “Se há corrupção, os níveis de
+violência crescem”.
+65. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) A negação da proposição “Se houver
+corrupção, os níveis de violência crescerão” é equivalente
+ a “Se não houver corrupção,
+os níveis de violência não crescerão”.
+66. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Selecionando-se ao acaso dois jovens
+brasileiros, a probabilidade de ambos serem atingidos pela condição de extrema
+pobreza será inferior a 1,5%.
+67. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) A negação da proposição “Toda pessoa
+pobre é violenta” é equivalente
+ a “Existe alguma pessoa pobre que não é violenta”.
+68. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Se a proposição “João é pobre” for
+falsa e se a proposição “João pratica atos violentos” for verdadeira, então a proposição
+“João não é pobre, mas pratica atos violentos” será falsa.
+69. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Considerando que Jorge não seja
+pobre, mas pratique
+ atos violentos, é correto afirmar que Jorge é um contraexemplo
+para a afirmação: “Todo indivíduo pobre pratica atos violentos”.
+Texto para questões 70 a 72
+Dos 420 detentos de um presídio, verificou-se que 210 foram condenados por roubo, 140,
+por homicídio e 140, por outros crimes.
+Verificou-se, também, que alguns estavam presos por roubo e homicídio.
+Acerca dessa situação, julgue
+ os itens seguintes.
+70. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) A quantidade de maneiras distintas de
+se selecionarem dois detentos entre os condenados por outros crimes, que não roubo ou
+homicídio, para participarem de um programa destinado à ressocialização de detentos é
+inferior a 10.000.
+71. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Menos de 60 dos detentos estavam
+presos por terem sido condenados por roubo e homicídio.
+72. (Cespe/UnB – Polícia Civil-CE – Inspetor – 2012) Selecionando-se ao acaso dois
+detentos desse presídio, a probabilidade de que ambos tenham sido condenados por
+roubo ou ambos por homicídio será superior a 1/6.
+Texto para questões 73 a 76
+Um jovem, ao ser flagrado no aeroporto portando certa quantidade de entorpecentes,
+argumentou
+ com os policiais conforme o esquema a seguir: Premissa 1: Eu não sou
+traficante, eu sou usuário;
+Premissa 2: Se eu fosse traficante, estaria levando uma grande quantidade de droga e a
+teria escondido;

@@ -1,0 +1,826 @@
+60 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tabela 3.1 Classes de interrupções
+ProgramaGerada por alguma condição que ocorre como resultado da execução de uma instrução, como o overflow aritmético, divisão por zero, tentati-
+va de executar uma instrução de máquina ilegal ou referência fora do espaço de memória permitido para o usuário.
+Timer Gerada por um timer dentro do processo. Isso permite que o sistema operacional realize certas funções regularmente.
+E/S Gerada por um controlador de E/S para sinalizar o término normal de uma operação ou para sinalizar uma série de condições de erro.
+Falha de hardware Gerada por uma falha como falta de energia ou erro de paridade de memória.
+As interrupções são fornecidas primeiramente como um modo de melhorar a eficiência do processamento. Por 
+exemplo, a maioria dos dispositivos externos é muito mais lenta do que o processador. Suponha que o processa-
+dor esteja transferindo dados a uma impressora usando o esquema de ciclo de instrução da Figura 3.3. Após cada operação de escrita, o processador deve parar e permanecer ocioso até que a impressora o alcance. A extensão dessa pausa pode estar na ordem de muitas centenas ou mesmo milhares de ciclos de instrução que não envolvem memória. Claramente, esse é um grande desperdício de uso do processador.
+A Figura 3.7a ilustra esse estado de coisas. O programa do usuário realiza uma série de chamadas WRITE inter-
+caladas com processamento. Os segmentos de código 1, 2 e 3 referem-se às sequências de instruções que não envolvem E/S. As chamadas WRITE são para um programa de E/S que é um utilitário do sistema e que realizará a operação de E/S real. O programa de E/S consiste em três seções:
+Uma sequência de instruções, rotuladas como 4 na figura, para preparar para a operação de E/S real. Isso 
+ 
+pode incluir a cópia dos dados para a saída em um buffer especial e a preparação dos parâmetros para um comando de dispositivo.O comando de E/S real. Sem o uso de interrupções, quando esse comando é emitido, o programa precisa 
+ 
+esperar pelo dispositivo de E/S para realizar a função solicitada (ou sondar o dispositivo periodicamente). O programa poderia esperar simplesmente realizando uma operação de teste repetidamente, para determinar se a operação de E/S terminou.Uma sequência de instruções, rotulada como 5 na figura, para completar a operação. Isso pode incluir a 
+ 
+marcação de um flag, indicando o sucesso ou a falha da operação.
+Como a operação de E/S pode levar um tempo relativamente longo para terminar, o programa de E/S fica pre-
+so, esperando que a operação termine; daí o programa de E/S ser interrompido no ponto da chamada WRITE por algum período considerável.
+INTERRUPÇÕES E O CICLO DE INSTRUÇÃO Com as interrupções, o processador pode estar engajado na execu-
+ção de outras instruções enquanto uma operação de E/S está em andamento. Considere o fluxo de controle na Figura 3.7b. Como antes, o programa do usuário alcança um ponto em que faz uma chamada do sistema na forma de uma chamada WRITE. O programa de E/S que é invocado, nesse caso, consiste apenas no código de prepara-ção e o comando de E/S real. Depois que essas poucas instruções tiverem sido executadas, o controle retorna ao programa do usuário. Enquanto isso, o dispositivo externo está ocupado aceitando e imprimindo dados vindos da memória do computador. Essa operação de E/S é realizada simultaneamente com a execução de instruções no programa do usuário.
+Quando o dispositivo externo estiver pronto para ser atendido  ou seja, quando estiver pronto para aceitar mais 
+dados do processador , o módulo de E/S para o dispositivo externo envia um sinal de requisição de interrupção ao 
+processador. O processador responde suspendendo a operação do programa atual, desviando para um programa para atender a esse dispositivo de E/S em particular, conhecido como tratador de interrupção, e retomando a execução origi-nal depois que o dispositivo for atendido. Os pontos em que essas interrupções ocorrem são indicados por um asterisco na Figura 3.7b.
+Do ponto de vista do programa do usuário, uma interrupção é apenas isso: uma interrupção da sequência 
+de execução normal. Quando o processamento da interrupção tiver terminado, a execução retoma (Figura 3.8). 
+Book 1.indb 60 19.11.09 14:36:01
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 61
+Figura 3.7 Fluxo de controle do programa sem e com interrupções
+Programa do 
+ usuário
+WRITE
+WRITE
+WRITEComando de E/S
+END1
+2
+32 34
+5
+(a) Sem interrupçõesPrograma do 
+ usuário
+WRITE
+WRITE
+WRITEPrograma de E/S
+Comando de E/S
+Tratador de interrupção
+END1
+2a
+2b
+3a
+3b4
+5
+(b) Interrupções; curta espera pela E/SPrograma do 
+ usuário
+WRITE
+WRITE
+WRITEPrograma de E/S
+Comando de E/S
+Tratador de
+interrupção
+END1 4
+5
+(c) Interrupções; longa espera pela E/SPrograma de 
+ E/S
+Book 1.indb 61 19.11.09 14:36:02
+
+62 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Assim, o programa do usuário não precisa conter qualquer código especial para acomodar as interrupções; o 
+processador e o sistema operacional são responsáveis por suspender o programa do usuário e depois retomá-lo no mesmo ponto.
+Para acomodar as interrupções, um ciclo de interrupção é acrescentado ao ciclo de instrução, como mostra a 
+Figura 3.9. No ciclo de interrupção, o processador verifica se houve alguma interrupção, que é indicada pela presença de um sinal de interrupção. Se nenhuma interrupção estiver pendente, o processador prossegue para o ciclo de busca, lendo a próxima instrução do programa atual. Se uma interrupção estiver pendente, o processador faz o seguinte:
+Suspende a execução do programa que está sendo executado e salva seu contexto. Isso significa salvar o 
+ 
+endereço da próxima instrução a ser executada (conteúdo atual do contador de programa) e quaisquer outros dados relevantes à atividade atual do processador.Armazena no contador do programa o endereço inicial de uma rotina de 
+  tratamento de interrupção.
+O processador, agora, continua com o ciclo de busca, obtendo a primeira instrução da rotina de tratamento de 
+interrupção, que tratará a interrupção. O programa tratador de interrupção geralmente faz parte do sistema ope-racional. Normalmente, esse programa determina a natureza da interrupção e realiza quaisquer ações necessárias. No exemplo que usamos, o tratador determina qual módulo de E/S gerou a interrupção e pode se desviar para um programa que escreverá mais dados nesse módulo de E/S. Quando a rotina de tratamento de interrupção terminar, o processador pode retomar a execução do programa do usuário no ponto da interrupção.
+É evidente que existe algum overhead envolvido nesse processo. Instruções extras precisam ser executadas (no 
+tratador de interrupção) para determinar a natureza da interrupção e decidir sobre a ação apropriada. Apesar disso, Figura 3.8 Transferência de controle via interrupções
+1
+2
+i
+i 1
+M•
+•••••
+•
+•
+•Interrupção
+ocorre aquiTratador de interrupção Programa do usuário
+Figura 3.9 Ciclo de instrução com interrupções
+ Ciclo de busca Ciclo de execução Ciclo de interrupção
+Interrupçõesdesabilitadas
+Interrupções habilitadas INÍCIO
+FIMBuscar próxima instruçãoExecutarinstrução
+Verificar interrupção: processar interrupção
+Book 1.indb 62 19.11.09 14:36:03
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 63
+devido à quantidade de tempo relativamente grande que seria desperdiçada pela simples espera por uma opera-
+ção de E/S, o processador pode ser empregado de modo muito mais eficiente com o uso de interrupções.
+Para apreciar o ganho na eficiência, considere a Figura 3.10, que é um diagrama de tempo baseado no fluxo 
+de controle nas figuras 3.7a e 3.7b. As figuras 3.7b e 3.10 consideram que o tempo exigido para a operação de E/S é relativamente curto: menos do que o tempo para completar a execução das instruções entre as operações de escrita no programa do usuário. O caso mais típico, especialmente para um dispositivo lento como uma impressora, é que a operação de E/S levará muito mais tempo do que a execução de uma sequência de instruções do usuário. A Figura 3.7c indica esse estado de coisas. Nesse caso, o programa do usuário alcança a segunda chamada WRITE antes que a operação de E/S gerada pela primeira chamada termine. O resultado é que o programa do usuário está travado nesse ponto. Quando a operação de E/S anterior terminar, essa nova chamada WRITE poderá ser processa-da, e uma nova operação de E/S poderá ser iniciada. A Figura 3.11 mostra a sincronização para essa situação com e sem o uso de interrupções. Podemos ver que ainda existe um ganho na eficiência, pois parte do tempo durante o qual a operação de E/S está sendo realizada sobrepõe a execução das instruções do usuário.
+A Figura 3.12 mostra um diagrama de estado do ciclo de instruções revisado, que inclui o processamento do 
+ciclo de interrupção.
+INTERRUPÇÕES MÚLTIPLAS A discussão até aqui focou apenas a ocorrência de uma única interrupção. Suponha, 
+porém, que ocorram múltiplas interrupções. Por exemplo, um programa pode estar recebendo dados de uma linha 
+de comunicações e imprimindo resultados. A impressora gerará uma interrupção toda vez que completar uma operação de impressão. O controlador da linha de comunicação gerará uma interrupção toda vez que uma unidade de dados chegar. A unidade poderia ser um único caractere ou um bloco, dependendo da natureza do controle das comunicações. De qualquer forma, é possível que uma interrupção de comunicações ocorra enquanto uma interrupção de impressora esteja sendo processada.
+Duas técnicas podem ser utilizadas para lidar com múltiplas interrupções. A primeira é desativar as interrupções 
+enquanto uma interrupção estiver sendo processada. Uma interrupção desabilitada significa simplesmente que o 
+Figura 3.10 Sincronização do programa: espera curta pela E/S
+Espera do
+processador
+Espera do
+processador4
+5
+2
+5
+341Tempo
+Operação de
+ E/S4
+2a
+5
+2b
+4
+3a
+5
+3b1
+Operação de E/S
+Operação 
+ de E/S
+Operação de E/S
+(a) Sem interrupções(b) Com interrupções
+Book 1.indb 63 19.11.09 14:36:03
+
+64 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 3.11 Sincronização do programa: espera longa pela E/S
+Espera do
+processadorEspera do
+processador
+Espera do
+processador
+Espera do
+processador4
+5
+2
+5
+341 Tempo
+Operação de
+E/S4
+2
+5
+41
+Operação de
+E/S
+3
+5Operação de
+E/SOperação de
+E/S
+(a) Sem interrupções(b) Com interrupções
+Figura 3.12 Diagrama de estado do ciclo de instruções, com interrupções
+Nenhuma
+interrupçãoVerificação da 
+interrupçãoInterrupçãoCálculo do
+endereço da 
+ instrução Decodificação da operação de instruçãoCálculo do 
+endereço do 
+operandoOperação 
+dos dadosCálculo do 
+endereço 
+do operando Busca da instrução
+Instrução completa, busca a próxima instrução Múltiplosoperandos
+Retorno para dados de string ou vetor Busca dooperandoArmazenamento do operando
+ Múltiplos resultados processador pode ignorar e ignorará esse sinal de requisição de interrupção. Se uma interrupção ocorrer durante 
+esse tempo, ela geralmente permanece pendente e será verificada pelo processador depois que ele tiver habilitado as interrupções. Assim, quando um programa do usuário estiver sendo executado e houver uma interrupção, as inter -
+rupções são imediatamente desabilitadas. Depois que a rotina de tratamento de interrupção terminar, as interrupções 
+Book 1.indb 64 19.11.09 14:36:04
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 65
+são habilitadas antes que o programa do usuário retome, e o processador verifica se houve interrupções adicionais. 
+Essa técnica é boa e simples, pois as interrupções são tratadas em ordem estritamente sequencial (Figura 3.13a).
+A desvantagem da técnica anterior é que ela não leva em consideração a prioridade relativa ou necessidades 
+de tempo crítico. Por exemplo, quando a entrada chega da linha de comunicações, ela pode precisar ser absorvida 
+rapidamente, para dar espaço para mais entrada. Se o primeiro lote de entrada não for processado antes que o segundo lote chegue, dados poderão ser perdidos.
+Uma segunda técnica é definir prioridades para interrupções e permitir que uma interrupção de maior prioridade 
+faça com que um tratamento de interrupção com menor prioridade seja interrompido (Figura 3.13b). Como um exem-plo dessa segunda técnica, considere um sistema com três dispositivos de E/S: uma impressora, um disco e uma linha de comunicações, com prioridades cada vez maiores de 2, 4 e 5, respectivamente. A Figura 3.14, baseada em um exem-plo de Tanenbaum e Woodhull (1997
+a), ilustra uma sequência possível. Um usuário inicia em t = 0. Em t = 10, ocorre uma 
+interrupção da impressora; a informação do usuário é colocada na pilha do sistema e a execução continua na rotina de serviço de interrupção (ISR, do inglês interrupt service routine). Enquanto essa rotina ainda está sendo executada, em t = 
+15, ocorre uma interrupção de comunicação. Como a linha de comunicações tem prioridade mais alta que a impressora, a interrupção é considerada. A ISR da impressora é interrompida, seu estado é colocado na pilha e a execução continua na ISR de comunicação. Enquanto essa rotina está sendo executada, ocorre uma interrupção de disco (t = 20). Como 
+essa interrupção tem prioridade menor, ela é simplesmente retida, e a ISR de comunicação é executada até o final.
+Figura 3.13 Transferência de controle com múltiplas interrupções
+Programa 
+do usuárioTratador de 
+interrupção X
+Tratador de 
+interrupção Y
+(a) Processamento de interrupção sequencial
+(b) Processamento de interrupção aninhadoPrograma do usuárioTratador de 
+interrupção X
+Tratador de 
+interrupção Y
+Book 1.indb 65 19.11.09 14:36:05
+
+66 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Quando a ISR de comunicação termina (t = 25), o estado anterior do processador, que é a execução da ISR 
+de impressora, é restaurado. Porém, antes mesmo que uma única instrução nessa rotina possa ser executada, o 
+processador aceita a interrupção de disco de maior prioridade e transfere o controle para a ISR de disco. Somente quando essa rotina terminar (t = 35) é que a ISR de impressora é retomada. Quando a última rotina termina (t = 40), 
+o controle fi nalmente retorna ao programa do usuário.
+ Função de E/S
+Até aqui, discutimos a operação do computador de acordo com o controle do processador, e vimos principal-
+mente a interação entre processador e memória. A discussão apenas aludiu ao papel do componente de E/S. Esse 
+papel é discutido com detalhes no Capítulo 7, mas apresentamos um rápido resumo aqui.
+Um módulo de E/S (por exemplo, um controlador de disco) pode trocar dados diretamente com o processador. 
+Assim como o processador pode iniciar uma leitura ou escrita com a memória, designando o endereço de um local específi co, o processador também pode ler ou escrever dados em um módulo de E/S. Nesse último caso, o proces-sador identifi ca um dispositivo específi co que é controlado por um módulo de E/S em particular. Assim, poderia ocorrer uma sequência de instruções semelhante em formato à da Figura 3.5, com instruções de E/S em vez de instruções de referência à memória.
+Em alguns casos, é desejável permitir que as trocas de E/S ocorram diretamente com a memória. Nesse 
+caso, o processador concede a um módulo de E/S a autoridade de ler ou escrever na memória, de modo que a transferência entre E/S e memória pode ocorrer sem prender o processador. Durante essa transferência, o módulo de E/S emite comandos de leitura ou escrita à memória, tirando do processador a responsabilidade pela troca. Essa operação é conhecida como acesso direto à memória (DMA, do inglês direct memory access), 
+e é examinada no Capítulo 7.Figura 3.14 Exemplo de sequência de tempo de múltiplas interrupções
+Programa 
+do usuárioRotina de serviço de 
+interrupção 
+de impressoraRotina de serviço de 
+interrupção de 
+comunicação
+Rotina de serviço de 
+interrupção 
+de discot 0
+t 10
+t 40t 15
+t 25
+t 25
+t 35
+Book 1.indb 66 19.11.09 14:36:05
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 3 Visão de alto nível da função e interconexão do computador 67
+3.3 Estrutura de interconexão
+Um computador consiste em um conjunto de componentes ou módulos de três tipos básicos (processador, 
+memória e E/S) que se comunicam entre si. Com efeito, um computador é uma rede de módulos básicos. Assim, é 
+preciso haver caminhos para a conexão dos módulos.
+A coleção de caminhos conectando os diversos módulos é chamada de estrutura de interconexão. O projeto 
+dessa estrutura depende das trocas que precisam ser feitas entre os módulos.
+A Figura 3.15 sugere os tipos de trocas que são necessárias, indicando as principais formas de entrada e saída 
+para cada tipo de módulo.2
+memória:  normalmente, um módulo de memória consiste em N palavras de mesmo tamanho. Cada pala-
+vra recebe um endereço numérico exclusivo (0, 1, ..., N – 1). Uma palavra de dados pode ser lida ou escrita 
+na memória. A natureza da operação é indicada por sinais de controle de leitura e escrita. O local para a operação é especifi cado por um endereço.módulo de e/s:
+  por um ponto de vista interno (ao sistema de computação), a E/S é funcionalmente seme-
+lhante à memória. Existem duas operações, leitura e escrita. Além disso, um módulo de E/S pode controlar mais de um dispositivo externo. Podemos nos referir a cada uma das interfaces para um dispositivo externo
+2 As setas grossas representam múltiplas linhas de sinal transportando múltiplos bits de informação em paralelo. Cada seta estreita representa 
+uma única linha de sinal.Figura 3.15 Módulos do computador
+Memória
+N palavras
+0
+•
+••Dados
+Módulo de E/S
+M portas 
+CPUDados 
+externos
+Sinais de 
+interrupçãoDados 
+internos
+DadosEndereço
+Sinais de 
+controleDadosEndereçoEscritaLeitura
+Dados 
+externosEndereço
+Dados 
+internosEscritaLeitura
+DadosInstruções
+Sinais de 
+interrupçãoN – 1
+Book 1.indb 67 19.11.09 14:36:06
+
+68 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ como uma porta, dando a cada uma um endereço exclusivo (por exemplo, 0, 1, ..., M – 1). Além disso, existem 
+caminhos de dados externos para a entrada e saída de dados com um dispositivo externo. Finalmente, um 
+módulo de E/S pode ser capaz de enviar sinais de interrupção ao processador.processador:
+  o processador lê instruções e dados, escreve dados após o processamento e usa sinais de 
+controle para controlar a operação geral do sistema. Ele também recebe sinais de interrupção.
+A lista anterior defi ne os dados a serem trocados. A estrutura de interconexão deve admitir os seguintes tipos 
+de transferências:
+memória para processador:  o processador lê uma instrução ou uma unidade de dados da memória.
+processador para memória:  o processador escreve uma unidade de dados na memória.
+e/s para processador:  o processador lê dados de um dispositivo de E/S por meio de um módulo de E/S.
+processador para e/s:  o processador envia dados para o dispositivo de E/S.
+e/s de ou para a memória:  para esses dois casos, um módulo de E/S tem permissão para trocar dados 
+diretamente com a memória, sem passar pelo processador, usando o DMA.
+Com o passar dos anos, diversas estruturas de interconexão foram experimentadas. De longe, a mais comum é 
+o barramento e diversas estruturas de barramento múltiplo. O restante deste capítulo é dedicado a uma avaliação das estruturas de barramento.
+3.4 Interconexão de barramento
+Um barramento é um caminho de comunicação que conecta dois ou mais dispositivos. Uma característica-
+-chave de um barramento é que ele é um meio de transmissão compartilhado. Múltiplos dispositivos se co-nectam ao barramento, e um sinal transmitido por qualquer dispositivo está disponível para recepção por todos os outros dispositivos conectados ao barramento. Se dois dispositivos transmitirem durante o mesmo período, seus sinais serão sobrepostos e fi carão distorcidos. Assim, somente um dispositivo de cada vez pode transmitir com sucesso.
+Tipicamente, um barramento consiste em múltiplos caminhos de comunicação, ou linhas. Cada linha é capaz 
+de transmitir sinais representando o binário 1 e o binário 0. Com o tempo, uma sequência de dígitos binários pode ser transmitida por uma única linha. Juntas, várias linhas de um barramento podem ser usadas para transmitir dí-gitos binários simultaneamente (em paralelo). Por exemplo, uma unidade de dados de 8 bits pode ser transmitida por oito linhas de barramento.
+Os sistemas de computação contêm diversos barramentos diferentes, que oferecem caminhos entre os com-
+ponentes em diversos níveis da hierarquia do sistema de computação. Um barramento que conecta os principais componentes do computador (processador, memória, E/S) é chamado de barramento do sistema. As estruturas 
+de interconexão de computador mais comuns são baseadas no uso de um ou mais barramentos do sistema.
+ Estrutura de barramento
+Um barramento do sistema consiste, normalmente, em cerca de 50 a centenas de linhas separadas. Cada linha 
+recebe um signifi cado ou função em particular. Embora existam muitos projetos de barramento diferentes, em qual-quer barramento as linhas podem ser classifi cadas em três grupos funcionais (Figura 3.16): linhas de dados, endereço e controle. Além disso, pode haver linhas de distribuição de potência, que fornecem energia aos módulos conectados.
+As linhas de dados oferecem um caminho para movimentação de dados entre os módulos do sistema. Essas 
+linhas, coletivamente, são chamadas de barramento de dados. O barramento de dados pode consistir em 32, 64, 128 ou ainda mais linhas separadas, sendo que o número de linhas é conhecido como a largura do barramento 
+de dados. Como cada linha só pode transportar 1 bit de cada vez, o número de linhas determina quantos bits podem ser transferidos de uma só vez. A largura do barramento de dados é um fator chave para determinar o desempenho geral do sistema. Por exemplo, se o barramento de dados tiver 32 bits de largura e cada instrução tiver 64 bits de extensão, então o processador precisa acessar o módulo de memória duas vezes durante cada ciclo de instrução.
+As linhas de endereço são usadas para designar a origem ou o destino dos dados no barramento de da-
+dos. Por exemplo, se o processador deseja ler uma palavra (8, 16 ou 32 bits) de dado da memória, ele coloca 
+Book 1.indb 68 19.11.09 14:36:07
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 69
+o endereço da palavra desejada nas linhas de endereço. Claramente, a largura do barramento de endereço 
+determina a capacidade de memória máxima possível do sistema. Além do mais, as linhas de endereço geral-mente também são usadas para endereçar portas de E/S. Normalmente, os bits de ordem mais alta são usados para selecionar um módulo em particular no barramento, e os bits de ordem mais baixa selecionam um local de memória ou porta de E/S dentro do módulo. Por exemplo, em um barramento de endereço de 8 bits, o endereço 01111111 e mais baixos poderiam referenciar locais em um módulo de memória (módulo 0) com 128 palavras de memória, e o endereço 10000000 e mais altos poderiam referenciar dispositivos conectados a um módulo de E/S (módulo 1).
+As linhas de controle são usadas para controlar o acesso e o uso das linhas de dados e endereço. Como as 
+linhas de dados e endereço são compartilhadas por todos os componentes, é preciso haver um meio de controlar seu uso. Os sinais de controle transmitem informações de comando e sincronização entre os módulos do sistema. Os sinais de sincronização indicam a validade da informação de dados e endereço. Os sinais de comando especifi-cam operações a serem realizadas. As linhas de controle típicas incluem:
+escrita de memória: 
+  faz com que os dados no barramento sejam escritos no local endereçado.
+Leitura de memória:  faz com que os dados do local endereçado sejam colocados no barramento.
+escrita de e/s:  faz com que os dados no barramento sejam enviados para a porta de E/S endereçada.
+Leitura de e/s:  faz com que os dados da porta de E/S endereçada sejam colocados no barramento.
+AcK de transferência:  indica que dados foram aceitos do barramento ou colocados nele.
+solicitação de barramento (  bus request): indica que um módulo precisa obter controle do barramento.
+concessão de barramento (  bus grant): indica que um módulo solicitante recebeu controle do barramento.
+Requisição de interrupção (  interrupt request): indica que a interrupção está pendente.
+AcK de interrupção:  confirma que a interrupção pendente foi reconhecida.
+clock:  é usado para operações de sincronização.
+Reset:  inicializa todos os módulos.
+A operação do barramento é a seguinte. Se um módulo deseja enviar dados para outro, ele precisa fazer duas 
+coisas: (1) obter o uso do barramento e (2) transferir dados por meio do barramento. Se um módulo quiser requisitar dados de outro módulo, ele precisa (1) obter o uso do barramento e (2) transferir uma requisição ao outro módulo pe -
+las linhas de controle e endereço apropriadas. Depois, ele precisa esperar que esse segundo módulo envie os dados.
+Fisicamente, o barramento do sistema é, na realidade, uma série de condutores elétricos paralelos. No arranjo 
+clássico do barramento, esses condutores são linhas de metal coladas a uma placa de circuito impresso. O barra-mento se estende por todos os componentes do sistema, cada um preso a algumas ou todas as linhas do bar-ramento. O arranjo físico clássico é representado na Figura 3.17. Neste exemplo, o barramento consiste em duas colunas verticais de condutores. Em intervalos regulares ao longo das colunas, existem pontos de conexão na forma de slots que se estendem horizontalmente para dar suporte a uma placa de circuito impresso. Cada um dos 
+principais componentes do sistema ocupa uma ou mais placas e se encaixa no barramento nesses slots. O arranjo 
+inteiro está incluído em um chassi. Esse esquema ainda pode ser usado para alguns dos barramentos associados a um sistema de computação. Porém, os sistemas modernos tendem a ter todos os principais componentes na mesma placa com mais elementos no mesmo chip do processador. Assim, um barramento no chip pode conectar Figura 3.16 Esquema de interconexão de barramento
+CPU Memória Memória • • • E/S
+BarramentoE/S
+Linhas de controle
+Linhas de endereço
+Linhas de dados• • •
+Book 1.indb 69 19.11.09 14:36:07
+
+70 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+o processador e a memória cache, enquanto um barramento na placa pode conectar o processador à memória 
+principal e a outros componentes.
+Esse arranjo é o mais conveniente. Um pequeno sistema de computação pode ser adquirido e depois expan-
+dido mais tarde (mais memória, mais E/S) acrescentando-se mais placas. Se um componente em uma placa falhar, essa placa pode facilmente ser removida e substituída.
+ Hierarquia de barramento múltiplo
+Se muitos dispositivos estiverem conectados ao barramento, o desempenho será prejudicado. Existem duas 
+causas principais:
+1. Em geral, quanto mais dispositivos conectados ao barramento, maior o tamanho do barramento e, portanto, 
+maior o atraso de propagação. Esse atraso determina o tempo gasto para os dispositivos coordenarem o uso do barramento. Quando o controle do barramento passa de um dispositivo para outro com frequência, esses atrasos de propagação podem afetar visivelmente o desempenho.
+2. O barramento pode se tornar um gargalo à medida que a demanda de transferência de dados agregada se 
+aproxima da capacidade do barramento. Esse problema pode ser combatido, até certo ponto, aumentan-
+do a taxa de dados que o barramento pode transportar e usando barramentos mais largos (por exemplo, aumentando o barramento de dados de 32 para 64 bits). Porém, como as taxas de dados geradas pelos dis-positivos conectados (por exemplo, controladores de gráfi cos e vídeo, interfaces de rede) estão crescendo rapidamente, essa é uma corrida que um barramento único por fi m está destinado a perder.
+Assim, a maioria dos sistemas de computação utiliza múltiplos barramentos, geralmente dispostos em uma hie-
+rarquia. Uma estrutura tradicional típica aparece na Figura 3.18a. Existe um barramento local que conecta o proces-sador a uma memória cache e que pode aceitar um ou mais dispositivos locais. O controlador da memória cache conecta a cache não apenas a esse barramento local, mas a um barramento do sistema ao qual estão conectados todos os módulos da memória principal. Conforme veremos no Capítulo 4, o uso de uma estrutura de cache isola o processador de um requisito para acessar a memória principal com frequência. Logo, a memória principal pode ser movida do barramento local para o barramento do sistema. Desse modo, as transferências de E/S de e para a 
+memória principal pelo barramento do sistema não interferem com a atividade do processador.
+É possível conectar controladores de E/S diretamente no barramento do sistema. Uma solução mais efi ciente 
+é utilizar um ou mais barramentos de expansão para essa fi nalidade. Uma interface de barramento de expansão coloca em um buff er as transferências de dados entre o barramento do sistema e os controladores de E/S no bar-ramento de expansão. Esse arranjo permite que o sistema aceite uma grande variedade de dispositivos de E/S e, ao mesmo tempo, isole o tráfego memória-para-processador do tráfego de E/S.
+A Figura 3.18a mostra alguns exemplos típicos de dispositivos de E/S que poderiam ser conectados ao bar-
+ramento de expansão. As conexões de rede incluem redes locais (LANs, do inglês local area networks) como uma Figura 3.17 Realização física típica de uma arquitetura de barramento
+CPU
+Memória
+E/S Barramento
+Placas
+•
+••
+Book 1.indb 70 19.11.09 14:36:08
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 71
+Ethernet de 10 Mbps e conexões a redes remotas (WANs, do inglês wide area networks), como rede de comutação 
+de pacotes. SCSI (do inglês small computer system interface) é um tipo de barramento utilizado para dar suporte a 
+unidades de discos locais e outros periféricos. Uma porta serial poderia ser usada para dar suporte a uma impres-sora ou um escânner.
+Essa arquitetura de barramento tradicional é razoavelmente eficaz, mas começa a fracassar quando um de-
+sempenho cada vez maior é visto nos dispositivos de E/S. Em resposta a essas demandas crescentes, uma técnica comum usada pela indústria é montar um barramento de alta velocidade que esteja rigorosamente integrado ao restante do sistema, exigindo apenas uma ponte entre o barramento do processador e o barramento de alta velo-cidade. Esse arranjo às vezes é conhecido como arquitetura mezanino.
+A Figura 3.18b mostra uma realização típica dessa técnica. Novamente, existe um barramento local que conecta 
+o processador a um controlador de cache, que por sua vez, é conectado a um barramento do sistema que admite memória principal. O controlador de cache é integrado a uma ponte, ou dispositivo de armazenamento temporário (buffer), que se conecta ao barramento de alta velocidade. Esse barramento tem suporte para conexões com LANs de alta velocidade, como Fast Ethernet a 100 Mbps, controladores de estação de trabalho de vídeo e gráficos, além de 
+Cache
+Barramento do sistema Processador
+Memória 
+principalControlador de E/S local
+Interface do 
+barramento de expansãoRede
+SCSIModemSeria l
+(a) Arquitetura de barramento tradicionalBarramento de expansãoBarramento local
+Interface do 
+barramento de expansãoFAXSCSI
+ModemSeria l
+(b) Arquitetura de alto desempenhoFireWire Grá/f_icoMemória 
+principal
+Cache/ponte ProcessadorBarramento local
+Vídeo LANBarramento do sistema
+Barramento de alta velocidade
+Barramento de expansãoFigura 3.18 Exemplo de configurações de barramento
+Book 1.indb 71 19.11.09 14:36:08
+
+72 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+controladores de interface com barramentos periféricos locais, incluindo SCSI e FireWire. O último é um arranjo de bar-
+ramento de alta velocidade projetado especifi camente para dar suporte a dispositivos de E/S de alta capacidade. Os dis-positivos de menor velocidade ainda são aceitos por um barramento de expansão, por meio de uma interface que faz o armazenamento temporário dos dados do tráfego entre o barramento de expansão e o barramento de alta velocidade.
+A vantagem desse arranjo é que o barramento de alta velocidade faz os dispositivos de alta demanda serem 
+integrados mais de perto do processador e, ao mesmo tempo, ele é independente do processador. Assim, as di-ferenças nas velocidades do processador e do barramento de alta velocidade e as defi nições da linha de sinal são toleradas. As mudanças na arquitetura do processador não afetam o barramento de alta velocidade, e vice-versa.
+ Elementos do projeto de barramento
+Embora exista uma grande variedade de implementações de barramento diferentes, existem poucos parâme-
+tros ou elementos de projeto básicos que servem para classifi car e diferenciar barramentos. A Tabela 3.2 lista os principais elementos.
+TIPOS DE BARRAMENTO As linhas de barramento podem ser separadas em dois tipos genéricos: dedicado e 
+multiplexado. Uma linha de barramento dedicada é atribuída permanentemente a uma função ou a um subcon-junto físico de componentes de computador.
+Um exemplo de dedicação funcional é o uso de linhas de endereço e dados dedicadas separadas, o que é comum 
+em muitos barramentos. Porém, isso não é essencial. Por exemplo, informações de endereço e dados podem ser trans-mitidas pelo mesmo conjunto de linhas usando uma linha de controle Address Valid. No início de uma transferência de dados, o endereço é colocado no barramento e a linha Address Valid é ativada. Nesse ponto, cada módulo tem um período especifi cado para copiar o endereço e determinar se ele é o módulo endereçado. O endereço é então remo-vido do barramento, e as mesmas conexões do barramento são usadas para a subsequente transferência de dados de leitura ou escrita. Esse método de uso das mesmas linhas para múltiplas fi nalidades é conhecido como multiplexação 
+de tempo.
+A vantagem desse método é o uso de menos linhas, o que economiza espaço e, normalmente, custo. A 
+desvantagem é que um circuito mais complexo é necessário dentro de cada módulo. Além disso, existe uma redução em potencial no desempenho, pois certos eventos que compartilham as mesmas linhas não podem ocorrer em paralelo.
+A dedicação física refere-se ao uso de múltiplos barramentos, cada um conectando apenas um subconjunto 
+de módulos. Um exemplo típico é o uso de um barramento de E/S para interconectar todos os módulos de E/S; esse barramento é então conectado ao barramento principal por meio de algum tipo de módulo adaptador de E/S. A vantagem em potencial da dedicação física é a alta vazão, pois existe menos disputa pelo barramento. Uma desvantagem é o aumento do tamanho e do custo do sistema.
+MÉTODO DE ARBITRAÇÃO Em todos os sistemas, menos os mais simples, mais de um módulo pode precisar 
+do controle do barramento. Por exemplo, um módulo de E/S pode precisar ler ou escrever diretamente na me-
+Tabela 3.2 Elementos do projeto de barramento
+Tipo Largura do barramento
+Dedicado Endereço
+Multiplexado Dados
+Método de arbitração Tipo de transferência de dados
+Centralizado Leitura
+Distribuído Escrita
+Sincronização Ler-modifi car-escrever
+Síncrona Leitura-após-escrita
+Assíncrona Bloco
+Book 1.indb 72 19.11.09 14:36:09
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 73
+mória, sem enviar os dados ao processador. Como somente um circuito de cada vez pode fazer transmissões 
+com sucesso pelo barramento, algum método de arbitração é necessário. Os diversos métodos podem ser clas-sificados como centralizados ou distribuídos. Em um esquema centralizado, um único dispositivo de hard ware, 
+chamado de controlador ou árbitro de barramento, é responsável por alocar tempo no barramento. O dispositivo 
+pode ser um módulo separado ou parte do processador. Em um esquema distribuído, não existe um controla-dor central. Ao invés disso, cada módulo contém lógica de controle de acesso e os módulos atuam juntos para compartilhar o barramento. Com os dois métodos de arbitração, a finalidade é designar um dispositivo, seja o processador ou um módulo de E/S, como mestre. O mestre pode, então, iniciar uma transferência de dados (por exemplo, leitura ou escrita) com algum outro dispositivo, que atua como escravo para essa troca em particular.
+TEMPORIZAÇÃO A temporização do barramento refere-se ao modo como os eventos são coordenados no bar-
+ramento. Os barramentos utilizam temporização síncrona ou assíncrona.
+Com a temporização síncrona, a ocorrência de eventos no barramento é determinada por um clock. O 
+barramento inclui uma linha de clock, sobre a qual um clock é trasmitido como uma sequência regular de 1s e 0s alternados, com a mesma duração. Uma única transmissão 1-0 é conhecida como ciclo de clock ou ciclo de 
+barramento, e define um slot de tempo. Todos os outros dispositivos no barramento podem ler a linha de clock e todos os eventos começam no início de um ciclo de clock. A Figura 3.19 mostra um diagrama de sincronização típico, porém simplificado, para operações síncronas de leitura e escrita (veja no Apêndice 3A uma descrição dos diagramas de sincronização). Outros sinais do barramento podem mudar na transição inicial do sinal de clock (com um pequeno atraso de reação). A maioria dos eventos dura um único ciclo de clock. Nesse exemplo sim-ples, o processador coloca um endereço de memória nas linhas de endereço durante o primeiro ciclo de clock e pode ativar diversas linhas de estado. Quando as linhas de estado tiverem se estabilizado, o processador emite um sinal de ativação de endereço. Para uma operação de leitura, o processador emite um comando de leitura no 
+Figura 3.19 Temporização de operações de barramento síncronas
+Clock
+Linhas 
+de estado
+Linhas 
+de dados
+Ciclo de
+ leituraLinhasde endereço
+Ativação
+ de endereço
+Leitura
+Linhas 
+de dadosCiclo deescrita
+EscritaSinais de estado
+Stable add ress Endereço estável
+Saída de dados válida Entrada de dados válida T1 T2 T3
+Book 1.indb 73 19.11.09 14:36:09
+
+74 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+início do segundo ciclo. Um módulo de memória reconhece o endereço e, após um atraso de um ciclo, coloca 
+os dados nas linhas de dados. O processador lê os dados das linhas e retira o sinal de leitura. Para uma operação de escrita, o processador coloca os dados nas linhas no início do segundo ciclo e emite um comando de escrita após as linhas de dados terem se estabilizado. O módulo de memória copia a informação das linhas de dados durante o terceiro ciclo de clock.
+Com a temporização assíncrona, a ocorrência de um evento em um barramento segue e depende da 
+ocorrência de um evento anterior. No exemplo de leitura simples da Figura 3.20a, o processador coloca sinais de endereço e estado no barramento. Depois de uma pausa para esses sinais se estabilizarem, ele emite um comando de leitura, indicando a presença de sinais válidos de endereço e controle. A memória apropriada de -
+codifica o endereço e responde colocando os dados na linha de dados. Quando as linhas de dados tiverem se estabilizado, o módulo de memória ativa a linha de confirmação para sinalizar ao processador de que os dados estão disponíveis. Quando o mestre tiver lido os dados das linhas de dados, ele desativa o sinal de leitura. Isso faz com que o módulo de memória retire os dados e a linha de confirmação. Finalmente, quando a linha de confirmação for retirada, o mestre remove a informação do endereço.
+A Figura 3.20b mostra uma operação de escrita assíncrona simples. Nesse caso, o mestre coloca os da-
+dos na linha de dados ao mesmo tempo em que coloca sinais nas linhas de estado e endereço. O módulo de memória responde ao comando de escrita copiando os dados das linhas de dados e, depois, ativando a linha de confirmação. O mestre, então, remove o sinal de escrita e o módulo de memória remove o sinal de confirmação.
+A temporização síncrona é mais simples de implementar e testar. Porém, ela é menos flexível que a tem-
+porização assíncrona. Como todos os dispositivos em um barramento síncrono estão presos a uma taxa de 
+Figura 3.20 Temporização de operações de barramento assíncronas
+ Linhas 
+de estado
+(a) Ciclo de leitura do barramento do sistema
+(b) Ciclo de escrita do barramento do sistemaLinhas de endereço
+Leitura
+Linhas 
+de dados
+Confirmação
+Linhas de estado
+Linhas 
+de endereço
+EscritaLinhas
+de dados
+ConfirmaçãoSinais de estado
+Endereço estável
+Sinais de estado
+Endereço estável
+Dados válidos Dados válidos
+Book 1.indb 74 19.11.09 14:36:10
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 75
+clock fixa, o sistema não pode tirar proveito dos avanços no desempenho do dispositivo. Com a temporização 
+assíncrona, uma mistura de dispositivos lentos e rápidos, usando tecnologia mais antiga e mais nova, pode compartilhar um barramento.
+LARGURA DO BARRAMENTO Já explicamos o conceito de largura do barramento. A largura do barramento 
+de dados tem um impacto sobre o desempenho do sistema: quanto mais largo o barramento de dados, maior o número de bits transferidos de cada vez. A largura do barramento de endereço tem um impacto direto sobre a capacidade do sistema: quanto mais largo o barramento de endereço, maior o intervalo de locais que podem ser referenciados.
+TIPO DE TRANSFERÊNCIA DE DADOS Finalmente, um barramento permite diversos tipos de transferência de 
+dados, conforme ilustramos na Figura 3.21. Todos os barramentos permitem transferências de escrita (mestre para escravo) e leitura (escravo para mestre). No caso de um barramento de endereço/dados multiplexado, o barramento primeiro é usado para especificar o endereço e depois para transferir os dados. Para uma operação de leitura, normalmente existe uma espera enquanto os dados estão sendo buscados do escravo para serem colocados no barramento. Para uma leitura ou uma escrita, também pode haver uma espera se for necessário passar pela arbitração para obter controle do barramento para o restante da operação (ou seja, apoderar-se do barramento para solicitar uma leitura ou escrita, depois apoderar-se do barramento novamente para realizar uma leitura ou escrita).
+Figura 3.21 Tipos de transferência de dados do barramento
+Endereço
+(1º ciclo) Tempo
+EndereçoTempo
+Operação de escrita (multiplexada)
+Operação de escrita (não multiplexada)Dados 
+(2º ciclo)
+Endereço
+Operação de leitura (multiplexada)DadosTempo
+ de 
+acessoDados
+Endereço Tempo
+Operação de leitura (não multiplexada)DadosDados e endereço enviados 
+pelo mestre no mesmo ciclo por linhas de barramento separadas.
+Endereço
+Operação leitura-modificação-escritaLeitura 
+de dadosEscrita 
+de dados
+Endereço
+Operação leitura-após-escritaLeitura 
+de dadosEscrita 
+de dados
+Endereço
+Transferência de dados em blocoDados Dados Dados
+Book 1.indb 75 19.11.09 14:36:10
+
+76 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+No caso de barramentos de endereço e dados dedicados, o endereço é colocado no barramento de endereço e 
+permanece lá enquanto os dados são colocados no barramento de dados. Para uma operação de escrita, o mestre 
+coloca os dados no barramento de dados assim que o endereço tiver sido estabilizado e o escravo tiver a oportuni-dade de reconhecer seu endereço. Para uma operação de leitura, o escravo coloca os dados no barramento assim que tiver reconhecido seu endereço e apanhado os dados.
+Alguns barramentos permitem diversas outras operações de combinação. Uma operação leitura-modifi cação-
+escrita é simplesmente uma leitura seguida imediatamente por uma escrita no mesmo endereço. O endereço só é transmitido uma vez, no início da operação. A operação inteira normalmente é indivisível, para impedir qualquer acesso ao elemento de dados por outros mestres de barramento (bus masters) em potencial. A fi nalidade principal dessa capacidade é proteger os recursos de memória compartilhada em um sistema de multiprogramação (veja Capítulo 8).
+Leitura-após-escrita é uma operação indivisível, que consiste em uma escrita seguida imediatamente por uma 
+leitura do mesmo endereço. A operação de leitura pode ser realizada para fi ns de verifi cação.
+Alguns sistemas de barramento também permitem uma transferência de dados em bloco. Nesse caso, um ciclo 
+de endereço é seguido por n ciclos de dados. O primeiro item de dados é transferido de ou para o endereço espe-
+cifi cado; os itens de dados restantes são transferidos de ou para endereços subsequentes.
+3.5 PCI
+O barramento PCI (PCI do inglês peripheral component interconnect) é um barramento de grande largura de 
+banda, independente de processador, que pode funcionar como um mezanino ou barramento periférico. Em comparação com outras especifi cações de barramento comuns, o PCI oferece melhor desempenho de sistema para subsistemas de E/S de alta velocidade (por exemplo, adaptadores de vídeo gráfi cos, controladores de inter-face de rede, controladores de disco e assim por diante). O padrão atual permite o uso de até 64 linhas de dados a 66 MHz, para uma taxa de transferência bruta de 528 MB/s, ou 4,224 Gbps. Mas não é apenas a velocidade alta que torna o PCI atraente. O PCI é projetado especifi camente para atender economicamente os requisitos de E/S dos sistemas modernos; ele requer muito poucos chips para ser implementado e admite outros barramentos conectados a ele.
+A Intel começou a trabalhar no PCI em 1990, para seus sistemas baseados no Pentium, e logo lançou todas 
+as patentes ao domínio público, promovendo a criação de uma associação da indústria, o PCI Special Interest 
+Group (PCI SIG), para desenvolver melhor e manter a compatibilidade das especifi cações do PCI. O resultado é que o PCI tem sido bastante adotado e está encontrando uso cada vez maior nos sistemas de computadores pessoais, estações de trabalho e servidores. Como a especifi cação é de domínio público e é adotada por uma grande parte da indústria de microprocessadores e periféricos, produtos PCI criados por diferentes fornecedores são compatíveis.
+O PCI foi projetado para admitir uma série de confi gurações baseadas em microprocessadores, incluindo sis-
+temas de processador único e múltiplo. Consequentemente, ela oferece um conjunto de funções de uso geral e utiliza a temporização síncrona e um esquema de arbitração centralizada.
+A Figura 3.22a mostra um uso típico do barramento PCI em um sistema de único processador. Um controlador de 
+DRAM e ponte combinados oferecem um acoplamento adequado com o processador, possibilitando a transferência de dados em altas velocidades. A ponte atua como um buff er de dados, de modo que a velocidade do barramento PCI pode diferir da capacidade de transferência do E/S do processador. Em um sistema multiprocessador (Figura 3.22b), uma ou mais confi gurações PCI podem ser conectadas por pontes ao barramento do sistema do processador. O bar-ramento do sistema admite apenas as unidades de processador/cache, memória principal e pontes PCI. Novamente, o uso de pontes mantém o PCI independente da velocidade do processador, enquanto oferece a capacidade de receber e enviar dados rapidamente.
+ Estrutura de barramento
+O barramento PCI pode ser confi gurada como um barramento de 32 ou 64 bits. A Tabela 3.3 defi ne as 49 linhas 
+de sinal obrigatórias para o barramento PCI. Estas são divididas nos seguintes grupos funcionais:
+Book 1.indb 76 19.11.09 14:36:11
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 77
+pinos do sistema:  incluem os pinos de clock e reset.
+pinos de endereços e de dados:  incluem 32 linhas que são multiplexadas no tempo para endereços e 
+dados. As outras linhas nesse grupo são usadas para interpretar e validar as linhas de sinal que carregam os 
+endereços e dados.pinos de controle da interface:
+  controlam a temporização de transações e oferecem coordenação entre 
+iniciadores e destinos.pinos de arbitração:
+  diferente das outras linhas de sinal PCI, estas não são linhas compartilhadas. Em vez 
+disso, cada mestre PCI tem seu próprio par de linhas de arbitração que a conectam diretamente ao arbitra-dor do barramento PCI.pinos de erros:
+  usado para indicar erros de paridade e outros.Figura 3.22 Exemplo de configurações PCI
+Ponte do hostProcessador/cacheCache Processador
+DRAMÁudioVídeo em 
+movimento
+Ponte do
+barramento de
+expansãoLAN SCSI
+Dispositivos de
+ E/S básicosDispositivos
+grá/f_icos
+(a) Sistema típico de um computador de mesa (desktop)Barramento de expansão
+Processador/cacheControlador 
+de memória DRAM
+Ponte do host
+Ponte do barramento
+ de expansãoPonte do barramento 
+de expansãoSCSI SCSI LAN LAN
+ Ponte
+PCI para PCI (b) Sistema típico de um servidorBarramento PCI
+Barramento do sistema
+Barramento PCI Barramento PCIPonte/
+Controlador de 
+memória
+Book 1.indb 77 19.11.09 14:36:11
+
+78 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tabela 3.3 Linhas de sinal do PCI obrigatórias
+Designação Tipo Descrição
+Pinos do sistema
+CLK inFornece a temporização para todas as transações e todas as entradas são amostradas na 
+transição de subida. São admitidas taxas de clock de até 33 Mhz.
+RST# in Inicializa todos os registradores específicos do PCI, sequenciadores e sinais.
+Pinos de endereço e de dados
+AD[31::0] t/s Linhas multiplexadas usadas para endereços e dados.
+C/BE[3::0]# t/sSinais multiplexados para comandos de barramento e para habilitação de bytes de dados. Durante a fase de dados, 
+as linhas indicam qual das quatro pistas transporta dados significativos.
+PAR t/sFornece paridade par pelas linhas AD e C/BE no ciclo de clock seguinte. O mestre envia o sinal PAR para as fases de escrita de 
+dados e de endereço; o destino envia o sinal PAR para as fases de leitura de dados.
+Pinos de controle de interface
+FRAME# s/t/sControlado pelo mestre corrente para indicar o início e a duração de uma transação. Ele é ativado no início e desativado 
+quando o iniciador estiver pronto para começar a última fase de dados.
+IRDY# s/t/sIniciador pronto, controlado pelo mestre de barramento corrente (iniciador da transação). Durante uma leitura, indica 
+que o mestre está preparado para receber dados; durante uma escrita, indica que os dados válidos estão presentes em AD.
+TRDY# s/t/sDestino pronto, controlado pelo destino (dispositivo selecionado). Durante uma leitura, indica que os dados 
+válidos estão presentes em AD; durante uma escrita, indica que o destino está pronto para receber dados.
+STOP# s/t/s Indica que o destino corrente deseja que o iniciador interrompa a transação atual.
+IDSEL in Seleção de dispositivo de inicialização. Usado como uma seleção de chip durante as transações de leitura e escrita de configuração.
+DEVSEL# in Seleção de dispositivo. Ativado pelo destino quando ele tiver reconhecido seu endereço. Indica ao iniciador corrente se algum dispositivo foi selecionado.
+Pinos de arbitração
+REQ# t/s Indica ao arbitrador que esse dispositivo requer o uso do barramento. Essa é uma linha ponto a ponto específica do dispositivo.
+GnT# t/s Indica ao dispositivo que o arbitrador concedeu acesso ao barramento. Essa é uma linha ponto a ponto específica do dispositivo.
+Pinos de erro
+PERR# s/t/sErro de paridade. Indica que um erro de paridade de dados é detectado por um destino durante uma fase de 
+ escrita de dados ou por um iniciador durante uma fase de leitura de dados.
+SERR# o/d Erro do sistema. Pode ser enviado por qualquer dispositivo para relatar erros de paridade de endereço e erros críticos diferentes de paridade.
+Além disso, a especificação PCI define 51 linhas de sinal opcionais (Tabela 3.4), divididas nos seguintes grupos 
+funcionais:
+pinos de interrupção:  estes são disponíveis para dispositivos PCI que precisam gerar solicitações de ser-
+viço (interrupções). Assim como os pinos de arbitração, estes não são linhas compartilhadas. Em vez disso, 
+cada dispositivo PCI tem sua própria linha ou linhas de interrupção para um controlador de interrupção.pinos de suporte à cache: 
+  esses pinos são necessários para dar suporte a uma memória no PCI que possa 
+ser armazenada em uma memória cache do processador ou de outro dispositivo. Esses pinos permitem os protocolos de cache snoopy (veja no Capítulo 18 uma discussão sobre esses protocolos).pinos de extensão de barramento de 64 bits: 
+  incluem 32 linhas que são multiplexadas no tempo para 
+endereços e dados, e que são combinadas com linhas de endereço/dados obrigatórias para formar um barramento de endereço/dados de 64 bits. Outras linhas nesse grupo são usadas para interpretar e validar 
+Book 1.indb 78 19.11.09 14:36:11
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 3 Visão de alto nível da função e interconexão do computador 79
+as linhas de sinal que transportam endereços e dados. Finalmente, existem duas linhas que ativam dois dis-
+positivos PCI para combinar como o uso da capacidade de 64 bits.JTAg/pinos de testes: 
+  essas linhas de sinal admitem procedimentos de teste defi nidos no padrão IEEE 1149.1.
+ Comandos PCI
+A atividade do barramento ocorre na forma de transações entre um iniciador, ou mestre, e um destino. Quando 
+um mestre do barramento adquire o controle do barramento, ele determina o tipo da transação que ocorrerá em 
+seguida. Durante a fase de endereço da transação, as linhas C/BE são usadas para sinalizar o tipo de transação. Os comandos são os seguintes:
+Interrupt Acknowledge
+  (confi rmação de interrupção).
+Special Cycle  (ciclo especial).
+I/O Read  (leitura de E/S).
+I/O Write  (escrita de E/S).Tabela 3.4 Linhas de sinal PCI opcionais
+Designação Tipo Descrição
+Pinos de interrupção
+InTA# o/d Usado para requisitar uma interrupção.
+InTB# o/d Usado para requisitar uma interrupção; só tem significado para dispositivos multifuncionais.
+InTC# o/d Usado para requisitar uma interrupção; só tem significado para dispositivos multifuncionais.
+InTD# o/d Usado para requisitar uma interrupção; só tem significado para dispositivos multifuncionais.
+Pinos de suporte de cache
+SBO# in/out Recuo de snoop. Indica um acerto, em uma linha modificada na cache.
+SDOnE in/out Snoop completo. Indica o estado do snoop para o endereço corrente. Ativado quando o snoop tiver sido concluído.
+Pinos de extensão de barramento de 64 bits
+AD[63::32] t/s Linhas multiplexadas para endereço e dados para estender o barramento até 64 bits.
+C/BE[7::4]# t/sSinais multiplexados para comandos de barramento e para habilitação de bytes de dados. Durante a fase de endereço, as linhas fornecem 
+comandos de barramento adicionais. Durante a fase de dados, as linhas indicam qual das quatro vias de bytes da extensão carregam 
+dados significativos.
+REQ64# s/t/s Usado para requisitar transferência de 64 bits.
+ACK64# s/t/s Indica que o destino está querendo realizar uma transferência de 64 bits.
+PAR64 t/s Oferece paridade par pelas linhas AD e C/BE estendidas um ciclo de clock adiante.
+JTAG/pinos de testes
+TCK in Clock de teste. Usado para informação de estado do clock e teste de dados entrando e saindo do dispositivo durante varredura de fronteira.
+TDI in Entrada de teste. Usado para deslocar dados e instruções de teste em forma serial para dentro do dispositivo.
+TDO out Saída de teste. Usado para deslocar dados e instruções de teste em forma serial para fora do dispositivo.
+TMS in Seleção de modo de teste. Usado para controlar o estado do controlador da porta de acesso de teste.
+TRST# in Reset de teste. Usado para inicializar o controlador da porta de acesso de teste.
+in Sinal apenas de entrada
+out Sinal apenas de saída
+t/s Bidirecional, tri-state. Sinal de E/S
+s/t/s Sinal tri-state sustentado, controlado apenas por um proprietário de cada vezo/d Dreno aberto: permite que múltiplos dispositivos compartilhem como um wire-OR# O estado ativo do sinal ocorre na voltagem baixa
+Book 1.indb 79 19.11.09 14:36:12
+
+80 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Memory Read  (leitura de memória).
+Memory Read  Line (linha de leitura de memória).
+Memory Read  Multiple (leitura de memória múltipla).
+Memory Write  (escrita de memória).
+Memory Write  and Invalidate (escrita de memory e invalidação).
+Confi guration Read  (leitura de confi guração).
+Confi guration Write  (escrita de confi guração).
+Dual Address Cycle  (ciclo de endereço duplo).
+Interrupt Acknowledge é um comando de leitura voltado para o dispositivo, que funciona como um contro-
+lador de interrupção no barramento PCI. As linhas de endereço não são usadas durante a fase de endereço e as 
+linhas byte enable (habilitação de byte) indicam o tamanho do identificador de interrupção a ser retornado.
+O comando Special Cycle é usado pelo iniciador para transmitir uma mensagem a um ou mais destinos.Os comandos I/O Read e Write são usados para transferir dados entre o iniciador e um controlador de E/S. Cada 
+dispositivo de E/S tem seu próprio espaço de endereços, e as linhas de endereço são usadas para indicar um dis-positivo em particular e para especifi car os dados a serem transferidos de ou para esse dispositivo. O conceito de endereços de E/S é explorado no Capítulo 7.
+Os comandos de leitura e escrita de memória são usados para especificar a transferência de uma porção de 
+dados, ocupando um ou mais ciclos de clock. A interpretação desses comandos depende do controlador de memória no barramento: se o PCI suporta ou não o protocolo PCI para transferências entre memória e cache. Se suporta a transferência de dados de e para a memória, esta é normalmente feita com linhas de cache, ou blocos.
+3 Os três comandos de leitura de memória têm os usos esboçados na Tabela 3.5. O comando Memory 
+Write é usado para transferir dados em um ou mais ciclos de dados para a memória. O comando Memory Write 
+and Invalidate transfere dados em um ou mais ciclos para a memória. Além disso, ele garante que pelo menos 
+uma linha de cache será escrita. Esse comando admite a função da cache de escrever de volta uma linha para a memória.
+Os dois comandos de confi guração permitem que um mestre leia e atualize parâmetros de confi guração em 
+um dispositivo conectado ao PCI. Cada dispositivo PCI pode incluir até 256 registradores internos, que são usados 
+durante a inicialização do sistema para confi gurar esse dispositivo.
+O comando Dual Address Cycle é usado por um iniciador para indicar que está usando o endereçamento com 
+64 bits.
+ Transferências de dados
+Cada transferência de dados no barramento PCI é uma única transação que consiste em uma fase de endereço 
+e uma ou mais fases de dados. Nesta discussão, ilustramos uma operação típica de leitura; uma operação de escrita prossegue de modo semelhante.
+3 Os princípios fundamentais da memória cache são descritos no Capítulo 4; os protocolos de cache baseados em barramento são descritos 
+no Capítulo 17.Tabela 3.5 Interpretação dos comandos de leitura PCI
+Tipo de comando de leitura Para memória cacheável Para memória não cacheável
+Memory Read Transferência de metade ou menos de uma linha de cache Transferência de dados durante 2 ciclos de clock ou menos
+Memory Read LineTransferência de mais de metade de uma linha de cache para 
+três linhas de cacheTransferência de dados durante 3 a 12 ciclos de clock
+Memory Read Multiple Transferência de mais de três linhas de cache Transferência de dados por mais de 12 ciclos de clock
+Book 1.indb 80 19.11.09 14:36:12
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 81
+A Figura 3.23 mostra a temporização da transação de leitura. Todos os eventos são sincronizados para as transi-
+ções de descida do clock, que ocorrem no meio do ciclo de clock. Os dispositivos do barramento verificam as linhas 
+do barramento na transição de subida, no início de um ciclo do barramento. Os eventos rotulados no diagrama são descritos a seguir:
+a. Quando um mestre de barramento tiver obtido o controle do barramento, ele pode iniciar a transação ati-vando FRAME. Essa linha permanece ativada até que o iniciador esteja pronto para completar a última fase 
+de dados. O iniciador também coloca o endereço inicial no barramento de endereço e o comando de leitura nas linhas C/BE.
+b. No início do segundo ciclo de clock, o dispositivo de destino reconhecerá seu endereço nas linhas AD.
+c. O iniciador para de enviar informações pelo barramento AD. Um ciclo de turnaround (indicado por duas 
+setas circulares) é necessário em todas as linhas de sinal que podem ser controladas por mais de um disposi-tivo, de modo que a remoção do sinal de endereço preparará o barramento para ser usado pelo dispositivo de destino. O iniciador muda a informação nas linhas C/BE para designar quais linhas AD devem ser usadas para transferência para os dados atualmente endereçados (de 1 a 4 bytes). O iniciador também ativa IRDY para indicar que está pronto para o primeiro item de dado.
+d. O destino selecionado ativa DEVSEL para indicar que reconheceu seu endereço e responderá. Ele co -
+loca os dados solicitados nas linhas AD e ativa TRDY para indicar que dados válidos estão presentes no barramento.
+e. O iniciador lê os dados no início do quarto ciclo de clock e muda as linhas byte enable conforme a necessi-dade, em preparação para a próxima leitura.
+f. Nesse exemplo, o destino precisa de algum tempo para se preparar para o segundo bloco de dados para transmissão. Portanto, ele desativa TRDY para sinalizar ao iniciador que não haverá novos dados durante o ciclo que chega. Com isso, o iniciador não lê as linhas de dados no início do quinto ciclo de clock e não muda o byte enable durante esse ciclo. O bloco de dados é lido no início do sexto ciclo de clock.
+Figura 3.23 Operação de leitura no barramento PCI
+Fase de dados CLK
+FRAME#
+AD
+C/BE#
+IRDY#
+TRDY#
+DEVSEL#1 2 3 4 5 6 7 8 9
+ENDEREÇO DADOS -1 DADOS -3
+BUS CMD Byte enable Byte enable Byte enable
+Fase de endereço Fase de dados 
+Estado de espera 
+Transação de barramentoa
+c e
+g
+i
+fb dhTransf. dados
+Transf. dados
+Transf. dados
+Estado de esperaFase de dados
+Estado de esperaEspera
+EsperaEsperaDADOS-2 
+Book 1.indb 81 19.11.09 14:36:13
+
+82 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+g. Durante o sexto ciclo de clock, o destino coloca o terceiro item de dados no barramento. Porém, neste 
+exemplo, o iniciador ainda não está pronto para ler o item de dados (por exemplo, ele tem uma condição de buff er temporário cheio). Portanto, ele desativa o IRDY fazendo o destino manter o terceiro item de dados no barramento por mais um ciclo de clock.
+h. O iniciador sabe que a terceira transferência de dados é a última e, portanto, desativa FRAME para sinalizar ao destino que essa é a última transferência de dados. Ele também ativa IRDY para sinalizar que está pronto para completar essa transferência.
+i. O iniciador desativa IRDY, retornando o barramento ao estado ocioso, e o destino desativa TRDY e 
+DEVSEL.
+ Arbitração
+O barramento PCI utiliza um esquema de arbitração centralizado, síncrono, em que cada mestre tem um único 
+sinal de requisição (REQ) e concessão, ou grant (GNT). Essas linhas de sinal são conectadas a um árbitro central 
+(Figura 3.24) e um protocolo simples de requisição-concessão é utilizado para conceder acesso ao barramento.
+A especifi cação PCI não dita um algoritmo de arbitração em particular. O árbitro pode usar uma técnica de 
+“atender a primeira requisição que chegar” , uma técnica round-robin ou algum tipo de esquema de prioridade. Um 
+mestre PCI precisa arbitrar para cada transação que deseja realizar, onde uma única transação consiste em uma fase de endereço seguida por uma ou mais fases de dados contíguas.
+A Figura 3.25 é um exemplo no qual o controle de barramento é arbitrado entre dois dispositivos A e B. A se-
+guinte sequên cia ocorre:
+a. Em algum ponto antes do início do primeiro ciclo de clock, A terá ativado seu sinal REQ. O árbitro verifi ca esse sinal no início do ciclo primeiro ciclo de clock.
+b. Durante o ciclo primeiro ciclo de clock, B solicita o uso do barramento ativando seu sinal REQ.
+c. Ao mesmo tempo, o árbitro ativa GNT-A para conceder acesso ao barramento para A.
+d. O mestre de barramento A verifi ca GNT-A no início do segundo período de clock e descobre que ele recebeu acesso ao barramento. Ele também verifi ca IRDY e TRDY desativados, indicando que o barramento está ocioso. Com isso, ele ativa FRAME e coloca a informação do endereço no barramento de endereço e o comando no barramento C/BE (não mostrado). Ele também mantém o sinal REQ-A, pois tem uma segunda transação para realizar em seguida.
+e. O árbitro do barramento verifi ca todas as linhas REQ no início do terceiro ciclo de clock e toma uma decisão de arbitração para conceder o barramento a B para a próxima transação. Depois, ele ativa GNT-B e desativa GNT-A. B não poderá usar o barramento até que ele retorne a um estado ocioso.
+f. A desativa FRAME para indicar que a última (e única) transferência de dados está em andamento. Ele coloca os dados no barramento de dados e sinalizar o destino com IRDY. O destino lê os dados no início do próximo ciclo de clock.
+g. No início do quinto ciclo de clock, B verifi ca IRDY e FRAME desativados e, portanto, consegue tomar o controle do barramento, ativando FRAME. Ele também desativa sua linha REQ, pois só deseja realizar uma transação.
+Figura 3.24 Árbitro de barramento PCI
+RE Q#GNT# Árbitro PCI
+Dispositivo PCI
+RE Q#GNT#
+RE Q#GNT#
+RE Q#GNT#
+Dispositivo PCI Dispositivo PCI Dispositivo PCI
+Book 1.indb 82 19.11.09 14:36:13
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 3 Visão de alto nível da função e interconexão do computador 83
+Em seguida, o mestre A recebe acesso ao barramento para sua próxima transação.
+Observe que a arbitração pode ocorrer ao mesmo tempo em que o mestre de barramento atual está realizando 
+uma transferência de dados. Portanto, nenhum ciclo do barramento é perdido ao se realizar a arbitração. Isso é conhecido como arbitração oculta.
+3.6 Leitura recomendada e sites Web
+A descrição mais clara sobre barramento PCI é encontrada em um livro de Shanley e Anderson (1999)b. Em 
+Abbot (2004)c também existe muita informação sólida sobre barramento PCI.
+ Sites Web recomendados
+pcI special Interest group: informações sobre especifi cações e produtos PCI.pcI pointers: links para vendedores de PCI e outras fontes de informação.Figura 3.25 Arbitração de barramento PCI entre dois mestres
+CLK
+REQ#-A
+REQ#-B
+GNT#-A
+GNT#-B
+FRAME#
+IRDY#
+TRDY#
+ADEndereço Dados Endereço Dados
+Acesso do dispositivo-Aa
+c
+e
+d f gb
+Acesso do dispositivo-B1 2 3 4 5 6 7
+Book 1.indb 83 19.11.09 14:36:14
+
+84 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Principais termos, perguntas de revisão e problemas
+Principais termos
+barramento de endereço arbitração distribuídaregistrador de endereço de memória (MAR)temporização assíncrona ciclo de instrução
+barramento execução de instrução registrador de buffer de memória (MBR)
+arbitração de barramento busca de instrução componente periférico
+largura de barramento interrupção interconexão (PCI)
+arbitração centralizada tratador de interrupção temporização síncrona
+barramento de dadosrotina de tratamento de interrupção barramento do sistemainterrupção desabilitada
+Perguntas de revisão
+3.1 Que categorias gerais de funções são especificadas pelas instruções do computador?
+3.2 Liste e defina resumidamente os estados possíveis que definem a execução de uma instrução.3.3 Liste e defina resumidamente duas técnicas para lidar com múltiplas interrupções.3.4 Que tipos de transferências a estrutura de interconexão de um computador (por exemplo, barramento) precisa aceitar?3.5 Qual é o benefício de usar a arquitetura de barramento múltiplo em comparação com uma arquitetura de barramento único?3.6 Liste e defina resumidamente os grupos funcionais das linhas de sinal para o barramento PCI.
+Problemas
+3.1 A máquina hipotética da Figura 3.4 também tem duas instruções de E/S:
+0011 = Carregar AC de E/S 
+0011 = Armazenar AC em E/S
+nesses casos, o endereço de 12 bits identifica um dispositivo de E/S em particular. Mostre a execução do programa (usando o formato da 
+Figura 3.5) para o programa a seguir:
+ 1. Carregar AC do dispositivo 5. 2. Somar o conteúdo do local de memória 940. 3. Armazenar AC no dispositivo 6.
+Suponha que o próximo valor apanhado do dispositivo 5 seja 3 e que o local 940 contenha o valor 2.
+3.2 A execução do programa da Figura 3.5 é descrita no texto usando seis etapas. Expanda essa descrição para mostrar o uso do MAR e do MBR.
+3.3 Considere um microprocessador de 32 bits hipotético com instruções de 32 bits, compostas de dois campos: o primeiro byte contém o opcode e 
+o restante, o operando imediato ou o endereço de um operando.
+ a. Qual é a capacidade de memória máxima endereçável diretamente (em bytes)?
+ b. Discuta o impacto sobre a velocidade do sistema se o barramento do microprocessador tiver
+ 1. um barramento de endereço local de 32 bits e um barramento de dados local de 16 bits, ou
+ 2. um barramento de endereço local de 16 bits e um barramento de dados local de 16 bits.
+ c. Quantos bits são necessários para o contador de programa e o registrador de instrução?
+3.4 Considere um microprocessador hipotético gerando um endereço de 16 bits (por exemplo, suponha que o contador de programa e os registra-
+dores de endereço tenham 16 bits de largura) e tendo um barramento de dados de 16 bits.
+ a. Qual é o espaço de endereço de memória máximo que o processador pode acessar diretamente se estiver conectado a uma “memória de 16 bits”?
+ b. Qual é o espaço de endereço de memória máximo que o processador pode acessar diretamente se estiver conectado a uma “memória de 8 bits”?
+ c. Que recursos arquiteturais permitirão que esse microprocessador acesse um “espaço de E/S” separado?
+ d. Se uma instrução de entrada e saída pode especificar um número de porta de E/S de 8 bits, quantas portas de E/S de 8 bits o microproces-
+sador pode aceitar? Quantas portas de E/S de 16 bits? Explique.
+Book 1.indb 84 19.11.09 14:36:14

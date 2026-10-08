@@ -1,0 +1,853 @@
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 385
+2. O valor atual do registrador EFLAGS é colocado na pilha.
+3. Flags de interrupção (IF) e trap (TF) são defi nidos com valor zero. Isso desabilita interrupções INTR e a trap ou 
+recurso de passo único.
+4. Ponteiro de segmento de código corrente (CS) e ponteiro da instrução corrente (IP ou EIP) são colocados na pilha.
+5. Se a interrupção é acompanhada por um código de erro, então o código de erro é colocado na pilha.
+6. O conteúdo do vetor de interrupção é obtido e carregado nos registradores CS e IP ou EIP . A execução con-
+tinua a partir da rotina que atende a interrupção.
+Para retornar de uma interrupção, a rotina que atende a interrupção executa uma instrução IRET. Isso faz com 
+que todos os valores salvos na pilham sejam recuperados; a execução continua a partir do ponto da interrupção.
+12.6 Processador ARM
+Nesta seção analisamos alguns elementos-chave da arquitetura e organização ARM. Deixamos a discussão de 
+aspectos da organização e pipeline mais complexos para Capítulo 14. Para a discussão desta seção e do Capítulo 
+14, é útil ter em mente as principais características da arquitetura ARM. ARM é, em primeiro lugar, um sistema RISC com os seguintes características principais:
+Um conjunto moderado de registradores uniformes, mais do que são encontrados em alguns sistemas CISC, 
+ 
+porém menos do que encontrados em muitos sistemas RISC.Modelo carregar/armazenar (
+  load/store) de processamento de dados, no qual as operações executam ape-
+nas com os operandos nos registradores e não diretamente na memória. Todos os dados precisam ser carre-gados em registradores antes que uma operação possa ser efetuada; o resultado então pode ser usado para o processamento posterior ou armazenado em memória.Uma instrução uniforme de tamanho fi xo de 32 bits para o conjunto padrão e 16 bits para o conjunto de 
+ 
+instruções Thumb.Para tornar cada instrução de processamento de dados mais fl exível, um deslocamento ou uma rotação 
+ 
+pode pré-processar um dos registradores de origem. Para suportar esse recurso efi cientemente, a unidade aritmética lógica (ALU) e unidades de deslocamento são separadas.Um número pequeno de modos de endereçamento com todos os endereços de carga/armazenamento 
+ 
+sendo determinados a partir dos registradores e campos da instrução. Endereçamento indireto ou indexado envolvendo valores na memória não é usado.Modos de endereçamento com autoincremento e autodecremento são usados para melhorar a operação 
+ 
+de laços de repetição dos programas.Execução condicional das instruções minimiza a necessidade das instruções de desvios condicionais, me-
+ 
+lhorando assim a efi ciência do pipeline, porque a limpeza do pipeline é reduzida.
+ Organização do processador
+A organização do processador ARM varia substancialmente de uma implementação para outra, particularmente 
+quando são usadas diferentes versões da arquitetura ARM. No entanto, é útil para a discussão desta seção apresen-tar uma organização ARM simplifi cada e genérica, a qual é ilustrado na Figura 12.25. Nessa fi gura as setas indicam o fl uxo de dados. Cada caixa apresenta uma unidade de hardware funcional ou uma unidade de armazenamento.
+Dados são trocados com o processador a partir da memória externa por meio de um barramento de dados. O 
+valor transferido é um item de dados, como resultado de uma instrução de carregar (load) ou armazenar (store), ou uma leitura de instrução. Instruções obtidas passam por um decodifi cador de instruções antes da execução, sob controle de uma unidade de controle. O último inclui lógica de pipeline e fornece sinais de controle (não mostra-dos) para todos os elementos de hardware do processador. Itens de dados são colocados no banco de registradores (register fi le) que consiste de um conjunto de registradores de 32 bits. Itens do tamanho de um byte ou meia palavra tratados como números de complemento de dois são estendidos com sinal até 32 bits.
+As instruções de processamento de dados ARM normalmente têm dois registradores de origem, Rn e Rm, e um 
+resultado único ou registrador de destino, Rd. Os valores dos registradores de origem alimentam ALU ou uma uni-
+dade de multiplicação separada que usa um registrador adicional para acumular resultados parciais. O processador 
+ARM inclui também uma unidade de hardware que pode deslocar ou rotacionar o valor de Rm antes de entrar em 
+Book 1.indb 385 19.11.09 14:38:59
+
+386 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ALU. Esse deslocamento ou rotação ocorre dentro do tempo de ciclo da instrução e aumenta o poder e a fl exibili-
+dade de muitas operações de processamento de dados.
+Os resultados de uma operação são retornados para o registrador de destino. As instruções de load/store também 
+podem usar a saída das unidades aritméticas para gerar o endereço de memória para carga ou armazenamento.
+ Modos do processador
+É comum para um processador suportar apenas um número pequeno de modos do processador. Por exemplo, 
+muitos sistemas operacionais usam apenas dois modos: modo usuário e modo kernel, este último sendo usado para executar software de sistema privilegiado. Ao contrário disso, a arquitetura ARM permite uma base fl exível para que os sistemas operacionais possam impor uma variedade de políticas de proteção.
+A arquitetura ARM suporta sete modos de execução. A maioria das aplicações executa em modo usuário. 
+Enquanto o processador está no modo usuário, o programa sendo executado é incapaz de acessar os recursos protegidos do sistema ou de alterar o modo, causando uma exceção nesse caso.
+Os seis modos de execução restantes são referidos como modos privilegiados. Esses modos são usados para exe-
+cutar o software de sistema. Existem duas vantagens principais para defi nir tantos modos privilegiados diferentes: (1) O SO pode adequar o uso do software de sistema para uma variedade de circunstâncias e (2) certos registradores são dedicados para uso para cada um dos modos privilegiados, permitindo mudanças mais rápidas no contexto.
+Os modos de exceção têm acesso total aos recursos do sistema e podem mudar os modos livremente. Cinco 
+desses modos são conhecidos como modos de exceção. Eles são ativados quando exceções específi cas ocorrem. Figura 12.25 Organização ARM simplifi cada
+Registrador de endereço de memória
+Incrementador
+Deslocador
+Multiplicar / 
+AcumularALU
+CPSR = registrador de estado de programa corrente (do inglês current program status register)R15 (PC)
+Rn RmRd
+AccExtensão
+de sinal
+Banco de registradores do usuário (RO - R15)Memória externa (cache, memória principal)
+Registrador de buﬀer de memória
+Registrador de instrução
+Unidade
+de controleDecodi/f_icador 
+de instrução
+CPSR
+Book 1.indb 386 19.11.09 14:39:00
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 387
+Cada um desses modos possui alguns registradores dedicados que substituem alguns registradores do modo usu-
+ário e que são usados para evitar a corrupção das informações de estado do modo de usuário quando exceção acontece. Os modos de exceção são os seguintes:
+modo supervisor
+  : normalmente é o modo em que executa o SO. Ele é ativado quando o processador en-
+contra uma instrução de interrupção de software. Interrupções de software são um jeito padrão para invocar os serviços do sistema operacional no ARM.modo de abortamento
+  : ativado como resposta a falhas de memória.
+modo indefi nido  : ativado quando o processador tenta executar uma instrução que não é suportada nem 
+pelo núcleo principal nem por um dos coprocessadores.modo de interrupção rápido
+  : ativado sempre que o processador recebe um sinal de interrupção a partir 
+de uma fonte designada de interrupção rápida. Uma interrupção rápida não pode ser interrompida, porém uma interrupção rápida pode interromper uma interrupção normal.modo de interrupção
+  : ativado sempre que o processador recebe um sinal de interrupção a partir de qual-
+quer outra origem de interrupção (diferente da interrupção rápida). Uma interrupção apenas pode ser inter-rompida por uma interrupção rápida.
+O modo privilegiado restante é o modo de sistema. Este não é ativado por nenhuma exceção e usa os mesmos 
+registradores disponíveis no modo usuário. O modo de sistema é usado para executar certas tarefas privilegiadas do sistema operacional. As tarefas do modo de sistema podem ser interrompidas por qualquer uma das cinco ca-tegorias de exceções.
+ Organização dos registradores
+A Figura 12.26 ilustra os registradores visíveis ao usuário para ARM. O processador ARM possui um total de 37 
+registradores de 32 bits, classifi cados como segue:
+31 registradores referenciados no manual de ARM como sendo registradores de propósito geral. Na verdade, 
+alguns deles, como contadores de programa, possuem propósitos específi cos.Seis registradores de 
+  estado de programa.
+Registradores são arranjados em bancos parcialmente sobrepostos, sendo que o modo atual do processador 
+defi ne qual banco está disponível. A qualquer momento, 16 registradores numerados e um ou dois registradores de estado de programa estão visíveis, para um total de 17 ou 18 registradores visíveis ao software. A Figura 12.26 deve ser interpretada da seguinte forma:
+Registradores de R0 a R7, registrador R15 (contador de programa) e registrador de 
+  estado de programa cor-
+rente (CPSR) são visíveis e compartilhados por todos os modos.Registradores de R8 até R12 são compartilhados por todos os modos exceto interrupção rápida, a qual pos-
+ 
+sui seus próprios registradores dedicados de R8_fi q até R12_fi q.Todos os modos de exceção têm suas próprias versões de registradores R13 e R14.
+ 
+Todos os modos de exceção têm um registrador próprio de  estado de programa dedicado salvo (SPSR, do 
+inglês saved program status register)
+REGISTRADORES DE PROPÓSITO GERAL O registrador R13 é normalmente usado como ponteiro de pilha e é co-
+nhecido também como SP (Stock points). Como cada modo de exceção possui um R13 separado, cada modo de exceção pode ter a sua própria dedicada pilha de programa. R14 é conhecido como registrador de ligação (LR — link 
+register) e é usado para guardar endereço de retorno da sub-rotina e retornos do modo de exceção. O registrador R15 é o contador de programas (PC — Program Counter).
+REGISTRADORES DE ESTADOS DE PROGRAMA O CPSR é acessível em todos os modos do processador. Cada 
+modo de exceção também possui um SPSR dedicado que é usado para preservar o valor de CPSR quando a exce-ção associada acontece.
+Os 16 bits mais signifi cativos do CPSR contêm fl ags de usuário visíveis no modo usuário e que podem ser usadas 
+para afetar a operação de um programa (Figura 12.27). Aqui estão elas:
+Flags de código condicional
+  : fl ags N, Z, C e V, discutidas no Capítulo 10.
+Flag q  : usado para indicar se um overfl ow e/ou saturação ocorreu em alguma instrução orientada a SIMD.
+Bit J  : indica o uso de instruções especiais de 8 bits, conhecidas como instruções Jazelle e que estão fora do 
+escopo do nosso estudo.
+Book 1.indb 387 19.11.09 14:39:00
+
+388 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Bits ge[3:0]  : instruções SIMD usam bits[19:16] como flags maior que ou igual (GE — greater than or equal) 
+para bytes individuais ou meias palavras do resultado.
+Os 16 bits menos significantes de CPSR contêm flags de controle de sistema que podem ser alterados apenas 
+quando o processador está num modo privilegiado. Os campos estão descritos a seguir:Figura 12.26 Organização dos registradores do ARM
+Modos
+Modos privilegiados
+Modos de exceção
+Usuário Sistema Supervisor Abortamento Inde/f_inido Interrupção Interrupção rápida
+R0 R0 R0 R0 R0 R0 R0
+R1 R1 R1 R1 R1 R1 R1
+R2 R2 R2 R2 R2 R2 R2
+R3 R3 R3 R3 R3 R3 R3
+R4 R4 R4 R4 R4 R4 R4
+R5 R5 R5 R5 R5 R5 R5
+R6 R6 R6 R6 R6 R6 R6
+R7 R7 R7 R7 R7 R7 R7
+R8 R8 R8 R8 R8 R8 R8_/f_iq
+R9 R9 R9 R9 R9 R9 R9_/f_iq
+R10 R10 R10 R10 R10 R10 R10_/f_iq
+R11 R11 R11 R11 R11 R11 R11_/f_iq
+R12 R12 R12 R12 R12 R12 R12_/f_iq
+R13(SP) R13(SP) R13_svc R13_abtR 13_und R13_irq R13_/f_iq
+R14(LR) R14(LR) R14_svc R14_abt R14_und R14_irq R14_/f_iq
+R15(PC) R15(PC) R15(PC) R15(PC) R15(PC) R15(PC) R15(PC)
+CPSR CPSR CPSR CPSR CPSR CPSR CPSR
+SPSR_svc SPSR_abt SPSR_und SPSR_irq SPSR_/f_iq
+SP = ponteiro de pilha CPSR = registrador de estado de programa corrente
+LR = registrador de ligação SPSR = registrador de estado de programa salvoPC = contador de programaSombreado indica que o registrador normal usado pelo modo usuário ou de sistema foi substituído por um registrador especi/f_ico para modo de exceção.
+Res J Reservado
+Flags de controle de sistema Flags de usuárioGE[3:0] Reservado E A I F T M[4:0] QVC ZN0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31Figura 12.27 Formato de CPSR e SPSR de ARM
+Book 1.indb 388 19.11.09 14:39:01
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 389
+Bit e  : controla carga e armazenamento endianness de dados; ignorado para leitura de instruções.
+Bits para desabilitar interrupção  : o bit A, quando defi nido com valor 1, desabilita o abortamento impre-
+ciso de dados; bit I, quando defi nido com valor 1, desabilita interrupções IRQ; e bit F, quando defi nido com 
+valor 1, desabilita interrupções FIQ.Bit T
+  : indica se a instrução deve ser interpretada como uma instrução ARM normal ou uma instrução Thumb.
+Bits de modo  : indica o modo do processador.
+ Processamento de interrupção
+Como em qualquer outro processador, o ARM inclui um dispositivo que permite ao processador interromper 
+o programa corrente para lidar com condições de exceção. Exceções são geradas por fontes internas e externas 
+para fazer com que o processador trate um evento. O estado do processador logo antes de tratar uma exceção é normalmente preservado para que o programa original possa ser reiniciado quando a rotina de exceção esteja completa. Mais de uma exceção pode ocorrer ao mesmo tempo. A arquitetura ARM suporta sete tipos de exceções. A Tabela 12.4 lista os tipos de exceções e o modo do processador que é usado para processar cada tipo. Quando uma exceção ocorre, a execução é forçada de um endereço fi xo de memória correspondente ao tipo de exceção. Esses endereços fi xos são chamados de vetores de exceção.
+Se mais do que uma interrupção está aguardando, elas são tratadas em ordem de prioridade. A Tabela 12.4 
+mostra as exceções em ordem de prioridade, das mais altas até as mais baixas.
+Quando ocorre uma exceção, o processador para a execução depois da instrução corrente. O estado do proces-
+sador é preservado em SPSR que corresponde ao tipo de exceção, para que o programa original possa ser reiniciado quando a rotina de exceção estiver completa. O endereço da instrução que o processador estava para executar é colocado no registrador de ligação do modo do processador apropriado. Para retornar depois do tratamento da exceção, SPSR é movido para dentro de CPSR e R14 é movido para dentro de PC.
+Tipo de exceção Modo Endereço normal de entrada Descrição
+Reset Supervisor 0x00000000 Ocorre quando o sistema é inicializado
+Abortar dados Abortamento 0x00000010Ocorre quando um endereço de memória inválido foi acessado, como se não houvesse 
+memória física para o endereço ou falta permissão correta de acesso.
+FIQ (interrupção rápida) FIQ 0x0000001COcorre quando um dispositivo externo ativa o pino FIQ no processador. Uma 
+interrupção não pode ser interrompida exceto por uma FIQ. A FIQ é projetada para 
+suportar uma transferência de dados ou processo de canal e tem registradores privados 
+sufi cientes para tirar a necessidade de salvar os registradores em tais 
+aplicações, economizando a sobrecarga da troca de contexto. Uma interrupção 
+rápida não pode ser interrompida.
+IRQ (interrupção) IRQ 0x00000018Ocorre quando um dispositivo externo ativa o pino IRQ do processador. Uma 
+interrupção não pode ser interrompida, exceto por uma FIQ.
+Abortamento de 
+busca antecipadaAbortamento 0x0000000COcorre quando uma tentativa de obter uma instrução resulta em uma 
+falha de memória. A exceção é levantada quando a instrução entra 
+no estágio de execução do pipeline.
+Instrução indefi nida Indefi nido 0x00000004Ocorre quando uma instrução que não esteja no conjunto de 
+instruções atinge o estágio de execução do pipeline
+Interrupção de software Supervisor 0x00000008Geralmente usado para permitir que os programas do modo usuário 
+chamem o SO. O programa de usuário executa uma instrução SWI com um 
+argumento que identifi ca a função que usuário quer executar.Tabela 12.4 Vetor de interrupção ARM
+Book 1.indb 389 19.11.09 14:39:02
+
+390 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+12.7 Leitura recomendada
+Patt (2001o) e Moshovos e Sohi (2001p) fornecem uma cobertura excelente de questões de pipeline discutidas 
+neste capítulo. Hennessy e Joupi (1991q) contém uma discussão detalhada sobre pipeline. Sohi (1990r) fornece uma 
+discussão excelente e detalhada sobre questões de projeto de hardware envolvidas em um pipeline de instruções. 
+Ramamoorthy (1977s) é um artigo clássico sobre o assunto e ainda vale muito a leitura.
+Evers e Yeh (2001t) examina a evolução de estratégias de previsão de desvios. Cragon (1992u) é um estudo detalhado 
+sobre previsão de desvios e pipelines de instruções. Dubey e Flynn (1991v) e Lilja (1988k) examinam várias estratégias de 
+previsão de desvios que podem ser usadas para melhorar o desempenho de pipeline de instruções. Kaeli e Emma (1991w) 
+analisa a difi culdade introduzida na previsão de desvios pelas instruções cujo endereço do alvo é variável.
+Brey (2009x) fornece uma boa cobertura de processamento de interrupções em x86. Fog (2008y) fornece uma 
+discussão detalhada sobre arquitetura de pipeline para família x86.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Previsão de desvios Flag Busca antecipada de instrução
+Código condicional Ciclo da instrução Palavra de estado de programa (PSW)
+Desvio atrasado Pipeline de instrução
+Perguntas de revisão
+ 12.1 Quais papéis gerais são desempenhados pelos registradores do processador?
+ 12.2 Quais categorias de dados são normalmente suportadas pelos registradores visíveis ao usuário?
+ 12.3 Qual é a função de códigos condicionais?
+ 12.4 O que é uma palavra de estado do programa?
+ 12.5 Por que um pipeline de instrução de dois estágios difi cilmente diminuirá o tempo do ciclo da instrução pela metade, quando comparado a um sistema sem pipeline?
+ 12.6 Liste e explique resumidamente várias formas em que um pipeline de instruções pode lidar com instruções de desvio condicional.
+ 12.7 Como são usados os bits de histórico para previsão de desvios?
+Problemas
+12.1 a. Se a última operação executada em um computador com uma palavra de 8 bits foi uma adição em que dois operandos eram 00000010 e 00000011, qual seria o valor dos seguintes fl ags?
+Carry.
+ 
+Zero. 
+O v e r fl o w . 
+Sinal. 
+Paridade igual. 
+half-  Carry (carry auxiliar).
+ b. Repita para adição de – 1 (complemento a dois) e +1
+12.2 Repita o Problema 12.1 para operação A – B, onde A contém 11110000 e B contém 0010100.
+12.3 Um microprocessador tem um clock de 5 Ghz.a. Quanto tempo leva um ciclo de clock?b. Qual é a duração de um tipo particular de instrução de máquina que consiste de três ciclos de clock?
+Book 1.indb 390 19.11.09 14:39:02
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 391
+12.4 Um microprocessador fornece uma instrução capaz de mover uma cadeia de bytes de uma área de memória para outra. A leitura e de -
+codificação inicial da instrução levam 10 ciclos de clock. Depois demora 15 ciclos de clock para transferir cada byte. O microprocessador 
+possui um clock de 10 Ghz.
+a. Determine o tamanho do ciclo da instrução para o caso de uma cadeia de 64 bytes.b. Qual é o pior atraso para aceitar uma interrupção se a instrução não puder ser interrompida?
+c. Repita a parte (b) assumindo que a instrução possa ser interrompida no começo da transferência de cada byte.
+12.5 O Intel 8088 consiste de uma unidade de interface de barramento (UIB) e uma unidade de execução (UE), o que forma um pipeline de dois 
+estágios. A UIB obtém as instruções para uma fila de instruções de 4 bytes. Ela também participa dos cálculos de endereço, obtém operandos e escreve os resultados na memória conforme requisitado por UE. Se nenhuma dessas requisições estiver aguardando e o barramento estiver livre, UIB preenche quaisquer folgas na fila de instruções. Quando UE completa a execução de uma instrução, ela passa quaisquer resultados para UIB (destinados para memória ou E/S) e procede com a próxima instrução.
+a. Suponha que tarefas executadas por UIB e UE levem o mesmo tempo. Com que fator pipeline melhora o desempenho de 8088? Ignore os efeitos de instruções de desvio.
+b. Repita os cálculos assumindo que UE demore duas vezes mais que UIB.
+12.6 Suponha que um 8088 esteja executando um programa no qual a probabilidade de um salto de programa é 0.1. Para simplificar, assuma que 
+todas as instruções sejam do tamanho de 2 bytes.
+a. Qual fração do ciclo de leitura do barramento de instrução é desperdiçada?b. Repita para fila de instrução de tamanho de 8 bytes.
+12.7 Considere o diagrama de tempo da Figura 12.10. Suponha que exista apenas um pipeline de dois estágios (busca e execução). Redesenhe o 
+diagrama para mostrar quantas unidades de tempo são necessárias agora para quatro instruções.
+12.8 Suponha um pipeline com quatro estágios: busca da instrução (FI), decodificação de instrução e cálculo dos endereços (DE), busca dos operan-
+dos (FO) e executar (EX). Desenhe um diagrama semelhante à Figura 12.10 para uma sequência de 7 instruções onde a terceira instrução é um desvio que é tomado e onde não haja dependências de dados.
+12.9 Um processador de pipeline tem um taxa de clock de 2,5 Gh z e executa um programa com 1,5 milhões de instruções. O pipeline possui cinco 
+estágios e as instruções são emitidas numa taxa de uma por ciclo de clock. Ignore penalidades por causa das instruções de desvio e execuções fora de ordem.
+a. Qual a diferença de velocidade deste processador para este programa comparado a um processador sem pipeline, fazendo a mesma supo-sição usada na Seção 12.4?
+b. Qual o rendimento (em MIPS) do processador com pipeline?
+12.10 Um processador sem pipeline tem uma taxa de clock de 2.5 Gh z e um CPI (ciclos por instrução) médio de 4. Uma atualização no processador 
+introduz um pipeline de cinco estágios. no entanto, por causa dos atrasos internos do pipeline, a taxa de clock do novo processador deve ser 
+reduzida para 2 Ghz.
+a. Qual o aumento de velocidade obtido para um programa típico?b. Qual a taxa em MIPS para cada processador?
+12.11 Considere uma sequência de instruções de tamanho n que está sendo executada pelo pipeline de instruções. Seja p a probabilidade de encontrar 
+um desvio condicional ou incondicional e seja q a probabilidade de a execução da instrução de desvio I causar um salto para um endereço não 
+consecutivo. Assuma que cada salto desses requer que o pipeline seja esvaziado, destruindo todo o processamento das instruções, quando I emerge do último estágio. Revise as equações 12.1 e 12.2 para levar essas probabilidades em conta.
+12.12 Uma limitação da abordagem de múltiplos fluxos para lidar com desvios em um pipeline é que desvios adicionais serão encontrados antes que 
+o primeiro desvio seja resolvido. Sugira mais duas limitações ou desvantagens.
+12.13 Considere os diagramas de estado da Figura 12.28.a. Descreva o comportamento de cada um deles.b. Compare-os com o diagrama de estado de previsão de desvios da Seção 12.4. Discuta os méritos relativos de cada uma das três abordagens de previsão de desvios. 
+Book 1.indb 391 19.11.09 14:39:02
+
+392 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+12.14 Máquinas Motorola 680x0 incluem a instrução Decrementar e Desvio de Acordo com Condição, a qual tem a seguinte forma:
+DBcc Dn, displacement
+onde cc é uma das condições testáveis, Dn é um registrador de uso geral e displacement (deslocamento) especifica o endereço alvo relativo ao 
+endereço atual. A instrução pode ser definida da seguinte forma:
+if(cc False)
+then begin
+Dn : (Dn) 1;
+ifDn 1 then PC : (PC) displacement end
+else PC : (PC) 2; + =+= Z--==
+Quando a instrução é executada, a condição é primeiramente testada para determinar se a condição de término para o laço é satisfeita. Se for, nenhu-
+ma operação é executada e a execução continua na próxima instrução da sequência. Se a condição for falsa, o registrador de dados específico é decremen-
+tado e verificado para ver se é menor que zero. Se for menor que zero, o laço é terminado e a execução continua na próxima instrução da sequên cia. Caso 
+contrário, o programa desvia para a posição especificada. Considere agora o seguinte fragmento de um programa na linguagem de montagem: 
+AGAIN CMPM.L (A0) ,(A1)
+DBNE D1,AGAIN
+NOP++
+Duas strings endereçadas por A0 e A1 são comparadas pela igualdade; os ponteiros de string são incrementados em cada referência. D1 
+inicialmente contém o número de palavras grandes (4 bytes) para serem comparadas.
+a. O conteúdo inicial dos registradores é A0 = $00004000, A1 = $00005000 e D1 = $000000FF ($ indica notação hexadecimal). A memória 
+entre $4000 e $6000 é preenchida com palavras $AAAA. Se o programa acima mencionado for executado, especifique o número de vezes que o laço DBnE é executado e o conteúdo dos três registradores quando a instrução nOP é alcançada.
+b. Repita (a), mas suponha agora que memória entre $4000 e $4FEE é preenchida com $0000 e entre $5000 e $6000 é preenchida com $AAA.
+12.15 Redesenhe a Figura 12.19c, supondo que o desvio condicional não seja tomado.
+12.16 A Tabela 12.5 sumariza estatísticas de MacDougall (1984
+h) com respeito ao comportamento de desvios para várias classes de aplicações. 
+Com exceção do tipo 1 para comportamento de desvios não há diferença notável entre os tipos de aplicações. Determine a fração de todos os desvios que vão para o endereço alvo do desvio para o ambiente científico. Repita para ambientes comerciais e de sistemas.Figura 12.28 Dois diagramas de estado de previsão de desvios
+Não tomado
+Não tomadoNão tomadoTomado
+TomadoNão tomadoTomadoTomado
+Não tomado
+Não tomadoTomado
+Não tomadoTomado
+Não tomado
+TomadoTomado
+Previsão
+que será
+tomadoPrevisão
+que será
+tomadoPrevisão
+que será
+tomadoPrevisão
+que será
+tomado
+Previsão
+que será
+tomadoPrevisão
+que não será
+tomadoPrevisão
+que não será
+tomadoPrevisão
+que não será
+tomado
+Book 1.indb 392 19.11.09 14:39:03
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 393
+Tabela 12.5 Comportamento de desvios em exemplos de aplicações
+Ocorrências de classes de desvios
+Tipo 1: Desvio 72,5%Tipo 2: Controle de laço 9,8%Tipo 3: Chamada de procedimento, retorno 17,7%
+Desvio tipo 1: para onde vai Científico Comercial Sistemas
+Incondicional – 100% vai para alvo 20% 40% 35%
+Condicional – foi para alvo 43,2% 24,3% 32,5%
+Condicional – não foi para alvo 36,8% 35,7% 32,5%
+Desvio tipo 2 (todos os ambientes)
+Vai para alvo 91%
+não vai para alvo 9%
+Desvio tipo 3100% vai para alvo
+12.17 O pipelining pode ser aplicado dentro de ALU para acelerar operações de ponto flutuante. Considere o caso de adição e subtração de ponto 
+flutuante. Em termos simplificados, pipeline poderia ter quatro estágios: (1) Comparar expoentes; (2) Escolher o expoente e alinhar os coefi-
+cientes; (3) Adicionar ou subtrair coeficientes; (4) normalizar os resultados. O pipeline pode ser considerado como tendo duas threads parale-las, uma tratando dos expoentes e outra tratando dos coeficientes, e poderia começar desta forma:
+RaExponentes
+b
+RACoe/f_icientes
+B
+nesta figura, as caixas nomeadas R se referem a um conjunto de registradores usados para guardar resultados temporários. Complete o diagrama de blocos que mostra a estrutura do pipeline em nível mais alto.
+ Referências
+ a LUnDE, A. “Empirical evaluation of some features of instruction set processor architectures” . Communications of the ACM, mar. 1977.
+ b WILLIAMS, F . e STEVEn, G. “Address and data register separation on the M68000 family” . Computer Architecture News, jun. 1990. c DeROSA, J. e LEVY , h. “An evaluation of branch architectures” . Proceedings, Fourteenth Annual International Symposium on Computer Architecture, 
+1987.
+ d STRITTER, E. e GUnTER, T. “A microprocessor architecture for a changing world: the Motorola 68000” . Computer, fev. 1979. e MORSE, S.; POhLMA n, W. e RAVEnEL, B. “The Intel 8086 microprocessor: a 16-bit evolution of the 8080” . Computer, jun. 1978.
+ f TOO nG, h. e GUPTA, A. “An architectural comparison of contemporary 16-bit microprocessors” . IEEE Micro, mai. 1981.
+ g El-Ayat, K. e AGARWAL, R. “The Intel 80386—Architecture and implementation” . IEEE Micro, dez. 1985. h MACDOUGALL, M. "Instruction-level program and process modeling" . IEEE Computer, jul. 1984. i AnDERSOn, D.; SPARACIO, F . e TOMASULO, F . “The IBM system/360 model 91: machine philosophy and instruction handling” . IBM Journal of Research 
+and Development, jan. 1967.
+ j hWA nG, K. Advanced computer architecture. n ova York: McGraw-hill, 1993.
+Book 1.indb 393 19.11.09 14:39:03
+
+394 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ k LILJA, D. “Reducing the branch penalty in pipelined processors” . Computer, jul. 1988.
+ l REChES, S. e WEISS, S. “Implementation and analysis of path history in dynamic branch prediction schemes” . IEEE Transactions on Computers, ago. 
+1998.
+ m YEh, T. e PATT, n. “Two-level adapting training branch prediction” . Proceedings, 24th Annual International Symposium on Microarchitecture, 1991. n CRAWFORD, J. “The i486 CPU: executing instructions in one clock cycle” . IEEE Micro, fev. 1990. o PATT, Y . “Requirements, bottlenecks, and good fortune: agents for microprocessor evolution” . Proceedings of the IEEE, nov. 2001. p MOShOVOS, A. e SOhI, G. “Microarchitectural innovations: boosting microprocessor performance beyond semiconductor technology scaling” . Proceedings of the IEEE, nov. 2001.
+ q hEnnESSY , J. e JOUPPI, n. "Computer technology and architecture: an evolving interaction" . Computer, set. 1991. r SOhI, G. “Instruction issue logic for high-performance interruptable, multiple functional unit, pipelined computers” . IEEE Transactions on Computers, 
+mar. 1990.
+ s RAMAMOORT hY , C. “Pipeline architecture” . Computing Surveys, mar. 1977.
+ t EVERS, M. e YEh , T. “Understanding branches and designing branch predictors for high-performance microprocessors” . Proceedings of the IEEE, nov. 2001.
+ u CRAGOn, h. Branch strategy taxonomy and performance models. Los Alamitos, CA: IEEE Computer Society Press, 1992. v DUBEY , P . e FLYnn, M. “Branch strategies: modeling and optimization” . IEEE Transactions on Computers, out. 1991. w KAELI, D. e EMMA, P . “Branch history table prediction of moving target branches due to subroutine returns” . Proceedings, 18th Annual International Symposium on Computer Architecture, maio 1991.
+ x BREY , B. The Intel microprocessors: 8086/8066, 80186/80188, 80286, 80386, 80486, Pentium, Pentium Pro Processor, Pentium II, Pentium III, Pentium 4 and Core2 with 64-bit extensions. Upper Saddle River, nJ: Prentice hall, 2009.
+ y FOG, A. The microarchitecture of Intel and AMD CPUs. Copenhagen University College of Engineering, 2008. Disponível em: <http://www.agner.org/
+optimize/>.
+Book 1.indb 394 19.11.09 14:39:03
+
+PRInCIPAIS POnTOS
+ Estudos do comportamento de execução dos programas de linguagem 
+de alto nível forneceram um guia para projetar um novo tipo de arquite-tura de processador: computador com conjunto reduzido de instruções (RISC — reduced instructions set computer). As instruções de atribuição pre-
+dominam, sugerindo que os movimentos simples de dados deveriam ser otimizados. Há também muitas instruções IF e LOOP , o que sugere que o mecanismo de controle de sequências subjacentes necessita ser otimiza-do para permitir pipeline efi ciente. Estudos sobre padrões de referência de operando sugerem que deveria ser possível melhorar o desempenho guardando um número moderado de operandos nos registradores. Esses estudos motivaram as principais características das máquinas RISC: 
+(1) um conjunto de instruções limitado com um formato fi xo, (2) um número grande de registradores ou o uso do compilador que otimize o uso de regis-tradores e (3) uma ênfase na otimização do pipeline de instruções. O conjunto de instruções simples de uma máquina RISC leva por si só a 
+um pipeline efi ciente porque há menos operações por instrução e elas são mais previsíveis. Uma arquitetura com conjunto de instruções RISC também leva por si só à técnica de desvio atrasado, na qual instruções de desvio são rearranjadas com outras instruções para melhorar a efi ciência do pipeline.
+Desde o desenvolvimento de computadores que armazenavam progra-mas nos anos 1950, houve consideravelmente poucas inovações ver-
+dadeiras nas áreas de organização e arquitetura de computadores. A seguir, temos alguns dos maiores avanços desde o nascimento do computador: conceito de família: introduzido pela IBM com seu System/360 em 1964, seguido logo depois por DEC com seu PDP-8. O conceito de família se-para a arquitetura de uma máquina da sua implementação. Um conjunto de computadores é oferecido, com características de preço/desempenho diferentes e que apresentam a mesma arquitetura ao usuário. As diferen-ças em preço e desempenho se devem às diferentes implementações da mesma arquitetura.Computadores com conjunto reduzido de instruções 
+(RISC)
+13.1 Características da execução de 
+instruções
+  Operações
+  Operandos
+  Chamadas de procedimento
+  Implicações
+13.2 Uso de um banco grande de 
+registradores
+  Janelas de registradores
+  Variáveis globais
+  Grande banco de registro versus 
+cache
+13.3 Otimização de registradores baseada 
+em compiladores
+13.4 Arquitetura com conjunto reduzido 
+de instruções
+  Por que CISC
+  Características da arquitetura com conjuntos reduzidos de instruções
+  Características CISC versus RISC
+13.5 Pipeline no RISC
+  Pipeline com instruções regulares
+  Otimização de pipeline
+13.6 MIPS R4000
+  Conjunto de instruções
+  Pipeline de instruções
+13.7 SPARC
+  Conjunto de registradores do SPARC
+  Conjunto de instruções
+  Formato da instrução
+13.8 Controvérsia de RISC versus CISC13.9 Leitura r ecomendadaCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 395 19.11.09 14:39:05
+
+396 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+unidade de controle microprogramada  : sugerida por Wilkes em 1951 e introduzida pela IBM na linha 
+S/360 em 1964. A microprogramação facilita a tarefa de projetar e implementar a unidade de controle e 
+fornece suporte para conceito de família.memória cache
+  : introduzida pela primeira vez comercialmente no S/360 Model 85 da IBM em 1968. A inser-
+ção deste elemento na hierarquia de memória melhora o desempenho consideravelmente.pipeline
+  : um meio para introduzir paralelismo na natureza essencialmente sequencial de um programa de 
+instruções de máquina. Exemplos são pipeline de instruções e processamento vetorial.múltiplos processadores
+  : esta categoria cobre um número de organizações e objetivos diferentes.
+Arquitetura de computadores com conjunto de instruções reduzido (RIsc)  : este é o foco deste capítulo.
+A arquitetura RISC é um grande avanço da tendência histórica na arquitetura de processadores. Uma análise da 
+arquitetura RISC traz à tona muitas questões importantes da organização de arquitetura de computadores.
+Embora os sistemas RISC tenham sido defi nidos e projetados de muitas maneiras diferentes e por grupos dife-
+rentes, aqui estão os principais elementos compartilhados pela maioria dos projetos:
+Um grande número de registradores de propósito geral e/ou o uso de tecnologia de compiladores para 
+otimizar uso de registradores.Um conjunto de instruções simples e limitado.
+ 
+Uma ênfase na otimização do pipeline de instruções. 
+A Tabela 13.1 compara vários sistemas RISC e não RISC.Começamos este capítulo com um breve resumo de alguns resultados nos conjuntos de instruções e depois 
+analisamos cada um dos três tópicos que acabamos de mencionar. Segue, depois, uma descrição de dois projetos RISC mais bem documentados.
+13.1 Características da execução de instruções
+Uma das formas mais visíveis da evolução associada a computadores são as linguagens de programação. À 
+medida que o preço de hardware caiu, o custo relativo de software aumentou. Juntamente com isso, a carência 
+crônica de programadores elevou os custos de software em termos absolutos. Assim, o principal custo no ciclo de vida de um sistema é o software, não o hardware. Somado ao custo e à inconveniência, está o elemento da falta 
+Tabela 13.1 Características de alguns processadores CISC, RISC e superescalares
+Computadores com conjuntos de instruções 
+complexos (CISC)Computadores com conjuntos de 
+instruções reduzidos (RISC)Superescalares
+Característica IBM 370/168 VAX 11/780 Intel 80486 SPARC MIPS R4000 Power PC Ultra SPARC MIPS R10000
+Ano de 
+desenvolvimento1973 1978 1989 1987 1991 1993 1996 1996
+Número de 
+instruções208 303 235 69 94 225
+Tamanho de 
+instrução em bytes2–6 2–57 1–11 4 4 4 4 4
+Modos de 
+endereçamento4 22 11 1 1 2 1 1
+Número de 
+registradores 
+de uso geral16 16 8 40–520 32 32 40–520 32
+Tamanho da 
+memória de 
+controle (Kb)420 480 246 — — — — —
+Tamanho da 
+cache (KB)64 64 8 32 128 16–32 32 64
+Book 1.indb 396 19.11.09 14:39:06
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 397
+de confi abilidade: é comum que programas, tanto sistemas como aplicações, continuem a apresentar novas falhas 
+depois de anos de operação.
+A resposta dos pesquisadores e da indústria foi desenvolver linguagens de programação de alto nível ainda 
+mais poderosas e complexas. Essas linguagens de alto nível (HHLs — high level languages) permitem que o progra-
+mador expresse algoritmos de forma mais concisa, cuide de mais detalhes e frequentemente suporte de maneira natural o uso de programação estruturada ou modelagem orientada a objetos.
+Além disso, esta solução trouxe outro problema, conhecido como diferença semântica, a diferença entre ope-
+rações fornecidas em linguagens de alto nível e aquelas fornecidas na arquitetura do computador. Sintomas dessa diferença são suspeitas de incluir inefi ciências da execução, tamanho excessivo do programa de máquina e com-plexidade de compiladores. Os projetistas responderam com arquiteturas voltadas para acabar com essa diferença. Principais recursos incluem grandes conjuntos de instruções, dúzias de modos de endereçamento e várias instru-ções das linguagens de alto nível implementadas no hardware. Um exemplo deste último é a instrução de máquina CASE em VAX. Tais conjuntos de instruções complexos têm a intenção de:
+Facilitar a tarefa do programador de compiladores.
+ 
+Melhorar a efi ciência da execução, porque sequências complexas de operações podem ser implementadas 
+no microcódigo.Fornecer suporte para linguagens de programação de alto nível ainda mais complexas e sofi sticadas.
+ 
+Enquanto isso, um número de estudos foi feito durante anos para determinar as características e padrões de 
+execução das instruções de máquina geradas a partir de programas das linguagens de alto nível. Os resultados des-ses estudos inspiraram alguns pesquisadores a procurar por uma abordagem diferente: mais precisamente, tornar a arquitetura que suporta linguagens de alto nível mais simples, em vez de mais complexa.
+Para entender a linha de raciocínio dos defensores do RISC, começamos com uma breve revisão das caracterís-
+ticas da execução de instruções. Os aspectos de interesse computacional são:
+operações efetuadas
+  : estas determinam as funções a serem efetuadas pelo processador e a sua interação 
+com memória.operandos usados
+  : os tipos de operandos e a frequência do seu uso determinam a organização da me-
+mória para armazená-los e os modos de endereçamento para acessá-los.sequência da execução
+  : isto determina a organização e o controle do pipeline.
+No restante desta seção, resumimos os resultados de uma série de estudos sobre programas das linguagens de 
+alto nível. Todos os resultados são baseados em medições dinâmicas. Isto é, as medições são coletadas executando o programa e contando o número de vezes que algum recurso apareceu ou que alguma propriedade permaneceu verdadeira. Ao contrário disso, medições estáticas apenas fazem essas contagens no código fonte de um programa. Elas não dão nenhuma informação útil sobre desempenho, porque elas não são avaliadas em relação ao número de vezes que cada instrução é executada.
+ Operações
+Uma série de estudos foi feita para analisar o comportamento dos programas de linguagens de programação 
+de alto nível. A Tabela 4.8, discutida no Capítulo 4, inclui os principais resultados de vários estudos. Há uma coerên-cia bastante boa nos resultados dessa mistura de linguagens e aplicações. Instruções de atribuição predominam, sugerindo que a simples movimentação de dados é de alta importância. Há também uma preponderância de instruções condicionais (IF, LOOP). Essas instruções são implementadas na linguagem de máquina com algum tipo de instruções de comparação e desvio. Isso sugere que o mecanismo de controle sequencial do conjunto de instruções é importante.
+Esses resultados são instrutivos para os projetistas das instruções de máquina, indicando que tipo de instruções 
+ocorre com mais frequência e, por isso, deveriam ser suportadas de uma maneira “otimizada” . No entanto, esses resultados não revelam quais instruções usam mais tempo de execução de um programa típico. Isto é, dado um programa compilado na linguagem de máquina, quais instruções na linguagem de origem causam a execução da maioria da instruções na linguagem de máquina?
+Para chegar a informações neste nível, os programas de Patterson ( PATTERSON e SEQUIN , 1982
+a), descritos no 
+Apêndice 4A, foram compilados em VAX, PDP-11 e Motorola 68000 para determinar o número médio de instruções 
+Book 1.indb 397 19.11.09 14:39:06
+
+398 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+de máquina e as referências à memória por tipo de instrução. A segunda e a terceira colunas da Tabela 13.2 mos-
+tram a frequência relativa de ocorrência de várias instruções de linguagens de programação de alto nível em uma variedade de programas; os dados foram obtidos observando as ocorrências nos programas em execução, em vez de observar apenas o número de vezes que as instruções ocorrem no código fonte.
+Estas estatísticas são de frequência dinâmica. Para obter os dados nas colunas quatro e cinco (avaliação das 
+instruções de máquina), cada valor na segunda e terceira coluna é multiplicado pelo número de instruções de máquina produzidas pelo compilador. Esses resultados são então normalizados para que as colunas quatro e cinco mostrem a frequência relativa da ocorrência, com peso sendo atribuído pelo número de instruções de máquina por cada instrução da linguagem de programação de alto nível. De forma semelhante, a sexta e a sétima coluna são obtidas multiplicando-se a frequência de ocorrência de cada tipo de instrução pelo número relativo de referências de memória causadas por cada instrução. Os dados da coluna 4 até a coluna 7 mostram medidas que correspon-dem ao tempo que realmente foi gasto com a execução de vários tipos de instrução. Os resultados sugerem que a chamada/retorno do procedimento é a operação que consome mais tempo em programas típicos das linguagens de programação de alto nível.
+Deve estar claro para o leitor o signifi cado da Tabela 13.2. Ela indica a relação de vários tipos de instrução em 
+uma linguagem de programação de alto nível, quando essa linguagem é compilada para uma arquitetura com um conjunto de instruções atual. Algumas outras arquiteturas poderiam produzir resultados diferentes. No entanto, este estudo produz resultados que são representativos para arquiteturas CISC atuais. Assim, esses resultados podem fornecer um guia para aqueles que estão procurando pelas maneiras mais efi cientes para suportar linguagens de programação de alto nível.
+ Operandos
+Muito menos trabalho foi feito na ocorrência de tipos de operandos, apesar da importância deste tópico. Vários 
+aspectos são signifi cantes.
+O estudo de Patterson e Sequin, que já foi referenciado ( PATTERSON e SEQUIN , 1982a), analisou também a fre-
+quência dinâmica de ocorrência de classes de variáveis (Tabela 13.3). Os resultados, consistentes entre programas C e Pascal, mostram que a maioria das referências é de variáveis escalares simples. Além disso, mais de 80% de es-calares eram variáveis locais (para o procedimento). As referências para vetores/estruturas requerem uma referência prévia para o seu índice ou ponteiro, o qual é novamente um escalar local. Assim, existe uma predominância de referências para escalares, e estas são altamente localizadas.
+O estudo de Patterson analisou o comportamento dinâmico dos programas de linguagens de programação de 
+alto nível, independentemente da arquitetura subjacente. Conforme discutido antes, é necessário lidar com arqui-teturas atuais para examinar o comportamento dos programas mais a fundo. Um estudo ( LUNDE , 1977
+b) analisou 
+as instruções do DEC-10 dinamicamente e concluiu que cada instrução referencia em média 0,5 operandos e 1,4 registradores. Resultados semelhantes são reportados em Huck (1983
+c) para programas C, Pascal e FORTRAN em 
+S/370, PDP-11 e VAX. É claro que essas fi guras dependem muito tanto da arquitetura como do compilador, mas elas ilustram, sim, a frequência de acesso a operandos.
+Ocorrência dinâmica Avaliação das instruções de máquina Avaliação de referências de memória
+Pascal C Pascal C Pascal C
+ATRIBUIÇÃO 45% 38% 13% 13% 14% 15%
+LOOP 5% 3% 42% 32% 33% 26%
+ChAMADA 15% 12% 31% 33% 44% 45%
+IF 29% 43% 11% 21% 7% 13%
+GOTO — 3% — — — —
+OUTROS 6% 1% 3% 1% 2% 1%Tabela 13.2 Frequência dinâmica relativa ponderada das linguagens de programação de alto nível (Patterson e Sequin, 1982a)
+Book 1.indb 398 19.11.09 14:39:07
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 399
+Estes últimos estudos sugerem a importância de uma arquitetura que leve por si só a um acesso rápido aos 
+operandos, porque essa operação é efetuada com muita frequência. O estudo de Patterson sugere que o principal 
+candidato para otimização é o mecanismo para armazenar e acessar variáveis locais escalares.
+ Chamadas de procedimento
+Vimos que as chamadas e os retornos de procedimento são um aspecto dos programas de alto nível. A evidên-
+cia (Tabela 13.2) sugere que essas são as operações que consomem mais tempo em programas compilados de alto nível. Assim, será lucrativo considerar as maneiras para implementar essas operações de forma efi ciente. Dois aspectos são signifi cativos: o número de parâmetros e variáveis com os quais um procedimento lida e a profundi-dade de aninhamento.
+O estudo de Tanenbaum (1978
+d) concluiu que para 98% de procedimentos chamados dinamicamente foram pas-
+sados menos do que seis argumentos e que 92% deles usaram menos do que seis variáveis locais escalares. Resultados semelhantes foram reportados pela equipe RISC de Berkeley ( KATEVENIS , 1983
+e), conforme mostrado na Tabela 13.4. 
+Esses resultados mostram que o número de palavras requeridas por ativação de procedimento não é grande. Os es-tudos reportados anteriormente indicaram que uma grande parte de referências de operandos é para variáveis locais escalares. Esses estudos mostram que essas referências são, na verdade, resumidas a poucas variáveis.
+O mesmo grupo de Berkeley analisou também o padrão de chamadas e retornos de procedimentos em 
+programas de alto nível. Eles concluíram que é raro haver uma grande sequência ininterrupta de chamadas de pro-cedimento seguida pela correspondente sequência de retornos. Em vez disso, eles concluíram que um programa permanece confi nado a uma janela relativamente estreita de profundidade de chamadas de procedimentos. Isso é ilustrado na Figura 4.21, que foi discutida no Capítulo 4. Esses resultados reforçam a conclusão de que referências de operandos são altamente localizadas.
+ Implicações
+Vários grupos analisaram os resultados como os que acabamos de reportar e concluíram que a tentativa de criar 
+uma arquitetura com um conjunto de instruções parecida com as linguagens de programação de alto nível não é a estratégia de projeto mais efi caz. Em vez disso, as linguagens de programação de alto nível podem ser mais bem suportadas com otimização de desempenho de recursos de programas típicos escritos em linguagem de alto nível que consomem mais tempo.Tabela 13.3 Frequência dinâmica de operandos
+Pascal C Média 
+Constante inteira 16% 23% 20%
+Variável escalar 58% 53% 55%
+Array /Estrutura 26% 24% 25%
+Tabela 13.4 Argumentos de procedimentos e variáveis escalares locais
+Percentagem de chamadas de 
+procedimento executadas comCompiladores, interpretadores e editores de texto Pequenos programas não numéricos
+> 3 argumentos 0–7% 0–5%
+> 5 argumentos 0–3% 0 %
+> 8 palavras de argumentos e escalares locais 1–20% 0–6%
+> 12 palavras de argumentos e escalares locais 1–6% 0–3%
+Book 1.indb 399 19.11.09 14:39:08
+
+400 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Generalizando a partir do trabalho de uma série de pesquisadores, surgem três elementos que caracterizam 
+as arquiteturas RISC. Primeiro, o uso de um grande número de registradores ou o uso de um compilador para 
+otimizar uso de registradores. A intenção disso é otimizar referências à operandos. Os estudos que acabamos de discutir mostram que existem várias referências para cada instrução de linguagem de alto nível e que existe uma grande proporção de instruções de movimentação (atribuições). Isso, junto com a localidade e a predominância de referências escalares, sugere que o desempenho pode ser melhorado com redução de referências à memória à custa de mais referências a registradores. Por causa da localidade dessas referências, um conjunto de registradores expandido parece prático.
+Segundo, uma atenção cuidadosa precisa ser dedicada ao projeto de pipelines de instruções. Por causa de alta 
+proporção de instruções de desvio e chamadas de procedimentos, um pipeline de instruções direto não será efi -ciente. Isso se manifesta pela grande proporção de instruções que são obtidas, mas nunca são executadas.
+Finalmente, um conjunto de instruções simplifi cado (reduzido) é indicado. Este ponto não é óbvio como outros, 
+mas se tornará mais claro na discussão seguinte.
+13.2 Uso de um banco grande de registradores
+Os resultados apresentados na Seção 13.1 salientam a conveniência de acesso rápido a operandos. Vimos que 
+existe uma grande proporção de instruções de atribuição em programas de alto nível e muitas delas são do tipo 
+simples A ← B. Também há um número signifi cativo de acessos a operandos por instrução de um programa de alto nível. Se juntarmos esses resultados com o fato de a maioria de acessos ser para escalares locais, então podemos sugerir forte dependência do armazenamento em registradores.
+A razão pela qual o armazenamento em registradores é indicado é que esse é o dispositivo de armazenamento 
+mais rápido disponível, mais rápido que a memória principal e que a cache. O banco de registradores é fi sicamente pequeno, no mesmo chip como a ALU e a unidade de controle, e emprega endereços bem menores do que os en-dereços para memória e cache. Assim, é necessária uma estratégia que irá permitir que operandos acessados mais frequentemente sejam guardados em registradores, minimizando operações registrador-memória.
+Duas abordagens básicas são possíveis, uma baseada em software e outra baseada em hardware. A abordagem 
+em software depende do compilador para maximizar o uso de registradores. O compilador tentará alocar registra-dores para aquelas variáveis que serão mais usadas em um determinado período. Esta abordagem requer o uso de algoritmos sofi sticados para análise de programas. A abordagem de hardware é simplesmente usar mais registra-dores para que mais variáveis possam ser guardadas em registradores por mais tempo.
+Nesta seção discutiremos a abordagem de hardware. Esta abordagem foi primeiramente utilizada pelo grupo 
+RISC de Berkeley (Patterson e Sequin, 1982
+a); foi usada no primeiro produto RISC comercial, Pyramid ( RAGAN-KELLEY 
+e CLARK , 1983f); e é, atualmente, usada na popular arquitetura SPARC.
+ Janelas de registradores
+Em face disto, o uso de um conjunto grande de registradores deveria diminuir a necessidade de acessar a me-
+mória. A tarefa de projeto é organizar os registradores de tal maneira que esse objetivo seja alcançado.
+Como a maioria das referências de operandos é para escalares locais, a abordagem óbvia é armazená-los em re-
+gistradores, com talvez alguns registradores reservados para variáveis globais. O problema é que a defi nição do que é local muda a cada chamada e retorno de procedimento e com operações que ocorrem frequentemente. A cada 
+chamada, variáveis locais precisam ser salvas dos registradores para memória, para que os registradores possam ser reutilizados pelo programa chamado. Além disso, parâmetros precisam ser passados. No retorno, as variáveis do programa-pai devem ser restauradas (carregadas de volta em registradores) e os resultados devem ser passados de volta para o programa-pai.
+A solução é baseada em outros dois resultados vistos na Seção 13.1. Primeiro, um procedimento típico empre-
+ga apenas alguns parâmetros passados e variáveis locais (Tabela 13.4). Segundo, a profundidade da ativação do procedimento fl utua dentro de um intervalo relativamente estreito (Figura 4.21). Para explorar essas propriedades, vários conjuntos pequenos de registradores são usados, sendo cada um atribuído para um procedimento diferente. Uma chamada de procedimento direciona automaticamente o processador para usar uma janela de registradores 
+Book 1.indb 400 19.11.09 14:39:08
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 401
+diferentes e de tamanho fixo, em vez de salvar os registradores na memória. Janelas para procedimentos adjacentes 
+são sobrepostas para permitir passagem de parâmetros.
+O conceito é ilustrado na Figura 13.1. A qualquer momento, apenas uma janela de registradores é visível e 
+endereçável, como se fosse o único conjunto de registradores (por exemplo, endereços de 0 até N – 1). A janela é 
+dividida em três áreas de tamanho fixo. Registradores de parâmetros guardam parâmetros passados a partir do pro-cedimento que chamou o procedimento atual e guardam os resultados a serem passados de volta. Registradores locais são usados para variáveis locais, conforme atribuído pelo compilador. Registradores temporários são usados para trocar parâmetros e resultados com o próximo nível abaixo (procedimentos chamados pelo procedimento atual). Os registradores temporários em um nível são fisicamente os mesmos que os registradores de parâmetro no próximo nível abaixo. Essa sobreposição permite que os parâmetros sejam passados sem o movimento real de dados. Tenha em mente que, exceto para sobreposição, os registradores em dois níveis diferentes são fisicamente distintos. Isto é, os registradores de parâmetros e os registradores locais no nível J são separados dos registradores 
+locais e de parâmetros do nível J + 1.
+Para poder lidar com qualquer padrão possível de chamadas e retornos, o número de janelas de registra-
+dores teria que ser ilimitado. Em vez disso, as janelas de registradores podem ser usadas para guardar algumas ativações de procedimentos mais recentes. Ativações mais antigas têm que ser salvas em memória e restauradas depois — quando a profundidade de aninhamento diminui. Assim, a verdadeira organização do banco de regis-tradores é como um buffer circular de janelas sobrepostas. Dois exemplos importantes desta abordagem são a arquitetura SPARC da SUN, descritas na Seção 13.7, e a arquitetura IA-64 usada no processador Itanium da Intel, descrita no Capítulo 21.
+A organização circular é mostrada na Figura 13.2 que ilustra um buffer circular de seis janelas. O buffer é preen-
+chido até uma profundidade de 4 (A chama B; B chama C; C chama D) com o procedimento estando ativo. O pon-teiro da janela atual (PJA) aponta para a janela do procedimento atualmente ativo. Registradores referenciados por uma instrução de máquina são deslocados por esse ponteiro para determinar o registrador físico atual. O ponteiro da janela salva (PJS) identifica a janela mais recentemente salva na memória. Se o procedimento D agora chamar procedimento E, os argumentos para E são armazenados nos registradores temporários de D (sobreposição entre w3 e w4) e o PJA é avançado por uma janela.
+Se o procedimento E então fizer uma chamada para o procedimento F, a chamada não poderá ser feita com o 
+status atual do buffer. Isso acontece porque janela F sobrepõe janela A. Se F começar a carregar seus registradores temporários, preparatórios para uma chamada, ele irá sobrescrever registradores de parâmetros de A (A.in). Assim, quando PJA é incrementado (módulo 6) e se torna igual a PJS, ocorre uma interrupção e a janela A é salva. Apenas duas primeiras partes (A.in e A.loc) precisam ser salvas. Depois, o PJS é incrementado e o chamado para F procede. Uma interrupção semelhante acontece nos retornos. Por exemplo, subsequente à chamada F, quando B retorna para A, PJA é decrementado e se torna igual ao PJS. Isso causa uma interrupção que resulta em restauração da janela A. 
+Pode-se concluir, com base na explanação anterior, que um arquivo de registradores com N janelas pode guar-
+dar apenas N – 1 ativações de procedimentos. O valor de N não precisa ser grande. Conforme mencionado no 
+Apêndice 4A, um estudo (Tamir e Sequin, 1983
+g) concluiu que, com 8 janelas, salvar ou restaurar torna-se necessário 
+em apenas 1% de chamadas ou retornos. Computadores RISC de Berkeley usam 8 janelas com 16 registradores cada uma. Computadores Pyramid possuem 16 janelas de 32 registradores cada uma.
+Figura 13.1 Sobreposição das janelas de registradores
+Registradores
+de parâmetrosRegistradores
+locaisRegistradores
+temporáriosNível J 
+Registradores
+de parâmetrosChamada/Retorno
+Registradores
+locaisRegistradores
+temporáriosNível J 1 +
+Book 1.indb 401 19.11.09 14:39:09
+
+402 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Variáveis globais
+O esquema de janelas que acabamos de descrever oferece uma organização efi ciente para armazenar variáveis 
+em registradores. No entanto, este esquema não atende à necessidade de armazenar variáveis globais, aquelas 
+acessadas por mais de um procedimento. Duas opções são sugeridas por si só. Primeiro, às variáveis declaradas como globais em uma linguagem de alto nível podem ser atribuídas posições de memória pelo compilador e to-das as instruções de máquina que referenciam essas variáveis usarão operandos referenciados em memória. Isso é bem direto, do ponto de vista de hardware e de software (compilador). No entanto, para variáveis globais acessadas frequentemente, este esquema é inefi ciente.
+Uma alternativa é incorporar um conjunto de registradores globais no processador. Esses registradores se-
+riam em número fi xo e estariam disponíveis para todos os procedimentos. Um esquema uniforme de nume-ração pode ser usado para simplifi car o formato da instrução. Por exemplo, referências para registradores de 0 a 7 poderiam se referir a registradores globais únicos e referências para registradores de 8 a 31 poderiam ser o deslocamento para se referir a registradores físicos na janela atual. Existe uma sobrecarga no hardware para acomodar a divisão no endereçamento de registradores. Além disso, o compilador precisa decidir que variáveis globais devem ser atribuídas aos registradores.
+ Grande banco de registradores versus cache
+O arquivo de registradores, organizado em janelas, age como um pequeno buffer para guardar um 
+subconjunto de variáveis que têm mais probabilidade de ser bastante usadas. Desse ponto de vista, o arquivo de registradores age como uma memória cache, embora uma memória muito mais rápida. A questão que aparece neste ponto é se seria mais simples e melhor usar uma cache ou um banco de registradores pequeno e tradicional.
+A Tabela 13.5 compara as características das duas abordagens. O banco de registradores baseado em janelas 
+guarda todas as variáveis locais escalares (exceto em raros casos de sobrecarga da janela) de N – 1 mais recentes Figura 13.2 Organização do buff er circular de janelas sobrepostas
+Ponteiro da
+janela atualPonteiro
+da janela
+salvaSalvarRestaurar
+A.param
+w0 w1
+w2
+w3 w4w5A.temp =
+B.param
+B.temp =
+C.param
+C.temp =
+D.paramA.loc B.loc
+C.loc
+D.loc (E)(F)
+Chamada
+Retorno
+Book 1.indb 402 19.11.09 14:39:10
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 13 Computadores com conjunto reduzido de instruções 403
+ativações de procedimentos. A cache guarda uma seleção de variáveis escalares recentemente usadas. O arquivo 
+de registradores deveria economizar tempo, porque todas as variáveis locais escalares são mantidas. Por outro lado, a cache pode fazer uso mais eficiente do espaço, porque ela reage dinamicamente a situações. Além disso, a cache geralmente trata todas as referências de memória da mesma forma, incluindo instruções e outros tipos de dados. Assim, salvamentos nessas outras áreas são possíveis com uso de cache e não são possíveis com um arquivo de registradores.
+Um banco de registradores pode fazer uso ineficiente de espaço, porque nem todos os procedimentos vão 
+precisar do espaço inteiro da janela dedicado somente para eles. Por outro lado, a cache sofre de outro tipo de ineficiência: os dados são lidos da cache em blocos. Enquanto o banco de registradores contém apenas as variáveis em uso, a cache lê um bloco de dados do qual uma parte menor ou até maior não será usada.
+A cache é capaz de lidar bem com variáveis globais e locais. Existem normalmente muitos escalares globais, mas 
+apenas alguns deles são muito usados (Katevenis, 1983
+e). A cache descobrirá dinamicamente essas variáveis e irá 
+guardá-las. Se um banco de registradores baseado em janelas for acrescido de registradores globais, ele também pode guardar alguns escalares globais. No entanto, é difícil para um compilador determinar quais variáveis globais serão muito usadas.
+Com banco de registradores, o movimento de dados entre registradores e memória é determinado pela 
+profundidade de aninhamento do procedimento. Como essa profundidade normalmente se encontra dentro de um intervalo pequeno, o uso da memória é relativamente infrequente. A maioria das memórias cache possui tamanho pequeno. Assim, existe o perigo de que outros dados ou instruções sobrescrevam variáveis frequentemente usadas.
+Com base na discussão até agora, a escolha entre um banco grande de registradores baseado em janelas e 
+uma cache não está totalmente clara. No entanto, existe uma característica pela qual a abordagem de registrador é claramente superior e que sugere que um sistema baseado em cache será sensivelmente mais lento. Essa distinção aparece na quantidade de overhead de endereçamento experienciada pelas duas abordagens.
+A Figura 13.3 ilustra a diferença. Para referenciar um escalar local em um arquivo de registradores baseado 
+em janelas, um número de registrador virtual e um número de janela são usados. Esses podem passar por um decodificador relativamente simples para selecionar um dos registradores físicos. Para referenciar uma posição de memória na cache, um endereço de memória de tamanho completo deve ser gerado. A complexidade desta operação depende do modo de endereçamento. Em uma cache associativa por conjunto, uma parte do ende -
+reço é usada para ler um número de palavras e rótulos iguais ao tamanho do conjunto. Outra parte do endereço é comparada com as marcações e uma das palavras que foram lidas é selecionada. Deve estar claro que, mesmo que a cache fosse tão rápida quanto o arquivo de registradores, o tempo de acesso seria consideravelmente maior. Assim, do ponto de vista de desempenho, o banco de registradores baseado em janelas é superior para escalares locais. Outras melhorias de desempenho podem ser alcançados com a adição de uma cache apenas para instruções.Grandes arquivos de registradores Cache
+Todas variáveis locais escalares Variáveis locais recentemente usadas
+Variáveis individuais Blocos de memória
+Variáveis globais assinaladas pelo compilador Variáveis globais recentemente usadas
+Salvar/restaurar baseados na profundidade de aninhamento do procedimento Salvar/restaurar baseado em algoritmos de atualização da cache 
+Endereçamento de registrador Endereço de memóriaTabela 13.5 Características do arquivo grande de registradores e organizações de cache 
+Book 1.indb 403 19.11.09 14:39:11
+
+404 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+13.3 Otimização de registradores baseada em compiladores
+Vamos supor agora que apenas um número pequeno (16 a 32, por exemplo) de registradores esteja disponível 
+na máquina RISC alvo. Neste caso, o uso otimizado de registradores é de responsabilidade do compilador. Um pro-
+grama escrito em uma linguagem de alto nível não possui, obviamente, nenhuma referência explícita a registrado-res. Em vez disso, as grandezas do programa são referenciadas simbolicamente. O objetivo do compilador é guardar os operandos nos registradores durante o máximo de operações possível em vez de usar memória e minimizar operações de carregar-e-armazenar.
+Em geral, a abordagem usada é a seguinte. Cada grandeza do programa que é candidata a residir em um re-
+gistrador é atribuída para um registrador simbólico ou virtual. O compilador, então, mapeia o número ilimitado de registradores simbólicos para um número fi xo de registradores reais. Se, em uma determinada parte do programa, houver mais grandezas para tratar do que registradores reais, então algumas das grandezas são atribuídas para posições de memória. As instruções de carregar-e-armazenar são usadas para posicionar as grandezas nos registra-dores temporariamente para operações computacionais.
+A essência da tarefa de otimização é decidir quais grandezas devem ser atribuídas para registradores em qual-
+quer ponto do programa. A técnica mais comumente usada em compiladores RISC é conhecida como coloração de grafos, uma técnica emprestada da disciplina de topologia ( CHAITIN , 1982
+h, CHOW et al., 1986i, COUTANT , 
+HAMMOND e KELLEY , 1986j, CHOW e HENNESSY , 1990k).
+O problema de coloração de grafos é este: dado um grafo que consiste de nós e bordas, atribuir cores para nós 
+de tal forma que nós adjacentes tenham cores diferentes e que sejam usadas menos cores possíveis. Este problema é adaptado ao problema do compilador da seguinte maneira. Primeiramente, o programa é analisado para construir Figura 13.3 Referenciando um escalar
+Dados
+Decodi/f_icadorInstrução
+Registradores
+(a) Banco de registradores baseado em janelas
+(b) CacheR
+W#
+Instrução
+A
+RótulosDados
+DadosSelecionar Comparar
+Book 1.indb 404 19.11.09 14:39:12
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 405
+um grafo de interferência entre registradores. Os nós do grafo são registradores simbólicos. Se dois registradores sim-
+bólicos estão “vivos” durante o mesmo fragmento do programa, então eles são unidos por uma linha para demonstrar uma interferência. Uma tentativa é feita então para colorir o grafo com n cores, onde n é o número de registradores. 
+Nós que compartilham a mesma cor podem ser atribuídos para o mesmo registrador. Se este processo não completar totalmente, então esses nós que não podem ser coloridos devem ser colocados em memória, e cargas e armazena-mentos devem ser usados para criar espaço para grandezas afetadas quando elas forem necessárias.
+A Figura 13.4 é um exemplo simples do processo. Admita um programa com seis registradores simbólicos para 
+ser compilado em três registradores reais. A Figura 13.4a mostra a sequência de tempo de uso ativo de cada regis-trador simbólico. Linhas horizontais pontilhadas indicam execuções sucessivas de instruções. A Figura 13.4b mostra o grafo de interferência de registradores (sombreamentos e listras são usados no lugar de cores). Uma coloração possível com três cores é mostrada. Como os registradores A e D não interferem, o compilador pode atribuir ambos ao registrador físico R1. De forma semelhante, registradores simbólicos C e E podem ser atribuídos ao registrador R3. Um registrador simbólico, F, é deixado sem cor e deve ser tratado com leitura e escrita em memória.
+Em geral, há uma troca entre o uso de um conjunto grande de registradores e a otimização de registradores baseada 
+em compiladores. Por exemplo, Bradlee, Eggers e Henry (1991
+l) mostram em um estudo que modelou uma arquitetura 
+RISC com recursos similares do Motorola 88000 e do MIPS R2000. Os pesquisadores variaram o número de registrado-res de 16 a 128 e consideraram o uso tanto de registradores de uso geral como de registradores divididos entre uso inteiro e de ponto fl utuante. O seu estudo mostrou que mesmo com uma pequena otimização de registradores, há um benefício pequeno no uso de mais de 64 registradores. Com técnicas de otimização de registradores razoavelmente sofi sticadas, há apenas uma melhoria mínima com mais de 32 registradores. Finalmente, eles observaram que, com um número pequeno de registradores (por exemplo, 16), uma máquina com uma organização de registradores compar-tilhada executa mais rapidamente do que uma com organização dividida. Conclusões semelhantes podem ser tiradas de Huguet e Lang (1991
+m) que reportam um estudo preocupado, em primeiro lugar, com a otimização de um número 
+pequeno de registradores em vez de comparar conjuntos de registradores grandes com técnicas de otimização.
+13.4 Arquitetura com conjunto reduzido de instruções
+Nesta seção analisamos algumas características gerais e as motivações de uma arquitetura com conjunto de ins-
+truções reduzido. Exemplos específi cos serão vistos mais à frente neste capítulo. Começamos com uma discussão sobre motivações para arquitetura atuais com conjuntos de instruções complexas.
+Figura 13.4 Abordagem de coloração de grafos
+A
+R1
+(b) Grafo de interferência de registradores (a) Sequência de tempo do uso ativo de registradoresB
+BCRegistradores simbólicos
+Registradores reaisTempoDE
+EF
+CFA
+DD
+E
+R2 R3
+Book 1.indb 405 19.11.09 14:39:13
+
+406 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Por que CISC
+Observamos a tendência para conjuntos de instruções mais ricos, o que inclui um número maior de instruções e 
+instruções mais complexas. Dois motivos principais motivaram esta tendência: um desejo para simplifi car compila-
+dores e um desejo para melhorar o desempenho. Sob essas duas motivações estava a mudança para linguagens de programação de alto nível por parte dos programadores; projetistas tentaram projetar máquinas que oferecessem melhor suporte para linguagens de programação de alto nível.
+Não é o intuito deste capítulo afi rmar que os projetistas CISC tomaram a direção errada. Na verdade, como a 
+tecnologia continua evoluindo e como as arquiteturas existem dentro de um espectro de categorias muito grande, uma avaliação preto no branco provavelmente nunca existirá. Por isso, os comentários que seguem têm apenas a intenção de identifi car algumas falhas na abordagem CISC e de fornecer algum entendimento da motivação dos adeptos da abordagem RISC.
+O primeiro motivo citado, a simplifi cação do compilador, parece óbvia. A tarefa do programador de compilador 
+é gerar uma sequência de instruções de máquina para cada instrução de uma linguagem de alto nível. Se houver instruções de máquina que se assemelhem às instruções da linguagem de alto nível, esta tarefa será simplifi cada. Esta motivação foi disputada pelos pesquisadores RISC ( HENNESSY et al., 1982 
+n; RADIN , 1983o; PATTERSON e PIEPHO , 1982p). 
+Eles concluíram que instruções de máquina complexas são frequentemente difíceis de serem exploradas porque o compilador precisa encontrar os casos em que essa construção se encaixa perfeitamente. A tarefa de otimizar o códi-go gerado para minimizar o tamanho do código, reduzir o total de execução de instruções e melhorar pipeline é muito mais difícil com um conjunto de instruções complexo. Uma prova disso são os estudos citados anteriormente neste capítulo que indicam que a maioria das instruções em um programa compilado são as relativamente simples.
+Outro motivo importante citado é a expectativa de que um CISC produza programas menores e mais rápidos. Vamos 
+analisar os dois aspectos desta declaração: que os programas serão menores e que executarão mais rapidamente.
+Existem duas vantagens de programas menores. Primeira: como o programa ocupa menos memória, há 
+uma economia nesse recurso. Com a memória hoje em dia ficando cada vez mais em conta, a vantagem potencial não é mais atraente. Mais importante ainda, programas menores devem melhorar o desempenho e isso irá acontecer de duas maneiras. Primeiro, menos instruções significam menos bytes de instruções para serem obtidos. Segundo, em um ambiente de paginação, programas menores ocupam menos páginas, redu-zindo falhas de página.
+O problema com esta linha de raciocínio é que está longe de ser certo que um programa CISC será menor que 
+um programa RISC correspondente. Em muitos casos, o programa CISC expresso na linguagem de máquina sim-bólica pode ser mais curto (ou seja, menos instruções), porém o número de bits de memória ocupados pode não ser notavelmente menor. A Tabela 13.6 mostra os resultados de três estudos que compararam o tamanho de pro-gramas C compilados em uma variedade de máquinas, incluindo RISC I, a qual possui uma arquitetura de conjunto de instruções reduzido. Observe que há pouca ou nenhuma economia ao se usar um CISC no lugar de um RISC. É também interessante observar que o VAX, o qual tinha um conjunto de instruções muito mais complexo do que PDP-11, obtém muito pouca economia em relação a este último. Estes resultados foram confi rmados pelos pesqui-sadores da IBM (Radin, 1983
+o) que concluíram que IBM 801 (um RISC) produzia código que era 0,9 vez o tamanho 
+do código de um IBM S/370. O estudo utilizou uma série de programas PL/I.
+Patterson e Sequin (1982a) 11 programas C Katevenis (1983e) 12 programas C Heath (1984q) 5 programas C
+RISC I 1,0 1,0 1,0
+VAX-11/780 0,8 0,67
+M68000 0,9 0,9
+Z8002 1,2 1,12
+PDP-11/70 0,9 0,71Tabela 13.6 Tamanho de código relativo a RISC I
+Book 1.indb 406 19.11.09 14:39:13
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 407
+Há várias razões para esses resultados tão surpreendentes. Nós já observamos que os compiladores CISC ten-
+dem a favorecer instruções mais simples, de tal forma que a concisão de instruções complexas raramente vem em 
+jogo. Além disso, como existem mais instruções em um CISC, opcodes maiores são necessários, produzindo instru-
+ções maiores. Finalmente, RISC tende a favorecer referências a registrador no lugar da memória, e o primeiro requer menos bits. Um exemplo deste último efeito será discutido em breve.
+Então, a expectativa de que um CISC produza programas menores, com devidas vantagens, pode não se reali-
+zar. O segundo fator da motivação pelos conjuntos de instruções mais complexos era que a execução da instrução seria mais rápida. Parece fazer sentido que uma operação complexa da linguagem de alto nível vai executar mais rapidamente como sendo uma única instrução de máquina em vez de uma série de instruções mais primitivas. No entanto, por causa da tendência do uso dessas instruções mais simples, isso pode não ser verdade. A unidade de controle inteira deve ser feita de forma mais complexa e/ou o controle de armazenamento do microprograma deve ser maior para acomodar um conjunto de instruções mais rico. Cada fator desses aumenta o tempo de execução de instruções simples.
+Na verdade, alguns pesquisadores concluíram que a aceleração da execução de funções complexas se deve não 
+muito ao poder das instruções de máquina complexas, mas sim à sua permanência em memórias de controles de alta velocidade (Radin, 1983
+o). Na realidade, a memória de controle de armazenamento age como uma cache de 
+instruções. Assim, o projetista de hardware está em posição de tentar determinar que sub-rotinas ou funções serão usadas mais frequentemente e atribuí-las à memória do controle de armazenamento implementando-as no micro-código. Os resultados foram menos que encorajadores. Nos sistemas S/390, instruções como Translate and Extended-Precision-Floating-Point-Divide residem em memórias de alta velocidade, enquanto a sequência envolvida em defi nir a chamada do procedimento ou iniciar ou tratar de interrupção estão na memória principal mais lenta.
+Assim, não está nem um pouco claro que uma tendência pelo aumento na complexidade dos conjuntos de 
+instruções seja apropriada. Isso levou vários grupos a seguirem o caminho oposto.
+ Características da arquitetura com conjuntos reduzidos de instruções
+Embora várias abordagens para arquitetura com conjunto reduzido de instruções tenham sido implementadas, 
+algumas características são comuns a todas elas:
+Uma instrução por ciclo. 
+Operações registrador-para-registrador. 
+Modos de endereçamento simples. 
+Formatos de instruções simples. 
+Aqui faremos uma breve discussão sobre essas características. Exemplos específi cos são explorados mais à fren-
+te neste capítulo.
+A primeira característica relacionada é que há uma instrução de máquina por ciclo de máquina. Um ciclo de 
+máquina é defi nido como o tempo necessário para obter dois operandos dos registradores, executar uma opera-
+ção de ALU e armazenar o resultado em um registrador. Assim, as instruções de máquina RISC não deveriam ser mais complicadas do que as microinstruções em máquinas CISC (discutidas na Parte 4) e deveriam executar quase ao mesmo tempo. Com instruções simples de ciclo único, há pouca ou nenhuma necessidade de microcódigo; as instruções de máquina podem ser embutidas no hardware. Tais instruções deveriam executar mais rapidamente do que instruções de máquina comparáveis em outras máquinas, porque não é necessário acessar um microprograma de controle durante a execução da instrução.
+A segunda característica é que a maioria das operações deve ser registrador-para-registrador, com apenas 
+operações simples LOAD e STORE ( CARREGAR e ARMAZENAR ) acessando a memória. Este recurso de projeto sim-
+plifi ca o conjunto de instruções e, portanto, a unidade de controle também. Por exemplo, uma instrução RISC pode incluir apenas uma ou duas instruções ADD (por exemplo, adição inteira, adição com carry); o VAX possui 25 instru-
+ções ADD diferentes. Outro benefício é que uma arquitetura dessas encoraja a otimização do uso de registradores, para que os operandos frequentemente acessados permaneçam em armazenamentos de alta velocidade.
+Esta ênfase em operações registrador-para-registrador é comum em projetos RISC. Máquinas CISC atuais forne-
+cem tais instruções, mas também incluem operações memória-para-memória e operações mistas registrador/me-mória. Tentativas de comparar estas abordagens foram feitas em 1970, antes do surgimento do RISC. A Figura 13.5a 
+Book 1.indb 407 19.11.09 14:39:14
+
+408 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ilustra a abordagem. Arquiteturas hipotéticas evoluíram em tamanho de programas e número de bits de tráfego de 
+memória. Resultados como este levaram um pesquisador a sugerir que futuras arquiteturas não deveriam conter registrador nenhum ( MYERS , 1978
+r). Alguém poderia se perguntar o que ele pensaria naquele tempo da máquina 
+RISC Pyramid uma vez produzida e que tinha não menos do que 528 registradores.
+O que faltava nesses estudos era o reconhecimento do acesso frequente a um número pequeno de escalares locais e 
+que, com um banco grande de registradores ou um compilador otimizado, a maioria dos operandos poderia ser mantida nos registradores por longos períodos. Assim, a Figura 13.5b poderia ser uma comparação mais justa.
+A terceira característica é o uso de modos de endereçamento simples. Quase todas as instruções RISC usam 
+endereçamento de registradores simples. Vários modos adicionais, tais como deslocamento relativo a PC, podem ser incluídos. Outros modos mais complexos podem ser sintetizados pelo software a partir dos mais simples. Novamente, este recurso de projeto simplifica o conjunto de instruções e a unidade de controle.
+A característica comum final é o uso de formatos de instruções simples. Geralmente, apenas um ou alguns pou-
+cos formatos são usados. O tamanho da instrução é fixo e ajustado dentro do limite da palavra. A posição de campos, especialmente o opcode, é fixa. Este recurso tem uma série de benefícios. Com campos fixos, decodificação de opco -
+de e o acesso a registradores de operandos podem ocorrer ao mesmo tempo. Formatos simples simplificam a unida-de de controle. A leitura de instruções é otimizada porque são obtidas unidades do tamanho da palavra são obtidas. Esse ajuste a limites da palavra significa também que uma única instrução não ultrapassa os limites da página.
+Consideradas juntas, estas características podem ser avaliadas para determinar os benefícios potenciais de de-
+sempenho da abordagem RISC. Certa quantidade de “evidência circunstancial” pode ser demonstrada. Primeiro, compiladores com otimização mais eficientes podem ser desenvolvidos. Com instruções mais primitivas, existem mais oportunidades para mover funções fora dos laços de repetição, reorganizar o código visando à eficiência, ma-ximizando o uso de registradores e assim por diante. É até possível computar partes das instruções complexas em tempo de compilação. Por exemplo, a instrução Mover Caracteres (MVC) do S/390 move uma cadeia de caracteres de uma posição para outra. Cada vez que ela é executada, o movimento vai depender do tamanho da cadeia, se e em qual direção as posições se sobrepõem e quais são as características do alinhamento. Na maioria dos casos, todas essas situações serão conhecidas em tempo de compilação. Assim, o compilador poderia produzir uma se-quência otimizada de instruções primitivas para essa função.
+Figura 13.5 Duas comparações de abordagens registrador-para-registrador e memória-para-memória
+Add8
+B16
+C16
+A16
+Add8
+B16
+C16
+A16Memória para memória
+I 56, D 96, M 152
+Memória para memória
+I 168, D 288, M 456
+I = número de bytes ocupado pelas instruções executadas
+D = número de bytes ocupados pelos dadosM = tráfego de memória total = I + DRegistrador para memória
+I 
+ 60, D 0, M 60Registrador para memória
+I 104, D 96, M 200Load
+Load
+Add
+Add
+AddStoreRB
+RB
+RBRBRC
+RC
+RCRCB
+B
+AR
+A
+RA
+RA
+Sub RD RB RDR
+A84
+48 4 416
+(a) A C
+(b) A B C; B A C; D D BAdd A C B
+Sub B D DB 
+Book 1.indb 408 19.11.09 14:39:14
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 13 Computadores com conjunto reduzido de instruções 409
+Um segundo ponto já observado é que a maioria de instruções geradas por um compilador são relativamen-
+te simples. Parece razoável que uma unidade de controle construída especialmente para essas instruções com 
+uso de pouco ou nenhum microcódigo possa executá-las mais rapidamente do que um CISC comparável.
+Um terceiro ponto tem a ver com o uso de pipeline de instruções. Os pesquisadores RISC acharam que a técnica 
+de pipeline de instruções pode ser aplicada muito mais efi cientemente com um conjunto de instruções reduzido. Nós analisamos este ponto em mais detalhes daqui a pouco.
+Um último ponto, e de certa forma menos signifi cativo, indica que os processadores RISC respondem melhor às 
+interrupções porque estas são verifi cadas entre operações elementares. As arquiteturas com instruções complexas ou restringem interrupções aos limites da instrução ou precisam defi nir pontos de interrupção especiais e imple-mentar mecanismos para reiniciar a instrução.
+As vantagens para um desempenho melhorado estão do lado da arquitetura de conjunto reduzido de instru-
+ções, mas talvez alguém ainda poderia ter um argumento para o CISC. Um número de estudos tem sido feito, mas não em máquinas de tecnologia e potência comparáveis. Além disso, a maioria desses estudos não tentou separar os efeitos de um conjunto reduzido de instruções e os efeitos de um banco grande de registradores. “A prova cir-cunstancial” , no entanto, é sugestiva.
+ Características CISC versus RISC
+Depois do entusiasmo inicial pelas máquinas RISC, houve uma entendimento crescente de que: (1) o projeto 
+RISC pode se benefi ciar da inclusão de alguns recursos CISC e (2) o projeto CISC pode se benefi ciar da inclusão de 
+alguns recursos RISC. O resultado é que os projetos RISC mais recentes, notavelmente o PowerPC, não são mais “puramente” RISC, e os projetos CISC mais recentes, notavelmente Pentium II e últimos modelos do Pentium, incor-poram de fato algumas características RISC.
+Uma comparação interessante em Mashey (1995
+s) fornece algum esclarecimento sobre essa questão. A Tabela 13.7 
+mostra uma série de processadores e os compara por uma série de características. Para os propósitos desta compa-ração, os seguintes itens são considerados típicos de um RISC clássico:
+1. Um tamanho único de instrução.
+2. O tamanho é normalmente de 4 bytes.
+3. Um número menor de modos de endereçamento, normalmente menos de cinco. Este parâmetro é difícil de determinar. Na tabela, modos literais e de registradores não são contados e formatos diferentes com tama-nhos de off set diferentes são contados separadamente.
+4. Nenhum endereçamento indireto que requer um acesso à memória para obter o endereço de um operando na memória.
+5. Nenhuma operação que combina leitura/escrita com aritmética (por exemplo, adicionar da memória, adi-cionar para memória).
+6. Não mais do que um operando endereçado em memória por instrução.
+7. Não suporta alinhamento arbitrário de dados para operações de leitura/escrita.
+8. Número máximo de usos da unidade de gerenciamento de memória (MMU) para um endereço de dados em uma instrução.
+9. Número de bits para especifi cadores registradores inteiros igual a cinco ou mais. Isto signifi ca que ao menos 32 registradores inteiros podem ser explicitamente referenciados em um momento.
+10. Número de bits para especifi cadores de registradores de ponto fl utuante igual a quatro ou mais. Isto signi-fi ca que ao menos 16 registradores de ponto fl utuante podem ser referenciados explicitamente em um momento.
+Os itens de 1 a 3 são uma indicação da complexidade de decodifi cação da instrução. Os itens 4 a 8 sugerem a 
+facilidade ou difi culdade de pipeline, especialmente na presença de requisitos da memória virtual. Os itens 9 e 10 são relacionados à habilidade para obter uma boa vantagem dos compiladores.
+Os primeiros oito processadores da tabela são claramente arquiteturas RISC, os próximos 5 são claramente 
+CISC e os dois últimos são processadores frequentemente pensados como RISC que possuem muitas caracte-rísticas CISC.
+Book 1.indb 409 19.11.09 14:39:15

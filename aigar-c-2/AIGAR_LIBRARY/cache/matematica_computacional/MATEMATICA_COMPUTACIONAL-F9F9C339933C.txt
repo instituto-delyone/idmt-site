@@ -1,0 +1,1013 @@
+Matemática Computacional
+Adérito Luís Martins Araújo
+Notas de apoio às aulas de Matemática Computacional do Mestrado
+Integrado em Engenharia Electrotécnica e de Computadores, no ano
+lectivo de 2017/2018.
+
+Figura da capa: Documento jurídico sumério YBC 3879,
+do período Ur III (c. 2100 a.C. – c. 2000 a.C.), onde é
+descrito um algoritmo geométrico para determinar as
+soluções de equações quadráticas. Fonte:
+cdli.ucla.edu/pubs/cdlj/2009/cdlj2009_003.html.
+
+Conteúdo
+1 Aritmética computacional 1
+1.1 Erros absolutos e relativos . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.2 Erros de arredondamento e truncatura . . . . . . . . . . . . . . . . . . . . . 5
+1.3 O polinómio de Taylor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+1.4 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+2 Sistemas de equações lineares 13
+2.1 Classes de matrizes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+2.2 Métodos directos: revisão . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+2.3 Normas de matrizes. Condicionamento . . . . . . . . . . . . . . . . . . . . . 17
+2.4 Métodos iterativos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+2.5 Convergência dos métodos iterativos . . . . . . . . . . . . . . . . . . . . . . 23
+2.6 O método dos mínimos quadrados . . . . . . . . . . . . . . . . . . . . . . . 26
+2.7 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+2.7.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 32
+2.7.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 42
+3 Valores próprios e valores singulares 43
+3.1 Método da potência . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+3.2 Cálculo de todos os valores próprios . . . . . . . . . . . . . . . . . . . . . . 46
+3.3 Decomposição em valores singulares . . . . . . . . . . . . . . . . . . . . . . 47
+3.4 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+3.4.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 51
+3.4.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 54
+4 Equações não lineares 55
+4.1 Métodos iterativos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 56
+4.2 Determinação da aproximação inicial . . . . . . . . . . . . . . . . . . . . . . 57
+4.3 Método da bissecção . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+4.4 Método de Newton . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+4.5 Método do ponto ﬁxo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+4.6 Equações algébricas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+4.6.1 Algoritmo de Hörner . . . . . . . . . . . . . . . . . . . . . . . . . . . 74
+4.6.2 O método de Newton-Hörner . . . . . . . . . . . . . . . . . . . . . . 75
+4.7 Sistemas de equações não lineares . . . . . . . . . . . . . . . . . . . . . . . . 76
+4.8 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 80
+4.8.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 80
+4.8.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 86
+i
+
+ii
+5 Interpolação 89
+5.1 Interpolação polinomial de Lagrange . . . . . . . . . . . . . . . . . . . . . . 89
+5.1.1 Existência e unicidade. Fórmula de Lagrange . . . . . . . . . . . . . 90
+5.1.2 Erro de interpolação . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+5.1.3 Fórmula de Newton . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+5.2 Interpolação de Chebyshev . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+5.3 Interpolação trigonométrica e FFT . . . . . . . . . . . . . . . . . . . . . . . 102
+5.4 Interpolação seccionalmente linear . . . . . . . . . . . . . . . . . . . . . . . 104
+5.5 Interpolação de Hermite . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 105
+5.5.1 Interpolação segmentada de Hermite . . . . . . . . . . . . . . . . . . 107
+5.5.2 Polinómio interpolador de Hermite e diferenças divididas . . . . . . . 108
+5.6 Aproximação por funções splinecúbicas . . . . . . . . . . . . . . . . . . . . 109
+5.7 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111
+5.7.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 111
+5.7.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 117
+6 Derivação e integração numérica 121
+6.1 Derivação numérica . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121
+6.1.1 Aproximação da primeira derivada . . . . . . . . . . . . . . . . . . . 121
+6.1.2 Aproximação da segunda derivada . . . . . . . . . . . . . . . . . . . 124
+6.2 Integração numérica . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+6.2.1 Fórmula do ponto médio . . . . . . . . . . . . . . . . . . . . . . . . . 125
+6.2.2 Fórmula do trapézio . . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+6.2.3 Fórmula de Simpson . . . . . . . . . . . . . . . . . . . . . . . . . . . 129
+6.3 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132
+6.3.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 132
+6.3.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 138
+7 Equações diferenciais ordinárias 141
+7.1 O problema de Cauchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141
+7.2 Métodos numéricos para o problema de Cauchy . . . . . . . . . . . . . . . . 144
+7.2.1 Métodos baseados na série de Taylor . . . . . . . . . . . . . . . . . . 145
+7.2.2 Métodos de passo único implícitos . . . . . . . . . . . . . . . . . . . 147
+7.3 Estudo do erro . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148
+7.4 Estabilidade absoluta . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152
+7.5 Sistemas de equações diferenciais . . . . . . . . . . . . . . . . . . . . . . . . 153
+7.6 Métodos de Runge-Kutta . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+7.7 Problemas com condições de fronteira . . . . . . . . . . . . . . . . . . . . . 160
+7.8 Método das diferenças ﬁnitas . . . . . . . . . . . . . . . . . . . . . . . . . . 161
+7.8.1 Caso linear . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161
+7.8.2 Caso não linear . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 164
+7.9 Problemas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 165
+7.9.1 Exercícios para resolver nas aulas . . . . . . . . . . . . . . . . . . . . 165
+7.9.2 Exercícios de aplicação à engenharia . . . . . . . . . . . . . . . . . . 169
+A Projectos 175
+
+Capítulo 1
+Aritmética computacional
+Aanálise numérica é a disciplina da matemática que se ocupa da elaboração e estudo de
+métodos que permitem obter, de forma efectiva , soluções numéricas para problemas mate-
+máticos, quando, por uma qualquer razão, não podemos ou não desejamos usar métodos
+analíticos.
+Para perceber melhor o que se pretende dizer por de forma efectiva , consideremos o
+problema do cálculo do determinante. Como é sabido, o determinante de uma matriz
+quadradaA= (aij)n
+i;j=1é dado pela expressão
+det (A) =X
+a1i1anin;
+onde a soma é efectuada sobre todas as n!permutações (i1;:::;in)dos números 1;2;:::;n.
+Esta fórmula teórica só permite o cálculo efectivodo determinante se a dimensão da matriz
+for muito pequena. Por exemplo, se n= 25o número de permutações possíveis é superior
+a 15 quatriliões (como é que se escreve este número?)! Se possuirmos uma máquina que
+calcule cada termo da expressão anterior num bilionésimo de segundo (coisa que nem
+remotamente os actuais computadores conseguem fazer), para calcular todas as parcelas
+necessitamos de 15 biliões de segundos, ou seja 400.000 anos!
+Os problemas que a análise numérica pretende dar solução são geralmente originários
+das ciências naturais e sociais, da engenharia, das ﬁnanças, e, como foi dito, não podem,
+geralmente, ser resolvidos por processos analíticos.
+Um dos primeiros e mais importantes modelos matemáticos para problemas da física
+foi estabelecido por Isaac Newton (1643-1729) para descrever o efeito da gravidade. De
+acordo com esse modelo, a força da gravidade exercida pela Terra num corpo de massa m
+tem a magnitude
+F=Gmmt
+d2;
+ondemtéamassadaTerra, dadistânciaentreoscentrosdosdoiscorpose Gaconstantede
+gravitação universal. O modelo de Newton para a gravitação universal conduziu a ciência
+à formulação de muitos problemas cuja solução só pode ser obtida de forma aproximada,
+usualmente envolvendo a solução numérica de equações diferenciais.
+Exemplo 1.1 (Problema dos três corpos) O problema dos três corpos consiste em de-
+terminar quais são os comportamentos possíveis de um sistema constituído por três corpos que
+interagem entre si através de uma força gravitacional newtoniana. Este problema não é difícil
+de pôr em equação e os espectaculares êxitos da mecânica clássica dos ﬁnais do século XIX
+sugeriam que a sua resolução, de interesse aparentemente académico, fosse uma questão de
+1
+
+Aritmética computacional 2
+tempo; o facto de não ser possível realizar os cálculos podia passar de mero detalhe técnico.
+Aﬁnal de contas, o problema dos dois corpos (isto é, dois corpos que interagem por via da força
+gravitacional, como a Terra e o Sol) tinha uma solução muito simples, que era estudada no
+primeiro ano das universidades. O facto é que a solução analítica deste problema é impossível
+de obter! Resta-nos assim recorrer à solução numérica.
+O estabelecimento das várias leis da física permitiu aos matemáticos e aos físicos obter
+modelos para a mecânica dos sólidos e dos ﬂuidos. As engenharias mecânica e civil usam
+esses modelos como sendo a base para os mais modernos trabalhos em dinânica dos ﬂuidos
+e em estruturas sólidas, e a análise numérica tornou-se uma ferramenta essencial para todos
+aqueles que pretendem efectuar investigação nessas áreas da engenharia. Por exemplo, a
+construção de estruturas modernas faz uso do chamado método dos elementos ﬁnitos para
+resolver as equações com derivadas parciais associadas ao modelo; a dinâmica dos ﬂuidos
+computacional é actualmente uma ferramenta fundamental para, por exemplo, desenhar
+aviões; a elaboração de novos materiais é outro assunto que recorre, de forma intensa, a
+algoritmos numéricos. A análise numérica é pois uma área que tem assumido crescente
+importância no contexto das ciências da engenharia.
+No processo de resolução de um problema físico podemos distinguir várias fases.
+1.Formulação de um modelo matemático que descreve uma situação real . Tal formula-
+ção pode ser feita recorrendo a (sistemas de) equações algébricas, transcendentes,
+integrais, diferenciais, etc. É necessário ter muito cuidado nesta fase uma vez que a
+grande complexidade dos problemas físicos pode-nos obrigar a fazer simpliﬁcações no
+modelo, simpliﬁcações essas que não devem alterar grandemente o comportamento
+da solução.
+2.Obtenção de um método numérico que permite construir uma solução aproximada para
+o problema . Um método numérico que possa ser usado para resolver o problema é
+traduzido por algoritmo que não é mais do que um completo e não ambíguo conjunto
+de passos que conduzem à solução do problema. Esta fase constitui o cerne da análise
+numérica. Dado um determinado método numérico, temos necessidade de saber em
+que condições as soluções por ele obtidas convergem para a solução exacta; em que
+medida pequenos erros de arredondadmento (e outros) poderão afectar a solução
+ﬁnal; qual o grau de precisão da solução aproximada obtida, etc.
+3.Programação automática do algoritmo. Nesta fase teremos necessidade de recorrer a
+uma linguagem de programação como o Fortran, o Pascal, o C++, entre outras. Mais
+recentemente é usual o recurso a programas como o Mathematica ou o Matlab.
+Os algoritmos numéricos são quase tão antigos quanto a civilização humana. Os babi-
+lónios, vinte séculos antes de Cristo, já possuiam tabelas de quadrados de todos os inteiros
+entre 1 e 60. Os egípcios, que já usavam fracções, inventaram o chamado método da falsa
+posiçãopara aproximar as raízes de uma equação. Esse método encontra-se descrito no
+papiro de Rhind , cerca de 1650 anos antes da era cristã.
+Na Grécia antiga muitos foram os matemáticos que deram contributos para o impulso
+desta disciplina. Por exemplo, Arquimedes de Siracusa (278-212, a.C.) mostrou que
+310
+71<< 31
+7
+eapresentouochamado métododaexaustão paracalcularcomprimentos, áreasevolumesde
+ﬁguras geométricas. Este método, quando usado como método para calcular aproximações,
+
+Aritmética computacional 3
+está muito próximo do que hoje se faz em análise numérica; por outro lado, foi também
+um importante precursor do desenvolvimento do cálculo integral por Newton e Gottfried
+Wilhelm von Leibniz (1646-1716).
+Heron de Alexandria (10-75), no século I, deduziu um procedimento para determinarpada forma (como deduzir este método?)
+x(n+1)=1
+2
+x(n)+a
+x(n)
+:
+No ano 250, Diofanto de Alexandria (200-284) obteve um processo para a determinação
+das soluções de uma equação quadrática. Durante a Idade Média, os grandes contributos
+para o desenvolvimento da matemática algorítmica vieram, sobretudo, do médio oriente,
+Índia e China. O contributo maior foi, sem dúvida, a simpliﬁcação introduzida com a
+chamada numeração indo-árabe.
+O aparecimento do cálculo e a criação dos logaritmos, no século XVII, vieram dar um
+grande impulso ao desenvolvimento de procedimentos numéricos. Os novos modelos mate-
+máticospropostosnãopodiamserresolvidosdeformaexplícitaeassimtornava-seimperioso
+o desenvolvimento de métodos numéricos para obter soluções aproximadas. O próprio
+Newton criou vários métodos numéricos para a resolução de muitos problemas, métodos
+esses que possuem, hoje, o seu nome. Tal como Newton, muitos vultos da matemática
+dos séculos XVIII e XIX trabalharam na construção de métodos numéricos. De entre eles
+podemos destacar Leonhard Euler (1707-1783), Joseph-Louis Lagrange (1736-1813) e Johann
+Carl Friedrich Gauss (1777-1875).
+Foi, no entanto, o aparecimento, na década de 40 do século XX, dos primeiros compu-
+tadores que contribuiu decisivamente para o forte desenvolvimento da disciplina. Apesar
+de tanto Blaise Pascal (1623-1662) como Leibniz terem construído, já no séc. XVII, as
+primeiras máquinas de calcular e de Charles Babbage (1791-1871), milionário inglês, ter
+construído o que é considerado o primeiro computador (nunca funcionou!), foi apenas com
+o aparecimento do ENIAC, nos anos 40, que a ciência usufruiu, de facto, desses dispositivos
+de cálculo.
+1.1 Erros absolutos e relativos
+O processo de resolução numérica de um problema passa sempre pela substituição de um
+problema difícil para um problema mais simples que tenha a mesma solução ou, pelo me-
+nos, uma solução que se relaciona intimamente com a do problema original. As soluções
+numéricas são, por isso, aproximações dos resultados pretendidos. Os motivos para con-
+siderar essas aproximação podem ser de vária ordem e a precisão da solução ﬁnal reﬂecte
+todo esse processo. Também há que ter em conta a incerteza nos dados iniciais, assim
+como as perturbações efectuadas ao longo dos cálculos, que podem ser ampliﬁcadas pelo
+algoritmo.
+Exemplo 1.2 Pretende-se calcular a superície terrestre pela fórmula A= 4r2:Este processo
+involve uma aproximação. Primeiro, a Terra não é uma esfera. A esfera é uma idealização da
+sua verdadeira forma. Depois, o valor do raio da Terra é baseado em medições empíricas e
+cálculos anteriores. O valor de requer a truncatura de um processo inﬁnito. Finalmente, os
+valores dos dados iniciais e os resultados das operações aritméticas são arredondados durante
+os cálculos no computador.
+O exemplo anterior mostra que a introdução de erros num determinado processo de
+cálculo pode ter várias causas. É nosso objectivo analisar quais são essas causas e estudar
+
+Aritmética computacional 4
+mecanismos que nos permitam determinar limites superiores para os erros obtidos no ﬁnal
+do processo de cálculo.
+Deﬁnição 1.1 (Erro) Sejax2Rnum vector cujas componentes são desconhecidas e x2
+Rnum vector cujas componentes são aproximações para as componentes correspondentes
+dex. Chama-se errodex(como aproximação a x), e representa-se por e(x), à quantidade
+e(x) =xx:
+Na prática, o valor do erro é usado, geralmente, em norma. No caso real ( n= 1), por
+exemplo, para a maioria dos problemas, não é relevante saber se o erro foi cometido por
+defeito ou por excesso. Vamos, então relembrar o conceito de norma vectorial.
+Deﬁnição 1.2 (Norma) SejaEum espaço vectorial (real ou complexo). A aplicação
+kk:E!R+
+0que veriﬁca
+1.8x2E;kxk= 0,x= 0;
+2.8x2E;82R(ouC);kxk=jjkxk;
+3.8x;y2E;kx+ykkxk+kyk;
+é designada por norma.
+Como consequência da propriedade 3da deﬁnição anterior temos
+kuk=kuv+vkkuvk+kvk
+e, portanto,kukkvkkuvk. Por outro lado, kuk+kvkkuvke, como tal,
+jkukkvkjkuvk:
+Existem várias funções que veriﬁcam as três propriedades das normas vectoriais. Entre
+elas destacam-se as dadas no próximo exercício.
+Exercício 1.1 Prove que as funções seguintes são normas em Rn:
+ kxk1=nX
+i=1jxij;(norma um);
+ kxk2=vuutnX
+i=1jxij2;(norma euclidiana);
+ kxk1= max
+i=1;:::;njxij;(norma do máximo).
+A norma do máximo é também chamada norma de Pafnuty Lvovich Chebyshev (1821-1894).
+Dado um vector x2Rn, prova-se facilmente que kxk1kxk2kxk1. No entanto,
+também é possível provar que kxk1pnkxk2,kxk2pnkxk1,kxk1nkxk1. Isto
+signiﬁca que, ﬁxado n, as diferentes normas diferem apenas numa constante multiplicativa
+e, como nesse sentido, dizem-se normas equivalentes : se uma delas se torna pequena, todas
+as outras serão proporcionalmente pequenas.
+Vamos agora introduzir os conceitos de erro absoluto e relativo.
+
+Aritmética computacional 5
+Deﬁnição 1.3 (Erro absoluto) Sejax2Rnum vector cujas componentes são desco-
+nhecidas e x2Rnum vector cujas componentes são aproximações para as componentes
+correspondentes de x. Chama-se erro absoluto dexà quantidadeke(x)k:
+Deﬁnição 1.4 (Erro relativo) Sejax2Rn,x6= 0, um vector cujas componentes são
+desconhecidas e x2Rnum vector cujas componentes são aproximações para as compo-
+nentes correspondentes de x. Chama-se erro relativo dex, e representa-se por r(x), à
+quantidade
+r(x) =ke(x)k=kxk:
+Como na deﬁnição de erro relativo o valor de xnão é conhecido, é usual considerar a
+aproximação r(x)ke(x)k=kxk. Melhor ainda, atendendo a que
+kxkjkxkke(x)kj;
+podemos considerar o majorante
+r(x)ke(x)k
+jkxkke(x)kj:
+O erro relativo, atendendo a que é uma quantidade adimensionada, é muitas vezes
+representado sob a forma de percentagem. Note-se também que o erro relativo nos dá uma
+maior informação quanto à precisão da aproximação que o erro absoluto.
+É com base nas deﬁnições de erro absoluto e erro relativo que iremos analisar os re-
+sultados numéricos que aparecerão como aproximações a valores que não conhecemos com
+exactidão. Suponhamos que pretendemos calcular o valor de uma função F:Rn!Rm
+para um dado argumento vectorial x2Rn(valor exacto). O valor desejado é, pois, F(x).
+No entanto, o que realmente é calculado é o valor de F(x), ondexé o vector das aproxi-
+mações eFé a aproximação à função, o algoritmo . Assim, o erro total é dado por
+F(x)F(x) =F(x)F(x)|{z}
+erro computacional+F(x)F(x)|{z}
+erro de propagação:
+O algoritmo não tem qualquer inﬂuência nos erros de propagação. Apenas inﬂuencia
+os erros computacionais, que são a soma dos erros de arredondamento com os erros de
+truncatura.
+1.2 Erros de arredondamento e truncatura
+Os dados de um determinado problema podem estar à partida afectados de imprecisões
+resultantes de medições incorrectas. Note-se que a escala de um instrumento de medição
+nos dá uma possibilidade de saber um limite superior para o erro com que vêm afectados os
+valores medidos. Por exemplo, com uma régua usual, a medição de uma distância de 2mm
+pode vir afectada com um erro de 0;5mm o que dá um erro relativo de 25%. Outra causa
+de erro resulta das simpliﬁcações impostas ao modelo matemático usado para descrever
+um determinado fenómeno físico. Por exemplo, é usual considerar que, para um dada
+problema, não há perdas de calor, o atrito é nulo, etc. Este tipo de erros fogem ao controlo
+do analista numérico e são muito difíceis de quantiﬁcar.
+
+Aritmética computacional 6
+O aspecto que vamos agora analisar tem a ver com os erros que resultam da forma
+como representamos os números reais. O conjunto dos números reais Rnão pode ser
+representado numa máquina de precisão ﬁnita. Numa máquina só é possível representar
+um seu subconjunto ﬁnito F. Os números desse conjunto Fsão chamados números de vírgula
+ﬂutuante. Um número real xé geralmente truncado pela máquina dando origem a um novo
+número que (número de vírgula ﬂutuante), que se designa por ﬂ (x). Em geral, x6=ﬂ(x).
+Além disso, podemos ter x16=x2e ﬂ(xi) =ﬂ(x2).
+Usualmente, um computador guarda um número real na forma
+x= (1)s(0;a1a2:::at)e= (1)smet; a 16= 0; (1.1)
+ondesé 0 ou 1, conforme o sinaldex,, inteiro positivo maior ou igual a 2, é a base
+adoptada pelo computador especíﬁco em que estamos a trabalhar, mé um inteiro chamado
+mantissa, cujo comprimento té o número máximo de algarismos armazenados ai, com
+0ai1, eeum número inteiro chamado expoente. Os dígitos a1a2:::ap, compt,
+são chamados os pprimeiros algarismos signiﬁcativos dex.
+O conjunto Fﬁca completamente caracterizado à custa de 4 parâmetros: a base ,
+número de algarismos signiﬁcativos t, e o intervalo de variação do expoente e, designado
+por]L;U[, comL < 0eU > 0. Escrevemos então F(;t;L;U ). Em Matlab temos F=
+F(2;53;1021;1024). Note-se que, 53 algarismos signiﬁcativos em base 2 correspondem a
+15 algarismos signiﬁcativos em base 10.
+Para perceber melhor o que está em causa, consideremos, por exemplo, o número
+x= 123;9346. Este número não tem representação numa máquina de base decimal cuja
+mantissa só permita armazenar 6dígitos. Temos assim necessidade de o aproximar por um
+outro que possa ser representado na referida máquina. Essa aproximação vai ser efectuada
+por um processo conhecido por arredondamento .
+A forma de arredondar um número real é a usual. Como tal
+x= 123;9346123;935 =x;
+e este novo valor já tem representação na máquina que estamos a usar sob a forma
+0;123935102.
+Note-se que o arredondamento foi efectuado na terceira casa decimal e que
+je(x)j=jxxj= 0;0004<0;5103;
+r(x) =je(x)j
+jxj3;23106<5106:
+Se o arredondamento tivesse sido efectuado na segunda casa decimal vinha
+x= 123;9346123;93 =x;
+e assim
+je(x)j= 0;0045<0;5102;
+r(x) =je(x)j
+jxj3;63105<5105:
+Daqui resultam as seguintes deﬁnições.
+
+Aritmética computacional 7
+Deﬁnição 1.5 (Casa decimal correcta) Sejax2Ruma aproximação para x2R.
+Diz-se quextemkcasas decimais correctas se e só seje(x)j0;510k:
+Deﬁnição 1.6 (Algarismo signiﬁcativo correcto) Sejax2Ruma aproximação para
+x2R. Diz-se que xtemkalgarismos signiﬁcativos correctos se e só ser(x)<510k:
+Note-se que estas deﬁnições surgem por forma a que todo o número obtido a partir
+de um valor exacto por conveniente arredondamento tenha todas as suas casas decimais e
+todos os seus algarismos signiﬁcativos correctos.
+Consideremos, de novo, a máquina F=F(;t;L;U ). O erro que se comete na aproxi-
+maçãoxﬂ(x)é pequeno. Ele é dado por
+jxﬂ(x)j
+jxj0;5M;
+ondeM=1trepresenta o zero da máquina e é deﬁnido como sendo o menor número que
+pode ser representado satisfazendo a
+(1 +M)>1:
+Assim, uma máquina é tanto mais precisa quanto menor for o seu zero. Em Matlab, o
+valor deMpode ser obtido com o comando epse tem-seM= 2522:221016.
+Notemos que, uma vez que a16= 0em (1.1), o 0 não pertende a F. Por outro lado, não
+é possível representar números arbitrariamente grandes ou arbitrariamente pequenos uma
+vez queLeUsão ﬁnitos. O menor e o maior real positivo de Fsão dados, respectivamente,
+por
+xmin=L1; xmax=U(1t):
+Em Matlab estes valores podem ser obidos através dos comandos realmin erealmax. Um
+número positivo menor que xminproduz uma mensagem de underﬂow ; um número positivo
+maior quexmaxproduz uma mensagem de overﬂowe armazena-se, em Matlab, na variável
+Inf.
+Os elementos de Fsão mais densos próximos de xmine menos densos quando se apro-
+ximam dexmax. O que se mantém constante é a distância relativa entre os números.
+Finalmente, interessa observar que em Fnão existem formas indeterminadas como 0=0
+ou1=1. Elas produzem o que se chama um not a number , denotado por NaNem Matlab.
+Um problema sério a ter em conta em aritmética de vírgula ﬂutuante é o chamado
+cancelamento subtractivo que ocorre, normalmente, quando se subtraem dois números com
+o mesmo sinal e magnitude semelhantes. Por exemplo,
+1;924031021;92275102= 1;28000101;
+que é correcto, e representado de forma exacta, mas tem apenas três algarismos signiﬁca-
+tivos.
+Apesar da exactidão do resultado, o cancelamento implica, muitas vezes, perda de
+informação com a agravante de os algarismos perdidos no cancelamento serem mais sig-
+niﬁcativos do que os perdidos no arredondamento. Por isso, é geralmente uma má ideia
+calcular uma quantidade pequena como a diferença de duas quantidades grandes. Somar
+séries alternadas, tais como
+ex= 1 +x+x2
+2+x3
+3!+;
+
+Aritmética computacional 8
+parax<0, pode dar resultados catastróﬁcos. Outro exemplo, pode ser dado no cálculo do
+desvio padrão. Como se sabe, a média e o desvio padrão de uma amostra fx1;x2;:::;xng
+são dados por
+x=1
+nnX
+i=1xi;e= 
+1
+n1nX
+i=1(xix)2!1
+2
+:
+A fórmula equivalente para o desvio padrão
+= 
+1
+n1 nX
+i=1x2
+inx!! 1
+2
+é muitas vezes usada mas o cancelamento subtractivo é mais perigoso que na fórmula
+anterior.
+Oserrosde truncatura oudediscretizaçãosão, pordeﬁnição, oserrosquesurgemquando
+sepassadeum processoinﬁnitoparaumprocessoﬁnitoouquandosesubstituium processo
+contínuo por um discreto. A título de exemplo, considere-se o conhecido Teorema do Valor
+Médio, estabelecido por Joseph Louis Lagrange (1736-1813).
+Teorema 1.1 (Valor Médio de Lagrange) Seffor uma função contínua em [a;b]e
+diferenciável em ]a;b[então existe pelo menos um 2]a;b[tal que
+f0() =f(b)f(a)
+ba:
+-0.4-0.2 0.20.40.60.81234
+a b
+Figura 1.1: Teorema do Valor Médio.
+Este resultado justiﬁca o procedimento (muito comum) de substituir o cálculo da deri-
+vada de uma função deﬁnida num intervalo (pequeno) [a;b]peladiferença dividida
+f[a;b] =f(b)f(a)
+ba;
+isto é, para um valor de hpequeno
+f0(x)f(x+h)f(x)
+h:
+O erro cometido nesta aproximação é um erro de truncatura.
+
+Aritmética computacional 9
+Também se comete um erro de truncatura quando se efectua a aproximação
+e
+1 +1
+MM
+:
+Outro exemplo onde surgem este tipo de erros é dado pela chamada aproximação de Taylor
+que iremos considerar na próxima secção.
+1.3 O polinómio de Taylor
+Sejafuma função real deﬁnida num intervalo [a;b]R. Um problema que frequentemente
+se coloca é o de determinar uma função gdeﬁnida em [a;b]tal quejf(x)g(x)j<;para
+todo ox2[a;b], com>0uma tolerância dada. A existência de solução para tal problema
+édadapeloTeoremadeWeierstrass, devidoa KarlWilhelmTheodorWeierstrass (1815-1897).
+Teorema 1.2 (Weierstrass) Sejafuma função contínua deﬁnida em [a;b]. Então para
+cada">0existe um polinómio pdeﬁnido em [a;b]tal que
+max
+x2[a;b]jf(x)p(x)j<":
+Notemos a grande importância deste resultado. De acordo com ele, podemos ter a
+certeza que dada uma função contínua fqualquer existe sempre um polinómio pque está
+tão próximo de fquanto se queira. Assim sendo, este resultado legitima a aproximação
+polinomial, isto é, a tarefa de, dada uma função, procurar um polinómio que a aproxime.
+No entanto, o teorema anterior não nos diz como podemos construir esse polinómio; ele
+apenas garante a existência.
+Consideremosagoraoseguinteteorema, apresentadosemdemonstração, devidoa Brook
+Taylor(1685-1731).1
+Teorema 1.3 (Taylor) Sefadmite derivadas contínuas até à ordem n(inclusivé) em
+[a;b], isto é, sef2Cn([a;b]), e sef(n+1)existir em ]a;b[então, para todo o x;x02[a;b],
+f(x) =Pn(x;x0) +Rn(x;x0); (1.2)
+onde
+Pn(x;x0) =nX
+k=0f(k)(x0)
+k!(xx0)k
+e
+Rn(x;x0) =f(n+1)()
+(n+ 1)!(xx0)n+1; 2Ifx;x0g;
+sendoIfx;x0go intervalo aberto deﬁnido por xex0.
+A (1.2) chamaremos fórmula de Taylor sendoPn(x;x0)opolinómio de Taylor de fem
+torno do ponto x0eRn(x;x0)oresto (de Lagrange) de ordem n(ou de grau n+ 1). Se
+x0= 0a (1.2) chamaremos fórmula de Maclaurin .2
+1Taylor foi, entre outras coisas, o sucessor de Edmond Halley (1656-1742) como secretário da Royal
+Society. Publicou, em 1715, um livro intitulado Methodus Incrementorum Directa &Inversano qual a sua
+expansão aparece descrita. O seu teorema foi enunciado em 1712.
+2Colin Maclaurin (1698-1746) foi um menino prodígio sendo nomeado professor em Aberdeen com a
+idade de 19 anos. A sua expansão apareceu em 1742 no Treatise on Fluxions .
+
+Aritmética computacional 10
+Atente-se ao grande interesse prático deste resultado que aﬁrma que, mediante certas
+condições, uma função pode ser escrita como a soma de um polinómio com um resto.
+Escolhendo valores de xex0tais que
+lim
+n!+1Rn(x;x0) = 0; (1.3)
+temos que, a partir de um valor de nsuﬁcientemente grande, a função dada pode ser apro-
+ximada pelo seu polinómio de Taylor. Assim, qualquer operação a efectuar sobre a função
+(derivação, integração, etc.) poderá ser feita sobre o polinómio.
+Notemos que a escolha dos valores de xex0deverá ser feita de modo a que eles
+pertençam ao intervalo de convergência da série
+1X
+k=0f(k)(x0)
+k!(xx0)k;
+designada por série de Taylor . Neste curso não iremos dar ênfase a esta questão.
+O objectivo fundamental dos problemas que surgem neste contexto é o de determinar
+o menor valor de nque veriﬁca
+max
+2Ifx;x0gjRn(x;x0)j<;
+sendo>0uma tolerância previamente ﬁxada. Obtemos assim a aproximação
+f(x)Pn(x;x0);
+cujo erro não excede . O valor de Rn(x;x0), sendo um erro absoluto uma vez que
+jf(x)Pn(x;x0)j=jRn(x;x0)j;
+é também designado erro de truncatura .
+Exercício 1.2 Determine um valor aproximado de e2com 3 casas decimais correctas, usando
+a fórmula de Maclaurin aplicada à função f(x) =ex.
+Resolução: A funçãof(x) =exé uma função analítica para todo o xreal e atendendo a que
+f(k)(x) =exa série de Maclaurin de fé dada por
+ex=1X
+k=0xk
+k!:
+Assim, ﬁxando um valor de n, temos que
+ex1 +x+x2
+2+x3
+6++xn
+n!
+com
+jRn(x; 0)jex
+(n+ 1)!jxn+1j<3x
+(n+ 1)!jxn+1j; x> 0:
+Vamos então determinar qual o menor valor de ntal que
+jRn(2; 0)j<32
+(n+ 1)!j2n+1j0;5103:
+
+Aritmética computacional 11
+Por tentativas...
+n= 9)32
+10!210= 0;254102
+n= 10)32
+11!211= 0;462103:
+Logo a aproximação pedida é
+e210X
+k=0xk
+k!= 7;388994708997;389:
+1.4 Problemas
+Exercício 1.3 Sejamx,yeztrês quantidades exactas. Por arredondamento obtiveram-se as
+seguintes aproximações: x= 231,y= 2;31ez= 23;147.
+1. Conte o número de casas decimais correctas nas aproximações e calcule limites superiores
+para o erro absoluto em cada uma delas. Compare os resultados e comente.
+2. Conte o número de algarismos signiﬁcativos correctos nas aproximações e calcule limites
+superiores para o erro relativo em cada uma delas. Compare os resultados e comente.
+Exercício 1.4 (Matlab) Aadiçãoemvírgulaﬂutuantenãoveriﬁcaapropriedadeassociativa.
+Paracomprovaressefacto, calcule, usandoocomputador, asoma x+y+znasformasx+(y+z)
+e(x+y) +zpara os casos em que:
+1.x= 1;0;y=5;0;z= 6;0;
+2.x= 11020;y=11020;z= 1;0.
+Explique os resultados obtidos.
+Exercício 1.5 (Matlab) Escreva um programa para obter os primeiros ntermos da sucessão
+gerada pela equação de diferenças x(k+1)= 2;25x(k)0;5x(k1);a partir dos valores iniciais
+x(1)= 1=3ex(2)= 1=12.
+1. Considere n= 60e trace o gráﬁco semi-logarítmico dos resultados obtidos como função
+dek.
+2. A solução exacta da equação de diferenças é dada por (prove)
+x(k)=41k
+3;
+que decresce, de forma monótona, quando kcresce. Explique porque é que o gráﬁco
+obtido na alínea anterior não está de acordo com este comportamento teórico.
+Exercício 1.6 Estabeleça a fórmula de Taylor com o resto de Lagrange de ordem 3para a
+funçãof(x) =ex, em torno do ponto x0= 1.
+Exercício 1.7 (Matlab) Considere o desenvolvimento em série de Maclaurin
+ex=1X
+k=0xk
+k!:
+Calculee12usando este desenvolvimento. Repita novamente o cálculo mas usando o facto de
+e12=1
+e12. Compare os resultados e explique o sucedido.
+
+Aritmética computacional 12
+Exercício 1.8 1. Calcule o polinómio de Taylor de grau 3gerado pela função f(x) = cosx
+no pontox0=
+4.
+2. Usando o polinómio encontrado, calcule um valor aproximado de cos 47o.
+3. Indique uma estimativa do erro absoluto cometido.
+Exercício 1.9 Determine uma aproximação polinomial para f(x) = sinh(x)em[0;1];com
+erro inferior a 102:
+Exercício 1.10 Determine o número de termos que deve considerar em1X
+j=1(1)j+1xj
+jpara
+determinar uma aproximação para f(x) = log(1 + x); x2[0;1];com erro inferior a 103:
+Exercício 1.11 Calcule log(2)com erro inferior a 102:
+Exercício 1.12 O ﬂuxo através de uma parte da camada fronteira num ﬂuído viscoso é dado
+pelo integral deﬁnidoZ0;8
+01;4(1e4x2)dx:
+Usando a fórmula de Taylor na função integranda, aproxime o valor do integral com quatro
+casas decimais correctas.
+Exercício 1.13 Consideremos uma viga uniforme de comprimento L, suspensa, sujeita a
+uma carga uniformemente distribuída, W, e a uma força compressiva, P, em cada extremo. A
+deﬂexão,D, no ponto médio é dada por
+D=WEI
+P2(sec (0;5mL)1)WL2
+8P;
+ondem2=P=EI, comEeIconstantes. Usando o desenvolvimento em série de Maclaurin da
+funçãoy= secx, prove que, quando a força gravítica tende a anular-se, a deﬂexão, D, tende
+para5WL4
+384EI.
+Exercício 1.14 A lei dos gases perfeitos é dada por PV=nrTe relaciona a pressão, P, o
+volume,V, a temperatura, T, e o número de moles, n, de um gás ideal. O número rnesta
+equação depende apenas do sistema de medição a usar. Suponhamos que foram efectuadas as
+seguintes experiências para testar a veracidade da lei usando o mesmo gás.
+1. Consideraram-se P= 1;0atmosferas, n= 0;0042moles,V= 0;10metros cúbicos e
+r= 0;082. Usando a lei, a temperatura do gás foi prevista como sendo
+T=PV
+nr=1;00;10
+0;0820;0042= 290oKelvin = 17oCelsius:
+Quando medimos a temperatura do gás veriﬁcámos ser 17oCelsius.
+2. A experiência anterior foi repetida usando os mesmos valores de renmas aumentando
+o pressão quatro vezes enquanto se reduziu o volume na mesma proporção. Como PV
+é constante, a temperatura prevista é de 17oCelsius mas agora, ao medir a temperatura
+do gás, encontrámos o valor 32oCelsius.
+Será que a lei não é válida nesta situação?
+
+Capítulo 2
+Sistemas de equações lineares
+O problema que pretendemos resolver neste capítulo consiste em determinar o valor de
+x2Rntal queAx=b, sendob2RneA2Mn(R), ondeMn(R)denota o conjunto das
+matrizes reais de ordem n. Para resolver este problema iremos supor que a matriz Aé
+invertível ou, o que é equivalente, que o sistema é possível e determinado.
+Há muitos sistemas físicos que podem ter como modelo sistemas de equações lineares.
+Suponhamos, por exemplo, um camião a atravessar uma ponte cuja estrutura é constituída
+por barras de ferro. O peso camião e da ponte são forças que são contrabalançadas pelas
+exercídas nas extremidades que seguram a ponte. Essas forças são propagadas ao longo de
+toda a estrutura e, em cada nodo (locais onde as barras de ferro seguram a estrutura) a
+resultantedasforçasdevesernula. Sedecompusermosasforçasnascomponenteshorizontal
+(x) e vertical ( y) temos, em cada nodo ( i= 1;2;:::), as equações:
+somaxdas forças = 0, no nodoi,
+somaydas forças = 0, no nodoi.
+As forças, em cada barra, podem assim ser determinadas. Como há forças conhecidas (peso
+do camião, peso das barras, etc), o sistema a resolver é não homogéneo.
+Aresoluçãodeumproblemaenvolvendosistemaslinearespodedividir-seemtrêsetapas:
+1. formulação do modelo matemático (calcular a matriz A);
+2. cálculo dos agentes exteriores (calcular o vector b);
+3. resolução do sistema linear.
+Os dois primeiros passos dependem, obviamente, do conhecimento do problema físico (tipo
+de material, leis físicas, etc); o terceiro passo pode ser equacionado e resolvido separa-
+damente, usando um conveniente algoritmo matemático. Uma vez que este último passo
+aparececomopertencenteaumalgoritmobastantemaisvastoéessencialquesejacalculado
+de forma eﬁciente.
+Existemduasgrandesclassesdemétodospararesolversistemasdeequaçõeslineares: os
+métodos directos , que já foram estudados, em parte, na disciplina de álgebra linear e para os
+quais iremos fazer uma breve revisão; e os métodos iterativos que iremos estudar com mais
+pormenor, especialmente os métodos devidos a Gauss, Carl Gustav Jakob Jacobi (1804-1851)
+ePhilipp Ludwig von Seidel (1821-1896). Antes porém, vamos apresentar algumas classes
+de matrizes que irão ser consideradas.
+13
+
+Sistemas de equações lineares 14
+2.1 Classes de matrizes
+Existem vários tipos de matrizes com relevância em aplicações práticas.
+Matrizes densas e matrizes esparsas
+Um matriz com muitos elementos nulos diz-se esparsa; caso contrário diz-se que a
+matriz é densa. Sistemas com matrizes esparsas modelam sobretudo problemas onde
+existem princípios de inﬂuência local. Note-se que, no caso da ponte, as equações em
+cada nodo apenas envolvem as barras que aí se encontram. O seu número é o mesmo
+quer a ponte tenha 50 metros e, digamos, 10 barras, ou 5 km e 1000 barras. Assim,
+para uma ponte grande, a maioria dos coeﬁcientes da matriz são nulos.
+Como caso particular das matrizes esparsas temos as matrizes banda– uma matriz
+A= (aij)éumamatrizbandase aij= 0paratodojijj>, ondeéocomprimento
+de banda de A– e, dentro dessa classe, as chamadas matrizes tridiagonais , isto é, as
+matrizes com comprimento de banda = 3. Por outras palavras, as matrizes banda
+são aquelas cujos elementos não nulos se concentram apenas num conjunto de diago-
+nais paralelas à diagonal principal.
+Matrizes triangulares
+Asmatrizes triangulares são aquelas que possuem todos os seus elementos acima ou
+abaixo da diagonal principal iguais a zero. No primeiro caso, as matrizes dizem-se
+triangulares inferiores e no segundo triangulares superiores .
+Matrizes simétricas
+Asmatrizes simétricas são aquelas que coincidem com a sua transposta. Uma caracte-
+rística importante das matrizes simétricas é o facto de todos os seus valores próprios
+serem reais.
+Matrizes estritamente diagonal dominantes (EDD)
+Uma matriz A= (aij)n
+i;j=1diz-seestritamente diagonal dominante por linhas se
+jaiij>nX
+j=1;j6=ijaijj; i = 1;:::;n;
+eestritamente diagonal dominante por colunas se
+jajjj>nX
+i=1;i6=jjaijjj= 1;:::;n:
+A matriz diz-se estritamente diagonal dominante se for estritamente diagonal domi-
+nante por linhas ou estritamente diagonal dominante por colunas.
+Matrizes simétricas e positivas deﬁnidas (SPD)
+Uma matriz A, diz-sesimétrica e positiva deﬁnida se for simétrica e se, para todo o
+vectorx2Rn, não nulo, se tem xTAx> 0. Nesse caso diz-se que A2SPD.
+
+Sistemas de equações lineares 15
+Exercício 2.1 Mostre que A2SPD se e só se todos os valores próprios de Asão reais e
+positivos.
+Resolução: Por deﬁnição, ié valor próprio de A2Mn(R)se e só se
+Axi=ixi; xi2Rn; xi6= 0;
+sendoxio vector próprio de Aassociado a i.
+Suponhamos que A2SPD. Então xTAx> 0é válida para todo o vector não nulo xe,
+em particular, para os vectores próprios xideA. Assim sendo,
+0<xT
+iAxi=xiixi=ikxk2
+2)i>0:
+Suponhamos agora que todos os valores próprios de Asão positivos. Então, pelo que foi
+visto, para todos os valores próprios xideAé válida a desigualdade xT
+iAxi>0. Como
+Aé uma matriz real simétrica, prova-se que existe uma base ortonormada de vectores
+próprios de A(teorema espectral). Nessa base, qualquer que seja o vector não nulo x,
+tem-se que existem constantes ci,i= 1;2;:::;n, ondené a ordem da matriz A, tais que
+x=c1x1+c2x2++cnxn. EntãoAx=c1Ax1+c2Ax2++cnAxno que implica
+Ax=c11+c22++cnn:Assim sendo, xTAx=c2
+11+x2
+22++c2
+nn>0;
+o que prova o pretendido.
+2.2 Métodos directos: revisão
+Consideremos, de novo, o problema de determinar o vector x2Rntal queAx=b, sendo
+b2RneA2Mn(R). O primeiro tipo de métodos que iremos considerar resolver este
+problema são os chamados métodos directos . Estes métodos são aqueles que, supondo não
+haver erros de arredondamento ou quaisquer outros, nos permitem obter a solução exacta
+do problema num número ﬁnito de operações aritméticas.
+Os métodos directos baseiam-se no processo de eliminação de Gauss que consiste em
+transformar o sistema Ax=bnum sistema equivalente Ux=c, ondeUé uma matriz
+triangularsuperior,atravézde operaçõeselementares efectuadasna matrizampliada (lembrar
+estes conceitos dados na disciplina de álgebra linear). O sistema a resolver pode ser escrito
+na forma 8
+>>><
+>>>:u11x1+u12x2++u1nxn=c1
+u22x2++u2nxn=c2
+.........
+unnxn=cn
+e a sua resolução, caso uii6= 0,i= 1;:::;n, é feita de acordo com o algoritmo seguinte.
+Algoritmo 2.1 Resolução de um sistema triangular superior
+Dados:ci,i= 1;:::;n, euij,i= 1;:::;n,j=i;:::;n
+xn:=cn=unn
+Paraiden1até1fazer
+xi:=
+ciPn
+j=i+1uijxj
+=uii
+Resultado: xi,i= 1;:::;n
+
+Sistemas de equações lineares 16
+O método da eliminação de Gauss tem como desvantagem a alteração do valor dos
+termos independentes ( c6=b). Para contornar esse problema, temos o chamado método da
+triangularização . Este método consiste em decompor a matriz Ado sistema a resolver na
+forma
+A=LU;
+em queLé uma matriz triangular inferior e Uuma matriz triangular superior, com uii= 1,
+i= 1;:::;n. Aformadeobterestafactorizaçãofoiigualmentevistanadisciplinadeálgebra
+linear e é chamada a factorização de Gauss . Após obtida a decomposição, a resolução do
+sistema é feita em duas etapas: resolver Ly=b; resolverUx=y. Notemos que em cada
+etapa temos que resolver um sistema triangular.
+Exercício 2.2 Supondo determinada a decomposição A=LU, obtenha o algoritmo que
+permita reslover o sistema Ax=bpelo método da triangulação.
+Em muitas situações práticas, o sistema linear a resolver é tridiagonal , isto é, a matriz
+Aé da forma (suprimindo os zeros)
+A=2
+6666641
+1
+22
+2
+.........
+n1n1
+n1
+nn3
+777775;
+ou, noutra notação,
+A=Tridiag (;;
+ );
+com= [2;:::;n]T,= [1;:::;n]Te
+= [
+1;:::;
+n1]T.
+É fácil de demonstrar (ver Álgebra Linear) que a decomposição A=LUé dada pelas
+matrizes
+L=2
+666664l1
+2l2
+......
+n1ln1
+nln3
+777775eU=2
+6666641u1
+1u2
+......
+1un1
+13
+777775;
+com os elementos li,i= 1;:::;neui,i= 1;:::;n1, dados de acordo com o seguinte
+algoritmo.
+Algoritmo 2.2 Decomposição LU para matrizes tridiagonais
+Dados:i,i= 2;:::;n,i,i= 1;:::;n, e
+i,i= 1;:::;n1
+l1:=1
+Sel16= 0entãou1:=
+1=l1caso contrário parar
+Paraide2atén1fazer
+li:=iiui1
+Seli6= 0entãoui:=
+i=licaso contrário parar
+ln:=nnun1
+Resultado: li,i= 1;:::;n, eui,i= 1;:::;n1
+Como facilmente se pode demonstrar, a resolução do sistema linear Ax=b, comA
+uma matriz tridiagonal cuja decomposição A=LUé dada pelo exercício anterior, pode
+ser efectuada de acordo com o seguinte algoritmo.
+
+Sistemas de equações lineares 17
+Algoritmo 2.3 Resolução de um sistema tridiagonal
+Dados: matriz Ae vectorb
+Determinar as matrizes LeU
+(ResolverLy=b)
+y1:=b1=l1
+Paraide2aténfazer
+yi:= (biiyi1)=li
+(ResolverUx=y)
+xn:=yn
+Paraiden1até1fazer
+xi:=yiuixi+1
+Resultado: xi,i= 1;:::;n
+Prova-se o seguinte resultado.
+Teorema 2.1 Para uma matriz A2Mn(R), a factorização A=LUexiste e é única se e
+só se as submatrizes principais de Aforem não singulares.
+Quando, no processo da factorização de Gauss, encontramos um pivotnulo, podemos
+trocar de linhas por forma a evitar a divisão por zero. Uma possibilidade consiste em
+escolher, em cada passo da iteração, o pivotde módulo máximo. Obtém-se, assim, a
+factorização
+PA=LU;
+comPa matriz de permutação da linha efectuada.
+Note-se que, se A2EDD ouA2SPD então a matriz Averiﬁca as hipóteses do teorema
+anterior e, como tal, a factorização LUdeAexiste e é única. Mais ainda, se A2SPD pode
+obter-se a factorização de de Ana formaA=RRT, comRuma matriz triangular inferior
+com elementos diagonais positivos. Esta factorização é chamada factorização de Cholesky ,
+em homenagem a André-Louis Cholesky (1875-1918). No caso 22, por exemplo,
+a11a12
+a12a22
+=r11 0
+r12r22r11r12
+0r22
+implica que r11=pa11,r12=a12=r11,r22=p
+a22r2
+12:
+2.3 Normas de matrizes. Condicionamento
+SejaMn(R)o conjunto das matrizes quadradas de ordem ncom coeﬁcientes reais. Como
+este conjunto é um espaço vectorial podemos nele deﬁnir uma norma.
+Deﬁnição 2.1 (Norma matricial) Sejakkuma norma vectorial deﬁnida em Rn. A
+aplicaçãokk:Mn(R)!R+
+0tal que, para todo o A2Mn(R),
+kAk= sup
+x6=0kAxk
+kxk
+é designada norma matricial subordinada à norma vectorial kk:
+
+Sistemas de equações lineares 18
+No entanto, a generalização para o caso rectangular Atendendo à deﬁnição anterior,
+podemos dizer que a norma de uma matriz mede o alongamento máximo que essa matriz
+provoca em qualquer vector não nulo em relação à correspondente norma vectorial.
+Prova-se que a função estabelecida na deﬁnição anterior é uma norma, isto é, que
+veriﬁca as seguintes propriedades:
+1.8A2Mn(R);kAk= 0,A= 0(matriz nula),
+2.8A2Mn(R);82R;kAk=jjkAk;
+3.8A;B2Mn(R);kA+BkkAk+kBk;
+Prova-setambémqueasseguintesaplicaçõesveriﬁcamaspropriedadesquecaracterizam
+um norma, com A2Mn(R)a matriz de elemento genérico aij:
+ kAk1= max
+j=1;:::;nnX
+i=1jaijj;
+ kAk2=p
+(ATA), com(A)oraio espectral deA, deﬁnido por
+(A) = max
+i=1;:::;nfjij:ié valor próprio de Ag;
+ kAk1= max
+i=1;:::;nnX
+j=1jaijj:
+ kAkF=vuutnX
+i;j=1a2
+ij.
+A normakkFé chamada norma de Frobenius , em homenagem a Ferdinand Georg
+Frobenius (1849–1917), e não é soburdinada a nenhuma norma vectorial.
+Exercício 2.3 Considere a matriz
+A=2
+421 0
+12 1
+21 03
+5:
+CalculekAk1,kAk1ekAkF.
+Resolução: Vê-se facilmente que
+kAk1= maxfj2j+j1j+j2j;j1j+j2j+j1j;j0j+j1j+j0jg= 5;
+kAk1= maxfj2j+j1j+j0j;j1j+j2j+j1j;j2j+j1j+j0jg= 4
+e
+kAkF=p
+22+ (1)2+ 02+ (1)2+ (2)2+ 12+ (2)2+ (1)2+ 02= 4:
+
+Sistemas de equações lineares 19
+Exercício 2.4 Mostre que se A2SPD entãokAk2=max, commaxo maior valor próprio
+da matrizA.
+Resolução: Por deﬁnição
+kAk2=q
+(ATA):
+ComoAé simétricaATA=A2. Mas,(A2) =(A)2. De facto, se é valor próprio de
+A2Mn(R),
+Ax=x; x2Rn; x6= 0:
+Então
+A2x=Ax =2x; x2Rn; x6= 0;
+ou seja2é valor próprio de A2. Temos, então, que
+kAk2=q
+(ATA) =p
+(A2) =p
+(A)2=(A):
+ComoA2SPD,max>0e portanto, max=(A), o que prova o pretendido.
+Considere-se, agora, o resultado seguinte.
+Teorema 2.2 Sejakkuma norma em Rn:Então, para A2Mn(R);tem-se
+kAxkkAkkxk;8x2Rn;
+em quekAké a norma de Asubordinada à norma kk:
+Demonstração: Notamos que se a norma kké subordinada a uma norma vectorial
+então, para A2Mn(R);temos
+kAk= sup
+x6=0kAxk
+kxkkAxk
+kxk; x2Rn;x6= 0;
+e portanto é válido o resultado.
+Teorema 2.3 ParaA;B2Mn(R);tem-sekABkkAkkBk.
+Demonstração: Atendendo à desigualdade demonstrada no teorema anterior, temos
+kABk= sup
+x6=0kABxk
+kxkkAksup
+x6=0kBxk
+kxk=kAkkBk:
+Consideremos um sistema possível e determinado Ax=be sejabo vector obtido a
+partir debconsiderando perturbações numéricas nas suas componentes. Esta situação é
+frequente quando o vector dos termos independentes representa medições. Sejam e(b)e
+r(b)respectivamente os erros absoluto e relativo de b. Vejamos de que modo este erros
+inﬂuenciam os erros absoluto e relativo de x, sendoxa solução do sistema Ax=b.
+Este problema também poderia ser colocado de outra forma. Pretendemos resolver o
+sistemaAx=bpelo método de eliminação de Gauss usando, por exemplo, a factorização
+A=LU. Atendendo aos possíveis erros de arredondamento, obtemos uma solução xtal
+
+Sistemas de equações lineares 20
+queAx=b6=b. Queremos saber de que forma o erro (absoluto ou relativo) em binﬂuencia
+o erro emx.
+Se o sistema Ax=bé possível e determinado, então Aé invertível e portanto x=
+A1b:Consideremos agora o sistema em que o vector dos termos independentes tem as
+componentes afectadas de erro, i.e, Ax=b:Temos
+kr(x)k=kxxk
+kxk=kA1(bb)k
+kxk: (2.1)
+Como, pelo Teorema 2.2, kbk=kAxkkAkkxk;concluímos que
+kxkkAk1kbk:
+Utilizando esta desigualdade em (2.1) deduzimos
+kr(x)kkA1kkbbk
+kAk1kbk=kAkkA1kkr(b)k:
+A
+K(A) =kAkkA1k
+chamamos número de condição1da matrizA. Então
+kr(x)kK(A)kr(b)k:
+Note-se que se os dados do problema forem obtidos com a precisão da máquina, o erro
+relativo da solução xé dado por
+kr(x)kK(A)M:
+Podemosentãodizerqueasoluçãocalculadaperdecercade log10(K(A))dígitosdeprecisão
+relativamente aos dados do problema.
+Do exposto podemos aﬁrmar que se o número de condição de Afor pequeno pequenas
+perturbações no vector dos termos independentes conduzem a pequenas perturbações no
+vectorsolução. Nestecasodizemosqueo sistemaAx=beamatrizAsãobemcondicionados .
+Se o número de condição for muito grande o sistemaAx=be amatrizAdizem-se mal
+condicionados .
+Exercício 2.5 Determine o número de condição de A=1 0
+2 2
+relativamente às normas
+kk 1ekk1.
+Resolução: ComoA1=1 0
+1 0;5
+;temos:
+normakk 1
+kAk1= maxfj1j+j2j;j0j+j2jg= 3;kA1k1= maxfj1j+j1j;j0j+j0;5jg= 2;
+e, como tal, K1(A) = 6;
+1Aideiadenúmerodecondiçãodeumamatrizfoiintroduzida, em1948, por Alan Mathison Turing (1912-
+-1954), o mesmo que fundou a ciência da computação teórica e que cujos trabalhos foram decisivos para o
+sucesso do projecto inglês que decifrou o código de encriptação da famosa máquina “Enigma”, permitindo
+pôr ﬁm à ocupação do Atlântico pelos submarinos alemães durante a II Guerra Mundial.
+
+Sistemas de equações lineares 21
+normakk1
+kAk1= maxfj1j+j0j;j2j+j2jg= 4;kA1k1= maxfj1j+j0j;j1j+j0;5jg= 1;5;
+e, como tal, K1(A) = 6:
+Apesar do número de condição ter dado o mesmo em ambos os casos, tal poderia não
+ter acontecido.
+Uma matriz ter um número de condição muito elevado signiﬁca que é “quase singular”.
+Por convenção, se Aé singular,K(A) =1. É possível demonstrar que
+kAkkA1k= 
+sup
+x6=0kAxk
+kxk!
+inf
+x6=0kAxk
+kxk1
+e, como tal, o número de condição mede o razão entre o alongamento máximo e o encolhi-
+mento máximo que uma matriz provoca em qualquer vector não nulo.
+Quando se pretende resolver sistemas lineares mal condicionados usando métodos di-
+rectos, a solução obtida vem, frequentemente, afectada de erro. Nessa medida, é usual
+considerar métodos mistos, isto é, métodos iterativos que consideram como aproximação
+inicial a solução obtida pelo método directo. O método iterativo funciona assim como um
+corrector do resultado obtido pelo método directo.
+2.4 Métodos iterativos
+Consideremos, de novo, o problema de determinar o valor de x2Rntal queAx=b,
+sendob2RneA2Mn(R)uma matriz invertível. Um método iterativo para resolver o
+sistema consiste em, partindo de uma aproximação inicial x(0)para a solução do sistema
+(que iremos denotar por x), gerar uma sucessão de vectores fx(k)gconvergente para x.
+Os métodos que iremos considerar pertencem à classe dos métodos do ponto ﬁxo e são
+obtidos transformando o problema Ax=bnum outro, equivalente, da forma
+x=Bx+g;
+para uma determinada matriz de iteração Be um determinado vector g.
+Para determinar Begpodemos, por exemplo, decompor a matriz Ana forma
+A=P(PA);
+comPuma matriz invertível (mais simples que A), chamada pré-condicionador , e considerar
+B=P1(PA)eg=P1b:
+De facto,
+Ax=b,Px(PA)x=b,Px= (PA)x+b,x=P1(PA)x+P1b:
+Com esta transformação podemos escrever o método iterativo na forma
+x(0)dado;
+x(k+1)=Bx(k)+g; k = 0;1;::::(2.2)

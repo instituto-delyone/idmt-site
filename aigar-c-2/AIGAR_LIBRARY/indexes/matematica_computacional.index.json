@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "MatematicaComputacional.pdf",
+    "key": "matematica_computacional",
+    "sha256": "661b6e53ba82d101cb5033ab3f4665943cb66468b2758dcaffc5b27e5574c121",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-F9F9C339933C",
+      "sequence": 1,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 50899,
+      "text_checksum": "e84cce0c5ce3e5f7489bf325a0536cf2733f0a807bb1d94fb7c14c944fbae0fd",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-F9F9C339933C.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-909E626D6BB0",
+      "sequence": 2,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 43184,
+      "text_checksum": "36337e21ad729b4b631865a2e61afa5a2360798b1ccc71e450312e1c7f27eeb0",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-909E626D6BB0.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-6C77A8CB9BE6",
+      "sequence": 3,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 51,
+      "end_page": 75,
+      "text_length": 48772,
+      "text_checksum": "58baad0b7f39aa9a2383ab632387d6e3d6175a6cb6f5544c6f774c43f3d98095",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-6C77A8CB9BE6.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-F7E79A727071",
+      "sequence": 4,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 76,
+      "end_page": 100,
+      "text_length": 44686,
+      "text_checksum": "526c5f44157e9dd41d67271e296804d3f3ed923e7347b154938be60689bb7e9a",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-F7E79A727071.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-542A17C109AE",
+      "sequence": 5,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 101,
+      "end_page": 125,
+      "text_length": 43643,
+      "text_checksum": "c35237eef872f298ebf75336be508d42baed19a3b1404d6ce3c4177c8f7aa716",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-542A17C109AE.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-5ABF7E583415",
+      "sequence": 6,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 126,
+      "end_page": 150,
+      "text_length": 41196,
+      "text_checksum": "c51bfd843835247e963edd2f40e87780950799da1e2cc28f14fe89e62c8a48b1",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-5ABF7E583415.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-ADB8DA996932",
+      "sequence": 7,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 151,
+      "end_page": 175,
+      "text_length": 46017,
+      "text_checksum": "a0f0b27a2d9f476f71511fcd259e376e67866529c45e5bfe4ae32971cf10125b",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-ADB8DA996932.txt"
+    },
+    {
+      "id": "MATEMATICA_COMPUTACIONAL-78DFA175BA3E",
+      "sequence": 8,
+      "source": "MatematicaComputacional.pdf",
+      "source_key": "matematica_computacional",
+      "start_page": 176,
+      "end_page": 192,
+      "text_length": 26953,
+      "text_checksum": "99053c68dc1a4fd39c481323f6872c4aafe716b141d4b5760bda0b87178d278b",
+      "cache_file": "matematica_computacional\\MATEMATICA_COMPUTACIONAL-78DFA175BA3E.txt"
+    }
+  ]
+}

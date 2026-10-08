@@ -1,0 +1,1250 @@
+comissão
+ de representantes dos empregados terceirizados, composta por um
+presidente, um vice-presidente e um secretário, de modo que nenhum deles possa
+acumular cargos, é: a) inferior a 682;
+b) superior a 682 e inferior a 10
+4
+;
+c) superior a 10
+4
+ e inferior a 681×10
+3
+;
+d) superior a 681×10
+3
+ e inferior a 341×10
+6
+;
+e) superior a 341×10
+6
+.
+18. (Cespe – UnB – MMA – 2008) Caso as empresas
+ R e H sejam responsáveis pela
+manutenção de ar-condicionado e possuam 17 e seis empregados, respectivamente, à
+disposição do TRT, sendo que um deles trabalhe para ambas as empresas, nesse caso, o
+número de maneiras distintas para se designar um empregado para realizar a
+manutenção de um aparelho de ar-condicionado será igual a: a) 5;
+b) 11;
+c) 16;
+d) 22;
+e) 102.
+19. (Cespe
+ – UnB – MMA – 2008) Se, entre as 16 empresas contratadas para atender aos
+serviços diversos do TRT, houver quatro empresas que prestem serviços de informática
+e duas empresas que cuidem da manutenção de elevadores, e uma destas for escolhida
+aleatoriamente para prestar contas dos custos de seus serviços, a probabilidade de que
+a empresa escolhida seja prestadora de serviços de informática ou realize
+ a
+manutenção de elevadores será igual a: a) 0,125;
+b) 0,250;
+c) 0,375;
+d) 0,500;
+e) 0,625.
+Texto para questões 20 a 22
+No TRT da 1
+a
+ Região, o andamento de processo pode ser consultado no sítio
+www.trtrio.gov.br/Sistemas
+, seguindo as orientações abaixo: Consulta processual pelo
+sistema de numeração única — processos autuados a partir de 2002: nesse tipo de
+consulta,
+ a parte interessada, advogado ou reclamante/reclamada, poderá pesquisar todo
+trâmite processual. Para efetuar a consulta, é necessário preencher todos os campos, de
+acordo com os seguintes procedimentos (os dígitos são sempre em algarismos arábicos):
+campo 1: digite o número do processo – com 5 dígitos;
+campo 2: digite o ano do processo – com 4 dígitos;
+campo 3: digite o número da
+ Vara do Trabalho onde a ação se originou – com 3 dígitos. Os
+números das Varas do Trabalho são codificados conforme tabela anexa do sítio e, nas ações
+de competência dos TRTs, esse campo receberá três zeros; campo 4: digite o número do
+TRT onde a ação se originou – com 2 dígitos. No caso do TRT da 1
+a
+ Região, “01”, que virá
+digitado; campo 5: digite o número sequencial do processo – com
+ 2 dígitos. Na 1
+a
+ autuação
+do processo, independentemente da instância em que for ajuizada, este campo deverá ser
+preenchido com “00”.
+
+Após o preenchimento de todos os campos, clique o botão “consultar” e será apresentada a
+tela relacionada aos tipos de processos. Clique o tipo de processo desejado, por exemplo:
+RT, RO, AP, e será apresentada a tela de Consulta Processual, com todo o trâmite
+ do
+processo.
+Exemplo de Número Novo: RT: 01100-2002-010-01-00.
+20. (Cespe – UnB – MMA – 2008) Se for estabelecida a restrição de que no campo 1,
+referente ao número do processo, até quatro dos cinco dígitos poderão ser iguais, então
+a quantidade de possibilidades para esse número é igual a: a) 32.805;
+b) 59.049;
+c) 65.610;
+d) 69.760;
+e) 99.990.
+21. (Cespe – UnB
+ – MMA – 2008) Na Vara do Trabalho em que o processo se originou, a
+numeração pode variar de 001 até 100. Nesse caso, a quantidade dessas Varas que
+podem ser numeradas somente com números divisíveis por cinco é igual a: a) 15;
+b) 20;
+c) 22;
+d) 25;
+e) 28.
+22. (Cespe – UnB – MMA – 2008) Considere um lote de processos especificados no Sistema
+de Numeração Única, em que os dois
+ dígitos do campo 5 formam um número par ou um
+número divisível por três e varia de 01 a 12. Nesse caso, a quantidade de possíveis
+números para esse campo 5 é igual a: a) 11;
+b) 10;
+c) 8;
+d) 6;
+e) 4.
+23. (Cespe – UnB – MMA – 2008) Considere que se deseje formar 3 comissões distintas com
+os 15 representantes dos países do grupo dos megadiversos: uma comissão terá nove
+membros
+ e as outras duas, três membros cada uma. Supondo que cada país tenha um
+representante e que este atue somente em uma comissão, é correto concluir que
+existem mais de cem mil maneiras distintas de se constituírem essas comissões.
+Texto para questão 24
+Considerando que se pretenda formar números de três algarismos distintos com os
+algarismos 2, 3, 5, 7, 8 e 9, julgue os próximos itens.
+24. (Cespe – UnB – ME – 2008) A quantidade de números ímpares de três algarismos que
+podem ser formados é superior a 90.
+25. (Cespe – UnB – ME – 2008) Sabe-se que, no Brasil, as placas de identificação dos
+veículos têm três letras do alfabeto e quatro algarismos, escolhidos de 0 a 9. Então,
+seguindo-se essa mesma lei de formação, mas utilizando-se apenas as letras da
+
+palavra BRASIL, é possível
+ construir mais de 600 mil placas diferentes que não
+possuam letras nem algarismos repetidos.
+26. (Cespe – UnB – ME – 2008) Se o diretor de uma secretaria do MS quiser premiar três de
+seus seis servidores presenteando um deles com um ingresso para cinema, outro com
+um ingresso para teatro e o terceiro com um ingresso para show, ele terá mais de cem
+maneiras diferentes para fazê-lo.
+27.
+ (Cespe – UnB – ME – 2008) Se o diretor de uma secretaria do MS quiser premiar três de
+seus seis servidores presenteando cada um deles com um ingresso para teatro, ele terá
+mais de 24 maneiras diferentes para fazê-lo.
+Texto para questões 28 a 31
+O código de acesso exigido em transações nos caixas eletrônicos do Banco do Brasil é uma
+sequência de letras, gerada automaticamente pelo sistema.
+ Até o dia 17/12/2007, o código
+de acesso era composto por seis letras maiúsculas. Os códigos de acessos gerados a partir
+de 18/12/2007 utilizam, também, sílabas de duas letras — uma letra maiúscula seguida
+de uma letra minúscula.
+Exemplos de código de acesso no novo modelo: Ki Ca Be; Lu S Ra; T M Z.
+Na situação descrita no texto, considere que o número de letras maiúsculas disponíveis
+para a composição dos códigos de acesso seja igual a 26, que é igual ao número de letras
+minúsculas.
+A partir dessas informações, julgue os itens a seguir.
+28. (Cespe – UnB – BB – 2008) Até 17/12/2007, o número de códigos de acesso distintos,
+que eram compostos por exatamente três letras maiúsculas e que podiam ser gerados
+pelo sistema do Banco do Brasil para transações nos caixas eletrônicos,
+ era inferior a
+18 × 10
+3
+.
+29. (Cespe – UnB – BB – 2008) Se um cliente do Banco do Brasil decidir formar seu código
+de acesso com três letras maiúsculas usando somente as quatro letras iniciais de seu
+nome, então ele terá, no máximo, 12 escolhas de código.
+30. (Cespe – UnB –BB – 2008) É superior a 18 × 10
+7
+ a quantidade de códigos de acesso
+compostos por 3 sílabas de 2 letras, nos quais cada
+ sílaba é formada por exatamente
+uma letra maiúscula e uma letra minúscula nessa ordem, não havendo repetições de
+qualquer uma das letras em um mesmo código.
+31. (Cespe – UnB – BB – 2008) Considere que um cliente do Banco do Brasil deseje que seu
+código de acesso comece com a sílaba Lu e que cada uma das outras duas posições
+tenha apenas uma letra maiúscula, distinta das demais, incluindo-se
+ as letras L e u.
+Nesse caso, esse cliente terá menos de 600 escolhas de código.
+Texto para questões 32 a 34
+Considerando que uma palavra é uma concatenação de letras entre as 26 letras do
+alfabeto, que pode ou não ter significado, julgue as questões a seguir.
+
+32. (Cespe – UnB – BB – 2008) Com as letras da palavra COMPOSITORES, podem ser
+formadas mais de 500 palavras diferentes, de
+ três letras distintas.
+33. (Cespe – UnB – BB – 2008) As quatro palavras da frase “Dançam conforme a música”
+podem ser rearranjadas de modo a formar novas frases de quatro palavras, com ou sem
+significado. Nesse caso, o número máximo dessas frases que podem ser formadas,
+incluindo a frase original, é igual a 16.
+34. (Cespe – UnB – BB – 2008) Considerando todas as 26 letras do alfabeto,
+ a quantidade de
+palavras de 3 letras que podem ser formadas, todas começando por U ou V, é superior a
+2 × 10
+3
+.
+Texto para questões 35 a 38
+O Banco do Brasil S.A. (BB) patrocina as equipes masculina e feminina de vôlei de quadra e
+de praia. Segundo o portal 
+www.bb.com.br
+, em 2007, o voleibol brasileiro mostrou mais
+uma vez a sua hegemonia no cenário internacional com a conquista de 56 medalhas
+ em 51
+competições, tanto na quadra quanto na praia. Nesse ano, o Brasil subiu ao lugar mais alto
+do pódio por 31 vezes e conquistou, ainda, 13 medalhas de prata e 12 de bronze.
+Com base nessas informações, julgue os itens subsequentes.
+35. (Cespe – UnB – BB – 2008) Considerando-se que o treinador de um time de vôlei tenha à
+sua disposição 12 jogadores e que eles estejam suficientemente
+ treinados para jogar
+em qualquer posição, nesse caso, a quantidade de possibilidades que o treinador terá
+para formar seu time de 6 atletas será inferior a 10
+3
+.
+36. (Cespe – UnB – BB – 2008) Considerando que o treinador de um time de vôlei disponha
+de 12 jogadores, dos quais apenas 2 sejam levantadores e os demais estejam
+suficientemente bem treinados para jogar em qualquer outra posição,
+ nesse caso, para
+formar seu time de 6 atletas com apenas um ou sem nenhum levantador, o treinador
+poderá fazê-lo de 714 maneiras diferentes.
+37. (Cespe – UnB – BB – 2008) Existem (56!/12!44!) – 11 maneiras diferentes de se
+selecionar, entre as medalhas conquistadas pelo voleibol brasileiro em 2007, um
+conjunto de 12 medalhas, de modo que pelo menos uma delas seja de ouro.
+38. (Cespe –
+ UnB – BB – 2008) Caso se deseje selecionar cinco medalhas, entre as
+conquistadas pelo voleibol brasileiro em 2007, de modo que duas sejam de ouro, duas
+de prata e uma de bronze, a quantidade de possibilidades diferentes de se formar esses
+conjuntos será superior a 450 mil.
+39. (Cespe – UnB – BB – 2008) Suponha que determinado correspondente esteja designado
+para votar apenas nas categorias
+ Melhor Filme (ficção) e Melhor Documentário e que as
+quantidades de filmes concorrentes em cada uma dessas categorias sejam oito e três,
+respectivamente. Nessa situação, votando em apenas um filme de cada categoria, esse
+correspondente poderá votar de mais 20 maneiras distintas.
+40. (Cespe – UnB – BB – 2008) Caso se deseje escolher, entre os 50 correspondentes mais
+antigos, três para constituírem
+ uma comissão consultiva especial, haverá menos de 20
+
+mil maneiras possíveis para se formar essa comissão.
+41. (Cespe – UnB – BB – 2008) Se, em determinada edição do Prêmio e Mostra ACIE de
+Cinema, forem inscritos 13 filmes em uma mesma categoria, nesse caso, a quantidade
+de maneiras de se fazer a indicação de três desses filmes, sendo um deles em 1
+o
+ lugar,
+outro em 2
+o
+ lugar e outro em 3
+o
+ lugar,
+ será inferior a 2 × 10
+3
+.
+Julgue os itens 42 a 44 que se seguem, a respeito de contagem.
+42. (Cespe – UnB –BB – 2008) Ao se listar todas as possíveis permutações das 13 letras da
+palavra PROVAVELMENTE, incluindo-se as repetições, a quantidade de vezes que esta
+palavra aparece é igual a seis.
+43. (Cespe – UnB – BB – 2008) Com as letras da palavra TROCAS é possível construir mais
+de 300
+ pares distintos de letras.
+44. (Cespe – UnB – BB – 2008) A quantidade de permutações distintas que podem ser
+formadas com as sete letras da palavra REPETIR, que começam e terminam com R, é
+igual a 60.
+45. (Cespe – UnB – BB – 2008) Caso as senhas de acesso dos clientes aos caixas eletrônicos
+de certa instituição bancária contenham três letras das 26 do alfabeto, admitindo-se
+repetição,
+ nesse caso, a quantidade dessas senhas que têm letras repetidas é superior
+a 2 × 10
+3
+.
+Texto para questões 46 a 49
+As seguintes informações foram adaptadas do sítio 
+www.teresina.pi.gov.br
+.
+A Ouvidoria Municipal de Teresina é uma unidade criada para que o cidadão possa tirar
+dúvidas, enviar reclamações, denúncias, elogios e sugestões relativas à administração da
+prefeitura e demais órgãos
+ correlatos. Essa ouvidoria é composta por 11 profissionais,
+assim distribuídos: um ouvidor-geral, três técnicos, dois digitadores e cinco auxiliares. O
+GeoVista, um sistema de geoprocessamento que usa recursos do Google Maps, é
+disponibilizado a partir do portal da prefeitura de Teresina para facilitar aos cidadãos o
+acesso a mapas e consultas de endereços, trajetos de um ponto inicial a um
+ ponto de
+destino, entre outros serviços. Uma das possibilidades para se localizar um endereço por
+meio do GeoVista é utilizar o código de endereçamento postal (CEP), que possui oito dígitos,
+entre os quais são destacados um prefixo de cinco dígitos, e um sufixo com três dígitos.
+A partir das informações acima, julgue os itens a seguir.
+46. (Cespe – UnB – PMT – 2008) A quantidade de maneiras
+ distintas de se constituir uma
+comissão formada por quatro profissionais da Ouvidoria Municipal de Teresina, de modo
+que essa comissão contenha um profissional de cada categoria, é superior a 300.
+47. (Cespe – UnB – PMT – 2008) Há exatamente 238 maneiras diferentes de se constituir
+uma comissão formada por quatro profissionais da Ouvidoria Municipal de Teresina, de
+modo que essa comissão contenha,
+ no máximo, um técnico.
+48. (Cespe – UnB – PMT – 2008) Considerando-se que o primeiro dígito do CEP corresponde
+
+à região postal que inclui determinados estados, e que o estado do Piauí faz parte da
+região 7, então há exatamente 10 mil maneiras diferentes de se compor os prefixos dos
+códigos de endereçamentos postais da região que inclui o estado do Piauí.
+49. (Cespe – UnB – PMT – 2008)
+ A quantidade de sufixos do CEP que podem ser formada de
+modo a conter, no máximo, dois dígitos repetidos é inferior a 950.
+Texto para questões 50 a 53
+Para formar-se um anagrama, permutam-se as letras de uma palavra, obtendo-se ou não
+uma outra palavra conhecida. Por exemplo, VROAL é um anagrama da palavra VALOR.
+Com base nessas informações, julgue os próximos itens, relacionados aos
+ anagramas que
+podem ser obtidos a partir da palavra VALOR.
+50. (Cespe – UnB – PMV – 2007) O número de anagramas distintos é inferior a 100.
+51. (Cespe – UnB – PMT – 2007) O número de anagramas distintos que começam com VL é
+igual a 6.
+52. (Cespe – UnB – PMT – 2007) O número de anagramas distintos que começam e
+terminam com vogal é superior a 15.
+53. (Cespe – UnB – PMT – 2007) O
+ número de anagramas distintos que começam com vogal
+e terminam com consoante é superior a 44.
+Texto para questões 54 a 56
+Julgue as questões seguintes, que dizem respeito à determinação do número de
+possibilidades lógicas ou probabilidade de algum evento.
+54. (Cespe – UnB – Secad-TO – 2007) Suponha uma distribuição de prêmios em que são
+sorteados três números de dois algarismos. Para
+ formar cada número, primeiro
+sorteia-se o algarismo das dezenas, que varia de 0 a 5. O algarismo das unidades é
+sorteado em seguida e varia de 0 a 9. Se, para formar cada número, o algarismo das
+dezenas e o algarismo das unidades já sorteadas não puderem ser repetidos, então a
+quantidade de números que podem ocorrer é inferior a 104.
+55. (Cespe – UnB – Secad-TO – 2007) Considere que um painel
+ deva ser montado
+utilizando-se quatro peças em forma de losangos, seis em forma de círculos e duas em
+forma de triângulos. A quantidade de maneiras que se pode construir esse painel,
+colocando-se uma peça ao lado da outra, é inferior a 14 mil.
+56. (Cespe – UnB – Secad-TO – 2007) Ao iniciar um videogame, o jogador dispõe de uma
+tela onde pode selecionar de um a quatro jogadores, outra tela
+ onde pode selecionar de
+um a três níveis de dificuldade e, por último, uma tela onde pode selecionar de uma a 3
+velocidades para o jogo. Nesse caso, a quantidade de formas distintas de se jogar esse
+videogame é superior a 25.
+Texto para questões 57 e 58
+
+Com as letras que formam o nome da capital RIO BRANCO, pode-se formar diversos
+anagramas — anagrama é qualquer palavra, com significado
+ ou não, que pode ser formada
+a partir das letras fornecidas.
+Com base nessas informações, julgue os seguintes itens.
+57. (Cespe – UnB – PMRB – 2007) A quantidade de anagramas que é possível formar com
+as letras de RIO BRANCO de modo que as letras R, I, e O fiquem juntas e nesta ordem é
+inferior a 5 mil.
+58. (Cespe – UnB – PMRB – 2007) A quantidade de anagramas que é possível formar
+ com
+as letras de RIO BRANCO é superior a 360 mil.
+Texto para questões 59 a 61
+Os princípios de contagem, na matemática, incluem: I. Princípio da Soma: se um evento E1
+pode ocorrer de N1 maneiras distintas, E2, de N2 maneiras distintas, ..., Ek, de Nk
+maneiras distintas, e se quaisquer dois eventos não podem ocorrer simultaneamente,
+então um dos eventos pode ocorrer em N1 + N2 + ... + Nk
+ maneiras distintas. II. Princípio
+da Multiplicação: considere que E1, E2, ..., Ek são eventos que ocorrem sucessivamente; se
+o evento E1 pode ocorrer de N1 maneiras distintas, o evento E2 pode ocorrer de N2 maneira
+distintas, ..., o evento Ek pode ocorrer de Nk maneiras distintas, então todos esses eventos
+podem ocorrer, na ordem indicada, em N1 × N2 × ... × Nk maneiras distintas.
+Considerando
+ o texto acima e a informação do portal 
+www.mp.to.gov.br
+, de que, no
+Ministério Público do Estado do Tocantins (MPE-TO), há 85 promotores de justiça e 12
+procuradores de justiça, julgue os itens de 59 a 61.
+59. (Cespe – UnB – PMRB – 2007) Considere que se deseje eleger, entre os procuradores e
+os promotores do MPE-TO, um presidente, um vice-presidente e um ouvidor, para a
+direção de um clube
+ dos membros do MPE-TO, de modo que nenhuma pessoa possa ser
+eleita para mais de um cargo. Nessa situação, é CORRETO afirmar que há 288 maneiras
+diferentes de se escolherem os três membros para a direção do clube e este resultado é
+uma consequência do Princípio da Soma.
+60. (Cespe – UnB – PMRB – 2007) Considere que, entre os promotores de justiça do MPE-
+TO, haja 27 mulheres. Suponha que 60
+ promotores tenham menos de 50 anos, e que,
+neste grupo, haja 15 mulheres. Nessa situação, um dos eventos “ter menos de 50 anos”
+ou “ser mulher” tem 72 maneiras distintas de ocorrer.
+61. (Cespe – UnB – PMRB – 2007) Há 70 maneiras diferentes de se constituir um comitê
+que contenha exatamente quatro membros escolhidos de uma lista de oito
+procuradores de justiça.
+Julgue as questões 62 a 67
+ quanto aos princípios de contagem.
+62. (Cespe – UnB – BB – 2007) Considere que sete tarefas devam ser distribuídas entre 3
+funcionários de uma repartição de modo que o funcionário mais recentemente
+contratado receba três tarefas, e os demais, duas tarefas cada um. Nessa situação,
+sabendo-se que a mesma tarefa não será atribuída a mais de um funcionário, é correto
+
+concluir que o chefe da repartição
+ dispõe de menos de 120 maneiras diferentes para
+distribuir essas tarefas.
+63. (Cespe – UnB – BB – 2007) Uma mesa circular tem seus seis lugares que serão
+ocupados pelos 6 participantes de uma reunião. Nessa situação, o número de formas
+diferentes para se ocupar esses lugares com os participantes da reunião é superior a
+dez.
+64. (Cespe – UnB – BB – 2007) Um correntista do BB deseja fazer
+ um único investimento no
+mercado financeiro, que poderá ser em uma das seis modalidades de caderneta de
+poupança ou em um dos três fundos de investimento que permitem aplicações iniciais
+de pelo menos R$ 200,00. Nessa situação, o número de opções de investimento desse
+correntista é inferior a 12.
+65. (Cespe – UnB – BB – 2007) Considere que, para ter acesso à sua conta corrente via
+Internet,
+ um correntista do BB deve cadastrar uma senha de 8 dígitos, que devem ser
+escolhidos entre os algarismos de 0 a 9. Se o correntista decidir que todos os
+algarismos de sua senha serão diferentes, então o número de escolhas distintas que
+ele terá para essa senha é igual a 8!.
+66. (Cespe – UnB – BB – 2007) Considere que o BB oferece cartões de crédito Visa e
+Mastercard, sendo oferecidas cinco
+ modalidades diferentes de cartão de cada uma
+dessas empresas. Desse modo, se um cidadão desejar adquirir um cartão Visa e um
+Mastercard, ele terá menos de 20 possíveis escolhas distintas.
+67. (Cespe – UnB – BB – 2007) Sabe-se que no BB há 9 vice-presidências e 22 diretorias.
+Nessa situação, a quantidade de comissões que é possível formar, constituídas por três
+vice-presidentes e três diretores,
+ é superior a 10
+5
+.
+Texto para questões 68 e 69
+O BB oferece aos investidores do mercado financeiro vários fundos de investimento. Alguns
+deles estão mostrados na tabela abaixo.
+fundo
+classificação de risco
+taxa de administração
+BB Curto Prazo mil
+muito baixo
+3,00%
+BB Referenciado DI mil
+muito baixo
+3,00%
+BB Referenciado DI LP mil
+baixo
+3,00%
+BB Referenciado DI 10 mil
+muito baixo
+2,50%
+BB Referenciado DI LP 50 mil
+baixo
+1,00%
+BB Renda Fixa mil
+baixo
+3,00%
+BB Renda Fixa LP Índice de Preço 20 mil
+alto
+1,50%
+BB Renda Fixa Bônus Longo Prazo
+baixo
+2,00%
+BB Renda Fixa 25 mil
+baixo
+2,00%
+BB Renda Fixa LP Premium 50 mil
+médio
+1,00%
+BB Multimercado Moderado LP 10 mil
+muito alto
+1,50%
+
+Considerando apenas os
+ investimentos mostrados na tabela acima, julgue os itens
+seguintes.
+68. (Cespe – UnB – BB – 2007) Se um investidor pretende aplicar, simultaneamente, em
+três tipos diferentes de fundo de investimento e aceita que a taxa de administração do
+primeiro seja de 3%, a taxa do segundo seja de 2% e a do terceiro seja de 1%, então ele
+tem mais de 15 formas diferentes de compor suas opções de investimento.
+69. (Cespe – UnB – BB – 2007) O número máximo de escolhas que um investidor possui
+para fazer um investimento de risco baixo ou de risco muito baixo é igual a 15.
+Julgue os itens 70 a 73 que se seguem quanto a diferentes formas de contagem.
+70. (Cespe – UnB – BB – 2007) Considere que o BB tenha escolhido alguns nomes de
+pessoas para serem usados em uma propaganda na televisão, em expressões
+ do tipo
+Banco do Bruno, Banco da Rosa etc. Suponha, também, que a quantidade total de nomes
+escolhidos para aparecer na propaganda seja 12 e que, em cada inserção da
+propaganda na TV, sempre apareçam somente dois nomes distintos. Nesse caso, a
+quantidade de inserções com pares diferentes de nomes distintos que pode ocorrer é
+inferior a 70.
+71. (Cespe – UnB – BB – 2007) Há exatamente 495 maneiras
+ diferentes de se distribuírem
+12 funcionários de um banco em três agências, de modo que cada agência receba
+quatro funcionários.
+72. (Cespe – UnB – BB – 2007) Se 6 candidatos são aprovados em um concurso público e há
+4 setores distintos onde eles podem ser lotados, então há, no máximo, 24 maneiras de
+se realizarem tais lotações.
+73. (Cespe – UnB – BB – 2007) Considere que um decorador
+ deva usar sete faixas coloridas
+de dimensões iguais, pendurando-as verticalmente na vitrine de uma loja para produzir
+diversas formas. Nessa situação, se três faixas são verdes e indistinguíveis, três faixas
+são amarelas e indistinguíveis e uma faixa é branca, esse decorador conseguirá
+produzir, no máximo, 140 formas diferentes com essas faixas.
+74. (Cespe – UnB – MPE-AM – 2007) Considere
+ que, em um edifício residencial, haja uma
+caixa de correspondência para cada um de seus 79 apartamentos e em cada uma delas
+tenha sido instalada uma fechadura eletrônica com código de dois dígitos distintos,
+formados com os algarismos de 0 a 9. Então, de todos os códigos assim formados, 11
+deles não precisaram ser utilizados.
+75. (Cespe – UnB – MPE-TO – 2006) Uma concessionária oferece aos
+ clientes as seguintes
+opções para a aquisição de um veículo: 4 cores externas, 4 cores internas, 4 ou 5
+marchas, com ou sem ar condicionado, com ou sem direção hidráulica, com ou sem
+vidros e travas elétricas. Desse modo, são, no máximo, 128 as opções distintas para a
+escolha de um veículo.
+76. (Cespe – UnB – MPE-TO – 2006) Os ramais de telefone em uma repartição têm quatro
+dígitos, formatados
+ com os algarismos 0, 1, ..., 9. Se esses números possuem pelo
+
+menos um dígito repetido, então a quantidade de números de ramais que é possível
+formar é superior a 4 mil.
+77. (Cespe – UnB – MPE-TO – 2006) Um juiz deve sortear cinco homens e seis mulheres
+para formar o corpo de jurados no tribunal do júri, entre 10 homens e 13 mulheres
+convocados. Nessa situação, o número de possibilidades diferentes
+ de se formar o corpo
+de jurados é inferior a 1.970.
+78. (Cespe – UnB – MPE-TO – 2006) Uma empresa possui 13 postos de trabalho para
+técnicos em contabilidade, 10 para técnicos em sistemas operacionais e 12 para
+técnicos em eletrônica. Alguns técnicos ocupam mais de um posto de trabalho, isto é,
+quatro são técnicos em contabilidade e em sistemas operacionais, cinco são técnicos
+em sistemas
+ operacionais e em eletrônica e três possuem todas as três especialidades.
+Nessas condições, se há 22 técnicos nessa empresa, então sete deles são técnicos em
+contabilidade e em eletrônica.
+Texto para questões 79 a 81
+Três funcionários da agência 1, quatro funcionários da agência 2 e dois funcionários da
+agência 3 participam de uma reunião em que pessoas de uma mesma agência sempre
+sentam
+ juntas. Nessa situação, 79. (Cespe – UnB – ECT – 2005) O número de maneiras
+distintas que esse grupo de pessoas pode sentar em nove cadeiras enfileiradas é superior
+a 1.500.
+80. (Cespe – UnB – ECT – 2005) O número de maneiras distintas que esse grupo de pessoas
+pode sentar ao redor de uma mesa redonda com nove assentos é inferior a 600.
+81. (Cespe – UnB –TRT – 2005) O número de cadeias
+ binárias (que só contêm 0 e 1) de oito
+dígitos, e que tenham exatamente três zeros, é superior a 50.
+Texto para questão 82
+Uma moeda é jogada para o alto 10 vezes. Em cada jogada, pode ocorrer 1 (cara) ou 0
+(coroa) e as ocorrências são registradas em uma sequência de dez dígitos, como, por
+exemplo, 0110011010.
+Considerando essas informações, julgue o próximo item.
+82. (Cespe –
+ UnB –TRT – 2005) O número de sequências nas quais é obtida pelo menos uma
+cara é inferior a 512.
+Texto para questões 83 a 85
+Dentro da estrutura organizacional do TCU, o colegiado mais importante é o Plenário, que
+é composto por nove ministros, dois auditores e sete procuradores. A ele, seguem-se as 1
+a
+
+e 2
+a
+ Câmaras, compostas, respectivamente, por três ministros, um auditor e um
+procurador,
+ escolhidos entre os membros que compõe o Plenário do TCU, sendo que as
+duas câmaras não têm membros em comum.
+Considerando que, para a composição das duas câmaras, todos os ministros, auditores e
+procuradores que compõem o Plenário possam ser escolhidos, e que a escolha seja feita de
+maneira aleatória, julgue os itens seguintes.
+83. (Cespe – UnB –TCU – 2007) O número de escolhas diferentes
+ de auditores e
+procuradores para a formação da 1
+a
+ Câmara é igual a nove.
+84. (Cespe – UnB –TCU – 2007) Considere que, para a formação das duas Câmaras,
+inicialmente são escolhidos os três ministros que comporão a 1
+a
+ Câmara e, em seguida,
+os três ministros que comporão a 2
+a
+ Câmara. Nessa situação, o número de escolhas
+diferentes de ministros para a formação das duas câmaras é superior a 1.600.
+85. (Cespe – UnB –TCU – 2007) Uma vez que a 1
+a
+ Câmara já tenha sido formada, o número
+de escolhas diferentes de ministros, auditores e procuradores, para a formação da 2
+a
+Câmara, será inferior a 130.
+86. (Cespe – UnB –TCU – 2007) É igual a 5! o número de sequências de caracteres distintos
+com cinco letras que podem ser formadas com as letras da palavra Internet.
+87. (Cespe – UnB – TCU
+ – 2007) Se os números das matrículas dos empregados de uma
+fábrica têm quatro dígitos e o primeiro dígito não é zero e se todos os números de
+matrícula são números ímpares, então há, no máximo, 450 números de matrícula
+diferentes.
+Texto para questão 88
+A diretoria da associação dos servidores de uma pequena empresa deve ser formada por
+cinco empregados escolhidos entre os dez de nível
+ médio e os 15 de nível superior.
+A respeito dessa restrição, julgue os itens seguinte.
+88. (Cespe – UnB – TCU – 2007) Há mais de 20 mil maneiras para se formar uma diretoria
+que tenha 2 empregados de nível médio e três empregados de nível superior.
+Com respeito ao número de possibilidades lógicas de ocorrência de um evento, julgue os
+itens 89 e 90 a seguir.
+89. (Cespe – UnB – Ancine
+ – 2005) É inferior a 7.500 o número de maneiras pelas quais
+nove cópias de filmes podem ser distribuídas entre quatro salas de projeção, de modo
+que a menor sala receba três cópias dos filmes e cada uma das outras salas receba
+duas cópias dos filmes.
+90. (Cespe – UnB – Ancine – 2005) Suponha que uma distribuidora de filmes tenha seis
+filmes de animação e cinco comédias para distribuição. Nesse
+ caso, é superior a 140 e
+inferior a 160 o número de formas distintas pelas quais quatro desses filmes podem ser
+distribuídos de modo que duas sejam comédias e duas sejam de animação.
+91. (Cespe – UnB – BRB – 2005) Considere que as senhas dos clientes de um banco têm oito
+
+dígitos, sem repetições, formadas pelos algarismos de 0 a 9. Nessa situação, o número
+máximo de senhas que podem ser cadastradas
+ nesse banco é inferior a 2 × 10
+6
+92. (Cespe – UnB – BRB – 2005) Com três algarismos escolhidos aleatoriamente entre os
+algarismos de 1 a 9, pode-se formar, no máximo, seis números distintos que sejam
+maiores que 110 e menores que mil.
+Texto para questões 93 a 96
+Conta-se na mitologia grega que Hércules, em um acesso de loucura, matou sua família.
+Para expiar seu crime, foi enviado
+ à presença do rei Euristeu, que lhe apresentou uma
+série de provas a serem cumpridas por ele, conhecidas como 
+Os doze trabalhos de
+Hércules
+. Entre esses trabalhos, encontram-se: matar o leão de Nemeia, capturar a corça
+de Cerineia e capturar o javali de Erimanto. Considere que a Hércules seja dada a escolha
+de preparar uma lista colocando em ordem os 12 trabalhos a serem executados, e que a
+escolha
+ dessa ordem seja totalmente aleatória. Além disso, considere que somente um
+trabalho seja executado de cada vez.
+Com relação ao número de possíveis listas que Hércules poderia preparar, julgue os itens
+subsequentes.
+93. (Cespe – UnB – PF – 2004) O número máximo de possíveis listas que Hércules poderia
+preparar é superior a 12 × 10!.
+94. (Cespe – UnB – PF – 2004) O número máximo de
+ possíveis listas contendo o trabalho
+“matar o leão de Nemeia” na primeira posição é inferior a 240 × 990 × 56 × 30.
+95. (Cespe – UnB – PF – 2004) O número máximo de possíveis listas contendo os trabalhos
+“capturar a corça de Cerineia” na primeira posição e “capturar o javali de Erimanto” na
+terceira posição é inferior a 72 × 42 × 20 × 6.
+96. (Cespe – UnB –PF – 2004) O número máximo de
+ possíveis listas contendo os trabalhos
+“capturar a corça de Cerineia” e “capturar o javali de Erimanto” nas últimas duas
+posições, em qualquer ordem, é inferior a 6! × 8!.
+Texto para questões 97 a 100
+Para uma investigação a ser feita pela Polícia Federal, será necessária uma equipe com
+cinco agentes. Para formar essa equipe, a coordenação da operação dispõe de 29 agentes,
+sendo nove da
+ Superintendência Regional de Minas Gerais, oito da Regional de São Paulo e
+12 da Regional do Rio de Janeiro. Em uma equipe, todos os agentes terão atribuições
+semelhantes, de modo que a ordem de escolha dos agentes não será relevante.
+Com base nessa situação hipotética, julgue os itens seguintes.
+97. (Cespe – UnB – PF – 2004) Poderão ser formadas, no máximo, 19 × 14 × 13 × 7 × 5 × 3
+equipes
+ distintas.
+98. (Cespe – UnB – PF – 2004) Se a equipe deve conter exatamente dois agentes da
+regional do Rio de Janeiro, o número máximo de equipes distintas que a coordenação
+dessa operação poderá formar é inferior a 19 × 17 × 11 × 7.
+
+99. (Cespe – UnB – PF – 2004) Se a equipe deve conter exatamente dois agentes da
+Regional do Rio de Janeiro, um agente da Regional de São Paulo e dois agentes
+ da
+Regional de Minas Gerais, então a coordenação da operação poderá formar, no máximo,
+12 × 11 × 9 × 8 × 4 equipes distintas.
+100. (Cespe – UnB – PF – 2004) O número de cadeias distintas de 14 caracteres que podem
+ser formadas apenas com as letras da palavra Papiloscopista é inferior a 10
+8
+.
+Texto para questão 101
+A Polícia Federal brasileira identificou pelo menos 17 cidades de fronteira
+ como locais de
+entrada ilegal de armas; seis dessas cidades estão na fronteira do Mato Grosso do Sul (MS)
+com o Paraguai. Internet: 
+<www.estadao.com.br>
+ (com adaptações).
+Considerando as informações do texto acima, julgue o próximo item.
+101. (Cespe – UnB – PF – 2009) Se uma organização criminosa escolher seis das 17 cidades
+citadas no texto, com exceção daquelas da fronteira do MS com
+ o Paraguai, para a
+entrada ilegal de armas no Brasil, então essa organização terá mais de 500 maneiras
+diferentes de fazer essa escolha.
+Texto para questão 102
+Considerando que, em um torneio de basquete, as 11 equipes inscritas serão divididas nos
+grupos A e B, e que, para formar o grupo A, serão sorteadas cinco equipes, julgue o item
+que se segue.
+102. (Cespe – UnB – PF – 2009) A
+ quantidade de maneiras distintas de se escolher as cinco
+equipes que formarão o grupo A será inferior a 400.
+Texto para questões 103 a 105
+De acordo com o primeiro lema de Kaplansky, a quantidade de subconjuntos de {1, 2, 3,...,
+n} com p elementos, em que não há números consecutivos, é dada pela fórmula abaixo.
+Uma das aplicações desse lema é a contagem do número de maneiras de
+ se sentar quatro
+meninas e seis meninos em uma fila de dez cadeiras, de modo que duas meninas não
+fiquem em posições adjacentes. A estratégia para se realizar essa contagem compreende
+quatro passos. Em primeiro lugar, deve-se contar o número de maneiras de se escolher
+quatro cadeiras sem que haja cadeiras consecutivas; esse procedimento deve ser feito
+utilizando-se o lema de Kaplansky. Em seguida,
+ deve-se contar o número de maneiras de
+organizar as meninas nessas cadeiras. O próximo passo consiste em contar o número de
+maneiras de se distribuir os meninos nas cadeiras restantes. Por fim, deve-se usar o
+princípio multiplicativo.
+Com base nessas informações, julgue os itens subsecutivos.
+103. (Cespe – UnB – TRE-ES – 2011) Diante dos dados acima, é correto afirmar que o
+número de maneiras
+ de se sentar quatro meninas e seis meninos em uma fila de dez
+
+cadeiras, de modo que não fiquem duas meninas em posições adjacentes, é superior a
+600 mil.
+104. (Cespe – UnB – TRE-ES – 2011) Em face dos dados apresentados, é correto afirmar
+que o número de maneiras de se escolher as quatro cadeiras entre as dez disponíveis
+sem que haja cadeiras consecutivas é superior a 40.
+105. (Cespe –
+ UnB – TRE-ES – 2011) A partir dos dados acima, é correto concluir que o
+número de maneiras de se organizar as quatro meninas nas quatro cadeiras escolhidas
+é igual a 16.
+Texto para questões 106 e 107
+Uma instituição de ensino possui 9 turmas de alunos: cinco de educação infantil e quatro
+de ensino fundamental; e nove professores que podem assumir qualquer das turmas,
+sendo que cada turma
+ é assumida por um único professor.
+Com base nessa situação, julgue os itens subsequentes.
+106. (Cespe – UnB – Seduc-AM – 2011) Considerando todos os professores da instituição, o
+número de maneiras distintas de se formar a grade dos professores para as turmas de
+Ensino Fundamental é inferior a 125.
+107. (Cespe – UnB – Seduc-AM – 2011) Escolhidos os professores para as turmas de
+educação
+ infantil, o número de maneiras distintas de se formar a grade dos professores
+para as turmas de Ensino Fundamental é igual a 16.
+Texto para questão 108
+A questão da desigualdade de gênero na relação de poder entre homens e mulheres é forte
+componente no crime do tráfico de pessoas para fins de exploração sexual, pois as vítimas
+são, na sua maioria, mulheres, meninas e adolescentes. Uma
+ pesquisa realizada pelo
+Escritório das Nações Unidas sobre Drogas e Crime (UNODC), concluída em 2009, indicou
+que 66% das vítimas eram mulheres, 13% eram meninas, enquanto apenas 12% eram
+homens e 9% meninos. Ministério da Justiça. Enfrentamento ao tráfico de pessoas:
+relatório do plano nacional. Janeiro de 2010, p. 23 (com adaptações).
+108. (Cespe – UnB – PC-ES – 2011) Se as vítimas indicadas
+ na pesquisa totalizaram 250
+pessoas, então o número de maneiras distintas de se escolher um grupo de três
+homens entre as vítimas será superior a 4 mil.
+Texto para questões 109 e 110
+Um professor avalia o aprendizado de seus alunos, aplicando provas objetivas de dois tipos:
+• tipo 1: contém dez afirmações para que o aluno julgue se cada uma das afirmações é
+VERDADEIRA ou FALSA;
+• tipo 2: contém quatro questões de múltipla escolha; cada questão possui cinco opções e o
+aluno deverá apontar qual dessas opções é a correta.
+Com referência à situação apresentada acima, julgue os itens que se seguem.
+
+109. (Cespe – UnB – Seduc-AM – 2011) A quantidade de possíveis gabaritos para uma prova
+do tipo 2 é superior a 600.
+110. (Cespe – UnB – Seduc-AM – 2011) A quantidade
+ de possíveis gabaritos para uma prova
+do tipo 1 é inferior a mil.
+111. (Cespe – UnB – Seduc-AM – 2011) A equação x1 + x2 + x3 = 18 possui mais de 200
+soluções inteiras e não negativas.
+Texto para questões 112 a 114
+Tecnologia no combate ao crime. Desde dezembro de 2009, uma aeronave não tripulada
+sobrevoa e monitora as fronteiras do Brasil com o Paraguai, o Uruguai e a Argentina na
+região de Foz do Iguaçu. Ao todo, serão seis estações equipadas com duas aeronaves cada,
+operadas pela Polícia Federal, somando investimento da ordem de US$ 655,6 milhões.
+Segurança Pública com Cidadania. Equipe CGPLAN/MJ, agosto/2010 (com adaptações).
+Considere que tenham sido sugeridos os seguintes critérios para a escolha das rotas de voo
+da aeronave mencionada no texto acima.
+• Se a rota
+ passar pelo Brasil ou pelo Paraguai, então ela deverá passar pelo Uruguai.
+• Se a rota passar pelo Paraguai, então ela não deverá passar pela Argentina.
+• Se a rota passar pelo Uruguai e pela Argentina, então ela deverá passar pelo Paraguai.
+Suponha, também, que as estações A, B e C tenham sido construídas em pontos
+equidistantes, de modo que a distância de uma dessas três estações
+ para outra seja de
+150km.
+Com referência às informações contidas no texto acima e às considerações hipotéticas que
+a ele se seguem, e considerando 1,73 como valor aproximado para 
+, julgue os itens a
+seguir.
+112. (Cespe – UnB – PC-ES – 2011) Supondo que uma nova estação, D, seja instalada em
+um ponto equidistante das estações A, B e C, então a distância da estação D para as
+estações A,
+ B e C será inferior a 87 km.
+113. (Cespe – UnB – PC-ES – 2011) Considerando que devam ser escolhidas três aeronaves
+para inspeção e manutenção, sendo que não podem ser selecionadas as duas aeronaves
+de uma mesma estação, e que todas as seis estações já possuam as duas aeronaves
+previstas, então o número de formas distintas de se fazer essa escolha será superior a
+150.
+114. (Cespe – UnB
+ – PC-ES – 2011) Se a rota escolhida passar pela Argentina, então ela
+passará apenas neste país.
+Julgue os itens 115 a 117, acerca de contagem e probabilidades.
+115. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Se, em determinado tribunal, há 54 juízes de
+1
+o
+ grau, entre titulares e substitutos, então a quantidade de comissões distintas que
+poderão ser formados por 5 desses juízes, das quais os
+ dois mais antigos no tribunal
+participem obrigatoriamente, será igual a 35.100.
+116. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Existem menos de 4 × 105 maneiras distintas
+
+de se distribuir 12 processos entre 4 dos 54 juízes de 1
+o
+ grau de um tribunal de forma
+que cada juiz receba 3 processos.
+117. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Se, de um grupo de pessoas formado por 15
+graduados em direito,
+ 12 graduados em arquitetura e 11 graduados em estatística, 5
+forem graduados em direito e estatística; 8, em direito e arquitetura; 4, em arquitetura
+e estatística; e 3, em direito, arquitetura e estatística, então, nesse grupo, haverá mais
+de 5 pessoas graduadas somente em direito.
+Texto para questões 118 e 119
+Considere que, em um órgão de inteligência, o responsável por determinado
+ setor
+disponha de 20 agentes, sendo 5 especialistas em técnicas de entrevista, 8 especialistas
+em reconhecimento operacional e 7 especialistas em técnicas de levantamento de
+informações, todos com bom desempenho na tarefa de acompanhamento de investigado. A
+partir dessas informações, julgue os itens a seguir.
+118. (Cespe – UnB – ABIN – 2010) Se, para cumprir determinada missão, for necessário
+fazer, simultaneamente, reconhecimento operacional em 3 locais diferentes, então o
+responsável pelo setor terá 340 maneiras distintas de compor uma equipe da qual
+façam parte 3 agentes especialistas para essa missão, sendo um especialista para cada
+local.
+119. (Cespe – UnB – ABIN – 2010) Há mais de 270 maneiras distintas de o responsável pelo
+setor organizar uma equipe composta por 1 especialista
+ em entrevista, 1 em
+reconhecimento operacional e 1 em levantamento de informações, para determinada
+missão.
+120. (Cespe – UnB – ABIN – 2010) Considere que uma das técnicas de acompanhamento de
+investigado que se desloque por uma rua retilínea consista em manter um agente no
+mesmo lado da via que o investigado, alguns metros atrás deste, e dois outros agentes
+do lado oposto da rua, um caminhando
+ exatamente ao lado do investigado e outro,
+alguns metros atrás. Nessa situação, há 10 maneiras distintas de 3 agentes
+previamente escolhidos se organizarem durante uma missão de acompanhamento em
+que seja utilizada essa técnica.
+Com relação aos princípios e técnicas de contagem, julgue os itens subsequentes.
+121. (Cespe – UnB – ABIN – 2010) Caso o servidor responsável pela guarda de processos
+ de
+determinado órgão tenha de organizar, em uma estante com 5 prateleiras, 3 processos
+referentes a cidades da região Nordeste, 3 da região Norte, 2 da região Sul, 2 da região
+Centro-Oeste e 1 da região Sudeste, de modo que processos de regiões distintas fiquem
+em prateleiras distintas, então esse servidor terá 17.280 maneiras distintas para
+organizar esses processos.
+122. (Cespe – UnB – ABIN
+ – 2010) Considere que seja possível chegar a uma pequena
+cidade por meio de carro, por um dos 5 ônibus ou por um dos 2 barcos disponíveis e que,
+dado o caráter sigiloso de uma operação a ser realizada nessa cidade, os agentes que
+
+participarão dessa operação devam chegar à referida cidade de maneira independente,
+em veículos distintos. Em face dessa situação, sabendo-se que o órgão de inteligência
+dispõe de apenas um carro e que os deslocamentos devem ocorrer no mesmo dia, é
+correto afirmar que o número de maneiras de o servidor responsável pela organização
+das viagens escolher os veículos para transporte de 3 agentes para essa missão é
+inferior a 50.
+123. (Cespe – UnB – ABIN – 2010) Caso o chefe de um órgão de inteligência tenha de
+escolher 3 agentes entre os 7 disponíveis para viagens
+ — um deles para coordenar a
+equipe, um para redigir o relatório de missão e um para fazer os levantamentos de
+informações —, o número de maneiras de que esse chefe dispõe para fazer suas
+escolhas é inferior a 200.
+Com relação a análise combinatória, julgue os itens 124 a 128 que se seguem.
+124. (Cespe – UnB – ANAC – 2009) O número de rotas aéreas possíveis partindo de Porto
+Alegre, Florianópolis
+ ou Curitiba com destino a Fortaleza, Salvador, Natal, João Pessoa,
+Maceió, Recife ou Aracaju, fazendo uma escala em Belo Horizonte, Brasília, Rio de
+Janeiro ou São Paulo é múltiplo de 12.
+125. (Cespe – UnB – ANAC – 2009) Considerando que: um anagrama de uma palavra é uma
+permutação das letras dessa palavra, tendo ou não significado na linguagem comum, 
+α
+seja a quantidade de anagramas possíveis
+ de se formar com a palavra AEROPORTO, 
+β
+seja a quantidade de anagramas começando por consoante e terminando por vogal
+possíveis de se formar com a palavra TURBINA; e sabendo que 9! = 362.880 e 5! = 120,
+então 
+α
+ = 21
+β
+.
+126. (Cespe – UnB – ANAC – 2009) Considere a seguinte situação hipotética. Há 6 estradas
+distintas ligando as cidades A e B, 3 ligando B e C; e 2 ligando A e C diretamente. Cada
+estrada pode ser utilizada nos dois sentidos. Nessa situação, o número de rotas
+possíveis com origem e destino em A e escala em C é igual a 400.
+127. (Cespe – UnB – ANAC – 2009) O número de comissões constituídas por 4 pessoas que é
+possível obter de um grupo de 5 pilotos e 6 copilotos, incluindo, pelo menos, 2 pilotos, é
+superior a 210.
+128. (Cespe – UnB – ANAC – 2009) Em um voo em que
+ haja 8 lugares disponíveis e 12
+pessoas que desejem embarcar, o número de maneiras distintas de ocupação dos
+assentos para o voo sair lotado será superior a 500.
+Texto para questões 129 e 130
+Considerando que, para ocupar os dois cargos que compõem a diretoria de uma empresa,
+diretor e vice-diretor, existam 5 candidatos, julgue os itens subsequentes.
+129. (Cespe – UnB – ANAC – 2009)
+ Se cada um dos candidatos for capaz de ocupar qualquer
+um dos dois cargos, o número possível de escolhas para a diretoria da empresa será
+igual a 10.
+
+130. (Cespe – UnB – ANAC – 2009) Se, dos 5 candidatos, 2 concorrem apenas ao cargo de
+diretor e os demais, apenas ao cargo de vice-diretor, o número possível de escolhas
+para a diretoria da empresa será igual 5.
+Texto para questões 131 a
+ 133
+Considerando um grupo formado por 5 pessoas, julgue os itens a seguir.
+131. (Cespe – UnB – ANAC – 2009) Há 24 modos de essas 5 pessoas se posicionarem em
+torno de uma mesa redonda.
+132. (Cespe – UnB – ANAC – 2009) Se, nesse grupo, existirem 2 crianças e 3 adultos e
+essas pessoas se sentarem em 5 cadeiras postadas em fila, com cada uma das crianças
+sentada entre 2 adultos, então,
+ haverá 12 modos distintos de essas pessoas se
+posicionarem.
+133. (Cespe – UnB – ANAC – 2009) Caso essas 5 pessoas queiram assistir a um concerto
+musical, mas só existam 3 ingressos disponíveis e não haja prioridade na escolha das
+pessoas que irão assistir ao espetáculo, essa escolha poderá ser feita de 20 maneiras
+distintas.
+Com relação a análise combinatória, julgue os itens 134 e 135.
+134. (Cespe – UnB – ANAC – 2009) O logotipo de uma empresa aérea é constituído por 4
+listras diagonais, ainda sem cores definidas. Para essa definição, a companhia aérea
+deseja pintá-lo sobre um avião virtual usando 5 cores diferentes, de modo que as listras
+adjacentes não tenham a mesma cor.
+Nessa situação hipotética, o número de maneiras distintas de realizar tal procedimento
+será superior
+ a 300.
+135. (Cespe – UnB – ANAC – 2009) O número de coquetéis (misturas de duas ou mais
+bebidas) que é possível fazer com 5 bebidas distintas é inferior a 25.
+5.10.1. Gabarito dos exercícios propostos
+1. Certo
+28. Certo
+55. Certo
+82. Errado
+109. Certo
+2. Errado
+29. Errado
+56. Certo
+83. Errado
+110. Errado
+3. Errado
+30. Errado
+57. Errado
+84. Certo
+111. Errado
+4. Certo
+31. Certo
+58. Certo
+85. Certo
+112. Certo
+5. Errado
+32. Certo
+59. Errado
+86. Certo
+113. Certo
+6. Errado
+33. Errado
+60. Certo
+87. Errado
+114. Certo
+7. Errado
+34.
+ Errado
+61. Certo
+88. Errado
+115. Errado
+8. Certo
+35. Certo
+62. Errado
+89. Errado
+116. Certo
+9. Certo
+36. Certo
+63. Certo
+90. Certo
+117. Errado
+10. Errado
+37. Errado
+64. Certo
+91. Certo
+118. Errado
+11. Certo
+38. Errado
+65. Errado
+92. Errado
+119. Certo
+
+12. Errado
+39. Errado
+66. Errado
+93. Errado
+120. Errado
+13. Certo
+40. Certo
+67. Certo
+94. Certo
+121. Certo
+14. Certo
+41. Certo
+68. Errado
+95. Errado
+122. Errado
+15. Errado
+42. Errado
+69. Certo
+96. Certo
+123. Errado
+16. Certo
+43. Errado
+70. Certo
+97. Errado
+124. Certo
+17. D
+44. Certo
+71. Errado
+98. Errado
+125. Certo
+18. D
+45. Errado
+72. Errado
+99. Errado
+126. Certo
+19. C
+46. Errado
+73. Certo
+100. Errado
+127. Certo
+20. E
+47. Certo
+74. Certo
+101. Errado
+128. Errado
+21. B
+48. Certo
+75. Errado
+102. Errado
+129. Errado
+22. C
+49. Errado
+76. Certo
+103. Certo
+130. Errado
+23. C
+50. Errado
+77. Errado
+104. Errado
+131.
+ Certo
+24. E
+51. Certo
+78. Certo
+105. Errado
+132. Certo
+25. Certo
+52. Errado
+79. Certo
+106. Errado
+133. Errado
+26. Certo
+53. Errado
+80. Certo
+107. Errado
+134. Certo
+27. Errado
+54. Errado
+81. Certo
+108. Certo
+135. Errado
+
+Capítulo 6
+Probabilidade
+6.1. Experimento aleatório
+É todo experimento que não podemos predizer o resultado.
+Exemplo:
+Lançar um dado e observar o número da face voltada para cima.
+6.2. Espaço amostral (A)
+É o conjunto de resultados possíveis de um experimento aleatório.
+Exemplo:
+No lançamento de um dado o espaço amostral é {1,2,3,4,5,6}
+6.3. Evento (E)
+É qualquer subconjunto do espaço amostral.
+Exemplo:
+Ocorrência de um número ímpar na face de cima no lançamento de um dado.
+6.4. Probabilidade
+É a chance de ocorrência de determinado acontecimento (evento).
+Exemplo:
+Ao ser lançado um dado, qual a probabilidade de a face voltada para cima ser o
+número 2?
+N(E) = {2} = 1
+N(A) = {1,2,3,4,5,6} = 6
+6.5. Eventos 
+importantes
+6.5.1. Evento certo
+
+É aquele que sempre ocorre, em qualquer realização do experimento aleatório.
+P(E) = 1 = 100%
+Exemplo:
+No lançamento de um dado honesto sair um número menor ou igual a 6.
+6.5.2. Evento impossível
+É aquele que nunca ocorre em qualquer realização do experimento aleatório.
+E = Ø; P(E) = 0
+Exemplo:
+No lançamento de um dado honesto
+ sair um número maior do que 6.
+6.5.3. Eventos mutuamente exclusivos
+São eventos que nunca acontecem simultaneamente.
+6.5.4. Eventos complementares
+São eventos mutuamente exclusivos cuja união é igual ao espaço amostral e a
+probabilidade deles ocorrerem é igual a 1 ou 100%.
+Exemplo:
+Uma urna tem bolas azuis e amarelas, contém 30 bolas. A probabilidade de sair
+uma bola
+ amarela é igual a 
+. Qual a probabilidade de sair uma bola azul?
+6.5.5. Eventos independentes
+São eventos cuja ocorrência de um deles não altera a do outro.
+6.6. Probabilidade da união de dois eventos (regra do ou)
+É a probabilidade de ocorrer a união dos eventos A ou B = A ¿ B
+Se os eventos são mutuamente exclusivos, então a probabilidade de A ou B é:
+Exemplo:
+Numa escola de 360 alunos, onde as únicas matérias dadas são matemática e
+português, 230 alunos estudam matemática, 160 alunos estudam português e 40
+alunos estudam matemática e português. Escolhendo-se um aluno ao acaso qual a
+
+probabilidade dele estudar Matemática ou Português?
+6.7. Probabilidade condicional
+É a probabilidade de ocorrer um evento A, sabendo-se que um evento B já
+ocorreu, e é calculada pela fórmula: 
+Exemplo:
+Uma urna contém 20 bolas numeradas de 1 a 20. Escolhe-se uma delas ao acaso
+e vê-se que o número nela marcado é maior que oito. Qual é a probabilidade de
+esse número ser múltiplo de cinco?
+Nota:
+Essa questão também poderia ser resolvida reduzindo o espaço amostral.
+6.8. Probabilidade de dois eventos simultâneos ou sucessivos 
+(regra
+do e)
+A probabilidade de ocorrerem dois eventos simultâneos (ou sucessivos) é igual
+a 
+, e é dada por: 
+Se os eventos forem independentes a probabilidade de ocorrerem dois eventos
+simultâneos(ou sucessivos) é igual a: 
+Exemplo:
+São colocadas em um saco bolinhas de tênis de mesa: cinco de cor branca e dez
+de cor laranja. Retira-se uma bolinha, sem reposição, e, em seguida,
+ retira-se
+outra. A probabilidade de a primeira ser de cor branca e a segunda de cor laranja
+é igual a?
+6.9. Exercícios resolvidos
+Um juiz deve analisar 12 processos de reclamações Trabalhistas, sendo 4 de médicos,
+cinco de professores e três de bancários. Considere que, inicialmente, o juiz selecione
+aleatoriamente um grupo de três processos para serem analisados.
+Com base nessas
+ informações, julgue os itens a seguir.
+1. (Cespe – TRT – 2004) A probabilidade de que, nesse grupo, todos os processos sejam de
+bancários é inferior a 0,005.
+
+2. (Cespe – TRT – 2004) As chances de que, nesse grupo, pelo menos um dos processos
+seja de professor é superior a 80%.
+(Cespe – UNB – PR
+F – 2004)
+Considere que a tabela abaixo mostra o número de vítimas fatais em acidentes
+ de trânsito
+ocorridos em quatro estados brasileiros, de janeiro a junho de 2003.
+estado em que ocorreu o acidente
+total de vítimas fatais
+sexo masculino
+sexo feminino
+Maranhão
+225
+81
+Paraíba
+153
+42
+Paraná
+532
+142
+Santa Catarina
+188
+42
+A fim de fazer um estudo de causas, a PRF elaborou 1.405 relatórios, um para cada uma
+das vítimas fatais mencionadas na tabela anterior, contendo o perfil da vítima e as
+condições em que ocorreu o acidente.
+Com base nessas informações, julgue os itens que se seguem, acerca de um relatório
+escolhido aleatoriamente entre os citados acima.
+3. (Cespe – UNB – PRF
+ – 2004) A probabilidade de que esse relatório corresponda a uma
+vítima de um acidente ocorrido no estado do Maranhão é superior a 0,2.
+4. (Cespe – UNB – PRF – 2004) Chance de que esse relatório corresponda a uma vítima do
+sexo feminino é superior a 23%.
+5. (Cespe – UNB – PRF – 2004) Considerando que o relatório escolhido corresponda a uma
+vítima do sexo masculino, a probabilidade de que
+ o acidente nele mencionado tenha
+ocorrido no estado do Paraná é superior a 0,5.
+6. (Cespe – UNB – PRF – 2004) Considerando que o relatório escolhido corresponda a uma
+vítima de um acidente que não ocorreu no Paraná, a probabilidade de que ela seja do
+sexo masculino e de que o acidente tenha ocorrido no estado do Maranhão é superior a
+0,27.
+7. (Cespe – UNB – PRF – 2004) A chance de que
+ o relatório escolhido corresponda a uma
+vítima do sexo feminino ou a um acidente ocorrido em um dos estados da região Sul do
+Brasil listados na tabela é inferior a 70%.
+6.9.1. Gabarito dos exercícios resolvidos
+1. Certo
+6. Certo
+2. Certo
+7. Errado
+3. Certo
+4. Errado
+5. Errado
+
+6.9.2. Solução dos exercícios resolvidos
+1.
+P(E) = 
+Utilizaremos o MACETE do maior ou menor, que é só multiplicarmos
+“cruzado” as frações, observe: 
+Multiplicando
+ “cruzado” e respeitando a ordem, temos que:
+1.000 < 1.100 (1.000 é menor que 1.100? Sim, então concluímos que o valor é
+inferior a 0,005. Item certo).
+2.
+Pelo menos um: 1 – probabilidade de não acontecer.
+Probabilidade de não acontecer (não ser professor):
+Pelo menos um:
+Utilizando o MACETE usado na questão anterior, temos, 370>352 (370 é maior
+que 352? Sim. Então
+ concluímos que o valor é superior a 80%. Item certo).
+3. Se o evento é escolher uma vítima do Maranhão, então a quantidade de pessoas será
+dada pelo somatório das pessoas do sexo masculino e feminino. (225 + 81 = 306).
+Aplicando o MACETE: 3.060 > 2.810, concluímos assim que o item está correto,
+pois realmente 3.060 é superior a 2.810.
+4. Se o evento é escolher uma vítima do sexo
+ masculino, então a quantidade de pessoas
+será igual ao somatório (81 + 42 + 142+ 42 = 307).
+Aplicando o MACETE: 30.700 > 32.315. Concluímos assim que o item está
+errado, pois 30.700 não é superior a 32.315.
+5. Estamos diante de uma restrição, pois apesar de a vítima ser do sexo masculino, ela
+obrigatoriamente tem que ser do Paraná (homens do Paraná: 532; total de vítimas do
+sexo masculino:
+ 225 + 153 + 532 + 188 = 1.098).
+
+Aplicando o MACETE: 5.320 > 5.490. Concluímos assim que o item está errado,
+pois 5.320 não é superior a 5.490.
+Dentro do contexto da questão, na nossa opinião, a grande dúvida do aluno
+seria identificar o que seria o evento e o que seria o espaço amostral, entretanto,
+se você prestou atenção nas dicas passadas na parte teórica, fica bem simples a
+identificação,
+ observe: 
+Evento:
+ Está sempre relacionado ao questionamento do
+problema, ou seja, a pergunta da questão que nesse caso foi a probabilidade de
+que o acidente nele mencionado tenha ocorrido no estado do Paraná (logo, o
+evento seria as pessoas do sexo masculino do estado do Parana = 532).
+Espaço amostral: total de pessoas, que seriam todas as pessoas do sexo
+masculino (225 + 153 + 532 + 188
+ = 1.098).
+6. Se o evento é escolher uma vítima do sexo masculino e que o acidente tenha ocorrido no
+estado do Maranhão, então a quantidade de pessoas será igual a 225.
+Espaço amostral: 1.405 – 674 = 731 (não ser do Paraná).
+Aplicando o MACETE: 22500>19737. Concluímos assim que o item está correto,
+pois realmente 22.500 é superior a 19.737.
+7. Evento: uma vítima do sexo feminino
+ ou um acidente ocorrido em um dos estados da
+região Sul do Brasil, aplicaremos aqui a regra do ou: 307 (sexo feminino) + 904 (Paraná
++ Santa Catarina = sexo feminino/sexo masculino) assim: 307 + 904 = 1.211.
+Espaço amostral: total de pessoas (1.405)
+Aplicando o MACETE: 121100 < 98350. Concluímos assim que o item está
+errado, pois 121.100 não é inferior a 98.350.
+6.10. Exercícios 
+propostos
+Um levantamento foi realizado pelo governo para avaliar as condições de todas as casas
+existentes em uma comunidade remanescente de quilombos. Os resultados mostram o
+seguinte: 75% das casas têm paredes de barro;
+80% das casas têm cobertura de palha;
+90% das casas têm piso de terra batida;
+70% das casas têm portas externas de madeira.
+O gráfico abaixo apresenta
+ a distribuição do número de dormitórios existentes nas casas
+dessa comunidade.

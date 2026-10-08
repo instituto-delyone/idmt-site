@@ -1,0 +1,1207 @@
+Cadastre-se em 
+www.elsevier.com.br
+ para conhecer
+​
+ nosso
+catálogo completo, ter acesso a serviços exclusivos no site e receber
+informações sobre nossos lançamentos e promoções.
+
+© 2013, Elsevier Editora Ltda.
+ 
+Todos os direitos reservados e protegidos pela Lei n
+o
+ 9.610, de 19/02/1998.
+Nenhuma parte deste livro, sem autorização prévia por escrito da editora, poderá ser reproduzida
+ou transmitida sejam quais forem os meios empregados: eletrônicos, mecânicos, fotográficos,
+gravação ou quaisquer outros.
+ 
+Revisão
+: Hugo de Lima Corrêa 
+Editoração
+ Eletrônica
+: SBNigri Artes e Textos Ltda.
+Epub
+: SBNigri Artes e Textos Ltda.
+ 
+Coordenador da Série
+: Sylvio Motta
+Elsevier Editora Ltda.
+Conhecimento sem Fronteiras Rua Sete de Setembro, 111 – 16
+o
+ andar 20050-006 – Centro – Rio de
+Janeiro – RJ – Brasil
+Rua Quintana, 753 – 8
+o
+ andar 04569-011 – Brooklin – São Paulo – SP – Brasil
+Serviço de
+ Atendimento ao Cliente 0800-0265340
+atendimento1@elsevier.com
+ISBN: 978-85-352-7003-7
+ISBN (Versão Eletrônica): 978-85-352-7004-4
+ 
+Nota:
+ Muito zelo e técnica foram empregados na edição desta obra. No entanto, podem ocorrer
+erros de digitação, impressão ou dúvida conceitual. Em qualquer das hipóteses, solicitamos a
+comunicação ao nosso Serviço de Atendimento ao Cliente,
+ para que possamos esclarecer ou
+encaminhar a questão.
+Nem a editora nem o autor assumem qualquer responsabilidade por eventuais danos ou perdas a
+pessoas ou bens, originados do uso desta publicação.
+CIP-BRASIL. CATALOGAÇÃO-NA-FONTE
+SINDICATO NACIONAL DOS EDITORES DE LIVROS, RJ
+M286r
+Mariano, Fabrício
+Raciocínio lógico e matemática para concursos : CESPE/UNB / Fabrício Mariano, Marcos Almeida e Renato Oliveira. – Rio
+de Janeiro : Elsevier, 2013. (Provas e concursos) Inclui bibliografia
+ 
+ISBN 978-85-352-7003-7
+ 
+1. Lógica simbólica e matemática.
+ 2. Lógica simbólica e matemática – Problemas, questões, exercícios. 3. Serviço público –
+Brasil – Concursos. I. Almeida, Marcos II. Oliveira, Renato. III. Universidade de Brasília. Centro de Seleção e de Promoção de
+Eventos. IV. Título. V. Série.
+ 
+13-
+1883.
+ 
+ 
+CDU:
+ 043704
+
+Agradecimentos
+Agradecemos a Deus por nos permitir concluir este trabalho, aos nossos
+familiares e amigos pela dedicação e auxílio de sempre, além disso não podemos
+deixar de citar o professor Fabrício Mariano e os colaboradores da Editora
+Campus Elsevier, pela confiança no trabalho.
+
+Os Autores
+Marcos Antonio de Almeida
+ é professor de raciocínio lógico, matemática
+básica, matemática financeira e estatística nos principais cursos do Rio de
+Janeiro, dentre os quais estão Curso Degrau Cultural, Curso Pla, Curso Cpcon,
+Mestre dos Concursos, Curso Primer, entre outros. Cursou a Escola de Formação
+de Oficiais da Marinha e a Universidade Federal Fluminense. Além disso,
+ exerceu
+a função de controlador de trafego aéreo na Base Aérea de Canoas.
+ 
+ 
+ 
+Renato Oliveira
+ é professor de raciocínio lógico, matemática básica,
+matemática financeira e estatística nos principais cursos do Rio de Janeiro, dentre
+os quais estão Curso Degrau Cultural, Curso Pla, Curso Aprimore, Curso Primer,
+Curso Sofep, entre outros.
+ 
+ 
+ 
+Fabrício Mariano
+ 
+• Mestrado em Economia pela Wisconsin International
+University (WIU); • Pós-graduação em Finanças e Gestão Corporativa pela UCAM
+– Universidade Cândido Mendes; • Graduação em Física pela Universidade
+Federal do Rio de Janeiro – UFRJ; • Ensino Fundamental e Médio – Colégio
+Pedro II.
+Cursos de aperfeiçoamento nas áreas de:
+• Derivativos (Associação Nacional das Instituições do
+ Mercado Financeiro –
+Andima); • Finanças Empresariais (Fundação Getúlio Vargas – FGV); •
+Estatística I e II (Cecierj – UERJ);
+• Análise combinatória I e II (Cecierj – UERJ); Cursos preparatórios
+• Professor de diversos cursos preparatórios no Rio de Janeiro, em Juiz de Fora
+e Porto Alegre, entre outros.
+• Curso IARJ – Prof. de RLM (lógica); Matemática Financeira; Administração
+Financeira (Finanças); Estatística; • Curso CEFIS: Prof. de RLM (lógica);
+Estatística; Matemática Financeira; • Curso Logos (JF): Prof. de
+Administração; Economia; Economia do Trabalho; • Casa do Concurseiro
+
+(POA): Arquivologia;
+• Curso CPCOM: RLM; Estatística; Adm. Pública;
+• IESDE (Curitiba): Arquivologia;
+• 
+www.aproveja.com
+ (Aulas Virtuais: RLM/ Prob./Estatística / Mat.
+ Financeira);
+• 
+www.aprovacaovirtual.com.br
+ (Aulas Virtuais: Finanças/Adm. Financeira); •
+Eu Vou Passar (Aulas Virtuais);
+• 
+www.projetomanhattan.com
+ (Aulas Virtuais: RLM /Estatística/ Mat.
+Financeira).
+
+Apresentação Esta obra tem como finalidade ajudá-
+los na resolução de provas de raciocínio logico das
+principais bancas organizadoras de concurso público
+do Brasil. Dividimos os capítulos em teoria, exercícios
+resolvidos, exercícios propostos com questões de
+provas. Nos exercícios resolvidos, procuramos
+encontrar uma maneira bem didática e simples na
+explicação das questões com intuito
+ de familiarizar o
+aluno com os diversos tipos de questões abordados
+pelas principais bancas organizadoras de concurso
+público do Brasil.
+Atenciosamente 
+Os autores
+
+Sumário
+Capa
+Folha de Rosto
+Cadastro
+Créditos
+Agradecimentos
+Os Autores
+Apresentação
+Capítulo 1 – Lógica Sentencial
+1.1. Sentenças abertas e fechadas
+1.2. Proposição
+1.3. Proposição simples
+1.4. Proposição composta
+1.5. Operadores lógicos (conectivos)
+1.5.1. “E” (conjunção); símbolo = 
+∧
+1.5.2. “Ou” (disjunção inclusiva); símbolo = 
+∨
+1.5.3. “Se ..., então” (condicional); símbolo = 
+→
+1.5.4. “Se e somente se” (bicondicional); símbolo = 
+↔
+1.5.5. “Ou... ou” (disjunção exclusiva); símbolo = 
+∨
+1.6. Negação; símbolo (~; ¬) = “Modificação do valor lógico”
+1.7. Tabuada lógica (tabela-verdade)
+1.8. Tautologia
+1.9. Contradição
+1.10. Quantificadores
+1.10.1. Quantificador universal
+1.10.2. Quantificador existencial
+1.11. Negação das proposições
+
+1.11.1. Negação das proposições simples
+1.11.2. Negação das proposições compostas
+1.12. Equivalência lógica
+1.12.1. Equivalências notáveis.
+1.13. Condição suficiente e necessária
+1.14. Exercícios resolvidos
+1.14.1. Gabarito dos exercícios resolvidos
+1.14.2. Solução dos exercícios resolvidos
+1.15. Exercícios propostos
+1.15.1. Gabarito dos exercícios propostos
+Capítulo 2 – Associações Lógicas
+2.1. Aplicação
+2.2. Exercícios resolvidos
+2.2.1. Gabarito dos exercícios resolvidos
+2.2.2. Solução dos exercícios resolvidos
+2.3. Exercícios propostos
+2.3.1. Gabarito dos exercícios propostos
+Capítulo 3 – Lógica de Argumentação
+3.1. Representação de um argumento
+3.2. Silogismo
+3.3. Validade de um argumento
+3.4. Exercícios resolvidos
+3.4.1. Gabarito dos exercícios resolvidos
+3.4.2. Solução dos exercícios resolvidos
+3.5. Exercícios propostos
+Capítulo 4 – Teoria dos Conjuntos
+4.1. Conjunto
+4.2. Representação do conjunto
+4.3. Relação entre os conjuntos
+4.4. Operações com conjuntos
+4.5. Exercícios resolvidos
+4.5.1. Gabarito dos exercícios resolvidos
+
+4.5.2. Solução dos exercícios resolvidos
+4.6. Exercícios propostos
+4.6.1. Gabarito dos exercícios propostos
+Capítulo 5 – Análise Combinatória
+5.1. Princípio fundamental da contagem
+5.2. Arranjo
+5.3. Fatorial
+5.4. Permutação simples
+5.5. Permutações com repetições
+5.6. Permutações circulares
+5.7. Combinação simples
+5.8. Combinações com repetições
+5.9. Exercícios resolvidos
+5.9.1. Gabarito dos exercícios resolvidos
+5.9.2. Solução dos exercícios resolvidos
+5.10. Exercícios propostos
+5.10.1. Gabarito dos exercícios propostos
+Capítulo 6 – Probabilidade
+6.1. Experimento aleatório
+6.2. Espaço amostral (A)
+6.3. Evento (E)
+6.4. Probabilidade
+6.5. Eventos importantes
+6.5.1. Evento certo
+6.5.2. Evento impossível
+6.5.3. Eventos mutuamente exclusivos
+6.5.4. Eventos complementares
+6.5.5. Eventos independentes
+6.6. Probabilidade da união de dois eventos (regra do ou)
+6.7. Probabilidade condicional
+6.8. Probabilidade de dois eventos simultâneos ou sucessivos (regra do e)
+6.9. Exercícios resolvidos
+
+6.9.1. Gabarito dos exercícios resolvidos
+6.9.2. Solução dos exercícios resolvidos
+6.10. Exercícios propostos
+6.10.1. Gabarito dos exercícios propostos
+Capítulo 7 – Provas Recentes
+Gabarito de provas recentes
+
+Capítulo 1
+Lógica Sentencial
+1.1. Sentenças abertas e fechadas
+Sentenças abertas: são sentenças que possuem uma indeterminação, ou seja, não
+temos como julgar se ela é verdadeira ou falsa.
+Exemplo
+I. x + y = 7.
+II. Ele é um excelente advogado.
+Sentenças fechadas: são aquelas que não possuem indeterminação, ou seja,
+temos como julgar se ela é verdadeira ou falsa.
+Exemplo
+I. Renato Oliveira é um excelente professor de Raciocínio Lógico.
+II. Marcos Antonio possui 8 filhos.
+III. 3 + 5 = 8.
+1.2. Proposição
+É toda frase declarativa, afirmativa ou negativa, de sentido completo, a qual se
+pode atribuir, dentro de certo contexto, somente um de dois valores lógicos
+possíveis: verdadeiro ou falso.
+Exemplos
+P: Caio é médico.
+Q: Renato
+ não é pintor.
+R: Fabrício nasceu em 1874.
+Nota 1:
+ Declarações interrogativas, exclamativas, verbos no imperativo,
+declarações sem verbos e sentenças abertas nunca poderão constituir uma
+proposição lógica.
+Nota 2:
+ Para facilitar nosso estudo, toda proposição terá como representação
+simbólica qualquer letra do nosso alfabeto.
+Nota 3:
+ Toda proposição é uma sentença fechada, pois podemos
+ julgá-la como
+verdadeira ou falsa.
+
+1.3. Proposição simples
+É uma frase declarativa, afirmativa ou negativa, constituída basicamente por um
+sujeito e um predicado.
+Exemplos
+P: Marcelo é professor.
+Q: Fabricio não é maluco.
+R: Regina é escritora.
+1.4. Proposição composta
+É toda frase declarativa, afirmativa ou negativa, formada pela ligação de duas ou
+mais proposições
+ simples através dos operadores lógicos.
+Exemplo
+Regina é escritora e Caio é médico.
+1.5. Operadores lógicos (conectivos)
+Sua finalidade é estabelecer o valor lógico da junção de duas ou mais
+declarações através do cálculo sentencial. Observe, abaixo, a lista dos operadores
+lógicos: 
+Nota 1:
+ Todo operador lógico terá uma representação simbólica e um
+cálculo específico.
+1.5.1. 
+“E” (conjunção); símbolo = 
+∧
+Pelé é brasileiro e Romário é argentino
+Cálculo sentencial: será verdadeiro quando as duas declarações conectadas
+forem verdadeiras, caso contrário, será falsa. A partir da definição, percebemos
+que a conjunção anterior apresenta valor lógico falso (V e F = F).
+Representação simbólica: P 
+∧
+ Q.
+Tabuada lógica da conjunção:
+P
+Q
+P 
+∧
+ Q
+V
+V
+V
+V
+F
+F
+F
+V
+F
+F
+F
+F
+1.5.2. “Ou” (disjunção inclusiva); símbolo = 
+∨
+Manaus é a capital do Brasil ou Maradona é argentino.
+Representação simbólica: P 
+∨
+ Q.
+
+Cálculo sentencial: será falso quando a primeira declaração for verdadeira e a
+segunda for falsa, caso
+ contrário, será verdadeiro. A partir da definição,
+percebemos que a disjunção inclusiva acima apresenta valor lógico verdadeiro (F
+ou V = V).
+Tabuada lógica da disjunção inclusiva:
+P
+Q
+P 
+∨
+ Q
+V
+V
+V
+V
+F
+V
+F
+V
+V
+F
+F
+F
+1.5.3. “Se ..., então” (condicional); 
+símbolo = 
+→
+Se Fumar faz mal à saúde, então a Terra é quadrada.
+Cálculo sentencial: será falso quando a primeira declaração for verdadeira e a
+segunda for falsa, caso contrário, será verdadeiro. A partir da definição,
+percebemos que a condicional acima apresenta valor lógico falso (se V então F =
+F).
+Representação simbólica: P 
+→
+ Q.
+Tabuada lógica da condicional:
+P
+Q
+P 
+→
+ Q
+V
+V
+V
+V
+F
+F
+F
+V
+V
+F
+F
+V
+1.5.4. “Se e somente se” (bicondicional); símbolo = 
+↔
+Paulo Coelho é escritor se e somente se Felipe Massa é jogador de basquete.
+Cálculo sentencial: será verdadeiro quando as duas declarações forem
+equivalentes, caso contrário,
+ será falsa. A partir da definição, percebemos que a
+bicondicional acima apresenta valor lógico falso (V se somente se F = F).
+Representação simbólica: P 
+↔
+ Q.
+Tabuada lógica da bicondicional:
+P
+Q
+P 
+↔
+ Q
+V
+V
+V
+V
+F
+F
+
+F
+V
+F
+F
+F
+V
+1.5.5. “Ou... ou” (disjunção 
+exclusiva); símbolo = 
+∨
+Ou Brasília é a capital do Brasil ou Brasília é a capital da Argentina.
+Cálculo sentencial: será falso quando as duas declarações forem equivalentes,
+caso contrário, será verdadeira. A partir da definição, percebemos que a disjunção
+exclusiva acima apresenta valor lógico verdadeiro (ou V ou F = V).
+Representação simbólica: P 
+∨
+ Q.
+Tabuada lógica da disjunção
+ exclusiva:
+P
+Q
+P 
+∨
+ Q
+V
+V
+F
+V
+F
+V
+F
+V
+V
+F
+F
+F
+1.6. Negação; símbolo (~; ¬) = “Modificação do valor lógico”
+Exemplo
+A: A galinha põe ovo (V).
+¬ A: A galinha não põe ovo (F).
+Nota 1:
+ Aplicaremos, nesse momento, apenas a ideia de modificação
+ de valor
+lógico, entretanto, mais à frente, faremos uma abordagem mais minuciosa do
+assunto.
+1.7. Tabuada lógica (tabela-verdade)
+Definição:
+ Dá o valor lógico da união das proposições através do cálculo
+sentencial. Para facilitar nosso estudo, faremos a junção de todas as tabuadas
+lógicas.
+1
+o
+2
+o
+P 
+∧
+ Q
+P 
+∨
+ Q
+P 
+→
+ Q
+P 
+↔
+ Q
+P 
+∨
+ Q
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+V
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+Nota 1:
+ O número de linhas de uma tabuada lógica é dado
+ pela relação 2n, onde n
+representa o número de proposições simples que a compõem.
+
+P
+Q
+R
+V
+V
+V
+V
+V
+F
+V
+F
+V
+V
+F
+F
+F
+V
+V
+F
+V
+F
+F
+F
+V
+F
+F
+F
+Nota 2:
+ Para construção das tabuadas lógicas vamos utilizar um macete, “a ideia
+do dobro”. Para
+ distribuirmos verdadeiros e falsos na tabela, utilizamos o
+macete “a ideia do dobro”: começamos com um verdadeiro e um falso na
+última proposição e depois dobramos a quantidade de verdadeiros e falsos
+para as outras proposições.
+Observe os dois exemplos a seguir:
+Exemplo 1: P e Q (com duas declarações)
+Número de linhas lógicas: 2
+n
+, onde n representa o número de proposições
+simples
+ que a compõem (2
+2
+ = 4 linhas).
+P
+Q
+V
+V
+V
+F
+F
+V
+F
+F
+Exemplo 2:
+ P, Q e R (com três declarações)
+Número de linhas lógicas: 2
+n
+, onde n representa o número de proposições
+simples que a compõem (2
+3
+ = 8 linhas).
+P
+Q
+R
+V
+V
+V
+V
+V
+F
+V
+F
+V
+V
+F
+F
+F
+V
+V
+F
+V
+F
+F
+F
+V
+F
+F
+F
+
+1.8. Tautologia
+Associamos a palavra tautologia a resultados lógicos sempre verdadeiros.
+Exemplo:
+Renato é vascaíno ou Renato não é vascaíno.
+Nota 1:
+ Todas as vezes que nos depararmos com essa estrutura, ou seja, a frase ou
+a negação da frase, isso será sempre tautológico (P 
+∨
+ ¬ P= VERDADEIRO).
+1.9. Contradição
+Associamos a palavra contradição a resultados
+ lógicos sempre falsos.
+Exemplo:
+Marcos Antônio é flamenguista e Marcos Antônio não é flamenguista.
+Nota 1:
+ Todas as vezes que nos depararmos com essa estrutura, ou seja, a frase e a
+negação da frase, isso será sempre contraditório (P 
+∧
+ ¬P = FALSO).
+Nota 2:
+ Qualquer outra situação que não se enquadrar em nenhum dos casos,
+tautologia ou contradição, será chamada de contingência.
+1.10. Quantificadores
+São expressões lógicas que transformam as sentenças abertas em sentenças
+fechadas, ou seja, tornam essas sentenças abertas em proposições.
+1.10.1. Quantificador universal
+Tem como significado as expressões para todo x e qualquer que seja x.
+Simbologia: 
+∀
+(x)
+1.10.2. Quantificador existencial
+Tem como significado a expressão existe um x.
+Simbologia:
+ 
+∃
+(x)
+Exemplo:
+A expressão x + 7 = 9 é uma sentença aberta, pois possui como parte nuclear de
+sua estrutura uma variável, a qual se pode atribuir qualquer valor. Para
+transformarmos esse tipo de sentença em uma proposição com um único valor de
+julgamento, entre dois possíveis, devemos lançar mão dos quantificadores, por
+exemplo: (
+$
+x)(x é N) (x + 7 = 9) é valorada como V.
+1.11. Negação 
+das proposições
+Sua finalidade é inverter o valor lógico das proposições.
+
+1.11.1. Negação das proposições simples
+P: Marcos é jogador de futebol.
+¬ P: Marcos não é jogador de futebol.
+1.11.2. Negação das proposições compostas
+Devemos respeitar algumas regras para negação das proposições compostas.
+Observe:
+Negação da conjunção: ¬ (P 
+∧
+ Q) = (¬P) 
+∨
+ (¬Q)
+Negação da disjunção:
+ ¬ (P 
+∨
+ Q) = (¬P) 
+∧
+ (¬Q) Negação da condicional: ¬ (P 
+→
+Q) = P 
+∧
+ (¬Q)
+Negação da bicondicional: ¬ (P
+↔
+ Q) = P 
+∨
+ Q
+Nota 1:
+ Essas negações podem ser demonstradas através da tabela-verdade.
+Negação do todo: PEA + NÃO (MACETE)
+Negação do nenhum: PEA (MACETE)
+Negação do algum: NETO NÃO (MACETE)
+Nota 2:
+ PEA = PELO MENOS UM, EXISTE UM, ALGUM
+Neto não = nenhum é, todo não é
+Negação de símbolos:
+P = Q é P 
+≠
+ Q
+P < Q é P 
+≥
+ Q
+P > Q é P 
+≤
+ Q
+Aplicação 1:
+P: Sandro é médico.
+Q: Felipe é bombeiro.
+P 
+∨
+ Q: Sandro é médico ou Felipe é bombeiro.
+¬ (P 
+∨
+ Q) = ¬ P 
+∧
+ ¬ Q
+Negação direta: ¬ (P 
+∨
+ Q): Não é verdade que Sandro é médico ou Felipe é
+bombeiro.
+Negação equivalência: (¬ P 
+∧
+ ¬ Q): Sandro não é médico e Felipe não é
+bombeiro.
+Aplicação 2:
+P: Todo professor é inteligente.
+¬P: PEA + NÃO (MACETE).
+“Pelo menos um professor não é inteligente”.
+“Existe um professor que não é inteligente”.
+
+“Algum professor não é inteligente”.
+Aplicação 3:
+P: Nenhum médico é inteligente.
+¬P: PEA (MACETE)
+“Pelo menos um médico é inteligente”.
+“Existe um médico que é inteligente”.
+“Algum médico é inteligente”.
+Aplicação 4:
+P: Algum matemático é maluco.
+¬P: NETONÃO (MACETE)
+“Nenhum matemático é maluco”.
+“Todo matemático não é maluco”.
+Aplicação 5:
+P: 2 + 5 = 9.
+¬P: 2 + 5 
+≠
+ 9.
+1.12. Equivalência lógica
+São estruturas lógicas que possuem a mesma tabuada lógica.
+1.12.1. Equivalências notáveis.
+Exemplo de uma equivalência lógica: dizer que “Se Marcos é carioca,
+ então
+Marcos é brasileiro” é logicamente equivalente à proposição “Se Marcos não é
+brasileiro então Marcos não é carioca” (P 
+→
+ Q) = (¬Q)
+→
+(¬P).
+1.13. Condição suficiente e necessária
+A sentença p 
+→
+ q também pode ser lida como:
+• p é condição suficiente para q.
+• q é condição necessária para p.
+A sentença p 
+↔
+ q também pode ser lida como:
+• p é condição necessária e suficiente
+ para q.
+Aplicação:
+1. Se Elaine não ensaia, Elisa não estuda. Logo,
+a) Elaine não ensaiar é condição suficiente para Elisa não estudar.
+b) Elaine ensaiar é condição suficiente para Elisa estudar.
+c) Elaine não ensaiar é condição necessária para Elisa não estudar.
+d) Elaine não ensaiar é condição suficiente para Elisa estudar.
+
+e) Elaine ensaiar é condição suficiente
+ para Elisa estudar.
+Equivalências possíveis utilizando as expressões “suficiente” e “necessário”:
+“Elaine não ensaiar é condição suficiente para Elisa não estudar.”
+“Elisa não estudar é condição necessária para Elaine não ensaiar.”
+Gabarito:
+ Letra A.
+1.14. Exercícios resolvidos
+1. (Cespe – Finep – 2009) Acerca de proposições, considere as seguintes frases:
+I. Os Fundos
+ Setoriais de Ciência e Tecnologia são instrumentos de financiamento de
+projetos.
+II. O que é o CT-Amazônia?
+III. Preste atenção ao edital!
+IV. Se o projeto for de cooperação universidade-empresa, então podem ser pleitea- dos
+recursos do fundo setorial verde-amarelo.
+São proposições apenas as frases correspondentes aos itens:
+a) I e IV;
+b) II e III;
+c) III e IV;
+d) I, II e III;
+e) I, II e IV.
+Texto para questões 2 a 4
+Considere que as letras P, Q, R e T representem proposições e que os símbolos ¬, 
+∧
+, 
+∨
+ e 
+→
+sejam operadores lógicos que constroem novas proposições e significam não, e, ou e então,
+respectivamente. Na lógica proposicional, cada proposição assume um único valor (valor-
+verdade), que pode ser verdadeiro (V) ou falso (F), mas nunca
+ ambos.
+Com base nas informações apresentadas no texto acima, julgue os itens a seguir.
+2. (Cespe – PF – 2004) Se as proposições P e Q são ambas verdadeiras, então a proposição
+(¬ P) 
+∨
+ (¬ Q) também é verdadeira.
+3. (Cespe – PF – 2004) Se a proposição T é verdadeira e a proposição R é falsa, então a
+proposição R 
+→
+ (¬ T) é falsa.
+4. (Cespe – PF – 2004) Se as proposições P e Q são
+ verdadeiras e a proposição R é falsa,
+então a proposição (P 
+∧
+ R) 
+→
+ (¬ Q) é verdadeira.
+5. (Cespe – TRT-5
+a
+ Região – 2008) Se A, B, C e D forem proposições simples e distintas,
+então o número de linhas da tabela-verdade da proposição (A 
+→
+ B) 
+↔
+ (C 
+→
+ D) será
+superior a 15.
+6. (Cespe – TRT-5
+a
+ Região – 2008) Se A, B e C são proposições em que A e C são V e B é F,
+então (¬A)Ú¬[(¬B)
+∧
+C] é V.
+7. (Cespe – TRT-5
+a
+ Região – 2008) Se A e B são proposições, então a proposição(A
+∨
+B) 
+↔
+
+(¬A)
+∧
+(¬B) é uma tautologia.
+8. (Cespe – MPE – 2008) Se a proposição A for F e a proposição (¬A)
+∨
+B for V, então,
+obrigatoriamente, a proposição B é V.
+Texto para questões 9
+Considere as proposições:
+A: O cachorro mordeu a bola.
+B: O prédio do MCT fica na Esplanada.
+9. (Cespe – MCT – 2008)
+ Nesse caso, um enunciado correto da proposição ¬(A 
+∨
+ B) é: O
+cachorro não mordeu a bola nem o prédio do MCT fica na Esplanada.
+10. (Cespe – PM-AC – 2008) Se A é a proposição “Todo bom soldado é pessoa honesta”,
+considere as proposições seguintes:
+B: Nenhum bom soldado é pessoa desonesta.
+C: Algum bom soldado é pessoa desonesta.
+D: Existe um bom soldado que não é pessoa honesta.
+E: Nenhuma pessoa desonesta é um mau soldado.
+Nesse caso, todas as quatro proposições podem ser consideradas como enunciados para
+a proposição ¬A.
+11. (Cespe – BB – 2008) Se o valor lógico da proposição “Se as operações de crédito no país
+aumentam, então os bancos ganham muito dinheiro” é V, então é correto concluir que o
+valor lógico da proposição “Se os bancos não ganham muito dinheiro,
+ então as
+operações de crédito no país não aumentam” é também V.
+12. (Cespe – BB – 2008) Considere a seguinte proposição: “Se Antônio resolver
+corretamente esta prova, então ele passará no concurso.” Nessa situação, é correto
+concluir que “Se Antônio não resolver corretamente esta prova, então ele não passará
+no concurso.”
+Texto para questões 13 a 18
+Na comunicação, o elemento primitivo
+ é a sentença, ou proposição simples, formada
+basicamente por um sujeito e um predicado. Nessa definição, estão incluídas apenas as
+proposições afirmativas ou negativas, excluindo-se, portanto, as proposições
+interrogativas, exclamativas etc. São consideradas proposições somente aquelas
+sentenças bem definidas, isto é, aquelas acerca das quais é possível decidir serem
+verdadeiras (V) ou falsas
+ (F). Toda proposição tem um valor lógico, ou uma valoração, V ou
+F, excluindo-se qualquer outro valor. As proposições são designadas por letras maiúsculas
+A, B, C etc. A partir de determinadas proposições, denominadas proposições simples,
+podem ser formadas novas proposições, empregando-se os seguintes conectivos: “e”,
+indicado por 
+∧
+; “ou”, indicado por 
+∨
+; “se ... então”, indicado por 
+→
+; “se ...
+ e somente se”,
+indicado por 
+↔
+. A relação A
+↔
+B significa (A
+→
+B)
+∧
+(B
+→
+A). Emprega-se também o
+modificador “não”, indicado por ¬. Se A e B são duas proposições, constroem-se as tabelas-
+verdade das proposições compostas formadas a partir das proposições simples A e B, dos
+
+conectivos e do modificador citados — a coluna correspondente a determinada proposição
+composta é a tabela-verdade daquela proposição
+ —, conforme apresentado a seguir.
+A
+B
+A 
+∧
+ B
+A 
+∨
+ B
+A 
+→
+ B
+A 
+↔
+ B
+A
+V
+V
+V
+V
+V
+V
+F
+V
+F
+F
+V
+F
+F
+F
+V
+F
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+Há expressões às quais não se pode atribuir um valor lógico V ou F, por exemplo: “Ele é juiz
+do TRT da 5
+a
+ Região”, ou “x + 3 = 9”. Nessas expressões, o sujeito é uma variável e pode ser
+substituído por um elemento arbitrário, transformando a expressão em uma proposição
+que pode ser valorada como V ou F. Expressões dessa forma são denominadas sentenças
+abertas, ou funções
+ proposicionais. Pode-se passar de uma sentença aberta a uma
+proposição por meio dos quantificadores “qualquer que seja”, ou “para todo”, indicado por
+∀
+, e “existe”, indicado por 
+∃
+, por exemplo: a proposição (
+∀
+x)(x e R)(x + 3 = 9) é valorada
+como F, ao passo que a proposição (
+∃
+x)(x e R)(x + 3 = 9) é valorada como V. Uma proposição
+composta que apresenta em sua tabela-verdade somente V, independentemente
+ das
+valorações das proposições que a compõem, é denominada logicamente verdadeira ou
+tautologia. Por exemplo, independentemente das valorações V ou F de uma proposição A,
+todos os elementos da tabela-verdade da proposição A
+∨
+(¬A) são V, isto é, A
+∨
+(¬A) é uma
+tautologia.
+13. (Cespe – TRT-5
+a
+ Região – 2008) Na tabela abaixo, a última coluna da direita
+corresponde à tabela-verdade da proposição
+ (¬A)
+∨
+B 
+→
+ ¬(A
+∨
+B)
+A
+B
+¬A
+(¬A) 
+∨
+ B
+¬(A 
+∨
+ B)
+(¬A) 
+∨
+ B 
+→
+ ¬(A 
+∨
+ B)
+V
+V
+V
+V
+F
+F
+F
+V
+V
+F
+F
+V
+14. (Cespe – TRT-5
+a
+ Região – 2008) A proposição ¬(A
+∨
+B)
+→
+(¬A)
+∨
+B é uma tautologia.
+15. (Cespe – TRT-5
+a
+ Região – 2008) Na tabela abaixo, a última coluna da direita
+corresponde à tabela-verdade da proposição ¬(A
+∧
+B)
+→
+A
+∧
+(¬B).
+A
+B
+¬B
+¬(A 
+∧
+ B)
+A 
+∧
+ (¬B)
+¬(A 
+∧
+ B) 
+→
+ A 
+∧
+ (¬B)
+V
+V
+F
+V
+F
+V
+F
+V
+V
+F
+F
+V
+16. (Cespe – TRT-5
+a
+ Região – 2008) A proposição A
+∧
+(¬B)
+→
+¬(A
+∧
+B) é uma tautologia.
+
+17. (Cespe – TRT-5
+a
+ Região
+ – 2008) Considerando que, além de A e B, C, D, E e F também
+sejam proposições, não necessariamente todas distintas, e que N seja o número de
+linhas da tabela-verdade da proposição [A
+→
+(B
+∨
+C)]
+↔
+[(D
+∧
+E)
+→
+F], então 2
+≤
+ N 
+≤
+ 64.
+18. (Cespe – TRT-5
+a
+ Região – 2008) Na tabela abaixo, a proposição [A
+→
+B]
+↔
+[(¬B)
+→
+(¬A)] é
+uma tautologia.
+A
+B
+¬A
+¬B
+A 
+→
+ B
+(¬B) 
+→
+ (¬A)
+[A 
+→
+ B] 
+↔
+ [(¬B) 
+→
+ (¬A)]
+V
+V
+V
+F
+F
+V
+F
+F
+19. (Cespe – TRT-5
+a
+ Região – 2008) Considerando que P seja
+ a proposição “Todo jogador de
+futebol será craque algum dia”, então a proposição ¬P é corretamente enunciada como
+“Nenhum jogador de futebol será craque sempre”.
+20. (Cespe – TRT-5
+a
+ Região – 2008) Considere as proposições seguintes.
+Q: “Se o Estrela Futebol Clube vencer ou perder, cairá para a segunda divisão.”
+A: “O Estrela Futebol Clube vence.”
+B: “O Estrela Futebol Clube perde.”
+C: “O Estrela Futebol Clube cairá para a segunda divisão.”
+Nesse caso, a proposição Q pode ser expressa, simbolicamente, por A 
+∧
+ B 
+→
+ C.
+21. (Cespe – TRT-5
+a
+ Região – 2008) Considere as proposições a seguir.
+R: “Ou o Saturno Futebol Clube vence ou, se perder, cairá para a segunda divisão.”
+A: “O Saturno Futebol Clube vence.”
+B: “O Saturno Futebol Clube perde.”
+C: “O Saturno
+ Futebol Clube cairá para a segunda divisão.”
+Nesse caso, a proposição R pode ser expressa, simbolicamente, por A 
+∨
+ (B 
+→
+ C).
+22. (Cespe – TRT-5
+a
+ Região – 2008) Se Q é o conjunto dos números racionais, então a
+proposição (
+∀
+x)(x 
+∈
+ Q e x > 0)(x
+2
+ > x) é valorada como F.
+23. (Cespe – TRT-5
+a
+ Região – 2008) Se Q é o conjunto dos números racionais, então a
+proposição (
+$
+x)(x ( Q)(x2 = 2) é valorada
+ como V.
+1.14.1. Gabarito dos exercícios resolvidos
+1. A
+5. Certo
+9. Certo
+13. Errado
+17. Certo
+21. Certo
+2. Errado
+6. Errado
+10. Errado
+14. Certo
+18. Certo
+22. Certo
+3. Errado
+7. Errado
+11. Certo
+15. Certo
+19. Errado
+23. Errado
+4. Certo
+8. Errado
+12. Errado
+16. Certo
+20. Errado
+1.14.2. Solução dos exercícios resolvidos

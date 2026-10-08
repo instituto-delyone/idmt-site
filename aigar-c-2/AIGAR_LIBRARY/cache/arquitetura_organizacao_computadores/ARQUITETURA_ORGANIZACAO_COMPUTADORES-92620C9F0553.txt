@@ -1,0 +1,832 @@
+PRInCIPAIS POnTOS
+ O sistema operacional (SO) é o software que controla a execução de 
+programas em um processador e que gerencia os recursos deste. Diversas 
+funções realizadas pelo sistema operacional, incluindo o escalonamento de processo e o gerenciamento de memória, só podem ser realizadas de modo eficiente e rápido se o hardware do processador incluir capa-cidades para dar suporte ao SO. Praticamente todos os processadores incluem essas capacidades de uma forma ou de outra, incluindo o hard-ware de gerenciamento de memória virtual e o hardware de gerencia-mento de processos. O hardware inclui registradores e buffers de uso especial, além de circuitos para realizar tarefas básicas de gerenciamento de recursos. Uma das funções mais importantes do SO é o escalonamento de proces-sos, ou tarefas. O SO determina qual processo deverá ser rodado a qualquer momento. Normalmente, o hardware interrompe um processo em execução de tempos em tempos para permitir que o SO tome uma nova decisão de escalonamento de modo a compartilhar o tempo do processador de modo imparcial entre diversos processos. Outra função importante do SO é o gerenciamento de memória. A 
+maioria dos sistemas operacionais contemporâneos inclui uma capaci-dade de memória virtual, que tem dois benefícios: (1) um processo pode ser executado na memória principal sem que todas as instruções e dados para esse programa estejam presentes na memória principal de uma só vez e (2) o espaço de memória total disponível para um programa pode ultrapassar a memória principal real no sistema. Embora o gerenciamen-
+to de memória seja realizado no software, o SO conta com o suporte do hardware no processador, incluindo o hardware de paginação e segmentação.Suporte do sistema operacional
+8.1 Visão geral do sistema operacional
+  Objetivos e funções do sistema 
+operacional
+  Tipos de sistemas operacionais
+8.2 Escalonamento
+  Escalonamento de longo prazo
+  Escalonamento de médio prazo
+  Escalonamento a curto prazo
+8.3 Gerenciamento de memória
+  Troca de processos na memória — Swapping
+  Particionamento
+  Paginação
+  Memória virtual
+  Translation lookaside buff er
+  Segmentação
+8.4 Gerenciamento de memória no Pentium
+  Espaços de endereços
+  Segmentação
+  Paginação
+8.5 Gerenciamento de memória no ARM
+  Organização do sistema de memória
+  Tradução de endereço da memória virtual
+  Formatos de gerenciamento de memória
+  Controle de acesso
+8.6 Leitura recomendada e sites Web
+Embora o foco deste texto seja o hardware do computador, existe uma área do software que precisa ser mostrada: o 
+SO do computador. O SO é um programa que gerencia os recursos do computador, oferece serviços para os progra-
+madores e distribui a execução de outros programas. Algum conhecimento dos sistemas operacionais é essencial para apreciar os mecanismos pelos quais a CPU controla o sistema de computação. Em particular, as explicações do efeito das interrupções e do gerenciamento da hierarquia de memória são mais bem explicadas neste contexto.CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 210 19.11.09 14:37:16
+
+Capítulo 8 Suporte do sistema operacional 211
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18O capítulo começa com uma visão geral e uma breve história dos sistemas operacionais. O núcleo do capítulo 
+examina duas funções do SO que são mais relevantes ao estudo da organização e arquitetura do computador: 
+escalonamento e gerenciamento de memória.
+8.1 Visão geral do sistema operacional
+ Objetivos e funções do sistema operacional
+Um SO é um programa que controla a execução dos programas aplicativos e atua como uma interface entre o 
+usuário e o hardware do computador. Ele pode ser imaginado como tendo dois objetivos:
+conveniência:  um SO torna um computador mais conveniente para uso.
+efi ciência:  um SO permite que os recursos do sistema de computação sejam usados de uma maneira efi ciente.
+Vamos examinar esses dois aspectos do SO um de cada vez.O SISTEMA OPERACIONAL COMO UMA INTERFACE USUÁRIO/COMPUTADOR O hardware e o software uti-
+lizados para oferecer aplicações a um usuário podem ser vistos em um padrão em camadas, ou hierárquico, con-forme representado na Figura 8.1. O usuário dessas aplicações, o usuário fi nal, geralmente não se preocupa com a arquitetura do computador. Assim, o usuário fi nal vê um sistema de computação em termos de uma aplicação. Essa aplicação pode ser expressa em uma linguagem de programação, e é desenvolvida por um programador de aplica-ção. Desenvolver um programa aplicativo com um conjunto de instruções do processador, que é completamente responsável por controlar o hardware do computador, é uma tarefa muito complexa. Para facilitar essa tarefa, existe um conjunto de programas de sistemas, alguns chamados de utilitários. Estes implementam funções usadas com 
+frequência, que auxiliam na criação do programa, no gerenciamento de arquivos e no controle de dispositivos de E/S. Um programador utiliza essas facilidades desenvolvendo uma aplicação, e a aplicação, enquanto está sendo executada, chama os utilitários para realizar certas funções. O programa mais importante do sistema é o SO. O SO esconde os detalhes do hardware do programador e lhe oferece uma interface conveniente para usar o sistema. Ele atua como um mediador, tornando mais fácil para o programador e os programas aplicativos acessarem e utili-zarem essas facilidades e serviços.
+Figura 8.1 Camadas e visões de um sistema de computação
+Usuário
+final
+Programador
+Designer 
+do sistema 
+operacionalProgramas de aplicação
+Utilitários
+Sistema operacional
+Hardware do computador
+Book 1.indb 211 19.11.09 14:37:16
+
+212 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Resumindo, o SO normalmente oferece serviços nas seguintes áreas:
+criação de programas:  o SO oferece diversas facilidades e serviços, como editores e depuradores, para 
+auxiliar o programador na criação de programas. Normalmente, esses serviços são programas utilitários que 
+não fazem realmente parte do SO, mas são acessíveis por meio dele.execução do programa:
+  diversas tarefas precisam ser realizadas para executar um programa. As instruções 
+e os dados precisam ser carregados para a memória principal, os dispositivos de E/S e os arquivos precisam ser inicializados, e outros recursos precisam ser preparados. O SO trata de tudo isso para o usuário.Acesso aos dispositivos de e/s:
+  cada dispositivo de E/S exige seu próprio conjunto específico de instru-
+ções ou sinais de controle para a operação. O SO cuida dos detalhes, de modo que o programador pode pensar em termos de simples leituras e escritas.Acesso controlado aos arquivos:
+  no caso dos arquivos, o controle precisa incluir um conhecimento não 
+apenas da natureza do dispositivo de E/S (unidade de disco, unidade de fita), mas também do formato de arquivo no meio de armazenamento. Novamente, o SO se preocupa com os detalhes. Além disso, no caso de um sistema com múltiplos usuários simultâneos, o SO pode oferecer mecanismos de proteção para con-trolar o acesso aos arquivos.Acesso ao sistema:
+  no caso de um sistema compartilhado ou público, o SO controla o acesso ao sistema 
+como um todo e a seus recursos específicos. A função de acesso precisa oferecer proteção de recursos e dados de usuários não autorizados, e precisa resolver conflitos para disputa de recurso.detecção e resposta a erros:
+  uma grande variedade de erros pode ocorrer enquanto um sistema 
+de computação está sendo operado. Estes incluem erros de hardware internos e externos, como um erro de memória ou uma falha ou defeito de dispositivo; e diversos erros de software, como estouro aritmético, tentativa de acessar um local proibido da memória e incapacidade do SO em conceder a solicitação de uma aplicação. Em cada caso, o SO precisa tomar uma medida que encerre a condição de erro com o mínimo de impacto sobre as aplicações em execução. A resposta pode variar desde encerrar o programa que causou o erro, até tentar a operação novamente ou apenas informar o erro à aplicação.contabilidade:
+  um bom SO coleta estatísticas de uso para diversos recursos e monitora os parâmetros 
+de desempenho, como o tempo de resposta. Em qualquer sistema, essa informação é útil na antecipação da necessidade de melhorias futuras e no ajuste do sistema para melhorar o desempenho. Em um sistema multiusuário, a informação pode ser usada para fins de cobrança.
+O SISTEMA OPERACIONAL COMO GERENCIADOR DE RECURSOS Um computador é um conjunto de recur-
+sos para o movimento, o armazenamento e o processamento de dados e para o controle dessas funções. O SO é responsável por gerenciar esses recursos.
+Podemos dizer que o SO controla o movimento, o armazenamento e o processamento de dados? Por um pon-
+to de vista, a resposta é sim. Gerenciando os recursos do computador, o SO está no controle das funções básicas da máquina, mas esse controle é exercido de uma forma curiosa. Normalmente, pensamos em um mecanismo de controle como algo externo àquele que é controlado ou, pelo menos, como algo que é uma parte distinta e separada daquilo que é controlado. (Por exemplo, um sistema de aquecimento residencial é controlado por um termostato, que é completamente distinto do aparelho de geração e distribuição de calor.) Isso não acontece com o SO, que, como um mecanismo de controle, é incomum em dois aspectos:
+O SO funciona da mesma maneira que o software comum do computador; ou seja, ele é um programa 
+ 
+executado pelo processador.O SO frequentemente abre mão do controle e precisa depender do processador para permitir que ele re -
+ 
+ad quira o controle.
+O SO, de fato, não é nada mais do que um programa do computador. Assim como outros programas, ele oferece 
+instruções para o processador. A principal diferença está na intenção do programa. O SO direciona o processador no uso dos outros recursos do sistema e na sincronização de sua execução dos outros programas. Mas, para que o processador faça alguma dessas coisas, ele precisa deixar de executar o programa do SO e executar outros progra-mas. Assim, o SO abre mão do controle para o processador realizar algum trabalho “útil” e depois retoma o controle por tempo suficiente para preparar o processador para realizar o próximo trabalho. Os mecanismos envolvidos em tudo isso deverão se tornar claros à medida que prosseguimos no capítulo.
+Book 1.indb 212 19.11.09 14:37:17
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 213
+A Figura 8.2 sugere os principais recursos que são gerenciados pelo SO. Uma parte do SO está na memória prin-
+cipal. Isso inclui o kernel, ou núcleo, que contém as funções mais utilizadas no SO e, em determinado momento, 
+outras partes do SO em uso atualmente. O restante da memória principal contém programas e dados do usuário. A 
+alocação desse recurso (a memória principal) é controlada juntamente pelo SO e pelo hardware de gerenciamento de memória no processador, conforme veremos. O SO decide quando o dispositivo de E/S pode ser usado por um programa em execução, e controla o acesso e o uso dos arquivos. O próprio processador é um recurso, e o SO preci-sa determinar quanto tempo do processador deve ser dedicado à execução de determinado programa do usuário. No caso de um sistema com múltiplos processadores, essa decisão precisa abranger todos os processadores.
+ Tipos de sistemas operacionais
+Certas características básicas servem para diferenciar diversos tipos de sistemas operacionais. As características 
+se espalham por duas dimensões independentes. A primeira dimensão especifi ca se o sistema é em lote ou inte-rativo. Em um sistema interativo, o usuário/programador interage diretamente com o computador, normalmente 
+por meio de um terminal com teclado/vídeo, para solicitar a execução de um job (tarefa) ou realizar uma transação. Além do mais, dependendo da natureza da operação, o usuário pode se comunicar com o computador durante a execução da tarefa. Um sistema em lote (ou batch) é o oposto do interativo. O programa do usuário é mantido 
+junto com programas de outros usuários e submetido por um operador de computador. Depois que o programa termina, os resultados são impressos para o usuário. Os sistemas puramente em lote são raros hoje. Porém, será útil para a descrição dos sistemas operacionais contemporâneos examinar os sistemas em lote rapidamente.
+Uma dimensão independente especifi ca se o sistema emprega multiprogramação ou não. Com a multipro-
+gramação, tenta-se manter o processador o mais ocupado possível, fazendo com que ele trabalhe em mais de um programa de cada vez. Vários programas são carregados na memória e o processador alterna rapidamente entre eles. A alternativa é um sistema de uniprogramação, que trabalha apenas com um programa de cada vez.
+SISTEMAS ANTIGOS Com os computadores mais antigos, desde o fi nal da década de 1940 até meados dos 
+anos 1950, o programador interagia diretamente com o hardware do computador; não havia um SO. Esses pro-cessadores eram executados a partir de um console, consistindo em lâmpadas, chaves de duas posições, alguma 
+Figura 8.2 O sistema operacional como gerenciador de recursos
+•
+•••••
+• • •Memória Sistema de computação
+Dispositivos de E/S
+Software do
+sistema 
+operacional
+Programas 
+e dados
+Processador Processador
+SO
+Programas
+DadosArmazenamentoImpressoras,
+teclados,câmeras digitaisetc.Controlador de E/S
+Controlador de E/S
+Controlador de E/S
+Book 1.indb 213 19.11.09 14:37:17
+
+214 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+forma de dispositivo de entrada e uma impressora. Os programas no código do processador eram carregados por 
+meio de um dispositivo de entrada (por exemplo, uma leitora de cartões). Se um erro interrompesse o programa, a condição era indicada pelas lâmpadas. O programador poderia prosseguir para examinar os registradores e a memória principal, para determinar a causa do erro. Se o programa prosseguisse para um término normal, a saída aparecia na impressora.
+Esses primeiros sistemas apresentavam dois problemas principais:
+escalonamento:
+  a maioria das instalações usava uma folha de registro para reservar o tempo do proces-
+sador. Normalmente, um usuário poderia reservar um período de tempo em múltiplos de uma hora ou mais. Um usuário poderia reservar por uma hora e terminar em 45 minutos; isso resultaria em um tempo de computador ocioso desperdiçado. Por outro lado, o usuário poderia encontrar problemas, não terminar no tempo alocado e ser forçado a terminar antes de resolver o problema.Tempo de preparação:
+  um único programa, chamado de job, poderia consistir em carregar o com-
+pilador mais o programa na linguagem de alto nível (programa fonte) na memória, salvar o programa compilado (programa objeto) e depois carregar e link-editar o programa objeto e as funções comuns. Cada uma dessas etapas poderia envolver a montagem ou desmontagem de fitas, ou preparação de pacotes de cartões. Se houvesse um erro, o “pobre” usuário normalmente tinha que voltar ao início da sequência de preparação. Assim, um tempo considerável era gasto apenas na preparação do programa para ser executado.
+Esse modo de operação poderia ser chamado de processamento serial, refletindo o fato de que os usuários têm 
+acesso ao computador em série. Com o passar do tempo, diversas ferramentas de software do sistema foram de-senvolvidas para tentar tornar o processamento serial mais eficiente. Estas incluem bibliotecas de funções comuns, link-editores, carregadores, depuradores e rotinas de driver de E/S, que estavam disponíveis como software comum para todos os usuários.
+SISTEMAS EM LOTE SIMPLES Os primeiros processadores eram muito caros e, portanto, era importante maxi-
+mizar a utilização deles. O tempo desperdiçado devido ao tempo de escalonamento e preparação era inaceitável.
+Para melhorar a utilização, foram desenvolvidos sistemas operacionais em lote simples. Com esse tipo de siste-
+ma, também chamado de monitor, o usuário não tem mais acesso direto ao processador. Em vez disso, ele subme-
+te o job nos cartões ou em fita a um operador de computador, que dispõe os jobs sequencialmente e coloca o lote inteiro em um dispositivo de entrada, para uso pelo monitor.
+Para entender como esse esquema funciona, vamos examiná-lo sob dois pontos de vista: o do monitor e o do 
+processador. Pelo ponto de vista do monitor, este controla a sequência de eventos. Para que isso funcione dessa forma, grande parte do monitor precisa sempre estar na memória principal e disponível para execução (Figura 8.3). Essa parte é conhecida como monitor residente. O restante do monitor consiste em utilitários e funções comuns 
+que são carregadas como sub-rotinas para o programa do usuário no início de qualquer job que as requeira. O mo-nitor lê os jobs um de cada vez pelo dispositivo de entrada (normalmente, uma leitora de cartões ou uma unidade de fita magnética). Enquanto é lido, o job atual é colocado na área do programa do usuário e o controle é passado para esse job. Quando o job termina, ele retorna o controle ao monitor, que imediatamente lê o job seguinte. Os resultados de cada job são impressos para entrega ao usuário.
+Agora, considere essa sequência do ponto de vista do processador. Em um certo ponto no tempo, ele está 
+executando instruções a partir da parte da memória principal que contém o monitor. Essas instruções fazem com que o próximo job seja lido para outra parte da memória principal. Quando um job tiver sido lido, o pro -
+cessador encontrará no monitor uma instrução de desvio que instrui o processador a continuar a execução no início do programa do usuário. O processador, então, executará a instrução no programa do usuário até encontrar um final ou uma condição de erro. Qualquer um desses eventos faz com que o processador busque sua próxima instrução no programa monitor. Assim, a frase “o controle é passado a um job” simplesmente significa que o processador agora está buscando e executando instruções em um programa do usuário, e “o controle retorna ao monitor” significa que o processador agora está buscando e executando instruções do programa monitor.
+Deve ter ficado claro que o monitor resolve o problema do escalonamento. Um lote de jobs é enfileirado e os 
+jobs são executados o mais rapidamente possível, sem um tempo ocioso intercalado.
+Book 1.indb 214 19.11.09 14:37:17
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 215
+E o tempo de preparação? O monitor trata disso também. Com cada job, as instruções são inclusas em uma 
+linguagem de controle de job (JCL, do inglês job control language). Esse é um tipo especial de linguagem de pro-
+gramação usada para fornecer instruções ao monitor. Um exemplo simples é o de um usuário submetendo um 
+programa escrito em FORTRAN mais alguns dados a serem usados pelo programa. Cada instrução em FORTRAN e cada item de dados está em um cartão perfurado separado, ou em um registro separado na fita. Além do FORTRAN e das linhas de dados, o job inclui instruções de controle de job, que são indicadas com o início “$” . O formato geral do job se parece com o seguinte:
+$JOB$FTN... } Instruções em FORTRAN
+$LOAD$RUN… } Dados
+$END
+Para executar esse job, o monitor lê a linha $FTN e carrega o compilador apropriado do seu armazenamento em 
+massa (normalmente, fita). O compilador traduz o programa do usuário para um código objeto, que é armazenado 
+na memória ou no armazenamento em massa. Se for armazenado na memória, a operação é chamada de “compilar, carregar e executar” . Se for armazenado em fita, então a instrução $LOAD é necessária. Essa instrução é lida pelo monitor, que readquire o controle após a operação de compilação. O monitor chama o loader (carregador), que 
+carrega o programa objeto na memória no lugar do compilador e transfere o controle para ele. Dessa maneira, um grande segmento da memória principal pode ser compartilhado entre diferentes subsistemas, embora somente um subsistema possa estar residente e executando de cada vez.
+Vemos que o monitor, ou SO em lote, é simplesmente um programa de computador. Ele conta com a capa-
+cidade do processador de buscar instruções de várias partes da memória principal, a fim de obter e abrir mão do controle alternadamente. Certos outros recursos do hardware também são desejáveis:
+proteção da memória:
+  enquanto o programa do usuário está sendo executado, ele não pode alterar a área 
+da memória contendo o monitor. Se isso for tentado, o hardware do processador deverá detectar um erro e transferir o controle ao monitor. O monitor, então, abortaria o job, imprimiria uma mensagem de erro e carregaria o próximo job.Processamento 
+de interrupção
+Drivers de 
+dispositivo
+Sequenciação 
+de jobs
+Interpretador de 
+linguagem de controle
+Área de 
+programas 
+do usuárioMonitor
+LimiteFigura 8.3 Layout de memória para um monitor residente
+Book 1.indb 215 19.11.09 14:37:17
+
+216 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Temporizador:  um temporizador é usado para impedir que um único job monopolize o sistema. Ele é 
+definido no início de cada job. Se o temporizador expirar, ocorrerá uma interrupção e o controle retornará 
+ao monitor.Instruções privilegiadas:
+  certas instruções são designadas como privilegiadas e podem ser execu-
+tadas apenas pelo monitor. Se o processador encontrar tal instrução enquanto executa um programa do usuário, haverá uma interrupção de erro. Entre as instruções privilegiadas estão as instruções de E/S, de modo que o monitor retém o controle de todos os dispositivos de E/S. Isso impede, por exemplo, que um programa do usuário acidentalmente leia instruções de controle de job do próximo job. Se um programa do usuário quiser realizar E/S, ele terá que solicitar que o monitor realize a operação para ele. Se uma instrução privilegiada for encontrada pelo processador enquanto estiver executando um pro -
+grama do usuário, o hardware do processador considerará isso como um erro e transferirá o controle ao monitor.Interrupções:
+  os modelos antigos de computador não tinham essa capacidade. Esse recurso dá ao 
+SO mais flexibilidade para abrir mão do controle para os programas do usuário e readquirir o controle deles.
+O tempo do processador alterna entre a execução dos programas do usuário e a execução do monitor. Existem 
+duas penalidades: alguma memória principal agora é dada para o monitor e algum tempo do processador é con-sumido pelo monitor. Ambas são formas de overhead, ou sobrecarga. Mesmo havendo esse tipo de overhead, o 
+sistema em lote simples melhora a utilização do computador.
+SISTEMAS EM LOTE MUL TIPROGRAMADOS Mesmo com a sequenciação de job automática fornecida por 
+um SO em lote simples, o processador constantemente fica ocioso. O problema é que os dispositivos de E/S são lentos em comparação com o processador. A Figura 8.4 detalha um cálculo representativo referente a um programa que processa um arquivo de registradores e realiza, na média, 100 instruções do processador por registro. Neste exemplo, o computador gasta mais de 96% do seu tempo esperando que os dispositivos de E/S terminem de transferir dados! A Figura 8.5a ilustra essa situação. O processador gasta um certo tempo execu-tando, até que alcance uma instrução de E/S. Ele precisa, então, esperar até que a instrução de E/S termine para poder prosseguir.
+Essa ineficiência não é necessária. Sabemos que deve haver memória suficiente para manter o SO (monitor 
+residente) e um programa do usuário. Suponha que haja espaço para o SO e dois programas do usuário. Agora, quando um job precisar esperar pela E/S, o processador pode alternar para outro job, que provavelmente não está esperando pela E/S (Figura 8.5b). Além do mais, poderíamos expandir a memória para manter três, quatro ou mais programas e alternar entre eles (Figura 8.5c). Essa técnica é conhecida como multiprogramação, ou multitarefa.
+1 
+Esse é o tema central dos sistemas operacionais modernos.
+1 O termo multitarefa, às vezes, é reservado para indicar múltiplas tarefas dentro do mesmo programa, que podem ser tratadas simultanea-
+mente pelo SO, ao contrário da multiprogramação, que se refere a múltiplos processos de múltiplos programas. Porém, é mais comum 
+igualar os termos multitarefa e multiprogramação, como é feito na maioria dos dicionários de padrões (por exemplo, IEEE Std 100-1992, The 
+New IEEE Standard Dictionary of Electrical and Electronics Terms).Lê um registro do arquivo 15 µs
+Executa 100 instruções 1 µs
+Grava um registro no arquivo 15 µs
+TOTAL 31 µs 
+Percentual de utilização da CPU = 1 = 0,032 = 3,2%
+ 31Figura 8.4 Exemplo de utilização do sistema
+Book 1.indb 216 19.11.09 14:37:18
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 217
+Figura 8.5 Exemplo de multiprogramação
+Tempo
+A A B B
+A A B B C C(a) Uniprogramação
+Tempo
+(b) Multiprogramação com dois programas
+Tempo
+(c) Multiprogramação com três programasPrograma APrograma A
+Programa B
+Programa A
+Programa B
+CombinadoPrograma CCombinadoEspera Espera Executa Executa
+Espera Espera Executa Executa
+EsperaEspera
+EsperaEspera
+Executa Executa
+Executa Executa Executa Executa Executa ExecutaExecuta
+Executa ExecutaExecuta Espera
+Espera Espera Executa Executa
+Espera Espera
+Espera EsperaEsperaExecuta Executa Espera
+Espera Espera Executa Executa
+exemplo 8.1 Este exemplo ilustra o benefício da multiprogramação. Considere um computador com 250 
+MBytes de memória disponível (não usada pelo SO), um disco, um terminal e uma impressora. Três programas, 
+TAREFA1, TAREFA2 e TAREFA3, são submetidos para execução ao mesmo tempo, com os atributos listados na Tabela 8.1. Consideramos requisitos mínimos de processador para TAREFA2 e TAREFA3, e uso contínuo de disco e impresso-ra para TAREFA3. Para um ambiente em lote simples, essas tarefas serão executadas em sequência. Assim, TAREFA1 completa em 5 minutos. TAREFA2 precisa esperar até que os 5 minutos terminem e depois termina 15 minutos após. TAREFA3 começa após 20 minutos e termina a 30 minutos do momento em que foi submetido inicialmente. A utilização média de recursos, vazão (through put) e tempo de resposta aparecem na coluna de uniprogramação da Tabela 8.2. A utilização dispositivo por dispositivo é ilustrada na Figura 8.6a. É evidente que existe uma subutilização bruta para todos os recursos quando calculados na média pelo perío do exigido de 30 minutos.
+Agora, suponha que as tarefas sejam executadas simultaneamente sob um SO de multiprogramação. Como 
+existe pouca disputa de recursos entre as tarefas, todas elas podem ser executadas em um tempo quase mínimo, enquanto coexistem com os outros no computador (supondo que TAREFA2 e TAREFA3 tenham recebido tempo de processador suficiente para manter suas operações de entrada e saída ativas). TAREFA1 exigirá 5 minutos para terminar, mas, ao final desse tempo, TAREFA2 estará 1/3 acabado, e TAREFA3 já estará pela metade. As três tarefas terão terminado dentro de 15 minutos. A melhoria é evidente quando examinamos a coluna de multiprogramação da Tabela 8.2, obtida pelo histograma mostrado na Figura 8.6b.
+Book 1.indb 217 19.11.09 14:37:18
+
+218 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Uniprogramação Multiprogramação
+Uso de processador 20% 40%
+Uso de memória 33% 67%
+Uso de disco 33% 67%
+Uso de impressora 33% 67%
+Tempo decorrido 30 min 15 min
+Taxa de through put 6 tarefas/h 12 tarefas/h
+Tempo médio de resposta 18 min 10 minTabela 8.2 Efeitos da multiprogramação sobre a utilização de recursos
+Figura 8.6 Histogramas de utilização
+0%
+05
+Minutos
+Tempo
+(a) Uniprogramação (b) MultiprogramaçãoTAREFA1
+10TAREFA2 TAREFA3Histórico de tarefasImpressoraTerminalDiscoMemóriaCPU
+Histórico de tarefasImpressoraTerminalDiscoMemóriaCPU
+100%0%100%0%100%0%100%0%100%
+0%
+0 5 10 15
+MinutosTAREFA1
+TAREFA2
+TAREFA3100%0%100%0%100%0%100%0%100%
+Tempo15 20 25 30TAREFA1 TAREFA2 TAREFA3
+Tipo de tarefa Computação pesada E/S pesada E/S pesada
+Duração 5 min 15 min 10 min
+Memória exigida 50 M 100 M 80 M
+Precisa de disco? não não Sim
+Precisa de terminal? não Sim não
+Precisa de impressora? não não SimTabela 8.1 Exemplo de atributos de execução de programa
+Book 1.indb 218 19.11.09 14:37:18
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 219
+Assim como em um sistema em lote simples, um sistema em lote com multiprogramação precisa contar com 
+certos recursos de hardware do computador. O recurso adicional mais relevante, que é útil para a multiprograma-
+ção, é o hardware que dá suporte a interrupções de E/S e DMA. Com a E/S controlada por interrupção ou DMA, o processador pode emitir um comando de E/S para um job e prosseguir com a execução de outro job enquanto a E/S é executada pelo controlador de dispositivo. Quando a operação de E/S termina, o processador é interrom-pido e o controle é passado para uma rotina de tratamento de interrupção no SO. Este, então, passa o controle a outro job.
+Os sistemas operacionais com multiprogramação são bastante sofi sticados em comparação com os sistemas 
+de único programa, ou uniprogramação. Para ter vários jobs prontos para execução, os jobs precisam ser man-
+tidos na memória principal, exigindo alguma forma de gerenciamento de memória. Além disso, se vários jobs 
+estiverem prontos para executar, o processador precisa decidir qual executar, o que requer algum algoritmo para escalonamento. Esses conceitos são discutidos mais adiante neste capítulo.
+SISTEMAS DE TEMPO COMPARTILHADO Com o uso da multiprogramação, o processamento em lote pode 
+ser bastante efi ciente. Porém, para muitos jobs, é desejável oferecer um modo em que o usuário interaja diretamen-te com o computador. Na realidade, para alguns jobs, como o processamento de transações, um modo interativo é essencial.
+Hoje, o requisito para uma facilidade de computação interativa pode ser, e às vezes é, atendido pelo uso de um 
+microcomputador dedicado. Essa opção não estava disponível na década de 1960, quando quase todos os compu-tadores eram grandes e caros. Em vez disso, foi desenvolvido o sistema de tempo compartilhado.
+Assim como a multiprogramação permite que o processador trate de múltiplos jobs em lote de uma só vez, 
+ela pode ser usada para lidar com múltiplos jobs interativos. Nesse último caso, a técnica é chamada de tempo compartilhado: o tempo do processador é compartilhado entre vários usuários. Em um sistema de tempo com-partilhado, vários usuários acessam o sistema simultaneamente por meio de terminais, com o SO intercalando a execução de cada programa do usuário em um curto intervalo de tempo ou quantum de computação. Assim, 
+se houver n usuários ativamente solicitando serviço de uma só vez, cada usuário só verá uma média de 1/n da 
+velocidade efetiva do computador, sem contar o overhead do SO. Porém, dado o tempo de reação relativamente lento do ser humano, o tempo de resposta em um sistema corretamente projetado deverá ser comparável ao de um computador dedicado.
+Tanto a multiprogramação em lote quanto o compartilhamento de tempo utilizam multiprogramação. As prin-
+cipais diferenças estão listadas na Tabela 8.3.
+8.2 Escalonamento
+A chave para a multiprogramação é o escalonamento. De fato, quatro tipos de escalonamento normal-
+mente são envolvidos (Tabela 8.4) e vamos explorá-los nesta seção. Mas, antes, vamos apresentar o conceito de processo. Esse termo foi usado inicialmente pelos projetistas do SO M ULTICS na década de 1960. Esse é 
+um termo um pouco mais generalizado do que job. Muitas definições têm sido dadas para o termo processo, 
+incluindo:
+Um programa em execução.
+ 
+O “espírito animado” de um programa. 
+A entidade à qual um processador é atribuído. 
+Esse conceito deverá se tornar mais claro à medida que prosseguirmos.
+Multiprogramação em lote Tempo compartilhado
+Objetivo principal Maximizar uso do processador Minimizar tempo de resposta
+Origem das diretivas ao sistema operacional Comandos da JCL fornecidos com a tarefa Comandos digitados no terminalTabela 8.3 Multiprogramação em lote versus tempo compartilhado
+Book 1.indb 219 19.11.09 14:37:19
+
+220 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Escalonamento de longo prazo
+Um escalonador a longo prazo determina quais programas são admitidos no sistema para processamento. 
+Assim, ele controla o grau de multiprogramação (número de processos na memória). Uma vez admitido, um job ou 
+programa do usuário se torna um processo e é acrescentado à fi la para o escalonador de curto prazo. Em alguns sistemas, um processo recém-criado inicia em uma condição não carregado na memória (swapped-out), quando é acrescentado a uma fi la para o escalonador a médio prazo.
+Em um sistema em lote, ou para a parte de lote de um SO de uso geral, os jobs recém-submetidos são direciona-
+dos para o disco e mantidos em uma fi la de lote. O escalonador de longo prazo cria processos a partir da fi la, quan-do possível. Existem duas decisões envolvidas aqui. Primeiro, o escalonador precisa decidir se o SO pode assumir um ou mais processos adicionais. Segundo, o escalonador precisa decidir qual job ou jobs irá aceitar e transformar em processos. Os critérios usados podem incluir prioridade, tempo de execução esperado e requisitos de E/S.
+Para programas interativos em um sistema de tempo compartilhado, uma requisição de processo é gerada quando 
+um usuário tenta se conectar ao sistema. Os usuários de tempo compartilhado não são simplesmente enfi leirados e man-tidos esperando até que o sistema possa aceitá-los. Em vez disso, o SO aceitará todos os que chegam autorizados até que o sistema esteja saturado, usando alguma medida de saturação predefi nida. Nesse ponto, uma requisição de conexão é atendida com uma mensagem indicando que o sistema está cheio e que o usuário deverá tentar novamente mais tarde.
+ Escalonamento de médio prazo
+O escalonamento de médio prazo faz parte da função de troca de processo (swapping), descrita na Seção 8.3. 
+Normalmente, a decisão de entrada no swapping é baseada na necessidade de gerenciar o grau de multiprograma-ção. Em um sistema que não usa memória virtual, o gerenciamento de memória também é um ponto. Assim, a deci-são de processo de memória considerará os requisitos de memória dos processos que são removidos para o disco.
+ Escalonamento a curto prazo
+O escalonador de longo prazo é executado com relativamente pouca frequência e toma a decisão bruta de 
+assumir ou não um novo processo, e qual deverá assumir. O escalonador de curto prazo, também conhecido como despachante (dispatcher) , é executado com frequência e toma a decisão de nível mais baixo de qual tarefa execu-
+tar em seguida.
+ESTADOS DE PROCESSOS Para entender a operação do escalonador de curto prazo, precisamos considerar o 
+conceito de um estado de processo. Durante o tempo de vida de um processo, seu status mudará diversas vezes. 
+Seu estado em determinado momento é conhecido como um estado. O termo estado é usado porque ele indica 
+que existe uma certa informação que defi ne o estado nesse ponto. No mínimo, existem cinco estados defi nidos 
+para um processo (Figura 8.7):
+novo: 
+  o programa é admitido mas não está pronto para executar. O SO iniciará o processo, movendo-o para 
+o estado pronto.Tabela 8.4 Tipos de escalonamento
+Escalonamento de longo prazo A decisão de acrescentar ao pool de processos a serem executados
+Escalonamento a médio prazo A decisão de acrescentar ao número de processos que estão parcial ou totalmente na memória principal
+Escalonamento de curto prazo A decisão sobre qual processo disponível será executado pelo processador
+Escalonamento de E/S A decisão sobre qual solicitação de E/S pendente do processo será tratada por um dispositivo de E/S disponível
+Book 1.indb 220 19.11.09 14:37:19
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 221
+pronto:  o processo está pronto para ser executado e está aguardando o acesso ao processador.
+em execução:  o processo está sendo executado pelo processador.
+suspenso:  o processo está com sua execução suspensa, aguardando por algum recurso do sistema, como a E/S.
+concluído:  o processo terminou e será destruído pelo SO.
+Para cada processo no sistema, o SO precisa manter informações indicando o estado do processo e outras infor-
+mações necessárias para a execução do processo. Para essa finalidade, cada processo é representado pelo SO por 
+um bloco de controle de processo (Figura 8.8), que normalmente contém:
+Identificador:  cada processo ativo possui um identificador exclusivo.
+estado:  o estado atual do processo (novo, pronto etc.).
+prioridade:  nível de prioridade relativo.
+contador de programa:  o endereço da próxima instrução no programa a ser executado.
+ponteiros de memória:  os locais inicial e final do processo na memória.
+dados de contexto:  estes são dados que estão presentes nos registradores do processador enquanto o pro -
+cesso está executando, e serão discutidos na Parte 3. Por enquanto, basta dizer que esses dados representam o Figura 8.7 Modelo de processo com cinco estados
+Novo Pronto
+BloqueadoExecutando SaídaAdmitirDespachar
+Tempo
+limiteLiberar
+Espera por 
+eventoOcorre
+evento
+Figura 8.8 Bloco de controle do processo
+ Identi/f_icador
+Estado
+Prioridade
+Contador de programa
+Ponteiros da memória
+Informação de 
+status de E/S
+Informações 
+contábeis
+•
+••Dados de contexto
+Book 1.indb 221 19.11.09 14:37:20
+
+222 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+“contexto” do processo. Os dados de contexto mais o contador de programa são salvos quando o processo sai 
+do estado de execução. Eles são recuperados pelo processador quando ele retoma a execução do processo.Informações de 
+  status de e/s: inclui requisições de E/S pendentes, dispositivos de E/S (por exemplo, uni-
+dades de fita) atribuídos a esse processo, uma lista de arquivos atribuídos ao processo, e assim por diante.Informações contábeis:
+  podem incluir a quantidade de tempo de processador e tempo de clock utilizado, 
+limites de tempo, números de conta e assim por diante.
+Quando o escalonador aceita um novo job ou requisição de um usuário para execução, ele cria um bloco de 
+controle de processo em branco e coloca o processo associado no estado novo. Depois que o sistema tiver preen-chido corretamente o bloco do controle de processo, o processo é transferido para o estado pronto.
+TÉCNICAS DE ESCALONAMENTO Para entender como o SO gerencia o escalonamento de diversos jobs na 
+memória, vamos começar considerando o exemplo simples na Figura 8.9. A figura mostra como a memória prin-cipal é particionada em determinado momento. O kernel do SO, naturalmente, sempre está residente. Além disso, existem diversos processos ativos, incluindo A e B, cada um recebendo a alocação de uma parte da memória.
+Começamos em um ponto no tempo em que o processo A está sendo executado. O processador está execu-
+tando as instruções do programa contido na partição de memória de A. Em algum outro momento, o processador deixa de executar as instruções em A e começa a executar as instruções na área do SO. Isso acontecerá por uma destas três razões:
+1. O processo A emite uma chamada de serviço (por exemplo, uma requisição de E/S) ao SO. A execução de A é suspensa até que essa chamada seja satisfeita pelo SO.
+Figura 8.9 Exemplo de escalonamento
+Tratamento de serviço
+Escalonador
+Tratamento de interrupção
+A
+“Em execução”
+B
+“Pronto”
+Outras partições
+(a) (c) (b) Sistema operacional
+Tratamento de serviço
+Escalonador
+Tratamento de interrupção
+A
+“Suspenso”
+B
+“Pronto”
+Outras partições Sistema operacional
+Tratamento de serviço
+Escalonador
+Tratamento de interrupção
+A
+“Suspenso”
+B
+“Em execução”
+Outras partiçõesNo 
+controleCom o
+controle
+Com o
+controle Sistema operacional
+Book 1.indb 222 19.11.09 14:37:20
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 223
+2. O processo A causa uma interrupção, que é um sinal gerado pelo hardware ao processador. Quando esse 
+sinal é detectado, o processador deixa de executar A e transfere a execução ao tratamento de interrupção no 
+SO. Diversos eventos relacionados a A causarão uma interrupção. Um exemplo é um erro, como a tentativa de executar uma instrução privilegiada. Outro exemplo é um tempo limite esgotado (timeout); para impedir que qualquer processo monopolize o processador, cada processo só recebe a atenção do processador; por um curto período de cada vez.
+3. Algum evento não relacionado ao processo A que requeira atenção causa uma interrupção. Um exemplo é o término de uma operação de E/S.
+De qualquer forma, o resultado é o seguinte: o processador salva os dados de contexto atuais e o contador de 
+programa para A no bloco de controle do processo de A, e depois começa a executar no SO. O SO pode realizar al-
+gum trabalho, como iniciar uma operação de E/S. Depois, a parte do escalonador de curto prazo do SO decide qual processo deverá ser executado em seguida. Neste exemplo, B é escolhido. O SO instrui o processador a restaurar os dados de contexto de B e prosseguir com a execução de B onde ele parou.
+Este exemplo simples destaca o funcionamento básico do escalonador a curto prazo. A Figura 8.10 mostra os 
+principais elementos do SO envolvidos na multiprogramação e escalonamento de processos. O SO recebe o con-trole do processador no tratamento de interrupção se ocorrer uma interrupção, e no tratamento de chamada de serviço se ocorrer uma chamada de sistema. Quando uma interrupção ou camada de serviço for tratada, o escalo-nador a curto prazo será chamado para selecionar um processo para execução.
+Para realizar sua tarefa, o SO mantém diversas filas. Cada fila é simplesmente uma lista de espera dos processos 
+aguardando por algum recurso. A fila de longo prazo é uma lista dos jobs aguardando para usar o sistema. Quando 
+as condições permitirem, o escalonador de alto nível alocará memória e criará um processo para um dos itens que está aguardando. A fila de curto prazo consiste em todos os processos no estado pronto. Qualquer um desses processos 
+poderia usar o processador em seguida. Fica a cargo do escalonador a curto prazo escolher um. Geralmente, isso é feito com um algoritmo round-robin, dando a cada processo algum tempo, em forma de rodízio. Os níveis de priorida-de também podem ser usados. Finalmente, existe uma fila de E/S para cada dispositivo de E/S. Mais de um processo 
+pode requisitar o uso do mesmo dispositivo de E/S. Todos os processos aguardando para usar cada dispositivo são alinhados na fila desse dispositivo.
+A Figura 8.11 sugere como os processos progridem pelo computador sob o controle do SO. Cada requisição de 
+processo (job em lote, job interativo definido pelo usuário) é colocado na fila de longo prazo. Quando os recursos 
+Figura 8.10 Principais elementos de um sistema operacional para multiprogramação
+Tratamento
+de chamada do
+sistema (código)Chamada do sistema 
+por um processo
+Interrupção do processo
+Passa controle ao processoInterrupção da E/STratamento 
+de interrupção 
+(código)
+Escalonamento de 
+curto prazo (código)Fila de 
+longo 
+prazoFila de 
+curto 
+prazoFilas 
+de E/SSistema operacional
+Book 1.indb 223 19.11.09 14:37:20
+
+224 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+se tornam disponíveis, uma requisição do processo se torna um processo, que é então colocado no estado pronto 
+e mantido na fi la de curto prazo. O processador alterna entre executar instruções do SO e executar processos do usuário. Enquanto o SO está no controle, ele decide qual processo na fi la de curto prazo deverá ser executado em seguida. Quando o SO termina suas tarefas imediatas, ele transfere o processador para o processo escolhido.
+Como já dissemos, um processo sendo executado pode ser suspenso por diversos motivos. Se ele for suspenso 
+porque o processo requisita E/S, então ele é colocado na fi la de E/S apropriada. Se ele for suspenso porque termi-nou seu tempo ou porque o SO precisa atender a uma atividade urgente, então ele é passado para o estado pronto e colocado na fi la a curto prazo.
+ Finalmente, mencionamos que o SO também gerencia as fi las de E/S. Quando uma operação de E/S termina, o 
+SO remove o referido processo atendido dessa fi la de E/S e o coloca na fi la de curto prazo. Depois, ele seleciona outro processo que está esperando (se houver) e sinaliza o dispositivo de E/S para que atenda a requisição desse processo.
+8.3 Gerenciamento de memória
+Em um sistema de uniprogramação, a memória principal é dividida em duas partes: uma parte para o SO (moni-
+tor residente) e uma parte para o programa atualmente sendo executado. Em um sistema de multiprogramação, a parte do “usuário” da memória é subdividida para acomodar diversos processos. A tarefa de subdivisão é executada dinamicamente pelo SO e é conhecida como gerenciamento de memória.
+O gerenciamento de memória efi caz é vital em um sistema de multiprogramação. Se apenas alguns proces-
+sos estiverem na memória, então, em grande parte do tempo, todos os processos estarão esperando pela E/S e o processador estará ocioso. Assim, a memória precisa ser alocada de modo efi ciente para encaixar o máximo de processos possível na memória.
+ Troca de processos na memória – Swapping
+Voltando à Figura 8.11, discutimos três tipos de fi las: a fi la de longo prazo de solicitações de novos processos, a 
+fi la de curto prazo de processos prontos para usar o processador e as diversas fi las de E/S dos processos que não Figura 8.11 Diagrama de fi las do escalonamento de processador
+FimFila de longo prazo Fila de curto prazo
+Requisição do processo
+Processador
+Fila de E/S 1Ocorre 
+E/S 1
+Ocorre 
+E/S 2
+Ocorre 
+E/S nFila de E/S 2
+Fila de E/S n
+Book 1.indb 224 19.11.09 14:37:21
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 225
+estão prontos para usar o processador. Lembre-se de que o motivo para esse mecanismo elaborado é que as ativi-
+dades de E/S são muito mais lentas do que a computação e, portanto, o processador em um sistema de uniprogra-mação fica ocioso na maior parte do tempo.
+Porém, o arranjo na Figura 8.11 não resolve totalmente o problema. É verdade que, nesse caso, a memória mantém 
+vários processos e que o processador pode passar para outro processo quando um deles estiver esperando. Mas o processador é muitas vezes mais rápido que a E/S, que será comum haver todos os processos na memória esperando por E/S. Assim, até mesmo com a multiprogramação, um processador poderia estar ocioso na maior parte do tempo.
+O que fazer? A memória principal poderia ser expandida, e, portanto, ser capaz de acomodar mais processos. 
+Mas existem duas falhas nessa abordagem. Primeiro, a memória principal é cara, ainda hoje. Segundo, a necessida-de dos programas por memória cresceu tão rápido quanto o custo da memória caiu. Assim, uma memória maior resulta em processos maiores, e não em mais processos.
+Outra solução é o swapping, representado na Figura 8.12. Temos uma fila de longo prazo de requisições de pro-
+cessos, normalmente armazenada no disco. Estes são trazidos, um por vez, à medida que houver espaço disponível. Quando os processos terminam, eles são removidos da memória principal. Agora surge a situação em que nenhum dos processos na memória estará no estado pronto (por exemplo, todos estão aguardando uma operação de E/S). Ao invés de permanecer ocioso, o processador troca (swaps) um desses processos de volta para o disco em uma 
+fila intermediária. Essa é uma fila de processos existentes que foram temporariamente removidos da memória. O SO então traz outro processo da fila intermediária, ou então atende a requisição de um novo processo da fila de longo prazo. A execução então continua com o processo recém-chegado.
+O swapping, porém, é uma operação de E/S, e, portanto, pode tornar o problema ainda pior, e não me -
+lhor. Mas, como a E/S em disco geralmente é a E/S mais rápida em um sistema (por exemplo, em comparação com a E/S de fita ou impressora), o swapping normalmente melhorará o desempenho. Um esquema mais 
+Figura 8.12 O uso do swapping
+Sistema
+operacional Armazenamento em disco
+Fila de longo prazo
+Fila a longo prazoFila intermediáriaTarefas e sessões
+do usuário
+completadas
+(a) Escalonamento de tarefas simples
+(b) SwappingMemória principal
+Sistema
+operacional Armazenamento em disco
+Tarefas e sessões
+do usuário
+completadasMemória principal
+Book 1.indb 225 19.11.09 14:37:21
+
+226 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+sofisticado, envolvendo memória virtual, melhora o desempenho em relação ao simples swapping. Isso será 
+discutido mais adiante. Primeiro, porém, temos que preparar o terreno explicando sobre particionamento e paginação.
+ Particionamento
+O esquema mais simples para o particionamento da memória disponível é usar partições de tamanho fi xo, como mos-
+tramos na Figura 8.13. Observe que, embora as partições tenham tamanho fi xo, elas não precisam ter o mesmo tamanho. 
+Quando um processo é trazido para a memória, ele é colocado na menor partição possível que o poderá manter.
+Mesmo com o uso de partições de tamanho fi xo desiguais, haverá memória desperdiçada. Na maior parte 
+dos casos, um processo não exigirá tanta memória quanto a fornecida pela partição. Por exemplo, um processo que requer 3 MBytes de memória seria colocado em uma partição de 4 M da Figura 8.13b, desperdiçando 1 M que poderia ser usado por outro processo. 
+Uma técnica mais efi ciente é usar partições de tamanho variável. Quando um processo é levado para a memó-
+ria, ele recebe exatamente a quantidade de memória exigida, e nada mais.
+exemplo 8.2 Um exemplo, usando 64 MBytes de memória principal, aparece na Figura 8.14. Inicialmente, a 
+memória principal está vazia, exceto pelo SO (a). Os primeiros três processos são carregados nela, começando onde 
+o SO termina e ocupando apenas o espaço sufi ciente para cada processo (b, c, d). Isso deixa um “buraco” ao fi nal da memória, que é muito pequeno para um quarto processo. Em algum ponto, nenhum dos processos na memória 
+Figura 8.13 Exemplo de particionamento fi xo de uma memória de 64 MBytes
+ Sistema operacional
+8 M Sistema operacional
+8 M
+8 M2 M
+4 M
+6 M
+8 M
+8 M
+12 M
+16 M8 M
+8 M8 M8 M8 M8 M
+(a) Partições de mesmo tamanho (b) Partições de tamanhos diferentes
+Book 1.indb 226 19.11.09 14:37:22
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 227
+está pronto. O SO retira o processo 2 (e), o que deixa espaço suficiente para carregar um novo processo, o processo 
+4 (f ). Como o processo 4 é menor que o processo 2, outro buraco pequeno é criado. Mais tarde, chega um ponto em que nenhum dos processos na memória principal está pronto, mas o processo 2, no estado Pronto-Suspenso, está disponível. Como existe espaço suficiente na memória para o processo 2, o SO retira o processo 1 (g) e devolve o processo 2 para a memória (h).
+Como este exemplo mostra, esse método começa bem, mas, por fim, leva a uma situação em que existem 
+muitos buracos pequenos na memória. Com o passar do tempo, a memória torna-se cada vez mais fragmentada, e sua utilização declina. Uma técnica para contornar esse problema é a compactação: de vez em quando, o SO 
+desloca os processos na memória para colocar toda a memória livre junta em um só bloco. Esse é um procedimento demorado, desperdiçando o tempo do processador.
+Antes de considerarmos algumas maneiras de lidar com as desvantagens do particionamento, temos que acer-
+tar um ponto. Considere a Figura 8.14; deve ficar óbvio que um processo provavelmente não será carregado para o mesmo local na memória principal a cada vez que for levado para lá. Além do mais, se houver compactação, um processo pode ser deslocado enquanto estiver na memória principal. Um processo na memória consiste em instru-ções mais dados. As instruções terão endereços para locais da memória de dois tipos:
+Endereços de itens de dados.
+ 
+Endereços de instruções, usados para instruções de desvio. 
+(a) Sistema
+operacional8 M
+20 M
+36 M56 M
+(b)Processo 1 20 M
+14 M
+22 M
+(c)Processo 1
+Processo 220 M
+14 M
+18 M
+4 M
+(d)Processo 1
+Processo 2
+14 M Processo 2Processo 3
+20 M
+14 M
+18 M
+4 M
+(e)Processo 1
+Processo 320 M
+8 M
+6 M
+18 M
+4 M
+(f)Processo 1
+Processo 4
+Processo 320 M
+8 M
+6 M
+18 M
+4 M
+(g)Processo 4
+Processo 38 M
+6 M6 M
+18 M
+4 M
+(h)Processo 4
+Processo 3 Sistema
+operacional Sistema
+operacional Sistema
+operacional
+ Sistema
+operacional Sistema
+operacional Sistema
+operacional Sistema
+operacionalFigura 8.14 O efeito do particionamento dinâmico
+Book 1.indb 227 19.11.09 14:37:22
+
+228 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Mas esses endereços não são fi xos. Eles mudarão toda vez que um processo for levado para a memória. Para 
+resolver esse problema, existe uma distinção entre endereços lógicos e endereços fi xos. Um endereço lógico é 
+expresso como um local relativo ao início do programa. As instruções no programa contêm apenas endereços 
+lógicos. Um endereço físico é um local real na memória principal. Quando o processador executa um processo, ele automaticamente converte do endereço lógico para o físico, somando o local inicial atual do processo, chamado de endereço de base, a cada endereço lógico. Esse é outro exemplo de um recurso de hardware do processador 
+projetado para atender a um requisito do SO. A natureza exata desse recurso de hardware depende da estratégia de gerenciamento de memória em uso. Veremos vários exemplos mais adiante neste capítulo.
+ Paginação
+Partições desiguais de tamanho fi xo e de tamanho variável são inefi cazes no uso da memória. Suponha, porém, 
+que a memória seja particionada em pedaços iguais de tamanho fi xo que sejam relativamente pequenos, e que cada processo também seja dividido em pequenos pedaços de algum tamanho fi xo pequeno. Então, os pedaços de um programa, conhecidos como páginas, poderiam ser atribuídos aos pedaços disponíveis de memória, co-
+nhecidos como frames, ou frames de página. No máximo, então, o espaço desperdiçado na memória para esse processo é uma fração da última página.
+A Figura 8.15 mostra um exemplo do uso de páginas e frames. Em determinado momento no tempo, alguns 
+dos frames na memória estão em uso e alguns estão livres. A lista dos frames livres é mantida pelo SO. O processo A, armazenado no disco, consiste em quatro páginas. Quando é o momento de carregar esse processo, o SO encontra quatro frames livres e carrega as quatro páginas do processo A nos quatro frames.
+Agora suponha, como neste exemplo, que não haja frames contíguos sem uso sufi cientes para manter o 
+processo. Isso impede o SO de carregar A? A resposta é não, porque podemos, mais uma vez, usar o conceito de endereço lógico. Um endereço de base simples não será mais sufi ciente. Em vez disso, o SO mantém uma tabela de página para cada processo. A tabela de página mostra o local para cada página no processo. Dentro 
+Figura 8.15 Alocação de frames livres
+1413
+15
+16Em 
+usoMemória
+principal
+(a) Antes Processo A
+Lista de frames livres
+13
+14151820Lista de frames livres
+20
+Tabela de página 
+do processo A
+18
+13
+14
+15Página 0Página 1Página 2Página 3
+Em 
+uso
+Em 
+uso17
+1819201413
+15
+16Em 
+uso
+Em 
+usoMemória
+principal
+Página 
+0 de APágina 
+3 de APágina 
+2 de APágina 
+1 de A
+Em 
+uso17181920Processo A
+Página 0
+Página 1Página 2Página 3
+(b) Depois
+Book 1.indb 228 19.11.09 14:37:23
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 229
+do programa, cada endereço lógico consiste em um número de página e um endereço relativo dentro da pá-
+gina. Lembre-se de que, no caso do particionamento simples, um endereço lógico é o local de uma palavra em relação ao início do programa; o processador traduz isso para um endereço físico. Com a paginação, a tradução de endereço de lógico para físico ainda é feita pelo hardware do processador. O processador precisa saber como acessar a tabela de página do processo atual. Recebendo um endereço lógico (número de página, endereço relativo), o processador usa a tabela de página para produzir um endereço físico (número de frame, endereço relativo). Um exemplo aparece na Figura 8.16.
+Essa técnica soluciona os problemas que levantamos anteriormente. A memória principal é dividida em muitos 
+frames pequenos de mesmo tamanho. Cada processo é dividido em páginas com o tamanho do frame: processos menores exigem menos páginas, processos maiores exigem mais. Quando um processo é trazido, suas páginas são carregadas nos frames disponíveis, e uma tabela de página é montada.
+ Memória virtual
+PAGINAÇÃO POR DEMANDA Com o uso da paginação, sistemas de multiprogramação verdadeiramente efi ca-
+zes entraram em cena. Além do mais, a simples tática de dividir um processo em páginas levou ao desenvolvimento de outro conceito importante: a memória virtual.
+Para entender a memória virtual, temos que acrescentar uma melhoria ao esquema de paginação que discuti-
+mos. Essa melhoria é a paginação por demanda, que simplesmente signifi ca que cada página de um processo é 
+trazida apenas quando necessária, ou seja, por demanda.
+Considere um processo grande, consistindo em um programa longo mais uma série de arrays de dados. 
+Por qualquer período, a execução pode ser confiada a uma pequena seção do programa (por exemplo, uma sub-rotina) e talvez apenas um ou dois arrays de dados estão sendo usados. Esse é o princípio da localidade, que apresentamos no Apêndice 4A. Logicamente, seria um desperdício carregar dezenas de páginas para esse processo quando apenas algumas páginas serão usadas antes que o programa seja suspenso. Podemos 
+Figura 8.16 Endereços lógicos e físicos
+30
+18
+13
+14
+151 Número 
+de página
+Endereço 
+lógicoEndereço
+físicoMemória
+principal
+Tabela de página
+do processo A30Página 
+3 de A
+Página 
+0 de APágina 
+2 de APágina 
+1 de A13
+1415161718
+13Número 
+do frameEndereço relativo
+dentro do frameEndereço relativo 
+dentro da página
+Book 1.indb 229 19.11.09 14:37:23
+
+230 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+fazer um uso melhor da memória carregando apenas algumas páginas. Depois, se o programa desviar para 
+uma instrução em uma página fora da memória principal, ou se o programa referenciar dados em uma pági-na que não está na memória, uma interrupção de falta de página (page fault) ocorrerá. Isso diz ao SO para 
+trazer a página desejada.
+Assim, a qualquer momento, apenas algumas páginas de determinado processo estão na memória, e, portanto, 
+mais processos podem ser mantidos na memória. Além do mais, o tempo é reduzido, pois as páginas não usadas não entram e saem da memória. Porém, o SO precisa ser inteligente sobre como gerenciar esse esquema. Quando ele traz uma página, precisa retirar outra; isso é conhecido como substituição de página. Se ele retirar uma página 
+imediatamente antes que ela precise ser usada, então ele simplesmente terá que obter essa página novamente, quase que imediatamente. Muita atividade desse tipo leva a uma condição conhecida como thrashing: o proces-
+sador gasta a maior parte do seu tempo trocando páginas, ao invés de executando instruções. Impedir o thrashing foi uma área de pesquisa importante na década de 1970, e levou a uma série de algoritmos complexos, porém efi-cientes. Basicamente, o SO tenta descobrir, com base na história recente, quais páginas têm menos probabilidade de serem usadas no futuro próximo.
+simuladores de algoritmo de substituição de página
+Uma discussão sobre algoritmos de substituição de página está fora do escopo deste livro. Uma técnica po-
+tencialmente eficaz se chama “usado menos recentemente” (LRU, do inglês least recently used), o mesmo algoritmo 
+discutido no Capítulo 4 para a substituição de cache. Na prática, LRU é difícil de implementar para um esquema de paginação de memória virtual. Várias técnicas alternativas que buscam aproximar o desempenho do LRU são utilizadas; veja os detalhes no Apêndice F.
+Com a paginação por demanda, não é necessário carregar um processo inteiro na memória principal. Esse 
+fato tem uma consequência marcante: é possível que um processo seja maior do que toda a memória princi-pal. Uma das restrições mais fundamentais na programação foi elevada. Se o programa sendo escrito for muito grande, o programador precisa criar maneiras de estruturar o programa em partes que possam ser carregadas uma de cada vez. Com a paginação por demanda, essa tarefa fica para o SO e o hardware. Já o programador está lidando com uma memória imensa, com o tamanho associado ao armazenamento em disco.
+Como um processo só é executado na memória principal, essa memória é conhecida como memória real ou 
+física. Mas um programador ou usuário percebe uma memória muito maior  aquela que está alocada no disco. 
+Essa última, portanto, é denominada memória virtual. A memória virtual aumenta a eficiência da multiprograma-
+ção bastante eficaz, e alivia o usuário das restrições desnecessariamente apertadas da memória principal.
+ESTRUTURA DA TABELA DE PÁGINA O mecanismo básico para a leitura de uma palavra da memória envolve a 
+tradução de um endereço virtual, ou lógico, consistindo em número de página e deslocamento, para um endereço físico, consistindo em um número de frame e deslocamento, usando uma tabela de página. Como a tabela de pági-na tem tamanho variável, dependendo do tamanho do processo, não podemos esperar mantê-la nos registradores. Em vez disso, ela precisa estar na memória principal para ser acessada. A Figura 8.16 sugere uma implementação de hardware desse esquema. Quando determinado processo está sendo executado, um registrador mantém o endereço inicial da tabela de página para esse processo. O número de página de um endereço virtual é usado para indexar essa tabela e pesquisar o número do frame correspondente. Isso é combinado com a parte de deslocamen-to do endereço virtual para produzir o endereço real desejado.
+Na maioria dos sistemas, existe uma tabela de página por processo, mas cada processo pode ocupar grandes 
+quantidades de memória virtual. Por exemplo, na arquitetura VAX, cada processo pode ter até 2
+31 = 2 GBytes de me-
+mória virtual. Usando páginas de 29 = 512 bytes, isso significa que até 222 entradas da tabela de página são exigidas 
+por processo. Logicamente, a quantidade de memória dedicada apenas a tabelas de página poderia ser inaceita-velmente alta. Para contornar esse problema, a maioria dos esquemas de memória virtual armazena as tabelas de página na memória virtual, e não na memória real. Isso significa que as tabelas de página são sujeitas a paginação, assim como as outras páginas. Quando um processo está sendo executado, pelo menos uma parte de sua tabela 
+Book 1.indb 230 19.11.09 14:37:23
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 231
+de página precisa estar na memória principal, incluindo a entrada da tabela de página da página atualmente em 
+execução. Alguns processadores utilizam um esquema de dois níveis para organizar grandes tabelas de página. Nesse esquema, existe um diretório de página, em que cada entrada aponta para uma tabela de página. Assim, se o tamanho do diretório de página for X, e se o tamanho máximo de uma tabela de página for Y, então um processo pode consistir em até X × Y páginas. Normalmente, o tamanho máximo de uma tabela de página é restrito a ser igual a uma página. Veremos um exemplo dessa técnica de dois níveis quando considerarmos o Pentium II mais adiante neste capítulo.
+Uma técnica alternativa ao uso de tabelas de página de um ou dois níveis é o uso de uma estrutura de tabela de 
+página invertida (Figura 8.17). As variações nessa técnica são usadas no PowerPC, UltraSPARC e a arquitetura IA-64. Uma implementação do Mach OS no RT-PC também usa essa técnica.
+Nessa técnica, a parte do número de página de um endereço virtual é mapeada em um valor de hash usando 
+uma função de hashing simples.
+2 O valor de hash é um ponteiro para a tabela de página invertida, que contém as 
+entradas da tabela de página. Existe uma entrada na tabela de página invertida para cada frame de página da me-mória real, em vez de uma por página virtual. Assim, uma proporção fixa da memória real é exigida para as tabelas, independentemente do número de processos ou páginas virtuais admitidas. Como mais de um endereço virtual pode ser mapeado na mesma entrada da tabela de hash, uma técnica de encadeamento é usada para gerenciar 
+o overflow . A técnica de hashing resulta em cadeias que normalmente são curtas — entre uma e duas entradas. A 
+estrutura da tabela de página é chamada invertida porque indexa as entradas da tabela de página por número de frame, em vez de número de página virtual.
+2 Uma função de hash mapeia números na faixa de 0 a M para números na faixa de 0 a N, onde M > N. A saída da função de hash é usada 
+como um índice para a tabela de hash. Como mais de uma entrada é mapeada para a mesma saída, é possível que um item de entrada seja 
+mapeado para uma entrada da tabela de hash que já está ocupada. Nesse caso, o novo item precisa transbordar (overflow ) para outro local 
+da tabela de hash. Normalmente, o novo item é colocado no primeiro espaço vazio subsequente, e um ponteiro do local original é fornecido 
+para encadear as entradas. Veja mais informações sobre funções de hash no Apêndice C.Figura 8.17 Estrutura da tabela de página invertida
+# página Desl.
+# frame
+m bitsm bitsn bitsn bitsEndereço virtual
+Função 
+hash# PáginaID do
+processoBits de 
+controle
+Escalamento
+Tabela de página invertida
+(uma entrada para cada
+frame da memória física)Endereço realDesl.i0
+j
+2m 1
+Book 1.indb 231 19.11.09 14:37:24
+
+232 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Translation lookaside buﬀ er
+Em princípio, então, cada referência de memória virtual pode causar dois acessos à memória física: um para bus-
+car a entrada da tabela de página apropriada e um para buscar os dados desejados. Assim, um esquema direto de 
+memória virtual teria o efeito de dobrar o tempo de acesso à memória. Para contornar esse problema, a maioria dos esquemas de memória virtual utiliza uma cache especial para entradas da tabela de página, normalmente chamada de translation lookaside buff er (TLB). Essa cache funciona da mesma maneira que uma cache de memória e contém 
+as entradas da tabela de página que foram usadas recentemente. A Figura 8.18 é um fl uxograma que mostra o uso do TLB. Pelo princípio da localidade, a maioria das referências à memória virtual será para locais nas páginas usadas recentemente. Portanto, a maioria das referências envolverá as entradas da tabela de página na cache. Os estudos do TLB do VAX mostraram que esse esquema pode melhorar o desempenho signifi cativamente (Clark e Emer, 1985
+a, Satyanarayanan e Bhandarkar, 1981b).
+Observe que o mecanismo de memória virtual precisa interagir com o sistema de cache (não a cache do TLB, 
+mas a cache da memória principal). Isso é ilustrado na Figura 8.19. Um endereço virtual geralmente estará na forma de um número de página, deslocamento. Primeiro, o sistema de memória consulta o TLB para ver se a entrada da tabela de página correspondente está presente. Se estiver, o endereço real (físico) é gerado combinando o número 
+Figura 8.18 Operação da paginação e do translation lookaside buff er (TLB)
+Início
+CPU veri/f_ica TLB
+Entrada de 
+tabela de página no 
+TLB?
+Acessa tabela de página
+Atualiza TLB
+SimSim
+SimNão
+NãoNão
+CPU gera endereço físicoSO instrui CPU a
+ler página do disco
+CPU ativa
+hardware de E/SRotina de tratamento 
+de falta de páginaRetorno à instrução que faltou
+Tabelas de 
+página atualizadasRealiza substituição 
+de páginaPágina transferida 
+do disco para a 
+memória principalPágina na
+memória principal?
+Memória
+cheia?
+Book 1.indb 232 19.11.09 14:37:24
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 233
+do frame com o deslocamento. Se não, a entrada é acessada a partir de uma tabela de página. Quando o endereço 
+real for gerado, que está na forma de uma tag e um restante, a cache é consultada para ver se o bloco contendo 
+essa palavra está presente (ver Figura 4.5). Nesse caso, ela retorna ao processador. Se não, a palavra é recuperada da memória principal.
+O leitor deverá ser capaz de apreciar a complexidade do hardware do processador envolvida em uma única 
+referência à memória. O endereço virtual é traduzido para um endereço real. Isso envolve referência a uma tabela de página, que pode estar no TLB, na memória principal ou no disco. A palavra referenciada pode estar na cache, na memória principal ou no disco. Nesse último caso, a página contendo a palavra precisa ser carregada para a memória principal e seu bloco carregado na cache. Além disso, a entrada da tabela de página para essa página precisa ser atualizada.
+ Segmentação
+Existe outra maneira de subdividir a memória endereçável, conhecida como segmentação. Enquanto a pagina-
+ção é invisível ao programador e serve para lhe oferecer um espaço de endereços maior, a segmentação normal-mente é visível ao programador e é fornecida como uma conveniência para organizar programas e dados e como um meio de associar atributos de privilégio e proteção com instruções e dados.
+A segmentação permite que o programador veja a memória como consistindo em múltiplos espaços ou seg-
+mentos de endereço. Os segmentos têm tamanho variável, realmente dinâmico. Normalmente, o programador ou o SO atribuirá programas e dados a diferentes segmentos. Pode haver uma série de segmentos de programa para diversos tipos de programas, além de uma série de segmentos de dados. Cada segmento pode ter direitos de acesso e uso atribuídos. As referências à memória consistem em uma forma de endereço (número de segmento, deslocamento).
+Figura 8.19 Translation lookaside buff er (TLB) e operação da cache
+# página Desl.Endereço virtual Operação do TLB
+Tabela de páginaMemória
+principalFalta no TLB
+FaltaAcerto Valor
+ValorAcerto 
+no TLBTLB
+Tag RestanteEndereço realOperação da cache
+Cache
+Book 1.indb 233 19.11.09 14:37:25
+
+234 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Essa organização tem diversas vantagens para o programador em relação a um espaço de endereços não segmentado:
+1. Ela simplifi ca o tratamento de estruturas de dados que crescem. Se o programador não souber antes da hora o tamanho que determinada estrutura de dados terá, não é preciso adivinhar. A estrutura de dados pode receber seu próprio segmento, e o SO expandirá ou encolherá o segmento conforme a necessidade.
+2. Ela permite que os programas sejam alterados e recompilados de modo independente, sem exigir que um conjunto inteiro de programas seja novamente link-editado e recarregado. Novamente, isso é feito usando segmentos múltiplos.
+3. Ela permite o compartilhamento entre os processos. Um programador pode colocar um programa utilitário ou uma tabela de dados útil em um segmento que pode ser endereçado por outros processos.
+4. Ela serve para proteção. Como um segmento pode ser construído para conter um conjunto bem defi nido de programas ou dados, o programador ou um administrador do sistema pode atribuir privilégios de acesso de uma maneira conveniente.
+Essas vantagens não estão disponíveis com a paginação, que é invisível ao programador. Por outro lado, vimos 
+que a paginação provê uma forma efi ciente de gerenciamento de memória. Para combinar as vantagens de ambos, alguns sistemas são equipados com o hardware e o software do SO que permite o uso de ambos.
+8.4 Gerenciamento de memória no Pentium
+Desde a introdução da arquitetura de 32 bits, os microprocessadores evoluíram com sofi sticados esquemas de 
+gerenciamento de memória, que se baseiam nas lições aprendidas com os sistemas de média e grande escala. Em muitos casos, as versões dos microprocessadores são superiores aos seus antecedentes de sistemas maiores. Como os esquemas foram desenvolvidos pelo fornecedor de hardware do microprocessador e podem ser empregados com diversos sistemas operacionais, eles tendem a ser de uso bastante geral. Um exemplo representativo é o es-quema usado no Pentium II. O hardware de gerenciamento de memória do Pentium II é basicamente o mesmo usado nos processadores Intel 80386 e 80486, com algumas melhorias.
+ Espaços de endereços
+O Pentium II inclui hardware para segmentação e paginação. Os dois mecanismos podem ser desativados, per-
+mitindo que o usuário escolha a partir de quatro visões distintas da memória:
+memória não paginada não segmentada:  nesse caso, o endereço virtual é o mesmo que o endereço 
+físico. Isso é útil, por exemplo, em aplicações de controlador de baixa complexidade e alto desempenho.memória paginada não segmentada:
+  aqui, a memória é vista como um espaço de endereço linear pa-
+ginado. A proteção e o gerenciamento de memória são feitos por meio da paginação, o que é utilizado por alguns sistemas operacionais (por exemplo, Berkeley UNIX).memória não paginada segmentada:
+  aqui, a memória é vista como uma coleção de espaços de endere-
+ços lógicos. A vantagem dessa visão em relação à abordagem paginada é que ela proporciona proteção até o nível de um único byte, se for preciso. Além do mais, diferente da paginação, ela garante que a tabela de tradução necessária (a tabela de segmento) esteja no chip quando o segmento estiver na memória. Logo, a memória não paginada segmentada resulta em tempos de acesso previsíveis.memória paginada segmentada:
+  a segmentação é usada para defi nir partições de memória lógicas, su-
+jeitas a controle de acesso, e a paginação é usada para gerenciar a alocação de memória dentro das parti-ções. Sistemas operacionais como UNIX System V utilizam essa opção.
+ Segmentação
+Quando a segmentação é usada, cada endereço virtual (chamado endereço lógico na documentação do 
+Pentium II) consiste em uma referência de segmento de 16 bits e um off set de 32 bits. Dois bits da referência de seg-mento lidam com o mecanismo de proteção, deixando 14 bits para especifi car um segmento em particular. Assim, com a memória não segmentada, a memória virtual do usuário é de 2
+32 = 4 GBytes. Com a memória segmentada, o 
+espaço total da memória virtual visto por um usuário é de 246 = 64 terabytes (TBytes). O espaço de endereço físico 
+emprega um endereço de 32 bits para um máximo de 4 GBytes.
+Book 1.indb 234 19.11.09 14:37:25

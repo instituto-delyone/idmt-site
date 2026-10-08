@@ -1,0 +1,737 @@
+conseguiu criar maneiras eficientes de catalogar e acessar dados. O que distingue
+a Suméria, bem como o Egito faraônico, a China antiga e o Império Inca, é que
+essas culturas desenvolveram boas técnicas de arquivamento, catalogação e
+consulta de registros escritos. Elas também investiram em escolas para escribas,
+escriturários, bibliotecários e contadores.
+Um exercício de escrita de uma escola na antiga Mesopotâmia que foi
+descoberto por arqueólogos modernos nos dá uma ideia da vida desses
+estudantes, por volta de 4 mil anos atrás:
+Eu entrei e me sentei, e meu professor leu minha tábua.
+Ele falou: “Tem algo faltando!”.
+E me castigou com a vara.
+Uma das pessoas responsáveis falou: “Por que você abriu a boca sem
+minha permissão?”.
+E me castigou com a vara.
+O responsável pelas regras falou: “Por que você se levantou sem minha
+permissão?”.
+E me castigou com a vara.
+O porteiro falou: “Por que você está saindo sem minha permissão?”.
+E me castigou com a vara.
+O guardião do caneco de cerveja falou: “Por que você se serviu sem minha
+permissão?”.
+E me castigou com a vara.
+O professor sumério falou: “Por que você falou em acadiano?”.
+[1]
+E me castigou com a vara.
+Meu professor falou: “Sua caligrafia não é boa!”.
+E me castigou com a vara.
+4
+Os antigos escribas aprendiam não só a ler e escrever como também a usar
+
+catálogos, dicionários, calendários, formulários e tabelas. Eles estudavam e
+internalizavam técnicas de catalogação, acesso e processamento de informações
+que eram muito diferentes das usadas pelo cérebro. No cérebro, todos os dados
+são associados livremente. Quando vou com minha esposa contratar um
+financiamento imobiliário para nossa casa nova, eu me lembro do primeiro lugar
+em que moramos juntos, que me faz lembrar da nossa lua de mel em Nova
+Orleans, que me faz lembrar de crocodilos, que me fazem lembrar de dragões,
+que me fazem lembrar de 
+O anel dos Nibelungos
+, e, de repente, antes que eu
+perceba, lá estou eu cantarolando o tema de Siegfried para um bancário
+perplexo. Na burocracia, as coisas precisam ser mantidas separadas. Há uma
+gaveta para financiamentos imobiliários, outra para certidões de casamento, uma
+terceira para registros de impostos e uma quarta para ações judiciais. Do
+contrário, como podemos encontrar alguma coisa? As coisas que pertencem a
+mais de uma gaveta, como os dramas musicais wagnerianos (devo arquivá-los
+em “música”, “teatro”, ou inventar uma categoria totalmente nova?) são uma dor
+de cabeça terrível. Assim, estamos sempre acrescentando, eliminando e
+reordenando gavetas.
+Para funcionar, as pessoas que operam tal sistema de gavetas devem ser
+reprogramadas para parar de pensar como humanos e começar a pensar como
+escriturários e contadores. Como todo mundo sabe, dos tempos antigos até hoje,
+escriturários e contadores pensam de uma maneira não humana. Eles pensam
+como armários de arquivo. Não é culpa deles. Se não pensarem dessa maneira,
+suas gavetas ficarão todas misturadas, e eles não serão capazes de fornecer os
+serviços de que seu governo, sua empresa ou sua organização necessita. O
+impacto mais importante do sistema de escrita na história humana é
+precisamente este: pouco a pouco, mudou a forma como os humanos pensam e
+concebem o mundo. A livre associação e o pensamento holístico deram lugar à
+compartimentalização e à burocracia.
+
+A linguagem dos números
+Com o passar dos séculos, métodos burocráticos de processamento de dados
+ficaram cada vez mais diferentes do modo como os humanos pensam
+naturalmente – e cada vez mais importantes. Um passo crucial foi dado um
+pouco antes do século IX, quando se inventou um novo sistema de escrita
+parcial, que podia armazenar e processar dados matemáticos com eficiência sem
+precedentes. Esse sistema de escrita parcial era composto de dez símbolos
+representando os números de 0 a 9. Confusamente, esses símbolos são
+conhecidos como algarismos arábicos, embora tenham sido inventados pelos
+hindus (ainda mais confusamente, os árabes de hoje usam um conjunto de
+dígitos com aspecto bem diferente dos usados pelos ocidentais). Mas os árabes
+receberam o crédito porque, quando invadiram a Índia, encontraram o sistema,
+entenderam sua utilidade, o aperfeiçoaram e o espalharam pelo Oriente Médio e
+então pela Europa. Quando vários outros símbolos foram posteriormente
+acrescentados aos algarismos arábicos (como os símbolos para adição, subtração
+e multiplicação), surgiu a base da notação matemática moderna.
+Embora esse sistema de escrita continue sendo parcial, se tornou a
+linguagem dominante no mundo. Quase todos os Estados, empresas,
+organizações e instituições – quer falem árabe, híndi, inglês ou norueguês –
+usam notação matemática para registrar e processar dados. Cada informação que
+possa ser traduzida em notação matemática é armazenada, disseminada e
+processada com velocidade e eficiência impressionantes.
+Uma pessoa que deseja influenciar as decisões de governos, organizações
+e empresas deve, portanto, aprender a falar em números. Os especialistas fazem
+o que podem para traduzir até mesmo ideias como “pobreza”, “felicidade” e
+“honestidade” em números (“a linha de pobreza”, “níveis de bem-estar
+subjetivos”, “índice de credibilidade”). Campos inteiros do conhecimento, como
+a física e a engenharia, já perderam quase todo o contato com a linguagem
+
+humana falada e são mantidos unicamente por notação matemática.
+Mais recentemente, a notação matemática deu origem a um sistema de
+escrita ainda mais revolucionário, um sistema binário computadorizado de
+apenas dois símbolos: 0 e 1. As palavras que estou escrevendo agora em meu
+teclado são escritas no interior do meu computador por diferentes combinações
+de 0 e 1.
+A escrita nasceu como uma serva da consciência humana, mas pouco a pouco se
+tornou sua senhora. Nossos computadores têm dificuldade para entender como o
+Homo sapiens
+ fala, sente e sonha. Portanto, estamos ensinando o 
+Homo sapiens
+a falar, sentir e sonhar na linguagem dos números, que pode ser entendida por
+computadores.
+E esse não é o fim da história. O campo da inteligência artificial está
+procurando criar um novo tipo de inteligência baseado unicamente no sistema
+binário de computadores. Filmes de ficção científica como 
+Matrix
+ e 
+O
+exterminador do futuro
+ falam de um dia em que o sistema binário se livra da
+opressão da humanidade. Quando os humanos tentam reobter o controle do
+sistema rebelde, ele reage tentando eliminar a raça humana.
+
+Equação para calcular a aceleração da massa i sob a influência da gravidade, de acordo com a Teoria
+da Relatividade. Quando a maioria das pessoas leigas vê uma equação como essa, geralmente entra
+em pânico e fica paralisada, como um cervo surpreendido pelos faróis de um veículo em alta
+velocidade. A reação é absolutamente natural e não denuncia falta de inteligência ou de curiosidade.
+Com raras exceções, o cérebro humano é simplesmente incapaz de pensar em conceitos como
+relatividade e mecânica quântica. Os físicos, entretanto, conseguem, porque deixam de lado a
+maneira de pensar tradicional dos humanos e aprendem a pensar novamente com a ajuda de sistemas
+externos de processamento de dados. Partes cruciais de seu processo de pensamento acontecem não
+na cabeça, mas dentro de computadores ou em uma lousa escolar.
+[
+1
+] Mesmo depois que o acadiano se tornou a língua falada, o sumério continuou sendo a língua da
+administração e, portanto, a língua escrita. Sendo assim, os aspirantes a escriba tinham de falar sumério.
+
+8
+Não existe justiça na história
+E
+NTENDER
+ 
+A
+ 
+HISTÓRIA
+ 
+HUMANA
+ 
+NOS
+ 
+MILÊNIOS
+ 
+QUE
+ 
+SUCEDERAM
+ 
+À
+ R
+EVOLUÇÃO
+ Agrícola
+se resume a uma única questão: como os humanos se organizavam em redes de
+cooperação em massa, uma vez que careciam de instintos biológicos para
+sustentar tais redes? A resposta sucinta é que os humanos criaram ordens
+imaginadas e desenvolveram sistemas de escrita. Essas duas invenções
+preencheram as lacunas deixadas por nossa herança biológica.
+No entanto, o aparecimento de tais redes foi, para muitos, uma vantagem
+duvidosa. As ordens imaginadas que sustentavam essas redes nunca foram
+neutras nem justas. Elas dividiram as pessoas em pretensos grupos, dispostos em
+uma hierarquia. Os níveis superiores desfrutavam de privilégios e poder,
+enquanto os inferiores sofriam discriminação e opressão. O Código de
+Hamurabi, por exemplo, estabelecia uma ordem hierárquica formada por homens
+superiores, homens comuns e escravos. Os superiores ficavam com todas as
+coisas boas da vida. Os homens comuns ficavam com o que sobrava. Os
+escravos ficavam com uma surra, se reclamassem.
+Apesar de sua proclamação da igualdade entre todos os homens, a ordem
+imaginada constituída pelos norte-americanos em 1776 também estabeleceu uma
+divisão. Criou uma hierarquia entre homens, que se beneficiavam dela, e
+mulheres, que ficaram desprovidas de autoridade. Criou uma hierarquia entre
+brancos, que desfrutavam de liberdade, e negros e indígenas, considerados
+humanos de uma espécie inferior, não compartilhando, assim, dos direitos
+igualitários dos homens. Muitos dos que assinaram a Declaração da
+Independência eram senhores de escravos. Eles não libertaram escravos depois
+que assinaram a Declaração nem se consideraram hipócritas. Em sua visão, os
+
+direitos dos 
+homens
+ pouco tinham a ver com os negros.
+A ordem norte-americana também consagrou a hierarquia entre ricos e
+pobres. A maioria dos norte-americanos da época quase não tinha problemas
+com a desigualdade causada por pais ricos que passavam seu dinheiro e negócios
+para os filhos. Na visão deles, igualdade significava apenas que as mesmas leis
+se aplicavam a ricos e pobres. Não tinha nada a ver com seguro-desemprego,
+educação integrada ou seguro-saúde. A liberdade também tinha conotações
+muito diferentes das que tem hoje. Em 1776, não significava que os
+desprivilegiados (pelo menos não negros, índios e, muito menos, mulheres)
+podiam conquistar e exercer o poder. Significava simplesmente que o Estado não
+podia, exceto em circunstâncias incomuns, confiscar a propriedade privada de
+um cidadão nem dizer a ele o que fazer com ela. A ordem norte-americana, com
+isso, endossou a hierarquia da riqueza, que alguns pensavam ter sido ordenada
+por Deus e outros viam como a representação das leis imutáveis da natureza. A
+natureza, alegava-se, recompensava mérito com riqueza, enquanto penalizava a
+indolência.
+Todas as distinções mencionadas aqui – entre homens livres e escravos,
+brancos e negros, ricos e pobres – se baseiam em ficções. (A hierarquia entre
+homens e mulheres será discutida posteriormente.) Ainda assim, é uma lei férrea
+da história que toda hierarquia imaginada negue suas origens ficcionais e afirme
+ser natural e inevitável. Por exemplo, muitas pessoas que viam a hierarquia dos
+homens livres e dos escravos como natural e correta argumentaram que a
+escravidão não é uma invenção humana. Hamurabi a via como algo ordenado
+por Deus. Aristóteles afirmou que os escravos tinham uma “natureza escrava”,
+enquanto os homens livres tinham uma natureza “livre”. Seu status na sociedade
+não passava de um reflexo de sua natureza inata.
+Pergunte aos defensores da supremacia branca sobre hierarquia racial e
+prepare-se para ouvir uma palestra pseudocientífica sobre as diferenças
+biológicas entre as raças. É provável que digam que há algo no sangue ou nos
+
+genes caucasianos que torna os brancos naturalmente mais inteligentes,
+trabalhadores e virtuosos. Pergunte a um capitalista obstinado sobre a hierarquia
+da riqueza e provavelmente ouvirá que se trata do resultado inevitável de
+diferenças objetivas na capacidade dos indivíduos. Segundo essa visão, os ricos
+têm mais dinheiro porque são mais capazes e aplicados. Portanto, ninguém
+deveria se incomodar se os ricos têm melhor serviço de saúde, melhor educação
+e melhor nutrição. Eles são merecedores de todos os benefícios de que
+desfrutam.
+Os hindus que aderem a um sistema de castas acreditam que forças
+cósmicas fizeram uma casta superior a outra. De acordo com um famoso mito de
+criação hindu, os deuses criaram o mundo a partir do corpo de um ser primitivo,
+Purusha. O Sol foi criado dos olhos de Purusha; a Lua, do cérebro de Purusha; os
+brâmanes (sacerdotes), de sua boca; os xátrias (guerreiros), de seus braços; os
+vaixás (camponeses e mercadores), de suas coxas; os sudras (criados), de suas
+pernas. Aceite essa explicação, e as diferenças sociopolíticas entre brâmanes e
+sudras passam a ser tão naturais e eternas quanto as diferenças entre o Sol e a
+Lua.
+1
+ Os antigos chineses acreditavam que, quando sua deusa Nu Kua criou os
+humanos a partir da terra, ela fez os aristocratas com uma bela argila amarela,
+enquanto os homens comuns foram moldados com barro marrom.
+2
+Ainda assim, até onde sabemos, essas hierarquias são produto da
+imaginação humana. Brâmanes e sudras não foram realmente criados por deuses
+a partir de diferentes partes do corpo de um ser primitivo. Em vez disso, a
+distinção entre as duas castas foi criada por leis e normas inventadas por
+humanos no norte da Índia, há cerca de 3 mil anos. Ao contrário do que dizia
+Aristóteles, não se conhece nenhuma diferença biológica entre escravos e
+homens livres. Leis e normas humanas transformaram algumas pessoas em
+escravos e outras em senhores. Entre negros e brancos existem algumas
+diferenças biológicas objetivas, como cor da pele e tipo de cabelo, mas não há
+nenhuma evidência de que essas diferenças se estendam à inteligência ou à
+
+moral.
+A maioria das pessoas afirma que sua hierarquia social é natural e justa,
+enquanto as de outras sociedades são baseadas em critérios falsos e ridículos. Os
+ocidentais modernos são ensinados a desprezar a ideia de hierarquia racial. Eles
+ficam chocados com as leis que proíbem os negros de viver em bairros de
+brancos, ou estudar em escolas de brancos, ou ser tratados em hospitais de
+brancos. Mas a hierarquia de ricos e pobres, que autoriza os ricos a viver em
+bairros distintos e mais luxuosos, estudar em escolas distintas e de mais prestígio
+e receber tratamento médico em instalações distintas e bem equipadas, parece
+perfeitamente sensata para muitos norte-americanos e europeus. Mas é um fato
+comprovado que a maior parte dos ricos são ricos pelo simples motivo de terem
+nascido em uma família rica, enquanto a maior parte dos pobres continuarão
+pobres no decorrer da vida simplesmente por terem nascido em uma família
+pobre.
+Infelizmente, sociedades humanas complexas parecem exigir hierarquias
+imaginadas e discriminação injusta. É claro que nem todas as hierarquias são
+moralmente idênticas, e algumas sociedades sofreram tipos mais extremos de
+discriminação do que outras. Apesar disso, os estudiosos não têm conhecimento
+de nenhuma grande sociedade que tenha sido capaz de prescindir totalmente da
+discriminação. Repetidas vezes, as pessoas estabeleceram a ordem em sua
+sociedade classificando a população em categorias imaginadas, como homens
+superiores, homens comuns e escravos; brancos e negros; patrícios e plebeus;
+brâmanes e sudras; ricos e pobres. Essas categorias regulamentaram as relações
+entre milhões de seres humanos ao tornar algumas pessoas superiores a outras
+em termos jurídicos, políticos ou sociais.
+As hierarquias têm uma função importante. Elas permitem que estranhos
+saibam como tratar uns aos outros sem desperdiçar o tempo e a energia
+necessários para se tornarem pessoalmente familiarizados. Em 
+Pigmaleão
+, de
+
+Bernard Shaw, Henry Higgins não precisa se tornar íntimo de Eliza Doolittle
+para entender como deve se relacionar com ela. Só de ouvi-la falar, ele deduz
+que se trata de um membro de classe baixa com quem pode fazer o que quiser –
+por exemplo, usá-la como títere em sua aposta de fazer uma vendedora de flores
+ambulante se passar por duquesa. Uma Eliza dos tempos modernos trabalhando
+em uma floricultura precisa saber quanto esforço dedicar à venda de rosas e
+gladíolos para as pessoas que entram na loja todos os dias. Não pode fazer uma
+indagação detalhada dos gostos e bolsos de cada indivíduo. Em vez disso, usa
+algumas pistas – o modo como a pessoa está vestida, sua idade e, se não for
+politicamente correta, a cor da pele. É assim que ela imediatamente faz a
+distinção entre o sócio da firma de contabilidade que tem grande probabilidade
+de comprar um buquê de rosas caro e o mensageiro que só tem um dólar para
+gastar num punhado de margaridas.
+Obviamente, as diferenças nas habilidades naturais também desempenham
+seu papel na formação de distinções sociais, mas tais diversidades de aptidão e
+caráter costumam ser mediadas por hierarquias imaginadas. Isso acontece de
+duas formas importantes. A primeira e a principal delas é que a maioria das
+habilidades precisa ser cultivada e desenvolvida. Mesmo que alguém nasça com
+um talento em particular, esse talento normalmente permanecerá latente se não
+for estimulado, lapidado e exercitado. Nem todas as pessoas têm a mesma
+chance de nutrir e aperfeiçoar suas habilidades. Ter ou não essa oportunidade
+costuma depender de sua posição na hierarquia imaginada pela sociedade em
+que estão inseridas. Harry Potter é um bom exemplo. Tirado de sua família
+notável de bruxos e criado por 
+trouxas
+ ignorantes, ele chega a Hogwarts sem
+nenhuma experiência em magia. São necessários sete livros até que ele aprenda a
+dominar plenamente seus poderes e conheça suas habilidades excepcionais.
+A segunda é que, mesmo que pessoas pertencentes a classes diferentes
+desenvolvam exatamente as mesmas habilidades, é improvável que tenham o
+mesmo sucesso, porque terão que jogar segundo regras diferentes. Se, na Índia
+
+governada pela Inglaterra, um intocável, um brâmane, um irlandês católico e um
+inglês protestante tivessem, de alguma forma, desenvolvido exatamente o
+mesmo tino para os negócios, ainda assim não teriam as mesmas chances de
+enriquecer. O jogo econômico era manipulado por restrições jurídicas e barreiras
+invisíveis não oficiais.
+O círculo vicioso
+Todas as sociedades são baseadas em hierarquias imaginadas, mas não
+necessariamente nas mesmas hierarquias. O que explica essas diferenças? Por
+que as pessoas são classificadas na sociedade indiana tradicional de acordo com
+castas, na sociedade otomana de acordo com a religião e na sociedade norte-
+americana de acordo com a raça? Na maioria dos casos, a hierarquia surgiu em
+consequência de um conjunto de circunstâncias históricas acidentais e foi, então,
+perpetuada e refinada durante muitas gerações, à medida que diferentes grupos
+passaram a ter interesses pessoais em tal hierarquia.
+Por exemplo, muitos estudiosos supõem que o sistema de castas hindu
+tomou forma quando o povo indo-ariano invadiu o subcontinente indiano há
+cerca de 3 mil anos, subjugando a população local. Os invasores estabeleceram
+uma sociedade estratificada, em que – é claro – ocuparam as posições principais
+(sacerdotes e guerreiros), deixando aos nativos a condição de criados e escravos.
+Os invasores, em menor número, temiam perder seu status privilegiado e
+identidade singular. Para evitar esse risco, dividiram a população em castas,
+exigindo que cada uma delas se dedicasse a uma ocupação específica ou
+desempenhasse um determinado papel na sociedade. Cada uma tinha status legal,
+privilégios e deveres diferentes. A mistura de castas – interação social,
+casamento e até mesmo o compartilhamento de refeições – era proibida. E as
+
+distinções não eram apenas legais: se tornaram uma parte inerente da mitologia e
+da prática religiosa.
+Os governantes argumentavam que o sistema de castas refletia uma
+realidade cósmica eterna, e não um processo histórico casual. Conceitos de
+pureza e impureza eram elementos essenciais no hinduísmo, e eram utilizados
+para sustentar a pirâmide social. Os hindus devotos aprendiam que o contato
+com membros de uma casta diferente podia contaminá-los não apenas
+pessoalmente, mas também a sociedade como um todo e, portanto, devia ser
+abominado. Essas ideias não são exclusividade dos hindus. No decorrer da
+história, e em praticamente todas as sociedades, conceitos de contaminação e
+pureza tiveram um papel fundamental na imposição de divisões políticas e
+sociais e foram explorados por muitas classes dominantes a fim de estas
+manterem seus privilégios. No entanto, o medo da contaminação não foi
+totalmente inventado por sacerdotes e príncipes. Provavelmente tem suas origens
+em mecanismos de sobrevivência que fazem os humanos sentirem uma repulsa
+instintiva por portadores de doenças em potencial, como pessoas enfermas e
+cadáveres. Se você quiser manter qualquer grupo humano isolado – mulheres,
+judeus, ciganos, gays, negros –, a melhor forma é convencer todos de que essas
+pessoas são fonte de contaminação.
+O sistema de castas hindu e as leis de pureza que o acompanham ficaram
+profundamente arraigados na cultura indiana. Bem depois que a invasão indo-
+ariana foi esquecida, os indianos continuaram a acreditar nesse sistema e a
+abominar a contaminação causada pela mistura de castas. As castas não são
+imunes a mudanças. De fato, com o passar do tempo, grandes castas foram
+divididas em subcastas. As quatro castas originais acabaram por se transformar
+em 3 mil agrupamentos diferentes chamados 
+jati
+ (literalmente, “nascimento”).
+Mas essa proliferação de castas não mudou o princípio básico do sistema,
+segundo o qual cada pessoa nasce em um determinado nível, e qualquer
+transgressão de suas regras contamina a pessoa e a sociedade como um todo. A
+
+jati
+ de uma pessoa determina sua profissão, o alimento que pode comer, seu
+local de residência e os possíveis parceiros para casamento. Normalmente, uma
+pessoa só pode se casar com alguém de sua casta, e os filhos gerados herdam
+esse status.
+Sempre que surgia uma nova profissão ou entrava em cena um novo grupo
+de pessoas, eles tinham de ser reconhecidos como casta para receber um lugar
+legítimo dentro da sociedade hindu. Grupos que não conseguiam obter
+reconhecimento como casta eram, literalmente, párias – nessa sociedade
+estratificada, não ocupavam sequer o patamar mais baixo. Eles ficaram
+conhecidos como intocáveis. Tinham de viver separados dos outros e tentar
+sobreviver de formas humilhantes e repulsivas, revirando latas de lixo em busca
+de sucata, por exemplo. Até mesmo membros das castas mais baixas evitavam se
+misturar com eles, comer com eles, tocá-los e, é claro, se casar com eles. Na
+Índia atual, questões de casamento e trabalho ainda são fortemente influenciadas
+pelo sistema de castas, apesar de todas as tentativas do governo democrático
+para acabar com tais distinções e convencer os hindus de que não há nenhuma
+contaminação na mistura de castas.
+3
+Pureza na América
+Um círculo vicioso similar perpetuou a hierarquia racial na América moderna.
+Do século XVI ao XVIII, os conquistadores europeus importaram milhões de
+escravos africanos para trabalhar em minas e plantações do continente
+americano. Optaram por importar escravos da África e não da Europa ou do leste
+da Ásia devido a três fatores circunstanciais. Primeiro, a África era mais perto,
+então era mais barato importar escravos do Senegal que do Vietnã.
+Em segundo lugar, na África já existia um comércio de escravos bem
+
+desenvolvido (exportando principalmente para o Oriente Médio), enquanto na
+Europa a escravidão era muito rara. Era obviamente muito mais fácil comprar
+escravos em um mercado existente do que criar um do zero.
+O terceiro fator, e o mais importante, era que as fazendas em locais como a
+Virgínia, o Haiti e o Brasil estavam tomadas por malária e febre amarela,
+originárias da África. Os africanos haviam adquirido, durante gerações, uma
+imunidade genética parcial a essas doenças, enquanto os europeus eram
+totalmente indefesos e morriam aos montes. Portanto, era mais prudente para um
+dono de latifúndio investir seu dinheiro em um escravo africano do que em um
+escravo ou criado europeu. Paradoxalmente, a superioridade genética (em termos
+de imunidade) se traduziu em inferioridade social: precisamente por estarem
+mais adaptados a climas tropicais do que os escravos provenientes da Europa, os
+africanos terminaram como escravos de senhores europeus! Devido a esses
+fatores circunstanciais, as novas sociedades em desenvolvimento no continente
+americano foram divididas em uma casta dominante de europeus brancos e uma
+casta subjugada de negros africanos.
+Mas as pessoas não gostam de dizer que mantêm escravos de uma certa
+raça ou origem simplesmente porque é conveniente em termos econômicos.
+Como os conquistadores arianos na Índia, os europeus brancos nas Américas não
+queriam ser vistos apenas como bem-sucedidos economicamente, mas também
+como piedosos, justos e objetivos. Mitos religiosos e científicos foram utilizados
+para ajudar a justificar essa divisão. Teólogos afirmaram que os africanos
+descendiam de Cam, filho de Noé amaldiçoado por seu pai, que disse que seus
+filhos seriam escravos. Biólogos afirmaram que os negros eram menos
+inteligentes que os brancos e que tinham senso moral menos desenvolvido.
+Médicos afirmaram que os negros viviam na sujeira e disseminavam doenças –
+em outras palavras, eram fonte de contaminação.
+Esses mitos repercutiram na cultura americana, e na cultura ocidental de
+modo geral. Continuaram a exercer influência bem depois que as condições que
+
+criaram a escravidão haviam desaparecido. No início do século XIX, o Império
+Britânico declarou a escravidão ilegal e interrompeu o comércio de escravos no
+Atlântico, e, nas décadas seguintes, a escravidão foi pouco a pouco sendo
+proibida em todo o continente americano. É digno de nota que essa foi a
+primeira e única vez na história que as sociedades escravocratas aboliram a
+escravidão voluntariamente. Mas, mesmo que os escravos tenham sido
+libertados, os mitos racistas que justificaram a escravidão persistiram. A
+separação das raças foi mantida por legislações e normas sociais racistas.
+O resultado foi um ciclo retroalimentado de causa e feito, um círculo
+vicioso. Considere, por exemplo, o sul dos Estados Unidos imediatamente após a
+guerra civil. Em 1865, a 13a emenda à Constituição dos Estados Unidos aboliu a
+escravatura, e a 14a impôs que não se podiam negar, com base na raça, cidadania
+e proteção igualitária perante a lei. No entanto, depois de dois séculos de
+escravidão, a maioria das famílias negras era muito mais pobre e menos instruída
+do que a maioria das famílias brancas. Assim, um negro nascido no Alabama em
+1865 tinha muito menos chance de obter boa educação e um emprego bem pago
+do que seus vizinhos brancos. Seus filhos, nascidos nas décadas de 1880 e 1890,
+iniciaram a vida com a mesma desvantagem – eles também nasceram em uma
+família pobre e pouco instruída.
+Mas a desvantagem econômica não era tudo. O Alabama também era lar
+de muitos brancos pobres que não tinham acesso às oportunidades disponíveis a
+seus irmãos de raça com melhores condições financeiras. Além disso, a
+Revolução Industrial e as ondas de imigração transformaram os Estados Unidos
+em uma sociedade extremamente fluida, em que se podia subir na vida
+rapidamente. Se o dinheiro fosse tudo o que importava, a rígida divisão entre as
+raças logo teria desaparecido, inclusive por meio do casamento inter-racial.
+Mas isso não aconteceu. Em 1865, os brancos, e também muitos negros,
+assumiam como certo o fato de que os negros eram menos inteligentes, mais
+violentos e sexualmente libertinos, mais preguiçosos e menos preocupados com
+
+higiene pessoal do que os brancos. Eram, dessa forma, agentes de violência,
+roubos, estupros e doenças – em outras palavras, contaminação. Se, em 1895,
+um negro residente do Alabama miraculosamente conseguisse obter uma boa
+educação e se candidatasse a um emprego respeitável – como caixa de banco,
+por exemplo –, as chances de ser aceito seriam muito menores do que as de um
+candidato branco com as mesmas qualificações. O estigma que rotulava os
+negros como, por natureza, pouco confiáveis, preguiçosos e menos inteligentes
+conspiraria contra ele.
+Pode-se pensar que as pessoas pouco a pouco entenderiam que esses
+estigmas eram mitos, e não fatos, e que, com o tempo, os negros seriam capazes
+de provar que são tão competentes, limpos e corretos quanto os brancos. Na
+verdade, aconteceu o oposto: esses preconceitos ficaram cada vez mais
+arraigados conforme o tempo foi passando. Como todos os melhores empregos
+eram dos brancos, ficou mais fácil acreditar que os negros eram realmente
+inferiores. “Veja”, dizia o cidadão branco médio, “os negros são livres há
+gerações e ainda assim quase não existem professores, advogados, médicos ou
+mesmo caixas de banco negros. Não é uma prova de que os negros são
+simplesmente menos inteligentes e trabalhadores?” Nesse círculo vicioso, negros
+não eram contratados para empregos administrativos porque eram considerados
+pouco inteligentes, e a escassez de negros em empregos administrativos era
+prova de sua inferioridade.
+
+O círculo vicioso: uma situação histórica fortuita se traduz em um rígido sistema social.
+O círculo vicioso não acaba aí. À medida que os estigmas contra os negros
+se fortaleceram, foram traduzidos em um sistema de leis e normas chamadas
+“leis Jim Crow”, criado para proteger a ordem racial. Os negros eram proibidos
+de votar em eleições, estudar em escolas de brancos, comprar em lojas de
+brancos, comer em restaurantes de brancos, dormir em hotéis de brancos. A
+justificativa para tudo isso era que os negros eram sujos, indolentes e maldosos,
+de modo que os brancos tinham que se proteger deles. Os brancos não queriam
+dormir no mesmo hotel que os negros, ou comer no mesmo restaurante, por
+medo de doenças. Eles não queriam que seus filhos estudassem na mesma escola
+que crianças negras, por medo de brutalidade e más influências. Não queriam
+que os negros votassem nas eleições, já que os negros eram ignorantes e imorais.
+Esses temores eram confirmados por estudos científicos que “provavam” que os
+negros eram, de fato, menos instruídos, que várias doenças eram mais comuns
+entre eles e que seus índices de criminalidade eram ainda mais altos (os estudos
+ignoravam o fato de que esses “fatos” 
+resultavam
+ da discriminação contra os
+negros).
+Em meados do século XX, a segregação nos antigos Estados confederados
+
+provavelmente era pior do que no fim do século XIX. Clennon King, um
+estudante negro que se candidatou à Universidade do Mississippi em 1958, foi
+forçado a ir para uma instituição psiquiátrica. O juiz responsável julgou que um
+negro só podia ser insano ao pensar que poderia ser admitido na Universidade do
+Mississippi.
+Nada era tão revoltante para os sulistas (e muitos nortistas) norte-
+americanos como relações sexuais e casamento entre homens negros e mulheres
+brancas. O sexo interracial se tornou um grande tabu, e qualquer violação, ou
+suspeita de violação, era vista como merecedora de punição imediata e sumária
+na forma de linchamento. A Ku Klux Klan, sociedade secreta dos defensores da
+supremacia branca, perpetrou muitas dessas matanças. Eles poderiam ensinar
+algumas coisinhas aos brâmanes hindus sobre leis de pureza.
+Com o tempo, o racismo se espalhou para cada vez mais esferas culturais.
+A cultura estética norte-americana foi construída sobre padrões brancos de
+beleza. Os atributos físicos da raça branca – por exemplo, pele branca e cabelos
+claros e lisos, nariz pequeno e arrebitado – começaram a ser identificados como
+belos. Traços tipicamente negros – pele escura, cabelos pretos e crespos, nariz
+achatado – eram considerados feios. Esses preconceitos impregnaram a
+hierarquia imaginada em um nível ainda mais profundo da consciência humana.
+Tais círculos viciosos podem continuar por séculos e até mesmo milênios,
+perpetuando uma hierarquia imaginada que surgiu de um acontecimento
+histórico ocasional. Com frequência, a discriminação tende a piorar com o
+tempo, e não a melhorar. Dinheiro gera dinheiro, e pobreza gera pobreza.
+Educação gera educação, e ignorância gera ignorância. Os que foram vítimas da
+história uma vez tendem a ser vitimados novamente. E aqueles que a história
+privilegiou tendem a ser privilegiados novamente.
+A maioria das hierarquias sociopolíticas carece de base lógica ou biológica
+– elas não passam da perpetuação de eventos ocasionais sustentados por mitos.
+Esse é um bom motivo para se estudar história. Se a divisão entre negros e
+
+brancos, ou entre brâmanes e sudras, fosse fundada em realidades biológicas –
+ou seja, se os brâmanes realmente tivessem cérebro mais desenvolvido que os
+sudras –, a biologia seria suficiente para entender a sociedade humana. Como as
+distinções biológicas entre diferentes grupos de 
+Homo sapiens
+ são, na verdade,
+desprezíveis, a biologia não é capaz de explicar as complexidades da sociedade
+indiana ou a dinâmica racial norte-americana. Só podemos entender esses
+fenômenos estudando os acontecimentos, as circunstâncias e as relações de
+poder que transformaram produtos da imaginação em estruturas sociais cruéis –
+e muito reais.
+Ele e ela
+Diferentes sociedades adotam diferentes tipos de hierarquias imaginadas. A raça
+é muito importante para os norte-americanos modernos, mas era relativamente
+insignificante para os muçulmanos medievais. A casta era uma questão de vida e
+morte na Índia medieval, ao passo que na Europa moderna é algo que
+praticamente inexiste. Uma hierarquia específica, no entanto, foi de extrema
+importância em todas as sociedades humanas conhecidas: a hierarquia do
+gênero. Todos os povos se dividiram entre homens e mulheres. E em quase todos
+os lugares os homens foram privilegiados, pelo menos desde a Revolução
+Agrícola.
+Alguns dos textos chineses mais antigos são ossos oraculares que datam de
+1200 a.C., utilizados para adivinhar o futuro. Em um deles estava entalhada a
+pergunta: “A gestação da sra. Hao será afortunada?”. Para a qual foi escrita a
+resposta: “Se a criança nascer em um dia 
+ding
+, será afortunada; se nascer em um
+dia 
+geng
+, terá um futuro promissor”. No entanto, a sra. Hao daria à luz em uma
+dia 
+jiayin
+. O texto termina com a impertinente observação: “Três semanas e um
+
+dia depois, em um dia 
+jiayin
+, nasceu a criança. Não foi afortunada. Era uma
+menina”.
+4
+ Mais de 3 mil anos depois, quando a China comunista decretou a
+política do “filho único”, muitas famílias chinesas continuavam considerando o
+nascimento de uma menina uma desgraça. Os pais muitas vezes abandonavam
+ou matavam meninas recém-nascidas para ter mais uma chance de ter um
+menino.
+Em muitas sociedades, as mulheres eram mera propriedade dos homens,
+principalmente do pai, marido ou irmão. O estupro, em muitos sistemas
+jurídicos, era tratado como violação de propriedade – em outras palavras, a
+vítima não era a mulher estuprada, mas o homem a quem ela pertencia. Nesse
+caso, a sentença era a transferência de propriedade – o estuprador era obrigado a
+pagar o valor de uma noiva ao pai ou ao irmão da mulher, e a partir de então ela
+se tornava propriedade do estuprador. A Bíblia diz que “Se um homem se
+encontrar com uma moça sem compromisso de casamento e a violentar, e eles
+forem descobertos, ele pagará ao pai da moça cinquenta peças de prata. Terá que
+casar-se com a moça” (Deuteronômio, 22:28-29). Os antigos hebreus
+consideravam esse acordo razoável.
+Estuprar uma mulher que não pertencia a nenhum homem não era
+considerado crime algum, assim como pegar uma moeda perdida em uma rua
+movimentada não é considerado roubo. E se um marido estuprava a própria
+mulher, ele não cometia nenhum crime. Na verdade, a ideia de que um marido
+pudesse estuprar a esposa era um oximoro. Ser marido era ter controle absoluto
+da sexualidade da esposa. Dizer que um marido “estuprou” a própria esposa era
+tão ilógico quanto dizer que um homem roubou a própria carteira. Tal
+pensamento não se limitava ao antigo Oriente Médio. Em 2006, ainda havia 53
+países em que um marido não podia ser processado por estuprar a esposa. Até
+mesmo na Alemanha, as leis de estupro foram modificadas apenas em 1997,
+criando-se uma categoria jurídica para o estupro conjugal.
+5
+A divisão entre homens e mulheres é produto da imaginação, como o sistema de
+
+castas na Índia ou o sistema racial nos Estados Unidos, ou é uma divisão natural
+com raízes biológicas mais profundas? E, se houver, de fato, uma divisão
+natural, existem também explicações biológicas para a primazia dos homens
+sobre as mulheres?
+Algumas das disparidades culturais, jurídicas e políticas entre homens e
+mulheres refletem as diferenças biológicas óbvias entre os sexos. Gerar uma
+criança sempre foi trabalho das mulheres, porque os homens não têm útero.
+Ainda assim, sobre essa verdade universal, todas as sociedades acumularam
+diversas camadas de ideias e normas culturais que pouco têm a ver com biologia.
+As sociedades associam masculinidade e feminilidade com uma série de
+atributos que, em sua maioria, não têm base biológica.
+Por exemplo, na Atenas democrática do século V a.C., um indivíduo
+provido de um útero não tinha status jurídico independente e era proibido de
+participar de assembleias populares ou ser juiz. Com poucas exceções, tal
+indivíduo não podia se beneficiar de uma boa educação nem se envolver em
+negócios ou discursos filosóficos. Nenhum dos líderes políticos de Atenas,
+nenhum de seus grandes filósofos, oradores, artistas ou mercadores tinha útero.
+O fato de ter útero faz com que uma pessoa seja biologicamente inadequada para
+essas profissões? Os atenienses da Antiguidade acreditavam que sim. Os
+atenienses dos dias de hoje discordam. Na Atenas atual, as mulheres votam, são
+eleitas para cargos públicos, fazem discursos, projetam de tudo, de joias a
+edifícios e softwares, e frequentam universidades. O útero não as impede de
+fazer nenhuma dessas coisas com o mesmo sucesso que os homens. É verdade
+que ainda são pouco representadas na política e nos negócios – apenas cerca de
+12% dos membros do parlamento grego são mulheres. Mas não existe nenhuma
+barreira jurídica à sua participação na política, e grande parte dos gregos dos dias
+de hoje considera perfeitamente normal que uma mulher ocupe um cargo
+público.
+Muitos gregos da atualidade também pensam que uma parte integral de ser
+
+homem é se sentir sexualmente atraído apenas por mulheres e ter relações
+sexuais exclusivamente com o sexo oposto. Eles não enxergam isso como um
+preconceito cultural, mas sim como uma realidade biológica – relações entre
+duas pessoas do sexo oposto são algo natural, e entre duas pessoas do mesmo
+sexo, não. Na realidade, a Mãe Natureza não se importa se os homens se sentem
+sexualmente atraídos uns pelos outros. Apenas mães humanas inseridas em
+determinadas culturas fazem escândalo ao saber que seu filho tem um caso com
+o vizinho. A explosão de raiva da mãe não tem base biológica. Um número
+significativo de culturas humanas vê as relações homossexuais como algo não
+apenas legítimo como até mesmo socialmente construtivo, sendo a Grécia antiga
+o exemplo mais notável. A 
+Ilíada
+ não menciona que Tétis tivesse qualquer
+objeção às relações entre seu filho Aquiles e Pátroclo. A rainha Olímpia, da
+Macedônia, foi uma das mulheres mais temperamentais e poderosas da
+Antiguidade e até mesmo mandou matar seu próprio marido, o rei Felipe. Mas
+ela não teve um ataque quando seu filho, Alexandre, o Grande, levou seu
+amante, Heféstion, para jantar em casa.
+Como podemos diferenciar aquilo que é biologicamente determinado
+daquilo que as pessoas apenas tentam justificar por meio de mitos biológicos?
+Um bom princípio básico é “a biologia permite, a cultura proíbe”. A biologia
+está disposta a tolerar um leque muito amplo de possibilidades. É a cultura que
+obriga as pessoas a concretizar algumas possibilidades e proíbe outras. A
+biologia permite que as mulheres tenham filhos – algumas culturas obrigam as
+mulheres a concretizar essa possibilidade. A biologia permite que homens
+pratiquem sexo uns com os outros – algumas culturas os proíbem de concretizar
+essa possibilidade.
+A cultura tende a argumentar que proíbe apenas o que não é natural. Mas,
+de uma perspectiva biológica, não existe nada que não seja natural. Tudo o que é
+possível é, por definição, também natural. Um comportamento verdadeiramente
+não natural, que vá contra as leis da natureza, simplesmente não teria como
+
+existir e, portanto, não necessitaria de proibição. Nenhuma cultura jamais se deu
+ao trabalho de proibir que os homens realizassem fotossíntese, que as mulheres
+corressem mais rápido do que a velocidade da luz, ou que elétrons com carga
+negativa atraíssem uns aos outros.
+Na verdade, nossos conceitos de “natural” e “não natural” não são tirados
+da biologia, mas da teologia cristã. O sentido teológico de “natural” é “de acordo
+com as intenções de Deus, que criou a natureza”. Os teólogos cristãos afirmam
+que Deus criou o corpo humano com a intenção de que cada membro e órgão
+servisse a um propósito em particular. Se usamos nossos membros e órgãos para
+o propósito previsto por Deus, trata-se de uma atividade natural. Usá-los de
+maneira diferente da intenção de Deus não é natural. Mas a evolução não tem
+propósito. Os órgãos não evoluíram com um propósito, e o modo como são
+usados está em constante mudança. Não existe um único órgão no corpo humano
+que execute apenas o trabalho que seu protótipo executava quando apareceu pela
+primeira vez, há centenas de milhões de anos. Os órgãos evoluem para executar
+uma função específica, mas, depois que existem, podem ser adaptados para
+outros usos também. A boca, por exemplo, surgiu porque os primeiros
+organismos multicelulares precisavam de uma forma de levar nutrientes para o
+corpo. Ainda usamos a boca para isso, mas também a usamos para beijar, falar e,
+se formos o Rambo, para puxar o pino de nossas granadas de mão. Algum desses
+usos não é natural simplesmente porque nossos ancestrais vermiformes não
+faziam essas coisas com a boca há 600 milhões de anos?
+Da mesma forma, as asas não apareceram de repente com toda a sua
+maravilhosa aerodinâmica. Elas se desenvolveram a partir de órgãos que serviam
+a outro propósito. De acordo com uma teoria, as asas dos insetos evoluíram há
+milhões de anos a partir de protuberâncias no corpo de insetos não voadores.
+Insetos com calombos tinham uma área de superfície maior do que aqueles sem
+calombos, e isso permitiu que absorvessem mais luz do sol e, assim, ficassem
+mais aquecidos. Em um lento processo evolutivo, esses aquecedores solares
+
+ficaram maiores. A mesma estrutura que era boa para a máxima absorção da luz
+do sol – muita área de superfície, pouco peso – também, por coincidência, dava
+aos insetos um certo impulso quando saltavam e pulavam. Aqueles com
+protuberâncias maiores podiam saltar e pular mais longe. Alguns insetos
+começaram a usá-las para planar, e daí bastou um pequeno passo para chegar às
+asas capazes de realmente propulsar o inseto no ar. Da próxima vez em que um
+mosquito zumbir em seu ouvido, acuse-o de comportamento não natural. Se ele
+fosse bem-comportado e estivesse satisfeito com o que Deus lhe deu, usaria suas
+asas apenas como painéis solares.
+O mesmo conceito de multitarefas se aplica a nossos órgãos e
+comportamentos sexuais. O sexo evoluiu, a princípio, para procriação e rituais
+de galanteio, como uma forma de avaliar a adequação de um possível parceiro.
+Mas muitos animais atualmente fazem uso delas para uma série de propósitos
+sociais que pouco tem a ver com a criação de pequenas cópias de si mesmos. Os
+chimpanzés, por exemplo, utilizam o sexo para firmar alianças políticas, criar
+intimidade e neutralizar tensões. Isso é antinatural?
+Sexo e gênero
+Faz pouco sentido, então, afirmar que a função natural da mulher é dar à luz, ou
+que a homossexualidade não é natural. A maior parte das leis, normas, direitos e
+obrigações que definem masculinidade e feminilidade refletem mais a
+imaginação humana do que a realidade biológica.
+Biologicamente, os humanos estão divididos entre os sexos masculino e
+feminino. O 
+Homo sapiens
+ do sexo masculino tem um cromossomo X e um
+cromossomo Y; um indivíduo do sexo feminino tem dois cromossomos X. Mas
+“homem” e “mulher” são categoriais sociais, não biológicas. Embora na grande
+
+maioria dos casos, na maior parte das sociedades humanas, homens sejam do
+sexo masculino e mulheres sejam do sexo feminino, os termos sociais carregam
+muita bagagem que tem uma relação apenas tênue, se é que tem alguma, com os
+termos biológicos. Um homem não é um sapiens com características biológicas
+específicas, como cromossomos XY, testículos e muita testosterona. Em vez
+disso, ele se enquadra em um compartimento específico da ordem humana
+imaginada da qual faz parte. Os mitos de sua cultura lhe designam papéis (como
+participar da política), direitos (como votar) e deveres (como serviço militar)
+masculinos específicos. Da mesma forma, uma mulher não é um sapiens com
+dois cromossomos X, um útero e muito estrogênio. Em vez disso, é um membro
+do sexo feminino de uma ordem humana imaginada. Os mitos de sua sociedade
+lhe atribuem papéis (criar filhos), direitos (proteção contra violência) e deveres
+(obediência ao marido) femininos específicos. Já que mitos, e não a biologia,
+definem os papéis, direitos e deveres de homens e mulheres, o significado de
+“masculinidade” e “feminilidade” varia imensamente de uma sociedade para
+outra.
+Para tornar as coisas menos confusas, os estudiosos costumam distinguir
+entre “sexo”, que é uma categoria biológica, e “gênero”, uma categoria cultural.
+O sexo se divide em masculino e feminino, e as características dessa divisão são
+objetivas e permaneceram constantes ao longo da história. O gênero se divide
+em homem e mulher (e algumas culturas reconhecem outras categorias). As
+chamadas características “masculinas” e “femininas” são intersubjetivas e
+passam por constantes mudanças. Por exemplo, existem muitas diferenças no
+comportamento, nos desejos, na vestimenta e até mesmo na postura corporal
+esperados das mulheres da Atenas clássica e da Atenas moderna.
+6

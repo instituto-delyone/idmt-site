@@ -1,0 +1,955 @@
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 35
+pentium 4:  o Pentium 4 inclui ponto fl utuante adicional e outras melhorias para multimídia.8
+core:  esse é o primeiro microprocessador Intel x86 com um dual core, referindo-se à implementação de 
+dois processadores em um único chip.
+core 2:  o Core 2 estende a arquitetura para 64 bits. O Core 2 Quad oferece quatro processadores em um 
+único chip.
+Mais de 30 anos após sua introdução em 1978, a arquitetura x86 continua a dominar o mercado de proces-
+sadores fora dos sistemas embarcados. Embora a organização e a tecnologia das máquinas x86 tenha mudado drasticamente durante as décadas, a arquitetura do conjunto de instruções evoluiu para permanecer compatível com versões anteriores. Assim, qualquer programa escrito em uma versão mais antiga da arquitetura x86 pode ser executado nas versões mais novas. Todas as mudanças na arquitetura do conjunto de instruções envolveram acrés-cimos ao conjunto de instruções, sem subtrações. A taxa de mudança tem sido o acréscimo de aproximadamente uma instrução por mês acrescentada à arquitetura durante os 30 anos (Anthes, 2008
+o), de modo que existem agora 
+mais de 500 itens no conjunto de instruções.
+O x86 oferece uma excelente ilustração dos avanços em hardware de computador durante os últimos 30 anos. 
+O 8086 de 1978 foi introduzido com uma velocidade de clock de 5 MHz e tinha 29 000 transistores. Um Intel Core 2 Quad, introduzido em 2008, opera a 3 GHz, um ganho de velocidade com um fator de 600, e tem 820 milhões de transistores, cerca de 28 000 vezes a quantidade do 8086. Ainda assim, o Core 2 tem um invólucro ligeiramente maior que o 8086 e tem um custo comparável.
+2.4 Sistemas embarcados e o ARM
+A arquitetura ARM refere-se a uma arquitetura de processador que evoluiu dos princípios de projeto RISC e é 
+usada em sistemas embarcados. O Capítulo 13 examina os princípios de projeto RISC com detalhes. Nesta seção, oferecemos uma breve visão geral do conceito de sistemas, e depois examinamos a evolução da ARM.
+ Sistemas embarcados
+O termo sistema embarcado refere-se ao uso de eletrônica e software dentro de um produto, ao contrário 
+de um computador de uso geral, como um sistema de laptop ou desktop. A seguir, veja uma boa definição geral:
+9
+sistema embarcado. Uma combinação de hardware e software de computador, e talvez partes adi-cionais mecânicas e outras, projetada para realizar uma função dedicada. Em muitos casos, os sistemas embarcados fazem parte de um sistema ou produto maior, assim como no caso de um sistema de freios ABS em um carro.
+Os sistemas embarcados existem em muito mais quantidade do que os sistemas de computador de uso geral, 
+abrangendo uma ampla gama de aplicações (Tabela 2.7). Esses sistemas possuem requisitos e restrições bastante variáveis, como os seguintes (Grimheden e Torngren, 2005
+q):
+Sistemas de pequenos a grandes, implicando restrições de custo muito diferentes e, portanto, diferentes 
+necessidades de otimização e reuso.Relaxados para requisitos muito estritos e combinações de diferentes requisitos de qualidade, por exemplo, 
+ 
+com relação a segurança, confi abilidade, tempo real, fl exibilidade e legislação.Tempos de vida de curto a longo.
+ 
+Diferentes condições ambientais em termos de, por exemplo, radiação, vibrações e umidade. 
+Diferentes características de aplicação, resultando em cargas estáticas  versus dinâmicas, velocidade de lenta 
+a rápida, tarefas com uso intenso de computação contra interface e/ou combinações destes.
+8 Com o Pentium 4, a Intel passou de números romanos para números arábicos nos números de modelo.
+9 Michael Barr. Embedded Systems Glossary. Netrino Technical Library. Diposnível em <http://www.netrino.com/Publications/Glossary/index.php>.
+Book 1.indb 35 19.11.09 14:35:51
+
+36 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+Tabela 2.7 Exemplos de sistemas embarcados e seus mercados (Noergarrd, 2005p)
+Mercado Dispositivo embutido
+AutomotivoSistema de ignição
+Controle de motor
+Sistema de freio
+Eletrônico (para consumo)Televisores digitais e analógicos
+Caixas set-top (DVD, VCR, cabo)
+Personal Digital Assistants (PDA)
+Aparelhos de cozinha (refrigeradores, torradeiras, fornos de micro-ondas)
+Automóveis
+Brinquedos/jogos
+Telefones/celulares/pagers
+Câmeras
+Sistemas de posicionamento global (GPS, do inglês global positioning systems)
+Controle industrialRobótica e sistemas de controle para manufatura
+Sensores
+MédicoBombas de infusão
+Máquinas de diálise
+Dispositivos protéticos
+Monitores cardíacos
+Automação de escritórioMáquinas de fax
+Fotocopiadoras
+Impressoras
+Monitores
+Escâneres
+Diferentes modelos de computação, variando desde sistemas de evento discreto até aqueles envolvendo 
+dinâmica de tempo contínuo (normalmente conhecidos como sistemas híbridos).
+Normalmente, os sistemas embarcados estão fortemente acoplados ao seu ambiente. Isso pode ocasionar res-
+trições em tempo real impostas pela necessidade de interagir com o ambiente. Restrições, como velocidades de 
+movimento exigidas, precisão de medição e durações de tempo exigidas, ditam a temporização das operações de software. Se múltiplas atividades tiverem que ser gerenciadas simultaneamente, tem-se restrições de tempo real mais complexas.
+A Figura 2.13, baseada em Koopman (1996
+r), mostra em termos gerais uma organização de sistema em-
+barcado. Além do processador e da memória, existem diversos elementos que diferem do desktop ou laptop típico:
+Pode haver uma variedade de interfaces que permitem que o sistema meça, manipule e interaja de outras 
+ 
+maneiras com o ambiente externo.A interface humana pode ser tão simples quanto uma luz piscando ou tão complicada quanto a visão robó-
+ 
+tica em tempo real.A porta de diagnóstico pode ser usada para diagnosticar o sistema que está sendo controlado, e não apenas 
+ 
+para diagnóstico do computador.Hardware programável (FPGA), para aplicação específi ca (ASIC) ou mesmo um não digital pode ser utilizado 
+ 
+para aumentar o desempenho ou a segurança.O software normalmente tem uma função fi xa e é específi co à aplicação.
+ 
+ Evolução do ARM
+ARM é uma família de microprocessadores e microcontroladores baseados em RISC, projetados pela ARM 
+Inc., Cambridge, Inglaterra. A empresa não fabrica processadores, mas projeta arquiteturas de microprocessador 
+Book 1.indb 36 19.11.09 14:35:51
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 37
+e multicore, e as licencia aos fabricantes. Os chips ARM são processadores de alta velocidade, conhecidos por seu 
+pequeno tamanho do die e baixos requisitos de potência. Eles são bastante utilizados em PDAs e outros disposi-
+tivos portáteis, incluindo jogos e telefones, além de uma grande variedade de produtos para o consumo. Chips ARM são os processadores presentes nos populares dispositivos iPod e iPhone da Apple. A ARM provavelmente é a arquitetura de processador embutido mais utilizada e certamente a arquitetura de processador mais utilizada de qualquer tipo no mundo.
+As origens da tecnologia ARM vêm da empresa britânica Acorn Computers. No início da década de 1980, a 
+Acorn ganhou um contrato da British Broadcasting Corporation (BBC) para desenvolver uma nova arquitetura de microcomputador para o BBC Computer Literacy Project. O sucesso desse contrato permitiu à Acorn prosseguir e desenvolver o primeiro processador RISC comercial, o Acorn RISC Machine (ARM). A primeira versão, ARM1, começou a operar em 1985 e foi usada para pesquisa e desenvolvimento interno, além de ser usada como um coprocessador na máquina da BBC. Também em 1985, a Acorn lançou o ARM2, que tinha maior funcionalidade e velocidade dentro do mesmo espaço físico. Outras melhorias foram alcançadas com o lançamento do ARM3 em 1989.
+Durante esse período, a Acorn usou a empresa VLSI Technology para fazer a fabricação real dos chips de pro-
+cessador. A VLSI era licenciada para comercializar o chip por conta própria e teve algum sucesso fazendo com que outras empresas usassem o ARM em seus produtos, particularmente como um processador embutido.
+O projeto ARM combinou com uma necessidade comercial crescente por um processador de alto de -
+sempenho, baixo consumo de energia, pequeno tamanho e baixo custo para aplicações embarcadas. Mas o desenvolvimento além disso estava fora do escopo das capacidades da Acorn. Consequentemente, uma nova empresa foi organizada, com Acorn, VLSI e Apple Computer como parceiros fundadores, conhecida como ARM Ltd. A Acorn RISC Machine tornou-se a Advanced RISC Machine.
+10 A primeira oferta da nova empresa, 
+uma melhoria sobre o ARM3, foi designada como ARM6. Subsequentemente, a empresa introduziu diversas novas famílias, com maior funcionalidade e desempenho. A Tabela 2.8 mostra algumas características delas. Os números nessa tabela são apenas aproximações; os valores reais variam bastante para diferentes imple -
+mentações.
+De acordo com o site Web do ARM (arm.com), os processadores ARM são projetados para atender às necessi-
+dades de três categorias de sistemas:
+10 A empresa retirou a designação Advanced RISC Machine no final da década de 1990. Agora, a arquitetura é conhecida simplesmente como 
+ARM.Figura 2.13 Organização possível de um sistema embarcado 
+ Sistemas 
+ auxiliares (alimentação, resfriamento)Memória FPGA/
+ASIC
+Interface humana Porta dediagnóstico
+ Conversão 
+ Digital/Analógico Conversão
+ Analógico/Digital
+Backup 
+eletromecânicos e segurança
+Sensores AtuadoresProcessadorSoftware
+Ambiente externo
+Book 1.indb 37 19.11.09 14:35:52
+
+38 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+sistemas embarcados de tempo real:  sistemas para aplicações de armazenamento, automotivas, indus-
+triais e de redes.
+plataformas de aplicação:  dispositivos executando sistemas operacionais abertos, incluindo Linux, Palm 
+OS, Symbian OS e Windows CE em aplicações sem fi o, entretenimento e imagens digitais.Aplicações seguras:
+  smart cards, placas SIM e terminais de pagamento.
+2.5 Avaliação de desempenho
+Na avaliação do hardware do processador e na defi nição de requisitos para novos sistemas, o desempenho é 
+um dos principais parâmetros a se considerar, juntamente com custo, tamanho, segurança, confi abilidade e, em alguns casos, consumo de potência.
+É difícil fazer comparações de desempenho significativas entre diferentes processadores, mesmo entre os 
+processadores na mesma família. A velocidade bruta é muito menos importante do que como um proces-sador funciona quando executa determinada aplicação. Infelizmente, o desempenho da aplicação depende não apenas da velocidade bruta do processador, mas do conjunto de instruções, da escolha da linguagem de implementação, da eficiência do compilador e da habilidade da programação feita para implementar a aplicação.
+Começamos esta seção com uma visão de algumas medidas tradicionais de velocidade do processador. Depois, 
+examinamos o enfoque mais comum para avaliar o desempenho do processador e do sistema de computação. Depois disso, veremos uma discussão de como avaliar os resultados de múltiplos testes. Finalmente, examinamos as observações produzidas considerando a lei de Amdahl.Tabela 2.8 Evolução da ARM
+Família Recursos notáveis Cache MIPS típico @ MHz
+ARM1 RISC 32 bits nenhuma
+ARM2Instruções de multiplicação e swap; unidade de gerenciamento de memória integrada, 
+processador gráfi co e de E/Snenhuma 7 MIPS @ 12 Mhz
+ARM3 Primeira a usar cache de processador 4 KB unifi cada 12 MIPS @ 25 Mhz
+ARM6 Primeira a aceitar endereços de 32 bits: unidade de ponto fl utuante 4 KB unifi cada 28 MIPS @ 33 Mhz
+ARM7 SoC integrado 8 KB unifi cada 60 MIPS @ 60 Mhz
+ARM8 Pipeline de 5 estágios; previsão estática de desvio 8 KB unifi cada 84 MIPS @ 72 Mhz
+ARM9 16 KB/16 KB 300 MIPS @ 300 Mhz
+ARM9E Instruções DSP melhoradas 16 KB/16 KB 220 MIPS @ 200 Mhz
+ARM10E Pipeline de 6 estágios 32 KB/32 KB
+ARM11 Pipeline de 9 estágios Variável 740 MIPS @ 665 Mhz
+Cortex Pipeline superescalar de 13 estágios Variável 2 000 MIPS @ 1 Ghz
+XScale Processador de aplicações; pipeline de 7 estágios32 KB/32 KB L1
+512KB L21 000 MIPS @ 1,25 Ghz
+DSP = processador de sinal digital (do inglês digital signal processor)
+SoC = sistema em um chip (do inglês system on a chip)
+Book 1.indb 38 19.11.09 14:35:52
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 39
+ Velocidade do clock e instruções por segundo
+O CLOCK DO SISTEMA As operações realizadas por um processador, como busca e decodifi cação de uma 
+instrução, realização de uma operação aritmética e assim por diante, são controladas por um clock do sistema. 
+Normalmente, todas as operações começam com o pulso do clock. Assim, no nível mais fundamental, a veloci-dade de um processador é ditada pela frequência de pulso produzida pelo clock, medida em ciclos por segundo, ou Hertz (Hz).
+Normalmente, os sinais de clock são gerados por um cristal de quartzo, que gera uma onda de sinal constante 
+enquanto a alimentação é aplicada. Essa onda é convertida em um stream de pulsos de voltagem digital, que é 
+fornecido em um fl uxo constante aos circuitos do processador (Figura 2.14). Por exemplo, um processador de 1 GHz recebe 1 bilhão de pulsos por segundo. A taxa de pulsos é conhecida como taxa de clock, ou velocidade de 
+clock. Um incremento (ou pulso) do clock é conhecido como um ciclo de clock, ou um clock tick. O tempo entre 
+os pulsos é o tempo de ciclo.
+A taxa de clock não é arbitrária, mas precisa ser apropriada para o layout físico do processador. As ações no 
+processador exigem que os sinais sejam enviados de um elemento do processador para outro. Quando um sinal é colocado em uma linha dentro do processador, é preciso alguma quantidade fi nita de tempo para os níveis de voltagem se estabilizarem, de modo que um valor preciso (1 ou 0) esteja disponível. Além do mais, dependendo do layout físico dos circuitos do processador, alguns sinais podem mudar mais rapidamente do que outros. Assim, 
+as operações precisam ser sincronizadas e ritmadas de modo que valores de sinal elétrico (voltagem) apropriados estejam disponíveis para cada operação.
+A execução de uma instrução envolve uma série de etapas discretas, como buscar a instrução na memó-
+ria, decodificar as diversas partes da instrução, carregar e armazenar dados e realizar operações aritméticas e lógicas. Assim, grande parte das instruções na maioria dos processadores requer múltiplos ciclos de clock para completar. Algumas instruções podem usar apenas alguns ciclos, enquanto outras exigem dezenas. Além disso, quando é usado o pipeline, múltiplas instruções estão sendo executadas simultaneamente. Assim, uma comparação direta de velocidades de clock em diferentes processadores não diz a história toda sobre o de-sempenho.
+TAXA DE EXECUÇÃO DE INSTRUÇÃO Um processador é controlado por um clock com uma frequência constan-
+te f ou, de modo equivalente, um tempo de ciclo constante τ, onde τ = 1/f . Defi na a contagem de instruções, I
+c, 
+para um programa como o número de instruções de máquina executadas para esse programa até que ele rode até o fi m ou por algum intervalo de tempo defi nido. Observe que esse é o número de execuções de instrução e não o número de instruções no código objeto do programa. Um parâmetro importante é a média de ciclos por instrução (CPI, do inglês cycles per instruction) para um programa. Se todas as instruções exigissem o mesmo 
+Figura 2.14 Clock do sistema
+cristal de quartzo
+De: Computer Desktop Encyclopedia,
+1998, The Computer Language Co. conversão de analógicopara digital
+ 
+Book 1.indb 39 19.11.09 14:35:53
+
+40 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+número de ciclos de clock, então o CPI seria um valor constante para um processador. Porém, em determinado 
+processador, o número de ciclos de clock exigido varia para diferentes tipos de instruções, como load, store, 
+branch e assim por diante. Considere que CPIi seja o número de ciclos exigidos para a instrução tipo i, e Ii seja o 
+número de instruções executadas de tipo i para determinado programa. Então, podemos calcular um CPI geral 
+como a seguir:
+(2.1) CPI =an
+i=1(CPIi*Ii)
+Ic.
+O tempo de processador T necessário para executar determinado programa pode ser expresso como:
+(2.2) Taxa MIPS =Ic
+T*106=f
+CPI *106T=Ic*3p+(m*k)4*tT=Ic*CPI*t
+..
+,Podemos refinar essa formulação reconhecendo que, durante a execução de uma instrução, parte do trabalho 
+é feito pelo processador, e parte do tempo uma palavra está sendo transferida da e para a memória. Nesse último 
+caso, o tempo para transferir depende do tempo de ciclo da memória, que pode ser maior que o tempo de ciclo do processador. Podemos reescrever a equação anterior como:
+(2.2) Taxa MIPS =Ic
+T*106=f
+CPI *106T=Ic*3p+(m*k)4*tT=Ic*CPI*t
+..
+,
+onde p é o número de ciclos de processador necessários para decodificar e executar a instrução, m é o número de 
+referências de memória necessárias e k é a razão entre o tempo de ciclo da memória e o tempo de ciclo do proces-sador. Os cinco fatores de desempenho na equação anterior (I
+c, p, m, k, T) são influenciados por quatro atributos do 
+sistema: o projeto do conjunto de instruções (conhecido como arquitetura do conjunto de instruções), a tecnologia 
+do compilador (quão efetivo é o compilador para produzir um programa em linguagem de máquina eficiente, de um programa em linguagem de alto nível), a implementação do processador e a hierarquia da cache e da memória. A Tabela 2.9, baseada em Hwang (1993
+s), é uma matriz em que uma dimensão mostra os cinco fatores de desempe-
+nho e a outra dimensão mostra os quatro atributos do sistema. Um X em uma célula indica um atributo do sistema que afeta um fator de desempenho.
+Uma medida comum do desempenho para um processador é a taxa em que as instruções são executadas, 
+expressa como milhões de instruções por segundo (MIPS, do inglês millions of instructions per second), conhecida 
+como taxa MIPS. Podemos expressar a taxa MIPS em termos da taxa de clock e do CPI da seguinte forma:
+(2.2) Taxa MIPS =I
+c
+T*106=f
+CPI *106T=Ic*3p+(m*k)4*tT=Ic*CPI*t
+..
+,
+Por exemplo, considere a execução de um programa que resulta na execução de 2 milhões de instruções em 
+um processador de 400 MHz. O programa consiste em quatro tipos principais de instruções. A mistura de instruções 
+Tabela 2.9 Fatores de desempenho e atributos do sistema
+Icpmk τ
+Arquitetura do conjunto de instruções X X
+Tecnologia do compilador X X X
+Implementação do processador X X
+hierarquia da cache e da memória XX
+Book 1.indb 40 19.11.09 14:35:54
+
+ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES Capítulo 2 Evolução e desempenho do computador 41
+e o CPI para cada tipo de instrução aparecem na Tabela 2.10, com base no resultado de um experimento de trace 
+de programa.
+O CPI médio quando o programa é executado em um uniprocessador com os resultados de trace mostrados é 
+CPI = 0,6 + (2 × 0,18) + (4 × 0,12) + (8 × 0,1) = 2,24. A taxa MIPS correspondente é (400 × 106)/(2,24 × 106) ≈ 178.
+Outra medida de desempenho comum lida apenas com instruções de ponto /f_l utuante. Estas são comuns em muitas 
+aplicações cientí/f_i cas e de jogos. O desempenho do ponto /f_l utuante é expresso como milhões de operações de ponto 
+/f_l utuante por segundo (MFLOPS, do inglês million of /f_l oating-point operations per second), de/f_i nido da seguinte forma:
+Taxa MFLOPS =
+ 6 Tempo de execução × 10Número de operações de ponto flutuante executadas em um programa
+ Benchmarks
+Medidas como MIPS e MFLOPS provaram ser inadequadas para avaliar o desempenho dos processadores. 
+Devido a diferenças nos conjuntos de instruções, a taxa de execução de instrução não é um meio válido de compa-rar o desempenho de diferentes arquiteturas. Por exemplo, considere esta instrução em linguagem de alto nível:
+A = B + C /* considere todas as quantidades na memória principal */
+Com a arquitetura tradicional do conjunto de instruções, conhecida como CISC, essa instrução pode ser compi-
+lada em uma instrução de processador:
+add mem(B), mem(C), mem (A)
+Em uma máquina RISC típica, a compilação se pareceria com o seguinte:load mem(B), reg(l);
+load mem(C), reg(2);add reg(l), reg(2), reg(3);store reg(3), mem (A)
+Devido à natureza da arquitetura RISC (discutida no Capítulo 13), ambas as máquinas podem executar a instrução 
+original em linguagem de alto nível aproximadamente no mesmo tempo. Se este exemplo for representativo das duas 
+máquinas, então, se a máquina CISC for classi/f_i cada com 1 MIPS, a máquina RISC seria classi/f_i cada com 4 MIPS. Mas ambas realizam a mesma quantidade de trabalho em linguagem de alto nível na mesma quantidade de tempo.
+Além do mais, o desempenho de certo processador em determinado programa pode não ser útil para determi-
+nar como esse processador funcionará em um tipo de aplicação muito diferente. Consequentemente, a partir do /f_i nal da década de 1980 e início da seguinte, o interesse industrial e acadêmico passou para a medição do desem-penho dos sistemas usando um conjunto de programas de benchmark. O mesmo conjunto de programas pode ser executado em diferentes máquinas, com os tempos de execução comparados.Tabela 2.10 Mistura de instruções e CPI
+Tipo de instrução CPI Número de instruções (%)
+Aritmética e lógica 1 60%
+Load/store com acerto de cache 2 18%
+Desvio 4 12%
+Referência de memória com falha de cache 8 10%
+Cap_2 (12-50).indd 41 25.11.09 17:45:49
+
+42 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Weicker (1990t) lista as características desejadas de um programa de benchmark:
+1. É escrito em uma linguagem de alto nível, tornando-o portável entre diferentes máquinas.
+2. Representa um tipo particular de estilo de programação, como programação de sistemas, programação 
+numérica ou programação comercial.
+3. Pode ser medido com facilidade.
+4. Tem uma ampla distribuição.
+BENCHMARKS SPEC A necessidade comum nas comunidades industrial, acadêmica e de pesquisa para medidas 
+de desempenho de computador geralmente aceitas tem levado ao desenvolvimento de pacotes de benchmark padronizados. Um pacote de bechmark é uma coleção de programas, definidos em uma linguagem de alto nível, que, juntos, tentam oferecer um teste representativo de um computador em determinada área de aplicação ou de programação de sistema. A mais conhecida dessa coleção de pacotes de benchmark é definida e mantida pela System Performance Evaluation Corporation (SPEC), um consórcio da indústria. As medidas de desempenho SPEC são bastante usadas para fins de comparação e pesquisa.
+O mais conhecido dos pacotes de benchmark da SPEC é o SPEC CPU2006. Esse é o pacote padrão da indústria para 
+aplicações com uso intensivo do processador. Ou seja, o SPEC CPU2006 é apropriado para medir o desempenho de aplicações que gastam a maior parte de seu tempo realizando cálculos, do que E/S. O pacote CPU2006 é baseado em aplicações existentes que já foram portadas para uma grande variedade de plataformas pelos membros do setor SPEC. Ele consiste em 17 programas de ponto flutuante escritos em C, C++ e Fortran, e 12 programas de inteiros escritos em C e C++. O pacote contém mais de 3 milhões de linhas de código. Essa é a quinta geração de pacotes com uso intensivo de CPU da SPEC, substituindo o SPEC CPU2000, SPEC CPU95, SPEC CPU92 e SPEC CPU89 (Henning, 2007
+u).
+Outros pacotes SPEC são os seguintes:
+specjvm98:  voltado para avaliar o desempenho dos aspectos combinados de hardware e software da 
+plataforma cliente de Java Virtual Machine (JVM).specjbb2000 (Java Business Benchmark): 
+  um benchmark para avaliar aplicações de comércio eletrôni-
+co baseadas em Java no lado do servidor.specweb99: 
+  avalia o desempenho dos servidores da World Wide Web (WWW).
+specmail2001:  criado para medir o desempenho do sistema que atua como servidor de correio.
+AVALIANDO RESUL TADOS Para obter uma comparação confiável do desempenho de diversos computadores, 
+é preferível executar uma série de programas de benchmark diferentes em cada máquina e depois avaliar os resul-tados. Por exemplo, se houver m diferentes programas de benchmark, então uma média aritmética simples pode 
+ser calculada da seguinte forma:
+(2.3)
+(2.4) RH=m
+am
+i=11
+RiRA=1
+mam
+i=1Ri
+onde Ri é a taxa de execução de instrução na linguagem de alto nível para o i-ésimo programa de benchmark.
+Uma alternativa é usar a média harmônica:(2.3)
+(2.4) RH=m
+am
+i=11
+RiRA=1
+mam
+i=1Ri
+No final das contas, o usuário se preocupa com o tempo de execução de um sistema, e não com sua taxa de execu-
+ção. Se usarmos a média aritmética das taxas de instrução de diversos programas de benchmark, obtemos um resultado que é proporcional à soma dos inversos dos tempos de execução. Mas isso não é inversamente proporcional à soma dos tempos de execução. Em outras palavras, a média aritmética da taxa de instrução não se relaciona claramente ao tempo de execução. Por outro lado, a taxa de instrução da média harmônica é o inverso do tempo médio de execução.
+Benchmarks SPEC não se preocupam com as taxas de execução de instrução. Em vez disso, duas métricas fun-
+damentais são interessantes: uma métrica de velocidade e uma métrica de taxa. A métrica de velocidade mede a 
+capacidade de um computador completar uma única tarefa. O SPEC define um runtime básico para cada programa de 
+Book 1.indb 42 19.11.09 14:35:55
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 43
+benchmark usando uma máquina de referência. Os resultados para um sistema em teste são relatados como a razão 
+entre o tempo de execução de referência e o tempo de execução do sistema. A razão é calculada da seguinte forma:
+(2.5)
+(2.6) rG=qn
+i=1ri1/nri=Tref i
+Tsuti
+(
+(,
+,onde Trefi é o tempo de execução do programa de benchmark i no sistema de referência e Tsuti é o tempo de exe-
+cução do programa de benchmark i no sistema em teste.
+Como um exemplo de cálculo e relatório, considere o Sun Blade 6250, que consiste em dois chips com quatro 
+cores, ou processadores, por chip. Um dos benchmarks de inteiros SPEC CPU2006 é o 464.h264ref. Essa é uma 
+implementação de referência do H.264/AVC (advanced video coding), o padrão de compactação de vídeo mais moderno. O sistema Sun executa esse programa em 934 segundos. A implementação de referência requer 22.135 segundos. A razão é calculada como: 22.136/934 = 23,7.
+Como o tempo para o sistema em teste está no denominador, quanto maior a razão, mais alta é a velocidade. Uma 
+medida de desempenho geral para o sistema em teste é calculada tirando-se a média dos valores para as razões de to -
+dos os 12 benchmarks de inteiros. A SPEC especifica o uso de uma média geométrica, definida da seguinte forma:(2.5)
+(2.6) rG=qn
+i=1ri1/nri=Tref i
+Tsuti
+(
+(,
+,
+onde ri é a razão para o i-ésimo programa de benchmark. Para o Sun Blade 6250, as razões de velocidade de inteiros 
+do SPEC foram relatadas como mostra a Tabela 2.11.
+A métrica de velocidade é calculada apanhando-se a 12a raiz do produto das razões:
+(17,5 × 14 × 13,7 × 17,6 × 14,7 × 18,6 × 17 × 31,3 × 23,7 × 9,23 × 10,9 × 14,7)1/12 = 18,5
+A métrica de taxa mede a vazão ou taxa de uma máquina executando uma série de tarefas. Para a métrica 
+de taxa, várias cópias dos benchmarks são executadas simultaneamente. Em geral, o número de cópias é igual ao número de processadores na máquina. Novamente, uma razão é usada para relatar os resultados, embora o cálculo seja mais complexo. A razão é calculada da seguinte forma:
+(2.7)
+ =T(1-f)+Tf
+T(1-f)+Tf
+N=1
+(1-f)+f
+N=ri=N*Tref i
+Tsut i
+tempo para executar programa em um único processador
+ tempo para executar programa em N processadores paralelosSpeedup ,
+.onde Trefi é o tempo de execução de referência para o benchmark i, N é o número de cópias do programa que são 
+executadas simultaneamente, e Tsuti é o tempo decorrido desde o início da execução do programa em todos os N 
+processadores do sistema em teste, até o término de todas as cópias do programa. Novamente, uma média geo-métrica é calculada para determinar a medida de desempenho geral.
+Tabela 2.11 Razões de velocidades de inteiros do SPEC
+Benchmark Razão Benchmark Razão
+400.perlbench 17,5 458.sjeng 17,0
+401.bzip2 14,0 462. libquantum 31,3
+403.gcc 13,7 464.h264ref 23,7
+429.mcf 17,6 471.omnetpp 9,23
+445.gobmk 14,7 473.astar 10,9
+456.hmmer 18,6 483.xalancbmk 14,7
+Book 1.indb 43 19.11.09 14:35:55
+
+44 ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador
+SPEC escolheu usar uma média geométrica, pois é o mais apropriado para números normalizados, como razões. 
+Fleming e Wallace (1986v) demonstram que a média geométrica tem a propriedade de manter relacionamentos de 
+desempenho de forma coerente, independentemente do computador usado como base para normalização.
+ Lei de Amdahl
+Ao considerar o desempenho do sistema, os projetistas de sistemas de computação procuraram maneiras de 
+melhorar o desempenho aperfeiçoando a tecnologia ou mudando o projeto. Alguns exemplos incluem o uso de 
+processadores paralelos, o uso de uma hierarquia de cache de memória e speedup no tempo de acesso da memória 
+e na taxa de transferência de E/S devido às melhorias na tecnologia. Em todos esses casos, é importante observar que um speedup em um aspecto da tecnologia ou projeto não resulta em uma melhoria correspondente no de-
+sempenho. Essa limitação é expressa de forma sucinta pela lei de Amdahl.
+A lei de Amdahl foi proposta inicialmente por Gene Amdahl (1967
+w), e lida com o potencial speedup de um programa 
+usando múltiplos processadores em comparação com um único processador. Considere um programa rodando em um único processador, de modo que uma fração (1 – f ) do tempo de execução envolva um código inerentemente serial e 
+uma fração f envolva código infi nitamente paralelizável sem overhead de escalonamento. Considere que T seja o tempo 
+de execução total do programa usando um único processador. Então, o speedup usando um processador paralelo com N 
+processadores, que explora totalmente a parte paralela do programa, é o seguinte:(2.7)
+ =T(1-f)+Tf
+T(1-f)+Tf
+N=1
+(1-f)+f
+N=ri=N*Tref i
+Tsut i
+tempo para executar programa em um único processador
+ tempo para executar programa em N processadores paralelosSpeedup ,
+.
+Podemos chegar a duas conclusões importantes:1. Quando f é pequeno, o uso de processadores paralelos tem pouco efeito.
+2. Quando N se aproxima do infi nito, o speedup é limitado por 1/(1 – f), de modo que existem retornos decres-
+centes para o uso de mais processadores.
+Essas conclusões são muito pessimistas, uma declaração proposta inicialmente em Gustafson (1988
+x). Por exem-
+plo, um servidor pode manter múltiplas threads ou múltiplas tarefas para lidar com múltiplos clientes e executar 
+as threads ou tarefas em paralelo até o limite do número de processadores. Muitas aplicações de banco de dados 
+envolvem cálculos sobre grandes quantidades de dados, que podem ser divididos em múltiplas tarefas em parale-lo. Apesar disso, a lei de Amdahl ilustra os problemas enfrentados pela indústria no desenvolvimento de máquinas multicore com um número cada vez maior de processadores: o software que roda nessas máquinas precisa ser adaptado para um ambiente de execução altamente paralelo, para explorar o poder do processamento paralelo.
+A lei de Amdahl pode ser generalizada para avaliar qualquer melhoria de projeto ou técnica em um sistema de 
+computação. Considere qualquer melhoria a um recurso de um sistema que resulte em um speedup, o qual pode 
+ser expresso como:
+(2.8)
+=1
+0,6+0,4
+K=1
+(1-f)+f
+SUf= =Desempenho após melhoria Tempo de execução antes da melhoria
+Desempenho antes da melhoria Tempo de execução após melhoriaSpeedup
+Speedup
+Speedup.
+.
+.Suponha que o recurso do sistema seja usado durante a execução de uma fração do tempo f, antes da melhoria, 
+e que o speedup desse recurso após a melhoria seja SUf. Então, o speedup geral do sistema é:(2.8)
+=1
+0,6+0,4
+K=1
+(1-f)+f
+SUf= =Desempenho após melhoria Tempo de execução antes da melhoria
+Desempenho antes da melhoria Tempo de execução após melhoriaSpeedup
+Speedup
+Speedup.
+.
+.
+Book 1.indb 44 19.11.09 14:35:56
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 2 Evolução e desempenho do computador 45
+Por exemplo, suponha que uma tarefa utilize muitas operações de ponto fl utuante, com 40% do tempo sendo 
+consumido por operações de ponto fl utuante. Com um novo projeto de hardware, o módulo de ponto fl utuante é 
+agilizado por um fator de K. Então, o speedup geral é:(2.8)
+=1
+0,6+0,4
+K=1
+(1-f)+f
+SUf= =Desempenho após melhoria Tempo de execução antes da melhoria
+Desempenho antes da melhoria Tempo de execução após melhoriaSpeedup
+Speedup
+Speedup.
+.
+.
+Assim, independentemente de K, o speedup máximo é 1,67.
+2.6 Leitura recomendada e sites Web
+Uma descrição da série IBM 7000 pode ser encontrada em Bell e Newell (1971e). Há uma boa explicação do IBM 
+360 em Siewiorek, Bell e Newell, (1982y) e do PDP-8 e outras máquinas DEC em Bell, Mudge e McNamara, (1978z). 
+Esses três livros também contêm diversos exemplos detalhados de outros computadores no decorrer da história dessas máquinas até o início da década de 1980. Um livro mais recente, que inclui um excelente conjunto de es-tudos de caso de máquinas históricas, é Blaauw e Brooks (1997
+aa). Uma boa história do microprocessador é Betker, 
+Fernando e Whalen (1997bb).
+Olukotun et al. (2007cc), Hammond, Noylay e Olukotun (1997dd) e Sakai (2002ee) discutem a motivação para pro 
+múltiplos processadores em um único chip.
+Brey2009ff oferece um bom estudo da linha de microprocessadores da Intel. A própria documentação da Intel 
+também é boa (Intel Corp; 2008gg).
+A documentação mais completa, disponível para a arquitetura ARM, é de Seal (2000hh).11 Furber (2000ii) é outra 
+excelente fonte de informações. Smith (2008jj) é uma comparação interessante das abordagens ARM e x86 para 
+processadores embutidos em dispositivos móveis sem fi o.
+Para ver discussões interessantes da lei de Moore e suas consequências, consulte Hutcheson e Hutcheson 
+(1996kk), Schaller (1997ll) e Bohr (1998mm).
+Henning (2006nn) oferece uma descrição detalhada de cada um dos benchmarks no CPU2006. Smith (1988oo) 
+discute os méritos relativos das médias aritmética, harmônica e geométrica.
+ Sites Web recomendados
+Intel developer’s page: página Web da Intel para desenvolvedores, oferece um ponto de partida para acessar informações sobre o Pentium. Também inclui o Intel Technology Journal.ARm: página web da ARM Limited, desenvolvedora da arquitetura ARM. Inclui documentação técnica.standard performance evaluation corporation: SPEC é uma organização bastante reconhecida no setor 
+de computação por seu desenvolvimento de benchmarks padronizados para medir e comparar o desempenho de diferentes sistemas de computação.Top500 supercomputer site: oferece uma breve descrição de arquitetura e organização dos produtos de 
+supercomputador atuais, incluindo comparações.charles Babbage Institute: oferece links para diversos sites Web que lidam com a história dos compu-
+tadores.
+11 Conhecido na comunidade ARM como o “ARM ARM” .
+Book 1.indb 45 19.11.09 14:35:56
+
+46 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Acumulador (AC) Ciclo de instrução Opcode
+Lei de Amdahl Registrador de instrução (IR)
+Original equipment manufacturer (OEM)
+Unidade lógica e aritmética (ALU) Conjunto de instruções
+Benchmark Circuito integrado (CI) Unidade de controle do programa
+Chip Memória principal Contador de programa (PC)
+Canal de dados
+Registrador de endereço da memória (MAR)SPEC
+Sistema embarcado Computador de programa armazenado
+Ciclo de execução Registrador de buffer de memória (MBR) Compatibilidade
+Ciclo de busca Microprocessador Máquina de von neumann
+Entrada/saída (E/S) Multicore Wafer
+Registrador de buffer de instrução (IBR) Multiplexador Palavra
+Perguntas de revisão
+ 2.1 O que é um computador de programa armazenado?
+ 2.2 Quais são os quatro componentes principais de qualquer computador de uso geral?
+ 2.3 n o nível de circuito integrado, quais são os três constituintes principais de um sistema de computação?
+ 2.4 Explique a lei de Moore.
+ 2.5 Liste e explique as principais características de uma família de computadores.
+ 2.6 Qual é a principal característica que distingue um microprocessador?
+Problemas
+2.1 Considere que A = A(1), A(2),... , A(1 000) e B = B(1), B(2),..., B(1 000) sejam dois vetores (arrays unidimensionais) compostos de 1 000 núme-
+ros em cada um, que são somados para formar um array C tal que C(I) = A(I) + B(I) para I = 1,2,..., 1 000. Usando o conjunto de instruções do 
+IAS, escreva um programa para esse problema. Ignore o fato de que o IAS foi projetado para ter apenas 1 000 palavras de armazenamento.
+2.2 a. n o IAS, como ficaria a instrução de código de máquina para carregar o conteúdo do endereço de memória 2?
+b. Quantas viagens à memória a CPU precisa fazer para completar essa instrução durante o ciclo de instrução?
+2.3 no IAS, descreva em português o processo que a CPU precisa assegurar para ler um valor da memória e escrever um valor na memória em termos 
+do que é colocado em MAR, MBR, barramento de endereço, barramento de dados e barramento de controle.
+2.4 Dado o conteúdo de memória do computador IAS, mostrado a seguir,
+Endereço Conteúdo
+08A 010FA210FB
+08B 010FA0F08D
+08C 020FA210FB
+ mostre o código em linguagem de montagem para o programa, começando no endereço 08A. Explique o que esse programa faz.
+2.5 na Figura 2.3, indique a largura, em bits, de cada caminho de dados (por exemplo, entre AC e ALU).
+2.6 no IBM 360 Modelos 65 e 75, os endereços são espalhados em duas unidades separadas da memória principal (por exemplo, todas as palavras 
+de número par em uma unidade e todas as palavras de número ímpar em outra). Qual poderia ser a finalidade dessa técnica?
+2.7 Com referência à Tabela 2.4, vemos que o desempenho relativo do IBM 360 Modelo 75 é 50 vezes o do 360 Modelo 30, embora o tempo de ciclo 
+de instrução seja apenas 5 vezes mais rápido. Como você explica essa discrepância?
+Book 1.indb 46 19.11.09 14:35:56
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 47
+2.8 Enquanto analisa a loja de computadores de Billy Bob, você escuta um cliente perguntando a ele qual é o computador mais rápido na loja que 
+ele possa comprar. Billy Bob responde: “Você está olhando para nossos Macintoshes. O Mac mais rápido que temos trabalha com uma velocidade de clock de 1,2 gigahertz. Se você realmente quer a máquina mais rápida, então deve comprar nosso Intel Pentium IV de 2,4 gigahertz em vez disso” . Billy Bob está certo? O que você diria para ajudar esse cliente?
+2.9 O En IAC era uma máquina decimal, onde um registrador era representado por um anel de 10 válvulas. A qualquer momento, somente 
+uma válvula estava no estado On , representando um dos 10 dígitos. Supondo que o En IAC tivesse a capacidade de ter várias válvulas no 
+estado On e OFF simultaneamente, por que essa representação é “esbanjadora” e que faixa de valores inteiros poderíamos representar 
+usando 10 válvulas?
+2.10 Um programa de benchmark é executado em um processador a 40 Mh z. O programa executado consiste em 100.000 execuções de instrução, 
+com a seguinte mistura de instruções e quantidade de ciclos de clock:
+Tipo de instrução Quantidade de instruções Ciclos por instrução
+Aritmética de inteiros 45 000 1
+Transferência de dados 32 000 2
+Ponto flutuante 15 000 2
+Transferência de controle 8 000 2
+ Determine o CPI efetivo, a taxa de MIPS e o tempo de execução para esse programa.
+2.11 Considere duas máquinas diferentes, com dois conjuntos de instruções diferentes, ambos tendo uma taxa de clock de 200 Mh z. As medições a 
+seguir são registradas nas duas máquinas rodando determinado conjunto de programas de benchmark:
+Tipo de instruçãoQuantidade de instruções 
+(milhões)Ciclos por instrução
+Máquina A
+Aritmética e lógica 8 1
+Load e store 4 3
+Desvio 2 4
+Outros 4 3
+Máquina A
+Aritmética e lógica 10 1
+Load e store 8 2
+Desvio 2 4
+Outros 4 3
+a. Determine o CPI efetivo, a taxa MIPS e o tempo de execução para cada máquina.
+b. Comente os resultados.
+2.12 Os primeiros exemplos de projeto CISC e RISC são o VAX 11/780 e o IBM RS/6000, respectivamente. Usando um programa de benchmark típico, 
+o resultado são as seguintes características de máquina:
+Processador Frequência de clock Desempenho Tempo de CPU
+VAX 11/780 5 Mhz 1 MIPS 12 x segundos
+IBM RS/6000 25 Mhz 18 MIPS x segundos
+A coluna final mostra que o VAX exigia 12 vezes mais tempo que o IBM, medido em tempo de CPU.
+a. Qual é o tamanho relativo da quantidade de instruções do código de máquina para esse programa de benchmark rodando nas duas máquinas?
+b. Quais são os valores de CPI para as duas máquinas?
+2.13 Quatro programas de benchmark são executados em três computadores com os seguintes resultados:
+Book 1.indb 47 19.11.09 14:35:57
+
+48 ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador
+Computador A Computador B Computador C
+Programa 1 1 10 20
+Programa 2 1 000 100 20
+Programa 3 500 1 000 50
+Programa 4 100 800 100
+A tabela mostra o tempo de execução em segundos, com 100 000 000 instruções executadas em cada um dos quatro programas. Calcule os 
+valores de MIPS para cada computador para cada programa. Depois, calcule as médias aritmética e harmônica considerando pesos iguais para os quatro programas, e classifique os computadores com base na média aritmética e a média harmônica.
+2.14 A tabela a seguir, baseada em dados relatados na literatura (h eath, 1984
+pp), mostra os tempos de execução, em segundos, para cinco diferentes 
+programas de benchmark em três máquinas.
+BenchmarkProcessador
+RMZ
+E 417 244 134
+F 83 70 70
+h 66 153 135
+I 39 449 35 527 66 000
+K 772 368 369
+a. Calcule a métrica de velocidade para cada processador para cada benchmark, normalizada para a máquina R. Ou seja, os valores de razão para R são todos iguais a 1,0. Outras razões são calculadas por meio da Equação 2.5, com R tratado como o sistema de referência. Depois, calcule o valor da média aritmética para cada sistema usando a Equação 2.3. Essa é a técnica utilizada em heath (1984
+pp).
+b. Repita a parte (a) usando M como máquina de referência. Esse cálculo não foi tentado em heath (1984pp).
+c. Qual máquina é a mais lenta, com base em cada um dos dois cálculos anteriores?
+d. Repita os cálculos das partes (a) e (b) usando a média geométrica, definida na Equação 2.6. Qual máquina é a mais lenta, com base nos dois cálculos?
+2.15 Para esclarecer os resultados do problema anterior, examinamos um exemplo mais simples.
+BenchmarkProcessador
+XYZ
+1 20 10 40
+2 40 80 20
+a. Calcule o valor da média aritmética para cada sistema usando X como a máquina de referência e depois usando Y como a máquina de re-ferência. Demonstre que, intuitivamente, as três máquinas têm um desempenho relativamente equivalente e que a média aritmética gera resultados enganosos.
+b. Calcule o valor da média geométrica para cada sistema usando X como a máquina de referência e depois usando Y como a máquina de referência. Demonstre que os resultados são mais realistas do que com a média aritmética.
+2.16 Considere o exemplo na Seção 2.5 para o cálculo da taxa média de CPI e MIPS, que produziram o resultado de CPI = 2,24 e taxa MIPS = 178. 
+Agora, suponha que o programa possa ser executado em oito tarefas paralelas ou threads com aproximadamente o mesmo número de instru-
+ções executadas em cada tarefa. A execução é em um sistema de 8 processadores, com cada processador (core) tendo o mesmo desempenho do único processador usado originalmente. A coordenação e a sincronização entre as partes acrescentam mais 25 000 execuções de instrução a cada tarefa. Considere a mesma mistura de instruções do exemplo para cada tarefa, mas aumente o CPI para referência à memória com cada perda de cache para 12 ciclos, devido à disputa pela memória.
+a. Determine o CPI médio.
+b. Determine a taxa MIPS correspondente.
+Book 1.indb 48 19.11.09 14:35:57
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 2 Evolução e desempenho do computador 49
+c. Calcule o fator de speedup.
+d. Compare o fator de speedup real com o fator de speedup teórico determinado pela lei de Amdhal.
+2.17 Um processador acessa a memória principal com um tempo de acesso médio de T2. Uma memória cache menor é interposta entre o processador 
+e a memória principal. A cache tem um tempo de acesso significativamente mais rápido de T1 < T2. A cache mantém, a qualquer momento, 
+cópias de algumas palavras da memória principal e é projetada de modo que as palavras mais prováveis de serem acessadas no futuro próximo 
+estejam na cache. Suponha que a probabilidade de que a próxima palavra acessada pelo processador esteja na cache seja H, conhecido como 
+razão de acerto.
+a. Para qualquer acesso à memória isolado, qual é o speedup teórico de acessar uma palavra na cache ao invés da memória principal?
+b. Considere que T seja o tempo de acesso médio. Expresse T como uma função de T1, T2 e H . Qual é o speedup geral como uma função 
+de H?
+c. na prática, um sistema pode ser projetado de modo que o processador deva primeiro acessar a cache para determinar se a palavra está 
+na cache e, se não estiver, então acessar a memória principal, de modo que, em uma perda (ao contrário de um acerto), o tempo de acesso à memória é T
+1 + T2. Expresse T como uma função de T1, T2 e H. Agora, calcule o speedup e compare com o resultado produzido 
+na parte (b).
+ Referências
+ a VOn nEUMAnn , J. First draft of a report on the EDVAC. Moore School, University of Pennsylvania, 1945. Reimpresso em IEEE Annals on the history of 
+Computing, no 4, 1993.
+ b B URKS , A.; GOLDSTInE, h. e VOn nEUMAnn , J. Preliminary discussion of the logical design of an electronic computer instrument. Relatório preparado 
+pelo U.S. Army Ordnance Dept., 1946. Reimpresso em Bell, 1971.
+ c hAYES , J. Computer architecture and organization. n ova York: McGraw-hill, 1998.
+ d B AShE , C.; BUCh OLTZ , W.; hAWKInS , G.; InGRAM , J. e ROCh ESTER , n. “The architecture of IBM’s early computers” . IBM Journal of Research and 
+Development, set. 1981.
+ e B ELL, e nEWELL , A. Computers structures: readings and examples. n ova York: McGraw-hill, 1971. 
+ f M OORE , G. “Cramming more components onto integrated circuits” . Electronics Magazine, 19 de abr. 1965.
+ g BOhR , M. "high performance logic technology and reliability challenges" . International Reability Physics Symposium, mar. 2003. Disponível em 
+<www.irps.org/03-41st>.
+ h P ADEGS , A. “System/360 and beyond” . IBM Journal of Research and Development, set. 1981.
+ i G IFFORD , D. e S PECTOR , A. “Case study: IBM’s System/360-370 architecture” . Communications of the ACM, abr. 1987.
+ j S TEVEnS , W. “The structure of System/360, Part II: system implementation” . IBM Systems Journal, Vol. 3, no 2,1964. Reimpresso em SIEWIOREK , BELL 
+e nEWELL , 1982.
+ k V OELKER , J. “The PDP-8” . IEEE Spectrum, nov. 1988.
+ l B ORKAR , S. “Getting gigascale chips: challenges and opportunities in continuing Moore’s law” . ACM Queue, out. 2003.
+ m Intel Research and Development. Architecting the era of tera. Intel White Paper, fev. 2004. Disponível em <www.intel.com/labs/teraera/index.htm>.
+ n G IBBS , W. “A split at the core” . Scientific American, nov. 2004.
+ o AnTh ES, G. “What’s next for the x86?” ComputerWorld, 16 de jun. 2008.
+ p nOERGARRD , T. Embedded systems architecture: a comprehensive guide for engineers and programmers. nova York: Elsevier, 2005.
+ q G RIMh EDEn , M. e TORn GREn , M. “What is embedded systems and how should it be taught? — Results from a didactic analysis” . ACM Transactions 
+on Embedded Computing Systems, ago. 2005.
+ r K OOPMAn, P . “Embedded system design issues (the rest of the story). Proceedings, 1996 International Conference on Computer Design, 1996.
+ s hWA nG, K. Advanced computer architecture. n ova York: McGraw-hill, 1993.
+ t W EICKER , R. “An overview of common benchmarks” . Computer, dez. 1990.
+Book 1.indb 49 19.11.09 14:35:57
+
+50 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ u hEnnInG, J. “SPEC CPU suite growth: an historical perspective” . Computer Architecture News, mar. 2007.
+ v F LEMInG , P . e W ALLACE , J. “h ow not to lie with statistics: the correct way to summarize benchmark results” . Communications of the ACM, mar. 
+1986.
+ w AMDAhL, G. “Validity of the single-processor approach to achieving large-scale computing capability” . Proceedings, of the AFIPS Conference, 1967.
+ x G USTAFSOn, J. “Reevaluating Amdahl’s law” . Communications of the ACM, mai. 1988.
+ y S IEWIOREK , D.; Bell, C. e nEWELL , A. Computer structures: principles and examples. n ova York: McGraw-hill, 1982.
+ z B ELL, C. M UDGE , J. e M CnAMARA , J. Computer engineering: a dec view of hardware systems design. Bedford, MA: Digital Press, 1978.
+ aa B LAAUW , G. e B ROOKS , F . Computer architecture: concepts and evolution. Reading, MA: Addison-Wesley, 1997.
+ bb B ETKER , M.; F ERnAn DO, J. e WhALEn, S. “The history of the microprocessor” . Bell Labs Technical Journal, out. 1997.
+ cc O LUKOTUn , K., et al. "The case for a single-chip multiprocessador." Proceedings, Seventh International Conference on Architectural Support for 
+Programming Languages and Operating Systems, 1996 
+ dd hAMMOnD, L.; nAYFAY , B. e O LUKOTUn, K. “A single-chip multiprocessor” . Computer, set. 1997.
+ ee S AKAI , S. “CMP on SoC: architect’s view” . Proceedings. I5th International Symposium on System Synthesis, 2002.
+ ff B REY, B. The Intel microprocessors: 8086/8066, 80186/80188, 80286, 80386, 80486, Pentium, Pentium Pro Processor, Pentium II, Pentium III, Pentium 
+4 and core 2 with 64-bit extensions. Upper Saddle River, nJ: Prentice hall, 2009. 
+ gg Intel Corp. Intel ® 64 and IA-32 Intel Architectures Software Developer’s Manual (3 volumes). Denver, CO, 2008. www.intel.com/products/processor/
+manuals.
+ hh S EAL , D., ed. ARM architecture reference manual. Reading, MA: Addison-Wesley, 2000.
+ ii F URBER , S. ARM system-on-chip architecture. Reading, MA: Addison-Wesley, 2000. 
+ jj Smith, B. “ARM and Intel battle over the mobile chip’s future” . Computer, mai. 2008. kk hUTCh ESOn, G. e hUTCh ESOn, J. “Technology and economics in the semiconductor industry” . Scientific American, jan. 1996.
+ ll SCh ALLER , R. “Moore’s law: past, present, and Future” . IEEE Spectrum, jun. 1997.
+ mm BOhR, M. “Silicon trends and limits for advanced microprocessors” . Communications of the ACM, mar. 1998. nn hEnnInG, J. “SPEC CPU2006 benchmark descriptions” . Computer Architecture News, set. 2006.
+ oo S MITh, J. “Characterizing computer performance with a single number” . Communications of the ACM, out. 1988.
+ pp hEATh, J. “Re-evaluation of RISC 1” . Computer Architecture News, mar. 1984.
+Book 1.indb 50 19.11.09 14:35:57
+
+ASSUnTOS DA PARTE 2
+Um sistema de computação consiste em processador, memória, dispositivos de E/S e 
+as interconexões entre esses componentes principais. Com a exceção do processador, que é suficientemente complexo para dedicarmos a Parte 3 ao seu estudo, a Parte 2 examina cada um desses componentes com detalhes.
+MAPA DA PARTE 2
+Capítulo 3 Visão de alto nível da função e interconexão do computador
+No nível superior, um computador consiste em um processador, memória e compo-nentes de E/S. O comportamento funcional do sistema consiste na troca de dados e sinais de controle entre esses componentes. Para dar suporte a essa troca, os compo-nentes precisam ser interconectados. O Capítulo 3 começa com um breve exame dos componentes do computador e seus requisitos de entrada e saída. O capítulo então examina os principais aspectos que afetam o projeto de interconexão, especialmente a necessidade de oferecer suporte a interrupções. A maior parte do capítulo é dedicada a um estudo da abordagem mais comum da interconexão: o uso de uma estrutura de 
+barramentos.
+Capítulo 4 Memória cache
+A memória do computador apresenta uma grande variedade de tipo, tecnologia, orga-
+nização, desempenho e custo. O sistema de computação típico é equipado com uma hierarquia de subsistemas de memória, alguns internos (acessíveis diretamente pelo processador) e alguns externos (acessíveis pelo processador por meio de um módulo de E/S). O Capítulo 4 começa com uma visão geral dessa hierarquia. Em seguida, o capítulo trata dos detalhes do projeto da memória cache, incluindo caches de código e dados separados e caches de dois níveis. 
+1 2 3 4 PARTE
+O sistema de computação
+Book 1.indb 51 19.11.09 14:35:57
+
+Capítulo 5 Memória interna
+O projeto de um sistema de memória principal é uma batalha sem fim entre três requi-
+sitos de projeto concorrentes: grande capacidade de armazenamento, acesso rápido e baixo custo. Com a evolução da tecnologia de memória, cada uma dessas três caracterís-ticas está mudando, de modo que as decisões de projeto na organização da memória principal devem ser revisadas novamente a cada nova implementação. O Capítulo 5 focaliza aspectos do projeto relacionados à memória interna. Primeiro, a natureza e a organização da memória semicondutora principal é examinada. Depois, exploramos as organizações recentes da memória DRAM avançada.
+Capítulo 6 Memória externa
+Para uma capacidade de armazenamento realmente grande e para um armazenamento mais permanente do que existe para a memória principal, uma organização de memória externa é necessária. O tipo mais usado de memória externa é o disco magnético, e grande parte do Capítulo 6 se concentra nesse assunto. Primeiro, examinamos a tecnologia e as considerações de projeto do disco magnético. Depois, explicamos o uso da organização RAID (do inglês redundant arry of independent disks) para melhorar o desempenho da 
+memória em disco. O Capítulo 6 também examina o armazenamento óptico e em fita.
+Capítulo 7 Entrada/Saída
+Módulos de E/S são interconectados com o processador e a memória principal, e cada um controla um ou mais dispositivos externos. O Capítulo 7 é dedicado a diversos aspectos da organização de E/S. Essa é uma área complexa e menos compreendida do que outras áreas do projeto de sistema de computação em termos de atender as demandas de desem-penho. O Capítulo 7 examina os mecanismos pelos quais um módulo de E/S interage com o restante do sistema de computação, usando as técnicas da E/S programada, E/S de inter -
+rupção e acesso direto à memória (DMA, do inglês direct memory access). A interface entre 
+um módulo de E/S e os dispositivos externos também é descrita.
+Capítulo 8 Suporte ao sistema operacional
+Um exame detalhado dos sistemas operacionais (OS, do inglês operation systems) está fora do escopo deste livro. Porém, é importante entender as funções básicas de um sistema operacional e como ele explora o hardware para oferecer o desempenho dese-jado. O Capítulo 8 descreve os princípios básicos dos sistemas operacionais e discute os recursos de projeto específicos no hardware de computador voltados para oferecer suporte ao sistema operacional. O capítulo começa com uma breve história, que serve para identificar os principais tipos de sistemas operacionais e para motivar seu uso. Em seguida, a multiprogramação é explicada examinando as funções de escalonamento a longo e curto prazos. Finalmente, um estudo do gerenciamento de memória inclui uma discussão sobre segmentação, paginação e memória virtual.
+Book 1.indb 52 19.11.09 14:35:58
+
+PRInCIPAIS POnTOS
+ Um ciclo de instrução consiste em uma busca de instrução, seguida por 
+zero ou mais buscas de operandos, seguidas por zero ou mais armazena-mentos de operandos, seguidos por uma verifi cação de interrupção (se as interrupções estiverem habilitadas). Os principais componentes do sistema de computação (processador, me-
+mória principal, módulos de E/S) precisam ser interconectados a fi m de trocar dados e sinais de controle. O meio de interconexão mais popular é o uso de um barramento do sistema compartilhado, consistindo em múltiplas linhas. Nos sis-temas contemporâneos, normalmente existe uma hierarquia de barramentos para melhorar o desempenho. Os principais elementos de projeto para os barramentos incluem arbi-tração (a permissão para enviar sinais nas linhas do barramento pode ser controlada de forma central ou distribuída); temporização (os sinais no bar-ramento podem ser sincronizados com um clock central ou enviados de for-ma assíncrona com base na transmissão mais recente); e largura (número de linhas de endereço e número de linhas de dados).CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Visão de alto nível da função e interconexão 
+do computador
+No nível superior, um computador consiste em CPU, memória e componentes de E/S, com um ou mais módulos de 
+cada tipo. Esses componentes são interconectados de alguma forma para realizar a função básica do computador, 
+que é executar programas. Assim, em um nível mais alto, podemos descrever um sistema de computação (1) descreven-do o comportamento externo de cada componente  ou seja, os dados e sinais de controle que ele troca com outros 
+componentes; e (2) descrevendo a estrutura de interconexão e os controles exigidos para gerenciar o uso da estrutura de interconexão.
+Essa visão de alto nível da estrutura e da função é importante devido ao seu poder explicativo na compreensão da natureza 
+de um computador. Igualmente importante é o seu uso para entender as questões cada vez mais complexas da avaliação de de-sempenho. Um conhecimento da estrutura e função de alto nível gera compreensão dos gargalos do sistema, caminhos alterna-tivos, a magnitude de falhas do sistema caso um componente falhe e a facilidade de acrescentar melhorias de desempenho. Em muitos casos, os requisitos para maior poder do sistema e capacidades à prova de falhas estão sendo atendidos pela mudança do projeto, em vez de simplesmente aumentar a velocidade e a confi abilidade dos componentes individuais.
+Este capítulo enfoca as estruturas básicas utilizadas para a interconexão dos componentes do computador. Ele começa com 
+uma rápida explicação dos componentes básicos e seus requisitos de interface. Depois, vemos um panorama funcional e, em seguida, somos preparados para examinar o uso de barramentos para interconectar os componentes do sistema.3.1 Componentes do computador
+3.2 Função do computador
+  Busca e execução de instruções
+  Interrupções
+  Função de E/S
+3.3 Estrutura de interconexão
+3.4 Interconexão de barramento
+  Estrutura de barramento
+  hierarquia de barramento múltiplo
+  Elementos do projeto de barramento
+3.5 PCI
+  Estrutura de barramento
+  Comandos PCI
+  Transferências de dados
+  Arbitração
+3.6 Leitura recomendada e sites Web
+  Sites web recomendados 
+Apêndice 3A Diagramas de sincronização
+Book 1.indb 53 19.11.09 14:35:58
+
+54 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+3.1 Componentes do computador
+Conforme discutimos no Capítulo 2, praticamente todos os projetos de computadores modernos são baseados 
+em conceitos desenvolvidos por John Von Neumann no Institute for Advanced Studies, em Princeton. Esse projeto é 
+conhecido como arquitetura de Von Neumann e é baseado em três conceitos principais:
+ Dados e instruções são armazenados em uma única memória de leitura e escrita. 
+ O conteúdo dessa memória é endereçável por local, sem considerar o tipo de dados neles contido. 
+ A execução ocorre em um padrão sequencial (a menos que modifi cado explicitamente) de uma instrução 
+para a seguinte.
+O raciocínio por trás desses conceitos foi discutido no Capítulo 2, mas merece ser resumido aqui. Existe um pe-
+queno conjunto de componentes lógicos básicos que podem ser combinados de diversas maneiras para armazenar dados binários e realizar operações aritméticas e lógicas sobre esses dados. Se houver um cálculo em particular a ser realizado, uma confi guração de componentes lógicos projetados especifi camente para esse cálculo poderia ser cons-truída. Podemos pensar no processo de conexão dos vários componentes na confi guração desejada como uma forma de programação. O “programa” resultante está na forma de hardware e é chamado de programa hardwired.
+Agora, considere esta alternativa: suponha que queremos construir uma confi guração de uso geral das funções 
+aritméticas e lógicas. Esse conjunto de hardware realizará diversas funções sobre os dados, dependendo dos sinais de controle aplicados ao hardware. No caso original do hardware customizado, o sistema aceita dados e produz re-sultados (Figura 3.1a). Com o hardware de uso geral, o sistema aceita dados e sinais de controle e produz resultados. Assim, em vez de religar o hardware para cada novo programa, o programador simplesmente precisa fornecer um novo conjunto de sinais de controle.
+Como os sinais de controle devem ser fornecidos? A reposta é simples, porém sutil. O programa inteiro, na rea-
+lidade, é uma sequência de etapas. Em cada etapa, alguma operação aritmética ou lógica é realizada sobre alguns dados. Para cada etapa, um novo conjunto de sinais de controle é necessário. Vamos oferecer um código exclusivo para cada conjunto possível de sinais de controle, e vamos acrescentar ao hardware de uso geral um segmento que pode aceitar um código e gerar sinais de controle (Figura 3.1b).
+Figura 3.1 Abordagens de hardware e software
+Sequência de funç ões 
+aritméticas e lógicasResultados Dados
+(a) Programação no hardware
+Resultados DadosCódigos de
+instrução
+Funções 
+aritméticas e
+ lógicas de
+ uso geralSinais de 
+controle
+(b) Programaç ão no softwareInterpr etador
+ de instrução
+Book 1.indb 54 19.11.09 14:35:58
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 55
+A programação agora é muito mais fácil. Em vez de religar o hardware para cada novo programa, tudo o que 
+precisamos fazer é oferecer uma nova sequência de códigos. Cada código, com efeito, é uma instrução, e parte do 
+hardware interpreta cada instrução e gera sinais de controle. Para distinguir esse novo método de programação, uma sequência de códigos ou instruções é chamada de software.
+A Figura 3.1b indica dois componentes importantes do sistema: um interpretador de instrução e um módulo 
+para funções aritméticas e lógicas de uso geral. Esses dois constituem a CPU. Vários outros componentes são ne-cessários para resultar em um computador funcionando. Dados e instruções precisam ser colocados no sistema e para isso, precisamos de algum tipo de módulo de entrada. Esse módulo contém componentes básicos para aceitar dados e instruções em alguma forma e convertê-los para uma forma interna de sinais que possam ser usados pelo sistema. Também é necessário um meio de informar resultados, e este tem a forma de um módulo de saída. Juntos, estes são chamados de componentes de E/S.
+Mais um componente é necessário: um dispositivo de entrada que trará dados e instruções sequencialmente. 
+Mas um programa não é invariavelmente executado de forma sequencial; ele pode saltar (por exemplo, a instrução jump do IAS). De modo semelhante, as operações sobre dados podem exigir acesso a mais do que apenas um ele-mento de cada vez em uma sequência predeterminada. Assim, deverá haver um lugar para armazenar instruções e dados temporariamente. Esse módulo é chamado de memória, ou memória principal, para distingui-la do armaze-namento externo, ou dispositivos periféricos. Von Neumann indicou que a mesma memória poderia ser usada para armazenar tanto instruções quanto dados.
+A Figura 3.2 ilustra esses componentes de alto nível e sugere as interações entre eles. A CPU troca dados com a 
+memória. Para essa finalidade, ela normalmente utiliza dois registradores internos (à CPU): um registrador de endere -
+ço de memória (MAR), que especifica o endereço na memória para a próxima leitura ou escrita, e um registrador de buffer de memória (MBR), que contém os dados a serem escritos na memória ou recebe os dados lidos da memória. De modo semelhante, um registrador de endereço de E/S (I/O AR) especifica um dispositivo de E/S em particular. Um registrador de buffer de E/S (I/O BR) é usado para a troca de dados entre um módulo de E/S e a CPU.
+Um módulo de memória consiste em um conjunto de locais, definidos por endereços numerados sequencial-
+mente. Cada local contém um número binário que pode ser interpretado como uma instrução ou um dado. Um 
+Figura 3.2 Componentes do computador: visão de alto nível
+PC MAR
+IR MBR
+I/O AR
+I/O BR Memória p rincipal UPC
+Barramento
+ do sistema
+Módulo de E/S
+BuﬀersInstrução0
+12
+n – 2
+n – 1Dados
+Dados
+DadosDadosInstrução
+Instrução
+ PC Co ntador de programa
+ IR Registrador de instrução
+ MAR Registrador de ender eço de memória
+ MBR Registrador de buﬀer de memória
+ I/O AR Registrador de endereço de entrada/saída
+ I/O BR Registrador de buﬀer de entrada/saídaUnidade de
+ execução
+====
+=
+=
+Book 1.indb 55 19.11.09 14:35:59
+
+56 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+módulo de E/S transfere dados dos dispositivos externos para a CPU e a memória, e vice-versa. Ele contém buff ers 
+internos para manter esses dados temporariamente, até que possam ser enviados.
+Tendo examinado rapidamente esses principais componentes, agora, vamos passar a uma visão geral de como 
+esses componentes funcionam juntos para executar programas.
+3.2 Função do computador
+A função básica realizada por um computador é a execução de um programa, que consiste em um conjunto 
+de instruções armazenadas na memória. O processador faz o trabalho real executando instruções especifi cadas no programa. Esta seção oferece uma visão geral dos principais elementos da execução do programa. Em sua for-ma mais simples, o processamento de instrução consiste em duas etapas: o processador lê (busca) instruções da memória, uma de cada vez, e executa cada instrução. A execução do programa consiste em repetir o processo de busca e execução de instrução. A execução da instrução pode envolver diversas operações e depende da natureza da instrução (ver, por exemplo, a parte inferior da Figura 2.4).
+O processamento exigido para uma única instrução é chamado de ciclo de instrução. Usando a descrição sim-
+plifi cada em duas etapas dadas anteriormente, o ciclo de instrução é representado na Figura 3.3. As duas etapas são conhecidas como ciclo de busca e ciclo de execução. A execução do programa só termina se a máquina for desliga-
+da, se houver algum tipo de erro irrecuperável ou se for encontrada uma instrução do programa que interrompa o computador.
+ Busca e execução de instruções
+No início de cada ciclo de instrução, o processador busca uma instrução da memória. Em um processador 
+típico, um registrador chamado contador de programa (PC) mantém o endereço da instrução a ser buscada em seguida. A menos que seja solicitado de outra maneira, o processador sempre incrementa o PC após cada busca de instrução, de modo que buscará a próxima instrução em sequência (ou seja, a instrução localiza-da no próximo endereço de memória mais alto). Assim, por exemplo, considere um computador em que cada instrução ocupa uma palavra de memória de 16 bits. Suponha que o contador de programa esteja defini-do no local 300. O processador em seguida buscará a instrução no local 300. Nos ciclos de instrução seguintes, ele buscará instruções dos locais 301, 302, 303 e assim por diante. Essa sequência pode ser alterada, como explicamos logo em seguida.
+A instrução lida é carregada em um registrador no processador, conhecido como registrador de instrução (IR). A 
+instrução contém bits que especifi cam a ação que o processador deve tomar. O processador interpreta a instrução e realiza a ação solicitada. Em geral, essas ações estão em uma destas quatro categorias:
+processador-memória: 
+  os dados podem ser transferidos do processador para a memória ou da memória 
+para o processador.processador-e/s: 
+  os dados podem ser transferidos de ou para um dispositivo periférico, transferindo entre 
+o processador e um módulo de E/S.processamento de dados:
+  o processador pode realizar alguma operação aritmética ou lógica sobre os 
+dados.
+Figura 3.3 Ciclo de instrução básico
+INÍCIO FIMBuscar pr óxima
+ instruçãoCiclo de busc aC iclo de ex ecução
+Executar 
+instrução
+Book 1.indb 56 19.11.09 14:35:59
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 3 Visão de alto nível da função e interconexão do computador 57
+controle:  uma instrução pode especificar que a sequência de execução seja alterada. Por exemplo, o pro-
+cessador pode buscar uma instrução do local 149, que especifica que a próxima instrução seja do local 182. 
+O processador se lembrará desse fato definindo o contador de programa como 182. Assim, no próximo ciclo de busca, a instrução será apanhada do local 182, em vez de 150.
+A execução de uma instrução pode envolver uma combinação dessas ações.Considere um exemplo simples, usando uma máquina hipotética, que inclui as características listadas na Figura 
+3.4. O processador contém um único registrador de dados, chamado acumulador (AC). Instruções e dados possuem 16 bits de extensão. Assim, é conveniente organizar a memória usando palavras de 16 bits. O formato de instrução oferece 4 bits para o opcode, de modo que pode haver até 2
+4 = 16 opcodes diferentes, e até 212 = 4 096 (4K) palavras 
+de memória podem ser endereçadas diretamente.
+A Figura 3.5 ilustra uma execução parcial de programa, mostrando as partes relevantes dos registradores de 
+memória e processador.1 O fragmento de programa mostrado soma o conteúdo da palavra de memória no en-
+dereço 940 ao conteúdo da palavra de memória no endereço 941 e armazena o resultado no segundo local. Três instruções, que podem ser descritas como três ciclos de busca e três de execução, são necessárias:
+1. O PC contém 300, o endereço da primeira instrução. Essa instrução (o valor 1940 em hexadecimal) é carre-gada no registrador de instrução IR e o PC é incrementado. Observe que esse processo envolve o uso de um registrador de endereço de memória (MAR) e um registrador de buffer de memória (MBR). Para simplificar, esses registradores intermediários são ignorados.
+2. Os 4 primeiros bits (primeiro dígito hexadecimal) no IR indicam que o AC deve ser carregado. Os 12 bits res-tantes (três dígitos hexadecimais) especificam o endereço (940) de onde os dados devem ser carregados.
+3. A próxima instrução (5941) é buscada do local 301 e o PC é incrementado.4. O conteúdo antigo do AC e o conteúdo do local 941 são acrescentados e o resultado é armazenado no AC.
+5. A próxima instrução (2941) é buscada do local 302 e o PC é incrementado.6. O conteúdo do AC é armazenado no local 941.
+Figura 3.4 Características de uma máquina hipotética
+Contador de pr ograma (PC) = Ender eço da instrução
+Registrador de instrução (IR) = Instrução sendo executada
+Acumulador (A C) = Armaz enamento temporário
+0001 = Carrega AC da memória
+0010 = Armazena AC na memória
+0101 = Adiciona da memória ao AC(a) Fo rmato de instruç ãoEndereço Opcod e
+(b) Fo rmato de inteir o
+(c) Registradores internos da CPUMagnitude0 15 43
+1 0 15
+(d) Lista parcial de opcodes
+1 É usada a notação hexadecimal, na qual cada dígito representa 4 bits. Essa é a notação mais conveniente para representar o conteúdo da 
+memória e registradores quando o tamanho da palavra é um múltiplo de 4. Veja, no Capítulo 19, uma revisão básica sobre sistemas numéri-cos (decimal, binário, hexadecimal).
+Book 1.indb 57 19.11.09 14:36:00
+
+58 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Neste exemplo, três ciclos de instrução, cada um consistindo em um ciclo de busca e um ciclo de execução, 
+são necessários para somar o conteúdo do local 940 ao conteúdo de 941. Com um conjunto de instruções mais 
+complexo, menos ciclos seriam necessários. Alguns processadores mais antigos, por exemplo, incluíam instruções contendo mais de um endereço de memória. Assim, o ciclo de execução para determinada instrução em tais pro-cessadores poderia envolver mais de uma referência à memória. Além disso, em vez de referências à memória, uma instrução pode especificar uma operação de E/S.
+Por exemplo, o processador PDP-11 inclui uma instrução, expressa simbolicamente como ADD B,A, que arma-
+zena a soma do conteúdo dos locais de memória B e A ao local de memória A. Ocorre um único ciclo de instrução com as seguintes etapas:
+Buscar a instrução ADD.
+ 
+Ler o conteúdo do local de memória A no processador. 
+Ler o conteúdo do local de memória B para o processador. Para que o conteúdo de A não seja perdido, o 
+processador precisa ter pelo menos dois registradores para armazenar valores de memória, ao invés de um único acumulador.Somar os dois valores.
+ 
+Escrever o resultado do processador no local de memória A. 
+Assim, o ciclo de execução para determinada instrução pode envolver mais de uma referência à memória. Além 
+disso, em vez de referências à memória, uma instrução pode especificar uma operação de E/S. Lembrando dessas considerações adicionais, a Figura 3.6 oferece uma visão mais detalhada do ciclo de instrução básico da Figura 3.3. A figura está na forma de um diagrama de estado. Para qualquer ciclo de instrução dado, alguns estados podem ser nulos e outros podem ser visitados mais de uma vez. Os estados podem ser descritos da seguinte forma:
+cálculo de endereço de instrução (iac, do inglês 
+  instruction address calculation): determina o en-
+dereço da próxima instrução a ser executada. Normalmente, isso envolve acrescentar um número fixo ao Figura 3.5 Exemplo de execução de programa (conteúdo da memória e dos registradores em hexadecimal)
+2PC 300
+301Memória
+300 1940
+ 5941
+ 302 2941
+940 0003
+941 0002ACIR 1940
+Etapa 1••
+••
+••••
+••
+••PC 300Registrado res
+ da CPUMemória
+301 1940
+301 5941
+302 2941
+940 0003
+941 0002AC
+IR 19400003
+Etapa 2
+PC 300Registradores
+ da CPUMemória
+301
+0005
+00050003
+00051940
+301 5941
+302 2941
+940 0003
+941 0002AC
+IR 5941
+Etapa 3PC 300Registrado res
+ da CPUMemória
+302 1940
+301 1
+302 2941
+940 0003
+941 0002AC
+IR 5941
+Etapa 4
+PC 300Registradores
+ da CPUMemória
+30 1940
+301 5941
+302 2941
+940 0003
+941 0002AC
+IR 2941
+Etapa 5PC 300Registrado res
+ da CPUMemória
+303 1940
+301 5 941
+302 2 941
+940 0003
+941 0005ACIR 2941
+Etapa 63 
+ 2 5Registrado res
+ da CPU
+594 1
+Book 1.indb 58 19.11.09 14:36:00
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 3 Visão de alto nível da função e interconexão do computador 59
+en dereço da instrução anterior. Por exemplo, se cada instrução tem 16 bits de extensão e a memória é orga-
+nizada em palavras de 16 bits, então some 1 ao endereço anterior. Se, ao invés disso, a memória é organizada como bytes de 8 bits endereçáveis individualmente, então some 2 ao endereço anterior.Busca da instrução (if, do inglês 
+  instruction fetch): lê a instrução do seu local da memória para o pro-
+cessador.decodifi cação da operação da instrução (iod, do inglês 
+  instruction operation decoding): analisa a 
+instrução para determinar o tipo de operação a ser realizado e o operando ou operandos a serem utilizados.cálculo do endereço do operando (oac, do inglês 
+  operation address calculation): se a operação envol-
+ve referência a um operando na memória ou disponível via E/S, então determina o endereço do operando.Busca do operando (of, do inglês 
+  operation fetch): busca o operando da memória ou o lê da E/S.
+operação dos dados (do, do inglês  data operation): realiza a operação indicada na instrução.
+Armazenamento do operando (os, do inglês  operand store): escreve o resultado na memória ou envia 
+para a E/S.
+Os estados na parte superior da Figura 3.6 envolvem uma troca entre o processador e a memória ou um módulo de 
+E/S. Os estados na parte inferiror do diagrama envolvem apenas operações internas do processador. O estado oac apare-ce duas vezes, pois uma instrução pode envolver uma leitura, uma escrita ou ambos. Porém, a ação realizada durante esse estado é fundamentalmente a mesma nos dois casos, e, por isso, apenas um único identifi cador de estado é necessário.
+Observe também que o diagrama possibilita múltiplos operandos e resultados, pois algumas instruções em 
+algumas máquinas exigem isso. Por exemplo, a instrução ADD A,B do PDP-11 resulta na seguinte sequência de estados: iac, if, iod, oac, of, oac, of, do, oac, os.
+Finalmente, em algumas máquinas, uma única instrução pode especifi car uma operação a ser realizada sobre 
+um vetor (array unidimensional) de números ou uma string (array unidimensional) de caracteres. Como a Figura 3.6 indica, isso envolveria operações repetitivas de busca e/ou armazenamento de operando.
+ Interrupções
+Praticamente todos os computadores oferecem um mecanismo por meio do qual outros módulos (E/S, memó-
+ria) podem interromper o processamento normal do processador. A Tabela 3.1 lista as classes de interrupção mais comuns. A natureza específi ca dessas interrupções será examinada mais adiante neste livro, especialmente nos capítulos 7 e 12. Porém, precisamos introduzir o conceito agora, para entender mais claramente a natureza do ciclo de instrução e as implicações das interrupções sobre a estrutura de interconexão. O leitor não precisa se preocupar neste estágio com os detalhes da geração e processamento de interrupções, mas apenas se concentrar na comu-nicação entre os módulos, resultante das interrupções.Figura 3.6 Diagrama de estado do ciclo de instrução
+Cálculo do
+ endereço da
+ instruçãoDecodificaçã o
+ da operação
+da instruçãoCálculo do 
+endereço do 
+operandoOper ação
+ dos dadosCálc ulo do
+endereço do 
+operandoBusca da
+instrução
+Instrução completa, 
+busca próxima instruçãoMúltiplos
+operandos
+Retorna para dados de
+ string ou vetorBusca do 
+operandoArmaz enamento
+do
+operando
+Múltiplos 
+resultados
+Book 1.indb 59 19.11.09 14:36:01

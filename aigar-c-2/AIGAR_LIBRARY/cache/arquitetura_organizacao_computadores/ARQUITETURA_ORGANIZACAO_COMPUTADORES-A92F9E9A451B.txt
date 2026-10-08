@@ -1,0 +1,998 @@
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 5 Memória interna 135
+memória consistindo em 256 K palavras de 8 bits poderia ser organizado. Para palavras de 256 K, um endereço de 18 
+bits é necessário, sendo fornecido ao módulo a partir de alguma fonte externa (por exemplo, as linhas de endereço de um barramento ao qual o módulo está conectado). O endereço é apresentado a 8 chips de 256 K × 1 bit, cada um oferecendo a entrada/saída de 1 bit.
+Essa organização funciona desde que o tamanho da memória seja igual ao número de bits por chip. No caso 
+em que uma memória maior é necessária, um array de chips é necessário. A Figura 5.6 mostra a organização possível de uma memória consistindo em 1 M palavra por 8 bits por palavra. Nesse caso, temos quatro colunas de chips, cada coluna contendo 256 K palavras arrumadas como na Figura 5.5. Para 1 M palavra, 20 linhas de endereço são necessárias. Os 18 bits menos signifi cativos são direcionados para todos os 32 módulos. Os 2 bits de alta ordem são entrada para um módulo lógico de seleção de grupo que envia um sinal chip enable a uma 
+das quatro colunas de módulos.
+Simulador de memória intercalada
+ Memória intercalada
+A memória principal é composta de uma coleção de chips de memória DRAM. Diversos chips podem ser agru-
+pados para formar um banco de memória. É possível organizar os bancos de memória de um modo conhecido 
+como memória intercalada (interleaved memory). Cada banco independentemente é capaz de atender a uma soli-citação de leitura ou escrita da memória, de modo que um sistema com K bancos pode atender a K solicitações si-
+multaneamente, aumentando as taxas de leitura ou escrita de memória por um fator de K. Se palavras consecutivas Figura 5.5 Organização de memória de 256 Kbytes
+512 palavras
+por 512 bits Chip #1
+Registrador de buffer de memória (MBR)Registrador de 
+endereço de 
+memória (MAR)
+Decodificação
+1 de 512 bits – estadoDecodificação 1 de 512
+512 palavraspor 512 bits Chip #1
+Decodificação 1
+de 512 bits – estadosDecodificação
+1 de 51219
+92
+3
+4
+5
+6
+7
+8•
+•••••
+•••
+Book 1.indb 135 19.11.09 14:36:38
+
+136 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+de memória forem armazenadas em diferentes bancos, então a transferência de um bloco de memória é agilizada. 
+O Apêndice E explora o assunto de memória intercalada.
+5.2 Correção de erro
+Um sistema de memória semicondutora está sujeito a erros. Estes podem ser categorizados como falhas 
+permanentes e erros não permanentes. Uma falha permanente é um defeito físico permanente, de modo que 
+a célula ou células de memória afetadas não podem armazenar dados de modo confi ável, mas fi cam presas em 0 ou 1, ou alternam erroneamente entre 0 e 1. Os erros permanentes podem ser causados por uso intenso em ambiente impróprio, defeitos de fabricação ou desgaste. Um erro não permanente é um evento aleatório, não 
+destrutivo, que altera o conteúdo de uma ou mais células de memória sem danifi car a memória. Os erros perma-nentes podem ser causados por problemas de fonte de alimentação ou partículas alfa. Essas partículas resultam do declínio radioativo e são terrivelmente comuns, pois os núcleos radioativos são encontrados em pequenas quantidades em quase todos os materiais. Erros permanentes e não permanentes certamente são indesejáveis, e a maioria dos sistemas de memória modernos inclui lógica para detectar e corrigir erros.
+A Figura 5.7 ilustra, em termos gerais, como o processo é executado. Quando os dados tiverem que ser lidos 
+para a memória, um cálculo, representado como uma função f, é realizado sobre os dados para produzir um código. 
+O código e os dados são armazenados. Assim, se uma palavra de M bits de dados tiver que ser armazenada e o 
+código tiver K bits de tamanho, então o tamanho real da palavra armazenada é M + K bits.
+Quando a palavra armazenada anteriormente é lida, o código é usado para detectar e, possivelmente, corrigir 
+erros. Um novo conjunto de K bits de código é gerado a partir dos M bits e comparado com os bits de código ar-
+mazenados. A comparação gera um de três resultados:
+Nenhum erro é detectado. Os bits de dados 
+  armazenados são enviados.
+Um erro é detectado e é possível corrigi-lo. Os bits de dados mais os bits de correção de erro são alimenta- 
+dos em um corretor, que produz um conjunto correto de M bits a serem enviados.Um erro é detectado, mas não é possível corrigi-lo. Essa condição 
+  é relatada.
+Os códigos que operam nesse padrão são conhecidos como códigos de correção de erro. Um código é caracte-
+rizado pelo número de erros de bit em uma palavra que ele pode corrigir e detectar.
+1/512
+1/512A1
+1/512
+1/512B1 C1 D1
+E
+EBit 1
+Todos os chips, 512 palavras por 512 bits,
+ células de 2 terminaisE E E
+1/512
+1/512A81/512A2
+A7
+1/512B8 C8 D8
+E
+Bit 8E E E1
+29
+9 2
+7
+8B7B2
+C7 D7Registrador
+ de buﬀer de
+ memória 
+ (MBR)
+Habilitação
+ do grupo
+ de chips
+Selecione 1
+de 4 gruposAGrupo
+B
+C
+DRegistrador de 
+endereço de 
+memória (MAR)Figura 5.6 Organização de memória de 1 MByte
+Book 1.indb 136 19.11.09 14:36:38
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 5 Memória interna 137
+O mais simples dos códigos de correção de erro é o código de Hamming, idealizado por Richard Hamming, no 
+Bell Laboratories. A Figura 5.8 usa diagramas de Venn para ilustrar o uso desse código em palavras de 4 bits (M = 
+4). Com três círculos em interseção, existem sete regiões. Atribuímos os 4 bits de dados às regiões internas (Figura 5.8a). As regiões restantes são preenchidas com o que chamamos de bits de paridade. Cada bit de paridade é es-
+colhido de modo que o número total de 1s em seu círculo seja par (Figura 5.8b). Assim, como o círculo A inclui três dados 1 s, o bit de paridade no círculo é definido como 1. Agora, se um erro muda um dos bits de dados (Figura 5.8c), ele é facilmente encontrado. Verificando os bits de paridade, as discrepâncias são encontradas no círculo A e no círculo C, mas não no círculo B. Somente uma das sete regiões está em A e C, mas não em B. O erro, portanto, pode ser corrigido alterando-se esse bit.
+Para esclarecer os conceitos envolvidos, desenvolveremos um código que pode detectar e corrigir erros de 
+único bit em palavras de 8 bits.
+Para começar, vamos determinar o tamanho que o código deverá ter. Com referência à Figura 5.7, a lógi-
+ca de comparação recebe como entrada dois valores de K bits. Uma comparação bit a bit é feita tomando-se o Figura 5.7 Função do código de correção de erro
+ff
+ComparaçãoCorretor
+MemóriaEntrada de dadosSaída de dadosSinal de erro
+M
+KM
+MKK
+Figura 5.8 Código de correção de erro de Hamming
+1
+1
+01A (a)
+11
+000 1
+1
+1
+1
+000 1
+0(b)
+1
+1
+000 1
+0(d) (c)B
+C
+Book 1.indb 137 19.11.09 14:36:39
+
+138 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+OU-EXCLUSIVO (XOR ) das duas entradas. O resultado é chamado de palavra síndrome. Assim, cada bit da palavra 
+síndrome é 0 ou 1, dependendo se existe ou não uma correspondência nessa posição de bit para as duas entradas.
+A palavra de síndrome, portanto, tem K bits de largura e tem um intervalo entre 0 e 2K – 1. O valor 0 indica que 
+nenhum erro foi detectado, deixando 2K – 1 valores para indicar se houve um erro e qual bit estava com erro. Agora, 
+como um erro poderia ocorrer em qualquer um dos M bits de dados ou K bits de verificação, precisamos ter:
+2K – 1 ≥ M + K
+Essa desigualdade gera o número de bits necessários para corrigir um erro de um único bit em uma palavra 
+contendo M bits de dados. Por exemplo, para uma palavra de 8 bits de dados (M = 8), temos: 
+K  = 3: 23 – 1 < 8 + 3;
+K  = 4: 24 – 1 > 8 + 4.
+Assim, oito bits de dados exigem quatro bits de verificação. As três primeiras colunas da Tabela 5.2 listam o nú-
+mero de bits de verificação exigidos para diversos tamanhos de palavra de dados. 
+Por conveniência, gostaríamos de gerar uma palavra síndrome de 4 bits para uma palavra de dados de 8 bits 
+com as seguintes características:
+Se a  palavra síndrome contém apenas 0s, nenhum erro foi detectado.
+Se a  palavra síndrome contém um e apenas um bit definido como 1, então houve um erro em um dos 4 bits 
+de verificação. Nenhuma correção é necessária.
+Se a  palavra síndrome contém mais de um bit definido como 1, então o valor numérico da palavra síndrome 
+indica a posição do bit de dados com erro. Esse bit de dados é invertido para a correção.
+Para conseguir essas características, os bits de dados e de verificação são arrumados em uma palavra de 12 bits, 
+conforme representado na Figura 5.9. As posições de bit são numeradas de 1 a 12. Essas posições de bit cujos nú-meros de posição são potências de 2 são designadas como bits de verificação. Os bits de verificação são calculados da seguinte forma, onde o símbolo ⊕ designa a operação OU- EXCLUSIVO :
+C1 = D1 ⊕ D2 ⊕ D4 ⊕ D5 ⊕ D7
+C2 = D1 ⊕ D3 ⊕ D4 ⊕ D6 ⊕ D7
+C4 = D2 ⊕ D3 ⊕ D4 ⊕ D8
+C8 = D5 ⊕ D6 ⊕ D7⊕ D8
+Cada bit de verificação opera sobre todo bit de dados cujo número de posição contém um 1 na mesma posição 
+de bit que o número de posição desse bit de verificação. Assim, todas as posições de bit de dados 3, 5, 7, 9 e 11 (D1, 
+D2, D4, D5, D7) contêm um 1 no bit menos significativo do seu número de posição, assim como C1; as posições de bit 3, 6, 7, 10 e 11 contêm um 1 na segunda posição de bit, assim como C2; e assim por diante. Vendo por esse lado, a posição de bit n é verificada por aqueles bits C
+i tais que Σi = n. Por exemplo, a posição 7 é verificada pelos bits na 
+posição 4, 2 e 1; e 7 = 4 + 2 + 1.
+Tabela 5.2 Aumento no tamanho da palavra com correção de erro
+Correção de erro únicoCorreção de erro único/ 
+detecção de erro duplo
+Bits de dados Bits de verificação % de aumento Bits de verificação % de aumento
+8 4 50 5 62,5
+16 5 31,25 6 37,5
+32 6 18,75 7 21,875
+64 7 10,94 8 12,5
+128 8 6,25 9 7,03
+256 9 3,52 10 3,91
+Book 1.indb 138 19.11.09 14:36:39
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 5 Memória interna 139
+Vamos verificar se esse esquema funciona com um exemplo. Suponha que a palavra de entrada de 8 bits seja 
+00111001, com o bit de dados D1 na posição mais à direita. Os cálculos são os seguintes:
+C1 = 1 ⊕ 0 ⊕ 1 ⊕ 1 ⊕ 0 = 1
+C2 = 1 ⊕ 0 ⊕ 1 ⊕ 1 ⊕ 0 = 1C4 = 0 ⊕ 0 ⊕ 1 ⊕ 0 = 1C8 = 1 ⊕ 1 ⊕ 0 ⊕ 0 = 0
+Suponha, agora, que o bit de dados 3 sustente um erro e seja mudado de 0 para 1. Quando os bits de verificação 
+forem recalculados, temos:
+C1 = 1 ⊕ 0 ⊕ 1 ⊕ 1 ⊕ 0 = 1
+C2 = 1 ⊕ 1 ⊕ 1 ⊕ 1 ⊕ 0 = 0C4 = 0 ⊕ 1 ⊕ 1 ⊕ 0 = 0C8 = 1 ⊕ 1 ⊕ 0 ⊕ 0 = 0
+Quando os novos bits de verificação forem comparados com os bits de verificação antigos, a palavra síndrome 
+é formada:
+ C8 C4 C2 C1
+ 0 1 1 1 ⊕ 0 0 0 1 0 1 1 0
+O resultado é 0110, indicando que a posição de bit 6, que contém o bit de dados 3, está com erro.
+A Figura 5.10 ilustra o cálculo anterior. Os bits de dados e verificação são posicionados corretamente na pala-
+vra de 12 bits. Quatro dos bits de dados têm um valor 1 (sombreado na tabela), em seus valores de posição de bit são aplicadas à função OU-EXCLUSIVO para produzir o código de Hamming 0111, que forma os quatro dígitos de verificação. O bloco inteiro que é armazenado é 001101001111. Suponha agora que o bit de dados 3, na posição de bit 6, sustente um erro e seja mudado de 0 para 1. O bloco resultante é 001101101111, com um código de Figura 5.9 Layout de bits de dados e bits de verificação
+Posição de bit 12
+1100
+D8Número da
+ posição
+Bit de dados
+Bit de verificação11
+1011
+D710
+1010
+D69
+1001
+D5
+C88
+10007
+0111
+D46
+0110
+D35
+0101
+D24
+01003
+0011
+D12
+00101
+0001
+C4 C2 C1
+Figura 5.10 Cálculo do bit de verificação
+Posição 
+ de bit12
+1100
+D8 Número da posição
+Bit de dados
+ Bit de verificação11
+1011
+D710
+1010
+D69
+1001
+D5
+C88
+10007
+0111
+D46
+0110
+D35
+0101
+D24
+01003
+0011
+D12
+00101
+0001
+C4 C2 C1
+Palavra arma-zenada como0
+0
+1100Palavra 
+buscada como 
+ Número da 
+ posição
+ Bit de 
+verificação0
+0
+101111
+101011
+1001
+00
+0
+100011
+011101
+011000
+010111
+010011
+001111
+001011
+0001
+00 1
+Book 1.indb 139 19.11.09 14:36:40
+
+140 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Hamming de 0111. Um XOR do código de Hamming e todos os valores de posição de bit para bits de dados não 
+zero resulta em 0110. O resultado diferente de zero detecta um erro e indica que o erro está na posição de bit 6.
+O código que descrevemos é conhecido como um código de correção de único erro (SEC, do inglês single-
+-error-correcting ). Normalmente, a memória semicondutora é equipada com um código de correção de único erro, 
+detecção de duplo erro (SEC-DED, do inglês double-error-detecting). Conforme mostra a Tabela 5.2, esses códigos 
+exigem um bit adicional em comparação com os códigos SEC.
+A Figura 5.11 ilustra como esse código funciona, novamente com uma palavra de dados de 4 bits. A sequência 
+mostra que, se houver dois erros (Figura 5.11c), o procedimento de verifi cação se perde (d) e piora o problema, criando um terceiro erro (e). Para contornar o problema, um oitavo bit é acrescentado, defi nido de modo que o número total de 1s no diagrama seja par. O bit de paridade extra detecta o erro (f ).
+Um código de correção de erro melhora a confi abilidade da memória ao custo de maior complexidade. Com 
+uma organização de 1 bit por chip, um código SEC-DED geralmente é considerado adequado. Por exemplo, as implementações IBM 30xx usavam um código SEC-DED de 8 bits para cada 64 bits de dados na memória principal. Assim, o tamanho da memória principal é, na realidade, cerca de 12% maior do que fi ca disponível ao usuário. Os computadores VAX usavam um SEC-DED de 7 bits para cada 32 bits de memória, para um 
+overhead de 22%. Uma 
+série de DRAM modernas utilizam 9 bits de verifi cação para cada 128 bits de dados, com um overhead de 7% 
+(Sharma, 1997a).
+5.3 Organizações avançadas de DRAM
+Conforme discutimos no Capítulo 2, um dos gargalos mais críticos do sistema quando se usam processadores 
+de alto desempenho é a interface com a memória interna principal. Essa interface é o caminho mais importante no sistema de computação inteiro. O bloco de montagem básico da memória principal continua sendo o chip de DRAM, como tem sido há décadas; até pouco tempo, não houve mudanças signifi cativas na arquitetura da DRAM desde o início da década de 1970. O chip de DRAM tradicional é restrito tanto por sua arquitetura interna quanto por sua interface com o barramento de memória do processador.
+Vimos que uma abordagem para melhorar o problema do desempenho da memória principal DRAM tem sido inserir 
+um ou mais níveis de cache SRAM de alta velocidade entre a memória principal DRAM e o processador. Mas a SRAM é muito mais cara que a DRAM, e a expansão do tamanho da cache além de um certo ponto gera retornos decrescentes.
+Nos anos recentes, diversas melhorias na arquitetura básica da DRAM foram exploradas, e algumas destas 
+agora estão no mercado. Os esquemas que atualmente dominam o mercado são SDRAM, DDR-DRAM e RDRAM. 
+Figura 5.11 Código SEC-DEC de Hamming
+0
+1
+0 1(a)
+00
+001 1
+1(c)
+1
+0
+0
+001 1
+1(d)
+10
+0
+011 1
+1(e)
+10
+0
+011 1
+1(f)
+10
+1
+001 0
+1(b)
+1
+Book 1.indb 140 19.11.09 14:36:41
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 5 Memória interna 141
+A Tabela 5.3 oferece uma comparação de desempenho. CDRAM também recebeu alguma atenção. Examinaremos 
+cada uma dessas técnicas nesta seção.
+ DRAM síncrona
+Uma das formas mais utilizadas de DRAM é a DRAM síncrona (SDRAM, do inglês synchronous DRAM ) 
+(Vogley, 1994b). Diferente da DRAM tradicional, que é assíncrona, a SDRAM troca dados com o processador 
+sincronizado com um sinal de clock externo e executando na velocidade plena do barramento do processa-dor/memória, sem imposição de estados de espera.
+Em uma DRAM típica, o processador apresenta endereços e níveis de controle à memória, indicando que um 
+conjunto de dados em determinado local na memória deve ser lido da DRAM ou escrito nela. Após uma espera, isto é, o tempo de acesso, a DRAM escreve ou lê os dados. Durante o atraso do tempo de acesso, a DRAM realiza diversas funções internas, como ativar a alta capacitância das fi leiras de linha e coluna, verifi car os dados e roteá-los através dos buff ers de saída. O processador deve simplesmente esperar por esse atraso, diminuindo o desempenho do sistema.
+Com o acesso síncrono, a DRAM move dados para dentro e para fora sob o controle do clock do sistema. O pro-
+cessador ou outro mestre emite a instrução e informação de endereço, que é travada pela DRAM. A DRAM, então, responde após determinado número de ciclos de clock. Nesse meio-tempo, o mestre pode seguramente realizar outras tarefas enquanto a SDRAM está processando a solicitação.
+A Figura 5.12 mostra a lógica interna da SDRAM de 64 Mb da IBM (IBM, 2001
+c), que é típico da organização da 
+SDRAM, e a Tabela 5.4 defi ne as diversas atribuições de pino.
+A SDRAM emprega um modo de rajada (burst) para eliminar o tempo de configuração de endereço e 
+tempo de pré-carga de fileira de linha e coluna após o primeiro acesso. No modo burst, uma série de bits de dados pode ser enviada rapidamente após o primeiro bit ter sido acessado. Esse modo é útil quando todos os bits a serem acessados estiverem na sequência e na mesma linha do array que o acesso inicial. Além disso, a SDRAM tem uma arquitetura interna de banco múltiplo, que melhora oportunidades para paralelismo no chip.Tabela 5.3 Comparação do desempenho de algumas alternativas à DRAM
+Frequência de clock (MHz) Taxa de transferência (GB/s) Tempo de acesso (ns) Contagem de pinos
+SDRAM 166 1,3 18 168
+DDR 200 3,2 12,5 184
+RDRAM 600 4,8 12 162
+Tabela 5.4 Atribuições de pino da SDRAM
+A0 a A13 Entradas de endereço
+CLK Entrada de clock
+CKE habilitação de clock
+CS Seleção se chip
+RAS Strobe de endereço de linha
+CAS Strobe de endereço de coluna
+WE habilitação de escrita
+DQ0 a DQ7 Entrada/saída de dados
+DQM Máscara de dados
+Book 1.indb 141 19.11.09 14:36:41
+
+142 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 5.12 DRAM síncrona (SDRAM)
+CLK
+ Ampli/f_icadores Decodi/f_icador de coluna
+Array de células
+banco de memória 0
+(2 Mb 8)
+DRAMDecodi/f_icador de linha
+Sense ampli/f_iersColumn decoder
+Cell array
+memory bank 1
+(2 Mb 8)
+DRAMRow decoder
+Sense ampli/f_iersColumn decoder
+Cell array
+memory bank 2
+(2 Mb 8)
+DRAMDecodi/f_icador de linha
+Sense ampli/f_iersColumn decoder
+Cell array
+memory bank 3
+(2 Mb 8)
+DRAMRow decoderA0
+DQ0
+DQ1DQ2DQ3DQ4DQ5DQ6DQ7
+DQMCircuito de controle 
+ de dadosBuﬀers de endereço (14)
+Decodi/f_icador
+de comando
+Gerador de 
+sinal de 
+controle
+CAC contador de coluna 
+de endereços
+ (Column Adrress Counter)
+ (Mode Register)MR registrador de modo
+RC contador de refresh (Refresh Counter)Buﬀer CLK Buﬀer CKE
+Buﬀers de E/S de dadosCKE
+CACRC
+MRA1
+A2A3A4
+A5
+A6A7A8A9
+A11
+CS
+RAS
+CAS
+WEA12A13A10 Ampli/f_icadores Decodi/f_icador de coluna
+Array de células
+banco de memória 1
+(2 Mb 8)
+DRAMDecodi/f_icador de linha
+Ampli/f_icadores Decodi/f_icador de coluna
+Array de células
+banco de memória 2
+(2 Mb 8)
+DRAMDecodi/f_icador de linha
+Ampli/f_icadores Decodi/f_icador de coluna
+Array de células
+banco de memória 3
+(2 Mb 8)
+DRAMDecodi/f_icador de linha
+O registrador de modo (MR, do inglês mode register ) e a lógica de controle associada é outro recurso fun-
+damental que diferencia as SDRAM das DRAM convencionais. Ele oferece um mecanismo para personalizar a 
+SDRAM para se ajustar às necessidades específicas do sistema. O registrador de modo especifica o tamanho da rajada, que é o número de unidades de dados separadas alimentadas sincronamente no barramento. O registrador também permite que o programador ajuste a latência entre o recebimento de uma solicitação de leitura e o início da transferência de dados.
+A SDRAM funciona melhor quando está transferindo grandes blocos de dados de forma serial, como para 
+aplicações como processamento de textos, planilhas e multimídia.
+A Figura 5.13 mostra um exemplo de operação da SDRAM. Nesse caso, o tamanho de rajada é 4 e a latência 
+é 2. O comando de leitura de rajada é iniciado com CS e CAS baixos, enquanto se mantém RAS e WE altos na transição de subida do clock. As entradas de endereço determinam o endereço de coluna inicial para a rajada, e o registrador de modo define o tipo da rajada (sequencial ou intercalada) e o tamanho da rajada (1, 2, 4, 8, página completa). O atraso a partir do início do comando até quando os dados da primeira célula aparecem nas saídas é igual ao valor da latência de CAS que é definida no registrador de modo.
+Há agora uma versão avançada da SDRAM, conhecida como 
+Double Data Rate SDRAM (DDR-SDRAM), que 
+resolve a limitação de uma vez por ciclo. A DDR-SDRAM pode enviar dados ao processador duas vezes por ciclo de clock.
+Book 1.indb 142 19.11.09 14:36:42
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 5 Memória interna 143
+ DRAM RamBus
+A RDRAM, desenvolvida pela Rambus (Farmwald, 1999,d Crisp. 1997e), tem sido adotada pela Intel para os seus 
+processadores Pentium e Itanium. Ela se tornou o concorrente principal da SDRAM. Chips RDRAM são encapsuladas 
+verticalmente, com todos os pinos em um lado. O chip troca dados com o processador por 28 fi os com não mais do que 12 centímetros de extensão. O barramento pode endereçar até 320 chips de RDRAM a uma taxa de 1,6 GBps.
+O barramento RDRAM especial oferece informações de endereço e controle usando um protocolo assíncrono, 
+orientado a bloco. Após um tempo de acesso inicial de 480 ns, isso produz a taxa de dados de 1,6 GBps. O que torna essa velocidade possível é o próprio barramento, que defi ne impedâncias, clocking e sinais com muita precisão. Em vez de ser controlada por sinais RAS, CAS, R/W e CE usados nas DRAM convencionais, uma RDRAM recebe uma solicitação de memória pelo barramento de alta velocidade. Essa solicitação contém o endereço desejado, o tipo de operação e o número de bytes na operação.
+A Figura 5.14 ilustra o layout da RDRAM. A confi guração consiste em um controlador e uma série de módulos 
+de RDRAM conectados por um barramento comum. O controlador está em uma extremidade da confi guração e o canto oposto do barramento é o fi m das linhas de barramento barramento. O barramento inclui 18 linhas de dados (16 dados reais, dois de paridade) pulsando no dobro da velocidade do clock; ou seja, 1 bit é enviado em cada transição do sinal de clock. Isso resulta em uma taxa de sinal em cada linha de dados de 800 Mbps. Existe um conjunto separado de 8 linhas (RC) usadas para sinais de endereço e controle. Há também um sinal de clock que começa na extremidade oposta do controlador, propaga-se até o extremo do controlador e depois retorna. Um módulo de RDRAM envia dados ao controlador de forma síncrona ao clock para o mestre, e o controlador envia dados a uma RDRAM de forma síncrona com o sinal de clock na direção oposta. As linhas de barramento restantes incluem uma tensão de referência, terra e fonte de alimentação.T0
+CLK
+COMANDO
+DQsT1 T2 T3 T4 T5 T6 T7 T8
+DOUT A 0NOP NOP NOP NOP NOP NOP NOP NOP
+DOUT A 1 DOUT A 2 DOUT A3READ AFigura 5.13 Temporização de leitura da SDRAM (tamanho de rajada = 4, latência de CAS = 2)
+Figura 5.14 Estrutura da RDRAM
+Controlador
+INITINIT oRDRAM 1 RDRAM
+• • •• • • RDRAM n
+Barramento de dados (18:0)
+RC [7:0]
+RClk [2]
+TClk [2]
+Vref
+Gnd (32/18)Vd(4)Vterm
+Book 1.indb 143 19.11.09 14:36:42
+
+144 ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES 
+ DDR-SDRAM
+A SDRAM é limitada pelo fato de que só pode enviar dados ao processador uma vez por ciclo de clock do 
+barramento. Uma nova versão da SDRAM, conhecida como Double Data Rate SDRAM (DDR-SDRAM), pode enviar 
+dados duas vezes por ciclo de clock, uma vez na transição de subida do pulso de clock e uma vez na transição 
+de descida.
+A DDR-SDRAM foi desenvolvida pela JEDEC Solid State Technology Association , a agência de padronização da 
+engenharia de semicondutor da Electronic Industries Alliance . Diversas empresas fabricam chips DDR, que são 
+bastante usados nos computadores desktop e servidores.
+A Figura 5.15 mostra a temporização básica para uma leitura DDR. A transferência de dados é sincronizada 
+com a transição de subida e descida do clock. Ela também é sincronizada com um sinal de strobe de dados bi-direcional (DQS) que é fornecido pelo controlador de memória durante uma leitura e pela DRAM durante uma escrita. Nas implementações típicas, o DQS é ignorado durante a leitura. Uma explicação do uso do DQS nas escritas está fora do nosso escopo; veja mais detalhes em Jacob, Ng e Wang (2008
+f).
+Existem duas gerações de melhoria na tecnologia DDR. DDR2 aumenta a taxa de transferência de dados 
+aumentando a frequência operacional do chip de RAM e aumentando o buﬀ er de pré-busca de 2 bits para 4 bits por chip. O buﬀ er de pré-busca é uma cache de memória localizada no chip de RAM. O buﬀ er permite que o chip de RAM pré-posicione os bits a serem colocados na base de dados o mais rapidamente possível. A DDR3, introduzida em 2007, aumenta o tamanho do buﬀ er de pré-busca para 8 bits.
+Teoricamente, um módulo DDR pode transferir dados a uma taxa de clock na faixa de 200 a 600 MHz; um 
+módulo DDR2 transfere a uma taxa de clock de 400 a 1 066 MHz; e um módulo DDR3 transfere a uma taxa de clock de 800 a 1 600 MHz. Na prática, taxas um pouco menores são alcançadas.
+O Apêndice K oferece mais detalhes sobre a tecnologia DDR.
+Figura 5.15 Temporização de leitura da SDRAM DDR
+Clock
+ EndereçoRAS
+RAS = seleção de endereço de linha
+CAS = seleção de endereço de colunaDQ = dados (entrada e saída)DQS = seleção DQCAS
+DQSDQ Endereço
+de
+coluna Endereço
+e
+coluna
+Dados
+válidosDados
+válidosLinha de
+endereço
+Dados
+válidosDados
+válidos
+Cap_5 (128-148).indd 144 25.11.09 17:26:47
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 5 Memória interna 145
+ Cache DRAM
+A cache DRAM (CDRAM, do inglês cache DRAM ), desenvolvida pela Mitsubishi (Hidaka et al., 1990g; Zhang, Zhu 
+e Zhang, 2001h), integra uma cache SRAM pequena (16 Kb) a um chip de DRAM genérico.
+A SRAM na CDRAM pode ser vista de duas maneiras. Primeiro, ela pode ser usada como uma cache verdadeira, consis-
+tindo em uma série de linhas de 64 bits. O modo de cache da CDRAM é efi caz para o acesso aleatório normal à memória.
+A SRAM na CDRAM também pode ser usada como um buff er para dar suporte ao acesso serial de um bloco de 
+dados. Por exemplo, para renovar uma tela de mapa de bits, a CDRAM pode previamente buscar os dados da DRAM 
+no buff er de SRAM. Os acessos subsequentes ao chip resultam em acesso unicamente à SRAM.
+5.4 Leitura recomendada e sites Web
+Prince (1997i) oferece um tratamento abrangente das tecnologias de memória semicondutoras, incluindo SRAM, 
+DRAM e memórias fl ash. Sharma (1997a) cobre o mesmo material, com mais ênfase nas questões de teste e confi abili-
+dade. Sharma (2003j) e Prince (2002k) mostram as arquiteturas de DRAM e SRAM avançadas. Para ter uma visão profun-
+da sobre DRAM, consulte Jacob, Ng e Wang (2008f) e Keeth e Baker (2001l). Cuppu et al. (2001m) oferece uma compa-
+ração de desempenho interessante dos diversos esquemas de DRAM. Bez et al. (2003 n) é uma introdução abrangente 
+da tecnologia de memória fl ash.
+Uma boa explicação dos códigos de correção de erro está contida em McEliece (1985o). Para obter um estudo 
+mais profundo, algumas abordagens em livro, que valem a pena ser lidas, são Adamek (1991p) e Blahut (1983q). Um 
+tratamento teórico e matemático legível sobre códigos de correção de erro é Ash (1990r). Sharma (1997a) contém 
+um bom estudo sobre códigos usados nas memórias principais contemporâneas.
+ Sites Web recomendados
+The RAm guide: boa introdução à tecnologia de RAM mais uma série de links úteis.RdRAm: outro site útil para informações sobre RDRAM.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Cache DRAM (CDRAM) Falha permanenteCódigo de correção de único erro, detecção 
+de duplo erro (SEC-DED)
+RAM dinâmica (DRAM) Memória não volátil Erro não permanente
+ROM programável apagável 
+eletricamente (EEPROM)ROM programável (PROM) RAM estática (SRAM)
+ROM programável apagável (EPROM) DRAM RamBus (RDRAM) DRAM síncrona (SDRAM)
+Código de correção de erro (ECC) Memória principalmente de leitura Palavra síndrome
+Correção de erro Memória semicondutora Memória volátil
+Memória fl ash Código de correção de único erro (SEC)
+Código de hamming
+Book 1.indb 145 19.11.09 14:36:43
+
+146 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Perguntas de revisão
+ 5.1 Quais são as principais propriedades da memória semicondutora?
+ 5.2 Quais são os dois sentidos em que o termo memória de acesso aleatório é usado?
+ 5.3 Qual é a diferença entre DRAM e SRAM em termos de aplicação?
+ 5.4 Qual é a diferença entre DRAM e SRAM em termos das características como velocidade, tamanho e custo?
+ 5.5 Explique por que um tipo de RAM é considerado como analógico e o outro digital.
+ 5.6 Quais são algumas aplicações para a ROM?
+ 5.7 Quais são as diferenças entre EPROM, EEPROM e memória flash?
+ 5.8 Explique a função de cada pino na Figura 5.4b.
+ 5.9 O que é bit de paridade?
+ 5.10 Como é interpretada a palavra síndrome para o código de hamming?
+ 5.11 Como a SDRAM difere de uma DRAM comum?
+Problemas
+5.1 Sugira motivos pelos quais as RAM têm sido tradicionalmente organizadas como 1 bit por chip, enquanto as ROM normalmente são orga-
+nizadas com múltiplos bits por chip.
+5.2 Considere uma RAM dinâmica que precisa ter um ciclo de refresh de 64 vezes por ns. Cada operação de refresh exige 150 ns; um ciclo de 
+memória exige 250 ns. Que percentagem do tempo de operação total da memória precisa ser dado aos circuitos de refresh?
+5.3 A Figura 5.16 mostra um diagrama de temporização simplificado para uma operação de leitura de DRAM por um barramento. O tempo de aces-
+so é considerado de t1 a t2. Então, existe um tempo de recarga, durando de t2 a t3, durante o qual os chips de DRAM terão que ser recarregados 
+antes que o processador possa acessá-los novamente.
+ a. Assuma que o tempo de acesso é de 60 ns e o tempo de recarga é 40 ns. Qual é o tempo de ciclo da memória? Qual é o valor máximo de 
+dados que essa DRAM pode sustentar, assumindo que temos 1 bit de saída?
+ b. Construindo um sistema com 32 bits de memória usando esses chips, qual será o valor de transferência de dados?
+5.4 A Figura 5.6 indica como construir um módulo de chips que pode armazenar 1 MByte com base em um grupo de quatro chips de 256 Kbytes. Digamos que esse módulo de chips seja encapsulado como um único chip de 1 MByte, onde o tamanho da palavra é de 1 byte. Dê um diagrama de chip de alto nível de como construir uma memória de computador de 8 MBytes usando oito chips de 1 MByte. não se esqueça de mostrar as 
+linhas de endereços no seu diagrama e mostrar para que são usadas as linhas de endereço.
+Figura 5.16 Temporização de leitura de DRAM simplificada
+Linhas
+de endereço
+t1 t2 t3Linhasde dadosR/WCASRASEndereço de linha
+Dados de saída válidosEndereço de coluna
+Book 1.indb 146 19.11.09 14:36:44
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 5 Memória interna 147
+5.5 Em um sistema típico baseado no Intel 8086, conectado via barramento do sistema à memória DRAM, para uma operação de leitura, RAS é 
+ativado pela transição final do sinal Address Enable (Figura 3.19). Porém, devido à propagação e outros atrasos, RAS não é ativo até 50 ns após Address Enable retornar para o estado baixo. Suponha que esse último ocorra no meio da segunda metade do estado T
+1 (um pouco antes do que 
+na Figura 3.19). Os dados são lidos pelo processador ao final de T3. Contudo, para que o processador possa receber os dados corretamente, esses 
+dados devem ser fornecidos 60 ns antes pela memória. Esse intervalo leva em conta os atrasos de propagação ao longo dos caminhos de dados (da memória ao processador) e os requisitos de hold time dos dados para o processador. Considere uma frequência de clock de 10 Mhz.
+ a. Que velocidade (tempo de acesso) as DRAM devem ter se nenhum estado de espera tiver que ser inserido?
+ b. Quantos estados de espera temos que inserir por operação de leitura da memória se o tempo de acesso das DRAM for 150 ns?
+5.6 A memória de um microcomputador em particular é montada a partir de DRAM 64 K × 1. De acordo com o manual da memória, o array de células da DRAM é organizado em 256 linhas. Cada linha precisa ter o refresh pelo menos uma vez a cada 4 ms. Suponha que se faça refresh a memória em uma base estritamente periódica.
+ a. Qual é o período entre as solicitações de refresh sucessivas?
+ b. Por quanto tempo precisamos de um contador de endereço de refresh?
+5.7 A Figura 5.17 mostra uma das primeiras SRAM, o chip Signetics 7489 de 16 × 4, que armazena 16 palavras de 4 bits.
+ a. Liste o modo de operação do chip para cada pulso de entrada CS mostrado na Figura 5.17c.
+ b. Liste o conteúdo de memória dos locais de palavra de 0 a 6 após o pulso n.
+ c. Qual é o estado dos terminais de dados de saída para os pulsos de entrada de h até m?
+Figura 5.17 A SRAM Signetics 7489
+(b) Tabela verdade
+(c) Trem de pulsosModos operacionaisEntradas Outputs
+Escrita
+H nível de voltagem alto
+L nível de voltagem baixo
+X não importaLeitura
+Inibir escrita
+Armazenar - desabilitar
+saídasDn CS R/W
+L LL
+H LL
+X LH
+L HL
+H HL
+XOn
+L
+H
+Data
+H
+L
+H HH16
+15141312
+11
+10
+912345678D3O3
+O2D2
+GNDVcc
+A2
+A1A0D0O0D1
+O1Signetics
+7489
+16 
+ 4
+SRAMCS
+R/W
+010 abcdefghi jk lm nA0
+A1A2A3
+CS
+R/W
+D3D2D1D0A3
+(a) Layout de pinos
+1 000 00 11 11 1
+Book 1.indb 147 19.11.09 14:36:44
+
+148 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+5.8 Projete uma memória de 16 bits com capacidade total de 8 192 bits usando chips de SRAM de tamanho 64 × 1 bit. Dê a configuração de array 
+dos chips na placa de memória mostrando todos os sinais de entrada e saída exigidos para atribuir essa memória ao espaço de endereço mais baixo. O projeto deve permitir acessos de byte e palavra de 16 bits.
+5.9 Uma unidade de medida comum para taxas de falha de componentes eletrônicos é a unidade de falha (FIT, do inglês Failure unIT), expressa 
+como a taxa de falhas por bilhão de horas do dispositivo. Outra medida bem conhecida, porém pouco usada, é o tempo médio entre falhas 
+(MTBF , do inglês Mean Time Between Failures), que é o tempo médio de operação de determinado componente até que ele falhe. Considere uma memória de 1 MB de um microprocessador de 16 bits com 256 K × 1 DRAM. Calcule seu MTBF supondo que 2 000 FIT para cada DRAM.
+5.10 Para o código de hamming mostrado na Figura 5.10, mostre o que acontece quando um bit de verificação, ao invés de um bit de dados, tem 
+um erro.
+5.11 Suponha que uma palavra de dados de 8 bits armazenada na memória seja 11000010. Usando o algoritmo de hamming, determine quais bits 
+de verificação seriam armazenados na memória com a palavra de dados. Mostre como você chegou a sua resposta.
+5.12 Para uma palavra de 8 bits 00111001, os bits de verificação armazenados com ela seriam 0111. Suponha, quando a palavra for lida da memória, 
+que os bits de verificação são calculados como 1101. Qual palavra de dados foi lida da memória?
+5.13 Quantos bits de verificação são necessários se o código de correção de erro de hamming for usado para detectar erros de único bit em uma 
+palavra de dados de 1 024 bits?
+5.14 Desenvolva um código SEC para uma palavra de dados de 16 bits. Gere o código para a palavra de dados 0101000000111001. Mostre que o 
+código identificará corretamente um erro no bit de dados 5.
+ Referências
+ a ShARMA , A. Semiconductor memories: technology, testing, and reliability. nova York: IEEE Press, 1997.
+ b V OGLEY , B. “800 megabyte per second systems via use of synchronous DRAM” . Proceedings, COMPCON ‘94, mar. 1994.
+ c International Business Machines, Inc. 64 Mb Synchronous DRAM. IBM Data Sheet 364164, jan. 2001. d F ARMWALD , M. e M OORInG, D. “A fast path to one memory” . IEEE Spectrum, out. 1992.
+ e C RISP , R. “Direct RAMBUS technology: the new main memory standard” . IEEE Micro, nov./dez. 1997.
+ f JACOB, B.; ng, S.; e Wang, D. Memory systems: cache, DRAM, disk. Boston: Morgan Kaufmann, 2008. g hIDAKA , h.; M ATSUDA , Y .; ASAKURA , M. e KAZUYASU , F . “The cache DRAM architecture: A DRAM with an on-chip cache memory” . IEEE Micro, abr. 
+1990.
+ h ZhAnG, Z.; ZhU, Z. e ZhAnG, X. “Cached DRAM for ILP processor memory access latency reduction” . IEEE Micro, jul./ago. 2001.
+ i P RInCE, B. Semiconductor memories. n ova York: Wiley, 1997.
+ j ShARMA , A. Advanced semiconductor memories: architectures, designs, and applications. new York: IEEE Press, 2003.
+ k P RInCE, B. Emerging memories: technologies and trends. norwell, MA: Kluwer, 2002.
+ l K EETh, B. e B AKER , R. DRAM circuit design: a tutorial. Piscataway, nJ: IEEE Press, 2001.
+ m C UPPU , V, et al. “high performance DRAMS in workstation environments” . IEEE Transactions on Computers, nov. 2001.
+ n B EZ, R.; et al. “Introduction to flash memory“ . Proceedings of the IEEE, abr. 2003.
+ o MCE LIECE , R. “The reliability of computer memories” . Scientific American, jan. 1985.
+ p A DAMEK , J. Foundations of coding. n ova York: Wiley, 1991.
+ q B LAhUT, R. Theory and practice of error control codes. Reading, MA: Addison-Wesley, 1983.
+ r ASh, R. Information theory. nova York: Dover, 1990.
+Book 1.indb 148 19.11.09 14:36:44
+
+PRInCIPAIS POnTOS
+ Os discos magnéticos continuam sendo os componentes mais impor-
+tantes da memória externa. Tanto os discos removíveis quanto os fi xos, ou rígidos, são usados em sistemas que vão desde desde computadores pes-soais a mainframes e supercomputadores. Para conseguir maior desempenho e maior disponibilidade, servidores e sistemas de grande porte utilizam tecnologia de disco RAID. RAID é uma família de técnicas para utilização de múltiplos discos como um array pa-ralelo de dispositivos de armazenamento de dados, com a redundância embutida para compensar a falha futura. A tecnologia de armazenamento óptico tem se tornado cada vez mais 
+importante em todos os tipos de sistemas de computador. Embora CD--ROM tenha sido bastante usada por muitos anos, tecnologias mais re-centes, como CD e DVD regraváveis, estão se tornando cada vez mais importantes.Memória externa
+6.1 Disco magnético
+  Leitura magnética e mecanismos de 
+gravação
+  Organização e formatação de dados
+  Características físicas
+  Parâmetros de desempenho de disco
+6.2 RAID
+  RAID nível 0
+  RAID nível 1
+  RAID nível 2
+  RAID nível 3
+  RAID nível 4
+  RAID nível 5
+  RAID nível 6
+6.3 Memória óptica
+  Compact disk
+  Digital versatile disk
+  Discos ópticos de alta defi nição
+6.4 Fita magnética6.5 Leitura recomendada e sites Web
+  Sites Web recomendados
+Este capítulo examina diversos dispositivos e sistemas de memória externa. Começamos com o dispositivo mais impor-
+tante, o disco magnético. Os discos magnéticos são a base da memória externa em praticamente todos os sistemas de 
+computação. A próxima seção examina o uso de arrays de discos para alcançar maior desempenho, examinando especi-fi camente a família de sistemas conhecida como RAID (do inglês redundant array of independent disks -- array redundante 
+de discos independentes). Um componente cada vez mais importante de muitos sistemas de computação é a memória óptica externa, e esta é examinada na terceira seção. Finalmente, descrevemos a fi ta magnética.
+6.1 Disco magnético
+Um disco é um prato circular construída de material não magnético, chamado de substrato, coberto com um 
+material magnetizável. Tradicionalmente, o substrato tem sido alumínio ou um material de liga de alumínio. Mais recentemente, foram introduzidos substratos de vidro. O substrato de vidro apresenta diversos benefícios, incluin-do os seguintes:CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 149 19.11.09 14:36:45
+
+150 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Melhoria na uniformidade da superfície do fi lme magnético, aumentando a confi abilidade do disco. 
+Redução signifi cativa nos defeitos gerais da superfície, ajudando a reduzir os erros de leitura-gravação. 
+Capacidade de aceitar alturas de voo mais baixas (descritas mais adiante). 
+Melhor rigidez, para reduzir a dinâmica do disco. 
+Maior capacidade de suportar choque e danos. 
+ Leitura magnética e mecanismos de gravação
+Os dados são gravados e, mais tarde, recuperados do disco por meio de uma bobina condutora, chamada 
+cabeça; em muitos sistemas, existem duas cabeças, uma de leitura e uma de gravação. Durante uma operação de 
+leitura ou gravação, a cabeça fi ca estacionária, enquanto a placa gira por baixo dela.
+O mecanismo de gravação explora o fato de que a eletricidade que fl ui pela bobina produz um campo magné-
+tico. Os pulsos elétricos são enviados à cabeça de gravação, e os padrões magnéticos resultantes são gravados na superfície abaixo, com diferentes padrões para correntes positivas e negativas. A própria cabeça de gravação é feita de material facilmente magnetizável, e tem a forma de um anel retangular com um espaço (gap) em um lado e al-gumas voltas de fi o condutor no lado oposto (Figura 6.1). Uma corrente elétrica no fi o induz um campo magnético no espaço, que, por sua vez, magnetiza uma pequena área do meio de gravação. Reverter a direção da corrente reverte a direção da magnetização no meio de gravação.
+O mecanismo de leitura tradicional explora o fato de que um campo magnético movendo-se em relação a uma 
+bobina produz uma corrente elétrica na bobina. Quando a superfície do disco passa sob a cabeça, ela gera uma corrente com a mesma polaridade daquela já gravada. A estrutura da cabeça de leitura, nesse caso, é basicamente a mesma daquela de gravação e, portanto, a mesma cabeça pode ser usada para ambos. Essas cabeças únicas são usadas em sistemas de disquete e em sistemas de disco rígido mais antigos.
+Os sistemas de disco rígido modernos utilizam um mecanismo de leitura diferente, exigindo uma cabeça de 
+leitura separada, posicionada por conveniência perto da cabeça de gravação. A cabeça de leitura consiste em um sensor magnetorresistivo (MR) parcialmente blindado. O material MR tem uma resistência elétrica que depende da direção da magnetização do meio que se move por baixo dele. Passando uma corrente pelo sensor MR, as mudan-ças de resistência são detectadas como sinais de voltagem. O projeto MR permite uma operação em frequência mais alta, que se traduz em maiores densidades de armazenamento e velocidades de operação.
+Figura 6.1 Cabeça de gravação indutora/leitura magnetorresistiva
+N S S N N S S N N S S N N SLargura da trilha
+Meio de 
+gravação Elemento de gravação indutoraBlindagem
+MagnetizaçãoSensor MR Corrente 
+ de leitura
+Corrente de gravação
+Book 1.indb 150 19.11.09 14:36:46
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 151
+ Organização e formatação de dados
+A cabeça é um dispositivo relativamente pequeno, capaz de ler e escrever em uma parte do prato girando por 
+baixo dela. Isso sugere a organização dos dados no prato em um conjunto concêntrico de anéis, chamados de 
+trilhas. Cada trilha tem a mesma largura da cabeça. Existem milhares de trilhas por superfície.
+A Figura 6.2 representa esse layout de dados. As trilhas adjacentes são separadas por lacunas. Isso impede 
+ou, pelo menos, minimiza os erros devidos à falta de alinhamento da cabeça ou simplesmente à interferência dos campos magnéticos.
+Os dados são transferidos de e para o disco em setores (Figura 6.2). Normalmente, existem centenas de se-
+tores por trilha, e estes podem ter tamanho fixo ou variável. Na maioria dos sistemas modernos, são usados se-tores de tamanho fixo, com 512 bytes, sendo o tamanho de setor quase universal. Para evitar impor requisitos de precisão excessivos no sistema, os setores adjacentes são separados por lacunas intratrilhas (intersetores).
+Um bit próximo do centro de um disco em rotação passa por um ponto fi xo (como uma cabeça de leitura-
+-gravação) mais lentamente do que um bit na extremidade. Portanto, é preciso haver algum meio de compensar a variação na velocidade, para que a cabeça possa ler todos os bits na mesma velocidade. Isso pode ser feito aumen-tando-se o espaçamento entre os bits de informação gravados nos segmentos do disco. A informação pode, então, ser varrida com a mesma taxa, girando o disco em uma velocidade fi xa, conhecida como velocidade angular 
+constante (CAV, do inglês constant angular velocity). A Figura 6.3a mostra o layout de um disco usando CAV. O disco 
+é dividido em uma série de setores em forma de torta e em uma série de trilhas concêntricas. A vantagem de usar a CAV é que os blocos individuais de dados podem ser endereçados diretamente por trilha e setor. Para mover a cabeça do seu local atual para um endereço específi co, é preciso apenas um pequeno movimento da cabeça para uma trilha específi ca e uma pequena espera até que o setor correto passe sob a cabeça. A desvantagem da CAV é que a quantidade de dados que pode ser armazenada nas trilhas externas longas é exatamente a mesma que pode ser armazenada nas trilhas internas mais curtas.
+Como a densidade, em bits por polegada linear, aumenta na passagem da trilha mais externa para a 
+trilha mais interna, a capacidade de armazenamento de disco em um sistema com CAV é limitada pela densi-
+dade de gravação máxima que pode ser obtida na trilha mais interna. Para aumentar a densidade, os sistemas 
+Figura 6.2 Layout de dados de disco
+S6S4S5S3S2
+S1SN•••S6•••
+S5S4S3S2
+S1SNLacuna entre setores
+Lacuna entre trilhasSetores Trilhas
+Book 1.indb 151 19.11.09 14:36:46
+
+152 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 6.4 Formato de disco Winchester (Seagate ST506)
+Lacuna
+ 1
+17 74 1 515 20 17 74 15 15 20
+22 1 51 2112117 74 1 515
+600 bytes/setor20Setor físico 0Setor
+Bytes
+BytesÍndice
+Setor físico 29 Setor físico 1
+Campo ID 0 Lacuna 2Campo dados 0Lacuna 3
+Byte 
+synch#
+ Trilha#
+ Cabeça# 
+SetorCRCByte 
+synchDados CRCLacuna 1 Campo ID 1 Lacuna 2 Campodados 1Lacuna 3 Lacuna 1 Campo ID 29 Lacuna 2 Campodados 29Lacuna 3de disco rígido modernos utilizam uma técnica conhecida como gravação em múltiplas zonas, em que 
+a superfície é dividida em uma série de zonas concêntricas (16 é um número típico). Dentro de uma zona, 
+o número de bits por trilha é constante. As zonas mais distantes do centro contêm mais bits (mais setores) do que as zonas próximas do centro. Isso permite uma maior capacidade de armazenamento, ao custo de um circuito um pouco mais complexo. À medida que a cabeça do disco se move de uma zona para outra, o tamanho (ao longo da trilha) dos bits individuais muda, causando uma mudança no tempo para leituras e escritas. A Figura 6.3b sugere a natureza da gravação em múltiplas zonas; nessa ilustração, cada zona tem apenas uma trilha de largura.
+É preciso haver algum meio de localizar as posições do centro dentro de uma trilha. Nitidamente, é preciso 
+haver algum ponto de partida na trilha e um modo de identificar o início e o fim de cada setor. Esses requisitos são tratados por meio de dados de controle, gravados no disco. Assim, o disco é formatado com alguns dados extras, usados apenas pela unidade de disco, que não podem ser acessados pelo usuário.
+Um exemplo de formatação de disco aparece na Figura 6.4. Nesse caso, cada trilha contém 30 setores de 
+tamanho fixo, com 600 bytes cada. Cada setor mantém 512 bytes de dados mais informações de controle, úteis para o controlador de disco. O campo ID é um identificador ou endereço exclusivo, usado para localizar um setor em particular. O byte SYNCH é um padrão de bits especial, que delimita o início do campo. O número da trilha identifica uma trilha em uma superfície. O número da cabeça identifica uma cabeça, pois esse disco tem múltiplas superfícies (explicado mais adiante). Cada um dos campos de ID e de dados contém um código de detecção de erro.Figura 6.3 Comparação de métodos de layout de disco
+ (a) Velocidade angular constante (b) Gravação em múltiplas zonas
+Book 1.indb 152 19.11.09 14:36:47
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 153
+ Características físicas
+A Tabela 6.1 lista as principais características que diferenciam entre os diversos tipos de discos magnéticos. 
+Primeiro, a cabeça pode ser fi xa ou móvel com relação à direção radial do prato. Em um disco com cabeça fi xa, 
+existe uma cabeça de leitura-gravação por trilha. Todas as cabeças são montadas em um braço rígido que cobre to-
+das as trilhas; esses sistemas são raros hoje. Em um disco com cabeça móvel, há somente uma cabeça de leitura-
+-gravação. Novamente, a cabeça é montada em um braço. Como a cabeça precisa ser capaz de ser posicionada em acima de qualquer trilha, o braço pode ser estendido ou retraído para essa fi nalidade.
+O disco em si é montado em uma unidade de disco, que consiste no braço, um eixo que faz o disco girar e o 
+circuito eletrônico necessário para entrada e saída de dados binários. Um disco não removível é montado perma-
+nentemente na unidade de disco; o disco rígido em um computador pessoal é um disco não removível. Um disco 
+removível pode ser removido e substituído por outro disco. A vantagem desse segundo tipo é que quantidades ilimitadas de dados estão disponíveis com um número limitado de sistemas de disco. Além do mais, esse disco pode ser movido de um sistema de computador para outro. Os disquetes e os cartuchos de disco ZIP são alguns exemplos de discos removíveis.
+Para a maioria dos discos, a cobertura magnetizável é aplicada nos dois lados da placa, quando o disco é cha-
+mado de dupla face. Alguns sistemas de disco mais baratos utilizam discos de única face.
+Algumas unidades de disco acomodam múltiplas placas empilhadas verticalmente, com uma fração de pole-
+gada de distância uma da outra. Múltiplos braços são utilizados (Figura 6.5). Discos com múltiplas placas empregam uma cabeça móvel, com uma cabeça de leitura-gravação por superfície de placa. Todas as cabeças são fi xadas mecanicamente, de modo que todas estão na mesma distância do centro do disco e se movem juntas. Assim, a qualquer momento, todas as cabeças são posicionadas sobre as trilhas que estão à mesma distância do centro do disco. O conjunto de todas as trilhas na mesma posição relativa na placa é conhecido como um cilindro. Por 
+exemplo, todas as trilhas sombreadas na Figura 6.6 fazem parte de um cilindro.
+Finalmente, o mecanismo da cabeça oferece uma classifi cação dos discos em três tipos. Tradicionalmente, a 
+cabeça de leitura-gravação tem sido posicionada a uma distância fi xa acima da placa, permitindo a existência de uma camada de ar. No outro extremo, está o mecanismo de cabeça que realmente entra em contato físico com o meio durante uma operação de leitura ou gravação. Esse mecanismo é usado com o disquete, que é uma placa pequena e fl exível, sendo o tipo mais barato de disco.
+Para entender o terceiro tipo de disco, precisamos comentar sobre o relacionamento entre a densidade dos 
+dados e o tamanho da camada de ar. A cabeça precisa gerar ou detectar um campo eletromagnético de magnitude sufi ciente para gravar e ler corretamente. Quanto mais estreita a cabeça, mais perto ela precisa estar da superfície da placa para funcionar corretamente. Uma cabeça estreita signifi ca trilhas mais estreitas e, portanto, maior densidade de dados, o que é desejável. Porém, quanto mais perto do disco estiver a cabeça, maior o risco de erro devido a 
+Tabela 6.1 Características físicas dos sistemas de disco
+Movimento da cabeça Pratos
+Cabeça fi xa (uma por trilha) Único prato
+Cabeça móvel (uma por superfície) Múltiplos pratos
+Portabilidade do disco Mecanismo da cabeça
+Disco não removível Contato (disquete)
+Disco removível Lacuna fi xa
+Lacuna aerodinâmica (Winchester)
+Faces
+Única face
+Dupla face
+Book 1.indb 153 19.11.09 14:36:47
+
+154 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+impurezas e imperfeições. Para impulsionar a tecnologia, foi desenvolvido o disco Winchester. As cabeças Winchester 
+são usadas em montagens seladas, que são quase livres de agentes contaminadores. Elas são projetadas para ope-rar mais perto da superfície do disco do que as cabeças de disco rígido convencionais, permitindo assim uma maior densidade de dados. A cabeça, na realidade, é uma folha aerodinâmica que se apoia levemente na superfície da placa quando o disco está sem movimento. A pressão do ar gerada pelo disco girando é suficiente para fazer a folha subir acima da superfície. O sistema sem contato resultante pode ser preparado para usar cabeças mais estreitas, que operam mais perto da superfície da placa do que as cabeças de disco rígido convencionais.
+1
+A Tabela 6.2 contém parâmetros para os discos modernos de alto desempenho.
+1 Como uma questão de interesse histórico, o termo Winchester foi usado originalmente pela IBM como um codinome para o modelo de 
+disco 3340 antes do seu anúncio. O 3340 era um pack de disco removível com as cabeças seladas dentro dele. O termo agora é aplicado a 
+qualquer unidade de disco com unidade selada, com projeto de cabeça aerodinâmica. O disco Winchester normalmente pode ser encon-
+trado em computadores pessoais e estações de trabalho, onde é conhecido como disco rígido.Figura 6.5 Componentes de uma unidade de disco
+Superfície 2
+Superfície 1
+Superfície 0Superfície 4Superfície 3Superfície 6Superfície 5Superfície 8Superfície 7Prato
+Eixo
+Haste Cabeça de leitura-gravação 
+ (1 por superfície)Direção do movimento
+ do braço
+Superfície 9
+Figura 6.6 Trilhas e cilindros
+Book 1.indb 154 19.11.09 14:36:48
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 155
+Tabela 6.2 Parâmetros típicos da unidade de disco rígido
+CaracterísticasSeagate Barracuda 
+ES.2Seagate Barracuda 
+7200.10Seagate Barracuda 
+7200.9Seagate Hitachi Microdrive
+AplicaçãoServidor de alta 
+capacidadeDesktop de alto 
+desempenhoDesktop em nível de 
+entradaLaptop Dispositivos portáteis
+Capacidade 1 TB 750 GB 160 GB 120 GB 8 GB
+Tempo mínimo de busca entre trilhas 0,8 ms 0,3 ms 1,0 ms – 1,0 ms
+Tempo médio de busca 8,5 ms 3,6 ms 9,5 ms 12,5 ms 12 ms
+Velocidade do eixo 7 200 r pm 7 200 rpm 7 200 rpm 5 400 rpm 3 600 rpm
+Atraso rotacional médio 4,16 ms 4,16 ms 4,17 ms 5,6 ms 8,33 ms
+Taxa de transferência máxima 3 GB/s 300 MB/s 300 MB/s 150 MB/s 10 MB/s
+Bytes por setor 512 512 512 512 512
+Trilhas por cilindro (número de 
+superfícies do prato)8 8 2 8 2
+ Parâmetros de desempenho de disco
+Os detalhes reais da operação de E/S de disco dependem no sistema de computação, do sistema operacional e 
+da natureza do canal de E/S e do hardware do controlador de disco. O diagrama de temporização geral da transfe-
+rência de E/S de disco aparece na Figura 6.7.
+Quando a unidade de disco está operando, o disco está girando em velocidade constante. Para ler ou gravar, a 
+cabeça precisa ser posicionada na trilha desejada e no início do setor desejado nessa trilha. A seleção de trilha envolve mover a cabeça em um sistema de cabeça móvel ou selecionar eletronicamente uma cabeça em um sistema de cabeça fi xa. Em um sistema de cabeça móvel, o tempo gasto para posicionar a cabeça na trilha é conhecido como tempo de 
+busca (seek time) . De qualquer forma, quando a trilha é selecionada, o controlador de disco espera até que o setor 
+apropriado fi que alinhado com a cabeça. O tempo gasto até que o início do setor alcance a direção da cabeça é conhe-cido como atraso rotacional, ou latência rotacional. A soma do tempo de busca, se houver, com o atraso rotacional 
+é igual ao tempo de acesso, que é o tempo gasto para o posicionamento para leitura ou gravação. Quando a cabeça 
+está na posição, a operação de leitura ou gravação é então realizada enquanto o setor se move sob a cabeça; essa é a parte de transferência de dados da operação; o tempo necessário para a transferência é o tempo de transferência.
+Além do tempo de acesso e do tempo de transferência, existem vários atrasos de enfi leiramento normalmente asso-
+ciados a uma operação de E/S de disco. Quando um processo emite uma solicitação de E/S, ele primeiro precisa esperar 
+em uma fi la até que o dispositivo esteja disponível. Nesse momento, o dispositivo é atribuído ao processo. Se o dispositi-vo compartilha um único canal de E/S ou um conjunto de canais de E/S com outras unidades de disco, então pode haver uma espera adicional para que o canal esteja disponível. Nesse ponto, a busca é realizada para iniciar o acesso ao disco.
+Em alguns sistemas avançados para servidores, uma técnica conhecida como detecção de posição rotacional 
+(RPS, do inglês rotational positional sensing) é utilizada. Ela funciona da seguinte forma: quando o comando de 
+busca tiver sido emitido, o canal é liberado para tratar das outras operações de E/S. Quando a busca termina, o dispositivo determina quando os dados estarão posicionados sob a cabeça. À medida que esse setor se aproxima da cabeça, o dispositivo tenta restabelecer o caminho de comunicação de volta com o sistema. Se a unidade de 
+controle ou o canal estiver ocupado com outra E/S, então a tentativa de reconexão falha e o dispositivo precisa girar por mais uma volta inteira antes que possa tentar reconectar-se, o que é chamado de falha de RPS. Esse é um elemento extra de atraso, que deve ser somado à linha de tempo da Figura 6.7.
+Book 1.indb 155 19.11.09 14:36:48
+
+156 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+TEMPO DE BUSCA Tempo de busca é o tempo exigido para mover o braço do disco até a trilha solicitada. Essa 
+quantidade, porém, é difícil de se precisar. O tempo de busca consiste em dois componentes: o tempo de partida 
+inicial e o tempo gasto para atravessar as trilhas que precisam ser cruzadas quando o braço de acesso estiver com a velocidade necessária. Infelizmente, o tempo de travessia não é uma função linear do número de trilhas, mas inclui um tempo de estabelecimento (tempo após o posicionamento do cabeamento sobre a trilha de destino, até que a identificação da trilha seja confirmada).
+Houve uma grande melhoria com o uso de componentes de disco menores e mais leves. Há alguns anos, um 
+disco típico tinha 14 polegadas (36 cm) de diâmetro, enquanto o tamanho mais comum hoje é de 3,5 polegadas (8,9 cm), reduzindo a distância que o braço precisa atravessar. O tempo de busca médio típico nos discos rígidos modernos é abaixo de 10 ms.
+ATRASO ROTACIONAL Os discos, que não sejam disquetes, giram em velocidades que variam de 3 600 rpm (para 
+dispositivos portáteis, como câmeras digitais) até, no momento em que este livro foi escrito, 20 000 rpm; nessa últi-ma velocidade, há uma rotação a cada 3 ms. Assim, na média, o atraso rotacional será de 1,5 ms.
+TEMPO DE TRANSFERÊNCIA O tempo de transferência de ou para o disco depende da velocidade de rotação do 
+disco no seguinte padrão:
+T = b/rN,
+onde
+T = tempo de transferênciab = número de bytes a serem transferidosN = número de bytes em uma trilhar = velocidade de rotação, em rotações por segundoAssim, o tempo de acesso médio total pode ser expresso como:T
+a = Ts + 1/2r + b/rN,
+onde Ts é o tempo médio de busca. Observe que, em uma unidade em zonas, o número de bytes por trilha é variá-
+vel, complicando o cálculo.2
+UMA COMPARAÇÃO DO TEMPO DE ACESSO Depois de definirmos esses parâmetros, vejamos duas operações 
+diferentes de E/S que ilustram o perigo de confiar nos valores médios. Considere um disco com um tempo de busca médio anunciado de 4 ms, velocidade de rotação de 15 000 rpm e setores de 512 bytes, com 500 setores por trilha. Suponha que queiramos ler um arquivo consistindo em 2 500 setores, com um total de 1,28 MBytes. Gostaríamos de estimar o tempo total para a transferência.
+Primeiro, vamos supor que o arquivo esteja armazenado da forma mais compacta possível no disco, ou seja, o 
+arquivo ocupa todos os setores em 5 trilhas adjacentes (5 trilhas × 500 setores/trilha = 2 500 setores). Isso é conhe-cido como organização sequencial. Agora, o tempo para leitura da primeira trilha é o seguinte:
+Tempo médio de busca 4 msAtraso rotacional médio 2 msLeitura de 500 setores 4 ms 10 ms
+Suponha que as trilhas restantes agora possam ser lidas basicamente sem tempo de busca., ou seja, a operação 
+de E/S pode acompanhar o fluxo do disco. Então, no máximo, precisamos lidar com o atraso rotacional para cada trilha subsequente. Assim, cada trilha subsequente é lida em 2 + 4 = 6 ms. Para ler um arquivo inteiro,
+Tempo total = 10 + (4 × 6) = 34 ms = 0,034 segundos
+2 Compare as duas equações anteriores com a Equação 4.1.Figura 6.7 Temporização de uma transferência de E/S de disco
+Espera pelo
+ dispositivoEspera pelo canalBusca Atraso rotacionalTransferência de dados
+Dispositivo ocupado
+Book 1.indb 156 19.11.09 14:36:49
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 157
+Agora, vamos calcular o tempo necessário para ler os mesmos dados usando o acesso aleatório, em vez do aces-
+so sequencial; ou seja, os acessos aos setores são distribuídos aleatoriamente pelo disco. Para cada setor, temos
+Tempo médio de busca 4 ms
+Atraso rotacional médio 2 msLeitura de 1 setor 0,008 ms 6,008 ms
+Tempo total = 2.500 × 6,008 = 15 020 ms = 15,02 segundosÉ claro que a ordem em que os setores do disco são lidos tem um efeito tremendo sobre o desempenho 
+da E/S. No caso do acesso ao arquivo em que múltiplos setores são lidos ou gravados, temos algum controle sobre o modo como os setores de dados são distribuídos. Porém, mesmo no caso de um acesso ao arquivo, em um ambiente de multiprogramação, haverá solicitações de E/S concorrendo pelo mesmo disco. Assim, vale a pena examinar modos de melhorar o desempenho da E/S de disco em relação ao que se consegue com o acesso puramente aleatório ao disco. Isso nos leva a uma consideração sobre algoritmos de escalonamento de disco, que é o âmbito do sistema operacional e está fora do escopo deste livro (veja uma discussão a respeito em Stallings, 2009
+a).
+Simulador de RAID
+6.2 RAID
+Conforme já explicamos, o ritmo de melhoria no desempenho do armazenamento secundário tem sido muito 
+menor do que o ritmo das melhorias alcançadas para os processadores e memória principal. Essa divergência tem 
+tornado o sistema de armazenamento de disco talvez a principal preocupação para a melhoria geral do desempe-nho do sistema de computação.
+Assim como em outras áreas de desempenho do computador, os projetistas de armazenamento de disco re-
+conhecem que, se um componente só pode ser avançado até certo ponto, ganhos adicionais no desempenho precisam ser obtidos usando-se múltiplos componentes paralelos. No caso do armazenamento em disco, isso le-vou ao desenvolvimento de arrays de discos que operam independentemente e em paralelo. Com vários discos, as solicitações de E/S separadas podem ser tratadas em paralelo, desde que os dados solicitados residam em discos separados. Além do mais, uma única solicitação de E/S pode ser executada em paralelo se o bloco de dados a ser acessado for distribuído por vários discos.
+Com o uso de vários discos, existe uma grande variedade de modos como os dados podem ser organizados, 
+onde a redundância pode ser acrescentada para melhorar a confi abilidade. Isso pode difi cultar o desenvolvimento de esquemas de banco de dados que sejam úteis em várias plataformas e sistemas operacionais. Felizmente, a indústria acordou sobre um esquema padronizado para o projeto de banco de dados de múltiplos discos, conhe-cido como RAID (do inglês redundant array of independent disks  array redundante de discos independentes). O 
+esquema RAID consiste em sete níveis,
+3 de zero a seis. Esses níveis não implicam um relacionamento hierárquico, 
+mas designam diferentes arquiteturas de projeto, que compartilham três características comuns:
+1. RAID é um conjunto de unidades de discos físicos, vistas pelo sistema operacional como uma única unidade lógica.
+2. Os dados são distribuídos pelos discos físicos de um array em um esquema conhecido como intercalação 
+de dados (striping), descrito mais adiante.
+3. A capacidade de disco redundante é usada para armazenar informações de paridade, o que garante a facili-dade de recuperação dos dados no caso de uma falha de disco.
+3 Outros níveis foram defi nidos por alguns pesquisadores e algumas empresas, mas os sete níveis descritos nesta seção são os aceitos 
+universalmente.
+Book 1.indb 157 19.11.09 14:36:49
+
+158 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Os detalhes da segunda e terceira características diferem para os diferentes níveis de RAID. RAID 0 e RAID 1 não 
+aceitam a terceira característica.
+O termo RAID originalmente foi citado em um artigo escrito por um grupo de pesquisadores na Universidade 
+da Califórnia, em Berkeley (PATTERSON, GIBSON E KATZ, 1988b).4 O artigo esboçava diversas configurações e aplica-
+ções de RAID e introduzia as definições dos níveis de RAID que ainda são usadas. A estratégia RAID emprega várias 
+unidades de disco e distribui os dados de modo que permita o acesso simultâneo aos dados a partir das várias unidades, melhorando assim o desempenho de E/S e permitindo aumentos na capacidade de modo mais fácil.
+A contribuição exclusiva da proposta RAID é resolver efetivamente a necessidade de redundância. Embora per-
+mita que várias cabeças e atuadores operem simultaneamente e gere taxas de E/S e transferência mais altas, o uso de múltiplos dispositivos aumenta a probabilidade de falha. Para compensar essa menor confiabilidade, RAID utiliza informações de paridade armazenadas, permitindo a recuperação de dados perdidos devido a falhas no disco.
+Agora, vamos examinar cada um dos níveis de RAID. A Tabela 6.3 oferece um guia inicial para os sete níveis. 
+Na tabela, o desempenho de E/S aparece em termos de capacidade de transferência de dados, ou capacidade para mover dados, e taxa de solicitação de E/S, ou capacidade de atender às solicitações de E/S, pois esses níveis RAID inerentemente funcionam de formas diferentes em relação a essas duas medidas. O ponto forte de cada nível RAID é destacado por um sombreado mais escuro. A Figura 6.8 ilustra o uso dos sete esquemas RAID para dar suporte
+Tabela 6.3 Níveis de RAID
+Categoria Nível DescriçãoDiscos 
+exigidosDisponibilidade dos 
+dadosCapacidade para grande 
+transferência de dados de E/STaxa para pequena 
+solicitação de E/S
+Striping 0 não redundante N Menor que disco único Muito altaMuito alta para leitura e 
+gravação
+Espelhamento 1 Espelhado 2NMaior que RAID 2, 3, 4 ou 
+5; menor que RAID 6Maior que único disco para 
+leitura; semelhante a único disco 
+para gravaçãoAté o dobro de um único disco 
+para leitura; semelhante a 
+único disco para gravação
+Acesso paralelo2Redundante via 
+código de hammingN + mMuito mais alta que único 
+disco; comparável a RAID 
+3, 4 ou 5Mais alta de todas as alternativas 
+listadasAproximadamente o dobro de 
+um único disco
+3Paridade de 
+bit intercaladaN + 1Muito mais alta que único 
+disco; comparável a RAID 
+2, 4 ou 5Mais alta de todas as alternativas 
+listadasAproximadamente o dobro de 
+um único disco
+Acesso 
+independente4Paridade de bloco 
+intercaladaN + 1Muito mais alta que único 
+disco; comparável a RAID 
+2, 3 ou 5Semelhante a RAID 0 para 
+leitura; muito menor que único 
+disco para gravaçãoSemelhante a RAID 0 para 
+leitura; muito menor que único 
+disco para gravação
+5Paridade de bloco 
+distribuída e 
+intercaladaN + 1Muito mais alta que único 
+disco; comparável a RAID 
+2, 3 ou 4Semelhante a RAID 0 para 
+leitura/ menor que único disco 
+para gravaçãoSemelhante a RAID 0 para 
+leitura; geralmente, menor que 
+único disco para gravação
+6Paridade de bloco 
+dual distribuída e 
+intercaladaN + 2Mais alta de todas as 
+alternativas listadasSemelhante a RAID 0 para 
+leitura; menor que RAID 5 para 
+gravaçãoSemelhante a RAID 0 para 
+leitura; muito menor que 
+RAID 5 para gravação
+N = número de discos de datos, m é proporcional ao log N.
+4 Nesse artigo, o acrônimo RAID significava redundant array of inexpensive disks (array redundante de discos baratos). O termo barato foi usado 
+para comparar os pequenos discos relativamente baratos no array RAID com a alternativa, um único disco grande e caro (SLED, do inglês 
+single large expensive disk). O SLED é basicamente algo do passado, com uma tecnologia de disco semelhante sendo usada para configura-ções RAID e não RAID. Por conseguinte, a indústria adotou o termo independente para enfatizar que o array RAID cria ganhos significativos 
+no desempenho e na confiabilidade.
+Book 1.indb 158 19.11.09 14:36:49
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 159
+a uma capacidade de dados exigindo quatro discos sem redundância. As fi guras destacam o layout dos dados do 
+usuário e dados redundantes, indicando os requisitos de armazenamento relativos dos diversos níveis. Vamos refe-renciar essas fi guras no decorrer da discussão.
+ RAID nível 0
+RAID nível 0 não é um membro verdadeiro da família RAID, pois não inclui redundância para melhorar o 
+desempenho. Porém, existem algumas aplicações, como, por exemplo, algumas em supercomputadores, em que o desempenho e a capacidade são preocupações principais e o baixo custo é mais importante do que a confi abilidade avançada.
+Para RAID 0, os dados do usuário e do sistema são distribuídos por todos os discos no array. Isso tem uma 
+vantagem notável em relação ao uso de um único disco grande: se duas solicitações de E/S diferentes estiverem pendentes para dois blocos de dados diferentes, então existe uma boa chance de que os blocos solicitados es-tejam em discos diferentes. Assim, as duas solicitações podem ser emitidas em paralelo, reduzindo o tempo de enfi leiramento de E/S.
+Mas RAID 0, assim como todos os níveis de RAID, vai além de simplesmente distribuir os dados por um ar-
+ray de discos: os dados são intercalados ( striped) pelos discos disponíveis. Isso pode ser mais bem entendido 
+considerando-se a Figura 6.9. Todos os dados do usuário e do sistema são vistos como estando armazenados em um disco lógico. O disco lógico é dividido em strips (faixas); esses strips podem ser blocos físicos, setores físicos ou alguma outra unidade. Os strips são mapeados em padrão round-robin aos discos físicos consecutivos no array RAID. Um conjunto de strips logicamente consecutivos, que mapeia exatamente um strip em cada membro do array, é conhecido como um stripe. Em um array com n discos, os primeiros n strips lógicos são armazenados 
+fi sicamente como o primeiro strip em cada um dos n discos, formando o primeiro stripe; os próximos n strips são 
+Figura 6.8 Níveis de RAID
+strip 12
+(a) RAID 0 (não redundante)strip 8strip 4strip 0
+strip 13strip 9strip 5strip 1
+strip 14strip 10strip 6strip 2
+strip 15strip 11strip 7strip 3
+strip 12
+(b) RAID 1 (espelhado)strip 8strip 4strip 0
+strip 13strip 9strip 5strip 1
+strip 14strip 10strip 6strip 2
+strip 15strip 11strip 7strip 3
+strip 12strip 8strip 4strip 0
+strip 13strip 9strip 5strip 1
+strip 14strip 10strip 6strip 2
+(c) RAID 2 (redundância por código de Hamming)b0 b1 b2 b3 f0(b) f1(b) f2(b)strip 15strip 11strip 7strip 3
+(continua)
+Book 1.indb 159 19.11.09 14:36:50

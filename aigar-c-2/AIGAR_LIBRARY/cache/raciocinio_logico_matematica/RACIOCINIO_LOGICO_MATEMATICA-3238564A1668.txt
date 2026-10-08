@@ -1,0 +1,2001 @@
+são formadas a partir de proposições simples, com os conectivos
+ “e”, simbolizado por 
+∧
+;
+“ou”, simbolizado por 
+∨
+; “se ... então”, simbolizado por
+→
+. Usa-se também o modificador
+“não”, simbolizado por ¬. As proposições são representadas por letras do alfabeto: A, B, C
+etc. A seguir são apresentadas as valorações para algumas proposições compostas a partir
+das valorações das proposições A e B que compõem essas proposições compostas. As
+valorações de uma proposição
+ composta compõem a tabela-verdade da respectiva
+proposição.
+A
+B
+¬A
+A
+∨
+B
+A
+∧
+B
+A
+→
+B
+V
+V
+F
+V
+V
+V
+F
+F
+V
+F
+F
+V
+V
+F
+V
+F
+F
+F
+V
+V
+F
+V
+Há expressões que não podem ser julgadas como V nem como F, por exemplo: “x + 3 = 7”,
+“Ele foi um grande brasileiro”.
+ Nesses casos, as expressões constituem sentenças abertas
+e “x” e “Ele” são variáveis. Uma forma de passar de uma sentença aberta a uma
+proposição é pela quantificação da variável. São dois os quantificadores: “qualquer que
+seja”, ou “para todo”, indicado por (
+∀
+ x) e “existe”, indicado por (
+∃
+x). Por exemplo, a
+proposição “(
+∀
+x. (x
+∈
+R. (x + 3 = 7)” é valorada como F, enquanto a proposição “(
+∃
+x. (x 
+∈
+R. (x
++ 3 = 7)” é valorada como V.
+Com base nessas informações, julgue os itens seguintes.
+84. (Cespe – UnB – PMAC – 2008) Considere as seguintes sentenças:
+I. O Acre é um estado da Região Nordeste.
+II. Você viu o cometa Halley?
+III. Há vida no planeta Marte.
+IV. Se x < 2, então x + 3 > 1.
+Nesse caso, entre essas quatro sentenças, apenas duas são proposições.
+85.
+ (Cespe – UnB – PMAC – 2008) Considere as seguintes proposições:
+A: 3 + 4 = 7 ou 7 – 4 = 3;
+B: 3 + 4 = 7 ou 3 + 4 > 8;
+C: 32 = -1 ou 32 = 9;
+D: 32 = -1 ou 32 = 1.
+Nesse caso, entre essas quatro proposições, apenas duas são V.
+86. (Cespe – UnB – PMAC – 2008) Considere as seguintes proposições:
+A: 6 – 1 = 7 ou 6 + 1 > 2;
+B: 6 + 3 > 8 e 6 – 3 = 4;
+C: 9 × 3 > 25
+ ou 6 × 7 < 45;
+D: 5 + 2 é um número primo e todo número primo é ímpar.
+Nesse caso, entre essas quatro proposições, apenas duas são F.
+87. (Cespe – UnB – PMAC – 2008) Considere as seguintes proposições:
+A: (
+∀
+x. (x 
+∈
+ R e 0 < x < 1. (1/x > 1)
+
+B: (
+∃
+x. (x 
+∈
+ R e -1 
+≤
+ x 
+≤
+1. (x2 > 1) C: Se 5 é par, então algum clube do Acre disputa a
+série A do campeonato brasileiro de futebol.
+D: Se 4 é primo, então Chico Mendes foi um defensor da floresta amazônica.
+Nesse caso, entre essas quatro proposições, apenas uma é F.
+88. (Cespe – UnB – Pmac – 2008) Se A e B são proposições, então a proposição A
+→
+(¬B) só
+será F se A e B forem V; em qualquer outro caso, a proposição A
+→
+(¬B) será sempre V.
+89. (Cespe – UnB – Pmac – 2008) Na tabela incluída no referido texto, considerando
+ as
+possíveis valorações V ou F das proposições A e B, a coluna ¬A
+∨
+¬B estará corretamente
+preenchida da seguinte forma.
+¬A
+∨
+¬B
+F
+V
+F
+V
+90. (Cespe – UnB – Pmac
+ – 2008) Na tabela incluída no texto, considerando as possíveis
+valorações V ou F das proposições A e B, a coluna A
+↔
+B estará corretamente preenchida
+da seguinte forma.
+A
+↔
+B
+V
+V
+F
+F
+91. (Cespe – UnB – Pmac – 2008) Se Q é o conjunto dos números racionais, então a
+proposição (
+∃
+x. (x 
+∈
+ Q. (x
+2
+ + x – 1 = 0) é julgada como V.
+92. (Cespe – UnB – Pmac – 2008) Se N é o conjunto dos números inteiros, então a
+proposição (
+∀
+x. (x 
+∈
+R)[(x – 1)x(x + 1) é divisível por 3] é julgada como V.
+Texto para questões 93 a 96
+Considere as seguintes informações a
+ respeito de lógica:
+# proposição: sentença afirmativa que pode ser julgada como verdadeira (V) ou falsa (F),
+sendo representada por letra maiúscula do alfabeto — A, B, C etc.; # proposição simples:
+proposição que não contém nenhuma outra proposição como parte;
+# conectivos: “e”, representado por v; “ou”, representado por w; “se ..., então ...”,
+representado por ÷;
+# negação: “não”,
+ representado por ¬;
+# tabelas-verdade para algumas proposições compostas são apresentadas a seguir:
+A
+B
+A
+∧
+B
+A
+∨
+B
+¬A
+A
+→
+B
+
+V
+V
+V
+V
+F
+V
+V
+F
+F
+V
+F
+F
+V
+F
+V
+V
+V
+F
+F
+F
+F
+V
+# leis de De Morgan: ¬(A
+∨
+B) significa ¬A
+∧
+¬B; e ¬(A
+∧
+B) significa ¬A
+∨
+¬B;
+# sentenças abertas, ou proposições abertas: os exemplos “x + 4 = 9” e “Ele foi um grande
+jogador de futebol” não são considerados proposições, pois não podem ser julgados como V
+nem F, já que “x” e “Ele” são variáveis. O conjunto dos possíveis valores da variável é o
+conjunto-universo da proposição aberta. Uma forma de se passar de uma sentença aberta
+a uma proposição é pela quantificação
+ da variável.
+# quantificadores: “qualquer que seja”, “ou para todo”, representado por “x; “existe”,
+representado por $x. Por exemplo, a proposição “(
+∀
+x. (x 
+∈
+ R. (x + 4 = 9)” é valorada como F,
+enquanto a proposição “(
+∃
+x. (x 
+∈
+ R. (x + 4 = 9)” é valorada como V, pois x = 5 torna a
+proposição V. Se “Ele = Pelé”, então a proposição “Ele foi um grande jogador de futebol” é
+valorada como V, enquanto
+ se “Ele = Tiradentes”, a mesma proposição é valorada como F.
+O subconjunto do conjunto universo que torna a proposição verdadeira é o conjunto-verdade
+da proposição; # argumento: relação que associa um conjunto de proposições A1, A2, ..., An
+— denominadas premissas — a uma proposição B — denominada conclusão; # argumento
+válido: um argumento no qual a conclusão é uma consequência necessária
+ de suas
+premissas, isto é, a verdade de suas premissas garante a verdade da conclusão.
+Considere a afirmação X seguinte, que pode ser V ou F: “Se Maria for casada, então ela virá
+de vestido branco”. Tendo como base o texto, essa afirmação e as possíveis valorações V ou
+F das proposições simples que a compõem, julgue os itens seguintes.
+93. (Cespe – UnB – Pmac – 2008) Independentemente
+ de X ser V ou F, a proposição “Se
+Maria não vier de vestido branco, então ela não é casada” será sempre V.
+94. (Cespe – UnB – Pmac – 2008) Se as proposições “Maria é casada” e “Maria não virá de
+vestido branco” forem ambas V, então X será F.
+95. (Cespe – UnB – Pmac – 2008) Se a proposição “Maria é casada” for F,
+então,independentemente de X ser V ou F, a proposição “Se Maria não for casada,
+ então
+ela não virá de vestido branco” será sempre F.
+96. (Cespe – UnB – Pmac – 2008) As tabelas-verdade das proposições “Se Maria não vier de
+vestido branco, então ela não é casada” e “Se Maria é casada, então ela virá de vestido
+branco” são iguais.
+Texto para questões 97 e 98
+Circuitos lógicos são estruturas que podem ser exibidas por meio de diagramas
+constituídos de componentes
+ denominados portas lógicas. Um circuito lógico recebe um ou
+mais de um valor lógico na entrada e produz exatamente um valor lógico na saída. Esses
+valores lógicos são representados por 0 ou 1. As portas lógicas OU e N (não) são definidas
+pelos diagramas abaixo.
+
+Nesses diagramas, A e B representam os valores lógicos de entrada e S, o valor lógico da
+saída. Em OU, o valor de S é 0 quando
+ A e B são ambos 0, caso contrário, é 1. Em N, o valor
+de S é 0 quando A for 1, e é 1 quando A for 0. Considere o seguinte diagrama de circuito
+lógico.
+Com base nas definições apresentadas e no circuito ilustrado acima, julgue os itens
+subsequentes.
+97. (Cespe – UnB – TRT – 2007) Considere-se que A tenha valor lógico 1 e B tenha valor
+lógico 0. Nesse caso, o valor lógico de S será 0.
+98. (Cespe – UnB – TRT – 2007) A saída no ponto Q terá valor lógico 1 quando A tiver valor
+lógico 0 e B tiver valor lógico 1.
+Texto para questão 99
+Na lógica sentencial, denomina-se proposição uma frase que pode ser julgada como
+verdadeira (V) ou falsa (F), mas não, como ambas. Assim, frases como “Como está o tempo
+hoje?” e “Esta frase é falsa” não são proposições porque a primeira
+ é pergunta e a
+segunda não pode ser nem V nem F. As proposições são representadas simbolicamente por
+letras maiúsculas do alfabeto — A, B, C etc. Uma proposição da forma “A ou B” é F se A e B
+forem F, caso contrário é V; e uma proposição da forma “Se A então B” é F se A for V e B for
+F, caso contrário é V. Um raciocínio lógico considerado correto é formado por uma
+sequência de proposições tais que
+ a última proposição é verdadeira sempre que as
+proposições anteriores na sequência forem verdadeiras.
+Considerando as informações contidas no texto acima, julgue os itens subsequentes.
+99. (Cespe – UnB – Banco do Brasil S.A – 2007) A proposição simbólica (P
+∧
+Q)
+∨
+R possui, no
+máximo, quatro avaliações V.
+Texto para questões 100 e 101
+Na lógica de primeira ordem, uma proposição é funcional
+ quando é expressa por um
+predicado que contém um número finito de variáveis e é interpretada como verdadeira (V)
+ou falsa (F) quando são atribuídos valores às variáveis e um significado ao predicado. Por
+exemplo, a proposição “Para qualquer x, tem-se que x – 2 > 0” possui interpretação V
+quando x é um número real maior do que 2 e possui interpretação F quando x pertence, por
+exemplo, ao conjunto
+ {-4, -3, -2, -1, 0}.
+Com base nessas informações, julgue os próximos itens.
+100. (Cespe – UnB – Banco do Brasil S.A – 2007) A proposição funcional “Para qualquer x,
+tem-se que x
+2
+ > x” é verdadeira para todos os valores de x que estão no conjunto {5; 5/2;
+3; 3/2; 2; ½}
+
+101. (Cespe – UnB – Banco do Brasil S.A – 2007) A proposição funcional “Existem números
+que são divisíveis por 2 e
+ por 3” é verdadeira para elementos do conjunto {2, 3, 9, 10, 15,
+16}.
+Texto para questões 102 a 106
+Uma proposição é uma frase afirmativa que pode ser avaliada como verdadeira (V) ou falsa
+(F), mas não se admitem, para a proposição, ambas as interpretações. Muitas proposições
+são compostas, isto é, são junções de outras proposições por meio de conectivos. Uma
+proposição é primitiva quando
+ não é composta. Se P e Q representam proposições
+quaisquer, as expressões P
+∧
+ Q, P 
+∨
+ Q e P 
+→
+ Q representam proposições compostas, cujos
+conectivos são lidos, respectivamente, e, ou e implica. A expressão P 
+→
+ Q também pode ser
+lida “se P então Q”. A interpretação de P 
+∨
+ Q é V se P e Q forem ambos V, caso contrário é
+F; a interpretação de P 
+∨
+ Q é F se P e Q forem ambos F, caso contrário é V; a interpretação
+de P 
+→
+ Q é F se P for V e Q for F, caso contrário é V. A expressão ¬P é também uma
+proposição composta, e é interpretada como a negação de P, isto é, se P for V, então ¬P é F,
+e se P for F, então ¬P é V. Uma expressão da forma (P 
+∧
+ (P
+→
+Q))
+→
+ Q é uma forma de
+argumento que é considerada válida se a interpretação de Q for V toda vez que a
+interpretação de P
+∧
+ (P
+→
+Q) for V. Uma proposição também pode
+ ser expressa em função de
+uma ou mais variáveis. Por exemplo, afirmativas tais como “para cada x, P(x)” ou “existe x,
+P(x)” são proposições que podem ser interpretadas como V ou F, de acordo com o conjunto
+de valores assumidos pela variável x e da interpretação dada ao predicado P. A negação da
+proposição “para cada x, P(x)” é “existe x, ¬P(x)”. A negação da proposição “existe x, P(x)”
+é “para cada
+ x, ¬P(x)”.
+Considerando as informações apresentadas acima, julgue os itens subsequentes.
+Considere as seguintes proposições:
+• (7 + 3 = 10) 
+∨
+ (5 – 12 = 7).
+• A palavra “crime” é dissílaba.
+• Se “lâmpada” é uma palavra trissílaba, então “lâmpada” tem acentuação gráfica.
+(8 – 4 = 4) 
+∨
+ (10 + 3 = 13).
+• Se x = 4 então x + 3 < 6.
+102. (Cespe – UnB – MPE – 2007) Entre
+ essas proposições, há exatamente duas com
+interpretação F.
+103. (Cespe – UnB – MPE – 2007) Considere que, em cada célula da tabela abaixo, deve-se
+associar uma projeção da forma P
+∧
+Q, em que P é proposição correspondente à linha e Q
+à coluna. Algumas células já estão preenchidas e sabe-se que a proposição “rosas são
+azuis” é F. Nesse caso, o preenchimento correto de todas as células vazias
+ é F.
+Rosas são azuis.
+João é médico.
+Se
+ 
+a
+2
+ 
+≥
+ 
+0,
+ 
+então
+10
+ 
+≥
+ 
+10
+2
+.
+Palmas é a capital do Tocantins.
+V
+Pedro é procurador de justiça.
+V
+Se 
+a
+ = 4 e 
+b
+ = 5, então 
+a
+ + 
+b
+ = 9.
+V
+
+104. (Cespe – UnB – MPE – 2007) A proposição “para cada x, (x + 2) > 7” é interpretada
+como V para x pertencente ao conjunto {6, 7, 8, 9}.
+105. (Cespe – UnB – MPE – 2007) Se x pertence ao conjunto
+ {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, então
+a proposição “existe x, (x + 6) < 4” é V.
+106. (Cespe – UnB – MPE – 2007) A negação das proposições “para cada x, (x + 4) … 10” e
+“existe x, (x + 3) < 8” é verdadeira para x pertencente ao conjunto {2, 4, 6, 8, 10}.
+Texto para questão 107
+Denomina-se proposição uma frase que pode ser avaliada como verdadeira (V) ou falsa (F).
+Considere que as letras
+ A e B simbolizem proposições básicas e que ¬A, A
+∧
+B e A
+∨
+B
+simbolizem proposições compostas, em que ¬A é a negação da proposição A e, portanto, é V
+quando A for F e é F quando A for V; A
+∧
+B é uma conjunção de proposições, e é V se A e B
+forem V, caso contrário, é F; A
+∧
+B é uma disjunção de proposições, e é F se A e B forem F,
+caso contrário, é V.
+110. (Cespe – UnB – Sead – PCPA – 2007) Com base
+ no texto, assinale a opção que
+simboliza uma tautologia, isto é, uma proposição que é sempre verdadeira.
+a) ¬A
+∨
+(A
+∧
+B);
+b) (A
+∨
+¬B)
+∧
+¬A;
+c) A
+∧
+(B
+∨
+¬B);
+d) (¬A
+∧
+¬B)
+∨
+(A
+∨
+B).
+Texto para questões 108 e 109
+Uma proposição é uma afirmativa que pode ser avaliada como verdadeira (V) ou falsa (F),
+mas não ambos. É usual denotar uma proposição com letras maiúsculas: A, B, C.
+Simbolicamente,
+ A
+∧
+B, A
+∨
+B e ¬A representam proposições compostas cujas leituras são: A
+e B, A ou B e não A. A proposição A 
+→
+ B tem várias formas de leitura: A implica B, se A
+então B, A somente se B, A é condição suficiente para B, B é condição necessária para A
+etc. Desde que as proposições A e B possam ser avaliadas como V ou F, então a proposição
+A
+∧
+B é V se A e B forem ambas V, caso contrário, é F; a proposição
+ A
+∨
+B é F quando A e B
+são ambas F, caso contrário, é V; a proposição A 
+→
+ B é F quando A é V e B é F, caso
+contrário, é V; e, finalmente, a proposição ¬A é V quando A é F, e é F quando A é V. Uma
+argumentação é uma sequência finita de k proposições (que podem estar enumeradas) em
+que as (k – 1) primeiras proposições ou são premissas (hipóteses) ou são colocadas na
+argumentação por alguma regra de
+ dedução. A k-ésima proposição é a conclusão da
+argumentação. Sendo P, Q e R proposições, considere como regras de dedução as
+seguintes: se P e P 
+→
+ Q estão presentes em uma argumentação, então Q pode ser colocada
+na argumentação; se P 
+→
+ Q e Q 
+→
+ R estão presentes em uma argumentação, então P
+→
+ R
+pode ser colocada na argumentação; se P
+∧
+Q está presente em uma argumentação, então
+tanto P quanto Q podem
+ ser colocadas na argumentação. Duas proposições são
+equivalentes quando tiverem as mesmas avaliações V ou F. Portanto, sempre podem ser
+colocadas em uma Argumentação como uma forma de “reescrever” alguma proposição já
+presente na argumentação. São equivalentes, por exemplo, as proposições A 
+→
+ B, ¬B
+→
+¬A
+
+e ¬A
+∨
+B. Uma argumentação é válida sempre que, a partir das premissas que são avaliadas
+como V,
+ obtém-se (pelo uso das regras de dedução ou por equivalência) uma conclusão que
+é também avaliada como V.
+108. (Cespe – UnB – MPE-TO – 2006) Não é possível avaliar como V a proposição (A
+→
+B) 
+∧
+ A
+∧
+ (C
+∨
+¬A
+∨
+¬C).
+109. (Cespe – UnB – MPE-TO – 2006) A proposição (
+∀
+x. ((x > 0)
+→
+ (x + 2) é par) é V se x é um
+número inteiro.
+Texto para questões 110 a 114
+Considere que as letras P, Q, R e T
+ representem proposições e que os símbolos ¬, 
+∧
+, 
+∨
+ e 
+→
+sejam operadores lógicos que constroem novas proposições e significam “não”, “e”, “ou” e
+“então”, respectivamente. Na lógica proposicional, cada proposição assume um único valor
+— verdadeiro (V) ou falso (F). Considere, ainda, que P, Q, R e S representem as sentenças
+listadas abaixo.
+P: O homem precisa de limites.
+Q: A justiça deve
+ ser severa.
+R: A repressão ao crime é importante.
+S: A liberdade é fundamental.
+Com base nessas informações, julgue os próximos itens.
+110. (Cespe – UnB – Censipam – 2006) A sentença “A liberdade é fundamental, mas o
+homem precisa de limites.” pode ser corretamente representada por P 
+∧
+ ¬S.
+111. (Cespe – UnB – Censipam – 2006) A sentença “A repressão ao crime é importante, se
+a justiça deve ser severa.” pode ser corretamente representada por R 
+→
+ Q.
+112. (Cespe – UnB – Censipam – 2006) A sentença “Se a justiça não deve ser severa nem a
+liberdade é fundamental, então a repressão ao crime não é importante.” pode ser
+corretamente representada por (¬Q)
+∧
+(¬S) 
+→
+ ¬R.
+113. (Cespe – UnB – Censipam – 2006) A sentença “Ou o homem não precisa de limites e a
+repressão ao
+ crime não é importante, ou a justiça deve ser severa.” Pode ser
+corretamente representada por ((¬P) 
+∧
+ (¬R)) 
+∨
+ Q .
+114. (Cespe – UnB – Censipam – 2006) A sentença “Se a justiça deve ser severa, então o
+homem precisa de limites” pode ser corretamente representada por Q 
+→
+ P.
+115. (Cespe – UnB – IPAJM – 2006) Suponha que A e B sejam enunciados falsos. Nesse
+caso, o enunciado ¬[(¬A v B) v (¬B
+ v A)] é verdadeiro.
+116. (Cespe – UnB – IPAJM – 2006) Considere as seguintes proposições:
+p: Pedro é rico.
+q: Pedro é forte.
+r: É falso que Pedro é pobre ou forte.
+Nesse caso, a proposição r pode ser escrita na forma simbólica como r: ¬(¬p 
+∨
+ q).
+
+117. (Cespe – UnB – IPAJM – 2006) A proposição “se 1 + 3 = 5, então 2 + 2 = 4” é falsa.
+Texto para questões 118 a 120
+Proposições são frases para as quais se pode atribuir uma valoração verdadeira (V) ou
+falsa (F). Por exemplo, a frase “O planeta Terra é uma imensa planície” é uma proposição
+porque a ela é possível atribuir a valoração falsa (F), e a frase “Onde fica a Antártica?” não
+é proposição porque é uma pergunta e, portanto, não faz sentido ser valorada como V ou F.
+Considere que P e Q sejam proposições e
+ as seguintes notações: ¬P é a negação de P; P
+∨
+Q
+representa “P ou Q”; P
+∧
+Q representa “P e Q”. Uma proposição da forma P 
+→
+ Q é lida como
+“se P, então Q”. Define-se que P 
+→
+ Q é F se a proposição P for V e a proposição Q for F, caso
+contrário, é V. Define-se P
+∨
+Q como F se P e Q forem F, caso contrário, é considerada V.
+Define-se P
+∧
+Q como V se P e Q forem V, caso contrário, é considerada F. Duas proposições
+são consideradas equivalentes quando elas têm exatamente as mesmas valorações V e F.
+Quando proposições da forma P e da forma P 
+→
+ Q são V, e estão presentes em uma
+argumentação — sequência finita de proposições —, então Q pode ser inferida como V, e a
+argumentação está correta.
+Com base nessas informações e considerando as proposições
+P: “Gabriel não é culpado”, e
+Q: “A promotoria
+ não condenará Gabriel”,
+julgue os itens seguintes.
+118. (Cespe – UnB – Prodest – 2006) Há exatamente duas possibilidades para que a
+proposição ¬(P
+∧
+Q)
+∧
+(P
+∨
+Q) tenha valoração F.
+119. (Cespe – UnB – Prodest – 2006) A proposição ¬P
+∨
+¬Q tem mais de uma possibilidade de
+ter valoração F.
+120. (Cespe – UnB – Prodest – 2006) Proposições da forma ¬(P
+∨
+Q) e ¬P
+∧
+¬Q são
+equivalentes.
+Texto
+ para questões 121 e 122
+Uma proposição é uma declaração que pode ser avaliada como verdadeira (V) ou falsa (F).
+Se P e Q representam proposições, as formas simbólicas ¬P, P
+∨
+Q, P
+∧
+Q e P
+→
+Q
+representam a composição de proposições pelo uso de operadores. A forma ¬P representa
+a negação de P e, portanto, é V quando P é F, e vice-versa. A forma P
+∨
+Q representa a
+disjunção, ou seja, ou P ou Q, que
+ é F se e somente se P e Q forem F. A forma PvQ
+representa a conjunção P e Q, que é V se e somente se P e Q forem V. A forma P
+→
+Q
+representa a implicação, ou seja, P implica Q (lê-se “se P então Q”), que é F se e somente
+se P for V e Q for F. Sempre que proposições da forma P e P
+→
+Q (ou ¬Q
+→
+¬P) são V, pode-se
+concluir que Q também é V e por isso, uma sequência que contém essas proposições, sendo
+Q
+ a última delas, constitui uma argumentação válida.
+Com base nessas informações, julgue os itens seguintes.
+121. (Cespe – UnB – Ancine – 2006) Suponha que uma proposição composta de P, obtida
+pelo uso de um ou mais operadores, tenha as valorações V e F, dadas na tabela abaixo.
+
+A
+B
+C
+P
+V
+V
+V
+F
+V
+V
+F
+V
+V
+F
+V
+F
+V
+F
+F
+F
+F
+V
+V
+V
+F
+V
+F
+F
+F
+F
+V
+V
+F
+F
+F
+F
+Nesse
+ caso, uma possível forma para P é (¬A
+∧
+¬B
+∧
+C)
+∨
+(A
+∧
+¬B
+∧
+¬C)
+∨
+(A
+∧
+B
+∧
+¬C).
+122. (Cespe – UnB – Ancine – 2006) Considere que duas proposições são equivalentes se e
+somente se possuem exatamente as mesmas valorações V e F. Nesse caso, se A e B são
+equivalentes, é correto afirmar que ¬A 
+∨
+ B é sempre F.
+Texto para questões 123 e 124
+Considere a proposição: Se meu cliente fosse culpado, então a arma
+ do crime estaria no
+carro. Simbolizando por P o trecho meu cliente fosse culpado e simbolizando por Q o trecho
+a arma estaria no carro, obtém-se uma proposição implicativa, ou simplesmente uma
+implicação, que é lida: Se P então Q, e simbolizada por P
+→
+ Q. Uma tautologia é uma
+proposição que é sempre V (verdadeira). Uma proposição que tenha a forma P 
+→
+ Q é V
+sempre que P for F (falsa) e sempre que
+ P e Q forem V.
+Com base nessas informações e na simbolização sugerida, julgue os itens subsequentes.
+123. (Cespe – UnB – TRT – 2005) A proposição “Se meu cliente fosse culpado, então a arma
+do crime estaria no carro. Portanto, se a arma do crime não estava no carro, então meu
+cliente não é culpado.” É uma tautologia.
+124. (Cespe – UnB – TRT – 2005) A proposição “Se meu cliente fosse
+ culpado, então a arma
+do crime estaria no carro. Portanto, ou meu cliente não é culpado ou a arma do crime
+estaria no carro.” não é uma tautologia.
+O diagrama apresentado acima é percorrido de cima para baixo, seguindo-se as setas. As
+instruções escritas nos retângulos são atribuições, ou seja, o valor calculado na expressão
+à direita é atribuído à variável da esquerda do símbolo =. A
+ instrução escrita no losango é
+uma condição para se prosseguir na direção da seta V (verdadeiro) ou da seta F (falso).
+Com base nessas informações, julgue os itens a seguir.
+
+125. (Cespe – UnB – TRT – 2005) Se X = 1, então o valor de Z será igual a 3.
+126. (Cespe – UnB – TRT – 2005) Se X = 
+√
+5 então Z = 
+√
+6
+√
+5.
+Texto para questões 127 a 129
+O fluxograma abaixo contém uma sequência
+ finita de instruções a serem executadas na
+ordem em que são apresentadas, começando-se da posição designada por “início” e
+seguindo-se as setas. Dentro das formas retangulares, a seta para a esquerda indica que o
+valor escrito ou obtido à direita é atribuído à variável à esquerda. A expressão no losango é
+avaliada e, quando resultar verdadeira, prossegue-se na direção indicada por V, e, quando
+for falsa, prossegue-se na direção indicada por F. Se P e Q representam proposições que
+podem ter valorações V ou F, então as expressões ¬P, P
+→
+Q, P
+∨
+Q e P
+∧
+Q, que são lidas “não
+P”, “P implica Q”, “P ou Q” e “P e Q”, respectivamente, também são proposições e podem
+ter valorações V ou F conforme as valorações dadas a P e a Q.
+A partir do texto e do fluxograma precedente, em que A, B, X e
+ Y são proposições
+quaisquer, siga as instruções do fluxograma e julgue os itens a seguir.
+127. (Cespe – UnB – BRB – 2005) A valoração atribuída a X será igual à valoração de A
+→
+B.
+128. (Cespe – UnB – BRB – 2005) A proposição ¬(A
+→
+B) tem as mesmas valorações V e F que
+a proposição (¬A)
+→
+(¬B).
+129. (Cespe – UnB – BRB – 2005) Se as valorações iniciais de A e de B fossem,
+respectivamente,
+ F e F, então a valoração de Y seria também F.
+Texto para questões 130 a 133
+Os componentes básicos de sistemas digitais são denominados circuitos digitais lógicos,
+em razão de sua correspondência com as fórmulas da lógica proposicional. São dois os
+estados dos circuitos: NÍVEL BAIXO (0) ou NÍVEL ALTO (1). A eles correspondem,
+respectivamente, as proposições ou fórmulas da lógica: FALSA
+ (0) ou VERDADEIRA (1). Os
+circuitos podem ser representados por fórmulas, e vice-versa. A interpretação dos
+circuitos e das fórmulas pode ser descrita por tabelas. Na tabela a seguir, para cada
+valoração, 0 ou 1, atribuída a P e a Q, é associada uma valoração da saída, S, que é também
+a valoração da fórmula associada a S.
+representações correspondentes
+gráfico do circuito
+tabela de interpretação
+fórmula associada a S
+
+entrada
+saída
+¬P
+P
+S
+1
+0
+0
+1
+entrada
+saída
+P
+∧
+Q
+P
+Q
+S
+1
+1
+1
+1
+0
+0
+0
+1
+0
+0
+0
+0
+entrada
+saída
+P
+∨
+Q
+P
+Q
+S
+1
+1
+1
+1
+0
+1
+0
+1
+1
+0
+0
+0
+Com base nas informações apresentadas acima, julgue os itens que se seguem.
+130. (Cespe – UnB – Petrobras – 2004) À saída S do circuito abaixo está associada à
+fórmula P
+∧
+ ¬ Q.
+131. (Cespe – UnB – Petrobras – 2004) As possibilidades de entrada e saída do circuito
+estão de acordo com a tabela seguinte:
+entrada
+saída
+P
+Q
+S
+1
+1
+1
+1
+0
+0
+0
+1
+1
+0
+0
+0
+132. (Cespe – UnB – Petrobras – 2004) Os circuitos I e II mostrados abaixo têm tabelas de
+interpretação idênticas.
+
+133. (Cespe – UnB – Petrobras – 2004) Considere as proposições abaixo:
+p: 4 é um
+ número par;
+q: A Petrobras é a maior exportadora de café do Brasil. Nesse caso, é possível concluir
+que a proposição p 
+∨
+ q é verdadeira.
+Texto para questões 134 a 137
+Sejam P e Q variáveis proposicionais que podem ter valorações, ou serem julgadas
+verdadeiras (V) ou falsas (F). A partir dessas variáveis, podem ser obtidas novas
+proposições, tais como: a proposição condicional, denotada
+ por P 
+→
+ Q, que será F quando P
+for V e Q for F, ou V, nos outros casos; a disjunção de P e Q, denotada por P
+∨
+Q, que será F
+somente quando P e Q forem F, ou V nas outras situações; a conjunção de P e Q, denotada
+por P
+∧
+Q, que será V somente quando P e Q forem V, e, em outros casos, será F; e a negação
+de P, denotada por ¬P, que será F se P for V e será V se P for F. Uma tabela de valorações
+para
+ uma dada proposição é um conjunto de possibilidades V ou F associadas a essa
+proposição.
+A partir das informações do texto acima, julgue os itens subsequentes.
+134. (Cespe – UnB – PF – 2004) As tabelas de valorações das proposições P
+∨
+Q e Q 
+→
+ ¬P são
+iguais.
+135. (Cespe – UnB – PF – 2004) As proposições (P
+∨
+Q) 
+→
+ S e (P 
+→
+ S)
+∨
+(Q 
+→
+ S) possuem
+tabelas de valorações iguais.
+136. (Cespe
+ – UnB – Previc – 2011) O número de linhas da tabela-verdade da proposição
+(P
+∧
+ Q 
+→
+ R) é inferior a 6.
+137. (Cespe – UnB – Previc – 2011) Se a proposição P for falsa, então a proposição P 
+→
+ (Q 
+∨
+R) será uma proposição verdadeira.
+Texto para questão 138
+Há instituições participantes do Sistema de Seleção Unificada (Sisu) que disponibilizam
+parte de suas vagas para atender o público de
+ acordo com as políticas afirmativas (cotas
+essas de escola pública etc.). Assim, para determinados cursos, pode haver duas
+modalidades de concorrência: ampla concorrência e ações afirmativas. O candidato deverá,
+no momento da inscrição, optar por uma dessas modalidades, de acordo com seu perfil.
+Dessa forma, o candidato que optar por concorrer por determinada ação afirmativa estará
+concorrendo apenas
+ com os candidatos que tenham feito essa mesma opção, e o sistema
+selecionará, entre eles, os que possuírem as melhores notas no Exame Nacional do Ensino
+Médio (Enem). Internet: <http://.sisu.mec.gov.br> (com adaptações).
+Com base nas informações do texto acima e considerando que Pedro, Antônio e José
+
+tenham concorrido ao curso de matemática de uma instituição participante do Sisu, que as
+suas
+ respectivas pontuações obtidas no Enem tenham sido 415, 608 e 375 pontos e que os
+candidatos selecionados para o referido curso pelo Sisu na ampla concorrência tenham
+obtido pontuação mínima de 480 pontos no Enem, julgue os itens subsequentes.
+138. (Cespe – UnB – MEC – 2011) A negação da proposição “O candidato atende os
+requisitos exigidos para concorrer a uma vaga destinada a política afirmativa
+ e possui
+os documentos exigidos pela instituição em caso de aprovação” é “O candidato não
+atende os requisitos exigidos para concorrer a uma vaga destinada a política afirmativa
+ou não possui os documentos exigidos pela instituição em caso de aprovação”.
+Texto para questões 139 e 140
+O ProJovem Campo oferece qualificação profissional e escolarização aos jovens
+agricultores familiares de
+ 18 a 29 anos de idade que não concluíram o Ensino
+Fundamental. Os agricultores participantes recebem uma bolsa de R$ 1.200,00, em 12
+parcelas mensais e iguais, e têm de cumprir frequência de 75% da duração do curso, que é
+de dois anos. O curso é oferecido em sistema de alternância — intercalando-se tempo-
+escola e tempo-comunidade e o formato do seu programa é de responsabilidade de cada
+estado,
+ de acordo com as características da atividade agrícola local.
+Internet: <http://.portal.mec.gov.br> (com adaptações).
+Considere que Maria, Carlos e Francisco sejam jovens agricultores familiares de um
+município que oferece vagas do ProJovem Campo. Considere, ainda, as seguintes
+proposições: P: Francisco tem 30 anos de idade;
+Q: A idade de Maria é igual a dois terços da idade de
+ Carlos;
+R: Carlos é, no máximo, três anos mais novo que Francisco e apenas Carlos concluiu o
+ensino fundamental.
+Com referência às informações do texto e às proposições P, Q e R, julgue os próximos itens.
+139. (Cespe – UnB – MEC – 2011) A negação da proposição “Se Francisco tem 30 anos de
+idade, então a idade de Maria é igual a dois terços da idade de Carlos” é equivalente à
+proposição
+ “Francisco tem 30 anos de idade e a idade de Maria não é igual a dois terços
+da idade de Carlos”.
+140. (Cespe – UnB – MEC – 2011) Se duas das proposições P, Q e R forem verdadeiras,
+então a proposição composta ¬(P
+∨
+R) 
+∧
+ (R
+∨
+Q)] será verdadeira.
+Texto para questões 141 e 142
+Considerando as proposições simples P, Q e R, julgue as próximas questões, acerca de
+tabelas-verdade e lógica proposicional.
+141. (Cespe – UnB – MEC – 2011) A tabela-verdade da proposição (¬P
+∨
+Q) 
+→
+ (R
+∧
+Q) 
+∨
+ (¬R
+∧
+P)
+tem oito linhas.
+142. (Cespe – UnB – MEC – 2011) Se apenas uma das proposições P, Q ou R for verdadeira,
+então a proposição (P
+∨
+¬Q) 
+→
+ (P
+∧
+R) será falsa.
+
+143. (Cespe – UnB – Seduc – 2011) Se P
+∨
+Q representa a proposição “P ou Q”, então o
+critério de aprovação da instituição de ensino está corretamente
+ expresso pela
+proposição [P
+∨
+Q] 
+→
+ R.
+144. (Cespe – UnB – Seduc – 2011) Se P
+∧
+Q representa a proposição “P e Q”, se as
+proposições P e [P
+∧
+Q] 
+→
+ R forem verdadeiras e se a proposição R for falsa, então a
+proposição Q também será falsa.
+145. (Cespe – UnB – Seduc – 2011) A proposição ¬P — negação de proposição P — está
+corretamente expressa por “A nota final do estudante foi igual ou inferior
+ a 6”.
+146. (Cespe – UnB – Seduc – 2011) Se P 
+→
+ R representa a proposição “Se P, então R”,
+então a proposição P 
+→
+ R é equivalente à proposição: “Se a nota final do estudante foi
+igual ou superior a 6, então o estudante foi aprovado”.
+Texto para questões 147 e 148
+Símbolos 
+∧
+, 
+∨
+, ~ e 
+→
+ representam, respectivamente, as operações lógicas “e”, “ou”, “não”
+e “implicação”.
+147. (Cespe
+ – UnB – PC – 2011) A negação da proposição (P
+∨
+~Q) 
+∧
+ R é (~P
+∨
+Q) 
+∧
+ (~R).
+148. (Cespe – UnB – PC – 2011) Se a proposição R for falsa e se a proposição composta
+(P
+∧
+Q) 
+→
+ (~Q
+∨
+R) for verdadeira, então a proposição P será verdadeira.
+Texto para questões 149 a 151
+Para descobrir qual dos assaltantes — Gavião ou Falcão — ficou com o dinheiro roubado de
+uma agência bancária, o delegado constatou
+ os seguintes fatos: F1 – se Gavião e Falcão
+saíram da cidade, então o dinheiro não
+ficou com Gavião;
+F2 – se havia um caixa eletrônico em frente ao banco, então o
+dinheiro ficou com Gavião;
+F3 – Gavião e Falcão saíram da cidade;
+F4 – havia um caixa eletrônico em frente ao banco ou o dinheiro foi entregue à mulher de
+Gavião.
+Considerando que as proposições F1, F2, F3
+ e F4 sejam verdadeiras, julgue os itens
+subsequentes, com base nas regras de dedução.
+149. (Cespe – UnB – PC – 2011) A negação da proposição F4 é logicamente equivalente à
+proposição “Não havia um caixa eletrônico em frente ao banco ou o dinheiro não foi
+entregue à mulher de Gavião”.
+150. (Cespe – UnB – PC – 2011) A proposição “O dinheiro foi entregue à mulher de Gavião”
+é verdadeira.
+151. (Cespe – UnB – PC – 2011) A proposição F2 é logicamente equivalente à proposição
+“Se o dinheiro não ficou com Gavião, então não havia um caixa eletrônico em frente ao
+banco”.
+
+Texto para questões 152 a 155
+Na confecção dos horários de aulas de determinada escola, deve-se considerar que,
+quando um professor está de folga ou em coordenação, seu nome não consta na grade
+horária. A
+ partir dessa situação, considere as seguintes proposições.
+P: O professor está de folga.
+Q: O professor está em coordenação.
+R: O nome do professor não consta na grade horária.
+Com base nessas informações e considerando os símbolos lógicos ¬, 
+→
+ e 
+∨
+, que significam
+“não”, “se ..., então ...” e “ou”, respectivamente, julgue os itens a seguir, referentes à
+lógica sentencial.
+152. (Cespe – UnB – Seduc – 2011) A proposição “Quando um professor está de folga ou em
+coordenação, seu nome não consta na grade horária” pode ser expressa
+simbolicamente por [P
+∨
+Q] 
+→
+ R.
+153. (Cespe – UnB – Seduc – 2011) Se as proposições P e [P
+∨
+Q] 
+→
+ R são verdadeiras e a
+proposição Q é falsa, então a proposição R é necessariamente falsa.
+154. (Cespe – UnB – Seduc – 2011) A proposição ¬R
+ pode ser expressa por: “O nome do
+professor consta na grade horária”.
+155. (Cespe – UnB – Seduc – 2011) A proposição P 
+→
+ R é equivalente à proposição “Se o
+professor está de folga, então o seu nome não consta na grade horária”.
+156. (Cespe – UnB – Previc – 2011) A negação da proposição “Se um trabalhador tinha
+qualidade de segurado da previdência social ao falecer, então seus dependentes
+ têm
+direito a pensão” é logicamente equivalente à proposição “Um trabalhador tinha
+qualidade de segurado da previdência social ao falecer, mas seus dependentes não têm
+direito a pensão”.
+Texto para questões 157 e 158
+Entende-se por proposição todo conjunto de palavras ou símbolos que exprimem um
+pensamento de sentido completo, isto é, que afirmam fatos ou exprimem juízos a respeito
+de
+ determinados entes. Na lógica bivalente, esse juízo, que é conhecido como valor lógico
+da proposição, pode ser verdadeiro (V) ou falso (F), sendo objeto de estudo desse ramo da
+lógica apenas as proposições que atendam ao princípio da não contradição, em que uma
+proposição não pode ser simultaneamente verdadeira e falsa; e ao princípio do terceiro
+excluído, em que os únicos valores lógicos possíveis
+ para uma proposição são verdadeiro e
+falso.
+Com base nessas informações, julgue os itens a seguir.
+157. (Cespe – UnB – TRE-ES – 2011) Segundo os princípios da não contradição e do terceiro
+excluído, a uma proposição pode ser atribuído um e somente um valor lógico.
+158. (Cespe – UnB – TRE-ES – 2011) A frase “Que dia maravilhoso!” consiste em uma
+proposição objeto de estudo da lógica
+ bivalente.
+
+Texto para questões 159 a 162
+Denomina-se proposição toda frase que pode ser julgada como verdadeira — V — ou falsa
+— F —, mas não como V e F simultaneamente. As proposições simples são aquelas que não
+contêm mais de uma proposição como parte. As proposições compostas são construídas a
+partir de outras proposições, usando-se símbolos lógicos e parênteses para evitar
+ambiguidades.
+ As proposições são usualmente simbolizadas por letras maiúsculas do
+alfabeto: A, B, C etc. Uma proposição composta na forma A 
+∨
+ B, chamada disjunção, é lida
+como “A ou B” e tem valor lógico F se A e B são F, e V, nos demais casos.
+Uma proposição composta na forma A 
+∧
+ B, chamada conjunção, é lida como “A e B” e tem
+valor lógico V se A e B são V, e F, nos demais casos. Uma proposição composta
+ na forma A
+→
+ B, chamada implicação, é lida como “se A, então B” e tem valor lógico F se A é V e B é F,
+e V, nos demais casos. Além disso, ¬A, que simboliza a negação da proposição A, é V se A
+for F, e é F se A for V.
+A partir do texto, julgue os itens a seguir.
+159. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Na sequência de frases abaixo, há três
+proposições.
+– Quantos tribunais regionais
+ do trabalho há na região Sudeste do Brasil?
+– O TRT/ES lançou edital para preenchimento de 200 vagas.
+– Se o candidato estudar muito, então ele será aprovado no concurso do TRT/ES.
+– Indivíduo com 50 anos de idade ou mais não poderá se inscrever no concurso do
+TRT/ES.
+160. (Cespe – UnB – TRT-17
+a
+ Região – 2009) A negação da proposição “O juiz determinou a
+libertação de um estelionatário
+ e de um ladrão” é expressa na forma “O juiz não
+determinou a libertação de um estelionatário nem de um ladrão”.
+161. (Cespe – UnB – TRT-17
+a
+ Região – 2009) Caso a proposição “No Brasil havia, em média,
+em 2007, seis juízes para cada 100 mil habitantes na justiça do trabalho estadual, mas,
+no estado do Espírito Santo, essa média era de 13 juízes” tenha valor lógico V, também
+será V a proposição
+ “Se no Brasil não havia, em média, em 2007, seis juízes para cada
+100 mil habitantes na justiça do trabalho estadual, então, no estado do Espírito Santo,
+essa média não era de 13 juízes”.
+162. (Cespe – UnB – TRT-17
+a
+ Região – 2009) As proposições (¬A) 
+→
+(¬B) e A
+→
+B têm os
+mesmos valores lógicos para todas as possíveis valorações lógicas das proposições A e
+B.
+Texto para questões 163 e 164
+Para cumprir as determinações do parágrafo único do artigo 3
+o
+ do Decreto n
+o
+ 4.553/2002 —
+que estabelece que toda autoridade responsável pelo trato de dados ou informações
+sigilosos, no âmbito da administração pública federal, deve providenciar para que o
+pessoal sob suas ordens conheça integralmente as medidas de segurança estabelecidas,
+zelando pelo seu fiel cumprimento —, o chefe de uma repartição
+ que trabalha com
+material sigiloso fixou no mural de avisos a seguinte determinação: “No fim do expediente,
+cada servidor deve triturar todos os papéis usados como rascunho ou que não tenham mais
+
+serventia para o desenvolvimento dos trabalhos que esteja realizando ou que tenha
+realizado”.
+Considerando as regras da lógica sentencial, julgue os itens a seguir, a partir da
+proposição contida
+ na determinação do chefe citado na situação apresentada acima.
+163. (Cespe – UnB – ABIN – 2010) A negação da proposição “estes papéis são rascunhos ou
+não têm mais serventia para o desenvolvimento dos trabalhos” é equivalente a “estes
+papéis não são rascunhos e têm serventia para o desenvolvimento dos trabalhos”.
+164. (Cespe – UnB – ABIN – 2010) A proposição “um papel é rascunho ou não
+ tem mais
+serventia para o desenvolvimento dos trabalhos” é equivalente a “se um papel tem
+serventia para o desenvolvimento dos trabalhos, então é um rascunho”.
+1.15.1. Gabarito dos exercícios propostos
+1. Certo
+34. Certo
+67. Errado
+100. Errado
+133. Certo
+2. Errado
+35. Errado
+68. Errado
+101. Errado
+134. Errado
+3. Certo
+36. Certo
+69. Certo
+102. Errado
+135. Errado
+4. Errado
+37. Certo
+70. C
+103. Certo
+136. Errado
+5. Certo
+38. Errado
+71. Errado
+104. Certo
+137. Certo
+6. Certo
+39. Errado
+72. Errado
+105. Errado
+138. Certo
+7. Errado
+40.
+ A
+73. Errado
+106. Errado
+139. Certo
+8. Errado
+41. A
+74. Errado
+107. C
+140. Errado
+9. Certo
+42. E
+75. Errado
+108. Errado
+141. Certo
+10. Certo
+43. Errado
+76. Errado
+109. Errado
+142. Errado
+11. Certo
+44. Certo
+77. Errado
+110. Errado
+143. Errado
+12. Errado
+45. Errado
+78. Certo
+111. Errado
+144. Certo
+13. E
+46. Certo
+79. A
+112. Certo
+145. Errado
+14. A
+47. Certo
+80. Errado
+113. Certo
+146. Certo
+15. C
+48. Errado
+81. Certo
+114. Certo
+147. Errado
+16. Errado
+49. Certo
+82. Certo
+115. Errado
+148. Errado
+17. Errado
+50. Errado
+83. Certo
+116. Certo
+149. Errado
+18. Errado
+51. Errado
+84. Errado
+117. Errado
+150. Certo
+19. Errado
+52. Certo
+85. Errado
+118. Certo
+151. Certo
+20. Errado
+53. Errado
+86. Certo
+119. Errado
+152. Certo
+21. Certo
+54. Certo
+87. Certo
+120. Certo
+153. Errado
+22. Errado
+55. Errado
+88. Certo
+121. Errado
+154. Certo
+23. Certo
+56. B
+89. Errado
+122. Certo
+155. Certo
+24. Errado
+57. B
+90. Certo
+123. Errado
+156. Certo
+25. Certo
+58. Certo
+91. Errado
+124. Errado
+157. Certo
+26. Errado
+59. Certo
+92. Errado
+125. Errado
+158. Errado
+
+27. Certo
+60. Certo
+93. Errado
+126. Errado
+159. Certo
+28. Errado
+61. Certo
+94. Certo
+127. Certo
+160. Errado
+29. Errado
+62. Certo
+95. Errado
+128. Errado
+161. Certo
+30. Certo
+63. Certo
+96. Certo
+129. Certo
+162. Errado
+31. Certo
+64. Errado
+97. Errado
+130. Certo
+163. Certo
+32. Errado
+65. Certo
+98. Certo
+131. Certo
+164. Certo
+33. Errado
+66. Errado
+99. Errado
+132. Errado
+
+Capítulo 2
+Associações Lógicas
+Tem como finalidade correlacionar elementos. Por exemplo:
+• pessoas x lugares;
+• pessoas x profissões;
+• lugares x profissões;
+2.1. Aplicação
+Antônio, Benedito e Camilo são clientes de uma agência bancária. Certo dia, os três
+entraram na agência e pegaram senhas para atendimento no caixa. Cada um deles
+realizou exatamente uma das seguintes
+ tarefas: fazer um depósito, pagar uma fatura,
+liquidar uma hipoteca. Nas linhas e colunas da tabela abaixo, são dados os nomes dos três
+clientes, as tarefas que eles realizaram e a ordem em que foram atendidos, em relação
+aos outros dois.
+primeiro
+segundo
+terceiro
+depósito
+fatura
+hipoteca
+Antônio
+Benedito
+Camilo
+depósito
+fatura
+hipoteca
+Sabendo que Camilo não foi o segundo nem o terceiro a ser atendido, que Antônio foi
+liquidar a hipoteca e que o segundo que foi atendido foi pagar uma fatura, marque, em
+cada célula da tabela acima, V ou F conforme o cruzamento das informações das
+respectivas linha e coluna seja verdadeiro (V) ou falso (F).
+Com base nas informações acima, julgue os itens subsequentes, acerca da situação
+hipotética
+ apresentada.
+1. (Cespe – UnB – BRB – 2005) Antônio foi o terceiro atendido e não foi fazer o depósito
+bancário na agência.
+2. (Cespe – UnB – BRB – 2005) Benedito não foi pagar a fatura na agência bancária.
+3. (Cespe – UnB – BRB – 2005) Se um dos clientes não foi o primeiro a ser atendido ou não
+foi fazer o depósito, então ele não se chama Camilo.
+
+Solução:
+A metodologia consiste
+ na marcação do OK e do X na tabela.
+OK = confirma uma informação dada no texto (devemos sempre, nesse caso,
+cancelar a linha e a coluna referentes à informação do texto).
+X = significa cancelamento.
+Solução:
+Sabendo que Camilo não foi o segundo nem o terceiro a ser atendido a
+conclusão a partir dessa dessa informação do texto é que Camilo só pode ser o
+primeiro, então, marcamos
+ o OK.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+BENEDITO
+CAMILO
+OK
+Como eu marquei o OK, vou automaticamente cancelar a linha e a coluna.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+BENEDITO
+X
+CAMILO
+OK
+X
+X
+Antônio foi liquidar a hipoteca, marcamos o OK novamente.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+OK
+BENEDITO
+X
+CAMILO
+OK
+X
+X
+Como eu marquei o OK, vou automaticamente cancelar a linha e a coluna.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+X
+X
+OK
+BENEDITO
+X
+X
+CAMILO
+OK
+X
+X
+X
+O segundo que foi atendido foi pagar
+ uma fatura, então essa pessoa não pode ser
+Antonio e nem Camilo. E com isso chegamos à conclusão de que Antonio não foi
+o segundo e Camilo não foi pagar a fatura.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+
+ANTONIO
+X
+X
+X
+X
+OK
+BENEDITO
+X
+X
+CAMILO
+OK
+X
+X
+X
+X
+Com isso já podemos marcar o OK para Camilo em relação ao depósito.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+X
+X
+OK
+BENEDITO
+X
+X
+CAMILO
+OK
+X
+X
+OK
+X
+X
+Consequentemente, podemos marcar o OK para Benedito em relação à fatura.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+X
+X
+OK
+BENEDITO
+X
+X
+OK
+X
+CAMILO
+OK
+X
+X
+OK
+X
+X
+Se Benedito pagou a fatura, ele só pode ter sido o segundo atendido.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+X
+X
+OK
+BENEDITO
+X
+OK
+X
+OK
+X
+CAMILO
+OK
+X
+X
+OK
+X
+X
+Se Camilo foi o primeiro e Benedito foi o segundo, concluímos que Antonio foi
+o terceiro.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+OK
+X
+X
+OK
+BENEDITO
+X
+OK
+X
+OK
+X
+CAMILO
+OK
+X
+X
+OK
+X
+X
+Com isso conseguimos fechar a nossa tabela.
+PRIMEIRO
+SEGUNDO
+TERCEIRO
+DEPOSITO
+FATURA
+HIPOTECA
+ANTONIO
+X
+X
+OK
+X
+X
+OK
+BENEDITO
+X
+OK
+X
+X
+OK
+X
+CAMILO
+OK
+X
+X
+OK
+X
+X
+1) Antônio foi o terceiro atendido e não foi fazer o depósito bancário na agência.
+Item certo.
+
+2) Benedito não foi pagar a fatura na agência bancária. Item errado (foi pagar a
+fatura).
+3) Se um dos clientes não foi o primeiro
+ a ser atendido ou não foi fazer o
+depósito, então ele não se chama Camilo. Item certo.
+2.2. Exercícios resolvidos
+1. (Cespe – UnB – PRF – 2008) Em um posto de fiscalização da PRF, os veículos A, B e C
+foram abordados, e os seus condutores, Pedro, Jorge e Mário, foram autuados pelas
+seguintes infrações: (i) um deles estava dirigindo alcoolizado; (ii) outro apresentou a
+CNH vencida; (iii)
+ a CNH apresentada pelo terceiro motorista era de categoria inferior à
+exigida para conduzir o veículo que ele dirigia. Sabe-se que Pedro era o condutor do
+veículo C; o motorista que apresentou a CNH vencida conduzia o veículo B; Mário era
+quem estava dirigindo alcoolizado.
+Com relação a essa situação hipotética, julgue os itens que se seguem.
+Caso queira, use a tabela na coluna de rascunho
+ como auxílio.
+i
+ii
+iii
+A
+B
+C
+Pedro
+Jorge
+Mário
+A
+B
+C
+I. A CNH do motorista do veículo A era de categoria inferior à exigida.
+II. Mário não era o condutor do veículo A.
+III. Jorge era o condutor do veículo B.
+IV. A CNH de Pedro estava vencida.
+V. A proposição “Se Pedro apresentou CNH vencida, então Mário é o condutor do veículo
+B” é verdadeira. Estão certos apenas os itens: a) I e II;
+b) I e IV;
+c) II e III;
+d) III e V;
+e) IV e V.
+Texto para questões 2 e 3
+Na tabela abaixo, estão relacionados três nomes de pessoas e três profissões. Considere
+que cada profissão seja exercida por somente uma das pessoas. Observe que há uma
+célula marcada com a letra V (verdadeiro), significando que Clara é
+ professora, e outra
+marcada com a letra F (falso), indicando que Teresa não é engenheira.
+pessoa
+enfermeira
+professora
+engenheira
+Clara
+V
+
+Janice
+Teresa
+F
+De acordo com as condições estabelecidas acima, preencha as células em branco com V ou
+F e julgue os itens que se seguem.
+1
+2
+3
+A
+B
+C
+PEDRO
+OK
+JORGE
+MARIO
+2. (Cespe – UnB – MCT – 2008) A proposição “Janice não é engenheira” é verdadeira.
+3. (Cespe – UnB – MCT – 2008) A proposição “Janice não é engenheira ou Teresa é
+enfermeira” é verdadeira.
+2.2.1. Gabarito dos exercícios resolvidos
+1. D
+2. Errado
+3. Certo
+2.2.2. Solução dos exercícios resolvidos
+1. (Cespe – UnB – PRF – 2008)
+Sabe-se que Pedro era o condutor do veículo C.
+Quando marcamos o OK, devemos automaticamente cancelar a linha e a coluna.
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+OK
+JORGE
+X
+MARIO
+X
+O motorista que apresentou a CNH vencida conduzia o veículo B. Conclusão,
+essa pessoa não é Pedro.
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+X
+OK
+JORGE
+X
+MARIO
+X
+Mário era quem estava dirigindo alcoolizado, marcar o OK.
+Como marcamos o OK, vamos automaticamente cancelar a linha e a coluna.
+1
+2
+3
+A
+B
+C
+
+PEDRO
+X
+X
+OK
+X
+X
+OK
+JORGE
+X
+X
+MARIO
+OK
+X
+X
+X
+Com isso percebemos que a infração 3 restou para Pedro.
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+OK
+X
+X
+OK
+JORGE
+X
+OK
+X
+X
+MARIO
+OK
+X
+X
+X
+Se Mário ficou com a primeira e Pedro ficou com a 3, concluímos que Jorge
+ficou com a infração 2.
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+OK
+X
+X
+OK
+JORGE
+X
+OK
+X
+OK
+X
+MARIO
+OK
+X
+X
+X
+O motorista que apresentou a CNH vencida conduzia o veículo B, e notamos
+que essa pessoa só pode ser Jorge.
+Como marcamos o OK, vamos automaticamente cancelar a linha e a coluna.
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+OK
+X
+X
+OK
+JORGE
+X
+OK
+X
+X
+OK
+X
+MARIO
+OK
+X
+X
+OK
+X
+X
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+X
+OK
+JORGE
+X
+MARIO
+OK
+X
+1
+2
+3
+A
+B
+C
+PEDRO
+X
+X
+X
+X
+OK
+JORGE
+X
+X
+MARIO
+OK
+X
+X
+X
+I. A CNH do motorista do veículo A era de categoria inferior à exigida. Item errado
+(alcoolizado).
+II. Mário não era o condutor do veículo A. Item errado (era o motorista A).
+III. Jorge era o condutor do
+ veículo B. Item certo.
+
+IV. A CNH de Pedro estava vencida. Item errado (categoria inferior).
+V. A proposição “Se Pedro apresentou CNH vencida, então Mário é o condutor do veículo
+B” é verdadeira.
+Estão certos apenas os itens “Se Pedro apresentou CNH vencida, então Mário é o
+condutor do veículo B” é verdadeira.
+se F então F = V. Item certo (tabuada lógica).
+a) I e II;
+b)
+ I e IV;
+c) II e III;
+d) III e V;
+e) IV e V.
+Gabarito:
+ Letra D.
+(Cespe – UnB – MCT – 2008)
+Se Clara é professora, concluímos que o V está representando OK. Com isso,
+podemos cancelar linha e coluna.
+ENFERMEIRA
+PROFESSORA
+ENGENHEIRA
+CLARA
+F
+V
+F
+JANICE
+F
+TERESA
+F
+F
+Observando a coluna da engenheira,
+ notamos que sobrou para ela Janice.
+ENFERMEIRA
+PROFESSORA
+ENGENHEIRA
+CLARA
+F
+V
+F
+JANICE
+F
+V
+TERESA
+F
+F
+Se Clara é professora e Janice é engenheira, conclui-se que Teresa é enfermeira.
+ENFERMEIRA
+PROFESSORA
+ENGENHEIRA
+CLARA
+F
+V
+F
+JANICE
+F
+F
+V
+TERESA
+V
+F
+F
+2. A proposição “Janice não é engenheira” é verdadeira. Item errado (Janice é
+engenheira).
+3. A proposição “Janice não é engenheira ou Teresa é enfermeira” é verdadeira.
+F ou V é verdadeira. Item certo (tabuada lógica).

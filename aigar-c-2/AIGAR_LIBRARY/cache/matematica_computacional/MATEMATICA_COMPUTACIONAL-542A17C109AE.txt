@@ -1,0 +1,1099 @@
+Interpolação 97
+As diferenças divididas são usualmente dadas tabela das diferenças divididas
+xif(xi)fi;i+1fi;i+2fi;i+3
+x0f0
+f0;1
+x1f1 f0;2
+f1;2 f0;3
+x2f2 f1;3 
+f2;3 
+x3f3  
+ fn3;n
+ fn2;n
+fn1;n
+xnfn,
+ondefi;j=f[xi;xj]. Essa tabela pode ser obtida pelo seguinte algoritmo.
+Algoritmo 5.2 Diferenças divididas
+Dados:n,xi,i= 0;1;:::;n
+f0:=f(x0)
+Paraide1aténfazer
+fi:=f(xi)
+Parajdei1aténfazer
+fj;i:= (fj+1;ifj;i1)=(xixj)
+Resultado: fj;i,i= 1;:::;n,j=i1;:::;n
+Notemos que os coeﬁcientes da fórmula de Newton estão ao longo da diagonal da tabela
+das diferenças divididas.
+Um resultado importante respeitante às diferenças divididas é o seguinte.
+Teorema 5.3 As diferenças divididas são invariantes para qualquer permutação dos índi-
+ces de suporte.
+Demonstração: Com efeito, tem-se que
+f[xi;xi+1] =f(xi+1)f(xi)
+xi+1xi=f(xi)f(xi+1)
+xixi+1=f[xi+1;x1]:
+Por indução conclui-se facilmente (exercício) que o mesmo acontece para as diferenças
+divididas de qualquer ordem.
+A demonstração do teorema anterior poderia ter sido feita atendendo ao seguinte exer-
+cício que se demonstra por indução.
+Exercício 5.7 SejaPno polinómio interpolador de f2Cn+1([a;b])de grau inferior ou igual
+annos pontos da partição (5.1) do intervalo [a;b]ewo polinómio nodal dado em (5.6).
+Mostre que se veriﬁca a igualdade
+f[x0;x1;:::;xn] =nX
+i=0f(xi)
+w0(xi):
+
+Interpolação 98
+O valor do polinómio interpolador num determinado ponto do seu domínio pode ser
+dado pelo seguinte algoritmo.
+Algoritmo 5.3 Fórmula de Newton das diferenças divididas
+Dados:n,xexi,i= 0;1;:::;n
+f0;0:=f(x0)
+Paraide1aténfazer
+fi;i:=f(xi)
+Parajdei1aténfazer
+fj;i:= (fj+1;ifj;i1)=(xixj)
+P:=f0;n
+Paraiden1até0fazer
+P:=f0;i+ (xix)P
+Resultado: P(x) =P
+Uma grande vantagem do algoritmo de Newton consiste em, uma vez determinado Pn,
+para determinar Pn+1basta fazer
+Pn+1(x) =Pn(x) +f[x0;x1;:::;xn+1]nY
+j=0(xxj):
+A fórmula (5.12) pode ser calculada de forma mais eﬁciente se for calculada pelo mé-
+todo de Hörner. De facto, o cálculo do polinómio interpolador usando o fórmula inter-
+poladora de Newton das diferenças divididas na forma encaixada, supondo calculados os
+coeﬁcientes f(x0),f[x0;x1],:::,f[x0;x1;:::;xn], requer apenas 2nadições/subtracções e
+nmultiplicações/divisões.
+Exercício 5.8 Escreva a fórmula interpoladora de Newton das diferenças divididas usando o
+método de Hörner.
+Exercício 5.9 Dada a tabelaxi 112
+f(xi)034, determine uma aproximação para f(0),
+usando interpolação quadrática.
+Resolução: Temos
+xif(xi)fi;i+1fi;i+2
+1 0
+3=2
+13 1 =6
+1
+24.
+Assim
+P2(x) = 0 +3
+2(x1) +1
+6(x21) = (x1)3
+2+1
+6(x+ 1)
+:
+Temos então que f(0)P2(0) =5
+3.
+
+Interpolação 99
+Apresentámos três processos distintos para a construção do polinómio interpolador de
+Lagrangedegrau nquandosãoconhecidos n+1valoresdeumadadafunção. Dosprocessos
+apresentados aquele que se mostra menos eﬁciente é o método matricial pois não tem uma
+forma explícita de determinar os coeﬁcientes do polinómio interpolador. Mais ainda, a
+determinação destes coeﬁcientes é feita recorrendo à resolução de um sistema de equações
+lineares em que a matriz deste sistema pode ser mal condicionada.
+Vamos agora particularizar o problema ao caso em que os nodos de interpolação estão
+igualmente distanciados.
+Quando os pontos x0;x1;:::;xnestão igualmente distanciados, isto é, quando xi
+xi1=h, parai= 1;:::;n, a fórmula (5.12) pode ser dada em termos dos chamados
+operadoresde diferençasﬁnitas . Dentrodaclassedessesoperadoresvamosapenasconsiderar
+o operador diferença progressiva.
+Deﬁnição 5.3 Sejafuma função deﬁnida em [a;b]R. Ooperador diferença progressiva
+deﬁne-se por recursão da seguinte forma: a
+f(x) =f(x+h)f(x)
+chama-se diferença progressiva de primeira ordem def; adiferença progressiva de ordem ké
+deﬁnida por
+kf(x) = k1(f(x)):
+Exercício 5.10 Prove (por indução) que se ffor uma função real deﬁnida em [a;b]Re
+x0;x1;:::;xnsão pontos de [a;b]igualmente distanciados, com xi1xi=h,i= 1;:::;n,
+então
+f[x0;:::;xk] =kf(x0)
+k!hk; (5.13)
+para todo o k2f1;:::;ng.
+Substituindo (5.13) em (5.12) temos que
+Pn(x) =f(x0) +f(x0)
+h(xx0) +2f(x0)
+2h2(xx0)(xx1)
+++nf(x0)
+n!hn(xx0)(xx1)(xxn1)
+=f(x0) +nX
+i=1if(x0)
+i!hii1Y
+j=0(xxj):(5.14)
+Esta fórmula é conhecida por fórmula interpoladora de Newton das diferenças progressivas .
+
+Interpolação 100
+As diferenças progressivas podem ser dadas pela seguinte tabela, conhecida por tabela
+das diferenças progressivas .
+xif(xi) f(xi) 2f(xi) 3f(xi)
+x0f0
+f(x0)
+x1f1 2f(x0)
+f(x1) 3f(x0)
+x2f2 2f(x1) 
+f(x3) 
+x3f3  
+ 3f(xn3)
+ 2f(xn2)
+f(xn1)
+xnfn.
+Exercício 5.11 Construa um algoritmo para determinar o valor do polinómio interpolador
+num determinado ponto do seu domínio usando a fórmula interpoladora de Newton das dife-
+renças progressivas.
+Exercício 5.12 Mostre
+ arctanx= arctanh
+1 +xh+x2:
+Resolução: Vamos provar que
+tan ( arctan x) =h
+1 +xh+x2:
+Como
+tan ( arctan x) = tan (arctan ( x+h)arctanx) =h
+1 +xh+x2:
+5.2 Interpolação de Chebyshev
+Uma questão interessante consiste em saber como diminuir os erro de interpolação sem
+aumentar o número de pontos de suporte. A fórmula (5.8) mostra que o erro de interpo-
+lação depende tanto do máximo de jf(n+1)(x)j, para todo o xpertencente ao intervalo de
+interpolação, como de
+max
+x2[a;b]jw(x)j (5.15)
+(que depende da escolha dos pontos de interpolação). A questão interessante está em saber,
+para um dado n, qual a escolha dos pontos de interpolação que minimiza (5.15). A resposta
+pode ser dada à custa dos chamados polinómios de Chebyshev .
+Paran= 0;1;2;:::ex2[1;1]os polinómios de Chebyshev da grau nsão deﬁnidos
+pela relação
+Tn(x) = cos (narccosx):
+Uma forma simples de provar que Tné, de facto, um polinómio, é atendendo à fórmula de
+recorrência (ver Exercício 5.13)
+Tn+1(x) = 2xTn(x)Tn1(x); n = 1;2;:::: (5.16)
+
+Interpolação 101
+Exercício 5.13 Obtenha a fórmula de recorrência (5.16) e conclua que Tné, de facto, um
+polinómio.
+Exercício 5.14 Mostre que o polinómio de Chebyshev Tntem os seus zeros localizados nos
+pontosxk= cos(2k1)
+2n,k= 1;:::;n;eosextremoslocalizadosem x0
+k= cosk
+n,k= 0;:::;n;
+nos quaisTn(x0
+k) = (1)k.
+Da deﬁnição de polinómio de Chebyshev resulta imediatamente que
+jTn(x)j1,n= 0;1;2;:::. Assim sendo, como Tn(1) = 1, temos que maxx2[1;1]jTn(x)j=
+1. Além disso, atendendo ao Exercício 5.14, os zeros dos polinómios de Chebyshev estão
+todos no intervalo [1;1].
+É fácil provar que o coeﬁciente do termo de maior grau de Tnéan= 2n1. Assim
+sendo, o polinómio eTn= 21nTné mónico, isto é, o seu coeﬁciente do termo de maior
+grau é igual à unidade. Designemos por ePn([a;b])a classe dos polinómios mónicos de grau
+menor ou igual a nem[a;b].
+Teorema 5.4 O polinómioeTné de todos os polinómios de ePn([1;1])o que tem menor
+norma, isto é,
+max
+x2[1;1]jeTn(x)j max
+x2[1;1]jeP(x)j;8eP2ePn([1;1]):
+Demonstração: Sabemos que maxx2[1;1]jeTn(x)j= 21n. Suponhamos que existe eP2
+ePn([1;1])tal que maxx2[1;1]jeP(x)j<21ne sejaQ=eTneP. Então o grau de Qé
+menor ou igual a n1. Por outro lado, para os valores de x0
+kdados no Exercício 5.14,
+Q(x0
+k) =eTn(x0
+k)eP(x0
+k) = (1)k21neP(x0
+k):
+Assim sendo, o polinómio Qtemnzeros pois tem sinais alternados em nintervalos e é
+uma função contínua. Logo Qé o polinómio nulo, o que prova o resultado.
+Se considerarmos o intervalo [a;b]em vez do intervalo [1;1]há que efectuar a mudança
+de variável
+t=a+b
+2+ba
+2x:
+O Teorema 5.4 e o Exercícios 5.14 permitem-nos aﬁrmar, atendendo a que wdado por (5.6)
+é um polinómio mónico, que (5.15) é mínimo quando se consideram os pontos de suporte
+xi=a+b
+2+ba
+2cos(2i+ 1)
+2n+ 2; i = 0;:::;n:
+Neste caso o erro é dado por
+max
+x2[a;b]jf(x)Pn(x)j(ba)n
+2n+1(n+ 1)!max
+x2[a;b]jf(n+1)(x)j;
+comPn(x)o polinómio interpolador de Lagrange de fnos pontos dados.
+O fenómeno de interpolação também é muito sensível a erros dos dados yi=f(xi),
+i= 0;:::;n, e a escolha criteriosa dos pontos de suporte pode, também neste aspecto,
+ser importante. Suponhamos que o cálculo do polinómio interpolador é efectuado com os
+valores
+byi=yi(1 +i);jij<:
+
+Interpolação 102
+Assim, os polinómios que passam por (xi;yi)e(xi;byi)são dados, respectivamente, por
+Pn(x) =nX
+i=0yi`i(x)e porbPn(x) =nX
+i=0byi`i(x):
+Como tal,
+jbPn(x)Pn(x)jmax
+i=0;:::;njyijnX
+i=0j`i(x)j:
+Temos então que a funçãoPn
+i=0j`i(x)jdescreve o factor de ampliﬁcação dos erros dos
+dados. O seu valor máximo n= maxx2[a;b]Pn
+i=0j`i(x)jé chamado constante de Lebesgue ,
+em homenagem a Henri Léon Lebesgue (1875-1941), associada aos pontos de interpolação
+dados e ao intervalo [a;b]. Esta constante pode ser calculada numericamente.
+Exercício 5.15 Mostre numericamente que, quando se consideram pontos igualmente dis-
+tanciados no intervalo [a;b], se tem 20'3104e40'1010e quando se consideram os
+pontos de Chebyshev n3 (n30)en4 (n100):
+5.3 Interpolação trigonométrica e FFT
+Pretende-se aproximar uma função periódica f: [0;2]!C, comf(0) =f(2), por um
+polinómio trigonométrico efque interpola fnosn+ 1pontosxj=2j
+n+1; j= 0;:::;n;ou
+seja, tal que
+ef(xj) =f(xj); j = 0;:::;n:
+Umpolinómio trigonométrico pode escrever-se na forma
+ef(x) =8
+>>>>><
+>>>>>:MX
+k=Mckeikx; M =n
+2;npar
+M+1X
+k=M1ckeikx; M =n1
+2;nímpar;
+onde os coeﬁcientes cksão números complexos e cM+1=cM1. De forma mais compacta,
+um polinómio trigonométrico representa-se por
+ef(x) =M+X
+k=Mckeikx; (5.17)
+com= 0, sené par, ou= 1, sené ímpar. Devido à sua analogia com as séries
+de Fourier, estudadas por Jean Baptiste Joseph Fourier (1768-1830), a efchama-se série de
+Fourier discreta .
+Note-se que, se ffor uma função real, os coeﬁcientes cksão tais que cké o conjudado
+deck, comk= 1;:::;M +.
+Considerando a condição de interpolação em xj=jh, comh=2
+n+1, tem-se que
+ef(xj) =M+X
+k=Mckeikjh=f(xj); j = 0;:::;n: (5.18)
+
+Interpolação 103
+Vamos mostrar que os coeﬁcentes da série de Fourier discreta (5.17) veriﬁcam
+ck=1
+n+ 1nX
+j=0f(xj)eikjh; k =M;:::;M +:
+Multiplicando por eimx j=eimjh, commum inteiro entre 0en, e tomando somató-
+rios, emj, em ambos os membros de (5.18) tem-se que
+nX
+j=0f(xj)eimjh=nX
+j=0M+X
+k=Mckei(km)jh=M+X
+k=McknX
+j=0ei(km)jh:
+O resultado pretendido resulta do facto de
+nX
+j=0ei(km)jh= (n+ 1)km;
+ondekmé o símbolo de Kronecker. Para provar este facto, notemos que, se k=m,
+nX
+j=0ei(km)jh=nX
+j=01 =n+ 1:
+Sek6=m,
+nX
+j=0ei(km)jh=1ei(km)h(n+1)
+1ei(km)h=1ei(km)2
+1ei(km)h= 0:
+Ao conjunto dos coeﬁcientes fckgda série de Fourier discreta (5.17) chamamos trans-
+formada discreta de Fourier . A transformada discreta de Fourier pode ser calculada com um
+número de operações da ordem nlog2nusando um algoritmo designado por FFT (de Fast
+Fourier Transform ). Atransformada rápida de Fourier não é mais do que a transformada
+discreta de Fourier calculada pelo algoritmo FFT. O MatLab possui o comando fftonde
+está implementado esse algoritmo. O algoritmo mais famoso para obter a FFT é de 1965
+e é devido a James Cooley (1926-) e John Wilder Tukey (1915-2000).
+A transformação de Fourier inversa, pela qual os valores ff(xk)gsão obtidos à custa
+dos valoresfckg, é deﬁnida, em MatLab, pela função ifft.
+Um cuidado a ter com o comando ffté o seginte. Se considerarmos
+F= [f(x0);f(x1);:::;f (xn)]T;
+ao executar TF=fft(F), obtém-se
+TF= (n+ 1)[c0;;cM+;cM;:::;c1]T:
+Se pretendermos obter os ceﬁcientes fckgpela ordem com que aparecem na série de Fourier
+discreta (5.17) temos que executar o comando TF=1=(n+1)fftshift (fft(F)):
+Em muitos casos, a precisão da interpolação trigonométrica pode degradar-se muito
+devido ao fenómeno conhecido com aliasing. Este fenómeno pode ocorrer quando a função
+a aproximar for a soma de várias componentes com frequências distintas. S o número de
+nós não for suﬁciente para resolver as frequências mais altas, estas podem intreferir com
+as baixas frequências, o que dá origem a interpolações imprecisas. Nesse caso, é preciso
+aumentar o número de nós de interpolação.
+Exercício 5.16 Calcule a transformada de Fourier discreta de y= [1;1;1;1]T.
+
+Interpolação 104
+5.4 Interpolação seccionalmente linear
+Consideremos um intervalo [a;b]e uma partição dada por (5.1). Designemos por polinómio
+segmentado linear (oufunção linear por segmentos ) na partição (5.1), uma função contínua
+em[a;b]que, quando restringida a cada um dos intervalos [xi;xi+1],i= 0;:::;n1, da
+partição, coincide com um polinómio de grau menor ou igual a um (polinómio que, em
+geral, varia com i).
+Consideremos agora o problema da interpolação. Seja fuma função conhecida nos
+pontos da partição (5.1). Pelo que foi visto na secção anterior, é óbvio que existe um e um
+só polinómio segmentado linear Ph
+1tal que
+Ph
+1(xi) =f(xi); i = 0;1;:::;n:
+Nestas condições, Ph
+1é chamado o polinómio interpolador (de Lagrange) segmentado linear
+defnos pontos de (5.1).
+Temos que
+Ph
+1(x) =8
+>>>>>>>><
+>>>>>>>>:Ph
+10(x); x2[x0;x1]
+Ph
+11(x); x2[x1;x2]
+......
+Ph
+1i(x); x2[xi;xi+1]
+......
+Ph
+1n1(x); x2[xn1;xn];
+ondePh
+1ipode ser escrito na forma seguinte
+Ph
+1i(x) =f(xi) +f[xi;xi+1](xxi);
+ou ainda (fórmula de Lagrange)
+Ph
+1i(x) =f(xi)xxi+1
+xixi+1+f(xi+1)xxi
+xi+1xi:
+O que podemos dizer quanto ao erro que se comete ao aproximar fpelo seu polinómio
+interpolador segmentado linear?
+Suponhamos que x2[xi;xi+1]. Temos então que, nesse intevalo,
+max
+x2[xi;xi+1]f(x)Ph
+1i(x)M(i)
+2
+2max
+x2[xi;xi+1]j(xxi)(xxi+1)j
+com
+M(i)
+2= max
+x2[xi;xi+1]f(2)(x); i = 0;:::;n1:
+Mas, como vimos,
+max
+x2[xi;xi+1]j(xxi)(xxi+1)j=1
+4(xi+1xi)2
+e, com tal
+max
+x2[xi;xi+1]f(x)Ph
+1i(x)M(i)
+2
+8h2
+i;
+comhi=xi+1xi,i= 0;:::;n1.
+
+Interpolação 105
+Consideremos agora x2[a;b]. Atendendo ao que foi dito,conclui-se imediatamente que
+max
+x2[a;b]f(x)Ph
+1(x)M2
+8h2;
+ondeM2= max
+i=0;:::;n1M(i)
+2eh= max
+i=0;:::;n1hi.
+Este limite superior para o erro permite demonstrar que o processo de interpolação
+linear por segmentos é convergente. De facto, se f(2)é limitada, à medida que o número
+de pontos da partição aumenta ( hdiminui) o erro tende para zero, ou seja, o polinómio
+segmentado linear tende para a função a interpolar uniformemente em[a;b].
+A interpolação linear segmentada possui vantagens em relação à interpolação (global)
+de Lagrange. Note-se que, se né muito grande o cálculo do polinómio interpolador de
+Lagrange (global) Pnenvolve muito mais operações que o cálculo do polinómio interpolador
+linear segmentado S. Além disso, como foi visto, o facto de naumentar não implica que
+o polinómio interpolador de Lagrange Pntenda para a função a interpolar, mesmo que
+essa função seja inﬁnitamente diferenciável. A desvantagem que o processo da interpolação
+segmentada linear apresenta relativamente à interpolação de Lagrange é que o polinómio
+Pné inﬁnitamente diferenciável enquanto que Ph
+npode não ter (e, em geral, não tem)
+derivadas contínuas nos pontos da partição.
+5.5 Interpolação de Hermite
+OobjectivodainterpolaçãodeHermite, chamadaassimemhonrade CharlesHermite (1822-
+1901), é o de representar uma função fpor um polinómio que seja interpolador de fem
+alguns pontos do seu domínio e que a sua derivada seja interpolador da derivada de fnesses
+mesmos pontos. Isto é, supondo que fé diferenciável, vamos procurar um polinómio H
+tal quef(xi) =H(xi)
+f0(xi) =H0(xi); i = 0;1;:::;n: (5.19)
+Quando tal situação acontece dizemos que feHsão funções que 2-osculam (osculam 2
+vezes) os pontos xi,i= 0;1;:::;n, ou queHé umpolinómio 2-osculador defnos pontos
+xi,i= 0;1;:::;n.
+O próximo teorema estabelece a existência e unicidade do polinómio de grau inferior
+ou igual a 2n+ 1que veriﬁca (5.19). Além disso, indica-nos um processo que permite a
+sua determinação.
+Teorema 5.5 Sejaf2C2n+2([a;b])ex0;x1;:::;xnpontos distintos em [a;b]. Existe um
+e um só polinómio H2n+1de grau menor ou igual a 2n+ 1que veriﬁca (5.19).
+Demonstração: Atendendo às condições impostas, o polinómio terá que ser de grau
+inferior ou igual a 2n+ 1. Para provar a sua existência vamos considerar as funções
+h1i(x) = [12`0
+i(xi)(xxi)]`i(x)2eh2i(x) = (xxi)`i(x)2; i = 0;:::;n;
+com`i,i= 0;:::;n, os polinómios de Lagrange (5.3). Como se pode veriﬁcar facilmente
+h1i(xj) =i;j; h0
+1i(xj) = 0; i;j = 0;:::;n;
+e
+h2i(xj) = 0; h0
+2i(xj) =i;j; i;j = 0;:::;n:
+
+Interpolação 106
+Assim, o polinómio
+H2n+1(x) =nX
+i=0[f(xi)h1i(x) +f0(xi)h2i(x)]
+tem grau inferior ou igual a 2n+ 1e veriﬁca (5.19).
+Falta apenas provar a unicidade. Seja Q2n+1outro polinómio de grau inferior ou igual
+a2n+ 1que veriﬁca (5.19) e
+R2n+1(x) =H2n+1(x)Q2n+1(x):
+ComoR2n+1(xi) =R0
+2n+1(xi) = 0, parai= 0;:::;n, temos que este polinómio de grau
+inferior ou igual a 2n+ 1tem2n+ 2zeros o que implica que terá que ser o polinómio nulo.
+Assim sendo, provámos a unicidade pretendida.
+O único polinómio de grau menor ou igual a 2n+ 1que veriﬁca as condições (5.19) é
+também chamado polinómio interpolador de Hermite defnos pontos x0;x1;:::;xn.
+Note-se que, tal como na interpolação de Lagrange, se mfor o número de condições
+impostas para a determinação do polinómio interpolador, o seu grau é m1.
+Exercício 5.17 Mostre que o polinómio de Hermite de grau mínimo (n=1) é dado por
+H3(x) =f(x0)h10(x) +f(x1)h11(x) +f0(x0)h20(x) +f0(x1)h21(x);
+com
+h10(x) =
+12xx0
+x0x1(xx1)2
+(x0x1)2;
+h11(x) =
+12xx1
+x1x0(xx0)2
+(x1x0)2;
+h20(x) = (xx0)(xx1)2
+(x0x1)2;
+h21(x) = (xx1)(xx0)2
+(x1x0)2:
+O estudo do erro na interpolação de Hermite consiste na generalização do estudo efec-
+tuado para a interpolação de Lagrange de acordo com o seguinte teorema.
+Teorema 5.6 SejaH2n+1o polinómio, de grau menor ou igual a 2n+ 1interpolador de
+Hermite da função fnos pontos distintos x0;x1;:::;xn2[a;b]. Sef2C2n+2([a;b])então
+para cadax2[a;b]existe=(x)2]a;b[tal que
+e(x) =f(x)H2n+1(x) =f(2n+2)()
+(2n+ 2)!w2(x); (5.20)
+ondewé a função dada por (5.6).
+Tal como no caso da interpolação de Lagrange, pelo teorema anterior podemos deter-
+minar um majorante para o erro cometido ao substituir fpelo seu polinómio interpolador
+de Hermite de grau n,H2n+1. De facto, de (5.20) sai que:
+max
+x2[a;b]jf(x)H2n+1(x)jM2n+2
+(2n+ 2)!max
+x2[a;b]jw2(x)j;
+
+Interpolação 107
+onde
+M2n+2=maxx2[a;b]jf(2n+2)(x)j:
+Se o objectivo for determinar o erro apenas num ponto x2[a;b], então
+jf(x)H2n+1(x)jM2n+2
+(2n+ 2)!jw2(x)j:
+Atendendo a que x;xj2[a;b], temos quejxxjj(ba)e portanto
+max
+x2[a;b]jf(x)H2n+1(x)jM2n+2
+(2n+ 2)!(ba)2n+2:
+Podemos também concluir, uma vez que
+max
+x2[a;b]jw(x)jhn+1n!
+4;
+comh= max
+i=1;:::;n(xixi1), que
+max
+x2[a;b]jf(x)H2n+1(x)jM2n+2h2n+2(n!)2
+16(2n+ 2)!:
+Observamos que dependendo do comportamento de M2n+2podemos, ou não, concluir
+que o aumento do grau do polinómio interpolador de Hermite implica uma diminuição do
+erro cometido ao aproximar a função por este polinómio. Uma forma de minimizar o erro
+consiste na utilização de polinómios interpoladores segmentados.
+5.5.1 Interpolação segmentada de Hermite
+Consideremos um intervalo [a;b]e uma partição dada por (5.1). Designemos por polinómio
+segmentado cúbico (oufunção cúbica por segmentos ) na partição (5.1), uma função contínua
+em[a;b]que, quando restringida a cada um dos intervalos [xi;xi+1],i= 0;:::;n1, da
+partição, coincide com um polinómio de grau menor ou igual a três.
+Sejafuma função conhecida nos pontos da partição (5.1). Como se sabe, existe um e
+um só polinómio segmentado cúbico Hh
+3tal que
+Hh
+3(xi) =f(xi)
+(Hh
+3)0(xi) =f0(xi); i = 0;1;:::;n:
+Nestas condições, Hh
+3é chamado o polinómio interpolador (de Hermite) segmentado cúbico
+defnos pontos de (5.1).
+Temos que
+Hh
+3(x) =8
+>>>>>>>><
+>>>>>>>>:Hh
+30(x); x2[x0;x1]
+Hh
+31(x); x2[x1;x2]
+......
+Hh
+3i(x); x2[xi;xi+1]
+......
+Hh
+3n1(x); x2[xn1;xn];
+ondeHh
+3ipode ser escrito na forma seguinte
+Hh
+3i(x) =f(xi)h1i(x) +f(xi+1)h1i+1(x) +f0(xi)h2i(x) +f0(xi+1)h2i+1(x):
+
+Interpolação 108
+Exercício 5.18 Mostre que o erro que se comete ao aproximar f2C4([a;b])pelo seu poli-
+nómio interpolador segmentado de Hermite cúbico na partição (5.1) é dado por
+max
+x2[a;b]f(x)Hh
+3(x)M4
+384h4;
+ondeM4= maxx2[a;b]f(4)(x)eh= max
+i=1;:::;n(xixi1).
+5.5.2 Polinómio interpolador de Hermite e diferenças divididas
+A obtenção do polinómio interpolador de Hermite pode ser feita de várias maneiras. Vamos
+apresenta-la neste curso numa forma que generaliza o polinómio interpolador de Newton
+das diferenças divididas.
+Consideremos a mudança de variável z0=x0,z1=x0,z2=x1,z3=x1,:::,z2n=xn,
+z2n+1=xn. Uma vez que
+z2i=z2i+1=xi; i = 0;:::;n;
+não podemos deﬁnir as diferenças divididas
+f[z2i;z2i+1] =f[xi;xi]:
+No entanto, atendendo a que
+lim
+x!xif[x;xi] = lim
+x!xif(x)f(xi)
+xxi=f0(xi);
+podemos deﬁnir as diferenças divididas generalizadas para pontos não distintos na forma
+f[xi;xi] =f0(xi):
+Pelo Teorema do Valor Médio de Lagrange generalizado podemos ainda deﬁnir
+f[xi;xi;:::;xi|{z}
+r+1vezes] =f(r)(xi)
+r!: (5.21)
+Com esta notação pode veriﬁcar-se facilmente que o polinómio interpolador de Hermite
+de grau 2n+ 1nos pontos da partição (5.1) é dado por (veriﬁque para n= 1)
+H2n+1(x) =f(z0) +2n+1X
+i=1f[z0;z1;:::;zi]i1Y
+j=0(xzj)
+=f(x0) +f0(x0)(xx0)
++f[x0;x0;x1](xx0)2+f[x0;x0;x1;x1](xx0)2(xx1)
+++f[x0;x0;:::;xn;xn](xx0)2(xx1)2(xxn1)2(xxn):
+Exercício 5.19 Prove a aﬁrmação anterior para o caso em que se consideram apenas dois
+pontos de interpolação ( n= 1).
+
+Interpolação 109
+O polinómio interpolador de Hermite pode assim ser determinado recorrendo à tabela
+das diferenças divididas generalizadas, tabela essa onde cada ponto aparece repetido duas
+vezes.
+Exercício 5.20 Construa um algoritmo para determinar o valor do polinómio interpolador de
+Hermite num determinado ponto do seu domínio.
+Exercício 5.21 Determine o polinómio interpolador de Hermite de grau mínimo para a função
+f(x) = sinxem[0;
+2].
+Resolução: Temos
+xif(xi)f[;]f[;;]f[;;;]
+0 0
+1
+0 042
+2
+2
+416
+3
+
+21 4
+2
+0
+
+21.
+Logo
+H3(x) =x+42
+2x2+416
+3x2
+x
+2
+=x
+1 +x
+0;23130;1107
+x
+2
+:
+5.6 Aproximação por funções splinecúbicas
+O termo inglês splinepode ser traduzido pelo vocábulo “virote”. Um virote é um instru-
+mento usado pelos desenhadores para unir um conjunto de pontos do plano.
+Sejafuma função deﬁnida num intervalo [a;b]onde consideramos a partição (5.1).
+Matematicamente, o problema de unir pontos do plano com um virote pode ser traduzido
+da seguinte forma: determinar a função S: [a;b]!R, coma=x0,b=xn, que satisfaz:
+[S1]S(xi) =f(xi),i= 0;:::;n;
+[S2]S2C2([a;b]);
+[S3] o princípio de Pierre-Louis Moreau de Maupertuis (1698-1759) da energia mínima, i.e.,
+Zb
+a(S00(x))2dxZb
+a(R00(x))2dx;
+para toda a função Rque satisfaz [S1] e [S2].
+Atente-se ao seguinte resultado.
+Teorema 5.7 SejamS;R : [a;b]!Rduas funções que veriﬁcam [S1] e [S2]. Suponha-
+mos que
+S00(b)
+R0(b)S0(b)
+=S00(a)
+R0(a)S0(a)
+e queSé um polinómio de grau 3em cada sub-intervalo da partição dada. Então temos
+queZb
+a(S00(x))2dxZb
+a(R00(x))2dx:
+
+Interpolação 110
+Demonstração: Temos que
+Zb
+a(g00(x))2dxZb
+a(S00(x))2dx=Zb
+a(g00(x)S00(x))2dx+ 2Zb
+aS00(x)(g00(x)S00(x))dx:
+Integrando por partes último integral do segundo membro vem
+Zb
+aS00(x)(g00(x)S00(x))dx=S00(b)[g0(b)S0(b)]S00(a)[g0(a)S0(a)]
+nX
+i=1Zxi
+xi1S000(x)(g00(x)S00(x))dx:
+Ora, atendendo às hipóteses do teorema,
+Zb
+aS00(x)(g00(x)S00(x))dx= 0
+e, como tal,Zb
+a(S00(x))2dx=Zb
+a(g00(x))2dxZb
+a(g00(x)S00(x))2dx;
+o que permite concluir o pretendido.
+Este teorema mostra que os candidatos à resolução de [S1]–[S3] são as funções per-
+tencentes a C2([a;b])que são polinómios de grau 3em cada intervalo da partição. Essas
+funções serão designadas por funçõessplinecúbicas.
+Deﬁnição 5.4 (Spline) Umafunçãosplinede graumé um polinómio segmentado de grau
+mcontinuamente derivável até à ordem m1. Por outras palavras, dada uma partição
+(5.1),Sé uma função spline de grau mseSé um polinómio S(i)de graumem cada
+intervalo da partição [xi;xi+1],i= 0;:::;n1, e
+dk
+dxkS(i+1)(x) =dk
+dxkS(i)(x); k = 0;:::;m1; i= 0;:::;n1:
+As funções splinemais populares são as cúbicas ( m= 3). Pelas razões apresentadas,
+serão essas que iremos considerar.
+Note-se que, em cada intervalo [xi;xi+1]a função splinecúbicaSque interpola f
+nos pontos da partição (5.1) é um polinómio de grau 3e, como tal, é deﬁnido à custa
+de4parâmetros. Assim, para determinar Sde forma única temos que especiﬁcar 4n
+parâmteros. Para isso teremos que deﬁnir 4nequações. Atendendo à deﬁnição de função
+splinetemos impostas as seguintes equações: n+1equações de interpolação; n1equações
+de ligação de S;n1equações de ligação de S0en1equações de ligação de S00. No
+total temos assim 4n2equações. Para determinar Stemos que considerar mais duas
+condições suplementares. As formas mais usuais de deﬁnir essas condições são as seguintes:
+S0(a) =f0(a)eS0(b) =f0(b)(splinecompleta); S00(a) = 0eS00(b) = 0(splinenatural).
+O seguinte teorema, que apresentamos sem demonstração, establece a existência e uni-
+cidade da função splinecúbica interpoladora.
+Teorema 5.8 Sejafuma função deﬁnida em [a;b]. A função splinecúbica completa
+(natural) interpoladora de fnos pontos da partição (5.1) existe e é única.
+
+Interpolação 111
+Osplinecúbico interpolador de uma função coincide com a função nos pontos da par-
+tição e a sua derivada coíncide com a derivada da função nos extremos do intervalo de
+partição. No resultado seguinte, estabelecido sem demonstração, é apresentado o compor-
+tamentodoerroquesecometeaoaproximarumafunçãopeloseu splinecúbicointerpolador.
+Teorema 5.9 Sejafuma função deﬁnida em [a;b]onde considerado n+ 1pontos igual-
+mente distanciados xi;i= 0;:::;n;em quexi=xi1+h;i= 0;:::;n;x 0= 0;h= (ba)=n:
+O erro cometido ao aproximar fpelo seu splinecúbico interpolador veriﬁca a
+max
+x2[a;b]jf(x)S(x)j5
+384max
+x2[a;b]jf(4)(x)jh4:
+Exercício 5.22 Pretende-se interpolar a função fdeﬁnida por f(x) = lnx, comx2[2;2;5],
+por umsplinecúbico completo Snuma malha uniforme.
+1. Calcule o número mínimo de pontos a usar para garantir que
+max
+x2[2;2;5]jf(x)S(x)j0;5104:
+2. Determine uma aproximação para f(2;3)usando o splinecúbico completo interpolador
+defnos pontos obtidos na alínea anterior.
+5.7 Problemas
+5.7.1 Exercícios para resolver nas aulas
+Exercício 5.23 Considere os seguintes pontos de R2,(3;1),(2;2),(1;1)e(3;10).
+Determine o polinómio interpolador de Lagrange P(x)que passa por esses pontos e calcule
+P(0).
+Exercício 5.24 Os dados da tabela seguinte dizem respeito à esperança média de vida na
+Europa ocidental
+Ano1975 1980 1985 1990
+EMV72,8 74,2 75,2 76,4.
+1. Calcule o polinómio interpolador de Lagrange usando todos os dados da tabela anterior.
+2. Usando a alínea anterior, determine uma aproximação para a esperança média de vida
+em 1982.
+3. Mostre que dados (xi;f(xi));i= 0;:::;npontos distintos, o polinómio interpolador de
+Lagrange de grau n,Pn, é o único polinómio de grau inferior ou igual a nque interpola
+f.
+Exercício 5.25 Considere a função f: [0;]!Rdeﬁnida por f(x) = cos(x); x2[0;].
+Determine o número de pontos a considerar no intervalo dado para que o erro absoluto máximo
+da aproximação de f(x)por um polinómio interpolador nesses pontos seja inferior a 0;05.
+Exercício 5.26 Determine aproximações de cos (
+8)usando polinómios interpoladores de La-
+grange de grau 2 e 4, no intervalo [0;]. Compare os resultados obtidos e indique majorantes
+para o erro absoluto.
+
+Interpolação 112
+Exercício 5.27 (Matlab) Considere os seguintes pontos de R2, (-2,1), (-1,0), (1,-3) e (4,8).
+Determine o polinómio interpolador P(x)que passa por esses pontos e calcule P(0).
+Exercício 5.28 (Matlab) Considere a função f(x) = sinx,x2[=2;=2]. Trace os
+gráﬁcos dos polinómios interpoladores de fpara diferentes valores de n(grau do polinómio).
+Exercício 5.29 Sejafx0;x1;:::;xngum conjunto de n+ 1números reais. Mostre que,
+nX
+i=0`i(x) = 1, onde`i(x),i= 1;:::;n, são os polinómios de Lagrange (5.4).
+Exercício 5.30 Sejafx0;x1;:::;xngum conjunto de n+ 1números reais igualmente espa-
+çados. Mostre que
+nY
+i=0jxxijn!hn+1
+4;
+sendoho espaçamento entre aqueles pontos.
+Exercício 5.31 SejaP(x)um polinómio de grau inferior ou igual a ne
+w(x) = (xx0)(xx1)(xxn);
+ondexi,i= 0;1;:::;n, sãon+ 1pontos distintos. Mostre que o coeﬁciente do termo de
+maior grau de P(x)é dado por
+a0=nX
+i=0P(xi)
+w0(xi):
+Exercício 5.32 Considere a função f(x) = sinx, deﬁnida em [0;
+2].
+1. Determine o menor número de pontos que deve considerar no intervalo dado para que o
+erro da aproximação de f(x)por um polinómio interpolador nesses pontos seja inferior a
+0;1.
+2. Sabendo que sin(
+3) =p
+3
+2, determine uma aproximação parap
+3utilizando um polinómio
+interpolador de ordem 2.
+Exercício 5.33 Considere a função f(x) = cos(x) + sin(x)e os pontos
+xk=
+2+k
+4; k = 0;1;:::; 4:
+Determine um majorante do erro que se comete na aproximação de fpor um polinómio inter-
+polador de Lagrange deﬁnido nesses pontos.
+Exercício 5.34 Sejaxk1;xkexk+1três pontos igualmente espaçados, com distância h=2,
+onde são conhecidos os valores de uma função f. Mostre que o polinómio interpolador de
+Lagrange de grau 2 é dado por
+2(xxk)(xxk+1)
+h2f(xk1)+4(xk1x)(xxk+1)
+h2f(xk)+2(xxk)(xxk1)
+h2f(xk+1):
+
+Interpolação 113
+Exercício 5.35 (Matlab) Um pára-quedista efectuou 5 saltos de diferentes alturas, tendo
+medido a distância a um alvo constituído por uma circunferência de raio 5 metros traçada no
+solo. Supondo que as respectivas altura e distância de cada salto satisfazem a seguinte tabela
+Altura do salto (m) 1500 1250 1000 750 500
+Distância do alvo (m) 35 25 15 10 7;
+recorra à interpolação para estimar a distância do alvo a que o pára-quedista cairia se saltasse
+de uma altura de 850 m.
+Exercício 5.36 (Matlab) Os jactos de água dos repuxos da Avenida Sá da Bandeira des-
+crevem uma trajectória parabólica. Para obter a expressão dessa trajectória foram realizadas as
+seguintes medições:
+Distância (eixo horizontal) 0 1=4 1=3 1 3=2 2
+Altura da água 0 21=16 5=3 3 9=4 0:
+Recorra à interpolação para obter a respectiva trajectória.
+Exercício 5.37 (Matlab) A temperatura do ar próximo do solo depende da concentração K
+em ácido carbónico ( H2CO3). A tabela representa a variação K=KKda temperatura
+média relativamente a uma temperatura de referência K, para diferentes latitudes e valores de
+K:
+K
+LatitudeK= 0;67K= 1;5k= 2;0K= 3;0
+653;1 3;52 6;05 9;3
+553;22 3;62 6;02 9;3
+453;3 3;65 5;92 9;17
+353;32 3;52 5;7 8;82
+253;17 3;47 5;3 8;1
+153;07 3;25 5;02 7;52
+53;02 3;15 4;95 7;3
+53;02 3;15 4;97 7;35
+153;12 3;2 5;07 7;62
+253;2 3;27 5;35 8;22
+353;35 3;52 5;62 8;8
+453;37 3;7 5;95 9;25
+553;25 3;7 6;1 9;5:
+1. Recorra ao polinómio interpolador dos dados para comparar a variação da temperatura,
+em função da latitude, para os diferentes valores de K. Trace os respectivos gráﬁcos.
+2. Use a alínea anterior para estimar o valor da variação de temperatura Kpara um local
+cuja latitude é igual a 23. Considere K= 0;67.
+Exercício 5.38 Uma empresa apresenta os seguintes lucros em função das vendas:
+Nopeças vendidas (milhares) 1 2 3 4 5
+Lucro (milhares de euros) 11,2 15,3 17,1 16,9 15,0.
+Sabendo que o lucro previsto era de 13 mil euros, indique uma aproximação do número de peças
+que foi necessário vender para atingir esse lucro.
+
+Interpolação 114
+Exercício 5.39 Obtenha um valor aproximado para a raiz de uma função contínua f(x)da
+qual se conhece apenas os valores apresentados na tabela seguinte:
+xi-2 0 1
+f(xi)-12,5 1,5 -1.
+Exercício 5.40 Calcule um polinómio interpolador trigonométrico para a extensão periódica
+da funçãof: [0;2]!Rdeﬁnida por
+f(x) =1; x2[;3
+2];
+1;caso contrário ;
+nos pontosxj=2j
+4; j= 0;1;2;3.
+Exercício 5.41 (Matlab) Dada a função
+f(x) =x(x2)ex; x2[0;2];
+determine a interpoladora trigonométrica de fem 10 nós equidistantes. Compare o respectivo
+gráﬁco com o gráﬁco de f.
+Exercício 5.42 (Matlab) Considere a função
+f(x) = 1=(1 +x2)
+deﬁnida no intervalo [-5,5].
+1. Trace o gráﬁco de alguns polinómios interpoladores de f(x)em pontos equidistantes e
+compare-os com o gráﬁco da função.
+2. RepitaoprocedimentodaalíneaanteriorusandoosnósdeChebyshev. Quepodeconcluir?
+Exercício 5.43 (Matlab) Considere a função (de Runge)
+f(x) = 1=(1 + 25x2); x2[1;1]:
+Veriﬁque graﬁcamente que
+max
+x2[1;1]jf(x)P3(x)j max
+x2[1;1]jf(x)P8(x)j;
+em queP3eP8são, respectivamente, os polinómios de Lagrange de grau 3 e 8 interpoladores
+defem partições uniformes de [1;1].
+Exercício 5.44 A lei de Ohm diz que a tensão Vnas extremidades de uma resistência percor-
+ridaporumacorrenteeléctricacomintensidade Iédirectamenteproporcionalaessaintensidade
+de corrente. Isso só é verdade para resistências ideais; as resistências reais apresentam compor-
+tamentos menos lineares. Na tabela seguinte apresentam-se os resultados para uma resistência
+concreta:
+I1;00;5 0 0;5 1;0
+V19341 0 41 193.
+Atendendo ao comportamento simétrico relativamente à origem, determine o polinómio seg-
+mentado quadrático interpolador da função dada na tabela.
+
+Interpolação 115
+Exercício 5.45 Determine uma aproximação de cos
+8usando o polinómio interpolador seg-
+mentadodegrau2em5pontosnointervalo [0;]eindiqueumestimativaparaoerrocometido.
+Compare esta estimativa com a obtida no Exercício 5.26.
+Exercício 5.46 Determinepolinómiosinterpoladoressegmentadosdegrau1e2paraafunção
+f(x) =x3no intervalo [-1, 1].
+Exercício 5.47 Determine o polinómio interpolador de Hermite de grau mínimo para a função
+f(x) = cosx;x2[0;
+2]e calcule um valor aproximado para cos
+8e para sin
+8.
+Exercício 5.48 Determine o polinómio de grau mínimo que seja concordante1com a recta
+y=2+1
+2(8x);no ponto (8;2);e com a circunferência (x1)2+(y+2)2= 1;no ponto
+(1;1):
+Exercício 5.49 Da funçãof(x) = sinh(x) = (exex)=2conhecem-se os seguintes valores
+tabelados:
+xi0 1
+f(xi)0e1=e
+2
+f0(xi)1e+1=e
+2.
+1. A partir dos valores dados, calcule o valor aproximado de f(0;5), usando interpolação
+polinomial cúbica adequada. ( e= 2;71828182845905 :::)
+2. Obtenha um majorante para o erro absoluto da aproximação obtida na alínea anterior
+(sem calculadora, obviamente).
+Exercício 5.50 A tabela a seguir mostra a distância percorrida por um veículo, em função
+do tempo
+t(s)0 10 20 30 40 50 60
+y(m)0 50 125 205 280 350 410.
+1. Use um polinómio interpolador de grau 2e os dados da tabela para estimar a distância
+percorrida pelo veículo ao ﬁm de 45segundos.
+2. Sejav(t)a velocidade do veículo no instante t,v=dy
+dt. Sabendo que v(30) = 8;2e
+v(60) = 5;2, calcule o polinómio de Hermite de grau mínimo e determine uma aproxi-
+mação para v(45).
+Exercício 5.51 Considere um polinómio de grau 2,P, do qual se conhece a informação
+reunida na seguinte tabela:
+xi-2 -1 -0,5 0
+P(xi)1,8 23.
+1. Obtenha a expressão de Pe calcule o valor de .
+2. Suponha que Pinterpola uma função f: [2;0]!Rnos pontos dados na tabela.
+Sabendo que f0(2) = 1ef0(0) =1, use um polinómio de Hermite para determinar
+uma aproximação para f0(0;5).
+1Duas curvas dizem-se concordantes se tiverem a mesma tangente no ponto de união.
+
+Interpolação 116
+Exercício 5.52 Determine um polinómio que passa pelos pontos (-1,2) e (1,1) de modo a
+que o declive das rectas tangentes ao polinómio nesses pontos seja 0.
+Exercício 5.53 Considere a função f(x) = sinx, deﬁnida em [0;
+2].
+1. Determine quantos pontos deve considerar no intervalo dado para que o erro absoluto da
+aproximação de f(x)por um polinómio interpolador de Hermite seja inferior a 0,1, para
+todo ox2[0;
+2].
+2. Sabendo que sin(
+3) =p
+3
+2, determine uma aproximação parap
+3utilizando o polinómio
+obtido na alínea anterior.
+Exercício 5.54 (Matlab) De uma função fconhecem-se os valores dados na seguinte ta-
+bela:
+x321 0 1 2 3
+f111 0 1 1 1.
+Determine:
+1. o polinómio interpolador de Lagrange nos referidos pontos;
+2. o polinómio interpolador cúbico segmentado de Hermite (use o comando pchip);
+3. o spline cúbico de interpolação (use o comando spline).
+Compare os gráﬁcos das funções obtidas nas alíneas anteriores.
+Exercício 5.55 (Matlab) Considere a função f(x) = sin(2x)em 21 nós equidistantes, xi,
+i= 1;2;:::;21, no intervalo [1;1]. Determine:
+1. o polinómio interpolador de Lagrange nos referidos pontos;
+2. o polinómio interpolador cúbico segmentado de Hermite (use o comando pchip);
+3. o spline cúbico de interpolação (use o comando spline).
+Compare o gráﬁco das funções obtidas com o de fe repita os cálculos anteriores usando o
+seguinte conjunto de dados perturbados: f(xi) = sin(2xi) + (1)i+1104,i= 1;2;:::;21:
+Exercício 5.56 (Matlab) Considera-se um teste mecânico para estabelecer a relação entre
+tensões e deformações relativas a uma amostra de tecido biológico. Partindo dos valores da
+tabela
+Teste 1 2 3 4 5 6 7 8
+Tensão 0,00 0,06 0,14 0,25 0,31 0,47 0,60 0,70
+Deformação 0,00 0,08 0,14 0,20 0,23 0,25 0,28 0,29:
+1. determine o polinómio interpolador;
+2. obtenha o spline cúbico natural;
+3. estime o valor da deformação correspondente a uma tensão igual a 0,9.
+
+Interpolação 117
+Exercício 5.57 (Matlab) Pretende-se aproximar a trajectória plana de um robot (idealizado
+como um ponto material) durante um ciclo de trabalho numa indústria. O robot deverá sa-
+tisfazer algumas restrições: estar parado no ponto do plano (0;0)no instante inicial (t= 0),
+deslocar-se até ao ponto (1;2)emt= 1, atingir o ponto (4;4)emt= 2, parar e iniciar de
+novo o movimento para atingir o ponto (3;1)emt= 3, voltar à sua posição inicial em t= 5,
+parar e recomeçar um novo ciclo de trabalho. Para encontrar a trajectória do robot, proceda
+do seguinte modo: divida o intervalo de tempo [0;5]em dois subintervalos [0;2]e[2;5]. Em
+cada um dos subintervalos obtenha um spline que interpole os dados e tenha derivada nula nos
+extremos. Trace o respectivo gráﬁco.
+5.7.2 Exercícios de aplicação à engenharia
+Exercício 5.58 Conhecem-se as coordenadas de cinco pontos de uma curva plana que repre-
+senta uma região de uma peça em corte. Determine o polinómio de Lagrange de grau 4que
+interpola a referida curva sabendo que os pontos de coordenadas conhecidas são: P1= (1;2),
+P2= (2;1),P3= (3;1),P4= (4;2;5)eP5= (5;4). Determine ainda valores aproximados
+para as ordenadas dos pontos cujas abcissas são 0,2;5e6.
+Exercício 5.59 Na seguinte tabela são dados diferentes valores para o peso especíﬁco pda
+água a diferentes temperaturas T(em graus centígados):
+T 0 1 2 3
+p0;999871 0;999928 0;999969 0;999991.
+Usando interpolação linear, quadrática e cúbica, determine uma aproximação para pquando
+T= 4oC. Compare os resultados obtidos sabendo que o valor exacto é 1;000000:
+Exercício 5.60 Durante a sedimentação da reacção de saponiﬁcação entre quantidades equi-
+molares de hidróxido de sódio e acetato de etilo, a concentração c(gr mole/litro) de cada
+reagente varia com o tempo t(min) de acordo com a equação
+1
+c=1
+c0+kt;
+ondec0é a concentração inicial e k(litro/gr mole min) é a constante de reacção. Foram
+obtidos os seguintes resultados em laboratório à temperatura de 77oF:
+1=c24;7 32;4 38;4 45;0 52;3 65;6 87;6 102 154 192
+t 1 2 3 4 5 7 10 12 20 25.
+1. Obtenha uma estimativa para a concentração inicial.
+2. Obtenha uma estimativa para a concentração ao ﬁm de 15minutos e compare-a com a
+solução obtida em laboratório (ao ﬁm de 15minutos obteve-se 1=c= 135).
+Exercício 5.61 O censo da população dos Estados Unidos, entre 1930 e 1980, produziu os
+seguintes resultados:
+Ano 1930 1940 1950 1960 1970 1980
+População (103)123203 131669 150697 179323 203212 226505.
+Use um polinómio interpolador apropriado para estimar a população nos anos de 1920, 1965, e
+2000. Sabendo que a população no ano de 1920 era de 105711 103, o que pode inferir quanto
+à precisão das aproximações obtidas para os anos de 1965 e 2000?
+
+Interpolação 118
+Exercício 5.62 Determine uma aproximação para o instante da passagem do perigeu da Lua
+em Março de 1999, a partir dos valores tabelados para as zero horas de cada dia
+dia 19 20 21
+distância 57;071 56;955 57;059.
+Indique também a distância (em raios médios da Terra) da Terra à Lua nesse instante.
+Exercício 5.63 Usando interpolação cúbica livre, determine uma aproximação para a decli-
+nação aparente de Vénus para o dia 9 de Maio de 1999, às 18h30m45s, a partir das Efemérides
+Astronómicas (onde está tabelada para cada dia, às zero horas)
+dia 7 8 9 10
+i+5o5104700;55 +6o2202500;20 +6o5205400;57 +6o2301400;96.
+A partir da função obtida, determine uma aproximação para o instante em que a declinação
+aparente de Vénus no dia 9 de Maio de 1999 foi máxima.
+Exercício 5.64 A estrelaSda Ursa Maior apresenta uma variação para a sua magnitude
+aparentem, em função do ângulo de fase (em graus), de acordo com os dados da seguinte
+tabela:
+6020 20
+m9;40 11;39 10;84.
+Usandoum splinecúbiconatural, determineumaaproximaçãoparaoângulodefasepertencente
+ao intervalo [20;20]em que a magnitude aparente da estrela é máxima.
+Exercício 5.65 Deslocando-se um receptor de GPS num veículo ao longo do eixo de uma
+estrada, em Angola, obtiveram-se as coordenadas locais:
+latitude 2605600;1 2605000;4 2700200;7 2605800;3
+longitude 503600505600601600603600.
+Aproximando o eixo da estrada por um splinenatural determine:
+1. a latitude da estrada quando a longitude é = 60;
+2. as coordenadas da estrada no ponto mais perto do equador, supondo que isso acontece
+entre 601600e603600de longitude.
+Exercício 5.66 Umcarropercorreumarua, emlinharecta, tendosidoefectuadososseguintes
+registos:
+tempo (t) em segundos 0 5 10
+distância (d) em metros 0 90 150
+velocidade ( v) em km/hora 40 40.
+Usando o splinecúbico completo interpolador da função distância nos pontos dados, indique,
+justiﬁcando, uma aproximação para:
+1. o primeiro instante em que o carro excedeu o limite de velocidade permitido dentro das
+localidades;
+2. o instante em que o carro atingiu a velocidade máxima nos primeiros 5 segundos.
+
+Interpolação 119
+Exercício 5.67 Uma das formas mais utilizadas na construção de curvas consiste em partir
+das respectivas equações paramétricas e proceder a uma interpolação apropriada. Considere o
+caso das curvas planas dadas pelas equações paramétricas
+x=p(t)
+y=q(t); t2[0;1];
+em quepeqsão polinómios.
+1. Determine a forma destes polinómios de modo a que a curva passe pelos pontos P0=
+(x0;y0)eP1= (x1;y1)com tangentes T0= (p0(0);q0(0))eT1= (p0(0);q0(0)), respec-
+tivamente (curva de Ferguson-Coons).
+2. A especiﬁcação das tangentes através de dois pontos auxiliares (pontos de guia) revela-
+se mais útil na prática. Assim, sejam P2eP3dois pontos auxiliares tais que T0=
+(P2P0) =(x2x0;y2y0)eT1=(P3P1) =(x3x1;y3y1), em que
+é um factor de normalização à escolha. Mostre que a curva de Ferguson-Coons se pode
+escrever na forma
+x(t) =0(t)x0+1(t)x1+2(t)x2+3(t)x3
+y(t) =0(t)y0+1(t)y1+2(t)y2+3(t)y3; t2[0;1];
+com
+0(t) = 2t3t33t2+ 2t2t+ 1;
+1(t) =2t3+t3t2+ 3t2;
+2(t) =t32t2+t;
+3(t) =t3+t2:
+3. Mostre que a curva está contida no invólucro convexo deﬁnido pelos pontos P0,P1,P2
+eP3, isto é, que i(t)0;i= 0;1;2;3, e queP3
+i=0i(x) = 1, se e só se 03.
+Nota: Quando = 3a curva de Ferguson-Coons também se chama curva de Pierre
+Étienne Bézier (1910-1999).
+0.5 11.5 2
+-1-0.50.51
+0.5 11.5 2
+-1-0.50.51
+0.5 11.5 2
+-1.5-1-0.50.511.5
+Figura 5.1: Gráﬁcos das curvas de Ferguson-Coons com = 1;3e15.
+
+Interpolação 120
+
+Capítulo 6
+Derivação e integração numérica
+6.1 Derivação numérica
+Acontece frequentemente sermos confrontados com a necessidade de determinar valores
+da derivada de uma função num conjunto de pontos conhecendo o valor da função apenas
+nesses pontos. Na impossibilidade de obter esses valores de forma exacta, vamos considerar
+a sua aproximação através do valor da derivada do polinómio interpolador da função nos
+referidos pontos.
+Para o estudo que iremos efetuar, consideremos uma função f2Cm([a;b]), comm
+suﬁcientemente grande por forma a que as deduções das fórmulas possam ser efectuadas,
+conhecida num conjunto de pontos da partição uniforme
+a=x0<x 1<<xn=b; (6.1)
+comxkxk1=h,k= 1;:::;n.
+6.1.1 Aproximação da primeira derivada
+Queremos aproximar a derivada de f2Cm([a;b])num dos pontos xk,k2f0;1;:::;ng,
+da partição (6.1).
+Fórmulas com dois pontos
+Considerando a fórmula de Taylor para fem torno do ponto xk, e assumindo que f2
+C2([a;b]), temos
+f(xk+1) =f(xk) +f0(xk)h+h2
+2f00(1);  12]xk;xk+1[
+e
+f(xk1) =f(xk)f0(xk)h+h2
+2f00(2);  22]xk1;xk[:
+Assim sendo, podemos escrever
+f0(xk) =f(xk+1)f(xk)
+hh
+2f00(1);  12]xk;xk+1[
+e
+f0(xk) =f(xk)f(xk1)
+h+h
+2f00(2);  22]xk1;xk[:
+121

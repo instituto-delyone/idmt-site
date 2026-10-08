@@ -1,0 +1,848 @@
+560 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+deve-se parcialmente aos refi namentos na organização do processador no chip e parcialmente ao aumento na 
+frequência de clock.
+ Aumento em paralelismo
+As mudanças organizacionais no projeto dos processadores se concentraram, em primeiro lugar, no aumento 
+do paralelismo em nível de instruções, para que mais trabalho pudesse ser feito em cada ciclo de clock. Estas mu-danças incluem, em ordem cronológica (Figura 18.1):
+pipeline
+  : instruções individuais são executadas por um pipeline de estágios de tal forma que, durante a 
+execução de uma instrução em um estágio do pipeline, outra instrução é executada em outro estágio do pipeline.superescalar
+  : vários pipelines são construídos pela replicação de recursos da execução. Isto possibilita 
+execução paralela de instruções em pipelines paralelos, assim que os hazards são evitados.multithreading simultâneo (smT)
+  : bancos de registradores são replicados para que várias threads pos-
+sam compartilhar o uso dos recursos do pipeline.
+Para cada uma destas inovações, os projetistas tentaram, ao longo dos anos, aumentar o desempenho do sistema 
+acrescentando a complexidade. No caso do uso de pipeline, pipelines simples de três estágios foram substituídos 
+Unidade de busca de instruçõesLógica de envio
+Contador de programa
+Unidade de execução e filas
+Cache L1 de instruções
+Cache L2
+(a) SuperescalarCache L1 de dadosBanco de registradores de thread 
+Unidade de busca de instruçõesLógica de envio
+Unidades de execução e filas
+Cache L1 de instruções
+Cache L2
+(b) Multithreading simultâneoCache L1 de dadosPC 1
+PC n
+Registrador 1
+Registrador nL1-I
+L1-D
+Cache L2CPU 1
+(superescalar ou SMT)
+(c) Multicore
+L1-I
+L1-DCPU n
+(superescalar ou SMT)Figura 18.1 Organizações alternativas do chip
+Book 1.indb 560 19.11.09 14:41:00
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 18 Computadores multicore 561
+pelos pipelines com cinco estágios e depois com muito mais estágios, com algumas implementações tendo mais 
+de doze estágios. Há um limite prático para até onde essa tendência pode ser levada porque, com mais estágios, há necessidade por mais lógica, mais interconexões e mais sinais de controle. Com a organização superescalar, aumen-tos de desempenho podem ser alcançados ao se aumentar o número de pipelines paralelos. Novamente, o retorno diminui à medida que o número de pipelines aumenta. Mais lógica é necessária para gerenciar os hazards e para recursos do estágio de instruções. Eventualmente, uma única thread de execução alcança o ponto onde os hazards e dependências de recursos impedem o uso total de vários pipelines disponíveis. Este mesmo ponto da diminuição de retornos acontece com o SMT, à medida que a complexidade de gerenciar várias threads por meio de um conjunto de pipelines limita o número de threads e o número de pipelines que podem ser usados efetivamente.
+A Figura 18.2, retirada de Olukotun e Hammond (2005
+a), é ilustrativa neste contexto. O gráfico superior mostra o 
+aumento exponencial do desempenho dos processadores Intel ao longo dos anos.1 O gráfico do meio é calculado 
+ao se combinarem figuras publicadas de SPEC CPU da Intel e a frequência de clock dos processadores para se ter uma medida de quanto da melhoria de desempenho se deve ao aumento de exploração do paralelismo em nível 
+1 Os dados são baseados em figuras SPEC CPU publicadas pela Intel e normalizadas em vários conjuntos.0,11985 1987 1989 1991 1993 1995 1997 1999 2001 2003
+00,050,100,150,200,250,300,350,400,45
+1985 1987 1989 1991 1993 1995 1997 1999 2001 2003
+010100
+1985 1987 1989 1991 1993 1995 1997 1999 2001 20031101001.00010.000Desempenho relativo Desempenho relativo/ciclo Energia (watts)Figura 18.2 Algumas tendências do hardware da Intel
+Book 1.indb 561 19.11.09 14:41:00
+
+562 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+de instruções. Há uma região achatada no começo dos anos 1980 antes de o paralelismo ser explorado extensi-
+vamente. Segue-se a isso uma forte subida quando os projetistas foram capazes de explorar substancialmente o pipeline, técnicas superescalares e o SMT. Mas, no início de 2000, uma nova região achatada na curva aparece, à medida que foram sendo alcançados os limites da exploração de paralelismo em nível de instruções.
+Há um conjunto de problemas relatado que trata de questões relacionadas ao projeto e à fabricação de chips 
+de computadores. O aumento na complexidade para lidar com todas as questões de lógica relacionadas com pipe-lines muitos longos, vários pipelines superescalares e vários bancos de registradores SMT signifi ca que uma grande área do chip é ocupada com lógica de coordenação e transferência de sinais. Isso aumenta a difi culdade de projeto, fabricação e depuração de chips. O difícil e crescente desafi o de engenharia relacionado à lógica do processador é uma das razões pelo aumento de uma parte do chip dedicada à lógica de memória mais simples. Questões de energia, discutidas a seguir, dão outra razão.
+ Consumo de energia
+Para manter a tendência de desempenho mais alta à medida que o número de transistores por chip aumenta, 
+os projetistas recorreram aos projetos de processadores mais elaborados (pipeline, superescalar, SMT) e às altas frequências de clock. Infelizmente, requisitos de energia cresceram exponencialmente à medida que aumentaram a densidade e a frequência de clock do chip. Isso é mostrado no gráfi co inferior da Figura 18.2
+Uma maneira de controlar densidade da energia é usar mais área do chip para memória cache. Os transistores 
+são menores e têm uma densidade de energia em ordem de magnitude menor do que a da lógica (veja Figura 18.3a). Conforme mostra a Figura 18.3b ( BORKAR , 2003
+b), a percentagem da área do chip dedicada à memória cres-
+ceu para mais de 50% à medida que a densidade de transistores do chip aumentou.
+A Figura 18.4, retirada de Borkar (2007c), mostra para onde está indo a tendência do consumo de energia. Até 
+2015, podemos esperar ver chips de microprocessadores com cerca de 100 bilhões de transistores em um molde de 300 mm
+2. Supondo que 50 a 60% da área do chip seja dedicado à memória, ele suportará memória cache em 
+torno de 100 MB e deixará em torno de 1 bilhão de transistores disponíveis para lógica.
+Como usar todos esses transistores é um ponto-chave do projeto. Conforme discutido anteriormente nesta 
+seção, existe limite para uso efetivo de tais técnicas como superescalar e SMT. Em termos gerais, a experiência das décadas recentes foi defi nida por uma regra conhecida como regra de Pollack (POLLACK , 1999
+d), que diz que o 
+aumento de desempenho é diretamente proporcional à raiz quadrada do aumento de complexidade. Em outras palavras, se você dobrar a lógica em um núcleo do processador, então ele apresenta apenas 40% a mais de desem-penho. A princípio, o uso de vários núcleos tem o potencial para fornecer um aumento de desempenho quase linear com aumento em número de núcleos.
+Figura 18.3 Considerações sobre energia e memória
+Tamanho característico ( µm)
+(a) Densidade da energia (b) Área do chipLógica
+MemóriaDensidade da 
+energia (watts/cm )2Percentagem de cache
+em relação à área total
+0,25 0,7 0,35 0,18 0,11 120406080100
+10100
+0,18 0,13 0,10
+Tamanho característico ( µm)
+Book 1.indb 562 19.11.09 14:41:01
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 563
+Considerações sobre energia fornecem outro motivo para ir em direção a uma organização multicore. Como 
+o chip tem tanta quantidade de memória cache, torna-se improvável que uma única thread de execução possa 
+efetivamente usar toda essa memória. Mesmo com SMT, você está fazendo multithreading de forma relativa-mente limitada e não pode, portanto, explorar totalmente uma cache gigante, enquanto que um número de threads ou processos relativamente independentes tem uma oportunidade maior de obter a total vantagem da memória cache.
+18.2 Questões sobre desempenho de software
+Uma análise mais detalhada sobre questões de desempenho de software relacionada à organização multicore 
+está além do nosso escopo. Nesta seção, primeiro fornecemos uma visão geral dessas questões e depois analisa-mos um exemplo de uma aplicação projetada para explorar capacidades multicore.
+ Software em multicore
+Os benefícios potenciais de desempenho de uma organização multicore dependem da habilidade de explorar 
+efetivamente os recursos paralelos disponíveis para a aplicação. Vamos focar primeiro em uma única aplicação exe-cutando em um sistema multicore. Relembre do Capítulo 2 que a lei de Amdahl afi rma que:
+=1
+(1-f)+f
+NAumento de
+velocidade=tempo para executar o programa em um único processador
+tempo para executar o programa em processadores paralelos N
+(18.1).
+A lei supõe um programa no qual uma fração (1 – f ) do tempo de execução envolve o código que é ine-
+rentemente serial e uma fração f que envolve código infi nitamente paralelizável com nenhuma sobrecarga de 
+escalonamento.
+Essa lei surge para tornar mais atraente a possibilidade de uma organização multicore. Mas, como mostra 
+Figura 18.5a, até uma quantidade pequena de código serial tem um impacto notável. Se apenas 10% do código for inerentemente serial (f = 0,9), executar o programa em um sistema multicore com 8 processadores produz 
+um ganho de desempenho de um fator de apenas 4,7. Além disso, o software normalmente provoca sobrecarga Figura 18.4 Utilização de transistores do chip
+2001 2003Transistores
+da lógicaTotal de
+transistoresTransistores
+2005 2007 2009 2011 2013 2015 2017106107108109101010111012
+Book 1.indb 563 19.11.09 14:41:02
+
+564 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+como o resultado de comunicação e a distribuição de trabalho para vários processadores e sobrecarga de coe -
+rência de cache. Isso resulta em uma curva na qual o desempenho alcança picos e depois começa a degradar 
+por causa do aumento da sobrecarga de uso de vários processadores. A Figura 18.5b ( MCD OUGALL , 2005e) é um 
+exemplo representativo.
+No entanto, engenheiros de software resolveram esse problema e existem várias aplicações em que é possível 
+explorar efetivamente um sistema multicore. McDougall (2005e) reporta um conjunto de aplicações de banco de 
+dados onde grande atenção foi dedicada a reduzir a fração serial dentro de arquiteturas de hardware, sistemas operacionais, middleware e softwares de banco de dados. A Figura 18.6 mostra o resultado. Conforme mostra este exemplo, os sistemas de gerenciamento de banco de dados e aplicações de banco de dados são uma área em que os sistemas multicore podem ser usados efetivamente. Vários tipos de servidores também podem usar efeti-vamente a organização multicore paralela, porque os servidores normalmente lidam com numerosas transações relativamente independentes em paralelo.
+Além do software de propósito geral para servidores, uma série de tipos de aplicações se beneficia diretamente 
+da habilidade de dimensionar rendimento de acordo com o número de núcleos. McDougall e Laudon (2006
+f) lis-
+tam os seguintes exemplos:
+Figura 18.5 Efeitos de desempenho de múltiplos cores
+Aumento relativo de velocidade Aumento relativo de velocidade 02468
+21
+Número de processadores
+(a) Aumento de velocidade com partes sequenciais de 0%, 2%, 5% e 10%3 4 5 60%
+2%
+5%
+10%
+10%5%
+15%
+20%7 8
+00,51,01,52,02,5
+21
+Número de processadores
+(b) Aumento de velocidade com sobrecargas3 4 5 6 7 8
+Book 1.indb 564 19.11.09 14:41:02
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 565
+Aplicações multithread nativas  : aplicações multithread são caracterizadas por ter um pequeno número 
+de processos com ótimas condições para o uso de multithread. Exemplos de aplicações com ótimas condi-
+ções para o uso de multitrhead incluem Lotus Domino ou Siebel CRM (Customer Relationship Manager).Aplicações com múltiplos processos
+  : aplicações com múltiplos processos são caracterizadas pela pre-
+sença de muitos processos de thread única. Exemplo de aplicações com múltiplos processos incluem banco de dados Oracle, SAP e PeopleSoft.Aplicações Java
+  : aplicações Java abraçam threads de uma maneira fundamental. Não apenas a linguagem 
+Java facilita muito aplicações multithread, mas a Java Virtual Machine é um processo multithread que provê agendamento e gerenciamento de memória para aplicações Java. Aplicações Java podem, então, se bene-fi ciar diretamente dos recursos multicore incluindo servidores de aplicação como Java Application Server da Sun, Weblogic da BEA, Websphere da IBM e servidor de aplicação de código fonte aberto Tomcat. Todas as aplicações que usam um servidor de aplicações da plataforma Java 2 Enterprise Edition (plataforma J2EE) podem se benefi ciar imediatamente da tecnologia multicore.Aplicações com multiplas instâncias
+  : mesmo que uma aplicação individual não possa ser dimensionada 
+para obter vantagem de um número grande de threads, ainda é possível se benefi ciar da arquitetura mul-ticore executando várias instâncias da aplicação em paralelo. Se várias instâncias de aplicação requerem algum tipo de isolamento, a tecnologia de virtualização (para o hardware do sistema operacional) pode ser usada para fornecer a cada uma delas o seu próprio ambiente separado e seguro.
+ Exemplo de aplicação: software de jogo da Valve
+A Valve é uma empresa de entretenimento e tecnologia que desenvolveu uma série de jogos populares, assim 
+como o motor Source, um dos motores de jogos disponíveis mais usados. Source é um motor de animação usado pela Valve para seus jogos e licenciado para outros desenvolvedores de jogos.
+Nos últimos anos, a Valve reprogramou o software do motor Source para usar multithreading a fi m de explorar 
+a capacidade dos chips de processadores multicore da Intel e AMD ( REIMER , 2006
+g). O código revisado do motor 
+Source fornece suporte mais poderoso para jogos da Valve como Half Life 2.Figura 18.6 Dimensionamento de trabalhos de bancos de dados em hardware com vários processadores
+0016324864
+16 32
+Número de CPUDimensionamento
+48 64Oracle DSS 4-way join
+TMC data mining
+DB2 DSS scan & aggs
+Oracle ad hoc insurance OL TP
+Dimensionamento perfeito
+Book 1.indb 565 19.11.09 14:41:03
+
+566 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Da perspectiva da Valve, as opções de granularidade de threads são definidas a seguir (H ARRIS , 2006h):
+granularidade grossa de threads  : módulos individuais, chamados de sistemas, são atribuídos a proces-
+sadores individuais. No caso do motor Source, isso significaria colocar renderização em um processador, 
+IA (inteligência artificial) no outro, física no outro, e assim por diante. Isto é bem direto. Basicamente, cada módulo maior é uma única thread e a coordenação principal envolve sincronizar todas as threads com uma thread da linha de tempo.granularidade fina de threads
+  : muitas tarefas semelhantes ou idênticas são espalhadas por vários pro-
+cessadores. Por exemplo, um laço que faz iteração sobre uma matriz de dados pode ser dividido em um número de laços menores em threads individuais que podem ser agendadas em paralelo.Thread híbrido
+  : isto envolve o uso seletivo de threads de granularidade fina para alguns sistemas e threads 
+únicas para outros sistemas.
+A Valve concluiu que, por meio da granularidade grossa, poderia alcançar até o dobro do desempenho em dois 
+processadores quando comparado com execução em um único processador. Mas este ganho de desempenho ape -
+nas poderia ser alcançado com casos artificiais. Para jogos do mundo real, a melhoria estava na ordem de um fator de 1,2. A empresa também concluiu que o uso efetivo de granularidade fina era difícil. O tempo por unidade de trabalho pode ser variável e gerenciar a linha de tempo de saídas e as consequências envolvia programação complexa.
+A Valve concluiu que uma abordagem de thread híbrida era a mais promissora e seria mais bem dimensionada 
+à medida que sistemas multicore com 8 ou 16 processadores se tornassem disponíveis. Ela identificou sistemas que operam com muita eficiência, sendo permanentemente atribuídos a um único processador. Um exemplo é a mixa-gem de som, a qual tem pouca interação do usuário, não é restringida pela configuração do quadro das janelas e funciona no seu próprio conjunto de dados. Outros módulos, como renderização de cenas, podem ser organizados em um número de threads para que o módulo possa executar em um único processador, mas que possa alcançar desempenho melhor quando é espalhado por mais e mais processadores.
+A Figura 18.7 ilustra a estrutura de threads para o módulo de renderização. Nesta estrutura hierárquica, threads 
+de níveis mais altos geram threads de níveis mais baixos conforme necessário. O módulo de renderização depende de uma parte crítica do motor Source, a lista mundial, que é um banco de dados que representa os elementos visuais no mundo dos jogos. A primeira tarefa é determinar quais são as áreas do mundo que precisam ser renderi-
+Figura 18.7 Threading híbrido para módulo de renderização
+Renderização
+Skybox Visão principal
+Lista de cenas
+Para cada objeto
+Partículas
+Sim e desenhar
+Con/f_iguração óssea
+DesenharPersonagem
+Etc.Monitor Etc.
+Book 1.indb 566 19.11.09 14:41:03
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 567
+zadas. A próxima tarefa é determinar quais objetos estão em cena conforme vistos de vários ângulos. Depois vem o 
+trabalho intensivo do processador. O módulo de renderização tem que trabalhar a renderização de cada objeto de vários pontos de vista, como visão do jogador, visão dos monitores de TV e o ponto de vista dos refl exos na água.
+Alguns dos principais elementos da estratégia de thread para o módulo de renderização estão relacionados em 
+Leonard (2007
+i) e incluem o seguinte:
+Construir listas de renderização de cenas para várias cenas em paralelo (por exemplo, o mundo e o seu 
+refl exo na água).Sobrepor simulação dos gráfi cos.
+ 
+Transformação do personagem computacional para todos os personagens em todas as cenas em paralelo. 
+Permitir que várias threads desenhem em paralelo. 
+Os projetistas descobriram que simplesmente bloquear os principais bancos de dados, como a lista mundial, 
+para uma thread era inefi ciente demais. Em mais de 95% do tempo, uma thread está tentando ler de um conjunto de dados e apenas 5% do tempo, no máximo, é gasto escrevendo no conjunto de dados. Assim, um mecanismo de concorrência conhecido como modelo escritor-único-múltiplos-leitores funciona efi cientemente.
+18.3 Organização multicore
+No nível mais alto da descrição, as principais variáveis em uma organização multicore são as seguintes:
+Número de núcleos processadores no chip. 
+Número de níveis da memória cache. 
+Quantidade de memória cache que é compartilhada. 
+A Figura 18.8 mostra quatro organizações gerais para sistemas multicore. A Figura 18.8a é uma organização 
+encontrada em alguns computadores com chips multicores anteriores e encontra-se ainda nos chips embutidos. 
+Figura 18.8 Alternativas da organização multicore
+Núcleo de CPU 1
+L1-D
+Cache L2 Cache L2L1-In Núcleo de CPU 
+L1-D L1-I
+Memória principal
+(b) Cache L2 dedicadaE/S
+Núcleo de CPU 1
+L1-D
+Cache L2
+Cache L3Cache L2L1-INúcleo de CPU n
+L1-D L1-I
+Memória principal
+(d) Cache L3 compartilhadaE/SNúcleo de CPU 1
+L1-D
+Cache L2L1-INúcleo de CPU n
+L1-D L1-I
+Memória principal
+(c) Cache L2 compartilhadaE/SNúcleo de CPU 1
+L1-D L1-In Núcleo de CPU 
+L1-D L1-I
+Cache L2
+Memória principal
+(a) Cache L1 dedicadaE/S
+Book 1.indb 567 19.11.09 14:41:04
+
+568 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Nesta organização, a única cache no chip é L1, com cada núcleo tendo a sua cache L1 dedicada. Quase invariavel-
+mente, a cache L1 é dividida em caches de dados e instruções. Um exemplo desta organização é ARM11 MPCore.
+A organização da Figura 18.8b é também uma onde não há compartilhamento da cache no chip. Neste caso, 
+há bastante área disponível no chip para permitir a cache L2. Um exemplo desta organização é o AMD Opteron. A Figura 18.8c mostra uma alocação semelhante de espaço do chip para memória, porém com uso de cache L2 compartilhada. O Core Duo da Intel tem essa organização. Finalmente, à medida que a quantidade de memória cache disponível no chip continua a crescer, as considerações sobre desempenho ditam a divisão de uma cache L3 separada e compartilhada, com caches L1 e L2 dedicadas para cada núcleo do processador. O Core i7 da Intel é um exemplo desta organização.
+O uso de uma cache L2 compartilhada na cache tem várias vantagens em relação à dependência exclusiva das 
+caches dedicadas:
+1. Interferência construtiva pode reduzir as taxas gerais de falhas. Ou seja, se uma thread em um núcleo acessa uma posição da memória principal, isso traz um quadro contendo a posição referenciada para a cache com-partilhada. Se uma thread em outro núcleo acessar logo depois o mesmo bloco de memória, as posições de memória já estarão disponíveis na cache compartilhada no chip.
+2. Uma vantagem relacionada é que dados compartilhados por vários núcleos não são replicados em nível de cache compartilhada.
+3. Com algoritmos adequados de substituição de quadros, a quantidade de cache compartilhada alocada para cada núcleo é dinâmica, para que as threads que têm menos espaço possam empregar mais cache.
+4. A comunicação entre processadores é fácil de implementar por meio das posições de memória compar-tilhadas.
+5. O uso de uma cache L2 compartilhada confi na o problema de coerência de cache para o nível da cache L1, o que pode acarretar algumas vantagens adicionais para o desempenho.
+Uma vantagem potencial em se ter apenas caches L2 dedicadas no chip é que cada núcleo usufrui de acesso 
+mais rápido à sua cache L2 privada. Isto é vantajoso para threads que têm forte localidade.
+À medida que a quantidade de memória disponível e o número de núcleos crescem, o uso de uma cache L3 
+compartilhada combinada com uma cache L2 compartilhada ou cache L2 dedicada por núcleo tende a fornecer um desempenho melhor do que simplesmente uma cache L2 compartilhada massivamente.
+Outra decisão de projeto organizacional em um sistema multicore é se os núcleos individuais serão superes-
+calares ou se implementarão multithread simultâneo (SMT). Por exemplo, o Core Duo da Intel usa núcleos supe-rescalares, enquanto o Core i7 da Intel usa núcleos SMT. O SMT tem o efeito de aumentar o número de threads em nível de hardware que o sistema multicore suporta. Assim, um sistema multicore com quatro núcleos e SMT que suporta quatro threads simultâneas em cada núcleo aparece para o nível da aplicação da mesma forma, como um sistema multicore com 16 núcleos. À medida que o software é desenvolvido para explorar mais profundamente recursos paralelos, uma abordagem SMT parece ser mais atraente do que uma abordagem superescalar.
+18.4 Organização multicore x86 da Intel
+A Intel introduziu uma série de produtos multicore nos últimos anos. Nesta seção analisamos dois exemplos: o 
+Intel Core Duo e o Intel Core i7.
+ Intel Core Duo
+O Intel Core Duo, introduzido em 2006, implementa dois processadores x86 superescalares com uma cache L2 
+compartilhada (Figura 18.8c).
+A estrutura geral de Intel Core Duo é mostrada na Figura 18.9. Vamos considerar os principais elementos co-
+meçando pelo topo da fi gura. Como é comum em sistemas multicore, cada núcleo tem a sua cache L1 dedicada. 
+Neste caso, cada núcleo tem uma cache de instruções de 32 KB e uma cache de dados de 32 KB.
+Cada núcleo tem uma unidade de controle térmica. Com a densidade maior de chips atuais, o gerenciamento 
+térmico é uma capacidade fundamental, especialmente para laptops e sistemas móveis. A unidade de controle térmico de Core Duo é projetada para gerenciar a dissipação de calor do chip para maximizar o desempenho do 
+Book 1.indb 568 19.11.09 14:41:04
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 18 Computadores multicore 569
+processador dentro das restrições térmicas. O gerenciamento térmico melhora também a ergonomia para o sis-
+tema de esfriamento e menor barulho acústico do ventilador. Basicamente, a unidade de gerenciamento térmico monitora sensores digitais de alta precisão para medição de temperatura de alta precisão. Cada núcleo pode ser definido como uma zona térmica independente. A temperatura máxima para cada zona térmica é reportada sepa-radamente por meio registradores dedicados que podem ser consultados pelo software. Se a temperatura em um núcleo exceder o limite, a unidade de controle térmica reduz a taxa de clock para diminuir a geração de calor.
+O próximo elemento-chave da organização Core Duo é o controlador programável avançado de interrup-
+ções (APIC, do inglês advanced programmable interrupt controller). O APIC desempenha uma série de funções, in-
+cluindo as seguintes:
+1. O APIC pode prover interrupções entre processadores, o que permite que qualquer processador interrompa qualquer outro processador ou conjunto de processadores. No caso do Core Duo, uma thread em um nú-cleo pode gerar uma interrupção que é aceita pelo APIC local, encaminhada para o APIC do outro núcleo e comunicada como uma interrupção para outro núcleo.
+2. O APIC aceita interrupções de E/S e encaminha-as para o núcleo adequado.
+3. Cada APIC inclui um temporizador, o qual pode ser ajustado pelo SO para gerar uma interrupção no nú-cleo local.
+A lógica de gerenciamento de energia é responsável por reduzir o consumo de energia quando possível, 
+aumentando a vida das baterias em plataformas móveis, como laptops. Basicamente, a lógica de gerenciamento de energia monitora as condições térmicas e a atividade da CPU e ajusta os níveis de voltagem e consumo de energia de acordo. Ela inclui uma capacidade avançada de chaveamento de energia que possibilita um controle lógico de granularidade muito fina que liga subsistemas lógicos individuais do processador apenas se e quando eles forem necessários. Além disso, muitos barramentos e vetores são divididos para que os dados necessários em alguns mo-dos de operação possam ser colocados em estado de energia baixo quando não são necessários.
+O chip Core Duo inclui uma cache L2 de 2 MB compartilhada. A lógica da cache permite alocação dinâmica do 
+espaço da cache com base nas necessidades atuais do núcleo, de tal forma que a um núcleo possa ser atribuído até Figura 18.9 Diagrama de blocos do Intel Core Duo
+Controle térmico Controle térmico
+APIC APICCache L1 de 32 KB
+Cache L1 de 32 KBRecursos da
+execução
+Recursos da
+execuçãoEstado arq.
+Estado arq.
+Lógica de gerenciamento de energia
+Cache L2 compartilhado de 2 MB
+Interface do barramento
+Barramento frontal
+Book 1.indb 569 19.11.09 14:41:05
+
+570 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+100 por cento de cache L2. A cache L2 inclui a lógica para suportar o protocolo M ESI para caches L1 anexadas. O 
+principal ponto para ser considerado é quando uma escrita é feita em nível L1. Uma linha de cache obtém o estado 
+M quando um processador escreve nela; se a linha não estiver no estado E ou M antes de escrever nela, a cache envia uma requisição Leitura-Para-Posse (RFO) que garante que a linha existe na cache L1 e está no estado I na outra cache L1. Intel Core Duo estende esse protocolo para levar em conta o caso quando há múltiplos chips Core Duo organizados como um sistema multiprocessador simétrico (SMP). O controlador da cache L2 permite que o sistema diferencie entre uma situação onde os dados são compartilhados entre dois núcleos locais, mas não com o restante do mundo, e uma situação onde os dados são compartilhados por uma ou mais caches na pastilha assim como por um agente no barramento externo (pode ser outro processador). Quando um núcleo emite uma RFO, se a linha é compartilhada apenas pela outra cache dentro da pastilha, podemos resolver a RFO internamente muito rápido, sem ir para o barramento externo. Apenas se a linha é compartilhada com outro agente no barramento externo temos que emitir a RFO externamente.
+A interface de barramento conecta-se com o barramento externo, conhecido como barramento frontal, o 
+qual se conecta com a memória principal, controladores de E/S e outros chips processadores.
+ Intel Core i7
+O Intel Core i7, introduzido em novembro de 2008, implementa quatro processadores x86 SMT, cada um com 
+uma cache L2 dedicada e com uma cache L3 compartilhada (Figura 18.8d).
+A estrutura geral do Intel Core i7 é mostrada na Figura 18.10. Cada núcleo tem a sua cache L2 dedicada e quatro 
+núcleos compartilham a cache L3 de 8 MB. Um mecanismo que a Intel usa para tornar suas caches mais efi cientes é 
+pré-busca, onde o hardware analisa padrões de acesso à memória e tenta preencher as caches de forma especulativa com dados que provavelmente serão requisitados logo. É interessante comparar o desempenho desta organização da cache no chip de três níveis com uma organização comparável de dois níveis da Intel. A Tabela 18.1 mostra a latência de acesso à cache em termos de ciclos de clock para dois sistemas multicore da Intel executando na mesma frequên-cia de clock. Core 2 Quad tem uma cache L2 compartilhada, semelhante ao Core Duo. Core i7 melhora o desempenho da cache L2 com uso de caches L2 dedicadas e provê um acesso relativamente rápido à cache L3.
+O chip Core i7 suporta duas formas de comunicação externa com outros chips. O controlador de memória 
+DDR3 traz o controlador de memória para a memória
+2 principal DDR para o chip. A interface suporta três canais 
+com tamanho de 8 bytes para um barramento total de 192 bits, para uma taxa de dados agregada até 32 GB/s. Com 
+o controlador de memória no chip, o barramento frontal é eliminado.
+2 Memória RAM síncrona DDR é discutida no Capítulo 5.Figura 18.10 Diagrama de blocos do Intel Core i7
+Núcleo 0
+Caches L1 de
+32 KB I e D
+Cache L2 de
+256 KBNúcleo 1 Núcleo 2
+3 8B @ 1,33 GT/sNúcleo 3
+Cache L3
+de 8 MB
+Controladores da
+memória DDR3Caminhos de
+interconexão rápida
+4 20b @ 6,4 GT/sCaches L1 de
+32 KB I e D
+Cache L2 de
+256 KBCaches L1 de
+32 KB I e D
+Cache L2 de
+256 KBCaches L1 de
+32 KB I e D
+Cache L2 de
+256 KB
+Book 1.indb 570 19.11.09 14:41:05
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 571
+CPU Frequência de clock Cache L1 Cache L2 Cache L3
+Core 2 Quad 2,66 Ghz 3 ciclos 15 ciclos —
+Core i7 2,66 Ghz 4 ciclos 11 ciclos 39 ciclosTabela 18.1 Latência de cache (em ciclos de clock)
+O caminho de interconexão rápida (QPI, do inglês quick-path interconnect) é uma especifi cação de intercone-
+xão elétrica ponto a ponto, com coerência de cache para processadores e chipsets da Intel. Ele possibilita comuni-
+cação de alta velocidade entre chips de processadores conectados. A ligação QPI opera a 6,4 GT/s (transferências por segundo). A 16 bits por transferência, isso atinge até 12,8 GB/s e, como ligações QPI envolvem pares bidirecio-nais dedicados, a largura de banda total é 25,6 GB/s.
+18.5 ARM11 MPCore
+O ARM11 MPCore é um produto multicore baseado na família de processadores ARM11. O ARM11 MPCore 
+pode ser confi gurado com até quatro processadores, onde cada um tem as suas próprias caches L1 de instruções e dados, por chip. A Tabela 18.2 lista as opções de confi guração para o sistema, incluindo os valores padrão.
+A Figura 18.11 apresenta um diagrama de bloco de ARM11 MPCore. Os principais elementos do sistema são:
+controlador distribuído de interrupções 
+  (DIC, do inglês distributed interrupt controller): lida com de-
+tecção de interrupções e priorização de interrupções. O DIC distribui interrupções para processadores individuais.Temporizador
+  : cada CPU tem o seu próprio temporizador privado que gera interrupções.
+Watchdog  : emite avisos de alertas no caso de falhas de software; se o watchdog estiver habilitado, ele 
+é ajustado para um valor predeterminado e conta até 0. Ele é reiniciado periodicamente. Se o valor do watchdog chegar a zero, um alerta é emitido.Interface de cpu
+  : lida com confi rmação de interrupções, mascaramento de interrupções e reconhecimen-
+to da conclusão de interrupções.cpu
+  : um processador ARM11 único. CPUs individuais são referidas como CPUs MP11.
+unidade vetorial de ponto fl utuante  (VFP , do inglês vector fl oating-point): um coprocessador que imple-
+menta operações de ponto fl utuante em hardware.cache L1
+  : Cada CPU tem sua própria cache L1 de dados e cache L1 de instruções.
+unidade de controle de monitoramento  (SCU, do inglês snoop control unit): responsável por manter a 
+coerência entre caches L1 de dados.
+Recurso Intervalo de opções Valor padrão
+Processadores 1 a 4 4
+Tamanho da cache de instruções por processador 16 KB, 32 KB ou 64 KB 32 KB
+Tamanho da cache de dados por processador 16 KB, 32 KB ou 64 KB 32 KB
+Portas mestres 1 ou 2 2
+Tamanho do barramento de interrupções 0 a 224 em incrementos de 32 pinos 32 pinos
+Coprocessador vetorial de ponto fl utuante 
+(VFP) por processadorIncluído ou não IncluídoTabela 18.2 Opções de confi guração de ARM11 MPCore
+Book 1.indb 571 19.11.09 14:41:06
+
+572 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Figura 18.11 Diagrama de blocos do processador ARM11 MPcore
+Unidade de controle de detecção (SCU)Memória L1CPU/VFPWdog
+Memória L1CPU/VFP
+Memória L1CPU/VFP
+Memória L1CPU/VFPWdog WdogTemp. Temp. Temp. Temp.Interface 
+de CPUInterface 
+de CPUInterface 
+de CPUInterface 
+de CPUWdogControlador
+distribuído de
+interrupçõesNúmero
+con/f_igurávelde linhas deinterrupção dehardware
+Barramento de
+instruções e
+dados de 64 bitsBits de controle
+de coerência
+Barramento de 64 bits 
+de leitura/escritaIRQ IRQ IRQ IRQLinhas rápidas de
+interrupção privadas
+por CPU (FIQ)
+Segundo barramento de
+64 bits de leitura/escrita opcionalBarramento de
+instruções e
+dados de 64 bitsBits de controle
+de coerênciaBarramento de
+instruções e
+dados de 64 bitsBits de controle
+de coerênciaBarramento de
+instruções e
+dados de 64 bitsBits de controle
+de coerência
+ Tratamento de interrupções
+O DIC recebe interrupções de um grande número de origens. Ele provê:
+Mascaramento de interrupções. 
+Priorização de interrupções. 
+Distribuição de interrupções para CPUs MP11-alvo. 
+Rastreamento do estado das interrupções. 
+Geração de interrupções pelo software. 
+O DIC é uma unidade funcional única que é colocada no sistema ao lado das CPUs MP11. Isso possibilita que 
+uma série de interrupções suportadas no sistema sejam independentes do projeto da CPU MP11. DIC é mapeado 
+em memória, isto é, registradores de controle de DIC são defi nidos com relação a um endereço base da memória principal. O DIC é acessado pela CPUs MP11 usando uma interface privada por meio da SCU.
+O DIC é projetado para satisfazer dois requisitos funcionais:
+Fornecer um meio de rotear uma requisição de interrupção para uma única CPU ou várias CPUs, conforme 
+ 
+necessário.Fornecer um meio para comunicação entre processadores para que uma thread em uma CPU possa causar 
+ 
+uma atividade em outra thread em outra CPU.
+Como um exemplo que faz uso dos dois requisitos, considere uma aplicação multithread que possui threads 
+executando em vários processadores. Admita uma aplicação que aloca alguma memória virtual. Para manter 
+Book 1.indb 572 19.11.09 14:41:07
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 573
+consistência, o sistema operacional precisa atualizar as tabelas de tradução de memória em todos os processa-
+dores. O SO poderia atualizar as tabelas no processador onde ocorreu a alocação da memória virtual e depois emitir uma interrupção para todos os outros processadores que executam a aplicação. Outros processadores poderiam, então, usar a ID dessa interrupção para determinar que eles precisam atualizar suas tabelas de tra-dução de memória.
+O DIC pode encaminhar uma interrupção para uma ou mais CPUs de três maneiras:
+Uma interrupção pode ser direcionada apenas para um processador específi co.
+ 
+Uma interrupção pode ser direcionada para um grupo defi nido de processadores. O MPCore enxerga o 
+primeiro processador para aceitar a interrupção, normalmente o menos ocupado, como sendo o mais bem posicionado para tratar a interrupção.Uma interrupção pode ser direcionada para todos os processadores.
+ 
+Do ponto de vista do software que executa em uma determinada CPU, o SO pode gerar uma interrupção 
+para todos menos para si mesmo ou para outras CPUs específi cas. Para a comunicação entre threads que exe-cutam em CPUs diferentes, o mecanismo de interrupção é normalmente combinado com a memória compar-tilhada para passagem de mensagens. Desta forma, quando uma thread é interrompida por uma interrupção de comunicação entre processadores, ela lê do bloco apropriado da memória compartilhada para obter uma mensagem da thread que disparou a interrupção. Um total de 16 IDs de interrupções por CPU está disponível para a comunicação entre processadores.
+Do ponto de vista de uma CPU MP11, uma interrupção pode estar:
+Inativa
+  : é aquela que não está confi rmada ou que foi totalmente processada em um ambiente de multipro-
+cessamento por essa CPU, mas que ainda pode estar pendente ou ativa em algumas CPUs para as quais está destinada e por isso pode não ter sido retirada da origem da interrupção.pendente
+  : é aquela que foi confi rmada e para qual o processamento não começou nessa CPU.
+Ativa  : uma interrupção ativa é aquela que foi iniciada por essa CPU, porém o processamento não está 
+completo. Uma interrupção ativa pode ser substituída quando uma interrupção nova, de prioridade maior, interrompe o processamento da CPU MP11.
+As interrupções vêm das seguintes origens:
+Interrupções entre processadores 
+  (interprocessor interrupts — IPI): cada CPU possui interrupções priva-
+das, de ID0 até ID15, que podem ser disparadas pelo software. A prioridade de uma IPI depende da CPU de destino, não da CPU da origem.Temporizador privado e/ou interrupções de watchdog
+  : estas usam IDs de interrupção 29 e 30.
+Linha FIq legada  : no modo legado de IRQ, o pino legado FIQ, um por CPU base, não utiliza a lógica do 
+distribuidor de interrupção e envia diretamente as requisições de interrupção para dentro da CPU.Interrupções de hardware
+  : interrupções do hardware são disparadas por eventos programáveis em linhas 
+de entrada de interrupção associadas. As CPUs podem suportar até 224 linhas de entrada de interrupção. Interrupções de hardware iniciam em ID32.
+A Figura 18.12 é um diagrama de blocos de DIC. O DIC é confi gurável para suportar entre 0 e 255 entradas de 
+interrupções de hardware. Ele mantém uma lista de interrupções, mostrando a sua prioridade e estado. O distribui-dor de interrupções transmite para cada interface da CPU a interrupção pendente mais alta para essa interface. Ele recebe de volta a informação que a interrupção foi recebida e pode então mudar o estado da interrupção corres-pondente. A interface de CPU também transmite a informação de fi m da interrupção (end of interrupt information — 
+EOI), o qual habilita o distribuidor de interrupções para atualizar o estado dessa interrupção de ativa para inativa.
+ Coerência de cache
+A unidade de controle de monitoramento de MPCore (MPCore’s snoop control unit) — SCU) é projetada para 
+resolver a maioria dos gargalos tradicionais relacionados com acesso a dados compartilhados e limitações de esca-labilidade introduzidas pelo tráfego de coerência.
+O esquema de coerência da cache L1 é baseado no protocolo MESI descrito no Capítulo 17. A SCU monitora os 
+dados compartilhados das operações para otimizar migração de estados do M ESI. Ela introduz três tipos de otimi-
+zação: intervenção direta de dados, tags duplicadas de RAMs e linhas migratórias.
+Book 1.indb 573 19.11.09 14:41:07
+
+574 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Intervenção direta de dados (direct data intervention — DDI) possibilita copiar dados limpos de cache L1 de 
+dados de uma CPU para cache L1 de dados de outra CPU sem acessar a memória externa. Isto reduz a atividade de 
+leitura após a leitura de cache L1 para cache L2. Assim, uma falha de cache L1 local é resolvida em uma cache L1 remota em vez de acesso à cache L2 compartilhada.
+Lembre que a posição da memória principal de cada linha dentro de uma cache é identificada por um rótulo 
+(tag) para essa linha. Os tags podem ser implementadas como um bloco separado de RAM do mesmo tamanho do número de linhas na cache. Na SCU, tags duplicadas de RAM são versões duplicadas de tags de RAM da L1 
+usadas pela SCU para verificar a disponibilidade de dados antes de enviar comandos de coerência para CPUs relevantes. Comandos de coerência são enviados apenas para CPUs que precisam atualizar sua cache de dados coerente. Isto reduz o consumo de energia e o impacto em desempenho por causa da detecção e manipulação de cache de cada processador em cada atualização de memória. Ter dados das marcações disponíveis local-mente permite que a SCU limite a manipulação de cache para processadores que possuem linhas de cache em comum.
+O recurso de linhas migratórias permite mover dados sujos de uma CPU para outra sem escrever na L2 e ler 
+dados de volta a partir da memória externa. A operação pode ser descrita conforme segue. Em um protocolo MESI 
+típico, quando um processador tem uma linha modificada e outro processador tenta ler essa linha, ocorrem as seguintes ações:
+1. O conteúdo da linha é transferido da linha modificada para o processador que iniciou a leitura.
+2. O conteúdo da linha é lido de volta para memória principal.
+3. A linha é colocada no estado compartilhado em ambas as caches.
+O MPCore SCU lida com esta situação de forma diferente. O SCU monitora o sistema por uma linha migratória. 
+Se um processador tem uma linha modificada e outro processador lê e depois escreve nela, SCU supõe que tal posição sofrerá a mesma operação no futuro. Quando essa operação começar novamente, a SCU automaticamente Figura 18.12 Diagrama de blocos do distribuidor de interrupções
+Interface de
+interrupçãoPrioridadeDecodi/f_icador
+Lista de interrupçõesEstadoBarramento privado
+de leitura/escritaNúcleo de reconhecimento
+informação de /f_im da interrupção (EOI)da interface de CPU
+Priorização
+e seleçãoRequisição IRQpara cada interfacede CPUMP11 CPU 0Interrupções de prioridade mais alta
+Prioridade Número da interrupção
+MP11 CPU 1Prioridade Número da interrupção
+MP11 CPU 2Prioridade Número da interrupção
+MP11 CPU 3Prioridade Número da interrupção
+Book 1.indb 574 19.11.09 14:41:08
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 18 Computadores multicore 575
+moverá a linha da cache diretamente para um estado inválido em vez de gastar energia movendo-a primeiramente 
+para estado compartilhado. Esta otimização também faz com que o processador transfi ra a linha da cache direta-mente para outro processador sem intervenção das operações de memória externa.
+18.6 Leitura recomendada e sites Web
+Dois livros que oferecem boa cobertura sobre questões deste capítulo são Olukotun, Hammond e Laudon 
+(2007j) e Jerraya e Wolf (2005k). Gochman et al. (2006l) e Mendelson (2006m) descrevem Intel Core Duo. Fog (2008n)
+fornece uma descrição detalhada da arquitetura de pipeline de Core Duo.
+ARM (2008o) fornece cobertura completa sobre o pipeline de ARM Cortex-A8. Hirata e Goodacre (2007p) e 
+Goodacre e Sloss (2005q) são bons artigos para uma visão geral.
+ Sites Web recomendados
+multicore Association: organização de fabricantes que promove o desenvolvimento e o uso de tecnologia multicore.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Lei de Amdahl Multicore Superescalar
+Chip multiprocessador Multithreading simultâneo (SMT)
+Perguntas de revisão
+18.1 Resuma a diferença entre pipeline de instruções simples, superescalar e multithreading simultâneo.
+18.2 Dê várias razões para a escolha dos projetistas para migrar para uma organização multicore em vez de aumentar o paralelismo dentro de um 
+único processador.
+18.3 Por que há uma tendência para se aumentar a fração da área do chip para memória cache?
+18.4 Relacione alguns exemplos de aplicações que se benefi ciam diretamente da habilidade de aumentar rendimento com número de núcleos.
+18.5 no nível mais alto, quais são as principais variáveis do projeto em uma organização multicore?
+18.6 Relacione algumas vantagens de cache L2 compartilhada entre núcleos comparada com caches L2 separadas dedicadas para cada núcleo.
+Problemas
+18.1 Considere o seguinte problema. Um projetista tem um chip disponível e decide qual fração dele será dedicada para memória cache (L1, L2, L3). 
+O restante do chip pode ser dedicado para um complexo superescalar único e/ou núcleo SMT ou vários núcleos mais simples. Defi na os seguintes parâmetros:n = número máximo de núcleos que podem ser contidos no chip.
+k = número atual de núcleos implementados (1 ≤ k ≤ n , onde r = n/k é um inteiro).
+perf(r) = desempenho sequencial obtido com uso de recursos equivalentes para r núcleos para formar um processador único, onde perf(1) – 1.
+f = fração do software que é paralelizável por vários núcleos.
+Assim, se construirmos um chip com n núcleos, esperamos que cada núcleo forneça desempenho sequencial de 1 e que, para n núcleos, seja 
+capaz de explorar o paralelismo até um nível de n threads paralelas. De forma semelhante, se o chip tiver k núcleos, então cada núcleo deveria 
+demonstrar um desempenho de perf(r) e o chip é capaz de explorar paralelismo até um nível de k threads paralelas.
+Book 1.indb 575 19.11.09 14:41:08
+
+576 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Aumento de
+velocidade =1
+1-f
+perf (r)+f*r
+perf (r)*n
+a. Justifique esta modificação da lei de Amdahl.
+b. Usando a regra de Pollack, definimos perf(r)=1r. Seja n =16. Queremos desenhar o aumento de velocidade como uma função de r para 
+f = 0,5; f = 0,9; f = 0,975; f = 0,99; f = 0,999. Os resultados estão disponíveis em um documento no site deste livro (multicore-desempe-
+nho.pdf). Que conclusões você pode tirar?
+c. Repita a parte (b) para n = 256.
+18.2 O manual de referência técnica para ARM11 MPCore diz que o controlador de instruções distribuído é mapeado em memória. Isto é, os núcleos 
+processadores usam E/S mapeada em memória para se comunicar com DIC. Lembre do Capítulo 7 que, com E/S mapeada em memória, há um espaço de endereço único para posições de memória e dispositivos de E/S. O processador trata o estado e os registradores de dados dos módulos de E/S como posições de memória e usa as mesmas instruções de máquina para acessar memória e dispositivos E/S. Com base nesta informação, qual o caminho através do diagrama de blocos da Figura 18.11 é usado para o processador de núcleo se comunicar com DIC?
+ Referências
+ a O LUKOTUn, K. e hAMMOnD, L. “The future of microprocessors” . ACM Queue, set. 2005.
+ b B ORKAR , S. “Getting gigascale chips: challenges and opportunities in continuing Moore’s law” . ACM Queue, out. 2003.
+ c B ORKAR , S. “Thousand core chips—a technology perspective” . Proceedings, ACM/IEEE Design Automation Conference, 2007.
+ d POLLACK , F . “n ew microarchitecture challenges in the coming generations of cmos process technologies (keynote address)” . Proceedings of the 32nd 
+annual ACM/IEEE International Symposium on Microarchitecture, 1999.
+ e MCD OUGALL , R. “Extreme software scaling” . ACM Queue, set. 2005.
+ f MCD OUGALL , R. e L AUDOn, J. “Multi-core microprocessors are here”; login, out. 2006.
+ g R EIMER , J. “Valve goes multicore” . ars technica, nov. 2006. Disponível em: <arstechnica.com/articles/paedia/cpu/valve-multicore.ars>.
+ h hARRIS , W. “Multi-core in the source engine” . bit-tech.net technical paper, nov. 2006. Disponível em: <bit-tech.net/gaming/2006/11/02/Multi_
+core_in_the_Source_Engin/1>.
+ i L EOn ARD , T. “Dragged kicking and screaming: source multicore” . Proceedings, Game Developers Conference 2007, mar. 2007.
+ j OLUKOTUn , K.; hAMMOnD , L. e LAUDOn , J. Chip multiprocessor architecture: techniques to improve throughput and latency. San Rafael, CA: Morgan & 
+Claypool, 2007.
+ k J ERRAYA , A. e W OLF, W., eds. Multiprocessor systems-on-chips. San Francisco: Morgan Kaufmann, 2005.
+ l G OCh MAn, S., et al. “Introduction to Intel Core Duo processor architecture” . Intel Technology Journal, mai. 2006.
+ m MEn DELSOn, A., et al. “CMP implementation in systems based on the Intel Core Duo processor” . Intel Technology Journal, mai. 2006.
+ n F OG, A. The microarchitecture of Intel and AMD CPUs. Copenhagen University College of Engineering, 2008. Disponível em: <www.agner.org/optimize>.
+ o ARM L IMITED . ARM11 MPCore processor technical reference manual. ARM DDI 0360E, 2008. Disponível em: <www.arm.com>.
+ p hIRATA , K. e G OODACRE , J. “ARM MPCore: the streamlined and scalable ARM11 processor core” . Proceedings, 2007 Conference on Asia South Pacific 
+Design Automation, 2007.
+ q G OODACRE , J. e S LOSS , A. “Parallelism and the ARM instruction set architecture” . Computer, jul. 2005.
+Book 1.indb 576 19.11.09 14:41:09
+
+Muitos professores acreditam que as pesquisas ou os projetos de imple-
+mentação sejam cruciais para o claro entendimento dos conceitos da 
+organização e arquitetura de computadores. Sem os projetos, pode ser difícil para os estudantes compreenderem alguns conceitos básicos e as interações entre os componentes. Os projetos reforçam os conceitos introduzidos no livro, dão aos estudantes uma compreensão melhor do trabalho interno dos processadores e dos sistemas computacionais e podem motivar os estudan-tes e dar-lhes a confi ança de que dominaram a matéria.
+Neste texto tentei apresentar os conceitos da arquitetura e organização 
+de computadores da forma mais clara possível e forneci vários problemas para trabalhos de casa para reforçar esses conceitos. Muitos professores 
+desejarão complementar este material com projetos. Este apêndice fornece uma orientação para esse fi m e descreve o material de suporte disponível no manual do professor. O material de suporte cobre seis tipos de projetos e outros exercícios para estudantes:
+Simulações interativas.
+ 
+Projetos de pesquisa. 
+Projetos de simulação. 
+Projetos da linguagem de montagem. 
+Atividades de leitura/relatórios. 
+Atividades de escrita. 
+Banco de testes. 
+ A.1 Simulações interativas
+A novidade desta edição é a incorporação de simulações interativas. Elas fornecem uma ferramenta poderosa 
+para o entendimento dos recursos de um projeto complexo de um sistema computacional moderno. Os estu-dantes de hoje querem ser capazes de visualizar vários mecanismos de sistemas de computadores complexos nas telas dos seus próprios computadores. Um total de 200 simulações é usado para ilustrar as funções principais e os algoritmos na organização e arquitetura de computadores. A Tabela A.1 lista as simulações por capítulo. Em pontos relevantes deste livro, um ícone indica que uma simulação interativa relevante está disponível online para uso dos estudantes.Projetos para ensinar organização e arquitetura 
+de computadoresApêndice A
+A.1 Simulações interativas
+A.2 Projetos de pesquisa
+A.3 Projetos de simulação  SimpleScalar
+  SMPCache
+A.4 Projetos da linguagem de montagemA.5 Atividades de leitura/relatóriosA.6 Atividades de escrita
+A.7 Banco de testes
+Book 1.indb 577 19.11.09 14:41:10
+
+578 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Capítulo 4 — Memória cache
+Simulador de cacheEmula caches pequenas com base em um simples modelo de cache inserido pelo usuário e mostra 
+o conteúdo da cache no final do ciclo simulado, baseado na inserção de uma sequência de escrita feita 
+pelo usuário, ou gerada randomicamente, se selecionada.
+Análise de tempo da cache Demonstra a média de tempo de acesso à memória para os parâmetros de cache que você especificar.
+Simulador de cache multitarefa Modela a cache em um sistema que suporta multitarefa.
+Simulador de cache Selective victim Compara três políticas de cache diferentes.
+Capítulo 5 — Memória interna
+Simulador de memória intercalada Demonstra o efeito de memória intercalada.
+Capítulo 6 — Memória externa
+RAID Determina a eficiência e a confiabilidade de armazenamento.
+Capítulo 7 — Entrada/Saída
+Sistema e ferramenta de projeto de E/S Avalia custos e desempenhos comparativos de diferentes sistemas de E/S.
+Capítulo 8 — Suporte do SO
+Algoritmos de substituição de página Compara LRU, FIFO e Optimal.
+Mais algoritmos de substituição de página Compara várias políticas.
+Capítulo 12 — Estrutura e funcionamento da CPU
+Analisador de tabela de reserva Avalia tabelas de reserva, que é um meio de representar o modelo do fluxo de para um sistema pipeline.
+Branch Prediction Demonstra três diferentes esquemas de previsão de desvio.
+Branch Target Buffer Simulador que combina branch predictor/branch target buffer.
+Capítulo 13 — Computadores com conjunto de instruções reduzido (RISC)
+Política de estado — MIPS 5 Simula o pipeline.
+Desdobramento do Loop Simula a técnica de desdobramento do loop para explorar o paralelismo no nível de instruções.
+Capítulo 14 — Paralelismo em nível de instruções e processadores superescalares
+Pipeline com agendamento estático versus dinâmico Uma simulação mais complexa do pipeline MIPS.
+Simulador de reordenação de buffer Simula reordenação de instrução em um pipeline RISC.
+Técnica para simulador de scoreboarding dinâmico Simulação de uma técnica de escalonamento de instrução usada em um número de processadores.
+Algoritmo de Tomasulo Simulação de outra técnica de escalonamento de instrução.
+Simulação alternativa do algoritmo de Tomasulo Outra simulação do algoritmo de Tomasulo.
+Capítulo 17 — Organização paralela
+Simulação de processamento vetorial Demonstra a execução de instruções de processamento vetorial.Tabela A.1 Organização e arquitetura do computador — Simulações interativas por capítulo
+Como as simulações possibilitam que o usuário defina condições iniciais, elas podem servir como base para as 
+tarefas dos estudantes. 
+As simulações interativas foram desenvolvidas sob a direção do professor Israel Koren, da University of 
+Massachusetts Department of Electrical and Computer Engineering. Aswin Sreedhar, da University of Massachusetts de-
+senvolveu atividades de simulação interativa.
+Book 1.indb 578 19.11.09 14:41:11
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice A Projetos para ensinar organização e arquitetura de computadores 579
+ A.2 Projetos de pesquisa
+Uma forma efi ciente de reforçar os conceitos básicos do curso e de ensinar aos alunos habilidades de pesqui-
+sa é atribuir-lhes um projeto de pesquisa. Tal projeto pode envolver uma pesquisa de literatura assim como uma 
+pesquisa pela Internet dos produtos dos fabricantes, atividades nos laboratórios de pesquisa e esforços para padro-nização. Os projetos podem ser atribuídos para equipes ou, para projetos menores, para indivíduos. Em todo caso, o melhor é requerer algum tipo de proposta de projeto logo cedo, para que o professor tenha tempo de avaliar a proposta para determinado assunto e o nível de esforço adequado. O folheto dos alunos para projetos de pesquisa deve conter:
+Um formato para proposta.
+ 
+Um formato para relatório fi nal. 
+Uma agenda com prazos intermediários e fi nais. 
+Uma lista de possíveis assuntos do projeto. 
+Os estudantes podem selecionar um dos assuntos relacionados ou inventar seus próprios projetos comparáveis. 
+ A.3 Projetos de simulação
+Uma maneira excelente de obter a compreensão da operação interna do processador e para estudar e apreciar 
+algumas negociações de projeto e implicações de desempenho é simular os principais elementos do processador. Duas ferramentas úteis para este propósito são o SimpleScalar e o SMPCache.
+Comparada à implementação de hardware real, a simulação oferece duas vantagens para uso educacional e de 
+pesquisa:
+Com a simulação, fi ca fácil modifi car vários elementos de uma organização, variar as características de dife-
+ 
+rentes elementos e depois analisar os efeitos de tais modifi cações.A simulação oferece uma coleção de estatísticas detalhadas de desempenho, que pode ser usado para 
+ 
+entender as relações da desempenho.
+ SimpleScalar
+O SimpleScalar ( BURGER e AUSTIN, 1997a; MANJIKIAN , 2001b; MANJIKIAN , 2001c) é um conjunto de ferra-
+mentas que pode ser usado para simular programas reais em vários processadores e sistemas modernos. O con-junto de ferramentas inclui compilador, assembler, linker e ferramentas de simulação e visualização. Ele fornece 
+simuladores de processadores que variam de um simulador funcional extremamente rápido até um simulador detalhado de processador superescalar com envio fora de ordem, que suporta caches sem bloqueio e execução especulativa. A arquitetura do conjunto de instruções e os parâmetros organizacionais podem ser modifi cados para criar uma variedade de experimentos.
+O SimpleScalar é um pacote de software portável que executa na maioria de plataformas UNIX. O software 
+SimpleScalar pode ser debatido no site de SimpleScalar. Está disponível sem custo para uso não comercial.
+ SMPCache
+O SMPCache é um simulador orientado a rastreamento para análise e ensino de sistemas de memória cache 
+em multiprocessadores simétricos ( RODRIGUEZ , PEREZ e PULIDO, 2001d). A simulação é baseada em um modelo 
+construído de acordo com os princípios básicos de arquitetura desses sistemas. O simulador possui uma interface gráfi ca completa e amigável. Alguns dos parâmetros que podem ser estudados com o simulador são: localidade do programa, infl uên cia do número de processadores, protocolos de coerência de cache, esquemas para arbitração do barramento, mapeamento, políticas de substituição, tamanho da cache (blocos na cache), número de conjuntos de cache (para conjuntos de caches associativas) e número de palavras por bloco (tamanho do bloco de memória).
+O SMPCache é um pacote de software portável que executa em sistemas PC com Windows. Ele pode ser obtido 
+no site de SMPCache e está disponível sem custo para uso não comercial.
+Book 1.indb 579 19.11.09 14:41:12
+
+580 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ A.4 Projetos da linguagem de montagem
+A programação na linguagem de montagem é usada para ensinar aos alunos os componentes de hardware de bai-
+xo nível e os fundamentos da arquitetura computacional. O CodeBlue é um programa simplifi cado para linguagem de 
+montagem desenvolvido pela Academia de Força Aérea Americana O objetivo do trabalho foi desenvolver e ensinar os 
+conceitos da linguagem de montagem usando um simulador visual que permita que os estudantes aprendam em uma 
+única aula. Os desenvolvedores quiseram também que os alunos achassem a linguagem motivadora e divertida de usar. A linguagem CodeBlue é muito mais simples do que a maioria de conjuntos de instruções de arquitetura simplifi cados como SC123. Mesmo assim, ela permite que alunos desenvolvam programas assembly interessantes que competem 
+em torneios, da forma semelhante ao simulador SPIMbot – muito mais complexo. Mais importante, por meio da progra-mação com CodeBlue, os estudantes aprendem os conceitos básicos da arquitetura computacional como coexistência de instruções e dados em memória, implementação da estrutura de controle e modos de endereçamento.
+Para fornecer uma base para projetos, os desenvolvedores construíram um ambiente visual de desenvolvimen-
+to que permite que alunos criem um programa, vejam a sua representação em memória, passem pela execução do programa e simulem uma batalha de programas que competem em um ambiente de memória visual.
+Os projetos podem ser construídos em cima do conceito de um torneio de Guerra de Núcleo (Core War). O Guerra 
+de Núcleo é um jogo de programação introduzido para o público no começo dos anos 1980 e que foi popular durante um período de mais ou menos 15 anos. Ele possui quatro componentes principais: uma matriz de memória de 8.000 endereços, uma linguagem de montagem simplifi cada Redcode, um programa executável chamado MARS (um acrô-nimo para Memory Array Redcode Simulator – Simulador Redcode para Matriz de Memória) e o conjunto de programas 
+de batalha que competem. Dois programas de batalhas são inseridos na matriz de memória em posições aleatórias; nenhum programa sabe onde o outro está. O MARS executa os programas em uma versão simples de tempo com-partilhado. Os dois programas se alternam: uma única instrução do primeiro programa é executada, depois uma do segundo e assim por diante. O que um programa de batalha faz durante os ciclos de execução a ele atribuídos depen-de inteiramente do programador. O objetivo é destruir o outro programa arruinando as suas instruções. O ambiente CodeBlue substitui CodeBlue para Redcode e fornece a sua própria interface interativa de execução.
+ A.5 Atividades de leitura/relatórios
+Outra maneira excelente para reforçar os conceitos do curso e dar aos estudantes a experiência em pesquisa é 
+atribuir artigos da literatura para serem lidos e analisados. O site deste livro inclui uma lista sugerida de artigos que podem ser utilizados para atividades de leitura e relatórios. 
+ A.6 Atividades de escrita
+Atividades de escrita podem ter um efi ciente efeito multiplicador no processo de aprendizagem em uma disciplina 
+técnica como comunicação de dados e redes. Adeptos do movimento Writing Across the Curriculum (WAC — Escrever Através do Currículo: <http://wac.colostate.edu/>) reportam benefícios substanciais de atividades de escrita para facilitar a aprendizagem. Elas levam ao pensamento mais detalhado e completo sobre um determinado assunto. Além disso, atividades de escrita ajudam a superar a tendência dos alunos de seguir um assunto com o mínimo de engajamento pessoal, apenas aprendendo fatos e técnicas de resolução de problemas sem obter um entendimen-to profundo do assunto.
+ Referências
+ a BURGER , D. e AUSTIn . T. “The SimpleScalar tool set, version 2.0” . Computer Architecture News, jun. 1997.
+ b MAnJIKIAn , n. “More enhancements of the SimpleScalar tool set” . Computer Architecture News, set. 2001.
+ c MAnJIKIAn , n. “Multiprocessor enhancements of the SimpleScalar tool set” . Computer Architecture News, mar. 2001.
+ d RODRIGUEZ , M.; PEREZ , J. e PULIDO , J. “An educational tool for testing caches on symmetric multiprocessors” . Microprocessors and Microsystems, jun. 2001.
+Book 1.indb 580 19.11.09 14:41:13
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+PRInCIPAIS POnTOS
+Uma linguagem de montagem (  assembly) é uma representação simbó-
+lica da linguagem de máquina de um processador específi co, acrescida de 
+tipos de instruções adicionais que facilitam a escrita do programa e que fornecem as instruções para o montador (assembler).
+Um montador é um programa que traduz a linguagem de montagem 
+ 
+em código de máquina.
+O primeiro passo na criação de um processo ativo é carregar um progra- 
+ma na memória principal e criar uma imagem do processo.
+Um linker (ligador) é usado para resolver quaisquer referências entre os 
+módulos carregados.Linguagem de montagem ( assembly) e assuntos 
+relacionadosApêndice B
+B.1 Linguagem de montagem
+  Elementos da linguagem de montagem
+  Tipos de setenças da linguagem 
+de montagem
+  Exemplo: programa do maior divisor comum
+B.2 Montadores 
+  Montador de dois passos
+  Montador de um passo
+  Exemplo: programa de números primos
+B.3 Carregamento e ligação
+  Realocação
+  Carregamento
+  Ligação
+B.4 Leitura recomendada e sites Web
+  Sites web recomendados
+O assunto sobre a linguagem de montagem foi introduzido brevemente no Capítulo 11. Este apêndice fornece mais 
+detalhes e cobre também uma série de assuntos relacionados. Há várias razões para estudar a linguagem de progra-
+mação de montagem (quando comparada com uma linguagem de programação de alto nível), incluindo o seguinte:
+1. Ela esclarece a execução de instruções.
+2. Ela mostra como os dados são representados na memória.
+3. Ela mostra como um programa interage com o sistema operacional, o processador e o sistema de E/S.
+4. Ela esclarece como um programa acessa dispositivos externos.
+5. Permite entender programadores de linguagem de montagem, fazendo com que os alunos se tornem programa-
+dores melhores de linguagens de programação de alto nível (HLL), dando-lhes uma ideia melhor da linguagem alvo para a qual a HLL deve ser traduzida.
+Começamos este apêndice com um estudo de elementos básicos de uma linguagem de montagem, usando 
+arquitetura x86 para nossos exemplos.
+1 A seguir, analisamos a operação do montador. Isso é seguido por uma dis-
+cussão de linkers e carregadores (loaders).
+A Tabela B.1 defi ne alguns dos principais termos usados neste apêndice.
+1 Existem vários montadores para arquitetura x86. Nossos exemplos usam NASM (Netwide Assembler), um montador de código fonte aberto. 
+Uma cópia do manual de NASM está no site Web deste livro.
+Book 1.indb 581 19.11.09 14:41:13
+
+582 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Montador
+Um programa que traduz a linguagem de montagem para código de máquina.
+Linguagem de montagem (Linguagem de montagem)
+Uma representação simbólica da linguagem de máquina de um processador específi co, acrescida de tipos de instruções adicionais que facilitam 
+a escrita do programa e que fornecem instruções para o montador.
+Compilador
+Um programa que converte outro programa de alguma linguagem fonte (ou linguagem de programação) para linguagem de máquina (código objeto). Alguns compiladores 
+geram saída em linguagem de montagem que é então convertida para linguagem de máquina por um montador diferente. Um compilador se distingue de um montador 
+pelo fato de que cada instrução de entrada, em geral, não corresponde a uma única instrução de máquina ou uma sequência fi xa de instruções. Um compilador pode suportar 
+recursos como alocação automática de variáveis, expressões aritméticas arbitrárias, estruturas de controle de laços como FOR e WhILE, escopo de variável, operações de 
+entrada/saída, funções de alto nível e portabilidade de código fonte.
+Código executável
+O código de máquina gerado por um processador da linguagem de código fonte como um montador ou um compilador, isto é, 
+software em uma forma que pode ser executada no computador.
+Conjunto de instruções
+O conjunto de todas as instruções possíveis para um determinado computador, isto é, conjunto de instruções de linguagem de máquina 
+que um determinado processador entende.
+Linker (Ligador)
+Um programa utilitário que combina um ou mais arquivos contendo código objeto de módulos de programa compilados separadamente 
+para um arquivo único contendo código carregável ou executável.
+Loader (Carregador)
+Uma rotina de programa que carrega um programa executável na memória para execução.
+Linguagem de máquina ou código de máquina
+Representação binária de um programa de computador que é lido e interpretado de fato pelo computador. Um programa em código de máquina consiste de uma sequência 
+de instruções de máquina (possivelmente intercaladas com dados). Instruções são cadeias binárias que podem ser todas do mesmo tamanho (por exemplo, uma palavra de 
+32 bits para muitos microprocessadores RISC modernos) ou de tamanhos diferentes.
+Código objeto
+Representação, em linguagem de máquina, do código fonte de programação. O código objeto é criado por um compilador ou montador 
+e é transformado em código executável pelo linker.Tabela B.1 Principais termos para este apêndice
+ B.1 Linguagem de montagem
+A linguagem de montagem é uma linguagem de programação que está a um passo de distância da linguagem 
+de máquina. Normalmente, cada instrução da linguagem de montagem é traduzida em uma instrução de máquina 
+pelo montador. A linguagem de montagem é dependente do hardware, com uma linguagem de montagem dife-rente para cada tipo de processador. Em particular, as instruções da linguagem de montagem devem fazer referên-cia aos registradores específi cos do processador, incluir todos os opcodes do processador e refl etir o tamanho em 
+bits de vários registradores do processador e dos operandos da linguagem de máquina. Portanto, um programador de linguagem de montagem deve compreender a arquitetura do computador.
+Programadores raramente usam linguagem de montagem para aplicações ou até programas de sistemas. 
+Linguagens de programação de alto nível fornecem capacidades expressivas de concisões que facilitam conside-ravelmente as tarefas de programação. As desvantagens de usar uma linguagem de montagem em vez de lingua-gem HLL são ( FOG , 2008
+a):
+1. Tempo de desenvolvimento. Escrever código em linguagem de montagem leva muito mais tempo do 
+que escrever em uma linguagem de alto nível.
+Book 1.indb 582 19.11.09 14:41:14
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 583
+2. c onfiabilidade e segurança. É fácil cometer erros no código em linguagem de montagem. O montador não 
+verifica se as convenções de chamada e convenções para salvar registradores são obedecidas. Ninguém verifica 
+se o número de instruções PUSH e POP é o mesmo em todos os desvios e caminhos possíveis. Existem tantas possibilidades para erros escondidos em código em linguagem de montagem que isso afeta a confiabilidade e a segurança do projeto, a não ser que se tenha uma abordagem muito sistemática para testes e verificações.
+3. depuração e verificação. O código em linguagem de montagem é mais difícil de depurar e verificar por-
+que há mais possibilidades para erros do que em código de alto nível.
+4. m anutenção. O código em linguagem de montagem é mais difícil de modificar e manter porque a lingua-
+gem permite código "espaguete" não estruturado e todo tipo de truques que são difíceis de serem entendidos por outras pessoas. Documentação minuciosa e um estilo de programação consistente são necessários.
+5. p ortabilidade. O código em linguagem de montagem é específico para plataforma. Portar para uma pla-
+taforma diferente é difícil.
+6. c ódigo de sistemas podem usar funções intrínsecas em vez de linguagem de montagem. Os me-
+lhores compiladores modernos para C++ possuem funções intrínsecas para acessar registradores de contro-le do sistema e outras instruções do sistema. O código em linguagem de montagem não é mais necessário para drivers de dispositivos e outros códigos do sistema quando funções intrínsecas estão disponíveis.
+7. c ódigo da aplicação pode usar funções intrínsecas ou classes vetoriais em vez de linguagem de 
+montagem. Os melhores compiladores modernos para C++ possuem funções intrínsecas para operações vetoriais e outras instruções especiais que antes requeriam programação em linguagem de montagem.
+8. c ompiladores melhoraram muito nos últimos anos. Os melhores compiladores atualmente são muito 
+bons. É necessário ter muita perícia e experiência para otimizar melhor do que o melhor compilador C++.
+Mesmo assim, ainda existem algumas vantagens para uso ocasional de linguagem de montagem, incluindo o 
+seguinte (F OG, 2008
+a):
+1. depuração e verificação. Analisar código em linguagem de montagem gerado pelo compilador ou olhar 
+a janela de montagem em um depurador é útil para localizar erros e verificar a qualidade da otimização feita pelo compilador para um determinado pedaço de código.
+2. desenvolver compiladores. Entender técnicas de codificação em linguagem de montagem é necessário 
+para criar compiladores, depuradores e outras ferramentas de desenvolvimento.
+3. sistemas embarcados. Sistemas embarcados pequenos possuem menos recursos do que PCs e mainfra-
+mes. A programação em linguagem de montagem pode ser necessária para otimizar o código em velocida-de ou em tamanho em sistemas embarcados pequenos.
+4. d rivers para hardware e códigos de sistemas. Acessar hardware, registradores de controle do sistema e 
+etc. às vezes pode ser difícil ou impossível com código de alto nível.
+5. Acessar instruções que não são acessíveis a partir das linguagens de alto nível. Certas instruções em linguagem de montagem não possuem um equivalente na linguagem de alto nível.
+6. c ódigo que se modifica por si. O código que se modifica por si normalmente não é lucrativo porque 
+interfere com um código eficiente para uso de cache. No entanto, ele pode ser vantajoso, por exemplo, para incluir um pequeno compilador em programas matemáticos, onde uma função definida pelo usuário precisa ser calculada várias vezes.
+7. o timizar o tamanho do código. O espaço de armazenamento e a memória são tão baratos hoje em dia 
+que não vale a pena usar linguagem de montagem para reduzir o tamanho do código. No entanto, o tama-nho da cache ainda é um recurso crítico que pode se tornar útil em alguns casos e otimizar o tamanho de um pedaço de código para que caiba dentro da cache de código.
+8. o timizar velocidade do código. Compiladores C++ modernos geralmente otimizam o código muito bem 
+na maioria dos casos. Mas ainda há situações nas quais os compiladores são fracos e aumentos dramáticos de velocidade podem ser alcançados por meio de uma cuidadosa programação em linguagem de montagem.
+9. Bibliotecas de funções. O benefício total de otimizar código é maior em bibliotecas de funções que são usadas por muitos programadores.
+10. Tornar bibliotecas de funções compatíveis com vários compiladores e sistemas operacionais. É possível criar funções de biblioteca com várias entradas que sejam compatíveis com diferentes compilado-res e diferentes sistemas operacionais. Isso requer programação em linguagem de montagem.
+Book 1.indb 583 19.11.09 14:41:14
+
+584 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Os termos linguagem de montagem e linguagem de máquina às vezes são usados, erroneamente, como si-
+nônimos. A linguagem de máquina consiste de instruções executadas diretamente pelo processador. Cada ins-
+trução de linguagem de máquina é uma cadeia binária contendo um opcode, referências a operandos e talvez outros bits relacionados à execução, como fl ags. Por conveniência, em vez de escrever uma instrução com uma cadeia de bits, ela pode ser escrita simbolicamente, com nomes para opcodes e registradores. Uma linguagem 
+de montagem faz uso muito maior de nomes simbólicos, incluindo atribuição de nomes a posições específi cas da memória principal e posições específi cas das instruções. Ela inclui também instruções que não são executa-das diretamente, mas servem como instruções para o montador que produz código de máquina a partir de um programa na linguagem de montagem.
+ Elementos da linguagem de montagem
+Uma sentença em uma linguagem de montagem típica tem a forma mostrada na Figura B.1. Ela consiste de 
+quatro elementos: rótulo, mnemônico, operando e comentário.
+RÓTULO Se um rótulo está presente, o montador defi ne o rótulo como equivalente ao endereço no qual o 
+primeiro byte do código objeto gerado para essa instrução será carregado. O programador pode usar o rótulo subsequentemente como um endereço ou como dados no campo de endereço de outra instrução. O montador substitui o rótulo com o valor atribuído quando cria o programa objeto. Rótulos são usados com mais frequência em instruções de desvio.
+Como um exemplo, aqui está uma parte de um programa:
+ L2: SUB EAX, EDX ; subtrai conteúdo do registrador EDX do conteúdo 
+; de EAX e armazena o resultado em EAX 
+JG L2 ; salta para L2 se resultado da subtração for positivo 
+O programa continuará no laço de volta para posição L2 até que o resultado seja zero ou negativo. Desta forma, 
+quando a instrução jg é executada, se o resultado é positivo, o processador coloca o endereço equivalente ao rótulo L2 no contador de programa.
+Motivos para usar um rótulo incluem:1. Um rótulo torna uma posição do programa mais fácil de localizar e lembrar.
+2. O rótulo pode ser facilmente movido para corrigir um programa. O montador automaticamente mudará o endereço em todas as instruções que usam o rótulo quando o programa for remontado.
+3. O programador não precisa calcular endereços de memória relativos ou absolutos, mas apenas usa rótulos conforme necessário.
+MNEMÔNICO O mnemônico é o nome da operação ou função da sentença da linguagem de montagem. 
+Conforme discutido a seguir, uma sentença pode corresponder a uma instrução de máquina, uma diretiva do montador ou uma macro. No caso de uma instrução de máquina, um mnemônico é o nome simbólico associado com um determinado opcode.
+A Tabela 10.8 mostra o mnemônico, ou nome da instrução, de muitas instruções x86. O Apêndice A de Carter 
+(2006
+b) mostra as instruções x86 junto com os operandos de cada uma e o efeito da instrução nos códigos condi-
+cionais. O Apêndice B do manual de NASM fornece uma descrição mais detalhada de cada instrução x86. Ambos os documentos estão disponíveis no site deste livro.
+Figura B.1 Estrutura da sentença da linguagem de montagem
+Rótulo Mnemônico Operando(s) ;comentário
+Opcional Opcional Nome do
+opcode ou nome
+da diretiva ou
+nome da macroZero ou mais
+Book 1.indb 584 19.11.09 14:41:15

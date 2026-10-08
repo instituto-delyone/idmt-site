@@ -1,0 +1,962 @@
+360 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Carry  : marcado se uma operação resultou em transportar (adição) para empréstimo (subtração) de um bit 
+de ordem maior. Usado para operações aritméticas de múltiplas palavras.
+Igual  : marcado se uma comparação lógica resultou em igualdade.
+O v e r fl o w  : usado para indicar sobrecarga aritmética.
+Habilitar/desabilitar interrupção  : usado para habilitar ou desabilitar interrupções.
+supervisor  : indica se o processador está executando no modo supervisor ou usuário. Algumas instruções 
+privilegiadas podem ser executadas apenas no modo supervisor e algumas áreas de memória podem ser acessadas apenas no modo supervisor.
+Vários outros registradores relacionados com estado e controle podem ser encontrados em um determinado 
+modelo de processador. Pode haver um ponteiro para um bloco de memória contendo informações adicionais de estado (por exemplo, blocos de controle de processo). Em máquinas que usam interrupções vetoradas, um registrador de interrupção vetorada pode ser fornecido. Se uma pilha é usada para implementar algumas funções (por exemplo, chamada de sub-rotinas), então um ponteiro de pilha de sistema é necessário. O ponteiro da tabela de página é usado em um sistema de memória virtual. Finalmente, registradores podem ser usados no controle de operações E/S.
+Uma série de fatores infl uencia o projeto da organização dos registradores de controle e estado. Uma questão 
+fundamental é o suporte ao sistema operacional. Certos tipos de informações de controle são específi cas do Sistema Operacional. Se o projetista do processador tem o entendimento funcional do sistema operacional a ser usado, então uma parte da responsabilidade da organização dos registradores pode ser designada ao sistema operacional.
+Outra decisão fundamental do projeto é a alocação da informação de controle entre registradores e memória. 
+É comum dedicar algumas primeiras centenas (mais baixas) ou milhares de palavras de memória para propósitos de controle. O projetista deve decidir quanto da informação de controle deve estar nos registradores e quanto em memória. Aparece a comum negociação entre custos versus velocidade.
+ Exemplo de organização de registradores de microprocessadores
+É instrutivo examinar e comparar a organização de registradores entre sistemas semelhantes. Nesta seção, ire-
+mos analisar dois microprocessadores de 16 bits que foram projetados quase ao mesmo tempo: Motorola MC68000 (STRITTER e GUNTER , 1979
+d) e Intel 8086 (M ORSE , POHLMAN e RAVENEL, 1978e). As Figuras 12.3a e 12.3b ilustram a 
+organização de registradores de cada um deles; registradores totalmente internos, como um registrador de ende-reços de memória, não são mostrados.
+O MC68000 divide seus registradores de 32 bits em oito registradores de dados e nove registradores de ende-
+reços. Os oito registradores de dados são usados principalmente para manipulação de dados e também no ende-reçamento como registradores indexadores. O tamanho dos registradores permite operações de dados de 8, 16 ou 32 bits determinadas por opcode. Os registradores de endereço contêm endereços de 32 bits (sem segmentação); 
+dois desses registradores são usados também como ponteiros da pilha, um para usuários e outro para o sistema operacional, dependendo do atual modo de execução. Os dois registradores são numerados como 7, porque ape-nas um pode ser usado por vez. O MC68000 inclui também um contador de programa de 32 bits um registrador de estado de 16 bits.
+A equipe da Motorola quis um conjunto de registradores muito regular, sem nenhum registrador de uso es-
+pecializado. A preocupação com a efi ciência do código o levou a dividir os registradores em dois componentes funcionais, economizando um bit em cada especifi cador de registrador. Este parece ser um compromisso razoável entre generalização total e compactação de código.
+O Intel 8086 usa uma abordagem diferente para organização de registradores. Cada registrador é de uso espe-
+cífi co, embora alguns registradores possam ser usados como registradores de uso geral. O 8086 contém quatro re-gistradores de dados de 16 bits que podem ser endereçados como um byte ou como 16 bits e quatro registradores indexadores e ponteiros de 16 bits. Os registradores de dados podem ser de propósito geral em algumas instruções. Em outras, os registradores são usados implicitamente. Por exemplo, uma instrução de multiplicação sempre usa o acumulador. Os quatro registradores de ponteiro também são usados implicitamente em várias operações; cada um contém um off set de segmento. Existem também quatro registradores de segmento de 16 bits. Três dos quatro registradores de segmento são usados de forma dedicada e implícita para apontar o segmento da instrução atual 
+Book 1.indb 360 19.11.09 14:38:44
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 361
+(útil para instruções de desvio), um segmento contendo os dados e um segmento contendo pilha, respectivamen-
+te. Este uso dedicado e implícito possibilita a compactação de código com o custo da redução da fl exibilidade reduzida. O 8086 inclui também um ponteiro de instrução e um conjunto de fl ags de 1 bit de estado e controle.
+O objetivo desta comparação deve ser claro. Não há uma fi losofi a universalmente aceita no que diz respeito 
+à melhor forma para organizar registradores de um processador ( TOONG e GUPTA, 1981
+f). Como acontece com o 
+projeto do conjunto de instruções e tantas outras questões sobre o projeto dos processadores, tudo isso é ainda uma questão de gosto e julgamento.
+Outro ponto instrutivo a respeito do projeto da organização de registradores está ilustrado na Figura 12.3c. Esta 
+fi gura mostra a organização de registradores visíveis ao usuário para Intel 80386 (EL- AYAT e AGARWAL,1985
+g), o qual 
+é um microprocessador de 32 bits projetado como uma extensão do 8086.1 O 80386 usa registradores de 32 bits. 
+No entanto, para permitir a compatibilidade de programas escritos para máquinas anteriores, o 80386 mantém a organização de registradores original embutida na nova organização. Dada essa limitação do projeto, os projetistas dos processadores de 32 bits tiveram fl exibilidade limitada ao projetar a organização dos registradores.
+12.3 Ciclo da instrução
+Na Seção 3.2 descrevemos o ciclo da instrução do processador (Figura 3.9). Para relembrar, um ciclo de instrução 
+inclui os seguintes estágios:
+Buscar  : lê a próxima instrução da memória para dentro do processador.
+executar  : interpreta opcode e efetua a operação indicada.
+Interromper  : se as interrupções estão habilitadas e uma interrupção ocorre, salva o estado do processo 
+atual a atende a interrupção.
+1 Como o MC68000 já usava registradores de 32 bits, MC68020 (MACDOUGALL, 1984h) o qual tem uma arquitetura totalmente de 32 bits, usa 
+a mesma organização de registradores.Figura 12.3 Exemplo das organizações de registradores do microprocessador
+AX EAX
+BX EBX
+CX ECX
+DX EDX
+SP ESP
+BP EBP
+SI ESI
+DI
+Estado do programaRegistradores gerais
+EDIAX
+BX
+CX
+DX
+SP
+BP
+SI
+DI
+CS
+DS
+SS
+ESRegistrador FLAGS
+Ponteiro da instrução
+(a) MC68000Registrador de estadoContador de programaEstado do programaRegistradores de endereçosRegistradores de dados
+D0
+D1D2D3D4D5D6D7
+A0
+A1A2A3A4A5A6A7´
+(b) 8086
+Ponteiro de
+instruçãoFlagsExtraPilhaDadosCódigoÍndice de destinoÍndice de origemPonteiro de basePonteiro de pilhaDadosContadorBaseAcumulador
+Estado de programaSegmentoPonteiros e índicesRegistradores gerais
+(c) 80386—Pentium 4
+Book 1.indb 361 19.11.09 14:38:44
+
+362 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Estamos na posição agora de poder elaborar algo a mais no ciclo da instrução. Primeiramente temos que intro-
+duzir um estágio adicional, conhecido como ciclo indireto.
+ Ciclo indireto
+Vimos no Capítulo 11 que a execução de uma instrução pode envolver um ou mais operandos na memória, 
+onde cada um deles requer um acesso à memória. Além disso, se o endereçamento indireto é usado, então acessos 
+adicionais à memória são necessários.
+Podemos pensar em obter um endereço indireto como sendo mais um estágio da instrução. O resultado é 
+mostrado na Figura 12.4. A linha principal da atividade consiste em alternar as atividades de buscar a instrução e executar a instrução. Depois que uma instrução é lida, ela é examinada para determinar se algum endereçamento indireto está envolvido. Se estiver, os operandos necessários são obtidos usando endereçamento indireto. Durante a execução, uma interrupção pode ser processada antes de obter a próxima instrução.
+Outra maneira de ver este processo está mostrada na Figura 12.5, a qual é uma versão revisada da Figura 12.4. 
+Isso ilustra mais corretamente a natureza do ciclo da instrução. Uma vez lida a instrução, os seus especifi cadores de operandos devem ser identifi cados. Cada operando de entrada na memória é, então, lidos na memória e este processo pode requerer endereçamento indireto. Operandos baseados em registradores não precisam ser obti-dos da memória. Uma vez o opcode executado, um processo semelhante pode ser necessário para armazenar o 
+resultado na memória principal.
+ Fluxo de dados
+A sequência exata de eventos durante um ciclo de instrução depende do modelo do processador. No entanto, 
+podemos indicar de uma maneira geral o que deve acontecer. Vamos supor um processador que emprega um re-gistrador de endereço de memória (MAR), um registrador de buff er de memória (MBR), um contador de programa (PC) e um registrador de instrução (IR).
+Durante o ciclo de leitura, uma instrução é lida da memória. A Figura 12.6 mostra o fl uxo de dados durante esse 
+ciclo. PC contém o endereço da próxima instrução a ser lida. Esse endereço é movido para MAR e colocado no barramento de endereços. A unidade de controle requer uma leitura de memória e o resultado é colocado no bar-ramento e copiado para MBR e depois movido para IR. Enquanto isso, o PC é incrementado por 1, preparando-se para próxima leitura.
+Uma vez terminado o ciclo de leitura, a unidade de controle examina o conteúdo de IR para determinar se ele 
+contém um especifi cador de operando que use endereçamento indireto. Se for esse o caso, um ciclo indireto é efetuado. Conforme mostrado na Figura 12.7, este é um ciclo simples. Os N bits da extrema direita de MBR, o qual 
+contém a referência de endereço, são transferidos para MAR. Depois, a unidade de controle requisita uma leitura de memória para obter o endereço desejado do operando em MBR.
+Figura 12.4 O ciclo da instrução
+Buscar
+ExecutarIndireto Interrupção
+Book 1.indb 362 19.11.09 14:38:45
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 363
+Figura 12.5 Diagrama de estado do ciclo da instrução
+Cálculo do
+endereço da
+instruçãoDecodi/f_icação
+da operação
+da instruçãoCálculo do
+endereço do
+operandoOperação 
+dos dadosCálculo do
+endereço do
+operandoBusca da
+instrução
+Instrução completada, obter próxima instruçãoMúltiplos
+operandos
+Retorno para string ou vetores de dadosNenhumainterrupçãoBusca do
+operandoIndireção
+Armazenar
+operando
+Veri/f_icar
+interrupçãoInterrupçãoIndireção
+Múltiplos
+resultados
+Figura 12.6 Fluxo de dados do ciclo de busca
+Barramento
+de endereçoBarramento
+de dadosBarramento
+de controlePCCPU
+MAR
+Unidade de
+controleMemória
+MBR
+MBR = registrador de buﬀer de memóriaMAR = registrador de endereço de memóriaIR = registrador da instruçãoPC = contador de programaIROs ciclos de leitura e indiretos são simples e previsíveis. O ciclo de execução assume muitas formas; a forma de-
+pende de qual das várias instruções de máquina está em IR. Este ciclo pode envolver a transferência de dados entre 
+registradores, leitura ou escrita de memória ou E/S e/ou a utilização de ALU.
+Assim como o ciclo de leitura e o indireto, o ciclo de interrupção é simples e previsível (Figura 12.8). O conteúdo 
+atual de PC deve ser salvo para que o processador possa resumir a atividade normal depois da interrupção. Assim, os conteúdos de PC são transferidos para MBR para serem gravados na memória. A posição especial de memória reservada para este fim é carregada em MAR a partir da unidade de controle. Isso poderia ser, por exemplo, um ponteiro de pilha. O PC é preenchido com o endereço da rotina de interrupção. Como resultado disso, o próximo ciclo de instrução começará obtendo a instrução apropriada.
+Book 1.indb 363 19.11.09 14:38:46
+
+364 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+12.4 Pipeline de instruções
+À medida que os sistemas computacionais evoluem, um melhor desempenho pode ser obtido tirando vanta-
+gens das melhorias na tecnologia, como por exemplo circuitos mais rápidos. Além disso, melhorias organizacionais 
+no processador podem melhorar o desempenho. Nós já vimos alguns exemplos disso, como o uso de múltiplos registradores no lugar de um único acumulador e o uso de memória cache. Outra abordagem organizacional bas-tante comum é o pipeline da instrução.
+ Estratégia do pipeline
+Pipeline de instrução é semelhante ao uso de uma linha de montagem numa planta industrial. Uma linha de 
+montagem tira a vantagem do fato de que um produto passa por vários estágios da produção. Ao implantar o processo de produção em uma linha de montagem, produtos em vários estágios podem ser trabalhados simul-taneamente. Este processo é também chamado de pipelining, porque assim como em uma tubulação, novas en-
+tradas são aceitas num lado antes que as entradas aceitas anteriormente apareçam como saídas do outro lado.
+Para aplicar este conceito à execução da instrução, precisamos reconhecer o fato de que uma instrução possui 
+vários estágios. A Figura 12.5, por exemplo, quebra o ciclo da instrução em 10 tarefas que ocorrem em sequência. Certamente deve existir alguma oportunidade para aplicar o conceito de pipeline.Figura 12.7 Fluxo de dados do ciclo indireto
+CPU
+MAR
+Unidade
+de controleMemória
+MBR
+Barramento
+de endereçoBarramento
+de dadosBarramento
+de controle
+Figura 12.8 Fluxo de dados do ciclo de interrupção
+PCCPU
+Memória
+MBRMAR
+Unidade
+de controle
+Barramento
+de endereçoBarramento
+de dadosBarramento
+de controle
+Book 1.indb 364 19.11.09 14:38:47
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 365
+Como uma abordagem simplificada, considere dividir o processamento da instrução em dois estágios: ler 
+instrução e executar instrução. Existem momentos durante a execução de uma instrução em que a memória 
+principal não está sendo acessada. Esse tempo poderia ser usado para obter a próxima instrução paralelamen-te com a execução da instrução atual. A Figura 12.9a ilustra essa abordagem. O pipeline possui dois estágios independentes. O primeiro obtém a instrução e a coloca no buffer. Quando o segundo estágio está livre, o primeiro passa para ele a instrução do buffer. Enquanto o segundo estágio está executando a instrução, o pri-meiro estágio aproveita qualquer ciclo de memória não utilizado para obter a próxima instrução e colocá-la no buffer. Isso é chamado de busca antecipada (prefetch) ou busca sobreposta. Observe que esta abordagem, que 
+envolve buffer da instrução, requer mais registradores. Em geral, pipeline requer registradores que guardem os dados entre os estágios.
+Deve estar claro que este processo irá acelerar a execução da instrução. Se os estágios de leitura e exe -
+cução forem de duração igual, o ciclo da instrução será reduzido pela metade. No entanto, se olharmos este pipeline mais de perto (Figura 12.9b), veremos que dobrar essa taxa de execução é pouco provável por dois motivos:
+1. O tempo de execução normalmente será maior que o tempo de leitura. Execução envolve ler e armazenar operandos e o desempenho de alguma operação. Assim, o estágio de leitura pode ter que esperar por al-gum tempo antes de poder esvaziar o seu buffer.
+2. Uma instrução de desvio condicional faz com que o endereço da próxima instrução a ser obtida não seja conhecido. Assim, o estágio de leitura deve esperar até que receba o endereço da próxima instrução do estágio de execução. O estágio de execução pode então ter que esperar até que a próxima instrução seja obtida.
+Adivinhar pode reduzir o tempo perdido no segundo motivo. Uma regra simples é: quando uma instrução de 
+desvio condicional passa do estágio de leitura para o de execução, o estágio de leitura obtém a próxima instrução na memória depois da instrução de desvio. Então, se o desvio não for tomado, nenhum tempo é perdido. Se o des-vio for tomado, a instrução obtida deve ser descartada e uma nova instrução é lida.
+Enquanto estes fatores reduzem a eficiência potencial de um pipeline de dois estágios, alguma aceleração 
+ocorre. Para obter mais velocidade, o pipeline deve ter mais estágios. Vamos supor a seguinte decomposição do processamento da instrução:
+Buscar instrução (FI, do inglês 
+  Fetch Instruction): ler a próxima instrução esperada em um buffer.
+decodificar instrução (dI)  : determinar o opcode e os especificadores dos operandos.
+calcular operandos ( co)  : calcular o endereço efetivo de cada operando de origem. Isto pode envolver 
+endereçamento por deslocamento, registrador indireto, indireto ou outras formas de cálculo de endereço.
+Figura 12.9 Pipeline de instrução de dois estágios
+LeituraInstrução Instrução
+(a) Visão simpli/f_icadaResultado
+Execução
+DescartarNovo endereço
+(b) Visão expandidaLeituraInstrução Instrução Resultado
+ExecuçãoEspera Espera
+Book 1.indb 365 19.11.09 14:38:48
+
+366 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+obter operandos (Fo , do inglês  Fetch Operands): obter cada operando da memória. Operandos que 
+estão nos registradores não precisam ser lidos da memória.
+executar instrução (eI)  : efetuar a operação indicada e armazenar o resultado, se houver, na posição do 
+operando de destino especificado.escrever operando (Wo, do inglês 
+  Write Operands): armazenar o resultado na memória.
+Com esta decomposição, os vários estágios terão uma duração mais aproximada. Usando essa suposição, a 
+Figura 12.10 mostra que um pipeline de seis estágios pode reduzir o tempo de execução de 9 instruções de 54 para 
+14 unidades de tempo.
+Vários comentários devem ser levados em consideração: o diagrama supõe que cada instrução passa por 
+todos os seis estágios do pipeline. Este nem sempre será o caso. Por exemplo, uma instrução de carga não precisa do estágio WO. No entanto, para simplificar o hardware do pipeline, o tempo é ajustado supondo-se que cada instrução requer todos os seis estágios. Além disso, o diagrama assume que todos os estágios po -
+dem ser executados em paralelo. Supõe-se também que não haverá conflitos de memória. Por exemplo, FI, FO e WO envolvem um acesso à memória. O diagrama implica que todos esses acessos podem ocorrer simulta-neamente. A maioria de sistemas de memória não permitirá isso. No entanto, o valor desejado pode estar no cache, ou os estágios FO ou WO podem estar nulos. Assim, na maioria das vezes, os conflitos de memória não desacelerarão o pipeline.
+Vários outros fatores limitam o aumento do desempenho. Se os seis estágios não forem de duração igual, 
+haverá espera em vários estágios do pipeline, conforme discutido anteriormente para pipeline de dois está-gios. Outra dificuldade é a instrução de desvio condicional, a qual pode invalidar várias leituras de instruções. Um evento imprevisível semelhante é a interrupção. A Figura 12.11 ilustra os efeitos do desvio condicional, usando o mesmo programa da Figura 12.10. Suponha que a instrução 3 seja um desvio condicional para ins-trução 15. Até que a instrução seja executada, não há nenhuma maneira de saber qual instrução virá a seguir. O pipeline, neste exemplo, simplesmente carrega a próxima instrução na sequência (instrução 4) e prossegue. Na Figura 12.10, o desvio não ocorre e obtivemos o benefício total do aumento do desempenho. Na Figura 12.11, o desvio ocorre. Isso não é determinado até o fim da unidade de tempo 7. Neste ponto, precisamos limpar o pipeline das instruções que não são úteis. Durante a unidade de tempo 8, a instrução 15 entra no pi-peline. Nenhuma instrução é completada durante as unidades de tempo de 9 a 12; esta é uma penalidade de 
+1
+Instrução 1Tempo
+FI DI CO FO EI WO
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO 
+FI DI CO FO EI WO Instrução 2
+Instrução 3Instrução 4Instrução 5Instrução 6
+Instrução 7
+Instrução 8Instrução 9234 567 8910 11 12 13 14
+Figura 12.10 Diagrama de tempo para operação do pipeline da instrução
+Book 1.indb 366 19.11.09 14:38:48
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 367
+Figura 12.11 O efeito de um desvio condicional na operação do pipeline da instrução
+1
+Instrução 1Tempo
+Instrução 2
+Instrução 3Instrução 4Instrução 5Instrução 6Instrução 7
+Instrução 15Instrução 162 3 4 5 6 7 8 9 10Penalidade por desvio
+11 12 13 14
+FI DI CO FO EI WO
+FIFI DI CO FO EI WO
+FI DI CO FO EI WO
+FI DI CO FO
+FI DI CO
+FI DI CO FO EI WO
+FI DI CO FO EI WOFI DI
+desempenho porque não pudemos antecipar o desvio. A Figura 12.12 indica a lógica necessária para pipeline 
+computar desvios e interrupções.
+Outro problema que não tinha aparecido na nossa organização simples de dois estágios surge agora. O estágio 
+CO pode depender do conteúdo de um registrador que pode ser alterado por uma instrução anterior que ainda 
+esteja no pipeline. Outros conflitos de registradores e memória desse tipo podem ocorrer. O sistema precisa ter uma lógica para lidar com esse tipo de conflitos.
+Para esclarecer a operação do pipeline, pode ser útil olhar uma solução alternativa. As figuras 12.10 e 12.11 
+mostram o progresso de tempo horizontalmente através das figuras, onde cada linha mostra o progresso de uma instrução específica. A Figura 12.13 mostra a mesma sequência de eventos com o tempo sendo mostrado verti-calmente e cada linha representando o estado do pipeline em um dado ponto no tempo. Na Figura 12.13a (que corresponde à Figura 12.10), o pipeline está cheio no tempo 6, com 6 instruções diferentes em vários estágios da execução e permanece cheio até o tempo 9; supondo que a instrução I9 seja a última a ser executada. Na Figura 12.13b (que corresponde à Figura 12.11), o pipeline está cheio nos tempos 6 e 7. No tempo 7, a instrução 3 está no estágio de execução e executa um desvio para instrução 15. Neste ponto, as instruções de I4 até I7 são retiradas do pipeline de tal forma que, no tempo 8, apenas duas instruções estão no pipeline, I3 e I15.
+Da discussão anterior seria possível concluir que quanto maior o número de estágios no pipeline, maior será a 
+taxa de execução. Alguns dos projetistas de IBM S/360 apontaram dois fatores que frustram este aparentemente simples padrão para projetos de alto desempenho (A NDERSON , SPARACIO e TOMASULO, 1967
+i), ao passo que eles 
+continuam sendo elementos que projetistas ainda precisam considerar:
+1. Em cada estágio do pipeline, existe algum esforço extra envolvido para movimentação de dados de buffer para buffer e para efetuar várias funções de preparações e entregar de dados. Esse esforço extra pode desacelerar sensivelmente o tempo total de execução de uma única instrução. Isso é significativo quando instruções sequenciais são dependentes logicamente umas das outras, ou pelo uso pesado de desvios ou pelas dependências de acesso à memória.
+2. A quantidade de lógica de controle necessária para lidar com dependências de memória e registradores e para otimizar o uso do pipeline aumenta imensamente com o número de estágios. Isso pode levar a uma situação onde a lógica que controla a passagem entre os estágios é mais complexa do que os estágios sendo controlados.
+Book 1.indb 367 19.11.09 14:38:49
+
+368 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Figura 12.12 Pipeline de instrução de uma CPU de seis estágios
+Não SimSim
+NãoOI
+DI
+CO
+OO
+EI
+EOCalcular
+operandosBuscar instrução
+Decodi/f_icar
+instrução
+Desvio
+não
+condicional?
+Desvio ou 
+interrupção?Escrever
+operandosBuscar
+operandos
+Executar
+instrução
+Atualizar
+PC
+Esvaziar
+pipeline
+Outra consideração é o tempo de resposta: leva tempo para os buff ers do pipeline operarem e isso aumenta o 
+tempo do ciclo da instrução.
+Pipeline de instrução é uma técnica poderosa para melhorar o desempenho, porém requer um projeto cuida-
+doso para alcançar ótimos resultados com uma complexidade razoável.
+ Desempenho do pipeline
+Nesta subseção desenvolvemos algumas medições simples de desempenho do pipeline e a correspondente 
+melhoria da velocidade (baseado em uma discussão em Hwang (1993j). O tempo de ciclo t de uma instrução do 
+pipeline é o tempo necessário para que a instrução avance um estágio dentro do pipeline; cada coluna nas fi guras 
+12.10 e 12.11 representa um tempo de ciclo. O tempo de ciclo pode ser determinado como 
+t=max[ ti]+d=tm+d 1 …i…k,
+onde
+tι = tempo de demora de resposta do circuito no estágio i do pipeline.
+tm = tempo de demora máximo do estágio (demora do estágio que apresenta o maior tempo de demora de 
+resposta).
+k = número de estágios na instrução do pipeline.d = tempo de resposta de um ciclo necessário para avançar sinais e dados de um estágio para o próximo.
+Book 1.indb 368 19.11.09 14:38:50
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 369
+Em geral, o tempo de resposta d é equivalente a um pulso de clock e tm >> d. Suponha agora que n instruções 
+são processadas, sem desvios. Seja Tk,n o tempo total necessário para que um pipeline com k estágios processe n 
+instruções. Então
+(12.1) Tk,n=[k+(n-1)]t
+Um total de k ciclos é necessário para completar a execução da primeira instrução e o restante de n – 1 instru-
+ções requerem n – 1 ciclos.2 Esta equação é facilmente verificada a partir da Figura 12.10. A nona instrução completa 
+no ciclo de tempo 14:
+14=[6+(9-1)]
+Considere agora um processador com funções equivalentes, mas sem pipeline, e suponha que o tempo do ciclo 
+da instrução seja kt. O fator de aceleração para a instrução do pipeline comparado com a execução sem pipeline 
+é definido como
+(12.2) Sk=T1,n
+Tk,n=nkt
+[k+(n-1)]t=nk
+k+(n-1)
+A Figura 12.14a mostra o fator de aceleração como sendo uma função do número de instruções que são 
+executadas sem um desvio. Conforme esperado, no limite (n → ∞), temos uma aceleração pelo fator k. A 
+Figura 12.14b mostra o fator de aceleração como uma função do número de estágios no pipeline da instrução.3 
+Neste caso, o fator de aceleração se aproxima do número de instruções que podem ser inseridas no pipeline 
+2 Estamos sendo um pouco negligentes aqui. O tempo de ciclo apenar irá se igualar ao valor máximo de t quando todos os estágios estive-
+rem cheios. No começo, o tempo de ciclo pode ser menor para o primeiro ou alguns primeiros ciclos.
+3 Observe que o eixo x é logarítmico na Figura 12.4a e linear na Figura 12.14b.Figura 12.13 Descrição alternativa de um pipeline
+I16
+I16
+I16
+I16
+I16
+I16FI DI CO FO EI WO
+I 11
+I2 I 12
+I3 I2 I1 3
+I4 I3 I2 I1 4
+I5 I4 I3 I2 I1
+I6 I5 I4 I3 I2 I1
+I7 I6 I5 I4 I3 I2
+I8 I7 I6 I5 I4 I3
+I9 I8 I7 I6 I5 I4
+I9 I8 I7 I6 I5
+I9 I8 I7 I6
+I9 I8 I7
+I9 I8
+I95
+6789
+1011121314
+(a) Sem desviosFI DI CO FO EI WO
+I 11
+I2 I 12
+I3 I2 I1 3
+I4 I3 I2 I1 4
+I5 I4 I3 I2 I1
+I6 I5 I4 I3 I2 I1
+I7 I6 I5 I4 I3 I2
+I15
+I15
+I15
+I15
+I15
+I15I356789
+1011121314
+(b) Com desvios condicionaisTempo
+Book 1.indb 369 19.11.09 14:38:51
+
+370 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+sem desvios. Assim, quanto maior o número de estágios do pipeline, maior o potencial para aceleração. No 
+entanto, por uma questão prática, os ganhos potenciais dos estágios adicionais do pipeline são confrontados pelo aumento do custo, demoras entre estágios e pelo fato de que os desvios irão requerer o esvaziamento do pipeline.
+ Hazards do pipeline
+Na subseção anterior mencionamos algumas das situações que podem resultar em um desempenho de pipe-
+line menor que a ótima. Nesta subseção examinaremos essa questão de uma forma mais sistemática. O Capítulo 14 retoma esta questão em mais detalhes, depois que tivermos introduzido as complexidades encontradas em organizações de pipelines superescalares.
+Um hazard de pipeline ocorre quando o pipeline, ou alguma parte dele, precisa parar porque as condições 
+não permitem a execução contínua. Tal parada do pipeline é também conhecida como bolha de pipeline. Existem 
+três tipos de hazards: recurso, dados e controle.
+HAZARDS DE RECURSOS Um hazard de recursos ocorre quando duas (ou mais) instruções que já estão no pipe-
+line precisam do mesmo recurso. O resultado é que as instruções precisam ser executadas em série em vez de em paralelo para uma parte do pipeline. Um hazard de recursos às vezes é chamado de hazard estrutural.
+Vamos ver um exemplo simples de um hazard de recursos. Suponha um pipeline simplifi cado de cinco estágios 
+no qual cada estágio ocupa um ciclo de clock. A Figura 12.15a mostra o caso ideal onde uma nova instrução entra no 
+pipeline a cada ciclo de clock. Suponha agora que a memória principal tenha uma única porta e que todas as leituras e 1024681012
+0 5 10 15 20024681012142 4 8
+NÚMERO DE INSTRUÇÕES (ESCALA LOGARÍTMICA)Fator de aceleração Fator de aceleração
+NÚMERO DE ESTÁGIOS16k 6 estágios
+n 10 instruçõesn 20 instruçõesn 30 instruçõesk 9 estágiosk 12 estágios
+32 64 128
+(a)
+(b)Figura 12.14 Fatores de aceleração com pipeline da instrução
+Book 1.indb 370 19.11.09 14:38:52
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 371
+escritas de instruções e dados devam ser executadas uma por vez. Além disso, ignore a memória cache. Neste caso, uma 
+leitura ou escrita do operando na memória não pode ser executada em paralelo com o processo de se ler uma instru-ção. Isso é ilustrado na Figura 12.15b, onde assumimos que o operando de origem para instrução I1 está na memória, em vez de em um registrador. Portanto, o estágio de busca da instrução deve ficar ocioso por um ciclo antes de come -
+çar a busca da instrução para instrução I3. A figura assume que todos os outros operandos estejam nos registradores.
+Outro exemplo de um conflito de recurso é uma situação onde várias instruções estão prontas para entrar na 
+fase de execução da instrução e existe apenas uma ALU. Uma solução para tal hazard de recursos é aumentar os recursos disponíveis, como ter múltiplas portas para memória principal ou múltiplas unidades de ALU.
+Analisador de tabela de reservas
+Uma abordagem para analisar conflitos de recursos e ajudar no projeto de pipelines é a tabela de reservas. Nós 
+examinamos as tabelas de reservas no Apêndice I.
+HAZARDS DE DADOS Um hazard de dados ocorre quando há um conflito no acesso de uma posição de operan-
+do. De um modo geral, podemos definir o hazard da seguinte forma: duas instruções em um programa estão para ser executadas na sequência e ambas acessam um determinado operando de memória ou registrador. No entanto, se as instruções são executadas em um pipeline, então é possível que o valor do operando seja atualizado de tal forma que produza um resultado diferente do que seria com uma execução estritamente sequencial. Em outras palavras, o programa produz um resultado incorreto por causa do uso do pipelining.
+Como um exemplo, considere a seguinte sequência de instrução de máquina para x86:
+ADD EAX, EBX /* EAX = EAX + EBX
+SUB ECX, EAX /* ECX = ECX - EAX
+Figura 12.15 Exemplo de hazard de recursos
+1
+I1Ciclo de clock
+(a) Pipeline de cinco estágios, caso idealInstruçãoI2
+I3I4234
+1
+I1Ciclo de clock
+(b) Operando de origem de I1 na memóriaI2
+I3I4234InstruçãoFI DI FO
+FI DI FO EI WO
+FI DI FO EI WO
+FI DI FO EI WOEI WO
+FI DI FO
+FI DI FO EI WO
+FI Ocioso DI FO EI WO
+FI DI FO EI WOEI WO5
+58 76 9
+8 76 9
+Book 1.indb 371 19.11.09 14:38:53
+
+372 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A primeira instrução soma o conteúdo dos registradores de 32 bits EAX e EBX e armazena o resultado em EAX. 
+A segunda instrução subtrai o conteúdo de EAX de ECX e armazena o resultado em ECX. A Figura 12.16 mostra o 
+comportamento do pipeline. A instrução ADD não atualiza EAX até o fi m do estágio 5, o qual ocorre no ciclo 5 de clock, mas a instrução SUB precisa desse valor no começo do seu estágio 2, o qual ocorre no ciclo 4 de clock. Para manter a operação correta, o pipeline deve atrasar por dois ciclos de clock. Assim, na falta de hardware especial e de algoritmos específi cos para evitar isso, o hazard de dados pode resultar no uso inefi ciente do pipeline.
+Existem três tipos de hazards de dados:
+Leitura após escrita ou dependência verdadeira
+  : uma instrução modifi ca um registrador ou uma po-
+sição de memória e uma instrução subsequente lê os dados dessa posição de memória ou registrador. O hazard ocorre quando a operação de leitura acontece antes da escrita ter sido completada.escrita após leitura ou antidependência
+  : uma instrução lê um registrador ou uma posição de memória 
+e uma instrução subsequente escreve nessa posição. O hazard ocorre se a operação de escrita é completada antes da operação de leitura.escrita após escrita ou dependência de saída
+  : duas instruções escrevem na mesma posição. O perigo 
+ocorre se as operações de escrita acontecerem na sequência inversa da esperada.
+O exemplo da Figura 12.16 é um hazard de dados do tipo verdadeira dependência. Outros dois hazards são 
+entendidos melhor no contexto de organizações superescalares, discutidas no Capítulo 14.
+HAZARDS DE CONTROLE Um hazard de controle, também conhecido como hazard de desvio, acontece 
+quando o pipeline toma decisão errada ao prever um desvio e assim acaba trazendo instruções dentro do pipeline que precisam ser descartadas logo em seguida. Discutimos abordagens para lidar com hazards de controle a seguir.
+ Lidando com desvios
+Um dos principais problemas ao se projetar um pipeline de instruções é garantir um fl uxo estável de instruções 
+para os estágios iniciais do pipeline. O primeiro impedimento, conforme já vimos, é a instrução condicional de des-vio condicional. Até que a instrução seja executada de fato, é impossível dizer se o desvio será tomado ou não.
+Uma série de abordagens foram implementadas para lidar com desvios condicionais:
+Múltiplos fl uxos.
+ 
+Busca antecipada do alvo do desvio. 
+Buff er de laço de repetição. 
+Previsão de desvio (  branch prediction).
+Desvio atrasado. 
+MÚLTIPLOS FLUXOS Um pipeline simples tem penalidades na execução de uma instrução de desvio, pois precisa 
+buscar duas instruções e pode fazer a escolha errada. Uma abordagem tipo força bruta é replicar as partes inicias do pipeline e permitir que pipeline obtenha as duas instruções, fazendo assim uso de dois fl uxos. Existem dois problemas com esta abordagem:
+Figura 12.16 Exemplo de perigo de dados
+1
+ADD EAX, EBXCiclo de clock
+FI DI
+FI
+FIDI OciosoFO EI EO
+FI DI FO EI WODI FO EI WOFO EI WO SUB ECX, EAXI3
+I423456789 10
+Book 1.indb 372 19.11.09 14:38:53
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 373
+Com múltiplos pipelines, existem atrasos no acesso aos registradores e à memória. 
+Instruções de desvio adicionais podem entrar no pipeline (ou em qualquer dos fluxos) antes que a decisão 
+de desvio original seja resolvida. Cada uma dessas instruções precisa de um fluxo adicional.
+Apesar dessas desvantagens, esta estratégia pode melhorar o desempenho. Exemplos de máquinas com dois 
+ou mais fluxos de pipeline são IBM 370/168 e IBM 3033.
+BUSCA ANTECIPADA DO ALVO DO DESVIO Quando um desvio condicional é reconhecido, o alvo do desvio é lido 
+antecipadamente, além da instrução que segue o desvio. Esse alvo é então salvo até que a instrução de desvio seja 
+executada. Se o desvio for tomado, o alvo já foi obtido.
+IBM 360/91 utiliza esta abordagem.BUFFER DE LAÇO DE REPETIÇÃO Um buffer de laço de repetição é uma memória pequena e extremamente 
+rápida mantida pelo estágio do pipeline de busca da instrução e que contém n instruções mais recentemente lidas 
+na sequência. Se um desvio está para ser tomado, o hardware primeiro verifica se o alvo do desvio já está no buffer. Se estiver, a próxima instrução é obtida do buffer. O buffer de laço de repetição possui três benefícios:
+1. Com o uso de busca antecipada, o buffer de laço conterá algumas instruções em sequência na frente do endereço da instrução atual. Assim, as instruções obtidas na sequência estarão disponíveis sem o tempo usual de acesso à memória.
+2. Se um desvio para um alvo estiver apenas algumas posições à frente do endereço da instrução de desvio, o alvo já estará no buffer. Isso é útil para ocorrências muito comuns das sequências IF-THEN e 
+IF-THEN-ELSE.
+3. Esta estratégia é particularmente bem adaptada para lidar com laços ou iterações; por isso o nome de buffer 
+de laço de repetição. Se o buffer de laço de repetição for suficientemente grande para conter todas as ins-truções de um laço, então essas instruções precisam ser obtidas da memória apenas uma vez, na primeira iteração. Para iterações subsequentes, todas as instruções necessárias já estão no buffer.
+O buffer de laço é semelhante em princípio a um cache dedicado para instruções. A diferença é que buffer 
+de laço guarda apenas instruções na sequência e tem um tamanho menor, tendo assim um custo menor também.
+A Figura 12.17 mostra um exemplo de buffer de laço. Se buffer contém 256 bytes, e endereçamento de 
+byte é usado, então os oito bits menos significativos são usados para indexar o buffer. Os bits mais significan-tes restantes são verificados para determinar se o alvo do desvio se encontra dentro do ambiente capturado pelo buffer.
+Entre as máquinas que usam o buffer de laço de repetição estão algumas máquinas CDC (Star-100, 6600, 
+7600) e CRAY-1. Uma forma especial de buffer de laço de repetição está disponível no Motorola 68010 para executar um laço de três instruções envolvendo uma instrução DBcc (decremento e desvio na condição) (veja o Problema 12.14). Um buffer de três palavras é mantido e o processador executa estas instruções repetida-mente até que a condição do laço seja satisfeita.
+Figura 12.17 Buffer de laço de repetição
+Buﬀer de laço
+(256 bytes)Endereço
+do desvio
+8Instrução para ser decodi/f_icada em caso de acerto
+Bits de endereço mais signi/f_icativoscomparados para determinar um acerto
+Book 1.indb 373 19.11.09 14:38:54
+
+374 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Simulador de previsão de desvio
+Buffer de alvo de desvio
+PREVISÃO DE DESVIO Várias técnicas podem ser usadas para prever se um desvio será tomado. Entre as mais 
+comuns estão as seguintes:
+Previsão nunca tomada. 
+Previsão sempre tomada. 
+Previsão por  opcode.
+Chave tomada/não tomada. 
+Tabela de histórico de desvio. 
+As três primeiras abordagens são estáticas: elas não dependem ao histórico da execução até o momento da 
+instrução do desvio condicional. As duas últimas são dinâmicas: elas dependem do histórico da execução.
+As duas primeiras abordagens são mais simples. Ou elas assumem que o desvio nunca será tomado e continuam 
+obtendo as instruções na sequência ou elas sempre assumem que o desvio será tomado e sempre obtêm o alvo do 
+desvio. A abordagem de previsão nunca tomada é a mais popular de todos os métodos de previsão de desvios.
+Estudos que analisaram o comportamento dos programas mostraram que os desvios condicionais são tomados 
+em mais que 50% das vezes (Lilja, 1988k), então se o custo de busca antecipada dos dois caminhos é o mesmo, 
+fazer a busca antecipada sempre do endereço do alvo do desvio deveria oferecer um desempenho melhor do que sempre fazer busca antecipada do caminho sequencial. No entanto, em uma máquina com paginação, fazer busca antecipada do alvo do desvio terá maior probabilidade de causar uma falha de página do que fazer busca antecipada da próxima instrução na sequência e, por isso, esta penalidade de desempenho deve ser levada em conta. Um mecanismo para evitar isso poderia ser empregado para reduzir tal penalidade.
+A abordagem estática final toma a decisão com base no opcode da instrução de desvio. O processador assume 
+que o desvio será feito para determinados opcodes de desvio e não para outros. Lilja (1988
+k) reporta taxas de suces-
+so superiores a 75% com esta estratégia.
+As estratégias dinâmicas tentam melhorar a precisão da previsão armazenando um histórico de instruções de 
+desvios condicionais de um programa. Por exemplo, um ou mais bits podem ser associados com cada instrução de desvio condicional que reflete o histórico recente da instrução. Estes bits são conhecidos como uma chave tomada/não tomada que direciona o processador a tomar uma determinada decisão na próxima vez que a instrução for encontrada. Normalmente esses bits de histórico não são associados com a instrução na memória principal. Em vez disso, eles são guardados em um armazenamento temporário de alta velocidade. Uma possibilidade é associar esses bits com qualquer instrução de desvio condicional que esteja na cache. Quando a instrução é substituída no cache, o seu histórico é perdido. Outra possibilidade é manter uma pequena tabela para instruções de desvio recentemente executadas com um ou mais bits de históricos para cada entrada. O processador poderia acessar a tabela de forma associativa, com uma cache, ou usando os bits de ordem mais baixa do endereço da instrução de desvio.
+Com um bit único, tudo o que pode ser guardado é se a última execução dessa instrução resultou em um des-
+vio ou não. Uma desvantagem de usar um bit único aparece no caso de uma instrução de desvio condicional que é quase sempre tomada como uma instrução de laço repetitiva. Com apenas um bit de histórico, um erro de previsão ocorrerá duas vezes para cada uso do laço: uma vez ao entrar no laço e outra vez ao sair.
+Se dois bits são usados, eles podem ser utilizados para guardar o resultado das duas últimas instâncias da exe-
+cução da instrução associada ou para guardar o estado de alguma outra forma. A Figura 12.18 mostra uma aborda-gem típica (veja o Problema 12.13 para outras possibilidades). Suponha que o algoritmo começa no canto superior esquerdo do fluxograma. À medida que cada instrução de desvio condicional subsequente encontrada é tomada, o processo de decisão prevê que o próximo desvio será tomado. Se uma única previsão for errada, o algoritmo con-tinua prevendo que o próximo desvio será tomado. Apenas se dois desvios seguidos não forem tomados fará com que o algoritmo mude para o lado direito do fluxograma. Subsequentemente, o algoritmo irá prever que desvios não são tomados até que dois desvios em uma linha sejam tomados. Assim, o algoritmo requer duas previsões erradas em seguida para mudar a decisão da previsão.
+Book 1.indb 374 19.11.09 14:38:54
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 375
+O processo de decisão pode ser representado de maneira mais compacta por uma máquina de estados finitos, 
+mostrada na Figura 12.19. A representação de uma máquina de estados finitos é comumente usada na literatura.
+O uso de bits de histórico, conforme descrito agora, tem uma desvantagem: se for decidido tomar o desvio, a 
+instrução alvo não pode ser obtida até que o endereço do alvo, que é um operando dentro da instrução de desvio Figura 12.18 Fluxograma de previsão de desvio
+Sim
+SimPrever que será tomadoLer próxima
+instrução de
+desvio condicional
+Desvio
+tomado?
+Prever que será tomadoLer próxima
+instrução de
+desvio condicional
+Desvio
+tomado?Não Sim
+SimPrever que não será tomadoLer próxima
+instrução de
+desvio condicional
+Desvio
+tomado?
+Prever que não será tomadoLer próxima
+instrução de
+desvio condicional
+Desvio
+tomado?Não
+Não Não
+Não tomadoNão
+tomadoNão tomado
+TomadoTomadoNão tomado
+TomadoTomado
+Prever que
+será tomadoPrever que
+não será
+tomado
+Prever que
+não será
+tomadoPrever que
+não será
+tomadoFigura 12.19 Diagrama de estados de previsão de desvio
+Book 1.indb 375 19.11.09 14:38:55
+
+376 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+condicional, seja decodificada. Uma eficiência maior pode ser alcançada se a leitura da instrução puder ser iniciada 
+assim que a decisão de tomada de desvio for feita. Para este propósito, mais informações precisam ser salvas no que é conhecido como buffer de alvo do desvio ou tabela de histórico de desvios.
+A tabela de histórico de desvios é uma pequena memória cache associada com o estágio de leitura da instrução do 
+pipeline. Cada entrada da tabela consiste de três elementos: o endereço da instrução de desvio, algum número de bits de histórico que guardam o estado de uso dessa instrução e informação sobre a instrução alvo. Na maioria das propostas e implementações, esse terceiro campo contém o endereço da instrução alvo. Outra possibilidade é que o terceiro campo contenha a instrução alvo em si. A negociação é clara: armazenar o endereço do alvo necessita de uma tabela menor, porém um tempo maior para obter a instrução se comparado com armazenar a instrução alvo ( RECHES e WEISS, 1998
+l).
+A Figura 12.20 contraria esse esquema com uma estratégia de prever que nunca será tomada. Com essa estratégia, 
+o estágio de leitura da instrução sempre obtém o próximo endereço na sequência. Se um desvio for tomado, alguma lógica no processador detecta isso e instrui que a próxima instrução seja obtida do endereço alvo (além de esvaziar o pipeline). A tabela de histórico de desvio é tratada como uma cache. Cada busca antecipada dispara uma busca na ta-bela de histórico de desvios. Se nenhuma ocorrência correspondente for encontrada, o próximo endereço sequencial é usado para leitura. Se uma ocorrência correspondente for encontrada, uma previsão é feita com base no estado da instrução: ou o próximo endereço sequencial ou o endereço do alvo do desvio é informado para lógica selecionada.
+Figura 12.20 Lidando com desvios
+Tratamento de erro
+de desvio
+Selecionar
+E
+Tratamento de erro
+de desvio
+EMemória
+IPF AR
+IPFAR = registrador de pre/f_ixo de endereço da instrução (instruction pre/f_ix address register)Consulta
+Atualizar
+estadoAdicionar nova
+entrada
+RedirecionarEndereço da
+instrução de
+desvioEndereço
+alvo Estado
+•
+••••••••Próximo endereço
+sequencial
+Próximo endereço sequencial(a) Estratégia de previsão de desvio nunca tomada
+(b) Estratégia de tabela de históricos de desviosMemóriaSelecionar
+Book 1.indb 376 19.11.09 14:38:55
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 12 Estrutura e função do processador 377
+Quando uma instrução de desvio é executada, o estágio de execução sinaliza a lógica da tabela de histórico 
+de desvios com o resultado. O estado da instrução é atualizado para refl etir uma previsão correta ou incorreta. Se 
+a previsão for incorreta, a lógica de seleção é redirecionada para o endereço correto para próxima leitura. Quando uma instrução de desvio condicional que não esteja na tabela é encontrada, ela é adicionada à tabela e uma das en-tradas existentes é descartada com uso de um dos algoritmos de substituição de cache discutidos no Capítulo 4.
+Um refi namento da abordagem do histórico de desvios é referenciado como histórico de desvios de dois níveis 
+ou baseado em correlação ( YEH e PATT, 1991
+m). Esta abordagem é baseada na suposição de que, apesar de nos 
+desvios de laço o histórico de uma determinada instrução de desvio ser uma boa forma de previsão de compor-tamentos futuros, com estruturas de controle de fl uxo mais complexas, a direção de um desvio é frequentemente correlacionada com a direção de desvios relacionados. Um exemplo disso é uma estrutura de if-then-else ou case. 
+Existem diversas estratégias possíveis. Normalmente, o histórico global de desvios recentes (ou seja, o histórico de desvios mais recentes e não apenas desta instrução de desvio) é usado junto com o histórico da instrução de desvio atual. A estrutura geral é defi nida como uma correlação (m, n) que usa o comportamento dos últimos m desvios 
+para escolher uma previsão de desvio a partir de 2
+m n-bits para a atual instrução de desvio. Em outras palavras, um 
+histórico de n-bits é guardado para um dado desvio para cada combinação possível de desvios tomada por m 
+desvios mais recentes.
+DESVIO ATRASADO É possível melhorar o desempenho do pipeline rearranjando automaticamente as instru-
+ções dentro de um programa, para que as instruções ocorram depois do que realmente desejado. Esta abordagem intrigante é examinada no Capítulo 13.
+ Pipeline de Intel 80486
+Um exemplo instrutivo de um pipeline de instruções é o de Intel 80486. Ele implementa um pipeline de cinco 
+estágios:
+Leitura  : instruções são obtidas a partir da cache ou da memória externa e são colocadas em um de dois 
+buff ers de busca antecipada de 16 bits. O objetivo do estágio de leitura é preencher os buff ers de busca antecipada com dados novos assim que os dados antigos tenham sido consumidos pelo decodifi cador da instrução. Como as instruções têm tamanhos variáveis (de 1 a 11 bytes sem contar prefi xos), o estado do estágio da busca antecipada em relação a outros estágios varia de instrução para instrução. Em média, em torno de cinco instruções são obtidas com cada carga de 16 bytes ( CRAWFORD , 1990
+n). O estágio de leitura 
+opera independentemente de outros estágios para manter os buff ers de busca antecipada cheios.estágio de decodifi cação 1
+  : toda a informação de opcode e modo de endereçamento é decodifi cada no 
+estágio D1. A informação requerida, assim como a informação sobre o tamanho da instrução, é incluída em, no máximo, nos 3 primeiros bytes da instrução. Por isso, os 3 bytes são passados para o estágio D1 a partir dos buff ers de busca antecipada. O decodifi cador D1 pode então direcionar o estágio D2 para pegar o restante da instrução (dados imediatos e de deslocamento), a qual não está envolvida na decodifi cação em D1.estágio de decodifi cação 2
+  : o estágio D2 traduz cada opcode em sinais de controle para ALU. Ele também 
+controla o cálculo de modos de endereçamento mais complexos.execução
+  : este estágio inclui operações de ALU, acesso a cache e atualização de registradores.
+escrita  : este estágio, se necessário, atualiza registradores e fl ags de estado modifi cados durante o processo 
+da execução anterior. Se a instrução corrente atualiza a memória, o valor computado é enviado para a cache e a interface de barramento escreve nos buff ers ao mesmo tempo.
+Com uso de dois estágios de decodifi cação, o pipeline pode sustentar um fl uxo de quase uma instrução por 
+ciclo de clock. Instruções complexas e desvios condicionais podem diminuir essa taxa.
+A Figura 12.21 mostra exemplos da operação do pipeline. A parte (a) mostra que não há atraso introduzido 
+no pipeline quando um acesso à memória é necessário. No entanto, conforme a parte (b) mostra, pode haver um atraso para valores usados para calcular endereço de memória. Isto é, se um valor é carregado da memória em um registrador e esse registrador é então usado como um registrador base na próxima instrução, o processador irá atrasar por um ciclo. Neste exemplo, o processador acessa a cache no estágio EX da primeira execução e armazena o valor obtido no registrador durante o estágio Escrita. No entanto, a próxima instrução precisa desse registrador no seu estágio D2. Quando o estágio D2 se alinha com o estágio Escrita da instrução anterior, caminhos de passa-
+Book 1.indb 377 19.11.09 14:38:55
+
+378 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+gem de sinal permitem que o estágio D2 tenha acesso aos mesmos dados usados pelo estágio Escrita para escrita, 
+economizando um estágio do pipeline.
+A Figura 12.21c ilustra a temporização de uma instrução de desvio, supondo que desvio seja tomado. A instru-
+ção de comparação atualiza os códigos condicionais no estágio Escrita e os caminhos de passagem tornam isso disponível para o estágio EX da instrução de salto ao mesmo tempo. Em paralelo, o processador executa o ciclo de busca especulativo para o alvo do salto durante o estágio EX da instrução de salto. Se o processador determinar uma condição de desvio falsa, ele descarta a busca antecipada e continua a execução com a próxima instrução da sequência (já lida e decodifi cada).
+12.5 Família de processadores x86
+A organização x86 evoluiu consideravelmente ao longo dos anos. Nesta seção analisamos alguns dos detalhes 
+das mais recentes organizações dos processadores, focando em elementos comuns em processadores únicos. O Capítulo 14 fala sobre aspectos superescalares de x86 e o Capítulo 18 analisa organização de múltiplos núcleos. Uma visão da organização do processador Pentium 4 é mostrada na Figura 4.18.
+ Organização dos registradores
+A organização dos registradores inclui os seguintes tipos de registradores (Tabela 12.2):
+propósito geral  : existem oito registradores de 32 bits de uso geral (veja Figura 12.3c). Eles podem ser 
+usados para todos os tipos de instruções x86 e também podem guardar operandos para cálculo de endereços. Além disso, alguns desses registradores servem também para propósitos específicos. Por exemplo, as instruções de string usam o conteúdo dos registradores ECX, ESI e EDI como operandos 
+sem precisar referenciar esses registros explicitamente na instrução. Como resultado, uma série de ins-truções pode ser codificada de forma mais compactada. No modo 64 bits, existem 16 registradores de propósito geral de 64 bits.segmento
+  : seis registradores de segmento de 16 bits contêm seletores de segmento, os quais indexam as 
+tabelas de segmentos, conforme discutido no Capítulo 8. O registrador de segmento de código (CS) refe-rencia o segmento contendo as instruções a serem executadas. O registrador de segmento de pilha (SS) re-ferencia o segmento contendo uma pilha visível ao usuário. Os registradores de segmento restantes (DS, ES, FS e GS) possibilitam ao usuário referenciar até quatro segmentos de dados separados ao mesmo tempo.Figura 12.21 Exemplos de pipeline da instrução do 80486
+Leitura D1 D2 EX Escrita
+Leitura D1 D2 EX Escrita
+Leitura D1 D2 EX Escrita MOV Mem2, Reg1
+(a) Nenhum atraso para carregar dados no pipelineMOV Reg1, Reg2MOV Reg1, Mem1
+Leitura D1 D2 EX Escrita
+Leitura D1 D2 EX
+Leitura D1 D2 EX T arget
+(c) Temporização da instrução de desvioJcc T argetCMP Reg1, ImmLeitura D1 D2 EX Escrita
+Leitura D1 D2 EX
+(b) Atraso para carregar ponteiroMOV Reg2, (Reg1)MOV Reg1, Mem1
+Book 1.indb 378 19.11.09 14:38:56
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 379
+(a) Unidade de inteiros no modo 32-bits
+Tipo Número Tamanho (bits) Propósito
+Propósito geral 8 32 Registradores de propósito geral do usuário
+Segmento 6 16 Contém seletores de segmento
+EFLAGS 1 32 Bits de estado e controle
+Ponteiro da instrução 1 32 Ponteiro da instrução
+(b) Unidade de inteiros no modo 64-bits
+Tipo Número Tamanho (bits) Propósito
+Propósito geral 16 32 Registradores de uso geral do usuário
+Segmento 6 16 Contém seletores de segmento
+RFLAGS 1 64 Bits de estado e controle
+Ponteiro da instrução 1 64 Ponteiro da instrução
+(c) Unidade de ponto flutuante
+Tipo Número Tamanho (bits) Propósito
+numérico 8 80 Armazena números de ponto flutuante
+Controle 1 16 Bits de controle
+Estado 1 16 Bits de estado
+Palavra de marcação 1 16Especifica o conteúdo de registradores 
+numéricos
+Ponteiro da instrução 1 48Aponta para instrução interrompida 
+pela execução
+Ponteiro de dados 1 48Aponta para operando interrompido 
+pela exceçãoTabela 12.2 Registradores do processador x86
+Flags  : os registradores EFLAGS de 32 bits contêm códigos condicionais e vários bits de modo. No modo 64 
+bits, o registrador é estendido para 64 bits e é referenciado como RFLAGS. Na atual definição da arquitetura, 
+os 32 bits superiores de RFLAGS não são usados.ponteiro da instrução
+  : contém o endereço da instrução corrente. 
+Existem também registradores dedicados especialmente para unidade de ponto flutuante:
+numérico  : cada registrador guarda um número de ponto flutuante de 80 bits de precisão estendida. 
+Existem 8 registradores que funcionam como uma pilha, com operações push e pop disponíveis no conjun-to de instruções.controle
+  : o registrador de controle de 16 bits contém bits que controlam a operação da unidade de ponto 
+flutuante, incluindo o tipo de arredondamento; precisão única, dupla ou estendida; e bits para habilitar ou desabilitar diversas condições de exceção.
+estado
+  : o registrador de estado de 16 bits contém bits que refletem o atual estado da unidade de ponto 
+flutuante, incluindo um ponteiro de 3 bits para o topo da pilha; códigos condicionais que reportam a saída 
+da última operação; e flags de exceção.palavra de marcação
+  : este registrador de 16 bits contém uma marca de 2 bits para cada registrador numé-
+rico de ponto flutuante, que indica a natureza do conteúdo do registrador correspondente. Quatro valores possíveis são válidos, zero, especial (NaN, infinito, desnormalizado e vazio. Esses marcadores possibilitam que os programas verifiquem o conteúdo de um registrador numérico sem executar decodificação com-plexa dos dados atuais no registrador. Por exemplo, quando há uma troca de contexto, o processador não precisa salvar nenhum registrador de ponto flutuante que esteja vazio.
+Book 1.indb 379 19.11.09 14:38:57
+
+380 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+O uso da maioria dos registradores previamente mencionados é facilmente compreendido. Vamos analisar bre-
+vemente alguns dos registradores.
+REGISTRADOR EFLAGS Registrador EFLAGS (Figura 12.22) indica a condição do processador e ajuda a controlar 
+suas operações. Isso inclui os seis códigos condicionais definidos na Tabela 10.9 (carry, paridade, auxiliar, zero, sinal, 
+overflow ) que reportam os resultados de uma operação inteira. Além disso, existem bits no registrador que podem 
+ser chamados de bits de controle:
+Flag de trap (TF, do inglês  trap flag): quando definida, causa uma interrupção depois da execução de 
+cada instrução. Isso é usado para depuração.Flag para habilitar interrupção (IF, do inglês 
+  interrupt e enable flag) : quando definida, o processador 
+reconhece interrupções externas.Flag direcional (dF, do inglês 
+  direction flag): determina se as instruções de processamento de string 
+incrementam ou decrementam os registradores de 16 bits SI e DI (para operações de 16 bits) ou os registra-dores de 32 bits ESI e EDI (para operações de 32 bits).Flag de privilégio de e/s (IopL, do inglês 
+  I/O privilege level) : quando definida, faz com que o processador 
+gere uma exceção em todos os acessos para dispositivos de E/S durante a operação no modo protegido.Flag de reinício (RF, do inglês 
+  resume flag): permite que o programador desabilite exceções de depu-
+ração para que a instrução possa ser reiniciada depois de uma exceção de depuração sem causar imediata-mente outra exceção de depuração.Verificação de alinhamento (A c, do inglês 
+  alighment check): ativado se uma palavra ou palavra dupla 
+é endereçada em um limite de não palavra ou não palavra dupla.Flag de identificação (Id , do inglês 
+  identification flag) : se este bit pode ser definido e limpo, então o pro -
+cessador suporta a instrução processorID. Esta instrução provê a informação sobre fabricante, família e modelo.
+Além disso, existem 4 bits que são relacionados com o modo de operação. Flag Tarefa Aninhada (NT, do inglês 
+nested task flag) que indica que a tarefa atual é aninhada dentro da outra tarefa no modo de operação protegida. O bit de Modo Virtual (VM) permite ao programador habilitar ou desabilitar modo virtual 8086, o qual determina se o processador está trabalhando como uma máquina 8086. Flag de Interrupção Virtual (VIF, do inglês virtual interrupt 
+flag) e Interrupção Virtual Pendente (VIP , do inglês virtual interrupt pending) são usadas num ambiente multitarefa.
+REGISTRADORES DE CONTROLE O x86 usa quatro registradores de controle (o registrador CR1 não é usado) para 
+controlar os vários aspectos da operação do processador (Figura 12.23). Todos os registradores, exceto CR0, têm o tamanho de 32 ou 64 bits, de acordo com a implementação: se ela suporta arquitetura x86 de 64 bits ou não. O registrador CR0 contém flags de controle do sistema que controlam o modo ou indicam estados que se aplicam normalmente ao processador em vez da execução de uma determinada tarefa. Os flags são as seguintes:
+Habilitação de proteção (pe , do inglês 
+  protection enable) : habilita/desabilita modo de operação protegido.
+monitor do coprocessador (mp —  monitor coprocessor): interessante apenas quando os programas de 
+máquinas anteriores são executados em x86; ele define a presença de um coprocessador aritmético.
+V
+I
+PV
+I
+FI
+DA
+CV
+MR
+FN
+TIO
+PLO
+FD
+FI
+FT
+FS
+FZ
+FA
+FPFC
+F12 13
+15 0 61
+ID /f_lag de identi/f_icação
+VIP Interrupção virtual pendente
+VIF /f_lag de interrupção virtual
+AC Veri/f_icação de alinhamento
+VM 8086 modo virtual
+RF /f_lag de resumo
+NT /f_lag tarefa aninhada
+IOPL de privilégio de EIS
+OF /f_lag de over/f_low DF /f_lag direcional
+IF /f_lag para habilitar interrupção 
+TF /f_lag de trap
+SF /f_lag de sinal 
+ZF /f_lag Zero 
+AF /f_lag de carry auxiliar
+PF /f_lag de paridade
+CF /f_lag de carryFigura 12.22 Registrador EFLAGS de Pentium II
+Book 1.indb 380 19.11.09 14:38:57
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 381
+emulação (em)  : definido quando o processador não possui uma unidade de ponto flutuante e causa uma 
+interrupção quando uma tentativa é feita para execução de instruções de ponto flutuante.
+Troca de tarefa (Ts, do inglês  task switched): indica que o processador trocou tarefas.
+Tipo de extensão (e T, do inglês  extension type): não é usado em Pentium e máquinas posteriores; usado 
+para indicar suporte para instruções de coprocessador matemático em máquinas anteriores.erro numérico (ne , do inglês 
+  numeric error): habilita o mecanismo padrão para reportar erros de ponto 
+flutuante em linhas de barramento externo.proteção de escrita (Wp , do inglês 
+  write protect): quando este bit é igual, páginas a zero de usuário 
+com permissão de somente leitura podem ser escritas por um processo supervisor. Este recurso é útil para suportar criação de processos em alguns sistemas operacionais.máscara de alinhamento (Am , do inglês 
+  alignment mask) : habilita/desabilita verificação de alinhamento.
+not write through (nW)  : seleciona o modo de operação de cache de dados. Quando o bit é igual a um 
+cache de dados é inibido para atualizações de cache write through.desabilitar cache ( cd — 
+  cache disable) : habilita/desabilita o mecanismo interno de preenchimento de cache.
+paginação (pg)  : habilita/desabilita paginação.Figura 12.23 Registradores de controle de x86
+OSXSAVE = habilita bit XSAVE
+SMXE = habilita extensões do modo de segurançaVMXE = habilita extensões de máquina virtual OSXMMEXCPT = Suporta excessões SIMD FP não mascaradasOSFXSR = Suporta FXSAVE, FXSTOR PCE = habilita conector de desempenhoPGE = habilita paginação globalMCE = habilita veri/f_icação de máquinaPAE = extensão de endereço físicoPSE = extensões de tamanho de página DE = extensões de depuraçãoTSD = desabilitar time stamp PVI = interrupções virtuais no modo protegidoVME = modo de extensão virtual de 8086Áreas sombreadas indicam bits reservados.
+PCD = desabilita cache de página
+PWT = escrita transparente em nível de página
+ PG = paginação
+ CD = desabilita cache NW = not write through AM = máscara de alinhamento WP = proteção de escrita
+ NE = erro numérico
+ ET = tipo de extensão TS = troca de tarefaEM = emulação
+MP = monitor do coprocessador
+ PE = habilitação de proteçãoS
+M
+X
+EV
+M
+X
+EOSXSA VE OSFXSR
+CR4V
+M
+EP
+V
+IT
+S
+DD
+EP
+S
+EP
+A
+EM
+C
+EP
+G
+EP
+C
+E
+CR3(PDBR)
+CR2
+CR1Base do diretório de página
+Endereço linear de falha de páginaP
+C
+DP
+W
+T0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31(63)OSXMMEXCPT
+CR0T
+SE
+MM
+PP
+EE
+TN
+EA
+MN
+WC
+DP
+GW
+P0 1 2 3 4 5 6 7 8 9 10 11 12 14 13 15 17 16 18 20 19 22 21 24 23 26 25 28 27 30 29 31
+Book 1.indb 381 19.11.09 14:38:58
+
+382 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Quando paginação está habilitada, os registradores CR2 e CR3 são válidos. O registrador CR2 guarda o endereço li-
+near de 32 bits da última página acessada antes de uma interrupção de falha de página. Os 20 bits da extrema esquerda 
+de CR3 guardam os 20 bits mais signifi cativos do endereço base do diretório de página; o restante do endereço contém zeros. Dois bits de CR3 são usados como acionadores que controlam a operação de uma cache externa. Desabilitar a cache em nível de página (PCD, do inglês page-level cache disable) habilita ou desabilita a cache externa e o bit de escrita 
+transparente em nível de página (PWT, do inglês page-level writer transparent) controla a escrita na cache externa.
+Nove bits de controle adicionais são defi nidos em CR4:
+modo de extensão virtual de 8086 (Vme, do inglês 
+  virtual 8086 mode extensions): habilita o suporte 
+para fl ag de interrupção virtual no modo virtual 8086.Interrupções virtuais no modo protegido (pVI, do inglês 
+  protected mode virtual interrupt): habilita 
+o suporte para fl ag de interrupção virtual em modo protegido.desabilitar time stamp (Tsd, do inglês 
+  time stamp disable): desabilita a leitura a partir da instrução 
+contadora de time stamp (RDTSC), a qual é usado para propósitos de depuração.extensões de depuração (de, do inglês 
+  debug extensions): habilita breakpoints de E/S; isto permite que 
+o processador interrompa leituras e gravações de E/S.extensões de tamanho da página (pse, do inglês 
+  page size extensions): quando igual a um, habilita 
+tamanhos de página grandes (páginas de 2 ou 4 MB); quando igual a zero, restringe páginas a 4 KB.extensão do endereço físico (pAe, do inglês 
+  physical address extension): habilita linhas de endereço 
+de A35 até A32 sempre que um novo modo especial de endereçamento, controlado por PSE, é habilitado.Habilita verifi cação de máquina (mce, do inglês 
+  machine check enable): habilita interrupção de verifi -
+cação de máquina, a qual ocorre quando um erro de paridade de dados acontece durante o ciclo de leitura de barramento ou quando um ciclo de barramento não é completado com sucesso.Habilitar paginação global (pge, do inglês 
+  page global enable): habilita o uso de páginas globais. 
+Quando PGE = 1 e uma troca de tarefa é efetuada, todas as entradas de TLB são excluídas com exceção daquelas marcadas como globais.Habilita contador de desempenho (pce, do inglês 
+  performance counter enable): habilita a execução 
+da instrução RDPMC (leitura de contador de desempenho) em qualquer nível de privilégio. Dois contadores de desempenho são usados para medir a duração de um tipo de evento específi co e o número de ocorrên-cias e um tipo de evento específi co.
+REGISTRADORES MMX Lembre da Seção 10.3 em que o x86 MMX usa vários tipos de dados de 64 bits. As instruções 
+MMX fazem uso de campos de endereço de registrador de 3 bits para que oito registradores MMX sejam suportados. Na verdade, o processador não inclui registradores MMX específi cos. Em vez disso, o processador usa uma técnica de mapeamento (Figura 12.24). Os registradores de ponto fl utuante existentes são usados para armazenar valores MMX. Especifi camente, 64 bits de baixa ordem (mantissa) de cada registrador de ponto fl utuante são usados para formar oito registradores MMX. Assim, a antiga arquitetura x86 de 32 bits é facilmente estendida para suportar a capacidade MMX. Algumas das principais características do uso MMX desses registradores são as seguintes:
+Lembre que registradores de ponto fl utuante são tratados como uma pilha para operações de ponto fl utuan-
+ 
+te. Para operações MMX, esses mesmos registradores são acessados diretamente.Na primeira vez que uma instrução MMX é executada depois de qualquer operação de ponto fl utuante, a 
+ 
+palavra de marcação FP (do inglês fl oating point)é marcada como válida. Isso refl ete na mudança de opera-
+ção de pilha para endereçamento direto de registradores. Instrução EMMS (estado MMX vazio) defi ne bits da marcação da palavra FP para indicar que todos os re-
+ 
+gistradores estão vazios. É importante que o programador insira essa instrução no fi nal de bloco de código MMX para que as operações de ponto fl utuante subsequentes funcionem corretamente.Quando um valor é escrito para um registrador MMX, bits [79:64] do registrador FP correspondente (bits de 
+ 
+expoente e de sinal) são todos defi nidos para o valor 1. Isso defi ne o valor no registrador FP para NN (não numérico) ou infi nito quando visto como um valor de ponto fl utuante. Isso garante que um valor de dados MMX não se pareça com um valor de ponto fl utuante válido.
+ Processamento de interrupção
+O processamento de interrupção dentro de um processador é uma facilidade oferecida para suportar o sistema 
+operacional. Isso permite que uma aplicação seja suspensa para que uma variedade de condições de interrupção 
+possa ser atendida e depois seja reiniciada.
+Book 1.indb 382 19.11.09 14:38:58
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 12 Estrutura e função do processador 383
+Figura 12.24 Mapeamento de registradores MMX para registradores de ponto flutuante
+0 79 63
+0 36
+MM00000000000000000
+Registradores MMXRegistradores de ponto /f_lutuanteMarcação de
+ponto /f_lutuante
+MM1MM2MM3MM4MM5MM6MM7
+INTERRUPÇÕES E EXCEÇÕES Duas classes de eventos fazem com que o x86 suspenda a execução da corrente 
+da instrução corrente e responda ao evento: interrupções e exceções. Em ambos os casos, o processador salva o 
+contexto do processo atual e transfere para uma rotina predefinida atender a condição. Uma interrupção é gerada por um sinal de hardware e pode ocorrer um número aleatório de vezes durante a execução de um programa. Uma exceção é gerada a partir do software e é provocada pela execução de uma instrução. Existem duas origens das interrupções e duas origens das exceções:
+1. Interrupções
+Interrupções mascaráveis
+  : recebidas no pino INTR do processador. O processador não reconhece 
+uma interrupção mascarável se o flag habilitar interrupção (IF) não estiver definido. Interrupções não mascaráveis
+  : recebidas no pino NMI do processador. Reconhecimento de tais inter-
+rupções não pode ser evitado.
+2. Exceções
+exceções detectadas pelo processador  : resultam quando processador encontra um erro enquanto 
+tenta executar uma instrução.
+exceções programadas  : essas são as instruções que geram uma exceção (por exemplo, INTO, INT3, INT 
+e BOUND).
+TABELA DE VETORES DE INTERRUPÇÕES O processamento de interrupção em x86 usa tabela de vetor de inter-
+rupções. Cada tipo de interrupção possui um número vinculado e esse número é usado para indexar a tabela de vetor de interrupções. Essa tabela contém 256 vetores de interrupção de 32 bits, que representa o endereço (seg-mento e offset) da rotina para atender a interrupção para esse determinado número de interrupção.
+A Tabela 12.3 mostra a atribuição de números na tabela de vetores de interrupções; os campos sombreados 
+representam interrupções, enquanto os não sombreadas são exceções. A interrupção NMI de hardware é do tipo 2. Às interrupções INTR de hardware são atribuídos os números do intervalo de 32 até 255; quando uma interrupção INTR é gerada, ela precisa ser acompanhada dentro do barramento pelo número de vetor de interrupção para essa interrupção. Os números de vetores restantes são usados para exceções.
+Se mais do que uma exceção ou interrupção está pendente, o processador as atende de maneira previsível. A 
+posição de números do vetor dentro da tabela não reflete a prioridade. Em vez disso, a prioridade entre exceções e interrupções é organizada em cinco classes. Em ordem descendente de prioridade aqui estão:
+Book 1.indb 383 19.11.09 14:38:58
+
+384 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tabela 12.3 Tabela de vetores de interrupções e exceções para x86
+Número do vetor Descrição
+0 Erro de divisão; estouro de divisão (overflow ) ou divisão por zero
+1 Exceção de depuração; inclui várias falhas e traps relacionadas com depuração
+2 Interrupção do pino nMI; sinal no pino nMI
+3Breakpoint; causado pela instrução InT 3 que é uma instrução de 
+ 1 byte útil para depuração
+4Overflow detectado em InTO; ocorre quanto o processador executa 
+InTO e o flag com valor 1
+5Limite excedido em BOUnD excedido; instrução BOUnD compara um registrador com 
+limites armazenados na memória e gera uma interrupção se o conteúdo do 
+registrador está fora dos limites
+6 Opcode indefinido
+7Dispositivo indisponível; tentativa de uso da instrução ESC ou WAIT falha 
+por causa da demora do dispositivo externo
+8Falha dupla; duas interrupções ocorrem durante a mesma instrução e não 
+podem ser tratadas em série
+9 Reservado
+10Segmento de estado de tarefa inválido; segmento que descreve a 
+tarefa requerida não é inicializado ou não é válido
+11 Segmento ausente; segmento requerido não está presente
+12 Falha de pilha; limite do segmento da pilha excedido ou segmento da pilha ausente
+13Proteção geral; violação da proteção que não causa outra exceção 
+(por exemplo, escrever no segmento que é somente para leitura)
+14 Falha de página
+15 Reservado
+16 Erro de ponto flutuante; gerado por uma instrução aritmética de ponto flutuante
+17Verificação de alinhamento; acesso a uma palavra armazenada em um endereço de 
+byte ímpar ou uma palavra dupla armazenada em um endereço não múltiplo de 4
+18 Verificação de máquina; específico para cada modelo
+19-31 Reservado
+32-255 Vetores de interrupções de usuário; fornecido quando sinal InTR é ativado
+Sem sombra: exceções.
+Com sombra: interrupções.
+classe 1  : paradas (traps) na instrução anterior (vetor número 1).
+classe 2  : interrupções externas (2, 32-255).
+classe 3  : falhas na busca da próxima instrução (3, 14).
+classe 4  : falhas na decodificação da próxima instrução (6, 7).
+classe 5  : falhas na execução de uma instrução (0, 4, 5, 8, 10-14, 16, 17).
+TRATAMENTO DE INTERRUPÇÃO Assim como acontece com a transferência da execução usando uma instrução 
+CALL, uma transferência para uma rotina de tratamento de interrupção usa a pilha do sistema para armazenar o 
+estado do processador. Quando ocorre uma interrupção e é reconhecida pelo processador, uma sequência de eventos acontece:
+1. Se a transferência envolve uma mudança do nível de privilégio, então o registrador atual de segmento de pilha e o registrador atual ponteiro estendido de pilha (ESP) são colocados na pilha.
+Book 1.indb 384 19.11.09 14:38:59

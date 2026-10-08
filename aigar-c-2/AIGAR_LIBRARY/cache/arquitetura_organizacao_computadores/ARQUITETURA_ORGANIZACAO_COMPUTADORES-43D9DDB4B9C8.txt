@@ -1,0 +1,943 @@
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 535
+Método de clustering Descrição Benefícios Limitações
+Secundário passivo 
+(passive standby)Um servidor secundário assume em caso 
+de falha do servidor primário.Fácil de implementar.Custo alto porque o servidor secundário está 
+indisponível para outras tarefas de processamento.
+Secundário ativoO servidor secundário é usado também 
+para tarefas de processamento.Custo reduzido porque servidores 
+secundários podem ser usados para 
+processamento.Complexidade aumentada.
+Servidores separadosPossuem seus próprios discos. Dados são 
+copiados continuamente do servidor 
+primário para o secundário.Alta disponibilidade.Grande sobrecarga de rede e servidores por 
+causa das operações de cópia.
+Servidores conectados aos discosServidores são ligados aos mesmos discos, 
+mas cada servidor possui seus discos. 
+Se um servidor falha, seus discos são 
+assumidos por outro servidor.Carga de rede e servidores reduzida por 
+causa da eliminação das operações de cópia.normalmente requer espelhamento de discos 
+ou tecnologia RAID para compensar o risco da 
+falha de disco.
+Servidores compartilham discosVários servidores compartilham 
+simultaneamente o acesso a discos.Baixa carga de rede e servidores. Risco 
+reduzido de inatividade causada por falha 
+de disco.Requer software de gerenciamento de bloqueio. 
+normalmente usado com tecnologia de 
+espelhamento ou RAID.Tabela 17.2 Métodos de clustering: benefícios e limitações
+para assumir em caso de uma falha do primário. Para coordenar as máquinas, o sistema ativo, ou primário, 
+envia periodicamente uma mensagem de reconhecimento para a máquina secundária. Se essas mensagens pararem de chegar, a máquina secundária supõe que o servidor primário falhou e começa a operar. Esta abor -
+dagem aumenta a disponibilidade, porém não melhora o desempenho. Além disso, se a única informação trocada entre os dois sistemas é a mensagem de reconhecimento e se os dois sistemas não compartilham discos comuns, então o computador secundário oferece um backup funcional, porém não tem acesso aos bancos de dados gerenciados pelo primário.
+O secundário passivo geralmente não é considerada como um cluster. O termo cluster é reservado para vários 
+computadores interconectados onde todos efetuam processamento ativamente enquanto mantêm a imagem de um sistema único para o mundo externo. O termo secundário ativo é frequentemente usado para se referir a esta 
+configuração. Três classificações de clusters podem ser identificadas: servidores separados, sem compartilhamento 
+e memória compartilhada.
+Em uma abordagem para clusters, cada computador é um servidor separado com seus próprios discos e 
+não há discos compartilhados entre os sistemas (Figura 17.10a). Este arranjo fornece alto desempenho e dispo -
+nibilidade. Neste caso, algum tipo de software de gerenciamento ou escalonamento é necessário para atribuir as requisições vindas dos clientes aos servidores para que a carga seja balanceada e alta utilização, alcançada. É desejável que haja a capacidade de tolerância a falhas, o que significa que se um computador falha ao executar uma aplicação, outro computador no cluster pode assumir e completar a aplicação. Para que isso aconteça, os dados devem ser constantemente copiados entre os sistemas para que cada um tenha acesso aos dados atuais dos outros sistemas. A sobrecarga dessa troca de dados garante a alta disponibilidade a custo de uma penalidade de desempenho.
+Para reduzir a sobrecarga de comunicação, a maioria dos clusters consiste agora de servidores conectados aos 
+discos comuns (Figura 17.10b). Em uma variação desta abordagem, chamada de sem compartilhamento, os dis-
+cos comuns são particionados em volumes e cada volume é propriedade de um único computador. Se esse com-putador falha, o cluster deve ser reconfigurado para que algum outro computador tenha posse dos volumes do 
+computador que falhou.
+É possível também fazer com que vários computadores compartilhem os mesmos discos ao mesmo tempo 
+(chamada abordagem de disco compartilhado), para que cada computador tenha acesso a todos os volumes de todos os discos. Esta abordagem requer o uso de algum tipo de recurso de bloqueio para garantir que os dados possam ser acessados apenas por um computador por vez.
+Book 1.indb 535 19.11.09 14:40:43
+
+536 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Questões sobre projeto dos sistemas operacionais
+O aproveitamento completo de uma confi guração de um hardware de cluster requer alguns aprimoramentos 
+em sistemas operacionais voltados para sistemas únicos.
+GERENCIAMENTO DE FALHAS Como as falhas são gerenciadas pelo cluster que depende do método de clustering 
+usado (Tabela 17.2). Em geral, duas abordagens podem ser usadas para lidar com falhas: clusters de alta disponibilida-
+de e clusters com tolerância a falhas. Um cluster com alta disponibilidade provê uma alta probabilidade de que todos 
+os recursos estejam em funcionamento. Caso ocorra uma falha, como um desligamento de sistema ou perda de um 
+volume de disco, então as consultas em progresso são perdidas. Qualquer consulta perdida, se tentada novamente, será executada por um computador diferente no cluster. No entanto, o sistema operacional de cluster não dá garantia 
+alguma sobre o estado de transações executadas parcialmente. Isso deve ser tratado em nível de aplicações.
+Um cluster com tolerância a falhas garante que todos os recursos estejam sempre disponíveis. Isso é alcançado 
+com o uso de discos compartilhados redundantes e mecanismos para retornar as transações não encerradas e encerrar transações completadas.
+A função de trocar as aplicações e recursos de dados de um sistema que falhou para um sistema alternativo no clus-
+ter é conhecida como failover (recuperação de falhas). Uma função relacionada é a restauração de aplicações e recursos 
+de dados para o sistema original quando o mesmo for consertado; isto é chamado de failback (retorno à operação). O 
+failback pode ser automatizado, mas isso é desejável apenas se o problema é corrigido realmente e é pouco provável que ocorra novamente. Caso contrário, o failback automáticos pode fazer com que os recursos que falharam sejam passados entre os computadores para lá e para cá, resultando em problemas de desempenho e restauração.
+BALANCEAMENTO DE CARGA Um cluster requer uma capacidade efi ciente para balancear a carga entre com-
+putadores disponíveis. Isto inclui o requisito de que o cluster seja incrementalmente escalável. Quando um novo 
+computador é adicionado ao cluster, o recurso de balanceamento de carga deve automaticamente incluir esse 
+computador no agendamento de aplicações. Mecanismos de middleware precisam reconhecer que serviços po-
+dem aparecer em diferentes membros do cluster e muitos podem migrar de um membro para outro.
+COMPUTAÇÃO PARALELA Em alguns casos, o uso efi ciente de um cluster requer executar software de uma única 
+aplicação em paralelo. Kapp (2000
+l) lista três abordagens gerais para o problema:
+compilação paralela  : uma compilação paralela determina, em tempo de compilação, quais partes de uma 
+aplicação podem ser executadas em paralelo. Elas são então separadas para serem atribuídas a diferentes computadores no cluster. O desempenho depende da natureza do problema e quão bem o computador é 
+projetado. Em geral, tais compiladores são difíceis de desenvolver.Aplicações paralelas
+  : nesta abordagem, o programador escreve a aplicação desde o começo para ser 
+executada em um cluster e utiliza passagem de mensagens para mover dados, conforme necessário, entre 
+os nós do cluster. Isso coloca uma grande responsabilidade no programador, mas pode ser a melhor aborda-
+gem para explorar clusters para algumas aplicações.computação paramétrica
+  : esta abordagem pode ser usada se a essência da aplicação for um algoritmo 
+ou um programa que deva ser executado um grande número de vezes, cada vez com um conjunto diferente de condições iniciais ou parâmetros. Um bom exemplo é um modelo de simulação, o qual vai executar um grande número de cenários e depois desenvolver resumos estatísticos dos resultados. Para que esta abor-dagem seja efi ciente, ferramentas de processamento paramétrico são necessárias para organizar, executar e gerenciar os trabalhos de uma forma efi ciente.
+ Arquitetura de um cluster computacional
+A Figura 17.11 mostra uma típica arquitetura de cluster. Os computadores individuais são conectados por algu-
+ma LAN de alta velocidade ou hardware de comutação. Cada computador é capaz de operar independentemente. Além disso, uma camada intermediária de software é instalada em cada computador para possibilitar a operação do cluster. O middleware do cluster fornece uma imagem unifi cada do sistema para o usuário, conhecida como 
+imagem de sistema único. O middleware é responsável também por fornecer alta disponibilidade pelo balan-ceamento de carga e respostas a falhas em componentes individuais. Hwang et al. (1999
+m) listam estes como os 
+serviços e as funções desejáveis para um middleware de cluster:
+Book 1.indb 536 19.11.09 14:40:44
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 537
+Figura 17.11 Arquitetura de um cluster computacional (Buyya, 1999n)
+HW de interface de redeSW comumPC/Estação de trabalhoMiddleware de cluster
+(Imagem única do sistema e disponibilidade da infraestrutura)Aplicações sequenciais
+Rede de alta velocidade/comutadorAplicações paralelas
+Ambiente de programação paralela
+HW de interface de redeSW comumPC/Estação de trabalho
+HW de interface de redeSW comumPC/Estação de trabalho
+HW de interface de redeSW comumPC/Estação de trabalho
+HW de interface de redeSW comumPC/Estação de trabalho
+ponto de entrada único  : o usuário efetua logon no cluster em vez de fazê-lo em um computador individual.
+Hierarquia única de arquivos  : o usuário vê uma hierarquia única de diretórios de arquivos abaixo do 
+mesmo diretório raiz.
+ponto de controle único  : há uma estação de trabalho padrão usada para gerenciamento e controle do cluster.
+Rede virtual única  : qualquer nó pode acessar qualquer outro ponto no cluster, mesmo que a confi guração 
+atual do cluster consista em múltiplas redes interconectadas. Há uma operação de rede virtual única.espaço único de memória
+  : Memória compartilhada distribuída possibilita que os programas comparti-
+lhem variáveis.sistema único de gerenciamento de trabalhos
+  : com um agendador de trabalhos do cluster, um usuário 
+pode submeter um trabalho sem especifi car qual computador executará o trabalho.Interface de usuário única
+  : uma interface gráfi ca comum suporta todos os usuários, independentemente 
+da estação de trabalho da qual acessaram o cluster.espaço de e/s único
+  : qualquer nó pode acessar remotamente qualquer periférico de E/S ou dispositivo de 
+disco sem conhecer a sua localização física.espaço único de processos
+  : um esquema uniforme de identifi cação de processos é usado. Um processo 
+em qualquer nó pode criar ou se comunicar com qualquer outro processo em um nó remoto.pontos de verifi cação
+  : esta função periodicamente salva o estado dos processos e resultados computacio-
+nais intermediários para permitir recuperação em caso de falhas.migração de processos
+  : esta função habilita o balanceamento de carga.
+Os quatro últimos itens da lista anterior aprimoram a disponibilidade do cluster. Os itens restantes se preocupam 
+em fornecer uma imagem única do sistema.
+Retornando à Figura 17.11, um cluster incluirá também ferramentas de software para habilitar a execução efi -
+ciente de programas que são capazes de efetuar execução paralela.
+ Servidores blade
+Uma implementação comum da abordagem de clusters é o servidor blade. Um servidor blade é uma arquitetura 
+de servidor que hospeda múltiplos módulos servidores (“blades”) em um chassi único. Ela é usada amplamen-te em centro de armazenamento de dados para economizar espaço e melhorar o gerenciamento de sistemas. 
+Book 1.indb 537 19.11.09 14:40:45
+
+538 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Independentes ou montados no rack, os chassis fornecem fonte de energia e cada blade possui processador, me-
+mória e disco rígido próprios.
+Um exemplo da aplicação é mostrado na Figura 17.12, retirada de Nowell, Vusirikala e Hays (2007o). A tendência 
+em grandes centro de armazenamento de dados, com vários bancos de servidores blade, é a implementação de 
+portas de 10 Gbps em servidores individuais para lidar com grande tráfego de multimídia fornecidos por esses servidores. Tais arranjos estressam os comutadores Ethernet necessários para interconectar grande número de ser-vidores. Comutadores Ethernet de 100 Gbps são implementados dentro de centro de armazenamento de dados, assim como as conexões de grande alcance para redes corporativas que interligam prédios, campi e outros.
+ Clusters comparados a SMP
+Tanto clusters quanto multiprocessadores simétricos fornecem uma confi guração com múltiplos processado-
+res para suportar aplicações com grande demanda. As duas soluções estão disponíveis comercialmente, embora esquemas SMP estejam presentes há mais tempo.
+A principal força da abordagem SMP é que um SMP é mais fácil de gerenciar e confi gurar do que um cluster. O SMP 
+é muito mais próximo ao modelo original de processador único para o qual quase todas as aplicações são escritas. A principal alteração requerida quando se muda de um processador único para SMP é com a função de agendamento. Outro benefício de SMP é que ele geralmente ocupa menos espaço físico e consome menos energia do que um clus-
+ter comparável. Um último benefício importante é que os produtos SMP estão bem estabelecidos e são estáveis.
+No entanto, ao decorrer do tempo, as vantagens da abordagem de cluster provavelmente resultarão na domi-
+nação de clusters no mercado de servidores de alto desempenho. Clusters são muito superiores a SMPs em termos de escalabilidade incremental e absoluta. Eles são superiores também em termos de disponibilidade, porque todos os componentes podem se tornar altamente redundantes.
+17.6 Acesso não uniforme à memória
+Em termos de produtos comerciais, duas abordagens comuns para fornecer sistemas com vários processadores 
+para suportar aplicações são SMPs e clusters. Por alguns anos, outra abordagem, conhecida como acesso não uni-forme à memória ( NUMA ), foi assunto de pesquisa e produtos comerciais NUMA estão disponíveis agora.
+Figura 17.12 Exemplo de confi guração de Ethernet de 100 Gbps para processamento massivo do servidor blade
+N 100 Gbps
+N 100 Gbps
+10 Gbps
+&
+40 Gbps
+Computador bladeComutador
+Ethernet
+Book 1.indb 538 19.11.09 14:40:46
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 539
+Antes de prosseguir, devemos defi nir alguns termos encontrados frequentemente na literatura sobre NUMA:
+Acesso uniforme à memória (umA, do inglês  Uniform memory acess): todos os processadores têm 
+acesso a todas as partes da memória principal usando leituras e escritas. O tempo de acesso à memória 
+de um processador para todas as regiões da memória é o mesmo. Os tempos de acesso de processadores diferentes são os mesmos. A organização SMP discutida nas seções 17.2 e 17.3 é UMA.Acesso não uniforme à memória (
+  numA ): todos os processadores têm acesso a todas as partes da memó-
+ria principal usando leituras e escritas. O tempo de acesso à memória de um processador difere dependendo de qual região da memória está sendo acessada. Isto é verdade para todos os processadores; no entanto, para processadores diferentes, as regiões de memória mais lentas e mais rápidas diferem.
+numA 
+  com coerência de cache (cc- numA ): um sistema NUMA no qual a coerência de cache é mantida 
+entre caches de vários processadores.
+Um sistema NUMA sem coerência de cache é mais ou menos equivalente a um cluster. Os produtos comerciais 
+que receberam muita atenção recentemente são sistemas CC-NUMA, os quais são bastante diferentes de SMPs e clusters. Em geral, mas infelizmente nem sempre, tais sistemas são referidos na literatura comercial como sistemas CC-NUMA. Esta seção dedica-se apenas a estes sistemas.
+ Motivação
+Com um sistema SMP , há um limite prático do número de processadores que podem ser usados. Um esquema 
+de cache efi ciente reduz o tráfego de barramento entre qualquer um dos processadores e a memória principal. À medida que aumenta o número de processadores, esse tráfego de barramento também aumenta. Além disso, o barramento é usado para trocar sinais de coerência de cache, o que piora ainda mais a situação. Em algum ponto, o barramento torna-se um gargalo de desempenho. A degradação do desempenho parece limitar o número de processadores em uma confi guração SMP para algo em torno de 16 até 64 processadores. Por exemplo, o Power Challenge SMP da Silicon Graphics é limitado a 64 processadores R10000 em um sistema único; além desse núme-ro, o desempenho degrada substancialmente.
+O limite de processadores em um SMP é uma das principais motivações por trás do desenvolvimento de siste-
+mas clusters. No entanto, em um cluster, cada nó possui sua memória principal privada, as aplicações não enxergam 
+uma memória global maior. Na prática, a coerência é mantida em software em vez de em hardware. Esta granulari-dade da memória afeta o desempenho e, para alcançar o desempenho máximo, o software deve ser adaptado para esse ambiente. Uma abordagem para alcançar multiprocessamento em grande escala e ao mesmo tempo manter as características de SMP é NUMA . Por exemplo, o sistema Silicon Graphics Origin NUMA é projetado para suportar 
+até 1024 processadores MIPS R10000 (WHITNEY et al., 1997
+p) e o sistema Sequent NUMA -Q é projetado para supor-
+tar até 252 processadores Pentium II ( LOVETT e CLAPP , 1996q).
+O objetivo com a NUMA é manter uma memória transparente através do sistema, permitindo ao mesmo tempo 
+vários nós multiprocessadores, cada um com seu próprio barramento ou outro sistema de interconexão interna.
+ Organização
+A Figura 17.13 ilustra uma típica organização CC- NUMA . Existem vários nós independentes e cada um, na prá-
+tica, é uma organização SMP . Dessa forma, cada nó contém vários processadores, cada um com suas próprias ca-ches L1 e L2, mais a memória principal. O nó é o bloco de construção básico de uma organização CC- NUMA . Por 
+exemplo, cada nó do Silicon Graphics Origin inclui quatro processadores Pentium II. Os nós são interconectados por algum recurso de comunicação, o qual pode ser um comutador, um anel ou algum outro recurso de rede.
+Cada nó no sistema CC- NUMA inclui alguma memória principal. No entanto, do ponto de vista dos processa-
+dores, existe apenas uma única memória endereçável, onde cada posição possui um endereço único no sistema inteiro. Quando um processador inicia um acesso à memória, se a posição de memória requisitada não estiver na cache do processador, então a cache L2 inicia uma operação de leitura. Se a linha desejada estiver na parte local da memória principal, a linha é obtida pelo barramento local. Se a linha desejada estiver numa parte remota da memó-ria principal, então uma requisição automática é enviada para obter essa linha pela rede de interconexão, entregá-la ao barramento local e depois entregá-la à cache requisitante nesse barramento. Toda esta atividade é automática e transparente ao processador e sua cache.
+Book 1.indb 539 19.11.09 14:40:46
+
+540 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Nesta configuração, a coerência de cache é uma preocupação central. Embora as implementações sejam dife-
+rentes nos detalhes, em termos gerais podemos dizer que cada nó deve manter algum tipo de diretório que lhe dá 
+uma indicação da posição de várias partes da memória e também a informação sobre o estado da cache. Para ver como este esquema funciona, temos um exemplo retirado de Pfister (1998
+r). Suponha que o processador 3 no nó 2 
+(P2-3) requisite uma posição de memória 798, a qual está na memória do nó 1. Ocorre a seguinte sequência:
+1. P2-3 emite uma requisição de leitura no barramento de monitoração do nó 2 para posição 798.
+2. O diretório no nó 2 vê a requisição e reconhece que a posição está no nó 1.
+3. O diretório do nó 2 envia uma requisição para o nó 2, a qual o diretório do nó 1 pega.
+4. O diretório do nó 1, agindo como suplente de P2-3, requisita o conteúdo de 798, como se fosse um processador.
+5. A memória principal do nó 1 responde colocando os dados requisitados no barramento.
+6. O diretório do nó 1 pega os dados do barramento.
+7. O valor é transferido de volta para o diretório do nó 2.
+8. O diretório do nó 2 coloca os dados de volta no barramento do nó 2, agindo como suplente para memória que o guardava originalmente.
+9. O valor é apanhado e colocado na cache do P2-3 e entregue ao P2-3.Figura 17.13 Organização CC-N UMA
+Cache L1Processador
+1-1
+Memória
+principal 1Processador
+1-m
+Cache L1
+Cache L2 Cache L2 Diretório
+E/S
+E/S
+Cache L1Processador
+N-1Processador
+N-m
+Cache L1
+Cache L2 Cache L2
+DiretórioCache L1Processador
+2-1Processador
+2-m
+Cache L1
+Cache L2 Cache L2 Diretório
+E/SRede de
+interconexão
+Memória
+principal NMemória
+principal 2
+Book 1.indb 540 19.11.09 14:40:47
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 541
+A sequência anterior explica como os dados são lidos de uma memória remota usando mecanismos de hardwa-
+re que tornam a transação transparente ao processador. Em cima desses mecanismos, algum tipo de protocolo de 
+coerência de cache é necessário. Vários sistemas diferem nos detalhes de como isso é feito exatamente. Fazemos aqui apenas algumas considerações gerais. Primeiro, como parte da sequência anterior, diretório do nó 1 guarda um registro de que alguma cache remota possui uma cópia da linha contendo a posição 798. Depois, deve haver algum protocolo cooperativo para cuidar das modifi cações. Por exemplo, se a modifi cação é feita numa cache, esse fato pode ser enviado via dispersão para outros nós. O diretório de cada nó que recebe essa dispersão pode então determinar se alguma cache local possui essa linha e, se sim, faz com que seja excluída. Se a posição de memória atual está no nó que recebeu a notifi cação de dispersão, então o diretório do nó precisa manter uma entrada in-dicando que essa linha de memória está inválida e permanece assim até que ocorra uma escrita de volta. Se outro processador (local ou remoto) requisita a linha inválida, então o diretório local deve forçar um uma escrita de volta para atualizar a memória antes de fornecer os dados.
+ Prós e contras de NUMA
+A principal vantagem de um sistema CC- NUMA é que ele pode permitir desempenho efi ciente em níveis mais 
+altos de paralelismo do que SMP , sem requerer maiores mudanças no software. Com vários nós NUMA, o tráfego do barramento de qualquer nó individual está limitado a uma demanda com qual o barramento pode lidar. No entanto, se muitos dos acessos à memória forem para nós remotos, o desempenho começa a falhar. Há uma razão para acreditar que essa falha de desempenho pode ser evitada. Primeiro, o uso de caches L1 e L2 é projetado para minimizar todos os acessos à memória, incluindo os remotos. Se uma boa parte do software tiver uma boa locali-dade temporal, então acessos remotos à memória não devem ser excessivos. Segundo, se o software tiver uma boa localidade espacial e se a memória virtual está em uso, então os dados necessários para uma aplicação residirão em um número limitado de páginas frequentemente usadas que podem ser carregadas inicialmente na memória local da aplicação em execução. Os projetistas do Sequent reportaram que tal localidade espacial aparece, sim, em aplicações representativas ( LOVETT e CLAPP 1996
+q). Finalmente, o esquema de memória virtual pode ser aprimo-
+rado ao incluir no sistema operacional um mecanismo de migração de página que move uma página da memória virtual para um nó que a está usando frequentemente; os projetistas da Silicon Graphics reportaram sucesso com essa abordagem ( WHITNEY et al., 1997
+l).
+Mesmo que a diminuição do desempenho por causa do acesso remoto seja tratada, existem duas outras des-
+vantagens para a abordagem CC- NUMA . Duas em particular são discutidas em detalhes em Pfi ster (1998r). Primeiro, 
+o CC- NUMA não se parece transparentemente como um SMP; alterações de software serão necessárias para mover 
+um sistema operacional e aplicações de um sistema SMP para um CC-NUMA. Isso inclui alocação de página, aloca-ção de processos e balanceamento de carga pelo sistema operacional. Uma segunda preocupação é em relação à disponibilidade. Esta é uma questão complexa e depende da implementação exata do sistema CC-NUMA; encon-tramos uma leitura interessante em Pfi ster (1998
+r).
+Simulador de processador vetorial
+17.7 Computação vetorial
+Embora o desempenho de computadores mainframes de uso geral continue a crescer implacavelmente, ainda 
+existem aplicações que estão além do alcance dos mainframes atuais. Existe uma necessidade por computadores para resolver problemas matemáticos dos processos físicos, tais como os que ocorrem em disciplinas incluindo aerodinâmica, sismologia meteorológica e física atômica, nuclear e dos plasmas.
+Normalmente, esses problemas são caracterizados pela necessidade de alta precisão e um programa que efe-
+tue repetitivamente operações aritméticas de ponto fl utuante em grandes matrizes de números. A maioria desses problemas se enquadra na categoria conhecida como simulação de campos contínuos. Basicamente, uma situação 
+Book 1.indb 541 19.11.09 14:40:47
+
+542 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+física pode ser descrita por uma superfície ou região em três dimensões (por exemplo, o fl uxo de ar adjacente à área 
+de um foguete). Esta superfície é aproximada por uma grade de pontos. Um conjunto de equações diferenciais de-fi ne o comportamento físico da superfície em cada ponto. As equações são representadas como matriz de valores e coefi cientes e a solução envolve operações aritméticas repetidas em matrizes de dados.
+Supercomputadores foram desenvolvidos para lidar com esses tipos de problemas. Essas máquinas são nor-
+malmente capazes de efetuar bilhões de operações de ponto fl utuante por segundo. Diferente dos mainframes, os quais são projetados para multiprogramação e E/S intensivo, o supercomputador é otimizado para o tipo de cálculo numérico que acabamos de descrever.
+Ele possui uso limitado e, por causa do seu preço, um mercado limitado. Comparativamente falando, poucas 
+dessas máquinas são operacionais, na maioria das vezes em centros de pesquisa e algumas agências governamen-tais com funções científi cas ou de engenharia. Assim como ocorre com outras áreas de tecnologia computacional, há uma demanda constante para aumentar o desempenho dos supercomputadores. Desta forma, a tecnologia e o desempenho dos supercomputadores continuam a evoluir.
+Há outro tipo de sistema que foi projetado para atender à necessidade de computação vetorial, conhecido 
+como processador matricial. Embora um supercomputador seja otimizado para computação vetorial, trata-se de 
+um computador de uso geral, capaz de lidar com processamento escalar e com tarefas comuns de processamento de dados. Processadores matriciais não incluem processamento escalar; eles são confi gurados como dispositivos periféricos pelos usuários do computador e do mainframe para executarem partes vetoriais dos programas.
+ Abordagens para computação vetorial
+O principal ponto para projetar um supercomputador ou um processador matricial é reconhecer que a tarefa 
+principal é executar operações aritméticas de matrizes ou vetores de números de ponto fl utuante. Em um compu-tador de propósito geral, isso vai requerer iteração por meio de cada elemento da matriz. Por exemplo, considere dois vetores (matrizes unidimensionais) de números, A e B. Gostaríamos de somá-los e colocar o resultado em C. No 
+exemplo da Figura 17.14, isso requer seis adições separadas. Como poderíamos acelerar esse cálculo? A resposta é introduzir alguma forma de paralelismo.
+Várias abordagens foram tomadas para alcançar o paralelismo em computação vetorial. Ilustramos isso com 
+um exemplo. Considere a multiplicação de vetores C = A ×B, onde A, B e C são matrizes N × N. A fórmula para cada 
+elemento de C é
+ci,j=aN
+k=1ai,k*bk,j
+onde A, B e C possuem elementos ai,j, bi,j e ci,j, respectivamente. A Figura 17.15a mostra um programa FORTRAN 
+para esse cálculo que pode ser executado em um processador escalar comum.
+Uma abordagem para melhorar o desempenho pode ser referida como processamento vetorial. Isto supõe que 
+seja possível operar em um vetor de dados unidimensional. A Figura 17.15b é um programa FORTRAN com uma 
+nova forma de instrução que permite que computação vetorial seja especifi cada. A notação (J = 1, N) indica que as operações em todos os índices J no dado intervalo serão executadas como uma única operação.
+1,5
+7,16,9
+100,5
+0
+59,7
+A2,0
+39,7
+1000,003
+11
+21,119,7
+B3,5
+46,8
+1006,093
+111,5
+21,179,4
+CFigura 17.14 Exemplo de soma de vetores
+Book 1.indb 542 19.11.09 14:40:48
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 543
+O programa da Figura 17.15b indica que todos os elementos da i-ésima linha serão calculados em paralelo. Cada 
+elemento da linha é um somatório e os somatórios (pelos K) são feitos serialmente em vez de em paralelo. Mesmo 
+assim, apenas N2 multiplicações de vetores são necessárias para este algoritmo se comparado com N3 multiplica-
+ções escalares para o algoritmo escalar.
+Outra abordagem, processamento paralelo, é ilustrada na Figura 17.15c. Esta abordagem assume que tenhamos N 
+processadores independentes que podem funcionar em paralelo. Para utilizar processadores de modo eficiente, te -
+mos que dividir de alguma forma os cálculos em vários processadores. Duas primitivas são usadas. A primitiva FORK n 
+faz com que um processo independente seja iniciado na posição n. Ao mesmo tempo, o processo original continua a 
+execução na instrução que vem imediatamente depois de FORK. Cada execução de um FORK gera um processo novo. A instrução JOIN é basicamente o inverso de FORK. A cláusula JOIN N faz com que N processos independentes sejam 
+unidos em um que continua a execução na instrução que segue JOIN. O sistema operacional deve coordenar essa junção e assim a execução não continua até que todos os N processos tenham alcançado a instrução JOIN.
+O programa na Figura 17.15c é escrito para imitar o comportamento de um programa de processamento veto-
+rial. No programa de processamento paralelo, cada coluna de C é calculada por um processo separado. Assim, os elementos em uma dada linha de C são computados em paralelo.
+A discussão anterior descreve abordagens para computação vetorial em termos lógicos ou arquiteturais. Vamos 
+focar agora em uma consideração sobre os tipos de organização de processadores que podem ser usados para implementar essas abordagens. Uma grande variedade de organizações foi e está sendo praticada. Três principais categorias se destacam:
+ALU com pipeline.
+ 
+ALUs paralelas. 
+Processadores paralelos. Figura 17.15 Multiplicação de matrizes (C = A × B)
+DO 100 I 1, N
+DO 100 J 1, N
+C(I, J) 0.0
+DO 100 K 1, N
+C(I, J) C(I, J) A(I, K) B(K, J)
+100 CONTINUE
+100 CONTINUE
+CONTINUE
+JOIN IN(a) Processamento escalar
+DO 100 I 1, N
+C(I, J) 0.0 (J 1, N)
+DO 100 K 1, N
+C(I, J) C(I, J) A(I, K) B(K, J) (J 1, N)
+(b) Processamento vetorial
+DO 50 J 1, N 1
+FORK 100
+50 CONTINUE
+J N
+100 DO 200 I 1, N
+C(I, J) 0.0
+DO 200 K 1, N
+C(I, J) C(I, J) A(I, K) B(K, J)
+200
+(c) Processamento paralelo
+Book 1.indb 543 19.11.09 14:40:48
+
+544 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A Figura 17.16 ilustra as duas primeiras abordagens. Já discutimos o pipeline no Capítulo 12. Aqui o conceito é 
+estendido para operação da ALU. Como as operações de ponto flutuante são bastante complexas, há uma oportu-
+nidade para decompor uma operação de ponto flutuante em estágios, para que estágios diferentes possam operar em conjuntos de dados diferentes concorrentemente. Isso é ilustrado na Figura 17.17a. Adição de ponto flutuante é quebrada em quatro estágios (veja Figura 9.22): comparar, deslocar, adicionar e normalizar. Um vetor de números é apresentado subsequentemente para o primeiro estágio. À medida que o processamento procede, quatro con-juntos diferentes de números serão processados concorrentemente no pipeline.
+Deve estar claro que esta organização é adequada para processamento vetorial. Para perceber isso, considere o 
+pipeline de instruções descrito no Capítulo 12. O processador passa por um ciclo repetitivo de ler e processar ins-truções. Na ausência de desvios, o processador está continuamente obtendo instruções de posições sequenciais. Consequentemente, o pipeline é mantido cheio e economia em tempo é conseguida. De forma semelhante, uma ALU com pipeline irá economizar tempo apenas se for alimentada com um fluxo de dados a partir das posições sequenciais. Uma operação única, isolada do ponto flutuante, não é acelerada por um pipeline. A aceleração é con-seguida quando um vetor de operandos é apresentado para a ALU. A unidade de controle envia os dados através da ALU até que o vetor inteiro seja processado.
+A operação do pipeline pode ser melhorada ainda mais se os elementos do vetor estiverem disponíveis nos 
+registradores, e não na memória. De fato, isso é sugerido na Figura 17.16a. Os elementos de cada operando do vetor são carregados como um bloco em um registrador vetorial, o qual é simplesmente um grande banco de registra-dores idênticos. O resultado é guardado também em um registrador vetorial. Desta forma, a maioria das operações envolve apenas o uso de registradores, e apenas as operações de leitura e escrita e começo e fim de uma operação vetorial requerem acesso à memória.
+Figura 17.16 Abordagens para computação vetorial
+MemóriaRegistradores
+de entrada ALU com pipeline
+(a) ALU com pipelineRegistradores
+de saída
+MemóriaRegistradores
+de entrada
+(b) ALUs paralelasRegistradores
+de saídaALUALU
+ALU
+Book 1.indb 544 19.11.09 14:40:49
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 545
+O mecanismo ilustrado na Figura 17.17 pode ser referido como pipeline dentro de uma operação. Isto é, temos 
+uma única operação aritmética (por exemplo, C = A + B) que será aplicada os operandos do vetor, e o uso do pipe-
+line permite que vários elementos do vetor sejam processados em paralelo. Este mecanismo pode ser aumentado 
+com pipeline através de operações. Neste último caso, há uma sequência de operações vetoriais aritméticas e o 
+pipeline de instruções é usado para acelerar o processamento. Uma abordagem para isso, conhecida como en-
+cadeamento ( chaining), é encontrada nos supercomputadores Cray. A regra básica para encadeamento é: uma 
+operação vetorial pode começar assim que o primeiro elemento do(s) vetor(es) do operando estiver disponível e a unidade funcional (por exemplo, adicionar, subtrair, multiplicar, dividir) estiver livre. Basicamente, o encadeamento faz com que a emissão de resultados de uma unidade funcional seja alimentada em outra unidade funcional e as-sim por diante. Se os registradores vetoriais forem usados, resultados intermediários não precisam ser armazenados em memória e podem ser usados até antes que a operação vetorial que os criou execute até a conclusão.
+Por exemplo, quando computar C = (s × A) + B, onde A, B e C são vetores e s é um escalar, o Cray pode executar 
+três instruções ao mesmo tempo. Os elementos obtidos entram imediatamente no multiplicador com pipeline, os produtos são enviados para um somador com pipeline e as somas são guardadas em um registrador vetorial assim que o somador as completa:
+1. Carregar vetor A → Registrador vetorial (VR1)
+2. Carregar vetor B → VR2
+3. Multiplicar vetor s × VR1 → VR3
+4. Adicionar vetor VR3 + VR2 → VR4
+5. Armazenar vetor VR4 → C
+Figura 17.17 Processamento com pipeline de operações de ponto flutuante
+Comparar
+expoenteDeslocar
+mantissaAdicionar
+mantissaNormalizarN A S C
+S
+(a) ALU com pipeline
+(b) Quatro ALU paralelasCxi
+x1, y1 z1
+x2, y2 z2
+x3, y3 z3
+x4, y
+C = comparar
+S = deslocar (shift)A = Somar (add)N = Normalizar4 z4
+x5, y5 z5yizixiyizizi
+xi1yi1zi1
+xi2yi2zi2
+xi3yi3zi3C S A N
+x1, y1 z1 C S A N
+x2, y2 z2 C S A N
+x3, y3 z3 C S A N
+x4, y4 z4 C S A N
+x5, y5 z5 C S A N
+x6, y6 z6 C S A N
+x7, y7 z7 C S A N
+x8, y8 z8 C S A N
+x9, y9 z9 C S A N
+x10, y10 z10 C S A N
+x11, y11 z11 C S A N
+x12, y12 z12 C S A NC S A N
+C S A N
+C S A N
+C S A NANxiyi
+SC A NSC A N
+SC A N
+SC A N
+Book 1.indb 545 19.11.09 14:40:50
+
+546 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+As instruções 2 e 3 podem ser encadeadas porque elas envolvem posições de memória e registradores diferentes. 
+A instrução 4 precisa dos resultados das instruções 2 e 3, mas pode ser encadeada com elas também. Assim que os 
+primeiros elementos dos registradores vetoriais 2 e 3 estiverem disponíveis, a operação na instrução 4 pode começar.
+Outra forma de alcançar processamento vetorial é pelo uso de múltiplas ALUs em um único processador, sob 
+controle de uma única unidade de controle. Neste caso, a unidade de controle roteia os dados para as ALUs para que elas possam funcionar em paralelo. É possível também usar pipeline em cada ALUs paralela. Isso é ilustrado na Figura 17.17b. O exemplo mostra um caso onde quatro ALUs operam em paralelo.
+Assim como acontece com organização de pipeline, uma organização paralela de ALUs é adequada para pro-
+cessamento vetorial. A unidade de controle encaminha elementos vetoriais para ALUs no modo round-robin até 
+que todos os elementos sejam processados. Este tipo de organização é mais complexo que uma única ALU CPI.
+Finalmente, o processamento vetorial pode ser alcançado com uso de vários processadores paralelos. Neste 
+caso, é necessário quebrar a tarefa em vários processos para serem executados em paralelo. Esta organização é efi ciente apenas se tivessem software e hardware efi cientes para a coordenação de processadores paralelos.
+Podemos expandir a nossa taxonomia da Seção 17.1 para refl etir essas estruturas novas, conforme mostrado na 
+Figura 17.18. Organizações computacionais podem ser diferenciadas pela presença de uma ou mais unidades de controle. Várias unidades de controle implicam em vários processadores. Segundo a nossa discussão anterior, se vá-rios processadores podem funcionar de forma cooperativa em uma determinada tarefa, eles podem ser chamados de processadores paralelos.
+O leitor deve estar ciente de alguma terminologia infeliz bastante encontrada na literatura. O termo processador 
+vetorial é frequentemente igualado a uma organização de ALU com pipeline, embora uma organização paralela de ALUs seja projetada também para processamento vetorial e, conforme já discutimos, uma organização de pro-cessadores paralelos também pode ser projetada para processamento vetorial. O processamento matricial às vezes 
+é usado para se referir a ALUs paralela, embora, novamente, qualquer uma das três organizações seja otimizada para processamento de matrizes. Para piorar ainda mais as coisas, processador matricial normalmente refere-se a 
+um processador auxiliar anexado a um processador de uso geral e usado para executar computação vetorial. Um processador matricial pode usar abordagem de ALUs paralelas ou com pipeline.
+No momento, a organização de ALUs com pipeline domina o mercado. Os sistemas com pipeline são menos 
+complexos que as duas outras abordagens. A sua unidade de controle e o projeto do sistema operacional são bem desenvolvidos para alcançar alocação de recursos efi ciente e alto desempenho. O restante desta seção é dedicado para uma análise mais detalhada dessa abordagem, usando um exemplo específi co.
+ Recurso vetorial do IBM 3090
+Um bom exemplo de uma organização de ALU com pipeline para processamento vetorial é o recurso vetorial 
+desenvolvido para arquitetura IBM 370 e implementado nas séries 3090 de alto nível ( PADEGS et al., 1988s, TUCKER , 
+1987t). Este recurso é um opcional adicional ao sistema básico, mas é altamente integrado a ele e se assemelha aos 
+recursos vetoriais encontrados em supercomputadores, como os da família Cray.
+O recurso da IBM faz uso de uma série de registradores vetoriais. Cada registrador é, na verdade, um banco de re-
+gistradores escalares. Para calcular a soma de vetores C = A + B, os vetores A e B são carregados em dois registradores 
+vetoriais. Os dados desses registradores passam pela ALU o mais rápido possível e os resultados são guardados em 
+Figura 17.18 Uma taxonomia de organizações computacionais
+Várias unidades de controle Unidade de controle única
+Uniprocessador ALU com pipeline ALUs paralelas Multiprocessador Processadores paralelos
+Book 1.indb 546 19.11.09 14:40:51
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 547
+um terceiro registrador vetorial. A sobreposição computacional e a leitura de dados de entrada nos registradores 
+em um bloco resultam em uma aceleração significativa em relação a uma operação de uma ALU comum.
+ORGANIZAÇÃO Arquitetura vetorial da IBM e ALUs vetoriais com pipeline similares fornecem um aumento no 
+desempenho em relação a laços de instruções aritméticas escalares de três maneiras:
+A estrutura fixa e predeterminada de dados do vetor permite que instruções guardadas dentro do laço se- 
+jam substituídas por operações de máquina internas mais rápidas (de hardware ou microcódigo).O acesso a dados e operações aritméticas em vários elementos vetoriais sucessivos pode proceder con-
+ 
+correntemente por meio da sobreposição de tais operações em um projeto com pipeline ou por meio da execução de operações de múltiplos elementos em paralelo.O uso de registradores vetoriais para resultados intermediários evita referências adicionais de armazena-
+ 
+mento.
+A Figura 17.19 mostra a organização geral do recurso vetorial. Embora ele seja visto como um adicional físico 
+separado do processador, a sua arquitetura é uma extensão da arquitetura do System/370 e é compatível com ela. O recurso vetorial é integrado na arquitetura do System/370 de seguintes maneiras:
+Instruções existentes de System/370 são usadas para todas as operações escalares.
+ 
+Operações aritméticas em elementos vetoriais individuais produzem exatamente o mesmo resultado como 
+instruções escalares do System/370 correspondentes. Por exemplo, uma decisão de projeto a respeito da definição do resultado em uma operação DIVIDE de ponto flutuante. O resultado deve ser exato, como é para divisão escalar de ponto flutuante, ou uma aproximação deve ser aceita para que seja permitida uma implementação de velocidade maior, mas que pode introduzir às vezes um erro em uma ou mais posições de bits de ordem mais baixa? A decisão foi feita para manter a compatibilidade total com a arquitetura de System/370 a custo de uma pequena degradação do desempenho.Instruções vetoriais podem ser interrompidas e sua execução pode ser continuada do ponto da interrupção 
+ 
+depois que a ação adequada foi tomada, de uma forma compatível com esquema de interrupção de pro-grama do System/370.Exceções aritméticas são as mesmas que, ou extensões de, exceções para instruções aritméticas escalares do 
+ 
+System/370 e rotinas de ajustes similares podem ser usadas. Para acomodar isso, um índice de interrupção vetorial é empregado e indica a posição dentro de um registrador vetorial que é afetado por uma exceção 
+Figura 17.19 IBM 3090 com recurso vetorial
+Memória principal
+Cache
+Decodi/f_icador
+de instruçãoElementos vetoriais
+Instruções vetoriais
+Valores escalaresProcessador
+escalar
+Processador
+escalar
+Recurso opcionalProcessador
+vetorial
+Processador
+vetorial
+CPU 
+3090
+Book 1.indb 547 19.11.09 14:40:51
+
+548 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+(por exemplo, overflow ). Desta forma, quando a execução da instrução vetorial continua, o lugar adequado 
+em um registrador vetorial é acessado.
+Os dados vetoriais residem em armazenamento vetorial, com falhas de página sendo tratadas de forma 
+padrão.
+Este nível de integração fornece vários benefícios. Os sistemas operacionais existentes podem suportar o recurso 
+vetorial com pequenas extensões. As aplicações existentes, compiladores e outros softwares podem ser executados sem mudanças. O software que poderia obter vantagem do recurso vetorial pode ser modificado conforme desejado.
+REGISTRADORES O principal ponto em projetar um recurso vetorial é se os operandos são localizados em re-
+gistradores ou memória. A organização da IBM é chamada de registrador para registrador, porque os operandos 
+vetoriais de saída e entrada podem ser guardados em registradores vetoriais. Esta abordagem é usada também no supercomputador Cray. Uma abordagem alternativa, usada em máquinas Control Data, é obter operandos direta-mente da memória. A principal desvantagem do uso de registradores vetoriais é que programador ou compilador deve considerá-los para um bom desempenho. Por exemplo, suponha que o tamanho dos registradores vetoriais seja K e o tamanho dos vetores a serem processados seja N > K. Neste caso, um laço de vetor deve ser executado, no 
+qual a operação é executada em K elementos ao mesmo tempo e o laço é repetido N/K vezes. A principal vantagem do registrador vetorial é que a operação é desacoplada da memória principal mais lenta e, em vez disso, ocorre principalmente em registradores.
+A aceleração que pode ser alcançada com uso de registradores é demonstrada na Figura 17.20. A rotina FORTRAN 
+multiplica o vetor A pelo vetor B para produzir o vetor C, onde cada vetor possui uma parte real (AR, BR, CR) e uma 
+Figura 17.20 Programas alternativos para cálculos de vetores
+ROTINA FORTRAN:
+DO 100 J 1, 50
+CR(J) AR(J) * BR(J) AI(J) * BI(J)
+100 CI(J) AR(J) * BI(J) AI(J) * BR(J)
+Operação Ciclos
+AR(J) * BR(J) T1(J)
+AI(J) * BI(J) T2(J) 
+T1(J) T2(J) CR(J)
+AR(J) * BI(J) T3(J)AI(J) * BR(J) T4(J)T3(J) 
+ T4(J) CI(J)3
+33
+333
+18 Total
+(a) Memórias para memória
+AR(J) V1(J)
+V1(J) * BR(J) V2(J)AI(J) V3(J)V3(J) * BI(J) V4(J)V2(J) 
+V4(J) V5(J)
+V5(J) CR(J)V1(J) * BI(J) V6(J)V4(J) * BR(J) V7(J)V6(J) 
+ V7(J) V8(J)
+V8(J) CI(J)1
+1
+1
+1
+11
+1
+11
+1
+(c) Memórias para registrador
+Vi = registradores vetoriais
+AR, BR, AI, BI = operandos em memóriaTi = posições temporárias em memóriaAR(J) V1(J)
+BR(J) V2(J)V1(J) * V2(J) V3(J)AI(J) V4(J) 
+BI(J) V5(J)
+V4(J) * V5(J) V6(J)V3(J) 
+ V6(J) V7(J)
+V7(J) CR(J)V1(J) * V5(J) V8(J)V4(J) * V2(J) V9(J)V8(J) 
+ V9(J) V0(J)
+V0(J) CI(J)1
+1111
+1
+111
+1
+11
+(b) Registrador para registrador
+AR(J) V1(J)
+V1(J) * BR(J) V2(J)AI(J) V3(J)V2(J) 
+ V3(J) * BI(J) V2(J)
+V2(J) CR(J)V1(J) * BI(J) V4(J)V4(J) 
+ V3(J) * BR(J) V5(J)
+V5(J) CI(J)1
+1
+1
+1
+1
+11
+1
+(d) Instrução compostaOperação Ciclos
+10 TotalOperação Ciclos
+8 TotalOperação Ciclos
+12 Total
+Book 1.indb 548 19.11.09 14:40:52
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 549
+parte imaginária (AI, BI, CI). O 3090 pode executar um acesso ao armazenamento principal por ciclo de processador, ou 
+clock (leitura ou escrita); possui registradores que podem sustentar dois acessos para leitura e um para escrita por ciclo; e produz um resultado por ciclo na sua unidade aritmética. Vamos supor o uso de instruções que podem especificar dois operandos fontes e um resultado.
+5 A Figura 17.20a mostra que, com instruções memória-para-memória, cada ite -
+ração do processamento requer um total de 18 ciclos. Com arquitetura puramente registrador-para-registrador (Figura 17.20b), esse tempo é reduzido para 12 ciclos. É claro que, com operações registrador-para-registrador as grandezas vetoriais devem ser carregadas nos registradores vetoriais antes do processamento e armazenadas em memória logo depois. Para vetores grandes, esta punição fixa é relativamente pequena. A Figura 17.20c mostra que a habilidade de especificar operandos de memória e de registrador em uma instrução reduz o tempo ainda mais para 10 ciclos por iteração. Este último tipo de instrução é incluído na arquitetura vetorial.
+6
+A Figura 17.21 ilustra os registradores que são parte do recurso vetorial do IBM 3090. Existem 16 registrado -
+res vetoriais de 32 bits. Os registradores vetoriais também podem ser acoplados para formar oito registradores vetoriais de 32 bits. Qualquer elemento registrador pode guardar um valor inteiro ou de ponto flutuante. Assim, registradores vetoriais podem ser usados para valores inteiros de 32 e 64 bits e para valores de ponto flutuante de 32 e 64 bits.
+5 Para arquitetura 370/390, as únicas instruções de três operandos (instruções de registradores e armazenamento, RS) especificam dois ope-
+randos nos registradores e um em memória. Na parte (a) do exemplo, assumimos a existência de instruções de três operandos nas quais todos os operandos estão na memória principal. Isto é feito para propósitos de comparação e, de fato, tal formato de instrução poderia ser escolhido para arquitetura vetorial.
+6 Instruções compostas, discutidas a seguir, possibilitam uma redução ainda maior.Figura 17.21 Registradores para recurso vetorial do IBM 3090
+14 (0) 15 (0)
+12 (0) 13 (0)
+10 (0) 11 (0)
+8 (0) 9 (0)
+6 (0) 7 (0)
+4 (0) 5 (0)
+2 (0) 3 (0)
+0 (0) 1 (0)
+0 (1) 1 (1)0 (2) 1 (2)
+0 (127)
+32 bits
+Registrador de estados vetoriais
+Contador de atividade vetoriais0128 bits1
+2
+Z 1128 elementos
+64 bitsRegistradores
+vetoriaisRegistrador de
+máscara vetorial
+Book 1.indb 549 19.11.09 14:40:52
+
+550 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A arquitetura especifica que cada registrador contenha de 8 a 512 elementos escalares. A escolha do tamanho 
+atual envolve uma negociação de projeto. O tempo para fazer uma operação vetorial consiste basicamente da 
+sobrecarga para inicializar o pipeline e preencher registradores mais um ciclo por elemento vetorial. Desta forma, o uso de um número grande de elementos registradores reduz a inicialização relativa para uma computação. No entanto, esta eficiência deve ser equilibrada com o tempo adicional necessário para salvar e restaurar registradores vetoriais em uma troca de processos e o custo prático e os limites de espaço. Estas considerações levem ao uso de 128 elementos por registrador na atual implementação do 3090.
+Três registradores adicionais são necessários para o recurso vetorial. O registrador de máscara vetorial contém 
+bits da máscara que podem ser usados para selecionar quais elementos nos registradores vetoriais devem ser processados para uma determinada operação. O registrador de estado vetorial contém campos de controle, como contador vetorial que determina quantos elementos nos registradores vetoriais estão para ser processados. O con-tador de atividade vetorial acompanha o tempo gasto executando instruções vetoriais.
+INSTRUÇÕES COMPOSTAS Conforme discutimos anteriormente, execução da instrução pode ser sobreposta 
+usando encadeamento para melhorar o desempenho. Os projetistas do recurso vetorial da IBM escolheram não incluir essa capacidade por vários motivos. A arquitetura do System/370 teria que ser estendida para tratar inter-rupções complexas (incluindo o seu efeito no gerenciamento da memória virtual) e as alterações correspondentes seriam necessárias no software. Uma questão mais básica foi o custo de incluir os controles adicionais e caminhos de acesso aos registradores no recurso vetorial para um encadeamento geral.
+Em vez disso, três operações são fornecidas que combinam, em uma instrução (um opcode), as sequências mais 
+comuns em computação vetorial, mais precisamente multiplicação seguida de adição, subtração ou somatório. A instrução memória-para-registrador MULTIPLY-AND-ADD, por exemplo, obtém um vetor da memória, multiplica-o por um vetor de um registrador e adiciona o produto de um terceiro vetor em um registrador. Com uso de instru-ções compostas MULTIPLY-AND-ADD e MULTIPLY-AND-SUBTRACT no exemplo da Figura 17.20, o tempo total para iteração é reduzido de 10 para 8 ciclos.
+Diferente do encadeamento, instruções compostas não requerem o uso de registradores adicionais para arma-
+zenamento temporário ou resultados intermediários e requerem um acesso a registrador a menos. Por exemplo, considere a seguinte sequência:
+VR1
++VR2SVR1ASVR1
+Neste caso, dois armazenamentos no vetor VR1 são necessários. Na arquitetura da IBM existe uma instrução 
+ADD memória-para-registrador. Com essa instrução, apenas a soma é colocada em VR1. A instrução composta evita também a necessidade para refletir, na descrição do estado da máquina, a execução concorrente de um número de instruções, o que simplifica salvar e restaurar o estado pelo sistema operacional e o tratamento de interrupções.
+CONJUNTO DE INSTRUÇÕES A Tabela 17.3 resume as operações aritméticas e lógicas que são definidas para 
+arquitetura vetorial. Além disso, existem instruções de leitura memória-para-registrador e escrita registrador-para-memória. Observe que muitas instruções usam o formato de três operandos. Também, muitas instruções possuem uma série de variantes, dependendo da localização dos operandos. Um operando de origem pode ser um registrador vetorial (V), armazenamento (S) ou um registrador escalar (Q). O alvo é sempre um regis-trador vetorial, exceto para comparação, cujo resultado vai para o registrador de máscara de vetor. Com todas estas variantes, o número total de opcodes (instruções distintas) é 171. No entanto, este número grande não é 
+tão caro para ser implementado como pode parecer. Uma vez a máquina fornecendo as unidades aritméticas e caminhos de dados para alimentar operandos a partir do armazenamento, registradores escalares e registra-dores vetoriais para pipelines vetoriais, o principal custo de hardware já foi coberto. A arquitetura pode, com pouca diferença no custo, fornecer um conjunto rico de variantes para uso desses registradores e pipelines.
+A maioria das instruções da Tabela 17.3 é autoexplicativa. Duas instruções de somatório exigem uma 
+explicação adicional. A operação de acumular agrupa os elementos de um único vetor (ACCUMULATE) ou os elementos do produto de dois vetores (MULTIPLY-AND-ACCUMULATE). Essas instruções apresentam um problema de projeto interessante. Nós gostaríamos de executar essa operação o mais rapidamente possível, obtendo a total vantagem da ALU com pipeline. A dificuldade é que a soma de dois números colocada no 
+Book 1.indb 550 19.11.09 14:40:52
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 551
+Tipos de dados
+Ponto flutuante
+OperaçãoLongo 
+(long)Curto 
+(short)Binário 
+ou LógicoLocalizações dos operandos
+Somar FL FS BI V + V  V V+ S  V Q + V  V Q + S  V
+Subtrair FL FS BI V – V  V V– S  V Q – V  V Q – S  V
+Multiplicar FL FS BI V × V  V V× V  V Q × V  V Q × S  V
+Dividir FL FS – V/V  V V/S  V Q/V  V Q/S  V
+Comparar FL FS BI V . V  V V . S  V Q . V  V Q . S  V
+Multiplicar e somar FL FS – V + V × S  V V + Q × V  V V + Q × S  V
+Multiplicar e subtrair FL FS – V – V × S  V V – Q × V  V V – Q × S  V
+Multiplicar e acumular FL FS – P + . V  V P +. S  V
+Complemento FL FS BI – V  V
+Positivo absoluto FL FS BI V  V 
+negativo absoluto FL FS BI – V  V 
+Máximo FL FS – Q . V  Q
+Máximo absoluto FL FS – Q . V  Q
+Mínimo FL FS – Q . V  Q
+Deslocamento lógico para 
+esquerda–– LO . V  V 
+Deslocamento lógico para 
+direita–– LO . V  V
+And –– LO V & V  V V & S  V Q & V  V Q & S  V
+OR –– LO V|V  V V|S  V Q|V  V Q|S  V
+Exclusive-OR – – LO V V  V V S  V Q V  V Q S  V
+Explicação:
+Tipos de dados Localizações dos operandos
+FL = ponto flutuante longo (long) V = Registrador vetorial
+FS = ponto flutuante curto (short) S = Armazenamento
+BI = inteiro binário Q = Escalar (registrador geral ou de ponto flutuante)
+LO = lógico P = Somas parciais no registrador vetorial
+ . = Operação especialTabela 17.3 Recurso vetorial de IBM 3090: instruções aritméticas e lógicas
+pipeline não está disponível até vários ciclos depois. Assim, o terceiro elemento no vetor não pode ser adicio -
+nado à soma dos dois primeiros elementos até que eles passem pelo pipeline inteiro. Para tratar esse proble -
+ma, os elementos do vetor são adicionados de tal forma que produzem quatro somas parciais. Em particular, 
+elementos 0, 4, 8, 12, …, 124 são adicionados nessa ordem para produzir a soma parcial 0; elementos 1, 5, 9, 13, …, 125 para soma parcial 1; elementos 2, 6, 10, 14, …, 126 para soma parcial 2; e elementos 3, 7, 11, 15, …, 127 para soma parcial 4. Cada uma dessas somas parciais pode prosseguir pelo pipeline à velocidade máxima máxima porque o atraso do pipeline é de aproximadamente quatro ciclos. Um registrador vetorial separado é usado para guardar as somas parciais. Quando todos os elementos do vetor original forem processados, as quatro somas parciais são totalizadas para produzir o resultado final. O desempenho desta segunda fase não é crítico, porque apenas quatro elementos vetoriais são envolvidos.
+Book 1.indb 551 19.11.09 14:40:53
+
+552 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+17.8 Leitura recomendada e sites Web
+Catanzaro (1994u) analisa os princípios dos multiprocessadores e examina SMP baseados em SPARC em deta-
+lhes. SMPs também estão cobertos em bastante detalhes em Stone (1993v) e Hwang (1993w).
+Milenkovic (2000x) é uma introdução a algoritmos e técnicas de coerência de cache para multiprocessadores, 
+com ênfase em questões de desempenho. Outra análise das questões referentes à coerência de cache em multi-
+processadores é Lilja (1993d). Tomasevic e Milutinovied (1993y) contém reimpressão de vários artigos importantes 
+sobre o assunto.
+Ungerer, Rubic e Silc (2002g) é uma análise excelente dos conceitos de processadores multithread e chips mul-
+tiprocessadores. Ungerer, Rubic e Silc (2003h) fazem uma longa análise de processadores multithread propostos e 
+atuais que usam multithread explícito.
+Um tratamento completo sobre clusters pode ser encontrado em Buyya (1999n) e Buyya (1999z). Weygant (2001aa) 
+é uma análise menos técnica sobre clusters, com bons comentários sobre vários produtos comerciais. Desai et al. 
+(2005bb) descreve a arquitetura do servidor blade da IBM.
+Uma boa discussão sobre computação vetorial pode ser encontrada em Stone (1993x) e Hwang (1993w).
+ Sites Web recomendados
+Ieee computer society Task Force on Cluster computing: um fórum internacional para promover pesquisa e educação sobre computação em cluster.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Secundário ativo (active standby) Failover Protocolo de monitoramento (snoopy)
+Coerência de cache Protocolo MESI Multiprocessador simétrico (SMP)
+Cluster Multiprocessador Acesso uniforme à memória (UMA)
+Protocolo de diretório Acesso não uniforme à memória (nUMA) Uniprocessador
+Failback Secundário passivo (passive standby) Recurso vetorial
+Perguntas de revisão
+ 17.1 Relacione e defi na brevemente três tipos de organização de sistemas computacionais.
+ 17.2 Quais são as principais características de um SMP?
+ 17.3 Quais são algumas vantagens potenciais de um SMP comparado com um uniprocessador?
+ 17.4 Quais são algumas das principais questões a respeito de projeto de um sistema operacional para um SMP?
+ 17.5 Qual é a diferença entre esquemas de coerência de cache por software e por hardware?
+ 17.6 Qual é o signifi cado de cada um dos quatro estados no protocolo MESI?
+ 17.7 Quais são alguns dos principais benefícios de clusters?
+ 17.8 Qual é a diferença entre failover e failback?
+ 17.9 Quais são as diferenças entre UMA, nUMA e CC- nUMA ?
+Book 1.indb 552 19.11.09 14:40:54
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 553
+Problemas
+17.1 Seja α a percentagem do código do programa que pode ser executado simultaneamente por n processadores em um sistema de computação. 
+Suponha que o código restante deve ser executado sequencialmente por um único processador. Cada processador tem uma taxa de execução 
+de x MIPS.
+a. Derive uma expressão para taxa MIPS efetiva quando usado o sistema para execução exclusiva deste programa, em termos de n, α e x.b. Se n = 16 e x = 4 MIPS, determine o valor de α que produzirá um desempenho de sistema de 40 MIPS.
+17.2 Um multiprocessador com oito processadores possui 20 unidades de fitas anexados. há um grande número de trabalhos submetidos ao sistema 
+onde cada um deles requer um máximo de quatro unidades de fitas para completar a execução. Suponha que cada trabalho inicie a execução com apenas três unidades de fitas por um período longo antes de requerer a quarta fita por um período curto próximo do fim da execução. Suponha também um fornecimento interminável desses trabalhos.
+a. Suponha que o agendador do SO não iniciará um trabalho sem que haja quatro unidades de fitas disponíveis. Quando um trabalho é inicia-do, quatro unidades são atribuídos imediatamente e não são liberados até que o trabalho termine. Qual é o número máximo de trabalhos que podem estar em progresso ao mesmo tempo? Quais são os números mínimo e máximo de drives de fita que podem estar ociosos como resultado desta estratégia?
+b. Sugira uma política alternativa para melhorar a utilização da unidade de fita e, ao mesmo tempo, evitar deadlock de sistema. Qual é o 
+número máximo de trabalhos que pode estar em progresso ao mesmo tempo? Quais são os limites do número de fitas ociosas.
+17.3 Você consegue ver algum problema com a abordagem de cache escrever-uma-vez (write once) em multiprocessadores baseados em barramen-
+to? Se sim, sugira uma solução.
+17.4 Considere uma situação onde dois processadores em uma configuração SMP , ao longo do tempo, requerem acesso à mesma linha de dados da 
+memória principal. Ambos possuem cache e usam protocolo MESI. Inicialmente, as duas caches possuem uma cópia inválida da linha. A Figura 17.22 ilustra a consequência de uma leitura da linha x pelo processador P1. Se este for o começo da sequência de acessos, desenhe as figuras 
+subsequentes para a seguinte sequência:
+a. P2 lê x.
+b. P1 escreve em x (para ficar mais claro, marque a linha na cache do P1 como x’).
+c. P1 escreve em x (marque a linha na cache do P1 como x’’).
+d. P2 lê x.
+Figura 17.22 Exemplo MESI: Processador 1 lê a linha x
+x
+xMemória
+principal
+Cache
+Processador
+1Cache
+MonitoraçãoAcesso à
+memória
+Processador
+2
+I E I
+Book 1.indb 553 19.11.09 14:40:54
+
+554 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+17.5 A Figura 17.23 mostra um diagrama de estados de dois protocolos possíveis para coerência de cache. Deduza e explique cada protocolo e 
+compare-os com MESI.
+17.6 Considere um SMP com caches L1 e L2 usando protocolo MESI. Conforme explicado na Seção 17.3, um dos quatro estados é associado com cada 
+linha da cache L2. Todos os quatro estados também são necessários para cada linha da cache L1? Se sim, por quê? Se não, explique quais estados 
+podem ser excluídos.
+17.7 Uma versão anterior do mainframe da IBM, S/390 G4, usava três níveis de cache. Assim como no z990, apenas o primeiro nível estava no 
+chip do processador, chamado de unidade de processamento (PU). A cache L2 também era parecida com o z990. Uma cache L3 estava em um chip separado que agia como um controlador de memória e estava interposto entre as caches L2 e cartões de memória. A Tabela 17.4 mostra o desempenho de um arranjo de cache em três níveis para o IBM S/390. O propósito deste problema é determinar se a inclusão de um terceiro nível de cache vale à pena. Determine a penalidade de acesso (número médio de ciclos de CPU) para um sistema com apenas uma cache L1 e normalize esse valor para 1.0. Determine então a penalidade de acesso normalizado quando caches L1 e L2 são usadas e a penalidade de acesso quando todas as três caches são usadas. Observe a quantidade de melhoria em cada caso e dê a sua opinião sobre o valor da cache L3.
+17.8
+a. Considere um uniprocessador com caches separadas de dados e instruções, com taxa de acerto H
+d e Hi, respectivamente. O tempo de 
+acesso do processador à cache é de c ciclos de clock e tempo de transferência para um bloco entre memória e cache é de b ciclos de 
+clock. Seja fi a fração dos acessos à memória que são para as instruções e seja fd a fração de linhas sujas na cache de dados entre linhas 
+substituídas. Suponha uma política de write-back e determine o tempo efetivo de acesso à memória em termos dos parâmetros que acabamos de definir.
+Tabela 17.4 Taxa de sucesso de cache típica na configuração S/390 SMP [MAK97]
+Subsistema de memória Penalidade de acesso (ciclos de PU) Tamanho de cache Taxa de acerto (hit) (%)
+Cache L1 1 32 KB 89
+Cache L2 5 256 KB 5
+Cache L3 14 2 MB 3
+Memória 32 8 GB 3Figura 17.23 Protocolos de coerência de duas caches
+Inválido ValidoR(i) R(i)
+R(j)R(j)
+W(i)W(i)
+W(j)
+W(j)Z(j)Z(i)Inválido
+ExclusivoCompartilhadoR(i)
+R(i)R(i)
+R(j)
+R(j)R(j)
+Z(j)
+W(i)
+W(i)W(i)W(j)
+W(j)
+W(j)Z(j)
+W(i) escrita na linha pelo processador i
+R(i) escrita na linha pelo processador i
+Z(i) Remoção de linha na cache i
+W(j) Leitura na linha pelo processador j (j i)
+R(j) Leitura na linha pelo processador j (j i)
+Z(j) Remoção de linha pela cache j (j i)
+Observação: diagramas de estado são para 
+uma determinada linha na cache i
+Z(j)Z(i)
+Z(i)
+Book 1.indb 554 19.11.09 14:40:55
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 555
+b. Suponha agora um SMP baseado em barramento onde cada processador tem características da parte (a). Cada processador deve lidar com invalidação 
+de cache além das leituras e escritas de memória. Isto afeta o tempo efetivo de acesso à memória. Seja finv a fração de referências de dados que fazem 
+com que sinais de invalidação sejam enviados para outras caches de dados. Para o processador enviar sinais, são requeridos t ciclos de clock para comple -
+tar a operação da invalidação. Outros processadores não são envolvidos na operação da invalidação. Determine o tempo efetivo de acesso à memória.
+17.9 Qual alternativa organizacional é sugerida por cada uma das ilustrações na Figura 17.24?
+17.10 na Figura 17.8, alguns dos diagramas mostram linhas horizontais preenchidas parcialmente. Em outros casos, há linhas totalmente vazias. Isto 
+representa dois tipos diferentes de perda da eficiência. Explique.
+17.11 Considere o desenho do pipeline na Figura 12.13b, o qual é redesenhado na Figura 17.25a, onde os estágios de busca e decodificação são 
+ignorados, para representar a execução de thread A. A Figura 17.25 ilustra a execução de uma thread B separada. Em ambos os casos, um processador com pipeline simples é usado.
+a. Mostre um diagrama de envio de instruções, semelhante à Figura 17.8a, para cada uma das duas threads.
+b. Suponha que duas threads estão para ser executadas em paralelo em um chip multiprocessador, onde cada um dos dois processadores do chip usam um pipeline simples. Mostre um diagrama de emissão de instruções semelhante à Figura 17.8k. Mostre também um diagrama de execução de pipeline no estilo da Figura 17.25.
+c. Suponha uma arquitetura superescalar de envio dupla. Repita a parte (b) para uma implementação superescalar multithread intercalada, supondo que não haja nenhuma dependência de dados. Observação: não há uma resposta única; você precisa fazer suposições a respeito 
+de latências e prioridades.
+d. Repita a parte (c) para uma implementação superescalar multithread bloqueada.
+e. Repita para uma arquitetura SMT com quatro envios.
+17.12 O seguinte segmento de código precisa ser executado 64 vezes para avaliar a expressão aritmética vetorial: D(I) = A(I) + B(I) × C(I) para 0 ≤ I ≤ 63.
+Load R1, B(I) 
+Load R2, C(I) Multiply R1, R2 Load R3, A(I) Add R3, R1 Load D1, R3 
+Memory ( +I);(R3)R3;(R3)+(R1)R3;Memory ( +I)R1;(R1)*(R2)R2;Memory ( +I)R1;Memory ( +I)
+onde R1, R2 e R3 são registradores do processador, e α, β, γ, θ são os endereços iniciais de memória dos vetores B(I), C(I), A(I) e D(I), respectiva-
+mente. Suponha quatro ciclos para cada Load ou Store, dois ciclos para Add e oito ciclos para Multiply em um uniprocessador ou em um único 
+processador em uma máquina SIMD.
+a. Calcule o número total de ciclos de processador necessários para executar este segmento de código repetidamente 64 vezes em um unipro-
+cessador SISD sequencialmente, ignorando todos os outros atrasos de tempo.
+Figura 17.24 Diagrama para Problema 17.9
+(a) (b) (c) (d)
+Book 1.indb 555 19.11.09 14:40:56
+
+556 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+b. Considere o uso de um computador SIMD com 64 elementos de processamento para executar operações vetoriais em seis instruções veto-
+riais sincronizadas em cima de um vetor de 64 componentes de dados e todos conduzidos por uma mesma velocidade de clock. Calcule o tempo total de execução na máquina SIMD, ignorando broadcast (difusão) de instruções e outros atrasos.
+c. Qual o aumento de velocidade ganho pelo computador SIMD em relação ao computador SISD?
+17.13 Produza uma versão vetorial do seguinte programa: DO 20 I = 1, n
+DO 20 I 1, N
+B(I, 1) 0
+DO 10 J 1, M
+A(I) A(I) B(I, J) C(I, J)
+10 CONTINUE
+D(I) E(I) A(I)
+20 CONTINUE
+17.14 Uma aplicação é executada em um cluster de nove computadores. Um programa que mede desempenho levou tempo T neste cluster. Depois 
+foi encontrado que 25% de T foi o tempo durante o qual a aplicação estava executando simultaneamente em todos os nove computadores. no 
+tempo restante, a aplicação teve que executar em um único computador.
+a. Calcule o aumento efetivo de velocidade sob a condição anterior quando comparado à execução do programa em um único computador. 
+Calcule também α, a percentagem de código que foi paralelizada (programada ou compilada de tal forma que utilize o modo de cluster) no programa anterior.
+b. Suponha que somos capazes de usar efetivamente 17 computadores em vez de 9 na parte paralelizada do código. Calcule o aumento de velocidade efetivo que é alcançado.
+17.15 O seguinte programa FORTRAn está para ser executado em um computador e uma versão paralelizada está para ser executada em um cluster 
+de 32 computadores.
+L1: DO 10 I 1, 1024
+L2: SUM(I) 0
+L3: DO 20 J 1, I
+L4: 20 SUM(I) SUM(I) I
+L5: 10 CONTINUE
+Suponha que as linhas 2 e 4 levem, cada uma, dois ciclos de máquina, incluindo todas as atividades do processador e acesso à memória. Ignore o overhead causado pelo controle do software sobre laços (linhas 1, 3, 5) e todas as outras sobrecargas do sistema e conflitos de recursos.Figura 17.25 Duas threads de execução
+B7
+B7
+B71
+23456789
+1011
+12
+(a)CO FO EI WO
+1
+2B1
+3B2 B1
+4B3 B2 B1
+B4 B3 B2 B1
+B5
+B5
+B5
+B5B4
+B4
+B4B3 B2
+B6 B7B6
+B6
+B6B3
+A16
+A16
+A16
+A16CO FO EI WO
+A1
+A2 A1
+A3 A2 A1
+A4 A3 A2 A1
+A5 A4 A3 A2
+A15
+A15
+A15
+A15A356789
+1011
+12
+(b)Ciclo
+Book 1.indb 556 19.11.09 14:40:57
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 557
+a. Qual o tempo total de execução (em número de ciclos de máquina) do programa em um único computador?
+b. Divida as iterações do laço I entre 32 computadores da seguinte forma: computador 1 executa as primeiras 32 iterações (I = 1 até 32), 
+processador 2 executa próximas 32 alterações, e assim por diante. Quais são os fatores de aumento de velocidade e tempo de execução quando comparado com parte (a)? (Observe que a carga computacional, ditada pelo laço J, não está equilibrada entre os computadores.)
+c. Explique como modificar o paralelismo para facilitar uma execução paralela balanceada de toda a carga computacional através de 32 com-putadores. Uma carga balanceada significa aqui que um número igual de adições é atribuído para cada computador com respeito a ambos os laços.
+d. Qual o tempo mínimo de execução resultante da execução paralela em 32 computadores? Qual o aumento de velocidade resultante em relação a um único computador?
+17.16 Considere duas versões de um programa para somar dois vetores:
+L1: DO 10 I 1, N DOALL K 1, M
+L2: A(I) B(I) C(I) DO 10 I L(K 1) 1, KL
+L3: 10 CONTINUE A(I) B(I) C(I)
+L4: SUM 0 10 CONTINUE
+L5: DO 20 J 1, N SUM(K) 0
+L6: SUM SUM A(J) DO 20 J 1, L
+L7: 20 CONTINUE SUM(K) SUM(K) A(L(K–1) J)
+20 CONTINUE
+ENDALL
+a. O programa da esquerda executa em um uniprocessador. Suponha que cada linha de código L2, L4 e L6 leve um ciclo de clock do proces-sador para executar. Para simplicidade, ignore o tempo necessário para outras linhas de código. Inicialmente todas as matrizes já estão carregadas na memória principal e o pequeno pedaço do programa está na cache de instruções. Quantos ciclos de clock são necessários para executar este programa?
+b. O programa da direita é escrito para executar em um multiprocessador com M processadores. Particionamos as operações de iteração em 
+seções M com L = N/M elementos por seção. DOALL declara que todas as seções M são executadas em paralelo. O resultado deste programa 
+é produzir M somas parciais. Suponha que k ciclos de clock são necessários para cada operação de comunicação entre processadores através da memória compartilhada e que, por isso, a adição de cada soma parcial requer k ciclos. Uma árvore binária de soma de l níveis pode juntar 
+todas as somas parciais, onde l = log
+2M. Quantos ciclos são necessários para produzir a soma final?
+c. Suponha N = 220 elementos na matriz e M = 256. Qual o aumento de velocidade obtido com uso do multiprocessador? Suponha k = 200. 
+Qual percentagem é esta do aumento teórico de velocidade de um fator de 256?
+ Referências
+ a FLYnn, M. “Some computer organizations and their effectiveness” . IEEE Transactions on Computers, set. 1972.
+ b SIEGEL, T.; PFEFFER, E. e MAGEE, A. “The IBM z990 microprocessor” . IBM Journal of Research and Development, maio/jul. 2004. c MAK, P ., et al. “Processor subsystem interconnect for a large symmetric multiprocessing system” . IBM Journal of Research and Development, 
+mai./jul. 2004.
+ d LILJA, D. “Cache coherence in large-scale shared-memory multiprocessors: issues and comparisons” . ACM Computing Surveys, set. 1993.
+ e STEnSTROM, P . “A survey of cache coherence schemes of multiprocessors” . Computer, jun. 1990. f ShAnLEY , T. Unabridged Pentium 4, the: IA32 processor genealogy. Reading, MA: Addison-Wesley, 2005.
+ g UnGERER, T.; RUBIC, B. e SILC, J. “Multithreaded Processors” . The Computer Journal, no. 3,2002. h UnGERER, T.; RUBIC, B.; e SILC, J. “A survey of processors with explicit multithreading” . ACM Computing Surveys, mar. 2003. i MARR, D., et al. “hyper-threading technology architecture and microarchitecture” . Intel Technology Journal, primeiro trimestre de 2002. j KALLA, R.; SInhAROY , B. e TEnDLER. J. “IBM Power5 chip: a dual-core multithreaded processor” . IEEE Micro, mar./abr. 2004. k BREWER, E. “Clustering: multiply and conquer” . Data Communications, jul. 1997. l KAPP , C. “Managing cluster computers” . Dr. Dobb’s Journal, jul. 2000. m hWA nG, K., et al. “Designing SSI clusters with hierarchical checkpointing and single I/O space” . IEEE Concurrency, jan./mar. 1999.
+ n BUYYA, R. High performance cluster computing: architectures and systems. Upper Saddle River, nJ: Prentice hall. 1999. o nOWELL, M.; VUSIRIKALA, V. e hAYS, R. “Overview of requirements and applications for 40 gigabit and 100 gigabit ethernet” . Ethernet Alliance 
+White Paper, ago. 2007.
+Book 1.indb 557 19.11.09 14:40:57
+
+558 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ p WhITnEY , S., et al. “The SGI origin software environment and application performance” . Proceedings, COMPCON Spring ‘97, fev. 1997.
+ q LOVETT, T. e CLAPP , R. “Implementation and performance of a CC-numa system” . Proceedings, 23rd Annual International Symposium on Computer 
+Architecture, mai. 1996.
+ r PFISTER, G. In search of clusters. Upper Saddle River, nJ: Prentice hall, 1998. s PADEGS, A. et al. “The IBM System/370 vector architecture: design considerations” . IEEE Transactions on Communications, mai. 1988.
+ t TUCKER, S. “The IBM 3090 System design with emphasis on the vector facility” . Proceedings, COMPCON Spring ‘87, fev. 1987. u CATA nZARO, B. Multiprocessor system architectures. Mountain View, CA: Sunsoft Press, 1994.
+ v STOnE, h. High-performance computer architecture. Reading, MA: Addison-Wesley, 1993.
+ w hWA nG, K. Advanced computer architecture. n ova York: McGraw-hill, 1993.
+ x MILEnKOVIC, A. “Achieving high performance in bus-based shared-memory multiprocessors” . IEEE Concurrency, jul./set. 2000. y TOMASEVIC, M. e MILUTInOVIC, V. The cache coherence problem in shared-memory multiprocessors: hardware solutions. Los Alamitos, CA: IEEE Computer 
+Society Press, 1993.
+ z BUYYA, R. High performance cluster computing: programming and applications. Upper Saddle River, nJ: Prentice hall. 1999. aa WEYGAnT, P . Clusters for high availability. Upper Saddle River, nJ: Prentice hall, 2001. bb DESAI, D., et al. “BladeCenter system overview” . IBM Journal of Research and Development, nov. 2005.
+Book 1.indb 558 19.11.09 14:40:57
+
+Computadores multicore
+PRInCIPAIS POnTOS
+ Um computador multicore, ou chip multiprocessador, combina dois 
+ou mais processadores em um único chip de computador.
+ O uso de chips com processador único cada vez mais complexo atin-
+giu o limite por conta do desempenho do hardware, incluindo limites no paralelismo em nível de instruções e limitações de energia.
+ Por outro lado, a arquitetura multicore oferece desafi os para desen-
+volvedores de software para explorar a capacidade do multithreading por meio de vários núcleos.
+ As principais variáveis em uma organização multicore são o número 
+de processadores no chip, o número de níveis da memória cache e a extensão em que a memória cache é compartilhada.
+ Outra decisão sobre projeto organizacional em um sistema multicore 
+é se os núcleos individuais serão superescalares ou se implementarão multithreading simultâneo (SMT).CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+18.1 Questões sobre desempenho de 
+hardware
+  Aumento em paralelismo
+  Consumo de energia
+18.2 Questões sobre desempenho de 
+software
+  Software em multicore
+  Exemplo de aplicação: software de jogo da Valve
+18.3 Organização multicore18.4 Organização multicore x86 da Intel
+  Intel Core Duo
+  Intel Core i7
+18.5 ARM11 MPCore  Tratamento de interrupções
+  Coerência de cache
+18.6 Leitura recomendada e sites Web
+  Sites web recomendados
+Um computador multicore, conhecido também como chip multiprocessador, combina dois ou mais processadores 
+(chamados núcleos — core) em uma única peça de silício (chamada pastilhas — die). Normalmente, cada núcleo 
+consiste de todos os componentes de um processador independente, como registradores, ALU, hardware de pipeline e 
+unidade de controle, mais caches L1 de dados e de instruções. Além de vários núcleos, os chips multicore atuais incluem também cache L2 e, em alguns casos, cache L3.
+Este capítulo fornece uma visão geral sobre sistemas multicore. Começamos com uma análise sobre fatores de 
+desempenho de hardware que levaram ao desenvolvimento de computadores multicore e dos desafi os de software de explorar o poder de um sistema multicore. A seguir, analisamos a organização multicore. Finalmente, examinamos dois exemplos de produtos multicore, um da Intel e outro da ARM.
+18.1 Questões sobre desempenho de hardware
+Conforme discutimos no Capítulo 2, os sistemas dos microprocessadores experimentaram um aumento só-
+lido e exponencial do desempenho de execução durante décadas. A Figura 2.12 mostra que este aumento 
+Book 1.indb 559 19.11.09 14:40:59

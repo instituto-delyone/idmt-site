@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+    "key": "sapiens",
+    "sha256": "5e05b6919909e3ee77de3f91d3b32aedb1447f844971aec7f05a4d9c0f508eee",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "SAPIENS-C0A5AE9C57B0",
+      "sequence": 1,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 32145,
+      "text_checksum": "b6c62eb7b7faaffe26d953d0e47657917fd83cd185b0fde9a2d6f21d87a76fe3",
+      "cache_file": "sapiens\\SAPIENS-C0A5AE9C57B0.txt"
+    },
+    {
+      "id": "SAPIENS-3FEB0220045C",
+      "sequence": 2,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 46594,
+      "text_checksum": "17f3548a82fcb8f380908c555362ae7ef7368161cc24b44fb1b8d9a537868b92",
+      "cache_file": "sapiens\\SAPIENS-3FEB0220045C.txt"
+    },
+    {
+      "id": "SAPIENS-EE694DAC02C4",
+      "sequence": 3,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 51,
+      "end_page": 75,
+      "text_length": 48701,
+      "text_checksum": "2128c2bbbbcff0bfa3cec5c6582ebc0897023c4201f27b083fc93e5f981c9452",
+      "cache_file": "sapiens\\SAPIENS-EE694DAC02C4.txt"
+    },
+    {
+      "id": "SAPIENS-8DB2612155FC",
+      "sequence": 4,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 76,
+      "end_page": 100,
+      "text_length": 45391,
+      "text_checksum": "aa238b22484373635f37b0e55c7feef10e382cadf7bdc7b0ae9aafbcdc7c8c18",
+      "cache_file": "sapiens\\SAPIENS-8DB2612155FC.txt"
+    },
+    {
+      "id": "SAPIENS-D00DADDBAFC8",
+      "sequence": 5,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 101,
+      "end_page": 125,
+      "text_length": 46815,
+      "text_checksum": "19f45aa0c4c8545318bd5840ee158c4225d840a1f6dd6728a03eaa062777b65e",
+      "cache_file": "sapiens\\SAPIENS-D00DADDBAFC8.txt"
+    },
+    {
+      "id": "SAPIENS-F3B80B38E22F",
+      "sequence": 6,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 126,
+      "end_page": 150,
+      "text_length": 47570,
+      "text_checksum": "e4885615f1ec82b033aa7cf462b4559669c78348494f08fbc31006776d697aad",
+      "cache_file": "sapiens\\SAPIENS-F3B80B38E22F.txt"
+    },
+    {
+      "id": "SAPIENS-C9A063D77C76",
+      "sequence": 7,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 151,
+      "end_page": 175,
+      "text_length": 45732,
+      "text_checksum": "4354f7ce09bdd2c20692ebe1e5296508caaf226be1dd99e52244c0b4fece2bf0",
+      "cache_file": "sapiens\\SAPIENS-C9A063D77C76.txt"
+    },
+    {
+      "id": "SAPIENS-C706D47E57E9",
+      "sequence": 8,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 176,
+      "end_page": 200,
+      "text_length": 40193,
+      "text_checksum": "1e4ae5f3342082620f9df28db9e857d60205a4e32792534f66a870f0364c9ee8",
+      "cache_file": "sapiens\\SAPIENS-C706D47E57E9.txt"
+    },
+    {
+      "id": "SAPIENS-A55B52FA07CF",
+      "sequence": 9,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 201,
+      "end_page": 225,
+      "text_length": 48430,
+      "text_checksum": "7c97c4876e308112d220a6f74c0527030fc4850ba766d5a1299b5d7144c94adf",
+      "cache_file": "sapiens\\SAPIENS-A55B52FA07CF.txt"
+    },
+    {
+      "id": "SAPIENS-BAE9B341E493",
+      "sequence": 10,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 226,
+      "end_page": 250,
+      "text_length": 44312,
+      "text_checksum": "37affbeb381c906a2041cea97796cde237323d1405b615b4590452bc2fa7788c",
+      "cache_file": "sapiens\\SAPIENS-BAE9B341E493.txt"
+    },
+    {
+      "id": "SAPIENS-06566B4CD3DD",
+      "sequence": 11,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 251,
+      "end_page": 275,
+      "text_length": 40922,
+      "text_checksum": "f0fc28b6a4ab514910df9fc2993a1a02d334e871c7a7fdca3d3630e08ad69e26",
+      "cache_file": "sapiens\\SAPIENS-06566B4CD3DD.txt"
+    },
+    {
+      "id": "SAPIENS-75591DF9D815",
+      "sequence": 12,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 276,
+      "end_page": 300,
+      "text_length": 46854,
+      "text_checksum": "a4c1e33301d3980f5328617dfacf0771c920542f4d3a8296dceffa161b60fde7",
+      "cache_file": "sapiens\\SAPIENS-75591DF9D815.txt"
+    },
+    {
+      "id": "SAPIENS-C851DE33B9C3",
+      "sequence": 13,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 301,
+      "end_page": 325,
+      "text_length": 48147,
+      "text_checksum": "5df4e6521c735412cdfc870d85d098acf23188b8fac6bb90e16a1d0d8451ae1f",
+      "cache_file": "sapiens\\SAPIENS-C851DE33B9C3.txt"
+    },
+    {
+      "id": "SAPIENS-2195FD7E3B43",
+      "sequence": 14,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 326,
+      "end_page": 350,
+      "text_length": 47603,
+      "text_checksum": "89ff0b86fe9713f3e6c6ac6daa33560333377bab5a2eb243f7a15be3e348e8a0",
+      "cache_file": "sapiens\\SAPIENS-2195FD7E3B43.txt"
+    },
+    {
+      "id": "SAPIENS-F8B99E91DEC0",
+      "sequence": 15,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 351,
+      "end_page": 375,
+      "text_length": 46093,
+      "text_checksum": "dc908b13ec2776287137411136bdaa18a55f9725cd0e05d45e2bd2f28c4bf116",
+      "cache_file": "sapiens\\SAPIENS-F8B99E91DEC0.txt"
+    },
+    {
+      "id": "SAPIENS-3612835835EE",
+      "sequence": 16,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 376,
+      "end_page": 400,
+      "text_length": 46497,
+      "text_checksum": "b210c8885c881e37b8eba331fdab67f6b30a79a07aa5a7c38bd9d197f4153771",
+      "cache_file": "sapiens\\SAPIENS-3612835835EE.txt"
+    },
+    {
+      "id": "SAPIENS-FF08F77664B1",
+      "sequence": 17,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 401,
+      "end_page": 425,
+      "text_length": 48111,
+      "text_checksum": "814f2d7b6af15c6b098e47636d9ae99a20bf83bbf6d36a94e41b4799fa0eba81",
+      "cache_file": "sapiens\\SAPIENS-FF08F77664B1.txt"
+    },
+    {
+      "id": "SAPIENS-DA9F3E981D79",
+      "sequence": 18,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 426,
+      "end_page": 450,
+      "text_length": 49681,
+      "text_checksum": "de15a10f1dd8889f5cdb79ea02b041c6dc83a9a66fbd53ce79c445ad8adbcffc",
+      "cache_file": "sapiens\\SAPIENS-DA9F3E981D79.txt"
+    },
+    {
+      "id": "SAPIENS-A56A1ED270E5",
+      "sequence": 19,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 451,
+      "end_page": 475,
+      "text_length": 46600,
+      "text_checksum": "fa69f48311e4038eab0c50b1376b3c4547354a6fa6a6bf2c3bbeb2e696baac82",
+      "cache_file": "sapiens\\SAPIENS-A56A1ED270E5.txt"
+    },
+    {
+      "id": "SAPIENS-47ADA8FA160B",
+      "sequence": 20,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 476,
+      "end_page": 500,
+      "text_length": 51383,
+      "text_checksum": "a924c6715e4916a3b90e6f9e5cb5e9079f5a5612280e011eabe1e7f831f53fba",
+      "cache_file": "sapiens\\SAPIENS-47ADA8FA160B.txt"
+    },
+    {
+      "id": "SAPIENS-C68E9539629D",
+      "sequence": 21,
+      "source": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+      "source_key": "sapiens",
+      "start_page": 501,
+      "end_page": 506,
+      "text_length": 4256,
+      "text_checksum": "7067a5f2f3a9768e8be147788481f7fac17584eb39d86d464d71a982d0c62323",
+      "cache_file": "sapiens\\SAPIENS-C68E9539629D.txt"
+    }
+  ]
+}

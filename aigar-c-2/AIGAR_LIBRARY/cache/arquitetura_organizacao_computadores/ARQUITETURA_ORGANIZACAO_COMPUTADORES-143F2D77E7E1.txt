@@ -1,0 +1,894 @@
+110 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+frente da lista. Para substituição, a linha no fi nal da lista é usada. Devido à sua simplicidade de implementação, LRU 
+é o algoritmo de substituição mais popular.
+Outra possibilidade é primeiro a entrar, primeiro a sair (FIFO, do inglês fi rst-in-fi rst-out): substitua o bloco no conjunto 
+que esteve na cache por mais tempo. O algoritmo FIFO é facilmente implementado como uma técnica round-robin ou de buff er circular. Ainda outra possibilidade de algoritmo é o usado menos frequentemente (LFU, do inglês least frequen-
+tly used): substitua aquele bloco no conjunto que teve menos referências. O algoritmo LFU poderia ser implementado associando um contador a cada linha. Uma técnica não baseada no uso (ou seja, não LRU, LFU, FIFO ou alguma variante) é escolher uma linha aleatória dentre as linhas candidatas. Estudos de simulação têm mostrado que a substituição alea-tória oferece um desempenho apenas ligeiramente inferior a um algoritmo baseado no uso (Smith, 1982
+m).
+ Política de escrita
+Quando um bloco que está residente na cache estiver para ser substituído, existem dois casos a considerar. 
+Se o bloco antigo na cache não tiver sido alterado, então ele pode ser substituído por um novo bloco sem 
+primeiro atualizar o bloco antigo. Se pelo menos uma operação de escrita tiver sido realizada em uma palavra nessa linha da cache, então a memória principal precisa ser atualizada escrevendo a linha de cache no bloco de memória antes de trazer o novo bloco. Diversas políticas de escrita são possíveis, com escolhas econômicas de desempenho. Existem dois problemas a combater. Primeiro, mais de um dispositivo pode ter acesso à memória principal. Por exemplo, um módulo de E/S pode ser capaz de ler-escrever diretamente na memória. Se uma pa-lavra tiver sido alterada apenas na cache, então a palavra correspondente da memória é inválida. Além do mais, se o dispositivo de E/S tiver alterado a memória principal, então a palavra da cache é inválida. Um problema mais complexo ocorre quando múltiplos processadores são conectados ao mesmo barramento e cada processador tem sua própria cache local. Então, se uma palavra for alterada em uma cache, ela possivelmente poderia inva-lidar uma palavra em outras caches. 
+A técnica mais simples é denominada write‑through. Usando essa técnica, todas as operações de escrita são 
+feita na memória principal e também na cache, garantindo que a memória principal sempre seja válida. Qualquer outro módulo processador-cache pode monitorar o tráfego para a memória principal para manter a consistência dentro de sua própria cache. A principal desvantagem dessa técnica é que ela gera um tráfego de memória con-siderável e podendo vir a ser um gargalo. Uma técnica alternativa, conhecida como write‑back, minimiza as es-critas na memória. Com write‑back, as atualizações são feitas apenas na cache. Quando ocorre uma atualização, um bit de modifi cação, ou bit de uso, associado à linha, é marcado. Depois, quando um bloco é substituído, 
+ele é escrito de volta na memória principal se, e somente se, o bit de modifi cação estiver marcado. O problema com write-back é que partes da memória principal podem fi car inválidas, e daí os acessos pelos módulos de E/S 
+só podem ser permitidos pela cache. Isso exige circuitos complexos e gera um gargalo em potencial. A experiên-cia tem mostrado que a percentagem de referências à memória que são escritas está na ordem de 15% ( SMITH , 
+1982
+m). Porém, para aplicações de HPC, esse número pode se aproximar a 33% (multiplicação de vetores), e pode 
+chegar a até 50% (transposição de matrizes).
+exemplo 4.3 Considere uma cache com um tamanho de linha de 32 bytes e uma memória principal que 
+requer 30 ns para transferir uma palavra de 4 bytes para qualquer linha que seja escrita pelo menos uma vez antes 
+de ser retirada da cache; qual é o número médio de vezes que a linha precisa ser escrita antes de ser retirada para que uma cache write-back seja mais efi ciente do que uma cache write-through?
+Para o caso write-back, cada linha modifi cada é escrita de volta uma vez, no momento da troca, usando 8 × 
+30 = 240 ns. Para o caso write-through, cada atualização da linha requer que uma palavra seja escrita na memória 
+principal, usando 30 ns. Portanto, se a linha média que é escrita pelo menos uma vez for escrita mais de 8 vezes antes de ser trocada, então write-back é mais efi ciente.
+Em uma organização de barramento em que mais de um dispositivo (normalmente, um processador) tem uma 
+cache e a memória principal é compartilhada, um novo problema é introduzido. Se os dados em uma cache fo-rem alterados, isso invalida não apenas a palavra correspondente na memória principal, mas também essa mesma 
+Book 1.indb 110 19.11.09 14:36:27
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 111
+palavra em outras caches (se qualquer outra cache tiver essa mesma palavra). Mesmo que uma política write-through 
+seja usada, as outras caches podem conter dados inválidos. Diz-se que um sistema que impede esse problema 
+mantém coerência de cache. Algumas das técnicas possíveis para a coerência de cache são:
+observação do barramento com  write-through: cada controlador de cache monitora as linhas de en-
+dereço para detectar as operações de escrita para a memória por outros mestres de barramento. Se outro mestre escrever em um local na memória compartilhada que também reside na memória cache, o controla-dor de cache invalida essa entrada da cache. Essa estratégia depende do uso de uma política write-through 
+por todos os controladores de cache.Transparência do hardware:
+  um hardware adicional é usado para garantir que todas as atualizações na 
+memória principal por meio da cache sejam refl etidas em todas as caches. Assim, se um processador mo-difi car uma palavra em sua cache, essa atualização é escrita na memória principal. Além disso, quaisquer palavras correspondentes em outras caches são semelhantemente atualizadas.memória não chacheável:
+  somente uma parte da memória principal é compartilhada por mais de um pro-
+cessador, e esta é designada como não mantida em cache. Nesse tipo de sistema, todos os acessos à memória compartilhada são falhas de cache, pois a memória compartilhada nunca é copiada para a cache. A memória não mantida em cache pode ser identifi cada usando lógica de seleção de chip ou bits mais signifi cativos de endereço alto.
+A coerência de cache é um campo de pesquisa atual. Esse assunto é explorado com mais detalhes na 
+Parte 5.
+ Tamanho da linha
+Outro elemento de projeto é o tamanho da linha. Quando um bloco de dados é recuperado e colocado na 
+cache, não apenas a palavra desejada, mas também algumas palavras adjacentes são armazenadas. À medida que o tamanho do bloco aumenta de tamanhos muito pequenos para maiores, a razão de acerto a princípio aumentará devido ao princípio da localidade, que diz que os dados nas vizinhanças de uma palavra referenciada provavel-mente serão referenciados no futuro próximo. À medida que o tamanho do bloco aumenta, dados mais úteis são trazidos para a cache. Contudo, a razão de acerto começará a diminuir enquanto o bloco se torna ainda maior e a probabilidade de uso da informação recém-trazida se torna menor que a probabilidade de reutilizar as informações que foram substituídas. Dois efeitos específi cos entram em cena:
+Blocos maiores reduzem o número de blocos que cabem em uma cache. Como cada busca de bloco escre-
+ 
+ve sobre o conteúdo antigo da cache, um número pequeno de blocos resulta em dados sendo modifi cados pouco depois de serem buscados.À medida que o bloco se torna maior, cada palavra adicional fi ca mais distante da palavra solicitada e, por-
+ 
+tanto, tem menos probabilidade de ser necessária no futuro próximo.
+O relacionamento entre o tamanho do bloco e a razão de acerto é complexo, dependendo das características 
+de localidade de um programa em particular, e nenhum valor ideal defi nitivo foi encontrado. Um tamanho de 8 a 64 bytes parece ser razoavelmente próximo do ideal (SMITH, 1987
+n; PRZYBYLSKI, HOROWITZ e HENNESSY, 1988o; 
+PRZYBYLSKI, 1990p; HANDY, 1993q). Para sistemas HPC, tamanhos de linha de cache com 64 e 128 bytes são usados 
+com mais frequência.
+ Número de memórias caches
+Quando as memórias caches foram introduzidas originalmente, o sistema de memória típico tinha uma única 
+cache. Mais recentemente, o uso de múltiplas caches tem se tornado comum. Dois aspectos de projeto dizem res-peito ao número de níveis de memórias caches e ao uso de caches unifi cadas ou separadas.
+CACHES MUL TINÍVEL À medida que a densidade lógica aumenta, torna-se possível ter uma cache no 
+mesmo chip que o processador: a cache no chip (on chip). Em comparação com uma cache conectada por meio de um barramento externo, a cache no chip reduz a atividade do barramento externo do processador e, portanto, agiliza o tempo de execução e aumenta o desempenho geral do sistema. Quando a instrução a leitura dos dados são feitos na cache no chip, não existe o acesso ao barramento. Com os caminhos de da-
+Book 1.indb 111 19.11.09 14:36:27
+
+112 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+dos internos ao processador são curtos, em comparação com o tamanho do barramento, os acessos à cache 
+no chip serão feitos mais rapido que os ciclos de barramento com estado zero-wait (tempo de espera nulo). 
+Além do mais, durante esse período, o barramento estará livre para aceitar outras transferências.
+A inclusão de uma cache no chip deixa aberta a questão de se uma cache fora do chip, ou externa, ainda é 
+desejável. Normalmente, a resposta é sim, e a maior parte dos projetos contemporâneos inclui caches dentro e fora do chip. A organização mais simples desse tipo é conhecida como uma cache de dois níveis, com a cache interna designada como nível 1 (L1  level 1) e a cache externa designada como nível 2 (L2). O motivo para 
+incluir uma cache L2 é o seguinte: se não houver cache L2 e o processador fizer uma solicitação de acesso para um local de memória que não esteja na cache L1, então o processador precisa acessar a memória DRAM ou ROM pelo barramento. Devido à baixa velocidade do barramento e ao alto tempo de acesso à memória, tem-se um desempenho. Por outro lado, se uma cache L2 SRAM (RAM estática) for usada, então normalmente a informação que falta pode ser recuperada rapidamente. Se a SRAM for rápida o suficiente para corresponder à velocidade do barramento, então os dados podem ser acessados usando uma transação no estado zero-wait, o tipo mais rápido de transferência de barramento.
+Dois recursos de projeto moderno de cache para caches multinível merecem ser citados. Primeiro, para 
+uma cache L2 fora do chip, muitos projetos não usam o barramento do sistema como caminho para trans-ferência entre a cache L2 e o processador, mas usam um caminho de dados separado, a fim de reduzir a carga sobre o barramento do sistema. Segundo, com o encolhimento contínuo dos componentes do processador, diversos processadores agora incorporam a cache L2 no chip do processador, melhorando o desempenho.
+A economia em potencial devido ao uso de uma cache L2 depende da taxas de acerto nas caches L1 e L2. 
+Vários estudos têm mostrado que, em geral, o uso de uma cache de segundo nível melhora o desempenho (por exemplo, ver Azimi, Prosod e Bhat (1992
+r); Novitsky, Azimi e Ghaznavi (1993s); Handy (1993q). Porém, o 
+uso de caches multinível complica todas as questões de projeto relacionadas a caches, incluindo tamanho, algoritmo de substituição e política de escrita; veja algumas discussões a respeito disso em Handy (1993) e Peir, Hsu e Smith (1999
+t).
+A Figura 4.17 mostra os resultados de um estudo de simulação de desempenho da cache de dois níveis 
+como uma função do tamanho da cache (GENU, 2004k). A figura pressupõe que as duas caches têm o mesmo 
+tamanho de linha e mostra a razão de acerto total. Ou seja, um acerto é contado se os dados desejados apare -
+cerem na cache L1 ou L2. A figura mostra o impacto da L2 sobre os acertos totais com relação ao tamanho da L1. L2 tem pouco efeito sobre o número total de acertos de cache até que seja pelo menos o dobro do tamanho da 
+Figura 4.17 Razão de acerto total (L1 e L2) para L1 de 8 KB e 16 KB
+0,780,800,820,840,860,880,900,920,940,960,98
+1 k2 k4 k8 k 16 k 32 kL1 16 k
+64 k 128 k 256 k 512 k1 M2 MRazão de acerto
+Tamanho da cache L2 (bytes)L1 8 k
+Book 1.indb 112 19.11.09 14:36:28
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 113
+cache L1. Observe que a parte mais íngreme da inclinação para uma cache L1 de 8 KBytes é para uma cache L2 de 
+16 KBytes. Novamente para uma cache L1 de 16 KBytes, a parte mais íngreme da curva é para um tamanho de cache L2 de 32 KBytes. Antes desse ponto, a cache L2 tem pouco ou nenhum impacto sobre o desempenho da cache total. A necessidade de a cache L2 ser maior que a cache L1 para afetar o desempenho faz sentido. Se a cache L2 tiver o mesmo tamanho de linha e capacidade da cache L1, seu conteúdo mais ou menos espelhará o da cache L1.
+Com a disponibilidade cada vez maior de área no chip, a maior parte dos microprocessadores modernos passou 
+a cache L2 para dentro do chip processador e acrescentou uma cache L3. Originalmente, a cache L3 era acessível pelo barramento externo. Mais recentemente, a maioria dos microprocessadores incorporou uma cache L3 no chip. De qualquer forma, parece haver uma vantagem no desempenho para acrescentar um terceiro nível (por exemplo, ver GHAI, JOYNER e JOHN, 1998
+u).
+CACHES UNIFICADAS VERSUS SEPARADAS Quando a cache no chip apareceu inicialmente, muitos dos pro-
+jetos consistiam em uma única cache usada para armazenar referências a dados e instruções. Mais recentemente, tornou-se comum dividir a cache em duas: uma dedicada a instruções e uma dedicada a dados. Essas duas caches existem no mesmo nível, normalmente como duas caches L1. Quando o processador tenta buscar uma instrução da memória principal, ele primeiro consulta a cache L1 de instrução, e quando o processador tenta buscar dados da memória principal, ele primeiro consulta a cache L1 de dados.
+Existem duas vantagens em potencial de uma cache unifi cada:
+Para determinado tamanho de cache, uma cache unifi cada tem uma taxa de acerto mais alta que as caches 
+ 
+divididas, pois ela equilibra a carga entre buscas de instrução e dados automaticamente. Ou seja, se um pa-drão de execução envolve muito mais buscas de instrução do que buscas de dados, então a cache tenderá a ser preenchida com instruções, e se um padrão de execução envolve relativamente mais buscas de dados, acontecerá o oposto.Somente uma cache precisa ser projetada e implementada.
+ 
+Apesar dessas vantagens, a tendência é em direção a caches separadas, particularmente para máquina superes-
+calares, como o Pentium e o PowerPC, que enfatizam a execução de instrução paralela e a pré-busca de instruções futuras previsíveis. A principal vantagem do projeto de cache separada é que isso elimina a disputa pela cache entre a unidade de busca/decodifi cação de instrução e a unidade de execução. Isso é importante em qualquer projeto que conta com o pipeline de instruções. Normalmente, o processador buscará instruções antes da hora e preen-cherá um buff er, ou pipeline, com instruções a serem executadas. Suponha agora que tenhamos uma cache de instrução/dados unifi cada. Quando a unidade de execução realiza um acesso à memória para carregar e armazenar dados, a solicitação é submetida à cache unifi cada. Se, ao mesmo tempo, o mecanismo de pré-busca de instrução emitir uma solicitação de leitura à cache para uma instrução, essa solicitação será temporariamente bloqueada para que a cache possa atender a unidade de execução primeiro, permitindo que ela complete a instrução atualmente em execução. Essa disputa pela cache pode diminuir o desempenho, interferindo com o uso efi ciente da pipeline de instruções. A estrutura de cache separada contorna essa difi culdade.
+4.4 Organização da memória cache do Pentium 4
+A evolução da organização da cache é vista claramente na evolução dos microprocessadores Intel (Tabela 
+4.4). O 80386 não inclui uma cache no chip. O 80486 inclui uma única cache no chip de 8 KBytes, usando um tamanho de linha de 16 bytes e uma organização associativa em conjunto com quatro linhas por conjunto. Todos os processadores Pentium incluem duas caches L1 no chip, uma para dados e uma para instruções. Para o Pentium 4, a cache de dados L1 tem 16 KBytes, usando um tamanho de linha de 64 bytes e uma organização associativa em conjunto com quatro linhas por conjunto. A cache de instruções do Pentium 4 é descrita mais adiante. O Pentium II também inclui uma cache L2 que alimenta ambas as caches L1. A cache L2 é associati-va em conjunto com oito linhas por conjuntos, com um tamanho de 512 KB e um tamanho de linha de 128 bytes. Uma cache L3 foi acrescentada para o Pentium III, e passou a residir no chip com as versões avançadas do Pentium 4.
+Book 1.indb 113 19.11.09 14:36:28
+
+114 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tabela 4.4 Evolução de cache da Intel
+Problema SoluçãoProcessador em que o recurso 
+apareceu inicialmente
+Memória externa mais lenta que o barramento do sistema.Acrescentar cache externa usando tecnologia de 
+memória mais rápida386
+O aumento da velocidade di processador torna o barramento 
+externo um gargalo para o acesso à memória cache..Mover a cache externa para o chip, trabalhando 
+na mesma velocidade do processador486
+Cache interna um tanto pequena, devido ao espaço 
+limitado no chip.Acrescentar cache L2 externa usando tecnologia 
+mais rápida que a memória principal486
+Quando ocorre uma disputa entre o mecanismo de pré-busca 
+de instruções e a unidade de execução no acesso simultâneo à 
+memória cache. nesse caso, a busca antecipada é adiada até o 
+término do acesso da unidade de execução aos dados.Criar caches separadas para dados e instruções Pentium
+Maior velocidade do processador torna o barramento externo 
+um gargalo para o acesso à cache L2.Criar barramento back-side separado, que trabalha com veloci-
+dade mais alta que o barramento externo principal (front-side). 
+O barramento back-side é dedicado à cache L2.Pentium Pro
+Mover cache L2 para o chip do processador. Pentium II
+Algumas aplicações lidam com bancos de dados enormes, e 
+precisam ter acesso rápido a grandes quantidades de dados. As 
+caches no chip são muito pequenas.Acrescentar cache L3 externa. Pentium III
+Mover cache L3 para o chip. Pentium 4
+A Figura 4.18 contém uma visão simplificada da organização do Pentium 4, destacando o posicionamento das 
+três caches. O núcleo do processador consiste em quatro componentes principais:
+unidade de busca/decodificação:  busca instruções do programa na ordem a partir da cache L2, decodi-
+fica-as para uma série de micro-operações e armazena os resultados na cache de instruções L1.
+Lógica de execução fora da ordem:  escalona a execução das micro-operações, sujeito a dependên-
+cias de dados e disponibilidade de recursos; assim, as micro-operações podem ser escalonadas para execução em uma ordem diferente daquela em que foram obtidas do fluxo de instruções. Se o tempo permitir, essa unidade escalona a executa antecipadamente micro-operações que podem ser solicita-das no futuro.unidades de execução:
+  essas unidades executam micro-operações, buscando os dados solicitados da 
+cache de dados L1 e armazenando os resultados temporariamente em registradores.subsistema de memória:
+  essa unidade inclui as caches L2 e L3 e o barramento do sistema, que é usado 
+para acessar a memória principal quando as caches L1 e L2 tiverem uma falta de cache e para acessar os recursos de E/S do sistema.
+Diferente da organização usada em todos os modelos Pentium anteriores, e na maioria dos outros processa-
+dores, a cache de instruções do Pentium 4 localiza-se entre a lógica de decodificação de instrução e o núcleo de execução. O raciocínio por trás dessa decisão de projeto é o seguinte: conforme discutiremos com mais detalhes no Capítulo 14, o processo do Pentium decodifica, ou traduz, instruções de máquina do Pentium para instruções simples tipo RISC, chamadas de micro-operações. O uso de micro-operações simples, de tamanho fixo, permite o uso do pipeline superescalar e técnicas de escalonamento que melhoram o desempenho. Contudo, as instruções de máquina do Pentium são difíceis de decodificar; elas têm um número variável de bytes e muitas opções dife-rentes. Acontece que o desempenho é melhorado se essa decodificação for feita independentemente da lógica de escalonamento e pipeline. Retornaremos a esse tópico no Capítulo 14.
+Book 1.indb 114 19.11.09 14:36:28
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 115
+Figura 4.18 Diagrama em blocos do Pentium 4
+Unidade de
+endereço de loadArquivo de registradores de inteiros
+Cache de dados L1 (16 KB)Arquivo de registradores de ponto flutuante
+Unidade de 
+endereço 
+de 
+armazenamentoALU de inteiros simplesUnidade debusca/decodificaçãode instrução Lógica de execução 
+fora de ordem
+Cache L2 (512 KB)Cache L3 (1 MB)Cache de instruções L1 (12K μops)
+ALU de inteiros simplesALU de inteiros complexa UnidadePF/MMXUnidade demovimen-tação de PFBarramento 
+do sistema
+64
+bits
+256
+bits
+A cache de dados emprega uma política write-back: os dados são escritos na memória principal apenas quando 
+são removidos da cache e houver uma atualização. O processador Pentium 4 pode ser confi gurado dinamicamente 
+para aceitar a política write-through.
+A cache de dados L1 é controlada por dois bits em um dos registradores de controle, rotulados como bits CD (cache 
+disable) e NW (not write-through) (Tabela 4.5). Há também duas instruções do Pentium 4 que podem ser usadas para controlar a cache de dados: INVD invalida (esvazia) a memória cache interna e sinaliza a cache externa (se houver) para invalidar. WBINVD escreve de volta e invalida a cache interna e depois escreve de volta e invalida a cache externa.
+As caches L2 e L3 são associativas em conjunto com oito linhas por conjunto, com um tamanho de linha de 
+128 bytes.
+4.5 Organização de cache da ARM
+A organização de cache da ARM evoluiu com a arquitetura geral da família ARM, refl etindo a busca contínua de 
+desempenho, que é a força motriz para todos os projetistas de microprocessador.
+Tabela 4.5 Modos operacionais da cache do Pentium 4
+Bits de controle Modo operacional
+CD NW Cache Fills Write-throughs Invalidates
+0 0 habilitado habilitado habilitado
+1 0 Desabilitado habilitado habilitado
+1 1 Desabilitado Desabilitado Desabilitado
+Nota: CD = 0; NW = 1 é uma combinação inválida.
+Book 1.indb 115 19.11.09 14:36:29
+
+116 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A Tabela 4.6 mostra essa evolução. Os modelos ARM7 usavam uma cache L1 unifi cada, enquanto todos os 
+modelos subsequentes usam uma separada dividida para instruções e dados. Todos os projetos ARM utilizam uma 
+cache associativa em conjunto, com o grau de associatividade e o tamanho de linha variado. Os núcleos em cache do ARM com uma MMU utilizam uma cache lógica para a família de processador de ARM7 até ARM10, incluindo os processadores Intel StongARM e Intel Xscale. A família ARM11 usa uma cache física. A diferença entre cache lógica e física já foi discutida anteriormente neste capítulo (Figura 4.7).
+Um recurso interessante da arquitetura ARM é o uso de um pequeno buff er de escrita fi rst-in-fi rst-out (FIFO) 
+para melhorar o desempenho de escrita da memória. O buff er de escrita é interposto entre a cache e a memória principal, e consiste em um conjunto de endereços e um conjunto de palavras de dados. O buff er de escrita é pe-queno em comparação com a cache, e pode manter até quatro endereços independentes. Normalmente, o buff er de escrita está habilitado para toda a memória principal, embora possa ser seletivamente desabilitado no nível de página. A Figura 4.19, retirada de Sloss, Symes e Wright (2004
+v), mostra o relacionamento entre buff er de escrita, da 
+cache e memória principal.
+O buffer de escrita opera da seguinte forma: quando o processador realiza uma escrita em uma área arma-
+zenamento temporário, os dados são colocados no buffer de escrita na velocidade de clock do processador e o processador continua a execução. Uma escrita ocorre quando os dados na cache forem escritos de volta à memória principal. Assim, os dados a serem escritos são transferidos da cache para o buffer de escrita. O buffer de escrita, então, realiza a escrita externa em paralelo. Porém, se o buffer de escrita estiver cheio (seja porque já existe o número máximo de palavras de dados no buffer ou porque não existe slot para o novo endereço), então as operações do processador são adiadas ("stall" no processador) até que haja espaço suficiente no buffer. Enquanto as operações que não são de escrita prosseguem, o buffer de escrita continua a escrever na memória principal até que o buffer esteja completamente vazio.
+Os dados escritos no buff er de escrita não estão disponíveis para leitura de volta na cache até que os dados 
+tenham sido transferidos do buff er de escrita para a memória principal. Esse é o principal motivo para o buff er de escrita ser muito pequeno. Mesmo assim, a menos que exista uma proporção grande de escritas em um programa em execução, o buff er de escrita melhora o desempenho.
+4.6 Leitura recomendada
+Jacob, Ng e Wang (2008h) tem um tratamento excelente e atualizado sobre projeto de cache. Outro tratamento 
+profundo é Handy (1993q). Um artigo clássico que ainda merece ser lido é Smith (1982m); ele estuda os diversos 
+elementos do projeto de cache e apresenta os resultados de um grande conjunto de análises. Outro clássico inte-ressante é Wilkes (1965
+w), que provavelmente é o primeiro artigo a introduzir o conceito da cache. Goodman (1983x)
+Tabela 4.6 Características da memória cache do ARM
+Núcleo Tipo de cacheTamanho de cache 
+(kB)Tamanho da 
+linha de cache 
+(palavras)Associatividade 
+(linhas por conjunto)LocalTamanho do 
+buﬀ er de escrita 
+(palavras)
+ARM720T Unifi cada 8 4 4 linhas por conjunto Lógico 8
+ARM920T Separada 16/16 D/I 8 64 linhas por conjunto Lógico 16
+ARM926EJ-S Separada 4-128/4-128 D/I 8 4 linhas por conjunto Lógico 16
+ARM1022E Separada 16/16 D/I 8 64 linhas por conjunto Lógico 16
+ARM1026EJ-S Separada 4-128/4-128 D/I 8 4 linhas por conjunto Lógico 8
+Intel StrongARM Separada 16/16 D/I 4 32 linhas por conjunto Lógico 32
+Intel Xscale Separada 32/32 D/I 8 32 linhas por conjunto Lógico 32
+ARM11 36-JF-S Separada 4-64/4-64 D/I 8 4 linhas por conjunto Físico 32
+Book 1.indb 116 19.11.09 14:36:29
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 117
+também fornece uma análise útil do comportamento da cache. Outra análise valiosa é Bell, Casasent e Bell (1974y).
+Agarwal (1989z) que apresenta um exame detalhado de uma série de questões de projeto de cache relacionadas a 
+multiprogramação e multiprocessamento. Higbie (1990aa) oferece um conjunto de fórmulas simples que podem ser 
+usadas para estimar o desempenho da cache como uma função de diversos parâmetros de cache.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Tempo de acesso Cache de instruções Acesso sequencial
+Mapeamento associativo Cache L1 Mapeamento associativo em conjunto
+Acerto de cache (cache hit) Cache L2 Localidade espacial
+Linha de cache (cache miss) Cache L3 Cache separada
+Memória cache Localidade Tag
+Falha de cache Cache lógica Localidade temporal
+Conjunto de cache hierarquia de memória Cache unificada
+Cache de dados Cache multinível Cache virtual
+Acesso direto Cache física Write-back
+Mapeamento direto Acesso aleatório Write once
+Computação de alto desempenho (hPC) Algoritmo de substituição Write-through
+Razão de acerto
+Perguntas de revisão
+ 4.1 Quais são as diferenças entre acesso sequencial, acesso direto e acesso aleatório?
+ 4.2 Qual é o relacionamento geral entre tempo de acesso, custo de memória e capacidade?
+ 4.3 Como o princípio de localidade se relaciona com o uso de múltiplos níveis de memória?
+ 4.4 Quais são as diferenças entre mapeamento direto, mapeamento associativo e mapeamento associativo em conjunto?
+ 4.5 Para uma cache mapeada diretamente, um endereço de memória principal é visto como consistindo em três campos. 
+Liste e defina os três campos.Figura 4.19 Organização da cache e do buffer de escrita do ARM
+ ProcessadorMemória
+ principal Buffer de escritaAcesso de palavra, byte
+Rápido
+Rápido
+Acesso de palavra, byte
+LentaLenta
+LentaTransferência de blocoCache
+Book 1.indb 117 19.11.09 14:36:30
+
+118 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+4.6 Para uma cache associativa, um endereço de memória principal é visto como consistindo em dois campos. Liste e defina os dois campos.
+4.7 Para uma cache associativa em conjunto, um endereço da memória principal é visto como consistindo em três campos. 
+Liste e defina os três campos.
+4.8 Qual é a diferença entre localidade espacial e localidade temporal?4.9 Em geral, quais são as estratégias para explorar a localidade espacial e a localidade temporal?
+Problemas
+4.1 Uma cache associativa em conjunto consiste em 64 linhas, ou slots, divididas em conjuntos de quatro linhas. A memória principal contém 4 K 
+blocos de 128 palavras cada. Mostre o formato dos endereços da memória principal.
+4.2 Uma cache associativa em conjunto com duas linhas por conjuntos possui linhas de 16 bytes e um tamanho total de 8 KBytes. A memória princi-
+pal de 64 MBytes é endereçável por byte. Mostre o formato dos endereços da memória principal.
+4.3 Para os endereços hexadecimais da memória principal 111111, 666666, BBBBBB, mostre a seguinte informação, em formato hexadecimal:
+a. Valores de tag, linha e palavra para uma cache de mapeamento direto, usando o formato da Figura 4.10.
+b. Valores de tag e palavra para uma cache associativa, usando o formato da Figura 4.12.
+c. Valores de tag, conjunto e palavra para uma cache associativa em conjunto com duas vias, usando o formato da Figura 4.15.
+4.4 Liste os seguintes valores:
+a. Para o exemplo de cache direta da Figura 4.10: tamanho do endereço, número de unidades endereçáveis, tamanho de bloco, número de blocos na memória principal, número de linhas na cache, tamanho da tag.
+b. Para o exemplo de cache associativa da Figura 4.12: tamanho do endereço, número de unidades endereçáveis, tamanho de bloco, número de blocos na memória principal, número de linhas na cache, tamanho da tag.
+c. Para o exemplo de cache associativa em conjunto com duas linhas por conjunto da Figura 4.15: tamanho do endereço, número de unidades endereçáveis, tamanho de bloco, número de blocos na memória principal, número de linhas no conjunto, número de conjuntos, número de linhas na cache, tamanho da tag.
+4.5 Considere um microprocessador de 32 bits que tem uma cache associativa em conjunto com quatro linhas por conjunto de 16 KBytes no chip. Suponha que a cache tenha um tamanho de linha de quatro palavras de 32 bits. Desenhe um diagrama de blocos dessa cache, mostrando sua organização e como os diferentes campos de endereço são usados para determinar um acerto/falha de cache. Onde, na cache, a palavra no local de memória ABCDE8F8 é mapeada?
+4.6 Dadas as seguintes especificações para uma memória cache externa: associativa em conjunto com quatro vias; tamanho de linha de duas palavras de 16 bits; capaz de acomodar um total de 4 K palavras de 32 bits da memória principal; usada com um processador de 16 bits que emite endereços de 24 bits. Projete a estrutura de cache com todas as informações pertinentes e mostre como ela interpreta os endereços do processador.
+4.7 O Intel 80486 tem uma cache unificada no chip. Ela contém 8 KBytes e tem uma organização associativa em conjunto com quatro linhas por conjunto e um tamanho de bloco de quatro palavras de 32 bits. A cache é organizada em 128 conjuntos. Existe um único “bit válido de linha” e três bits, B0, B1 e B2 (os bits “LRU”), por linha. Em uma falha de cache, o 80486 lê uma linha de 16 bytes da memória principal em apenas uma leitura de memória pelo barramento. Desenhe um diagrama simplificado da cache e mostre como os diferentes campos do endereço são interpretados.
+4.8 Considere uma máquina com uma memória principal endereçável por byte com 2
+16 bytes e um tamanho de bloco de 8 bytes. Suponha que uma 
+cache mapeada diretamente, consistindo em 32 linhas, seja usada com essa máquina.
+a. Como um endereço de memória de 16 bits é dividido em tag, número de linha e número de byte?b. Em que linha seriam armazenados os bytes com cada um dos seguintes endereços?
+0001 0001 0001 1011 1100 0011 0011 0100 1101 0000 0001 1101 1010 1010 1010 1010
+c. Suponha que o byte com endereço 0001 1010 0001 1010 seja armazenado na cache. Quais são os endereços dos outros bytes armazenados 
+junto com ele?
+d. Quantos bytes de memória no total podem ser armazenados na cache?
+e. Por que a tag também é armazenada na cache?
+Book 1.indb 118 19.11.09 14:36:30
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 119
+4.9 Para sua cache no chip, o Intel 80486 usa um algoritmo de substituição conhecido como pseudo LRU (pseudo Least Recently Used) . 
+Associado a cada um dos 128 conjuntos de quatro linhas (rotuladas como L0, L1, L2, L3) existem três bits, B0, B1 e B2. O algoritmo de subs-
+tituição funciona da seguinte maneira: quando uma linha tiver que ser substituída, a cache primeiro determinará se o uso mais recente foi de L0 e L1 ou L2 e L3. Depois, a cache determinará qual do par de blocos foi usado menos recentemente e o marcará para substituição. A Figura 4.20 ilustra a lógica.a. Especifique como os bits B0, B1 e B2 são definidos e depois descreva, em palavras, como eles são usados no algoritmo de substituição representado na Figura 4.20.
+b. Mostre que o algoritmo do 80486 se aproxima de um algoritmo LRU verdadeiro. Dica : considere o caso em que a ordem de uso mais recente 
+é L0, L2, L3, L1.
+c. Demonstre que um algoritmo LRU verdadeiro exigiria 6 bits por conjunto.
+4.10 Uma cache associativa em conjunto tem um tamanho de bloco de quatro palavras de 16 bits e um tamanho de conjunto de 2. A cache pode 
+acomodar um total de 4.096 palavras. O tamanho da memória principal que pode ser mantido em cache é de 64 K × 32 bits. Projete a estru-tura da cache e mostre como os endereços do processador são interpretados.
+4.11 Considere um sistema de memória que usa um endereço de 32 bits para endereçar em nível de byte, mais uma cache que usa um tamanho de 
+linha de 64 bytes.
+a. Considere uma cache mapeada diretamente com um campo de tag no endereço de 20 bits. Mostre o formato de endereço e determine os seguintes parâmetros: número de unidades endereçáveis, número de blocos na memória principal, número de linhas na cache, tamanho da tag.
+b. Considere uma cache associativa. Mostre o formato de endereço e determine os seguintes parâmetros: número de unidades endereçáveis, número de blocos na memória principal, número de linhas na cache, tamanho da tag.
+c. Considere uma cache associativa em conjunto com quatro linhas por conjunto, com um campo de tag no endereço de 9 bits. Mostre o formato de endereço e determine os seguintes parâmetros: número de unidades endereçáveis, número de blocos na memória principal, número de linhas no conjunto, número de conjuntos na cache, número de linhas na cache, tamanho da tag.
+4.12 Considere um computador com as seguintes características: total de 1 MByte de memória principal; tamanho de palavra de 1 byte; tamanho 
+de bloco de 16 bytes; e tamanho de cache de 64 KBytes.
+a. Para os endereços de memória principal F0010, 01234 e CABBE, indique os deslocamentos de tag, endereço de linha de cache e palavra para uma cache mapeada diretamente.
+b. Indique dois endereços quaisquer da memória principal com diferentes tags que são mapeados para o mesmo slot de cache para uma cache 
+mapeada diretamente.
+Figura 4.20 Estratégia de substituição de cache no chip do Intel 80486
+Todas as quatro linhas
+ no conjunto válidas?
+B0 0?Sim
+Sim, L0 ou L1 usadomenos recentementeNão, L2 ou L3 usado menos recentementeNão
+B1 
+ 0?
+Substitui 
+L0Substitui 
+L1Substitui 
+L2Substitui 
+L3B2 0?Substitui linha não válida
+Não Não Sim Sim
+Book 1.indb 119 19.11.09 14:36:30
+
+120 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+c. Para os endereços da memória principal F0010 e CABBE, indique os valores correspondentes de tag e deslocamento para uma cache total-
+mente associativa.
+d. Para os endereços da memória principal F0010 e CABBE, indique os valores correspondentes de tag, conjunto de cache e deslocamento para uma cache associativa em conjunto com duas vias.
+4.13 Descreva uma técnica simples para implementar um algoritmo de substituição LRU em uma cache associativa em conjunto com quatro linhas 
+por conjunto.
+4.14 Considere novamente o Exemplo 4.3. Como a resposta mudaria se a memória principal usasse uma capacidade de transferência em bloco com 
+um tempo de acesso da primeira palavra de 30 ns e um tempo de acesso de 5 ns para cada palavra subsequente?
+4.15 Considere o código a seguir:
+for (i = 0; i < 20; i++)
+for (j = 0; j < 10; j++)
+a[i] = a[i]*j
+a. Dê um exemplo da localidade espacial no código.b. Dê um exemplo da localidade temporal no código.
+4.16 Generalize as Equações (4.2) e (4.3), no Apêndice 4A, para hierarquias de memória de N níveis.
+4.17 Um sistema de computação contém uma memória principal de 32 K palavras de 16 bits. Ele também tem uma cache de 4 K palavras dividida 
+em conjuntos de quatro linhas com 64 palavras por linha. Considere que a cache esteja inicialmente vazia. O processador busca palavras dos 
+locais 0, 1, 2,..., 4.351, nessa ordem. Depois, ele repete essa sequência de busca mais nove vezes. A cache é 10 vezes mais rápida que a memória principal. Estime a melhoria resultante do uso da cache. Considere uma política de LRU para a substituição em bloco.
+4.18 Considere uma cache de 4 linhas de 16 bytes cada. A memória principal é dividida em blocos de 16 bytes cada. Ou seja, o bloco 0 tem bytes com 
+endereços de 0 a 15, e assim por diante. Agora, considere um programa que acessa a memória na seguinte sequência de endereços:
+Uma vez: 63 até 70Loop dez vezes: 15 até 32; 80 até 95
+a. Suponha que a cache seja organizada como mapeada diretamente. Os blocos de memória 0, 4 e assim por diante são atribuídos à linha 1; os blocos 1, 5 e assim por diante à linha 2; e assim sucessivamente. Calcule a razão de acerto.
+b. Suponha que a cache seja organizada como associativa em conjunto com duas linhas por conjunto, com dois conjuntos de duas linhas cada. Os blocos de numeração par são atribuídos a um conjunto 0 e os blocos de numeração ímpar são atribuídos ao conjunto 1. Calcule a razão de acerto para a cache associativa em conjunto com duas vias usando o esquema de substituição o LRU “usado menos recentemente” .
+4.19 Considere um sistema de memória com os seguintes parâmetros:
+T
+c = 100 ns Cc = 10-4 $/bit 
+Tm = 1200 ns Cm = 10-5 $/bit
+a. Qual é o custo de 1 MByte de memória principal?b. Qual é o custo de 1 MByte de memória principal usando a tecnologia de memória cache?
+c. Se o tempo de acesso efetivo é 10% maior que o tempo de acesso à cache, qual é a razão de acerto H?
+4.20 a. Considere uma cache L1 com um tempo de acesso de 1 ns e uma razão de acerto de H = 0,95. Suponha que possamos mudar o projeto da cache (tamanho da cache, organização) de modo que aumentemos H para 0,97, mas aumentando o tempo de acesso para 1,5 ns. Quais condições deverão ser atendidas para que essa mudança resulte em um desempenho melhorado?
+b. Explique por que esse resultado faz sentido intuitivamente.
+4.21 Considere uma cache de um único nível com um tempo de acesso de 2,5 ns, um tamanho de linha de 64 bytes e uma razão de acerto de H = 
+0,95. A memória principal usa uma capacidade de transferência em bloco que tem um tempo de acesso da primeira palavra (4 bytes) de 50 ns e um tempo de acesso de 5 ns para cada palavra subsequente.
+a. Qual é o tempo de acesso quando existe uma falha de cache? Suponha que a cache espere até que a linha tenha sido buscada da memória principal e depois reexecute para um acerto.
+b. Suponha que aumentar o tamanho da linha para 128 bytes aumente o H para 0,97. Isso reduz o tempo de acesso médio à memória?
+4.22 Um computador tem uma cache, uma memória principal e um disco usado para memória virtual. Se uma palavra referenciada estiver na cache, 
+20 ns são necessários para acessá-la. Se estiver na memória principal, mas não na cache, 60 ns são necessários para carregá-la para a cache, e 
+depois a referência é iniciada novamente. Se a palavra não estiver na memória principal, 12 ms são necessários para buscar a palavra do disco, 
+Book 1.indb 120 19.11.09 14:36:30
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 4 Memória cache 121
+seguidos por 60 ns para copiá-la para a cache e depois a referência é iniciada novamente. A razão de acerto da cache é 0,9 e a razão de acerto 
+da memória principal é 0,6. Qual é o tempo médio em nanossegundos necessário para acessar uma palavra referenciada nesse sistema?
+4.23 Considere uma cache com um tamanho de linha de 64 bytes. Suponha que, na média, 30% das linhas na cache estejam modifi cadas. Uma 
+palavra consiste em 8 bytes.
+a. Suponha que haja uma taxa de falha de 3% (razão de acerto de 0,97). Calcule a quantidade de tráfego da memória principal, em termos de 
+bytes por instrução para políticas write-through e write-back. A memória é lida na cache uma linha por vez. Porém, para write-back, uma 
+única palavra pode ser escrita da cache para a memória principal.
+b. Repita a parte (a) para uma taxa de 5%.
+c. Repita a parte (a) para uma taxa de 7%.
+d. Com esses resultados, a que conclusão você pode chegar?
+4.24 no microprocessador Motorola 68020, um acesso à cache leva dois ciclos de clock. O acesso a dados da memória principal pelo barramento até 
+o processador leva três ciclos de clock no caso de nenhuma inserção de estado de espera; os dados são entregues ao processador em paralelo com entrega à cache.
+a. Calcule o tamanho efetivo de um ciclo de memória dada uma razão de acerto de 0,9 e uma frequência de clock de 16,67 Mhz.b. Repita os cálculos considerando a inserção de dois estados de espera de um ciclo cada por ciclo de memória. Com esses resultados, a que 
+conclusão você pode chegar?
+4.25 Considere um processador que possui um tempo de ciclo de memória de 300 ns e uma taxa de processamento de instrução de 1 MIPS. na média, 
+cada instrução requer um ciclo de memória do barramento para busca de instrução e um para o operando envolvido.
+a. Calcule a utilização do barramento pelo processador.b. Suponha que o processador esteja equipado com uma cache de instruções e a razão de acerto associada seja 0,5. Determine o impacto sobre 
+a utilização do barramento.
+4.26 O desempenho de um sistema de cache de um único nível para uma operação de leitura pode ser caracterizado pela seguinte equação:
+T
+a=Tc+( 1-H) Tm
+onde Ta é o tempo médio de acesso, Tc é o tempo de acesso à cache, Tm é o tempo de acesso à memória (memória ao registrador do processador) 
+e H é a razão de acerto. Para simplifi car, consideramos que a palavra em questão é carregada na cache em paralelo com o load para o registrador 
+do processador. Essa é a mesma forma da Equação 4.2.
+a. Defi na Tb = tempo para transferir uma linha entre a cache e a memória principal, e W = fração de referências de escrita. Revise a equação 
+anterior para considerar as escritas e também as leituras, usando uma política write-through.
+b. Defi na Wb como a probabilidade de que uma linha na cache tenha sido alterada. Ofereça uma equação para Ta para a política write-back.
+4.27 Para um sistema com dois níveis de cache, defi na Tc1 = tempo de acesso da cache de primeiro nível; Tc2 = tempo de acesso da cache de 
+segundo nível; Tm = tempo de acesso à memória; H1 = razão de acerto da cache de primeiro nível; H2 = razão de acerto da cache de primeiro 
+e segundo níveis combinadas. Ofereça uma equação para Ta para uma operação de leitura.
+4.28 Considere as seguintes características de desempenho em uma falha de leitura de cache: um ciclo de clock para enviar um endereço à memória 
+principal e quatro ciclos de clock para acessar uma palavra de 32 bits da memória principal e transferi-la para o processador e a cache.
+a. Se o tamanho da linha de cache for uma palavra, qual é a penalidade de falha (ou seja, o tempo adicional exigido para uma leitura no 
+evento de uma falha de leitura)?
+b. Qual é a penalidade de falha se um tamanho de linha de cache tiver quatro palavras e for executada uma transferência múltipla, não em rajada?
+c. Qual é a penalidade de falha se o tamanho da linha de cache for quatro palavras e uma transferência for executada, com um ciclo de clock 
+por transferência de palavra?
+4.29 Para o projeto de cache do problema anterior, suponha que aumentar o tamanho da linha de uma palavra para quatro palavras resulta em uma 
+diminuição da taxa de falha de leitura de 3,2% para 1,1%. Para os casos de transferência sem rajada e com rajada, qual é a penalidade de falha média, considerando todas as leituras, para os dois tamanhos de linha diferentes?
+ Apêndice 4 A Características de desempenho das memórias de dois níveis
+neste capítulo, é feita uma referência a uma cache que atua como um buff er entre a memória principal e o processador, criando uma memória 
+interna de dois níveis. Essa arquitetura de dois níveis explora uma propriedade conhecida como localidade, para oferecer melhor desempenho em 
+relação a uma memória de um nível comparável.
+Book 1.indb 121 19.11.09 14:36:31
+
+122 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+O mecanismo de cache da memória principal faz parte da arquitetura do computador, implementada no hardware e normalmente invisível 
+ao sistema operacional. Existem dois outros casos de uma técnica de memória de dois níveis que também exploram a localidade e que são, pelo 
+menos parcialmente, implementadas no sistema operacional: memória virtual e a cache de disco (Tabela 4.7). A memória virtual é explorada no Capítulo 8; a cache de disco está fora do escopo deste livro, mas é examinada em Stallings (2009
+b). neste apêndice, examinamos algumas das 
+características de desempenho das memórias de dois níveis que são comuns às três técnicas.
+ Localidade
+A base para a vantagem de desempenho de uma memória de dois níveis é um princípio conhecido como localidade de referência (DEnnInG , 
+1968a). Esse princípio afi rma que as referências à memória tendem a se agrupar. Por um longo período, os agrupamentos em uso mudam, mas por um 
+período curto, o processador está trabalhando principalmente com grupos fi xos de referências à memória.
+Intuitivamente, o princípio de localidade faz sentido. Considere a seguinte linha de raciocínio:
+1. Com exceção das instruções de desvio e chamada, que constituem apenas uma pequena fração de todas as instruções do programa, a 
+execução do programa é sequencial. Logo, na maior parte dos casos, a próxima instrução a ser apanhada vem imediatamente após a última instrução apanhada.
+2. É raro ter uma longa sequência ininterrupta de chamadas de procedimento seguidas pela sequência de retornos correspondente. Em vez 
+disso, um programa permanece confi nado a uma janela um tanto estreita de profundidade de chamada de procedimento. Assim, por um curto período, as referências às instruções tendem a estar localizadas em alguns poucos procedimentos.
+3. A maioria das construções iterativas consiste em um número relativamente pequeno de instruções repetidas muitas vezes. Pela duração 
+da iteração, o cálculo é, portanto, confi nado a uma pequena parte contígua de um programa.
+4. Em muitos programas, grande parte do cálculo envolve processamento de estruturas de dados, como arrays ou sequências de registros. 
+Em muitos casos, referências sucessivas a essas estruturas de dados serão localizadas a itens de dados próximos.
+Essa linha de raciocínio tem sido confirmada em muitos estudos. Com referência ao ponto 1, diversos estudos têm analisado o comporta-
+mento dos programas em linguagem de alto nível. A Tabela 4.8 inclui os principais resultados, medindo o surgimento de vários tipos de instru-ção durante a execução, a partir dos estudos a seguir. O estudo mais antigo do comportamento da linguagem de programação, realizado por Knuth (1971
+bb), examinou uma coleção de programas FORTRAn usados como exercícios para alunos. Tanenbaum (1978cc) publicou medições 
+coletadas de mais de 300 procedimentos usados em programas de sistema operacional e escritos em uma linguagem que aceita programação estruturada (SAL). Patterson e Sequin (1982
+dd) analisaram um conjunto de medições tomadas de compiladores e programas para editoração, 
+projeto auxiliado por computador (CAD), classificação e comparação de arquivos. As linguagens de programação C e Pascal foram estudadas. huck (1983
+ee) analisou quatro programas que resepresentam uma mistura de computação científica de uso geral, incluindo transformação 
+rápida de Fourier e a integração de sistemas de equações diferenciais. Existe um acordo tão bom sobre os resultados dessa mistura de lingua-gens e aplicações que as instruções de desvio e chamada representam apenas uma fração das instruções executadas durante o tempo de vida de um programa. Assim, esses estudos confirmam a afirmação 1.
+Tabela 4.7 Características das memórias de dois níveis
+Cache da memória principal Memória virtual (paginação) Cache de disco
+Razões típicas de tempo de acesso 5 : 1 (memória principal × cache) 106 : 1 (memória principal × disco) 106 : 1 (memória principal × disco)
+Sistema de gerenciamento de memória Implementada por hardware especialCombinação de hardware e 
+software do sistemaSoftware do sistema
+Tamanho típico de bloco ou página 4 a 128 bytes (bloco de cache)64 a 4096 bytes 
+(página de memória virtual)64 a 4096 bytes
+ (bloco ou páginas do disco)
+Acesso do processador ao segundo nível Acesso direto Acesso indireto Acesso indireto
+Book 1.indb 122 19.11.09 14:36:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 123
+Tabela 4.8 Frequência dinâmica relativa das operações em linguagens de alto nível
+Carga de trabalho da 
+linguagem em estudoHUCK, 1983ee 
+Pascal 
+CientíficoKNUTH, 1971bb 
+FORTRAN 
+AlunoPatterson e Sequin, 1982dd Tanembaum, 1978cc 
+Sistema 
+SALSistema 
+PascalSistema C
+Assinalamento 74 67 45 38 42
+Loop 4 3 5 3 4
+Call 1 3 15 12 12
+IF 20 11 29 43 36
+GOTO 2 9 — 3 —
+Outras — 7 6 1 6
+Com relação à afirmação 2, os estudos relatados em Patterson (1985tt) confirmam. Isso é ilustrado na Figura 4.21, que mostra o comporta-
+mento de chamada-retorno. Cada chamada é representada pela linha descendo para a direita, e cada retorno pela linha subindo para a direita. na 
+figura, uma janela com profundidade igual a 5 é definida. Somente uma sequência de chamadas e retornos com um movimento de profundidade 
+6 em qualquer direção faz com que a janela se mova. Como podemos ver, o programa em execução pode permanecer dentro de uma janela esta-cionária por longos períodos. Um estudo pelos mesmos analistas de programas C e Pascal mostrou que uma janela de profundidade 8 precisará se deslocar apenas em menos de 1% das chamadas ou retornos (TAMIR e SEQUIn, 1983
+gg).
+A literatura faz uma distinção entre localidade espacial e localidade temporal. A localidade espacial refere-se à tendência da execução de 
+envolver uma série de locais de memória que estão agrupados. Isso reflete a tendência de um processador de acessar as instruções sequencial-mente. A localidade espacial também reflete a tendência de um programa de acessar locais de dados sequencialmente, como ao processar uma tabela de dados. A localidade temporal refere-se à tendência de um processador de acessar locais de memória que foram usados recentemente. Por exemplo, quando um loop é executado, o processador executa o mesmo conjunto de instruções repetidamente.
+Tradicionalmente, a localidade temporal é explorada mantendo valores de dados e instruções usados recentemente na memória cache e 
+explorando uma hierarquia de cache. A localidade espacial geralmente é explorada usando blocos de cache maiores e incorporando mecanismos de pré-busca (buscando itens de uso antecipado) na lógica de controle de cache. Recentemente, tem havido uma pesquisa considerável sobre o refinamento dessas técnicas para alcançar maior desempenho, mas as estratégias básicas continuam sendo as mesmas.
+Figura 4.21 Exemplo de comportamento de chamada-retorno de um programa
+w 5t 33Tempo
+(em unidades de chamadas/retornos)
+Profundidade 
+do aninhamentoRetorno
+Chamada
+Book 1.indb 123 19.11.09 14:36:31
+
+124 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Operação da memória de dois níveis
+A propriedade de localidade pode ser explorada na formação de uma memória de dois níveis. A memória de nível superior (M1) é menor, mais 
+rápida e mais cara (por bit) do que a memória de nível inferior (M2). M1 é usada como um armazenamento temporário para parte do conteúdo da 
+M2 maior. Quando é feita uma referência à memória, é feita uma tentativa de acessar o item em M1. Se isso tiver sucesso, então é feito um acesso rápido. Se não, então um bloco de locais de memória é copiado de M2 para M1, e o acesso então ocorre através de M1. Devido à localidade, quando um bloco é trazido para M1, deverá haver uma série de acessos a locais nesse bloco, resultando em um atendimento geral mais rápido.
+Para expressar o tempo médio para acessar um item, temos que considerar não apenas as velocidades dos dois níveis de memória, mas 
+também a probabilidade de que determinada referência possa ser encontrada em M1. Temos:
+(4.2) =T
+1+( 1- H)*T 2 Ts=H* T1+(1- H)*(T1+T 2)
+onde
+Ts = tempo de acesso médio (sistema)
+T1 = tempo de acesso de M1 (por exemplo, cache, cache de disco)
+T2 = tempo de acesso de M2 (por exemplo, memória principal, disco)
+H = razão de acerto (fração do tempo em que é encontrada uma referência em M1)
+A Figura 4.2 mostra o tempo de acesso médio como uma função da razão de acerto. Como podemos ver, para uma alta percentagem de 
+acertos, o tempo médio de acesso total é muito mais próximo daquele de M1 do que de M2.
+ Desempenho
+Vejamos alguns dos parâmetros relevantes a uma avaliação de um mecanismo de memória de dois níveis. Primeiro, considere o custo. Temos:
+(4.3) Cs=C1S1+C2S2
+S1+S2
+onde
+Cs = custo médio por bit para a memória de dois níveis combinada
+C1 = custo médio por bit da memória de nível superior M1
+C2 = custo médio por bit da memória de nível inferior M2
+S1 = tamanho de M1
+S2 = tamanho de M2
+Gostaríamos que Cs ≈ C2. Dado que C1 >> C2, isso requer S1 << S2. A Figura 4.22 mostra o relacionamento.
+Figura 4.22 Relacionamento do custo de memória médio com tamanho de memória relativo para uma memória 
+de dois níveis
+100
+Tamanho relativo de dois níveis (S2/S1)Custo combinado relativo (Cs/C2)(C1/C2) 1000
+(C1/C2) 100
+(C1/C2) 10
+1 000 101 000
+100
+10
+18
+76
+5
+4
+3
+2
+2 3 4 5 6 7 8 9 2 3 4 5 6 7 8 9 5 6 7 8 98
+76
+5
+4
+3
+2
+8
+76
+5
+4
+3
+2
+Book 1.indb 124 19.11.09 14:36:33
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 125
+Em seguida, considere o tempo de acesso. Para uma memória de dois níveis oferecer uma melhoria de desempenho significativa, precisamos 
+ter Ts aproximadamente igual a T1 (Ts ≈ T1). Dado que T1 é muito menor que T2 (T1 << T2), uma razão de acerto próxima de 1 é necessária.
+Assim, gostaríamos que M1 fosse pequena para reduzir o custo, e grande para melhorar a razão de acerto e, portanto, o desempenho. Existe 
+um tamanho de M1 que satisfaça aos dois requisitos a um grau razoável? Podemos responder a essa pergunta com uma série de subperguntas:
+Que valor de razão de acerto é necessário para que  Ts ≈ T1?
+Que tamanho de M1 garantirá a razão de acerto necessária? 
+Esse tamanho satisfaz o requisito de custo? 
+Para conseguir isso, considere a quantidade T1/Ts, que é conhecida como eficiência de acesso. Essa é uma medida da proximidade entre o 
+tempo de acesso médio (Ts) e o tempo de acesso de M1 (T1). Pela Equação (4.2),
+(4.4)T1
+Ts=1
+1+( 1-H )T2
+T1
+A Figura 4.23 representa graficamente T1/Ts como uma função da razão de acerto H, com a quantidade T2/T1 como um parâmetro. normalmente, 
+o tempo de acesso à cache no chip é de cerca de 25 a 50 vezes mais rápido que o tempo de acesso à memória principal (ou seja, T2/T1 é 5 a 10), o 
+tempo de acesso à cache fora do chip é cerca de 5 a 15 vezes mais rápido que o tempo de acesso à memória principal (ou seja, T2/T1 é 5 a 15), e 
+o tempo de acesso à memória principal é cerca de 1.000 vezes mais rápido que o tempo de acesso ao disco (T2/T1 = 1.000). Assim, uma razão de 
+acerto na faixa de algo em torno de 0,9 parece ser necessária para satisfazer o requisito de desempenho.
+Agora, podemos formular a questão sobre o tamanho relativo da memória com mais exatidão. Uma razão de acerto de, digamos, 0,8 ou 
+melhor, é razoável para S1 << S2? Isso dependerá de diversos fatores, incluindo a natureza do software sendo executado e dos detalhes do 
+projeto da memória de dois níveis. O principal determinante, logicamente, é o grau de localidade. A Figura 4.24 sugere o efeito que a localidade 
+tem sobre a razão de acerto. Claramente, se M1 tiver o mesmo tamanho que M2, então a razão de acerto será 1,0: todos os itens em M2 sempre são armazenados também em M1. Agora, suponha que não haja localidade, ou seja, as referências são completamente aleatórias. nesse caso, a 
+razão de acerto deverá ser uma função estritamente linear do tamanho relativo da memória. Por exemplo, se M1 tiver a metade do tamanho de M2, então, a qualquer momento, metade dos itens de M2 também estão em M1, e a razão de acerto será 0,5. na prática, porém, existe algum 
+grau de localidade nas referências. Os efeitos da localidade moderada e forte são indicados na figura. Observe que a Figura 4.24 não é derivada de qualquer dado ou modelo específico; a figura sugere o tipo de desempenho que é visto com diversos graus de localidade.
+Assim, se houver localidade forte, é possível alcançar altos valores de razão de acerto, mesmo com um tamanho de memória de nível su-
+perior relativamente pequeno. Por exemplo, diversos estudos têm mostrado que tamanhos de cache pequenos gerarão uma razão de acerto acima de 0,75, independentemente do tamanho da memória principal [por exemplo, Agarwal (1989
+z); Przybylski, horowitz e hennessy (1988o); Eficiência de acesso = T1/ Ts
+0,0 0,2 0,4 0,6 0,8 1,0
+Razão de acerto = H 1
+0,1
+0,01
+0,001r 10r 1
+r 100
+r 1.000Figura 4.23 Eficiência de acesso como uma função da taxa de acerto (r = T2/T1)
+Book 1.indb 125 19.11.09 14:36:33
+
+126 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Strecker (1983hh) e Smith(1992m)].XLVI Uma cache na faixa de 1 K a 128 K palavras geralmente é adequada, enquanto a memória principal agora 
+normalmente está na faixa dos gigabytes. Quando considerarmos a memória virtual e a cache de disco, citaremos outros estudos que confirmam 
+o mesmo fenômeno, especialmente que um M1 relativamente pequeno gera um valor alto de razão de acerto, devido à localidade.
+Isso nos leva à última pergunta listada anteriormente: o tamanho relativo das duas memórias satisfaz o requisito de custo? A resposta é clara: 
+sim. Se só precisarmos de uma memória de nível superior relativamente pequena para conseguir um bom desempenho, então o custo médio por bit dos dois níveis de memória se aproximará do menor custo da memória de nível inferior.
+Por favor, observe que, com o envolvimento de cache L2, ou ainda de caches L2 e L3, a análise é muito mais complexa. Veja algumas discus-
+sões em Peir, hsu e Smith (1999
+t) e handy (1993q).
+ Referências
+ a DE nnInG, P . “The working set model for program behavior” . Communications of the ACM, mai. 1968.
+ b S TALLIn GS, W. Operating systems, internals and design principles, 6 th Edition. Upper Saddle River, nJ: Prentice hall, 2009.
+ c B AILEY , D. “RISC microprocessors and scientific computing” . Proceedings, Supercomputing ‘93, 1993.
+ d WAnG , G. e TAFTI , D. “Performance enhancement on microprocessors with hierarchical memory systems for solving large sparse linear systems” . 
+International Journal of Supercomputing Applications, vol. 13,1999.
+ e P RESSEL , D. “Fundamental limitations on the use of prefetching and stream buffers for scientific applications” . Proceedings, ACM Symposium on 
+Applied Computing, mar. 2001.
+ f D OWD , K. e S EVERAn CE, C. High performance computing. Sebastopol, CA: O’Reilly, 1998.
+ g C EKLEOV , M. e D UBOIS , M. “Virtual-address caches, part 1: problems and solutions in uniprocessors” . IEEE Micro, set./out. 1997.
+ h JACOB, B.; nG, S. e WAnG, D. Memory systems: cache, DRAM, disk. Boston: Morgan Kaufmann, 2008.
+ i M AYBERRY , W. e EFLAnD, G. “Cache boosts multiprocessor performance” . Computer Design, nov. 1984.Figura 4.24 Razão de acerto como uma função do tamanho de memória relativo
+Sem localidade Localidade
+ moderadaLocalidade forteRazão de acerto
+Tamanho de memória relativo (S1/S2)0,00,00,20,40,60,81,0
+0, 0,4 0,6 0,8 1,0
+Book 1.indb 126 19.11.09 14:36:34
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 4 Memória cache 127
+ j hILL , M. “Evaluating associativity in CPU caches” . IEEE Transactions on Computers, dez. 1989.
+ k GEnU , P . A cache primer. Application note An 2663. Freescale Semiconductor, Inc., 2004. Disponível em: <www.freescale.com/files/32bit/doc/app_note/
+An2663.pdf>.
+ l CAn TIn, J. e hILL , h. “Cache performance for selected SPEC CPU2000 benchmarks” . Computer Architecture News, set. 2001.
+ m S MITh, A. “Cache memories” . ACM Computing Surveys, set. 1982.
+ n S MITh, A. “Line (block) size choice for CPU cache memories” . IEEE Transactions on Communications, set. 1987.
+ o P RZYBYLSKI , S.; hOROWITZ , M. e hEnnESSY , J. “Performance trade-offs in cache design” . Proceedings, 15th Annual International Symposium on 
+Computer Architecture, jun. 1988.
+ p P RZYBYLSKI , S. “The performance impact of block size and fetch strategies” . Proceedings, 17th Annual International Symposium on Computer 
+Architecture, maio de 1990.
+ q hAn DY, J. The cache memory book. San Diego: Academic Press, 1993.
+ r A ZIMI , M.; P RASAD , B. e BhAT , K. “Two level cache architectures” . Proceedings COMPCON ‘92, fev. 1992.
+ s nOVITSKY , J.; AZIMI , M. e GhAZ nAVI, R. “Optimizing systems performance based on pentium processors” . Proceedings COMPCON ‘92, fev. 1993.
+ t P EIR, J.; hSU , W.; e SMITh, A. “Functional implementation techniques for CPU cache memories” . IEEE Transactions on Computers, fev. 1999.
+ u GhAI , S.; JOYnER, J. e JOhn, L. Investigating the effectiveness of a third level cache. Technical Report TR-980501-01, Laboratory for Computer 
+Architecture, University of Texas at Austin. Disponível em: <http://lca.ece.utexas.edu/pubs-by-type.html>.
+ v S LOSS , A.; S YMES , D. e W RIGhT, C. ARM System Developer’s Guide. San Francisco: Morgan Kaufmann, 2004.
+ w W ILKES , M. “Slave memories and dynamic storage allocation” , IEEE Transactions on Electronic Computers, abril de 1965. Reimpresso em hill, 
+Touppi e Sohi, 2000.
+ x G OODMAn , J. “Using cache memory to reduce processor-memory bandwidth” . Proceedings, 10th Annual International Symposium on Computer 
+Architecture, 1983. Reimpresso em hill, Touppi e Sohi, 2000.
+ y B ELL, J.; CASASEnT . D. e BELL, C. “An investigation into alternative cache organizations” . IEEE Transactions on Computers, abril de 1974. Disponível em: 
+<http://research.microsoft.com/users/GBell/gbvita.htm>.
+ z AGARWAL , A. Analysis of cache performance for operating systems and multiprogramming. Boston: Kluwer Academic Publishers, 1989.
+ aa hIGBIE , L. “Quick and easy cache performance analysis” . Computer Architecture News, jun. 1990.
+ bb KnUTh, D. “An empirical study of FORTRAn programs” . Software Practice and Experience, vol. 1, 1971.
+ cc TAnEn BAUM , A. “Implications of structured programming for machine architecture” . Communications of the ACM, março de 1978.
+ dd P ATTERSOn, D. e S EQUIn, C. “A VLSI RISC” . Computer, set. 1982.
+ ee hUCK , T. Comparative analysis of computer architectures. Stanford University Technical Report no. 83-243, maio de 1983.
+ ff P ATTERSOn, D. “Reduced instruction set computers” . Communications of the ACM. jan. 1985.
+ gg T AMIR , Y . e SEQUIn, C. “Strategies for managing the register file in RISC” . IEEE Transactions on Computers, novembro de 1983.
+ hh S TRECKER , W. “Transient behavior of cache memories” . ACM Transactions on Computer Systems, nov. 1983.
+ ii hILL , M.; Touppi, n. e SOhI G. Readings in computer architecture. San Francisco: Morgan Kaufmann, 2000.
+Book 1.indb 127 19.11.09 14:36:34
+
+PRInCIPAIS POnTOS
+ As duas formas básicas de memória de acesso aleatório semicondutora 
+são a RAM dinâmica (DRAM) e a RAM estática (SRAM). A SRAM é mais rápi-
+da, mais cara e menos densa que a DRAM, e é usada para a memória cache. A DRAM é usada para a memória principal. As técnicas de correção de erro normalmente são usadas nos sistemas 
+de memória. Estas envolvem a inclusão de bits redundantes que sejam uma função dos bits de dados, para formar um código de correção de erro. Se ocorrer um erro de bit, o código detectará e, normalmente, cor-rigirá o erro. Para compensar a velocidade relativamente baixa da DRAM, diversas or-
+ganizações avançadas de DRAM foram introduzidas. As duas mais comuns são a DRAM síncrona e a DRAM RamBus. Ambas envolvem o uso do clock do sistema para proporcionar a transferência de blocos de dados.Memória interna
+5.1 Memória principal semicondutora
+  Organização
+  DRAM e SRAM
+  Tipos de ROM
+  Lógica do chip
+  Empacotamento do chip
+  Organização do módulo
+  Memória intercalada
+5.2 Correção de erro
+5.3 Organizações avançadas de DRAM
+  DRAM síncrona
+  DRAM RamBus
+  DDR-SDRAM
+  Cache DRAM
+5.4 Leitura recomendada e sites Web 
+  Sites web recomendados
+Iniciamos este capítulo com uma análise dos subsistemas de memória principal semicondutora, incluindo memórias ROM, DRAM e SRAM. Depois, examinamos as técnicas de controle de erro usadas para melhorar a confi abilidade da me-
+mória. Em seguida, examinamos arquiteturas DRAM mais avançadas.
+5.1 Memória principal semicondutora
+Nos primeiros computadores, a forma mais comum de armazenamento de acesso aleatório para a memó-
+ria principal do computador empregava uma matriz de loops ferromagnéticos em forma de anel, chamados de núcleos. Logo, a memória principal normalmente era chamada de núcleo (ou core , em inglês), um termo que per-
+siste até hoje. Com o advento da microeletrônica, as memórias semicondutoras superaram de longe a memória de núcleo magnético. Hoje, o uso de chips semicondutores para a memória principal é quase universal. Os principais aspectos dessa tecnologia são explorados nesta seção.
+ Organização
+O elemento básico de uma memória semicondutora é a célula de memória. Embora diversas tecnologias eletrô-
+nicas sejam utilizadas, todas as células de memória semicondutora compartilham certas propriedades:CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 128 19.11.09 14:36:35
+
+Capítulo 5 Memória interna 129
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18apresentam dois estados estáveis (ou semiestáveis), que podem ser usados para representar o binário 
+1 e 0;
+são capazes de ser escritas (pelo menos uma vez), para defi nir o estado; e 
+são capazes de ser lidas, para verifi car o estado. 
+A Figura 5.1 representa a operação de uma célula da memória. Normalmente, a célula tem três terminais fun-
+cionais, capazes de transportar um sinal elétrico. O terminal de seleção, como o nome sugere, seleciona uma célula de memória para uma operação de leitura ou escrita. O terminal de controle indica leitura ou escrita. Para a escrita, o outro terminal fornece um sinal elétrico que defi ne o estado da célula como 1 ou 0. Para a leitura, o terminal é usado para a saída do estado da célula. Os detalhes da organização interna, funcionalidade e tempo de acesso da célula de memória dependem da tecnologia específi ca de circuito integrado usada e estão fora do escopo deste livro, exceto por um breve resumo. Para os nossos propósitos, vamos considerar que as células individuais podem ser selecionadas para operações de leitura e escrita.
+ DRAM e SRAM
+Todos os tipos de memória que exploraremos neste capítulo são de acesso aleatório. Ou seja, palavras individuais 
+da memória são acessadas diretamente por meio da lógica de endereçamento interna.
+A Tabela 5.1 lista os principais tipos de memória de semicondutor. O mais comum é conhecido como me‑
+mória de acesso aleatório (RAM). Este, logicamente, é um uso incorreto do termo, pois todos os tipos listados na tabela são de acesso aleatório. Uma característica distinta da RAM é a possibilidade de ler dados da memória e escrever novos dados na memória de modo fácil e rápido. Tanto a leitura quanto a escrita são realizadas por meio de sinais elétricos.
+Figura 5.1 Operação da célula de memória
+CélulaSeleçãoEntrada
+de dadosControle
+(a) EscritaCélula
+(b) LeituraSeleção EstadoControle
+Tabela 5.1 Tipos de memória de semicondutor
+Tipo de memória Categoria Apagamento Mecanismo de escrita Volatilidade
+Memória de acesso aleatório (RAM) Memória de leitura-escritaEletricamente, em 
+nível de byteEletricamente Volátil
+Memória somente de leitura (ROM)
+Memória somente de leitura não é possívelMáscaras
+não volátilROM programável (PROM, do inglês 
+programmable ROM)
+EletricamentePROM apagável (EPROM, do inglês 
+erasable PROM)
+Memória principalmente de 
+leituraLuz UV, nível de chip
+PROM eletricamente apagável 
+(EEPROM, do inglês electrically 
+erasable PROM)Eletricamente, nível de byte
+Memória fl ash Eletricamente, nível de bloco
+Book 1.indb 129 19.11.09 14:36:35
+
+130 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Outra característica distinta da RAM é que ela é volátil. Uma RAM precisa receber uma fonte de alimentação 
+constante. Se a energia for interrompida, os dados são perdidos. Assim, a RAM só pode ser usada como armazena-
+mento temporário. As duas formas tradicionais de RAM usadas nos computadores são DRAM e SRAM.
+RAM DINÂMICA A tecnologia da RAM é dividida em duas tecnologias: dinâmica e estática. Uma RAM dinâmica 
+(DRAM) é feita com células que armazenam dados como carga em capacitores. A presença ou ausência de carga em um capacitor é interpretada como um binário 1 ou 0. Como os capacitores possuem uma tendência natural para descarga, as RAM dinâmicas exigem recarga periódica ("refresh" de memória) para manter o dado armaze-nado. O termo dinâmica refere-se a essa tendência de perda da carga armazenada, mesmo com energia aplicada 
+continuamente.
+A Figura 5.2a é uma estrutura de DRAM típica para uma célula individual, que armazena 1 bit. A linha de ende-
+reço é ativada quando o valor do bit dessa célula deve ser lido ou escrito. O transistor atua como uma chave que é fechada (permitindo o fluxo da corrente) se uma voltagem for aplicada à linha de endereço e é aberta (sem fluxos de corrente) se nenhuma voltagem estiver presente na linha de endereço.
+Para a operação de escrita, um sinal de tensão é aplicado à linha de bit; uma tensão alta representa 1, e uma 
+tensão baixa representa 0. Um sinal é então aplicado à linha de endereço, permitindo que uma carga seja transfe-rida ao capacitor.
+Para a operação de leitura, quando a linha de endereço é selecionada, o transistor é ligado e a carga armazenada 
+no capacitor é alimentada em uma linha de bit e em um amplificador. O amplificador compara a voltagem do ca-pacitor com um valor de referência e determina se a célula contém um 1 lógico ou um 0 lógico. A leitura da célula descarrega o capacitor, que precisa ser restaurado para completar a operação.
+Embora a célula da memória DRAM seja usada para armazenar um único bit (0 ou 1), é basicamente um dispo-
+sitivo analógico. O capacitor pode armazenar qualquer valor de carga dentro de um intervalo; um valor de padrão determina se a carga é interpretada como 1 ou 0.
+RAM ESTÁTICA Ao contrário, uma RAM estática (SRAM) é um dispositivo que usa os mesmos elementos lógicos 
+usados no processador. Em uma SRAM, os valores binários são armazenados por meio de configurações das portas lógicas de um flip-flop tradicional (veja uma descrição dos flip-flops no Capítulo 20). Uma RAM estática manterá seus dados enquanto houver energia fornecida a ela.
+Figura 5.2 Estruturas típicas de célula de memória
+Linha de
+ bit B Linha de endereçoVoltagem cc
+Linha de endereço
+(b) Célula de RAM estática (SRAM) (a) Célula de RAM dinâmica (DRAM)Linha de
+ bit BT5 T6T3 T4
+T1 T2C1 C2
+Linha de
+ bit BTransistor
+Terra
+TerraCapacitor de 
+armazenamento
+Book 1.indb 130 19.11.09 14:36:36
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 5 Memória interna 131
+A Figura 5.2b é uma estrutura de SRAM típica para uma célula individual. Quatro transistores (T1, T2, T3, T4) são 
+cruzados em um arranjo que produz um estado lógico estável. No estado lógico 1, o ponto C1 é alto e o ponto C2 
+é baixo; nesse estado, T1 e T4 estão desligados e T2 e T3 estão ligados.1 No estado lógico 0, o ponto C1 é baixo e o 
+ponto C2 é alto; nesse estado, T1 e T4 estão ligados e T2 e T3 estão desligados. Os dois estados são estáveis desde 
+que uma voltagem de corrente contínua (cc) seja aplicada. Diferente da DRAM, nenhuma recarga é necessária para 
+reter dados.
+Assim como na DRAM, a linha de endereço da SRAM é usada para abrir ou fechar uma chave. A linha de ende-
+reço controla dois transistores (T5 e T6). Quando um sinal é aplicado a essa linha, os dois transistores são ligados, 
+permitindo uma operação de leitura ou escrita. Para uma operação de leitura, o valor de bit desejado é aplicado à linha B, enquanto seu complemento é aplicado à linha B. Isso força os quatro transistores (T
+1, T2, T3, T4) ao estado 
+correto. Para uma operação de leitura, o valor de bit é lido da linha B.
+SRAM VERSUS DRAM RAM estáticas e dinâmicas são voláteis, ou seja, a potência precisa ser fornecida conti-
+nuamente à memória para preservar os valores do bit. Uma célula de memória dinâmica é mais simples e menor que uma célula de memória estática. Assim, a DRAM é mais densa (células menores = mais células por unidade de área) e mais barata que uma SRAM correspondente. Por outro lado, uma DRAM requer o suporte de um circuito de refresh. Para memórias maiores, o custo fi xo do circuito de refresh é mais do que compensado pelo menor custo variável das células de DRAM. Assim, as DRAM tendem a ser favorecidas para requisições de grande memória. Outro ponto é que as SRAM geralmente são um pouco mais rápidas que as DRAM. Devido a essas características, a SRAM é usada para a memória cache (no chip e fora dele), e a DRAM é usada para a memória principal.
+ Tipos de ROM
+Como o nome sugere, uma memória somente de leitura (ROM, do inglês Read-Only Memory ) contém um 
+padrão permanente de dados, que não pode ser mudado. Uma ROM é não volátil, ou seja, nenhuma fonte de energia é necessária para manter os valores dos bits na memória. Embora seja possível ler uma ROM, não é possível escrever algo novo nela. Uma aplicação importante das ROM é a microprogramação, discutida na Parte 4. Outras aplicações em potencial incluem:
+bibliotecas de funções de uso frequente;
+ 
+programas do sistema; 
+tabelas de função. 
+Para um requisito de tamanho moderado, a vantagem da ROM é que os dados ou programa estão per-
+manentemente na memória principal e nunca precisam ser carregados de um dispositivo de armazenamento secundário.
+Uma ROM é criada como qualquer outro chip de circuito integrado, com os dados realmente gravados fi sica-
+mente no chip como parte do processo de fabricação. Isso gera dois problemas:
+A etapa de inserção de dados inclui um custo fi xo relativamente grande, não importa se são fabricadas uma 
+ 
+ou milhares de cópias de determinada ROM.Não há espaço para erro. Se um bit estiver errado, o lote inteiro de ROM precisa ser descartado.
+ 
+Quando apenas um pequeno número de ROM com determinado conteúdo de memória é necessário, uma 
+alternativa mais barata é a Rom programável (PROM). Assim como a ROM, a PROM é não volátil e pode ser es-
+crita apenas uma vez. Para a PROM, o processo de escrita é realizado eletricamente, e pode ser realizado por um fornecedor ou cliente após a fabricação original do chip. Um equipamento especial é necessário para o processo de escrita ou “programação” . As PROM oferecem fl exibilidade e conveniência. A ROM continua sendo atraente para a produção em grandes volumes.
+Outra variação na memória somente de leitura é a memória principalmente de leitura, que é útil para aplicações 
+em que operações de leitura são muito mais frequentes do que operações de escrita, mas para as quais o arma-zenamento não volátil é necessário. Existem três formas comuns de memória principalmente de leitura: EPROM, EEPROM e memória fl ash.
+1 Os círculos na ponta de T3 e T4 indicam negação.
+Book 1.indb 131 19.11.09 14:36:36
+
+132 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A memória somente de leitura programável e apagável (EPROM) é lida e escrita eletricamente, assim como 
+a PROM. Porém, antes de uma operação de escrita, todas as células de armazenamento precisam ser apagadas para 
+retornar ao mesmo estado inicial, pela exposição do chip empacotado à radiação ultravioleta. O apagamento é feito pela exposição do chip de memória, que contém uma janela, à luz ultravioleta intensa. Esse processo de apa-gamento pode ser realizado repetidamente; cada apagamento pode levar até 20 minutos para ser realizado. Assim, a EPROM pode ser alterada múltiplas vezes e, como a ROM e a PROM, mantém seus dados quase indefi nidamente. Para quantidades comparáveis de armazenamento, a EPROM é mais cara que a PROM, mas tem a vantagem da capacidade de múltiplas atualizações.
+Uma forma mais atraente de memória principalmente de leitura é a memória somente de leitura progra-
+mável e apagável eletricamente (EEPROM). Essa é uma memória principalmente de leitura que pode ser escrita a qualquer momento sem apagar o conteúdo anterior; somente o byte ou os bytes endereçados são atualizados. A operação de escrita leva muito mais tempo do que a operação de leitura, na ordem de muitas centenas de micros-segundos por byte. A EEPROM combina a vantagem da não volatilidade com a fl exibilidade de ser atualizável no local, usando as linhas comuns de controle, endereço e dados do barramento. A EEPROM é mais cara que a EPROM e também é menos densa, admitindo menos bits por chip.
+Outra forma de memória de semicondutor é a memória fl ash (que tem esse nome devido à velocidade com 
+que pode ser reprogramada). Introduzida inicialmente em meados da década de 1980, a memória fl ash é interme-diária entre a EPROM e a EEPROM tanto no custo quanto na funcionalidade. Assim como a EEPROM, a memória fl ash usa uma tecnologia elétrica de apagamento. Uma memória fl ash inteira pode ser apagada em um ou alguns segundos, o que é muito mais rápido que a EPROM. Além disso, é possível apagar apenas blocos de memória, ao invés de um chip inteiro. A memória fl ash recebeu esse nome porque o microchip é organizado de modo que uma seção das células de memória é apagada em uma única ação, ou “fl ash” . Porém, a memória fl ash não oferece apagamento em nível de byte. Assim como a EPROM, a memória fl ash usa apenas um transistor por bit e, portanto, consegue ter a alta densidade da EPROM (em comparação com a EEPROM).
+ Lógica do chip
+Assim como outros produtos de circuito integrado, a memória semicondutora vem em chips empacotados 
+(Figura 2.7). Cada chip contém um array de células de memória.
+Na hierarquia de memória como um todo, vimos que existem escolhas a se fazer entre velocidade, capacidade e 
+custo. Essas escolhas também existem quando consideramos a organização das células de memória e a lógica funcional em um chip. Para memórias semicondutoras, uma das principais questões de projeto é o número de bits de dados que podem ser lidos/escritos de cada vez. Em um extremo está uma organização em que o arranjo físico das células no array é o mesmo que o arranjo lógico (percebido pelo processador) de palavras na memória. O array é organizado em W palavras 
+de B bits cada. Por exemplo, um chip de 16 Mbits poderia ser organizado como 1 M palavras de 16 bits. No outro extremo 
+está a chamada organização de 1 bit por chip, em que os dados são lidos/escritos 1 bit de cada vez. Vamos ilustrar a orga-nização do chip de memória com uma DRAM; a organização da ROM é semelhante, embora mais simples.
+A Figura 5.3 mostra uma organização típica de uma DRAM de 16 Mbits. Nesse caso, 4 bits são lidos ou escritos 
+de cada vez. Logicamente, o array de memória é organizado como quatro arrays separados a cada 2 048 elementos. Diversos arranjos físicos são possíveis. De qualquer forma, os elementos do array são conectados por fi leiras hori-zontais (linha) e verticais (colunas). Cada fi leira horizontal se conecta ao terminal Select de cada célula em sua linha; 
+cada fi leira vertical se conecta ao terminal Data-In/Sense de cada célula em sua coluna.
+As fi leiras de endereço fornecem o endereço da palavra a ser selecionada. Um total de log
+2W fi leiras são 
+necessárias. Em nosso exemplo, 11 fi leiras de endereço são necessárias para selecionar uma das 2 048 linhas. Essas 11 fi leiras são alimentadas em um decodifi cador de linha, que tem 11 fi leiras de entrada e 2 048 fi leiras de saída. A lógica do decodifi cador ativa uma das 2 048 saídas, dependendo do padrão de bits nas 11 fi leiras de entrada (2
+11 = 2 048).
+Outras 11 fi leiras de endereço selecionam uma das 2 048 colunas de 4 bits por coluna. Quatro linhas de dados 
+são usadas para entrada e saída de 4 bits de e para um buff er de dados. Na entrada (escrita), o driver de bit de cada fi leira é ativado para um 1 ou 0, de acordo com o valor da linha de dados correspondente. Na saída (leitura), o valor de cada linha de bit é passado por um amplifi cador e colocado nas às linhas de dados. A fi leira de linha seleciona qual linha de células é usada para leitura ou escrita.
+Book 1.indb 132 19.11.09 14:36:36
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 5 Memória interna 133
+Como somente 4 bits são lidos/escritos nessa DRAM, é preciso haver múltiplas DRAMs conectadas ao controla-
+dor de memória para a leitura/escrita de uma palavra de dados no barramento.
+Observe que existem apenas 11 linhas de endereço (A0-A10), metade do número que você esperaria para um 
+array de 2048 × 2048. Isso é feito para economizar o número de pinos. As 22 linhas de endereço exigidas são pas-
+sadas por uma lógica de seleção externa ao chip e multiplexadas nas 11 linhas de endereço. Primeiro, 11 sinais de endereço são passados ao chip para definir o endereço de linha do array, e depois os outros 11 sinais de endereço são apresentados para o endereço de coluna. Esses sinais são acompanhados por sinais de seleção de endereço de linha (RAS, do inglês 
+Row Address Select) e seleção de endereço de coluna (CAS, do inglês Column Address Select ) 
+para permitir a temporização do chip.
+Os pinos de habilitação de escrita (WE, do inglês Write Enable ) e habilitação de saída (OE, do inglês Output 
+Enable ) determinam se uma operação de escrita ou leitura é realizada. Dois outros pinos, que não aparecem na 
+Figura 5.3, são terra (Vss) e uma fonte de voltagem (Vcc).
+Como um aparte, o endereçamento multiplexado mais o uso de arrays quadrados resulta em quadruplicar o 
+tamanho da memória com cada nova geração de chips de memória. Mais um pino dedicado ao endereçamento dobra o número de linhas e coluna e, portanto, o tamanho da memória em chip cresce por um fator de 4.
+A Figura 5.3 também indica a inclusão de circuitos de refresh. Todas as DRAM exigem uma operação de refresh. 
+Uma técnica simples de refresh, é desativar o chip de DRAM quando todas as células de dados são regarregadas. O 
+contador de refresh percorre todos os valores de linha. Para cada linha, as linhas de saída do contador de refresh são 
+fornecidas ao decodificador de linha e a linha RAS é ativada. Os dados são lidos e escritos de volta ao mesmo local. Isso faz com que cada célula na linha seja recarregada.Figura 5.3 DRAM típica de 16 Megabits DRAM (4M × 4)
+Decodificador de colunaCircuito de refresh• • •Array de memória 
+(2048 X 2048 X 4)Decodi-ficador de linha
+A0
+A1
+A10Buffer de 
+endereço 
+de linha
+Buffer de 
+endereço 
+de colunaTemporização e controle
+MUXContador
+de refresh
+ Buffer de entrada
+ de dados
+Buffer de saída 
+de dadosD1
+D2D3
+D4•
+••
+•••RAS
+CAS WE OE
+Book 1.indb 133 19.11.09 14:36:37
+
+134 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Empacotamento do chip
+Conforme mencionamos no Capítulo 2, um circuito integrado é montado em uma cápsula que contém pinos 
+para conexão com o mundo exterior.
+A Figura 5.4a mostra um exemplo de cápsula de EPROM, que é um chip de 8 Mbits organizado como 1 M × 8. 
+Nesse caso, a organização é tratada como uma cápsula de uma palavra por chip. A cápsula inclui 32 pinos, que é um 
+dos tamanhos de pacote de chip padrão. Os pinos admitem as linhas de sinal apresentadas a seguir:
+O endereço da palavra sendo acessada. Para palavras de 1 M, um total de 20 (2 20 = 1 M) pinos são necessários 
+(A0–A19).Os dados a serem lidos, consistindo em 8 linhas (D0–D7).
+ 
+A fonte de alimentação para o chip (V cc).
+Um pino de terra (V ss).
+Um pino CE. Como pode haver mais de um chip de memória, cada um conectado ao mesmo barramento 
+de endereço, o pino CE é usado para indicar se o endereço é válido ou não para esse chip. O pino CE é ativado pela lógica conectada aos bits de mais alta ordem do barramento de endereço (ou seja, os bits de endereço acima de A19). O uso desse sinal é ilustrado atualmente.Uma voltagem de programa (V
+ pp) que é fornecida durante a programação (operações de escrita).
+Uma confi guração de pinos típica de DRAM aparece na Figura 5.4b, para um chip de 16 Mbits organizado como 
+4 M × 4. Existem várias diferenças quando consideramos um chip de ROM. Como uma RAM pode ser atualizada, os pinos de dados são de entrada/saída. Os pinos WE e OE indicam se essa é uma operação de escrita ou leitura. Como a DRAM é acessada por linha e coluna, e o endereço é multiplexado, somente 11 pinos de endereço são necessários para especifi car as 4 M combinações de linha/coluna (2
+11 × 211 = 222 = 4 M). As funções dos pinos RAS e CAS já foram 
+explicadas. Finalmente, o pino de nenhuma conexão (NC) é fornecido para que haja um número par de pinos.
+ Organização do módulo
+Se um chip de RAM contém apenas 1 bit por palavra, então claramente precisaremos de pelo menos um nú-
+mero de chips igual ao número de bits por palavra. Como um exemplo, a Figura 5.5 mostra como um módulo de 
+32
+31
+302928
+27
+262524
+23
+22212019181712345
+6
+789
+10
+111213141516A19
+A16A15A12
+A7A6A5A4A3
+A2
+A1A0D0D1D2
+VssVccA18A17A14A13
+A8
+A9A11Vpp
+A10
+CED7D6D5D4D3Dip de 32
+ pinos
+0,6"
+Visão 
+superior1M 
+ 824
+2322212019181716151413123456789101112Vcc
+D1D2
+WE
+RAS
+NC
+A10
+A0A1A2A3
+VccVssD4D3CASOEA9A8A7A6A5A4Vss
+(b) DRAM de 16 Mbits (a) EPROM de 8 Mbits Dip de 24 
+ pinos
+0,6"
+Visão 
+superior4M 4Figura 5.4 Pinos e sinais do pacote de memória típico
+Book 1.indb 134 19.11.09 14:36:37

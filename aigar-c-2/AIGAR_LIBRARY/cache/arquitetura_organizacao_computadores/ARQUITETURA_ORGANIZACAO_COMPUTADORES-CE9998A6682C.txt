@@ -1,0 +1,1002 @@
+260 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+1 no multiplicador, uma operação de soma e deslocamento é necessária; mas, para cada 0, somente um desloca-
+mento é necessário.
+A Figura 9.8a mostra uma implementação possível empregando essas medidas. O multiplicador e o multipli-
+cando são carregados em dois registradores (Q e M). Um terceiro registrador, o registrador A, também é necessário e é definido inicialmente como 0. Há também um registrador C de 1 bit, inicializado com 0, que mantém um bit de carry em potencial, resultante da adição.
+A operação do multiplicador é a seguinte. A lógica de controle lê os bits do multiplicador um de cada vez. Se 
+Q
+0 for 1, então o multiplicando é somado ao registrador A e o resultado é armazenado no registrador A, com o bit 
+C usado para o overflow . Depois, todos os bits dos registradores C, A e Q são deslocados à direita um bit, de modo 
+que o bit C entra em An–1, A0 entra em Qn–1 e Q0 se perde. Se Q0 for 0, então nenhuma adição é realizada, apenas o 
+deslocamento. Esse processo é repetido para cada bit do multiplicador original. O produto de 2n bits resultante 
+está contido nos registradores A e Q. Um fluxograma da operação aparece na Figura 9.9, e um exemplo é dado na Figura 9.8b. Observe que, no segundo ciclo, quando o bit multiplicador é 0, não existe uma operação de adição.
+MUL TIPLICAÇÃO POR COMPLEMENTO DE DOIS Vimos que a adição e a subtração podem ser realizadas sobre 
+números na notação de complemento de dois tratando -os como inteiros sem sinal. Considere
+1001
++0011
+1100
+Figura 9.8 Implementação de hardware da multiplicação binária sem sinal
+Mn 1 Multiplicando
+(a) Diagrama em blocos
+(b) Exemplo da Figura 9.7 (produto em A, Q)Adição
+Deslocamento à direita
+MultiplicadorSomador de n bitsLógica de controle 
+de deslocamento e adiçãoM 0
+An 1 A0 Qn 1 Q0 C
+C
+0
+0
+0
+00
+0
+1
+0A
+0000
+1011
+0101
+00101101
+0110
+0001
+1000Q
+1101
+1101
+1110
+11111111
+1111
+1111
+1111M
+1011
+1011
+1011
+10111011
+1011
+1011
+1011Valores iniciais
+Adição
+Desl.
+Desl.
+Adição
+Desl.
+Adição
+Desl.Primeiro
+ciclo
+Segundo
+ciclo
+Terceiro
+ciclo
+Quarto
+ciclo
+Book 1.indb 260 19.11.09 14:37:42
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 261
+Se esses números forem considerados como inteiros sem sinal, então estamos somando 9 (1001) mais 3 (0011) 
+para obter 12 (1100). Como inteiros de complemento a dois, estamos somando –7 (1001) a 3 (0011) para obter –4 
+(1100).
+Infelizmente, esse esquema simples não funcionará para a multiplicação. Para ver isso, considere novamen-
+te a Figura 9.7. Multiplicamos 11 (1011) por 13 (1101) para obter 143 (10001111). Se interpretarmos estes como números de complemento de dois, temos –5 (1011) vezes –3 (1101) igual a –113 (10001111). Esse exemplo de -
+monstra que a multiplicação direta não funcionará se o multiplicando e o multiplicador forem negativos. De fato, isso não funcionará se o multiplicando ou o multiplicador for em negativo. Para justificar essa afirmação, precisamos retornar à Figura 9.7 e explicar o que está sendo feito em termos das operações com potências de 2. Lembre -se de que qualquer número binário sem sinal pode ser expresso como uma soma de potências 
+de 2. Assim,
+1101 = 1 × 2
+3 + 1 × 22 + 0 × 21 + 1 × 20 
+ = 23 + 22 + 20
+Além do mais, a multiplicação de um número binário por 2n é realizada deslocando -se esse número para a 
+esquerda por n bits. Com isso em mente, a Figura 9.10 modifica a Figura 9.7 para tornar explícita a geração de pro-dutos parciais pela multiplicação. A única diferença na Figura 9.10 é que ela reconhece que os produtos parciais devem ser vistos como números de 2n bits gerados a partir do multiplicando de n bits.
+Assim, como um inteiro sem sinal, o multiplicando de 4 bits 1011 é armazenado em uma palavra de 8 bits como 
+00001011. Cada produto parcial (diferente daquele para 2
+0) consiste nesse número deslocado à esquerda, com as 
+posições desocupadas à direita preenchidas com zeros (por exemplo, um deslocamento à esquerda de duas casas gera 00101100).
+Agora podemos demonstrar que a multiplicação direta não funcionará se o multiplicando for negativo. O 
+problema é que cada contribuição do multiplicando negativo como um produto parcial precisa ser um número negativo em um campo de 2n bits; os bits de sinal dos produtos parciais precisam se alinhar. Isso é demonstrado Figura 9.9 Fluxograma para a multiplicação binária sem sinal
+ INÍCIO
+FIMSim NãoNão SimC, A 0
+M MultiplicandoQ MultiplicadorContador n
+Desloca à direita C, A, QContador Contador - 1C, A A + M0
+Contador = 0? Produto em A, QQ = 1?
+Book 1.indb 261 19.11.09 14:37:43
+
+262 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+na Figura 9.11, que mostra a multiplicação de 1001 por 0011. Se estes números forem tratados como inteiros sem 
+sinal, a multiplicação de 9 × 3 = 27 prossegue de forma simples. Porém, se 1001 for interpretado como o valor de complemento de dois –7, então cada produto parcial precisa ser um número de complemento de dois negativo de 2n (8) bits, como mostra a Figura 9.11b. Observe que isso é realizado preenchendo -se cada produto parcial à 
+esquerda com 1s binários.
+Se o multiplicador for negativo, a multiplicação direta também não funcionará. O motivo é que os bits do 
+multiplicador não correspondem mais aos deslocamentos ou multiplicações que precisam ocorrer. Por exemplo, o número decimal de 4 bits –3 é escrito como 1101 no complemento a dois. Se simplesmente apanhássemos os produtos parciais com base em cada posição de bit, teríamos a seguinte correspondência:
+1101·- (1*2
+3+1*22+0*21+1*20)=-(23+22+20)
+De fato, o que desejamos é –(21 + 20). Assim, esse multiplicador não pode ser usado diretamente da maneira 
+como descrevemos.
+Existem várias maneiras de sair desse dilema. Uma seria converter o multiplicador e o multiplicando em núme-
+ros positivos, realizar a multiplicação e depois apanhar o complemento de dois do resultado se, e somente se, os sinais dos dois números originais forem diferentes. Os implementadores preferiram usar técnicas que não exigem essa etapa de transformação final. Uma das mais comuns destas é o algoritmo de Booth. Esse algoritmo também tem o benefício de agilizar o processo de multiplicação, em relação a uma técnica mais direta.
+O algoritmo de Booth é representado na Figura 9.12 e pode ser descrito da seguinte forma. Como antes, o 
+multiplicador e o multiplicando são colocados nos registradores Q e M, respectivamente. Há também um regis-trador de 1 bit colocado logicamente à direita do bit menos significativo (Q
+0) do registrador Q e chamado Q–1; 
+seu uso será explicado em breve. Os resultados da multiplicação aparecerão nos registradores A e Q. A e Q–1 são 
+inicializados em 0. Como antes, a lógica de controle verifica os bits do multiplicador um de cada vez. Agora, à medida que cada bit é examinado, o bit à sua direita também é examinado. Se os dois bits forem iguais (1–1 ou 0–0), então todos os bits dos registradores A, Q e Q
+–1 são deslocados à direita por 1 bit. Se os dois bits forem dife -
+rentes, então o multiplicando é somado ou subtraído do registrador A, dependendo se os dois bits forem 0–1 ou 1–0. Após a adição ou subtração, ocorre o deslocamento à direita. De qualquer forma, o deslocamento à direita é tal que o bit mais à esquerda de A, a saber, A
+n–1, não apenas é deslocado para An–2, mas também permanece 1011
+1101
+00001011 1011 1 20
+00000000 1011 0 21
+00101100 1011 1 22
+01011000 1011 1 23
+10001111Figura 9.10 Multiplicação de dois inteiros de 4 bits sem sinal, gerando um resultado de 8 bits
+Figura 9.11 Comparação da multiplicação de inteiros sem sinal e em complemento a dois
+ 1001 (9)
+0011(3)
+00001001 1001 20
+00010010 1001 21
+00011011 (27) 1001 (–7)
+0011(3)
+11111001 (–7) 20 = (–7)
+11110010 (–7) 21 = (–14)
+11101011 (–21)
+ (a) Inteiros sem sinal (b) Inteiros em complemento a dois
+Book 1.indb 262 19.11.09 14:37:44
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 263
+em An–1. Isso é exigido para preservar o sinal do número em A e Q. Esse é conhecido como um deslocamento 
+aritmético, pois preserva o bit de sinal.
+A Figura 9.13 mostra a sequência de eventos no algoritmo de Booth para a multiplicação de 7 por 3. De forma 
+mais compacta, a mesma operação é representada na Figura 9.14a. O restante da Figura 9.14 mostra outros exem-
+plos do algoritmo. Como podemos ver, isso funciona com qualquer combinação de números positivos e negativos. Observe também a eficiência do algoritmo. Os blocos de 1s ou 0s são pulados, com uma média de apenas uma adição ou subtração por bloco.
+Por que o algoritmo de Booth funciona? Considere o primeiro caso de um multiplicador positivo. Em particu-
+lar, considere um multiplicador positivo consistindo em um bloco de 1s cercado por 0s (por exemplo, 00011110). Como sabemos, a multiplicação pode ser obtida somando cópias devidamente deslocadas do multiplicando:
+ =M*30 =M*116+8+4+22 M*1000111102=M*124+23+22+212
+O número dessas operações pode ser reduzido para dois se observamos que
+2n + 2n ‑1 + … + 2n ‑K = 2n+1 – 2n ‑K (9.3)
+ =M*30 =M*132-22 M*100011110 2=M*125-212
+Assim, o produto pode ser gerado por uma adição e uma subtração do multiplicando. Esse esquema se estende a 
+qualquer número de blocos de 1s em um multiplicador, incluindo o caso em que um único 1 é tratado como um bloco.
+Figura 9.12 Algoritmo de Booth para a multiplicação por complemento a dois
+ INÍCIO
+FIMSim Não 10 01
+ 11
+ 00A 0, Q 1 0
+M Multiplicando
+Q MultiplicadorContador n
+Deslocamento aritméticoDireita: A, Q, Q
+1
+Contador Contador 1A A M A A MQ0, Q 1
+Contador 0?
+Book 1.indb 263 19.11.09 14:37:44
+
+264 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 9.13 Exemplo do algoritmo de Booth (7 × 3)
+Q–1
+0
+0
+1
+11
+0
+0A
+00001001
+1100
+11100101
+0010
+0001Q
+00110011
+1001
+01000100
+1010
+0101M
+01110111
+0111
+01110111
+0111
+0111Valores iniciaisA A – M
+DeslocamentoDeslocamento
+A A + M
+DeslocamentoDeslocamento
+Primeiro
+ciclo
+Segundo
+ciclo
+Terceiro
+ciclo
+Quarto
+ciclo
+Figura 9.14 Exemplos usando o algoritmo de Booth
+ 0111
+0011 (0)
+11111001 1–0
+0000000 1–1
+000111 0–1
+00010101 (21) 0111
+1101 (0)
+11111001 1–0
+0000111 0–1111001 
+1–0
+11101011 (–21)
+(a) (7) (3) (21) ( 3) ( 21)
+ 1001
+0011 (0)
+00000111 1–0
+0000000 1–1
+111001 0–1
+11101011 (–21) 1001
+1101 (0)
+00000111 1–0
+1111001 0–1
+000111 1–0
+00010101 (21)
+(c) ( 7) (3) ( 21) (d) ( 7) ( 3) (21) (b) (7) =M*127-23+22-212 M*101111010 2=M*126+25+24+23+212
+O algoritmo de Booth obedece a esse esquema realizando uma subtração quando o primeiro 1 do bloco for 
+encontrado (1–0) e uma adição quando o final do bloco é encontrado (0–1).
+Para mostrar que o mesmo esquema funciona para um multiplicador negativo, precisamos observar o seguinte. 
+Considere que X seja um número negativo na notação de complemento a dois:
+X=51xn-2xn-3Áx1x06 Representação de
+Então, o valor de X pode ser expresso da seguinte forma:
+(9.4) X =- 2n-1+(xn-2*2n-2)+(xn-3*2n-3)+Á+(x1*21)+(x0*20)
+O leitor pode verificar isso aplicando o algoritmo aos números na Tabela 9.2.
+Book 1.indb 264 19.11.09 14:37:45
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 265
+O bit mais à esquerda de X é 1, pois X é negativo. Suponha que o 0 mais à esquerda esteja na posição k. Assim, 
+X tem a forma
+X=5111Á10xk-1xk-2Áx1x06 Representação de (9.5)
+Então, o valor de X é
+(9.6) X=-2-1 2+2-+Á+2+1+(xk-1*2-1)+Á+(x0*20)nn k k
+Pela Equação 9.3, podemos dizer que
+2n-2+2n-3+Á+2k+1=2n-1-2k+1
+Rearrumando
+(9.7) -2n-1+2n-2+2n-3+Á+2k+1=-2k+1
+Substituindo a Equação 9.7 na Equação 9.6, temos
+(9.8) X=-2k+1+(xk-1*2k-1)+Á+(x0*20)
+Por fi m podemos retornar ao algoritmo de Booth. Lembrando a representação de X (Equação 9.5), fi ca claro que 
+todos os bits de x0 até o 0 mais à esquerda são tratados corretamente, pois produzem todos os termos na Equação 9.8 
+menos (–2k+1), e assim estão na forma apropriada. À medida que o algoritmo passe o 0 mais à esquerda e encontra o 
+próximo 1 (2k+1), ocorre uma transição 1–0 e acontece uma subtração (–2k+1). Esse é o termo restante na Equação 9.8.
+M*(11111010) =M*(-23+22-21)M*(11111010) =M*(-23+21)M*(11111010) =M*(-27+26+25+24+23+21)-6=-27+26+25+24+23+21
+sendo que o leitor pode facilmente verificar. Assim,
+Usando a Equação 9.7,Como um exemplo, considere a multiplicação de algum multiplicando por (–6). Na re-
+presentação de complemento a dois, usando uma palavra de 8 bits, (–6) é representado 
+como 11111010. Pela Equação 9.4, sabemos que
+que, como o leitor pode verificar, ainda é M × (–6). Finalmente, seguindo nossa linha 
+de raciocínio anterior,
+Podemos ver que o algoritmo de Booth está em conformidade com esse esquema. Ele realiza uma subtração 
+quando o primeiro 1 é encontrado (1–0), uma adição quando (01) é encontrado, e fi nalmente outra subtração 
+quando o primeiro 1 do próximo bloco de 1s é encontrado. Assim, o algoritmo de Booth realiza menos adições e subtrações do que um algoritmo mais direto.
+ Divisão
+A divisão é um pouco mais complexa que a multiplicação, mas é baseada nos mesmos princípios gerais. Como 
+antes, a base para o algoritmo é a técnica de lápis e papel, e a operação envolve deslocamento repetitivo e adição ou subtração.
+Book 1.indb 265 19.11.09 14:37:47
+
+266 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A Figura 9.15 mostra um exemplo da divisão longa de inteiros binários sem sinal. É instrutivo descrever o processo 
+com detalhes. Primeiro, os bits do dividendo são examinados da esquerda para a direita, até que o conjunto de bits 
+examinados represente um número maior ou igual ao divisor; isso é conhecido como o divisor sendo capaz de dividir o número. Até que esse evento ocorra, 0s são colocados no quociente da esquerda para a direita. Quando o evento ocorre, um 1 é colocado no quociente e o divisor é subtraído do dividendo parcial. O resultado é conhecido como resto parcial. Desse ponto em diante, a divisão segue um padrão cíclico. Em cada ciclo, bits adicionais do dividendo são anexados ao resto parcial até que o resultado seja maior ou igual ao divisor. Como antes, o divisor é subtraído desse número para produzir um novo resto parcial. O processo continua até que os bits do dividendo terminem.
+A Figura 9.16 mostra um algoritmo de máquina que corresponde ao processo de divisão. O divisor é colocado 
+no registrador M, o dividendo no registrador Q. Em cada etapa, os registradores A e Q juntos são deslocados à esquerda por 1 bit. M é subtraído de A para determinar se A divide o resto parcial.
+3 Nesse caso, então Q0 recebe 
+um bit 1. Caso contrário, Q0 recebe um bit 0 e M precisa ser somado de volta a A para restaurar o valor anterior. O 
+contador é então decrementado e o processo continua por n etapas. Ao final, o quociente está no registrador Q e 
+o resto está no registrador A.
+Esse processo pode, com alguma dificuldade, ser estendido a números negativos. Mostramos aqui uma técnica 
+para números de complemento de dois. Um exemplo dessa técnica aparece na Figura 9.17.
+O algoritmo considera que o divisor V e o dividendo D são positivos e que |V| < |D|. Se |V| = |D|, então o quociente 
+Q = 1 e o resto R = 0. Se |V| > |D|, então Q = 0 e R = D. O algoritmo pode ser resumido da seguinte forma:
+1. Carregue o complemento de dois do divisor no registrador M; ou seja, o registrador M contém o negativo do divisor. Carregue o dividendo nos registradores A, Q. O dividendo precisa ser expresso como um número positivo de 2n bits. Assim, por exemplo, os 4 bits 0111 tornam -se 00000111.
+2. Desloque A, Q à esquerda por 1 posição de bit.
+3. Execute A  A – M. Essa operação subtrai o divisor do conteúdo de A.
+4. a. Se o resultado for não negativo (bit mais significativo de A = 0), então defina Q
+0  1.
+ b. Se o resultado for negativo (bit mais significativo de A = 1), então defina Q0  0 e restaure o valor an-
+terior de A.
+5. Repita as etapas de 2 a 4 tantas vezes quantas posições de bit existirem em Q.
+6. O resto está em A e o quociente em Q.
+Para tratar com números negativos, sabemos que o resto é definido por
+D=Q*V+R
+Considere os seguintes exemplos de divisão de inteiros com todas as combinações possíveis de sinais de D e V:
+ D=-7 V=-3 1 Q=2 R=-1 D=-7 V=3 1 Q=-2 R=-1 D=7 V=-3 1 Q=-2 R=1 D=7 V=3 1 Q=2 R=1
+3 Essa é a subtração de inteiros sem sinal. Um resultado que requer um empréstimo do bit mais significativo é um resultado negativo.Figura 9.15 Exemplo de divisão de inteiros binários sem sinal
+ 00001101
+1011 10010011 1011 001110 1011 001111 1011 100Quociente
+Dividendo Divisor
+RestoRestos
+parciais
+Book 1.indb 266 19.11.09 14:37:48
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 267
+O leitor notará, pela Figura 9.17, que (–7)/(3) e (7)/( –3) produzem restos diferentes. Vemos que as magnitudes de 
+Q e R não são afetadas pelos sinais da entrada e que os sinais de Q e R são facilmente deriváveis a partir dos sinais de D 
+e V. Especifi camente, sinal(R ) = sinal(D ) e sinal (Q ) = sinal(D ) × sinal(V ). Logo, um modo de realizar a divisão com com-
+plemento de dois é converter os operandos em valores sem sinal e, ao fi m, considerar os sinais por complementação, 
+onde for preciso. Esse é o método escolhido para o algoritmo de divisão por restauração (PARHAMI, 2000c).
+9.4 Representação de ponto flutuante
+ Princípios
+Com uma notação de ponto fi xo (por exemplo, complemento de dois), é possível representar um intervalo de 
+inteiros positivos e negativos centrados em 0. Assumindo um binário fi xo e ponto fracionário, esse formato permite a representação de números também com um componente fracionário.
+Essa técnica tem limitações. Números muito grandes não podem ser representados, nem frações muito peque-
+nas. Além do mais, a parte fracionária do quociente em uma divisão de dois números grandes poderia ser perdida.
+Para números decimais, contornamos essa limitação usando a notação científi ca. Assim, 976.000.000.000.000 
+pode ser representado como 9,76 × 10
+14, e 0,0000000000000976 pode ser representado como 9,76 × 10–14. O que 
+fi zemos, com efeito, foi deslocar dinamicamente a vírgula decimal para um local conveniente e usar o expoente de 10 para registrar esse ponto decimal. Isso permite que um intervalo de números muito grandes e muito pequenos seja representado com apenas alguns dígitos.Figura 9.16 Fluxograma para divisão binária sem sinal
+ INÍCIO
+FIMSim NãoSim
+Quociente em Q
+Resto em AA 0
+M Divisor Q DividendoContador n
+Desl. esquerda
+A, Q
+A A M
+Contador Contador 1Q0 1Q0 0
+A A MA 0?
+Contador 0?Não
+Book 1.indb 267 19.11.09 14:37:49
+
+268 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Essa mesma técnica pode ser usada com números binários. Podemos representar um número no formato
+;S*B;E
+Esse número pode ser armazenado em uma palavra binária com três campos:
+Sinal: mais ou menos. 
+Significando S. 
+Expoente E. 
+A base B é implícita e não precisa ser armazenada, pois é a mesma para todos os números. Normalmente, 
+considera -se que o ponto fracionário está à direita do bit mais à esquerda (ou mais significativo) do significando. 
+Ou seja, existe um bit à esquerda do ponto fracionário.
+Os princípios utilizados na representação de números de ponto flutuante binários podem ser explicados melhor 
+com um exemplo. A Figura 9.18a mostra um formato típico de ponto flutuante com 32 bits. O bit mais à esquerda armazena o sinal do número (0 = positivo, 1 = negativo). O valor do expoente é armazenado nos 8 bits seguintes. 
+A representação usada é conhecida como representação polarizada. Um valor fixo, chamado de polarização, é 
+subtraído do campo para obter o verdadeiro valor do expoente. Normalmente, a polarização é igual a (2
+k–1 – 1), 
+onde k é o número de bits no expoente binário. Nesse caso, o campo de 8 bits resulta em números de 0 a 255. Com 
+uma polarização de 127 (27 – 1), os valores de expoente verdadeiros estão na faixa de –127 a +128. Neste exemplo, 
+a base é considerada como sendo 2.
+A Tabela 9.2 mostra a representação polarizada para inteiros de 4 bits. Observe que, quando os bits de uma 
+representação polarizada são tratados como inteiros sem sinal, as magnitudes relativas dos números não mudam. Por exemplo, nas representações polarizada e sem sinal, o maior número é 1111 e o menor número é 0000. Isso não é verdade com a representação por sinal -magnitude ou complemento de dois. Uma vantagem da representação polarizada é que os números de ponto flutuante não negativos podem ser tratados como inteiros para fins de comparação.
+A parte final da palavra (23 bits, neste caso) é o significando.
+4
+Qualquer número de ponto flutuante pode ser expresso de muitas maneiras.
+4 O termo mantissa, às vezes usado no lugar de significando, é considerado obsoleto. Mantissa também significa “a parte fracionária de um 
+logaritmo” , de modo que é melhor ser evitado neste contexto.Figura 9.17 Exemplo de divisão por restauração de complemento de dois (7/3)
+A Q
+0000 0111 Valor inicial
+0000
+1101110100001110
+1110Deslocamento
+Use dois complementos de 0011 para a subtração
+SubtraiaRestaure, faça Q
+0001
+000111001100Deslocamento
+Subtraia
+Restaure, faça Q
+11011110
+0011
+000010001001Deslocamento
+Subtraia faça Q1101
+0001
+000100100010Deslocamento
+Subtraia
+Restaure, faça Q110111100 0
+0 0
+0 1
+0 0
+Book 1.indb 268 19.11.09 14:37:49
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 269
+0,0110*26110*220,110*25Os seguintes números são equivalentes, onde o significando é expresso em formato binário:
+Para simplificar as operações sobre números de ponto flutuante, normalmente é exigido que eles sejam norma-
+lizados. Um número normalizado é aquele em que o dígito mais significativo do significando é diferente de zero. 
+Para a representação na base 2, um número normalizado é, portanto, um número em que o bit mais significativo do 
+significando é 1. Conforme dissemos, a convenção típica é que haja um bit à esquerda da vírgula fracionário. Assim, um número normalizado diferente de zero é aquele na forma
+;1.bbb . . . b *2
+;E
+onde b é qualquer dígito binário (0 ou 1). Como o bit mais significativo é sempre 1, é desnecessário armazenar 
+esse bit; ao invés disso, ele é implícito. Assim, o campo de 23 bits é usado para armazenar um significando de 24 bits com um valor no intervalo meio aberto [1, 2). Dado um número que não é normalizado, o número pode ser normalizado deslocando a vírgula fracionário à direita do bit 1 mais à esquerda e ajustando o expoen te devidamente.
+A Figura 9.18b oferece alguns exemplos de números armazenados nesse formato. Para cada exemplo, à esquer-
+da está o número binário, e o centro é o padrão de bits correspondente; à direita está o valor decimal. Observe as seguintes características:
+O sinal é armazenado no primeiro bit da palavra.
+ 
+O primeiro bit do verdadeiro significando é sempre 1 e não precisa ser armazenado no campo de signifi- 
+cando.O valor 127 é acrescentado ao verdadeiro expoente para ser armazenado no campo de expoente.
+ 
+A base é 2. 
+Por comparação, a Figura 9.19 indica o intervalo de números que podem ser representados em uma palavra de 
+32 bits. Usando a representação de inteiro com complemento de dois, todos os inteiros de –231 a 231 –1 podem ser 
+representados, para um total de 232 números diferentes. Com o exemplo de formato de ponto flutuante da Figura 
+9.18, os intervalos de números a seguir são possíveis:
+Números negativos entre –(2 – 2 –23) × 2128 e –2–127.
+Números positivos entre 2 –127 e (2 – 2–23) × 2128.Figura 9.18 Formato típico de ponto flutuante de 32 bits
+8 bits
+Signi/f_icando23 bits
+(a) Formato
+(b) Exemplos 1.1010001 210100 = 0 10010011 10100010000000000000000 = 1.6328125 220
+–1.1010001 210100 = 1 10010011 10100010000000000000000 = –1.6328125 220
+ 1.1010001 2–10100 = 0 01101011 10100010000000000000000 = 1.6328125 2–20
+–1.1010001 2–10100 = 1 01101011 10100010000000000000000 = –1.6328125 2–20Expoente polarizado Sinal do
+signi/f_icando
+Book 1.indb 269 19.11.09 14:37:50
+
+270 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Cinco regiões na linha de números não estão incluídas nesses intervalos: 
+Números negativos menores que – (2 – 2 –23) × 2128, chamados de overflow negativo.
+Números negativos maiores que 2 –127, chamados de underflow negativo.
+Zero. 
+Números positivos menores que 2 –127, chamados de underflow positivo.
+Números positivos maiores que (2 – 2 –23) × 2128, chamados de overflow positivo.
+A representação conforme apresentada não acomodará um valor 0. Porém, conforme veremos, as representa-
+ções reais de ponto flutuante incluem um padrão de bits especial para designar zero. O overflow ocorre quando 
+uma operação aritmética resulta em uma magnitude maior do que pode ser expressa com um expoente de 128 
+(por exemplo, 2120 × 2100 = 2220). O underflow ocorre quando a magnitude fracionária é muito pequena (por exemplo, 
+2–120 × 2–100 = 2–220). O underflow é um problema menos sério porque o resultado geralmente pode ser satisfatoria-
+mente aproximado para 0.
+É importante observar que não estamos representando mais valores individuais com a notação de ponto flutuan-
+te. O número máximo de valores diferentes que podem ser representados com 32 bits ainda é 232. O que fizemos foi 
+espalhar esses números em dois intervalos, um positivo e um negativo. Na prática, a maioria dos números de ponto flutuante que alguém desejaria representar é representada apenas de forma aproximada. Porém, para inteiros de tamanho moderado, a representação é exata.
+Além disso, observe que os números representados em notação de ponto flutuante não são espaçados uni-
+formemente ao longo da linha de números, como os números de ponto fixo. Os valores possíveis se tornam mais próximos perto da origem e mais distantes à medida que você se afasta, como mostra a Figura 9.20. Essa é uma das desvantagens da matemática de ponto flutuante: muitos cálculos produzem resultados que não são exatos e precisam ser arredondados para o valor mais próximo que a notação pode representar.
+No tipo de formato representado na Figura 9.18, existe uma escolha entre intervalo e precisão. O exemplo 
+mostra 8 bits dedicados ao expoente e 23 ao significando. Se aumentarmos o número de bits no expoente, expan-dimos os intervalos de números representáveis. Mas como apenas um número fixo de valores diferentes pode ser expresso, reduzimos a densidade desses números e, portanto, a precisão. O único modo de aumentar o intervalo e a precisão é usar mais bits. Assim, a maioria dos computadores oferece, pelo menos, números de precisão simples e números de precisão dupla. Por exemplo, um formato de precisão simples poderia ser de 32 bits, e um formato de precisão dupla, de 64 bits.Figura 9.19 Números expressos em formatos típicos de 32 bits
+ Inteiros representáveis
+Números negativos 
+representáveisOver/f_low 
+negativoOver/f_low
+positivoUnder/f_low
+negativo
+ZeroUnder/f_low
+positivo
+Números positivos
+representáveis(a) Inteiros de complemento de dois
+(b) Números de ponto /f_lutuanteLinha de
+número0
+0Linha de
+número
+Book 1.indb 270 19.11.09 14:37:51
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 271
+Assim, existe uma escolha entre o número de bits no expoente e o número de bits no signifi cando. Mas é ainda 
+mais complicado do que isso. A base implícita do expoente não precisa ser 2. A arquitetura do IBM S/390, por exem-
+plo, usa uma base de 16 (Anderson et al., 1967d). O formato consiste em um expoente de 7 bits e um signifi cando 
+de 24 bits.
+0,11010001No formato de base 16 do IBM,
+e o expoente é armazenado para representar 5 em vez de 20.*210100=0,11010001 *16101
+A vantagem de usar um expoente maior é que um intervalo maior pode ser obtido para o mesmo número 
+de bits de expoente. Mas lembre -se que não aumentamos o número de valores diferentes que podem ser re-
+presentados. Assim, para um formato fi xo, uma base com expoente maior oferece um maior intervalo, à custa de menor precisão.
+ Padrão do IEEE para a representação binária de ponto fl utuante
+A representação de ponto fl utuante mais importante é defi nida no IEEE Standard 754, adotado em 1985. Esse 
+padrão foi desenvolvido para facilitar a portabilidade dos programas de um processador para outro e encorajar o desenvolvimento de programas sofi sticados, orientados numericamente. O padrão tem sido bastante adotado e é usado em praticamente todos os processadores e coprocessadores aritméticos atuais.
+O padrão do IEEE defi ne um formato simples de 32 bits e um formato duplo de 64 bits (Figura 9.21), com ex-
+poentes de 8 bits e 11 bits, respectivamente. A base pressuposta é 2. Além disso, o padrão defi ne dois formatos estendidos, simples e duplo, cujo formato exato depende da implementação. Os formatos estendidos incluem bits adicionais no expoente (intervalo estendido) e no signifi cando (precisão estendida). Os formatos estendidos devem ser usados para cálculos intermediários. Com sua maior precisão, os formatos estendidos reduzem a chance de um resultado fi nal que foi contaminado por erro de arredondamento excessivo; com seu maior intervalo, eles também reduzem a chance de um overfl ow intermediário interrompendo um cálculo cujo resultado fi nal teria sido represen-
+tável em um formato básico. Uma motivação adicional para o formato estendido simples é que ele concede alguns dos benefícios de um formato duplo sem incorrer na penalidade de tempo normalmente associada à precisão mais alta. A Tabela 9.3 resume as características dos quatro formatos.
+Nem todos os padrões de bits nos formatos do IEEE são interpretados pelo modo normal; em vez disso, alguns 
+padrões de bits são usados para representar valores especiais. A Tabela 9.4 indica os valores atribuídos a diversos padrões de bit. Os valores de expoente extremos de todos zeros (0) e todos uns (1) (255 em formato simples, 2.047 em formato duplo) defi nem valores especiais. As classes de números a seguir são representadas:
+Para valores de expoente na faixa de 1 a 254 para o formato simples e de 1 a 2046 para o formato duplo, 
+ 
+números de ponto fl utuantes normalizados diferentes de zero são representados. O expoente é viesado, de modo que o intervalo de expoentes é de –126 a +127 no formato simples e de –1.022 a +1.023. Um número normalizado requer um bit 1 à esquerda da vírgula binária; esse bit é pressuposto, dando um signifi cando efetivo de 24 bits ou 53 bits (chamado de fração no padrão).Figura 9.20 Densidade dos números de ponto fl utuante
+0 n n 2n 4n
+Book 1.indb 271 19.11.09 14:37:52
+
+272 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Um expoente zero junto com uma fração igual a zero representa zero positivo ou negativo, dependendo do 
+bit de sinal. Conforme mencionamos, é útil ter um valor exato de 0 representado.
+Um expoente com todos os bits 1 junto com uma fração igual a zero representa infi nito positivo ou negati- 
+vo, dependendo do bit de sinal. Também é útil ter uma representação de infi nito. Isso deixa para o usuário a função de decidir se tratará o overfl ow como uma condição de erro ou carregar o valor q e prosseguir com 
+o programa que estiver sendo executado.Um expoente de zero junto com uma fração diferente de zero representa um número desnormalizado. 
+ 
+Nesse caso, o bit à esquerda do ponto binário é zero e o expoente verdadeiro é –126 ou –1.022. O número é positivo ou negativo, dependendo do bit de sinal.Um expoente com todos os bits 1 junto com uma fração diferente de zero recebe o valor NaN, que signifi ca 
+ 
+Not a Number (não um número), e é usado para sinalizar diversas condições de exceção.
+O signifi cado dos números desnormalizados e NaNs é discutido na Seção 9.5.
+9.5 Aritmética de ponto fl utuante
+A Tabela 9.5 resume as operações básicas para aritmética de ponto fl utuante. Para adição e subtração, é necessá-
+rio garantir que ambos os operandos tenham o mesmo valor de expoente. Isso requer deslocar o ponto fracionário em um dos operandos para alcançar o alinhamento. A multiplicação e a divisão são mais diretas.Figura 9.21 Formatos IEEE 754
+Expoente
+polarizado8 Bits 23 Bits
+Bits 2 5 Bits 1 1Bit de
+sinal
+Bit de
+sinalFração
+(a) Formato isolado
+(b) Formato duploExpoente
+polarizadoFração
+Tabela 9.3 Parâmetros de formato IEEE 754
+ParâmetroFormato
+Isolado Estendido isolado Duplo Estendido duplo
+Tamanho da palavra (bits) 32 ≥ 43 64 ≥ 79
+Tamanho do expoente (bits) 8 ≥ 11 11 ≥ 15
+Polarização do expoente 127 não especifi cado 1023 não especifi cado
+Expoente máximo 127 ≥ 1023 1023 ≥ 16383
+Exponente mínimo –126 ≤ –1022 –1022 ≤ –16382
+Intervalo numérico (base 10) 10–38, 10+38não especifi cado 10–308, 10+308não especifi cado
+Tamanho do signifi cando (bits)* 23 ≥ 31 52 ≥ 63
+número de expoentes 254 não especifi cado 2046 não especifi cado
+número de frações 223não especifi cado 252não especifi cado
+número de valores 1,98 × 231não especifi cado 1,99 × 263não especifi cado
+* Não incluso o bit implícito.
+Book 1.indb 272 19.11.09 14:37:52
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 273
+Uma operação de ponto fl utuante pode produzir uma destas condições:
+O v e r fl o w  de expoente: um expoente positivo excede o valor máximo possível para expoente. Em alguns 
+sistemas, isso pode ser designado como +∞ ou –∞.
+Underfl ow  de expoente: um expoente negativo é menor que o valor mínimo possível para expoente (por 
+exemplo, –200 é menor que –127). Isso signifi ca que o número é muito pequeno para ser representado, e pode ser informado como 0.Underflow
+  de significando: no processo de alinhamento dos significandos, os dígitos podem sair 
+pela extremidade direita do significando. Conforme veremos, alguma forma de arredondamento é ne-cessária.O v e r fl o w
+  de signifi cando: a adição de dois signifi candos com o mesmo sinal pode resultar em um carry 
+pelo bit mais signifi cativo. Isso pode ser resolvido pelo realinhamento, conforme explicaremos.
+ Adição e subtração
+Na aritmética de ponto fl utuante, adição e subtração são mais complexas do que multiplicação e divisão. Isso 
+deve -se à necessidade de alinhamento. Existem quatro fases básicas do algoritmo para adição e subtração:
+1. Verifi car zeros.
+2. Alinhar os signifi candos.Tabela 9.4 Interpretação dos números de ponto fl utuante IEEE 754
+Precisão simples (32 bits) Precisão dupla (64 bits)
+Sinal Expoente polarizado Fração Valor Sinal Expoente viesado Fração Valor
+Zero positivo 0 0 0 00 0 0 0
+Zero negativo 1 0 0 –0 1 0 0 –0
+Mais infi nito 0 255 (todos 1s) 0 ∞ 0 2047 (todos 1s) 0 ∞
+Menos infi nito 1 255 (todos 1s) 0 –∞ 1 2047 (todos 1s) 0 –∞
+nan silencioso 0 ou 1 255 (todos 1s) ≠0 nan 0 ou 1 2047 (todos 1s) ≠0 nan
+nan sinalização 0 ou 1 255 (todos 1s) ≠0 nan 0 ou 1 2047 (todos 1s) ≠0 nan
+Diferente de zero 
+normalizado positivo0 0 < e < 255 f 2e–127(1.f) 0 0 < e < 2047 f 2e–1023(1.f)
+Diferente de zero 
+normalizado negativo1 0 < e < 255 f –2e–127(1.f) 1 0 < e < 2047 f –2e–1023(1.f)
+Desnormalizado positivo 0 0 f ≠ 0 2e–126(0.f) 0 0 f ≠ 0 2e–1022(1.f)
+Desnormalizado negativo 1 0 f ≠ 0 –2e–126(0.f) 1 0 f ≠ 0 –2e–1022(1.f)
+Tabela 9.5 Números e operações aritméticas de ponto fl utuante
+Números de ponto fl utuante Operações aritméticas
+ Y=YS*BYE X=XS*BXE
+X
+Y=aXS
+YSb*BXE-YEX*Y=(XS*YS)*BXE+YEX+Y=1XS*BXE-YE+YS2*BYE
+X-Y=1XS*BXE-YE-YS2*BYEfXE…YE Y=YS*BYE X=XS*BXE
+X
+Y=aXS
+YSb*BXE-YEX*Y=(XS*YS)*BXE+YEX+Y=1XS*BXE-YE+YS2*BYE
+X-Y=1XS*BXE-YE-YS2*BYEfXE…YE
+Book 1.indb 273 19.11.09 14:37:54
+
+274 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+3. Somar ou subtrair os significandos.
+4. Normalizar o resultado.
+X,Y=(0,3,0,2)*102-3=1,5*10-1=0,15X*Y=(0,3*0,2)*102+3=0,06*105=6000X-Y=(0,3*102-3-0,2)*103=(-0,17)*103=-170X+Y=(0,3*102-3+0,2)*103=0,23*103=230 Y=0,2*103=200 X=0,3*102=30Exemplos:
+Um fluxograma típico aparece na Figura 9.22. Uma narrativa passo a passo destaca as principais funções exigidas 
+para a adição e a subtração em ponto flutuante. Consideramos um formato semelhante aos da Figura 9.21. Para a 
+operação de adição ou subtração, os dois operandos precisam ser transferidos aos registradores que serão usados pela ALU. Se o formato de ponto flutuante incluir um bit de significando implícito, esse bit precisa se tornar explícito para a operação.
+Fase 1: verificação de zero. Como a adição e a subtração são idênticas, exceto por uma mudança de sinal, o 
+processo começa alterando o sinal do subtraendo, se essa for uma operação de subtração. Em seguida, se algum 
+operando for 0, o outro é informado como o resultado.
+Fase 2: alinhamento do significando. A próxima fase é manipular os números de modo que os dois expoen-
+tes sejam iguais.
+(123 *100)+(456 *10-2)=(123 *100)+(4,56 *100)=127,56 *100(123 *100)+(456 *10-2) 
+Claramente , não podemos apenas somar os significandos . Os dígitos precisam primeiro 
+ser definidos para posições equivalentes , ou seja, o 4 do segundo número precisa ser 
+alinhado com o 3 do primeiro . Sob essas condições , os dois expoentes serão iguais , que 
+é a condição matemática sob a qual dois números nesse formato podem ser somados . 
+Assim, Para ver a necessidade de alinhar os expoentes, considere a seguinte adição em decimal:
+O alinhamento pode ser conseguido deslocando -se o número menor para a direita (aumentando seu 
+expoente) ou deslocando o número maior para a esquerda. Como qualquer uma dessas operações pode 
+resultar em perda de dígitos, é o número menor que é deslocado; quaisquer dígitos que forem perdidos, por -
+tanto, terão significado relativamente pequeno. O alinhamento é obtido deslocando repetidamente a parte de magnitude do significando 1 dígito para a direita, e aumentando o expoente até que os dois expoentes sejam iguais. (Observe que, se a base pressuposta for 16, um deslocamento de 1 dígito é um deslocamento de 4 bits.) Se esse processo resultar em um valor 0 para o significando, então o outro número é informado como resultado. Assim, se dois números tiverem expoentes que diferem significativamente, o número menor é perdido.
+Fase 3: adição. Em seguida, os dois significandos são somados, levando em conta seus sinais. Como os sinais 
+podem ser diferentes, o resultado pode ser 0. Há também a possibilidade de overflow do significando por 1 dígito. 
+Se isso acontecer, o significando do resultado é deslocado para a direita e o expoente é incrementado. Um overflow 
+de expoente poderia ocorrer como resultado; isso seria informado e a operação encerrada.
+Fase 4: normalização. A fase final normaliza o resultado. A normalização consiste no deslocamento dos dígi-
+tos do significando para a esquerda até que o dígito mais significativo (bit, ou 4 bits para expoente na base 16) seja diferente de zero. Cada deslocamento causa um decremento do expoente e, portanto, poderia causar um under-flow do expoente. Finalmente, o resultado precisa ser arredondado e depois informado. Adiamos uma discussão do 
+arredondamento para a discussão da multiplicação e divisão.
+Book 1.indb 274 19.11.09 14:37:55
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 275
+ Multiplicação e divisão
+A multiplicação e a divisão em ponto fl utuante são processos muito mais simples que a adição e a subtração, 
+como indica a discussão a seguir.
+Inicialmente, consideramos a multiplicação, ilustrada na Figura 9.23. Primeiro, se qualquer operando for 
+0, 0 é informado como sendo o resultado. O próximo passo é somar os expoentes. Se os expoentes forem Figura 9.22 Adição e subtração de ponto fl utuante (Z  Z ± Y)
+SUBTRAIR
+SOMAR
+RETORNA
+RETORNASimNão
+NãoNão
+Não
+NãoNão
+SimZ YZ 0
+X 0?
+SimSim
+SimSim
+SimY 0?Incrementa
+expoente
+menor
+Desloca 
+signi/f_icando 
+à direitaSoma 
+signi/f_icandos 
+com sinal
+Desloca
+signi/f_icando
+à direita
+Coloca outro
+número em ZIncrementa
+expoentemudar de 
+sinal Y
+Informa
+underflow
+Informa
+overflowNãoNão
+Não
+SimSimExpoentes
+iguais?
+Signi/f_icando
+0?
+Overflow do
+expoente?Desloca 
+signi/f_icando 
+à esquerda
+Decrementa
+expoente
+Underflow do
+expoente?Resultados
+normalizados?
+Signi/f_icando
+0?
+Overflow do
+signi/f_icando?Z X
+RETORNA
+RETORNARETORNA
+RETORNAArredonda
+resultado
+Book 1.indb 275 19.11.09 14:37:55
+
+276 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ armazenados de forma polarizada, a soma do expoente teria dobrado a polarização. Assim, o valor da polari-
+zação precisa ser subtraído da soma. O resultado poderia ser ou um overflow ou um underflow de expoente, 
+que seria informado, encerrando o algoritmo.
+Se o expoente do produto estiver dentro da faixa correta, o próximo passo é multiplicar os signifi candos, levan-
+do em conta seus sinais. A multiplicação é realizada da mesma maneira para inteiros. Nesse caso, estamos lidando 
+com a representação sinal -magnitude, mas os detalhes são semelhantes aos da representação em complemento de dois. O produto será o dobro do tamanho do multiplicador e do multiplicando. Os bits extras serão perdidos durante o arredondamento.
+Após o cálculo do produto, o resultado é então normalizado e arredondado, como foi feito para a adição e a 
+subtração. Observe que a normalização poderia resultar em underfl ow do expoente.
+Finalmente, vamos considerar o fl uxograma para divisão, representado na Figura 9.24. Novamente, o primeiro 
+passo é testar o 0. Se o divisor for 0, um informe de erro é emitido, ou o resultado é defi nido como infi nito, de-pendendo da implementação. Um dividendo 0 resulta em 0. Em seguida, o expoente do divisor é subtraído do expoente do dividendo. Isso remove a polarização, que precisa ser somado de volta. Em seguida, são feitos testes de underfl ow e overfl ow do expoente.
+O próximo passo é dividir os signifi candos. Isso é acompanhado pela normalização e arredondamento normais.
+ Considerações de precisão
+BITS DE GUARDA Mencionamos que, antes da operação de ponto flutuante, o expoente e o signifi-
+cando de cada operando são carregados nos registradores da ALU. No caso do significando, o tamanho do MULTIPLICAR
+RETORNA
+RETORNASimNão
+Z 0X 0?
+Sim
+Sim
+SimSubtrai polarizaçãoSoma
+expoentes
+Informa
+overflow
+Multiplica
+signi/f_icandosY 0?
+Overflow de 
+expoente?
+Normaliza
+ArredondaUnderflow do 
+expoente?Não
+Não
+NãoInforma
+underflowFigura 9.23 Multiplicação de ponto fl utuante (Z  X × Y)
+Book 1.indb 276 19.11.09 14:37:56
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 277
+registrador é quase sempre maior que o tamanho do significando mais o bit implícito. O registrador contém 
+bits adicionais, chamados bits de guarda, que são usados para preencher o extremo direito do significando com 0s.
+O motivo para o uso dos bits de guarda é ilustrado na Figura 9.25. Considere números no formato 
+IEEE, que tem um significando de 24 bits, incluindo um bit 1 implícito à esquerda do ponto binário .
+Dois números que são muito próximos em valor são x = 1,00 ... 00 × 21 e y = 1,11 ... 11 × 20. Se o
+número menor tiver que ser subtraído do maior , ele deve ser deslocado 1 bit à direita para alinhar 
+os expoentes . Isso pode ser visto na Figura 9.25a. No processo , y perde 1 bit do significante; o 
+resultado é 2–22. A mesma operação é repetida na parte (b) com a adição dos bits de guarda. Agora, 
+o bit menos significativo não se perde devido ao alinhamento , e o resultado é 2–23, uma diferença de 
+um fator de 2 da resposta anterior . Quando a raiz é 16, a perda de precisão pode ser maior . Como
+as Figuras 9.25c e d indicam, a diferença pode ser um fator de 16.
+ARREDONDAMENTO Outro detalhe que afeta a precisão do resultado é a política de arredondamento. O resul-
+tado de qualquer operação sobre os significandos geralmente é armazenado em um registrador maior. Quando o 
+resultado é colocado de volta ao formato de ponto flutuante, os bits extras precisam ser descartados.
+Diversas técnicas foram exploradas para realizar o arredondamento. Na verdade, o padrão do IEEE lista quatro 
+técnicas alternativas:
+Arredondar ao mais próximo:  o resultado é arredondado para o número representável mais próximo.Figura 9.24 Divisão de ponto flutuante (Z  X/Y)
+DIVIDIR
+RETORNA
+RETORNASimNão
+Z 0X 0?
+Sim
+Sim
+SimSoma polarizaçãoSubtrai
+expoentes
+Informa
+overflow
+Divide
+signi/f_icandosY 0?
+Overflow do
+expoente?
+Normaliza
+ArredondaUnderflow do
+expoente?Não
+Não
+NãoInforma
+underflowZ 
+Book 1.indb 277 19.11.09 14:37:57
+
+278 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Arredondar para cima +  ∞: o resultado é arredondado para mais infinito.
+Arredondar para baixo –  ∞: o resultado é arredondado para infinito negativo.
+Arredondar para 0:  o resultado é arredondado para zero.
+Vamos considerar cada uma dessas políticas por vez. Arredondar ao mais próximo é o modo de arredon-
+damento padrão e é definido da seguinte forma: o valor representável mais próximo ao resultado infinitamente 
+preciso será entregue.
+Se os bits extras, além dos 23 bits que podem ser armazenados , forem 10010, então 
+os bits extras chegam a mais de metade da última posição de bit representável. Ne- 
+se caso , a resposta correta é somar o binário 1 ao último bit representável, arredon- 
+dando até o próximo número representável. Agora, considere que os bits extras se-
+jam 01111. Nesse caso , os bits extras chegam a menos da metade da última posição 
+de bit representável. A resposta correta é simplesmente descartar os bits extras (trun-
+car), que tem o efeito de arredondar para o próximo número representável.
+O padrão também leva em conta o caso especial de bits extras da forma 10000.... Aqui, o resultado está exata-
+mente a meio caminho entre dois valores representáveis possíveis. Uma técnica possível aqui seria sempre truncar, 
+pois essa seria a operação mais simples. Porém, a dificuldade com essa técnica simples é que ela introduz uma po-larização pequena, porém cumulativa, para uma sequência de cálculos. É preciso um método não polarizado de ar-redondamento. Uma técnica possível seria arredondar para cima ou para baixo com base em um número aleatório que, na média, o resultado seria não polarizado. O argumento contra essa técnica é que ela não produz resultados previsíveis, determinísticos. A técnica tomada pelo padrão IEEE é forçar o resultado a ser par: se o resultado de um cálculo estiver exatamente a meio caminho entre dois números representáveis, o valor é arredondado para cima se o último bit representável for 1 e não arredondado para cima se for 0.
+As duas opções seguintes, arredondar para mais e menos infinito (para cima e para baixo), são úteis na implementa-
+ção de uma técnica conhecida como aritmética intervalar. A aritmética intervalar oferece um método eficiente para moni-torar e controlar erros em cálculos de ponto flutuante, produzindo dois valores para cada resultado. Os dois valores corres-pondem às extremidades inferior e superior de um intervalo que contém o resultado verdadeiro. A largura do intervalo, que é a diferença entre as extremidades superior e inferior, indica a precisão do resultado. Se as extremidades de um intervalo não forem representáveis, então as extremidades do intervalo são arredondadas para baixo e para cima, respectivamente. Embora a largura do intervalo possa variar de acordo com a implementação, muitos algoritmos foram projetados para pro -
+duzir intervalos estreitos. Se o intervalo entre os limites superior e inferior for suficientemente estreito, então um resultado suficientemente preciso foi obtido. Se não, pelo menos sabemos disso e podemos realizar uma análise adicional.Figura 9.25 O uso dos guardas de bit
+(c) Exemplo hexadecimal, sem bits de guarda
+(b) Exemplo binário, com bits de guarda (d) Exemplo hexadecimal, com bits de guardax = 1.000.....00 21
+–y = 0.111.....11 21
+z = 0.000.....01 21
+= 1.000.....00 2–22x = .100000 161
+–y = .0FFFFF 161
+z = .000001 161
+= .100000 16–4
+x = .100000 00 161
+–y = .0FFFFF F0 161
+z = .000000 10 161
+= .100000 00 16–5x = 1.000.....00 0000 21
+–y = 0.111.....11 1000 21
+z = 0.000.....00 1000 21
+= 1.000.....00 0000 2–23(a) Exemplo binário, sem bits de guarda
+Book 1.indb 278 19.11.09 14:37:58
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 279
+A técnica fi nal especifi cada no padrão é arredondar para zero. Isso, de fato, é um truncamento simples: os bits 
+extras são ignorados. Esta certamente é a técnica mais simples. Porém, o resultado é que a magnitude do valor trucado 
+sempre é menor ou igual ao valor original mais preciso, introduzindo uma polarização consistente para zero na opera-ção. Esse é uma polarização séria, pois afeta cada operação para a qual existem bits extras diferentes de zero.
+ Padrão do IEEE para a aritmética binária de ponto fl utuante
+O IEEE 754 vai além da simples defi nição de um formato para estabelecer práticas e procedimentos específi cos 
+de modo que a aritmética de ponto fl utuante produza resultados uniformes e previsíveis, independentes da pla-taforma de hard ware. Um aspecto disso já foi discutido, a saber, o arredondamento. Esta subseção examinará três outros tópicos: infi nito, NaNs e números desnormalizados.
+INFINITO A aritmética de infi nito é tratada como o caso limitador da aritmética real, com os valores de infi nito 
+recebendo a seguinte interpretação:
+–∞ < (cada número fi nito) < + ∞
+Com a exceção dos casos especiais discutidos mais adiante, qualquer operação aritmética envolvendo infi nito 
+gera o resultado óbvio.
+5*(+q)=+q (+q)-(-q) =+q5-(-q)=+q (-q)-(+q) =-q5+(-q)=-q (-q)+(-q) =-q5-(+q)=-q (+q)+(+q) =+q5+(+q)=+q 5,(+q) =+ 0Por exemplo:
+NaNS SILENCIOSOS E SINALIZADORES Um NaN é uma entidade simbólica codifi cada em formato de ponto 
+fl utuante, do qual existem dois tipos: sinalizador (signaling) e silencioso (quiet). Um NaN sinalizador sinaliza uma 
+exceção de operação inválida sempre que aparece como um operando. Os NaNs sinalizadores fornecem valores para variáveis não inicializadas e melhorias aritméticas que não sejam assunto do padrão. Um NaN silencioso se propaga por quase todas as operações aritméticas sem sinalizar uma exceção. A Tabela 9.6 indica operações que produzirão um NaN silencioso.
+Observe que os dois tipos de NaNs possuem o mesmo formato geral (Tabela 9.4): um expoente com apenas uns 
+e uma fração diferente de zero. O padrão de bits real da fração diferente de zero depende da implementação; os valores de fração podem ser usados para distinguir NaNs silenciosos dos NaNs sinalizadores e especifi car condições de exceção particulares.
+NÚMEROS DESNORMALIZADOS Números desnormalizados são incluídos no IEEE 754 para lidar com casos de 
+underfl ow de expoente. Quando o expoente do resultado se torna muito pequeno (um expoente negativo com uma magnitude muito grande), o resultado é desnormalizado deslocando a fração para a direita e aumentando o expoente para cada deslocamento, até que o expoente esteja dentro de um intervalo representável.
+A Figura 9.26 ilustra o efeito de incluir números desnormalizados. Os números representáveis podem ser agru-
+pados em intervalos na forma [2
+n, 2n+1]. Dentro de cada um desses intervalos, a parte do expoente do número 
+permanece constante enquanto a fração varia, produzindo um espaçamento uniforme de números representáveis dentro do intervalo. Ao nos aproximarmos de zero, cada intervalo sucessivo é a metade da largura do intervalo anterior, mas contém a mesma quantidade de números representáveis. Logo, a densidade dos números repre-sentáveis aumenta à medida que nos aproximamos de zero. Porém, se apenas os números normalizados forem usados, existe uma lacuna entre o menor número normalizado e 0. No caso do formato IEEE 754 de 32 bits, existem 2
+23 números representáveis em cada intervalo, e o menor número positivo representável é 2–126. Com a inclusão de 
+números desnormalizados, outros 223 – 1 números são uniformemente acrescentados entre 0 e 2–126.
+Book 1.indb 279 19.11.09 14:37:58
+
+280 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+O uso de números desnormalizados é conhecido como underfl ow gradual (Coonen, 1981e). Sem os números des-
+normalizados, a lacuna entre o menor número diferente de zero representável e zero é muito maior do que a lacuna 
+entre o menor número representável e o próximo número maior. O underfl ow gradual preenche essa lacuna e reduz o 
+impacto do underfl ow do expoente a um nível comparável ao arredondamento entre os números normalizados.
+9.6 Leitura recomendada e sites Web 
+Ercegovac e Lang (2004f) e Parhami (2000c) são excelentes tratamentos da aritmética de computador, abordando 
+todos os tópicos deste capítulo com detalhes. Flynn e Oberman (2001g) trazem uma discussão útil que focaliza questões 
+práticas de projeto e implementação. Para o aluno que pensa seriamente em aritmética de computador, uma referência 
+muito útil é Swartzlander (1990h), com dois volumes. O Volume 1 foi publicado originalmente em 1980 e oferece os princi-
+pais artigos (alguns muito difíceis de se obter em outro lugar) sobre fundamentos de aritmética de computador. O Volume II contém artigos mais recentes, cobrindo aspectos teóricos, de projeto e implementação da aritmética de computador.
+Para a aritmética de ponto fl utuante, Goldberg (1991
+i) é bem famoso: “O que todo cientista de computador 
+precisa saber sobre aritmética de ponto fl utuante” . Outro tratamento excelente do assunto está contido em Knuth (1998
+j), que também aborda a aritmética de inteiros no computador. As seguintes abordagens mais profundas Tabela 9.6 Operações que produzem um NaN silencioso
+Operação NaN silencioso produzido por
+Qualquer Qualquer operação em um nan sinalizador
+Adição ou subtraçãoSubtração de magnitude de infi nitos:
+(+∞) + (–∞)
+(–∞) + (+∞)(+∞) – (+∞)
+(–∞) – (–∞)
+Multiplicação 0 × ∞
+Divisão0
+0 ou 
+ q
+q
+xREM 0 ou REM y q
+1x, onde x60Resto0
+0 ou 
+ q
+q
+xREM 0 ou REM y q
+1x, onde x60 Raiz quadrada0
+0 ou 
+ q
+q
+xREM 0 ou REM y q
+1x, onde x60
+2126212521242123
+2126212521242123Lacuna
+(a) Formato de 32 bits sem números desnormalizados
+Espaçamento
+uniforme
+(b) Formato de 32 bits com números desnormalizados0
+0Figura 9.26 O efeito de números desnormalizados do IEEE 754
+Book 1.indb 280 19.11.09 14:38:00
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 281
+também são valiosas: Overton (2001k), Even e Paul (2000l), Oberman e Flynn (1997m), Oberman e Flynn (1997n), 
+Soderquist (1996o). Kuck, Parker e Sameh (1977p) é uma boa discussão dos métodos de arredondamento na aritmé-
+tica de ponto fl utuante. Even e Seidel (2000q) examina o arredondamento com relação ao IEEE 754.
+Schwarz e Rrygowski (1999r) descrevem o primeiro processador IBM S/390 a integrar aritmética de ponto fl utu-
+ante de raiz 16 e IEE 754 na mesma unidade de ponto fl utuante.
+ Sites Web recomendados
+Ieee 754: traz os documentos do IEEE 754, publicações e artigos relacionados, e um útil conjunto de links rela-
+cionados à aritmética do computador.
+ Principais termos, perguntas de revisão e problemas
+Principais termos
+Unidade lógica e aritmética (ALU) Mantissa Quociente
+Deslocamento aritmético Minuendo Ponto fracionário
+Base Multiplicando Resto
+Representação polarizada Multiplicador Arredondamento
+número desnormalizado O v e r fl o w negativo Bit de sinal
+Dividendo Underfl ow negativo Signifi cando
+Divisor número normalizado O v e r fl o w do signifi cando
+Expoente Representação de complemento de um Underfl ow do signifi cando
+O v e r fl o w de expoente O v e r fl o w Representação sinal -magnitude
+Underfl ow de expoente Produto parcial Subtraendo
+Representação de ponto fi xo O v e r fl o w positivo Representação de complemento de dois
+Representação de ponto fl utuante Underfl ow positivo
+Bits de guarda Produto
+Perguntas de revisão
+ 9.1 Explique resumidamente as seguintes representações: sinal -magnitude, complemento a dois, polarizada.
+ 9.2 Explique como determinar se um número é negativo nas seguintes representações: sinal -magnitude, complemento a dois, viesada.
+ 9.3 Qual é a regra de extensão de sinal para números de complemento de dois?
+ 9.4 Como você pode formar a negação de um inteiro na representação de complemento a dois?
+ 9.5 Em termos gerais, quando a operação de complemento de dois em um inteiro de n bits produz o mesmo inteiro?
+ 9.6 Qual é a diferença entre a representação de complemento de dois de um número e o complemento a dois de um número?
+ 9.7 Se tratarmos 2 números de complemento de dois como inteiros sem sinal para fi ns de adição, o resultado é correto se interpretado como um 
+número de complemento de dois. Isso não é verdade para a multiplicação. Por quê?
+ 9.8 Quais são os quatro elementos essenciais de um número na notação de ponto fl utuante?
+ 9.9 Qual é o benefício de usar a representação polarizada para a parte de expoente de um número de ponto fl utuante?
+ 9.10 Quais são as diferenças entre overfl ow positivo, overfl ow do expoente e overfl ow do signifi cando?
+ 9.11 Quais são os elementos básicos da adição e subtração de ponto fl utuante?
+ 9.12 Dê um motivo para o uso de bits de guarda.
+ 9.13 Liste quatro métodos alternativos de arredondamento do resultado de uma operação de ponto fl utuante.
+Book 1.indb 281 19.11.09 14:38:00
+
+282 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Problemas
+9.1 Represente os seguintes números decimais em binário na representação sinal - magnitude e no complemento de dois, usando 16 bits: +512; –29.
+9.2 Represente os seguintes valores de complemento a dois em decimal: 1101011; 0101101.
+9.3 Outra representação de inteiros binários que às vezes é encontrada é o complemento de um. Inteiros positivos são representados da mesma 
+maneira que sinal -magnitude. Um inteiro negativo é representado tomando -se o complemento booleano de cada bit do número positivo 
+correspondente.
+a. Forneça uma definição de números com complemento de um usando uma soma ponderada de bits, semelhante às Equações 9.1 e 9.2.
+b. Qual é o intervalo de números que podem ser representados no complemento de um?
+c. Defina um algoritmo para realizar adição na aritmética de complemento de um. Nota: a aritmética de complemento de um desapareceu do 
+hardware na década de 1960, mas ainda sobrevive nos cálculos de soma de verificação para o internet protocol (IP) e o transmission control 
+protocol (TCP).
+9.4 Some as colunas da Tabela 9.1 para sinal -magnitude e complemento de um.
+9.5 Considere a seguinte operação em uma palavra binária. Comece com o bit menos significativo. Copie todos os bits que são 0 até que o primeiro bit seja alcançado e copie esse bit também. Depois, apanhe o complemento de cada bit depois disso. Qual é o resultado?
+9.6 na Seção 9.3, a operação de complemento de dois é definida da seguinte forma. Para encontrar o complemento a dois de 
+X, apanhe o comple-
+mento booleano de cada bit de X, e depois some 1.
+a. Mostre que o seguinte é uma definição equivalente. Para um inteiro de n bits X, o complemento de dois de X é formado tratando X como um 
+inteiro sem sinal e calculando (2n – X).
+b. Demonstre que a Figura 9.5 pode ser usada graficamente para dar suporte à afirmação na parte (a), mostrando como um movimento em sentido horário é usado para conseguir a subtração.
+9.7 O complemento de r de um número de n dígitos N na base r é definido como r
+n –N para N ≠ 0 e 0 para N = 0. Ache o complemento a dez do 
+número decimal 13250.
+9.8 Calcule (72530 –13250) usando a aritmética de complemento de dez. Considere regras semelhantes àquelas para a aritmética de complemento a dois.
+9.9 Considere a adição de complemento de dois de dois números de n bits:
+zn–1zn–2 ... z0 = xn–1xn–2 … x0 + yn–1yn–2 … y0
+Suponha que a adição bit a bit seja realizada com um bit de carry ci gerado pela adição de xi, yi, e ci -1. Considere que n seja uma variável biná-
+ria indicando overflow quando v = 1. Preencha os valores na tabela.
+Entradaxn–1 00001111
+yn–1 00110011
+cn–2 01010101
+Saídazn–1
+v
+9.10 Suponha que os números sejam representados por complemento de dois com 8 bits. Mostre o cálculo do seguinte:
+a. 6 + 13.
+b. –6 + 13.
+c. 6 – 13.
+d. –6 – 13.
+9.11 Ache as seguintes diferenças usando a aritmética de complemento de dois:a. 111000 – 110011.
+b. 11001100 – 101110.
+c. 111100001111 – 110011110011.
+d. 11000011 – 11101000.
+Book 1.indb 282 19.11.09 14:38:00
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 283
+9.12 A seguinte definição de overflow na aritmética de complemento de dois é uma definição alternativa válida?
+ Se o OR -EXCLUSIVO dos bits de carry para dentro e fora da coluna mais à esquerda for 1, então existe uma condição de overflow . Caso contrário, 
+não existe.
+9.13 Compare as Figuras 9.9 e 9.12. Por que o bit C não é usado na segunda?
+9.14 Dados X = 0101 e y = 1010 na notação de complemento a dois (ou seja, X = 5, y = –6), calcule o produto p = X × y com o algoritmo de Booth.
+9.15 Use o algoritmo de Booth para multiplicar 23 (multiplicando) por 29 (multiplicador), onde cada número é representado usando 6 bits.
+9.16 Prove que a multiplicação de dois números de n dígitos na base B gera um produto de não mais do que 2n dígitos.
+9.17 Verifique a validade do algoritmo de divisão binária sem sinal da Figura 9.16 mostrando as etapas envolvidas no cálculo da divisão, representa-
+do na Figura 9.15. Use uma apresentação semelhante à da Figura 9.17.
+9.18 O algoritmo de divisão de inteiros por complemento de dois, descrito na Seção 9.3, é conhecido como método restaurador, pois o valor no re-
+gistrador A precisa ser restaurado após uma subtração sem sucesso. Uma técnica um pouco mais complexa, conhecida como não restauradora, 
+evita subtração e adição desnecessárias. Proponha um algoritmo para essa última técnica.
+9.19 Sob a aritmética de inteiros por computador, o quociente J/K de dois inteiros J e K é menor ou igual ao quociente normal. Verdadeiro ou falso?
+9.20 Divida –145 por 13 em notação de complemento de dois binário, usando palavras de 12 bits. Use o algoritmo descrito na Seção 9.3.
+9.21 a. Considere uma representação de ponto fixo usando dígitos decimais, em que a vírgula fracionária implícita pode estar em qualquer posição 
+(por exemplo, à direita do dígito menos significativo, à direita do dígito mais significativo, e assim por diante). Quantos dígitos decimais são ne-cessários para representar as aproximações da constante de Planck (6,63 × 10
+–27) e do número de Avogadro (6,02 × 1023)? A vírgula fracionária 
+pressuposta deverá estar na mesmo posição para ambos os números.
+ b. Agora, considere um formato de ponto flutuante decimal com o expoente armazenado em uma representação viesada com um viés de 50. 
+Considera -se uma representação normalizada. Quantos dígitos decimais são necessários para representar essas constantes nesse formato de ponto flutuante?
+9.22 Suponha que o expoente e seja restrito a ficar na faixa de 0 ≤ e ≤ 
+X, com uma polarização de q, que a base é b, e que o significando tem p dígitos 
+de extensão.
+a. Quais são o maior e o menor valores positivos que podem ser escritos?
+b. Quais são o maior e menor valores positivos que podem ser escritos como números de ponto flutuante normalizados?
+9.23 Expresse os seguintes números em formato IEEE de ponto flutuante com 32 bits:a. –5b. –6c. –1,5d. 384e. 1/16f. –1/32
+9.24 Os seguintes números utilizam o formato IEEE de ponto flutuante com 32 bits. Qual é o valor decimal equivalente?a. 1 10000011 11000000000000000000000
+b. 0 01111110 10100000000000000000000
+c. 0 10000000 00000000000000000000000
+9.25 Considere um formato IEEE de ponto flutuante com 7 bits, com 3 bits para o expoente e 3 bits para o significando. Liste todos os 127 valores.
+9.26 Expresse os seguintes números no formato de ponto flutuante de 32 bits da IBM, que usa um expoente de 7 bits com uma base implícita de 16 
+e uma polarização de expoente de 64 (40 hexadecimal). Um número de ponto flutuante normalizado requer que o dígito hexadecimal mais à esquerda seja diferente de zero; a vírgula fracionária implícita está à esquerda desse dígito.
+a. 1,0
+b. 0,5 c. 1/64
+d. 0,0e. –15,0
+ f. 5,4 × 10–79 g. 7,2 × 1075
+h. 65 535
+9.27 Considere que 5BCA0000 seja um número de ponto flutuante no formato IBM, expresso em hexadecimal. Qual é o valor decimal do número?
+Book 1.indb 283 19.11.09 14:38:00
+
+284 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+9.28 Qual seria o valor da polarização para:
+a. Um expoente de base 2 (B = 2) em um campo de 6 bits?
+b. Um expoente de base 8 (B = 8) em um campo de 7 bits?
+9.29 Desenhe uma linha de números semelhante à da Figura 9.19b para o formato de ponto flutuante da Figura 9.21b.
+9.30 Considere um formato de ponto flutuante com 8 bits para o expoente polarizado e 23 bits para o significando. Mostre o padrão de bits para os 
+seguintes números nesse formato:
+a. –720
+b. 0,645
+9.31 O texto menciona que um formato de 32 bits pode representar um máximo de 232 números diferentes. Quantos números diferentes podem ser 
+representados no formato IEEE de 32 bits? Explique.
+9.32 Qualquer representação de ponto flutuante usada em um computador só pode representar certos números reais exatamente; todos os outros 
+precisam ser aproximados. Se A’ é o valor armazenado aproximando o valor real A, então o erro relativo, r, é expresso como:
+r=A-A
+A`
+Represente a quantidade decimal +0,4 no seguinte formato de ponto flutuante: base = 2; expoente: polarizado, 4 bits; significando, 7 bits. Qual é o erro relativo?
+9.33 Se 
+A = 1,427, ache o erro relativo se A for truncado para 1,42 e se for arredondado para 1,43.
+9.34 Quando as pessoas falam sobre imprecisão na aritmética de ponto flutuante, elas normalmente atribuem erros ao cancelamento que ocorre 
+durante a subtração de quantidades quase iguais. Porém, quando X e Y são aproximadamente iguais, a diferença X – Y é obtida com exatidão, 
+sem erro. O que essas pessoas realmente querem dizer?
+9.35 Os valores numéricos A e B são armazenados no computador como aproximações A’ e B’. Desconsiderando quaisquer outros erros de truncamen-
+to ou arredondamento, mostre que o erro relativo do produto é aproximadamente a soma dos erros relativos nos fatores.
+9.36 Um dos erros mais sérios nos cálculos de computador ocorre quando dois números quase iguais são subtraídos. Considere A = 0,22288 e B = 
+0,22211. O computador trunca todos os valores para quatro dígitos decimais. Assim, A’ = 0,2228 e B’ = 0,2221.
+a. Quais são os erros relativos para A’ e B’?
+b. Qual é o erro relativo para C’ = A’ – B’?
+9.37 Para ter uma ideia dos efeitos da desnormalização e underflow gradual, considere um sistema decimal que oferece 6 dígitos decimais para o 
+significando e para o qual o menor número normalizado é 10–99. Um número normalizado tem um dígito decimal diferente de zero à esquerda 
+da vírgula decimal. Efetue os seguintes cálculos e desnormalize os resultados. Comente os resultados.
+a. (2,50000 × 10–60) × (3,50000 × 10–43)
+b. (2,50000 ×10–60) × (3,50000 ×10–60)
+c. (5,67834 ×10 - -97) - (5,67812 ×10–97)
+9.38 Mostre como as seguintes adições de ponto flutuante são realizadas (onde os significandos são truncados para 4 dígitos decimais). Mostre os 
+resultados em formato normalizado.
+a. 5,566 × 102 + 7.777 × 102
+b. 3,344 × 101 + 8,877 × 10–2
+9.39 Mostre como as seguintes subtrações de ponto flutuante são realizadas (onde os significandos são truncados para 4 dígitos decimais). Mostre 
+os resultados em formato normalizado.
+a. 7,744 × 10–3 –6,666 × 10–3
+b. 8,844 × 10–3 – 2,233 × 10–1
+9.40 Mostre como os seguintes cálculos de ponto flutuante são realizados (onde os significandos são truncados para 4 dígitos decimais). Mostre os 
+resultados em formato normalizado.
+a. 2,255 × 101) × (1,234 × 100)
+b. 8,833 × 102) ÷ (5,555 × 104)
+Book 1.indb 284 19.11.09 14:38:01

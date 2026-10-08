@@ -1,0 +1,871 @@
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 235
+A quantidade de memória virtual pode realmente ser maior que 64 TBytes, porque a interpretação do proces-
+sador de um endereço virtual depende de qual processo está atualmente ativo. O espaço de endereço virtual é di-
+vidido em duas partes. Metade do espaço de endereço virtual (8 K segmentos × 4 GBytes) é global, compartilhado por todos os processos; o restante é local e distinto para cada processo.
+Associado a cada segmento estão duas formas de proteção: nível de privilégio e atributo de acesso. Existem 
+quatro níveis de privilégio, do mais protegido (nível 0) ao menos protegido (nível 3). O nível de privilégio associado a um segmento de dados é sua “classifi cação”; o nível de privilégio associado a um segmento de programa é sua “autorização” . Um programa em execução só pode acessar segmentos de dados para os quais seu nível de autoriza-ção seja menor (mais privilegiado) que ou igual ao (mesmo privilégio) nível de privilégio do segmento de dados.
+O hardware não dita como esses níveis de privilégio devem ser usados; isso depende do projeto e da imple-
+mentação do SO. A intenção foi que o nível de privilégio 1 fosse usado para a maior parte do SO, e o nível 0 fosse usado para aquela pequena parte do SO dedicada ao gerenciamento de memória, proteção e controle de acesso. Isso deixa dois níveis para as aplicações. Em muitos sistemas, as aplicações residirão no nível 3, com o nível 2 não sendo usado. Os subsistemas de aplicação especializados, que precisam ser protegidos porque implementam seus próprios mecanismos de segurança, são bons candidatos para o nível 2. Alguns exemplos são sistemas de gerencia-mento de banco de dados, sistemas de automação de escritórios e ambientes de softwares de engenharia.
+Além de regular o acesso aos segmentos de dados, o mecanismo de privilégio limita o uso de certas instruções. 
+Algumas instruções, como aquelas lidando com registradores de gerenciamento de memória, só podem ser exe-cutadas no nível 0. As instruções de E/S só podem ser executadas até um certo nível designado pelo SO; normal-mente, esse será o nível 1.
+O atributo de acesso de um segmento de dados especifi ca se os acessos de leitura/gravação ou apenas leitura 
+são permitidos. Para segmentos de programa, o atributo de acesso especifi ca o acesso de leitura/execução ou somente leitura.
+O mecanismo de tradução de endereço para a segmentação envolve o mapeamento de um endereço virtual 
+no que é conhecido como endereço linear (Figura 8.20b). Um endereço virtual consiste no off set de 32 bits e um seletor de segmento de 16 bits (Figura 8.20a). O seletor de segmento consiste nos seguintes campos:
+Indicador de tabela (TI, do inglês 
+  table indicator): indica se a tabela de segmento global ou uma tabela 
+de segmento local deve ser usada para tradução.número de segmento: 
+  serve como um índice para a tabela de segmento.
+nível de privilégio do requisitante (RpL, do inglês  requestor privilege level): o nível de privilégio 
+requisitado para esse acesso.
+Cada entrada em uma tabela de segmento consiste em 64 bits, como mostra a Figura 8.20c. Os campos são 
+defi nidos na Tabela 8.5.
+ Paginação
+A segmentação é um recurso opcional e pode ser desativado. Quando a segmentação está em uso, os ende-
+reços usados nos programas são endereços virtuais e são convertidos para endereços lineares, conforme descre-vemos. Quando a segmentação não está em uso, os endereços lineares são usados nos programas. Nesse caso, a etapa a seguir é converter esse endereço linear em um endereço real de 32 bits.
+Para entender a estrutura do endereço linear, é preciso saber que o mecanismo de paginação do Pentium II é, 
+na realidade, uma operação de pesquisa de tabela em dois níveis. O primeiro nível é um diretório de página, que contém até 1.024 entradas. Isso divide o espaço de memória linear de 4 GBytes em 1.024 grupos de páginas, cada um com sua própria tabela de página, e cada um com 4 MBytes de extensão. Cada tabela de página contém até 1.024 entradas; cada entrada corresponde a uma única página de 4 Kbytes. O gerenciamento de memória tem a opção de usar um diretório de página para todos os processos, um diretório de página para cada processo, ou al-guma combinação dos dois. O diretório de página para a tarefa atual está sempre na memória principal. As tabelas de página podem estar na memória virtual.
+A Figura 8.20 mostra os formatos das entradas nos diretórios de página e tabelas de página, e os campos são 
+defi nidos na Tabela 8.5. Observe que os mecanismos de controle de acesso podem ser fornecidos com base em uma página ou um grupo de páginas.
+Book 1.indb 235 19.11.09 14:37:26
+
+236 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 8.20 Formatos de gerenciamento de memória do Pentium
+Índice
+(a) Seletor de segmento3 51
+0 11 21 22 13
+0 7 8 11 12 13 14 15 16 19 20 22 23 24 31
+0 1 2345 67 9 1 1 2 1 13
+0 1 2345 67 9 1 1 2 1 130D
+BGA
+V
+LDiretório
+Base 31...24
+AVL = available (disponível) para uso pelo software do sistema
+Base = endereço do segmento de base
+D/B = tamanho de operação padrãoDPL = tamanho de privilégio do descritor
+AVL = available (disponível) para uso do programador de sistemas
+PS = tamanho da páginaA = acessado
+D = dirty (modi/f_icado)PCD = desabilitar cache de páginaPWT = write through
+US = usuário/supervisorRW = read/write (leitura/gravação)P = presente
+Endereço de frame de página 31...12G = detalhamento = reservado
+P = segmento presenteTipo = tipo de segmentoS = tipo de descritor Limite de segmento 0 . . . 5 1 Base 15...0Base 23...16 Tipo P S DPL
+AVLPP
+C
+DP
+W
+TSU
+SR
+WA P
+D AVLP
+C
+DP
+W
+TU
+SR
+WATabela
+Limite de 
+segmento
+19...16Deslocamento212
+T
+TI = table indicator (indicador de tabela)
+RPL = requestor privilege level (nível de privilégio do requisitante)IRPL10
+(b) Endereço linear
+(d) Entrada de diretório de página
+(e) Entrada da tabela de página(c) Descritor de segmento (entrada da tabela de segmento)
+Endereço de frame de página 31...12
+ 
+P
+Book 1.indb 236 19.11.09 14:37:26
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 237
+Descritor de segmento (entrada da tabela de segmento)
+Base
+Define o endereço inicial do segmento dentro do espaço de endereço linear de 4 GBytes.Bit D/BEm um segmento de código indica se os operandos e modos de endereçamento são de 16 ou 32 bits.Descriptor privilege level (DPL)Especifica o nível de privilégio do segmento referenciado por esse descritor de segmento.Bit de detalhamento (G)Indica se o campo Limite deve ser interpretado em unidades de um byte ou 4 KBytes.Limite
+Define o tamanho do segmento. O processador interpreta o campo de Limite de duas maneiras, dependendo do bit de detalhamento: em unidades de um byte, 
+até um limite de tamanho de segmento de 1 MByte, ou em unidades de 4 KBytes, até um limite de tamanho de segmento de 4 GBytes.
+Bit S
+Determina se determinado segmento é um segmento do sistema ou um segmento de código ou dados.Bit de segmento presente (P)Usado para sistemas não paginados. Indica se o segmento está presente na memória principal. Para sistemas paginados, esse bit é sempre definido como 1.TipoDistingue entre diversos tipos de segmentos e indica os atributos de acesso.
+Entrada de diretório de página e entrada de tabela de página
+Bit acessado (A)Esse bit é definido como 1 pelo processador nos dois níveis de tabelas de página quando ocorre uma operação de leitura ou gravação na página correspondente.Bit de modificação (D)Esse bit é definido como 1 pelo processador quando ocorre uma operação de gravação na página correspondente.Endereço de frame de página
+Oferece o endereço físico da página na memória se o bit presente estiver marcado. Como os frames de página são alinhados em limites de 4 K, os 12 bits inferiores são 0, e somente os 20 bits 
+superiores são inclusos na entrada. Em um diretório de página, o endereço é o de uma tabela de página.
+Bit desabilitar cache de página (PCD, do inglês Page cache disable)
+Indica se os dados da página podem ser colocados em cache.Bit de tamanho de página (PS, do inglês page size)Indica se o tamanho de página é de 4 KBytes ou 4 MBytes.Bit de write-through de página (PWT  Page Write Through)Indica se a política de cache write-through ou write-back será usada para os dados na página correspondente.Bit de presente (P)Indica se a tabela de página ou página está presente na memória principal.Bit de leitura/escrita (RW  read/write)Para páginas em nível de usuário, indica se a página é de acesso apenas de leitura ou acesso de leitura/gravação para programas em nível de usuário.Bit de usuário/supervisor (US)Indica se a página está disponível apenas para o sistema operacional (nível supervisor) ou se está disponível para o sistema operacional e as aplicações (nível de usuário).Tabela 8.5 Parâmetros de gerenciamento de memória do Pentium II
+Book 1.indb 237 19.11.09 14:37:26
+
+238 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+O Pentium II também utiliza um TLB. O buff er pode manter 32 entradas de tabela de página. Toda vez que o 
+diretório de página é alterado, o buff er é apagado.
+A Figura 8.21 ilustra a combinação de mecanismos de segmentação e paginação. Por clareza, o TLB e os meca-
+nismos de cache de memória não aparecem.
+Finalmente, o Pentium II inclui uma nova extensão não encontrada no 80386 ou 80486, permite dois tamanhos 
+de página. Se o bit PSE (extensão de tamanho de página) no registrador de controle 4 estiver defi nido como 1, 
+então a unidade de paginação permite que o programador do SO defi na uma página como 4 KByte ou 4 MByte de tamanho.
+Quando páginas de 4 MBytes são usadas, existe apenas um nível de pesquisa de tabela para páginas. Quando o 
+hardware acessa o diretório de página, a entrada do diretório de página (Figura 8.20d) tem o bit PS defi nido como 1. Nesse caso, os bits de 9 a 21 são ignorados e os bits de 22 a 31 defi nem o endereço de base para uma página de 4 MBytes na memória. Assim, existe uma única tabela de página.
+O uso de páginas de 4 MBytes reduz os requisitos de armazenamento do gerenciamento de memória para 
+grandes memórias principais. Com páginas de 4 KBytes, uma memória principal completa de 4 GBytes requer cerca de 4 MBytes de memória só para as tabelas de página. Com páginas de 4 MBytes, uma única tabela, com 4 KBytes de extensão, é sufi ciente para o gerenciamento de memória de página.
+8.5 Gerenciamento de memória no ARM
+O ARM oferece uma arquitetura versátil de sistema de memória virtual, que pode ser ajustada às necessidades 
+do projetista de sistema embarcado.
+ Organização do sistema de memória
+A Figura 8.22 oferece uma visão geral do hardware de gerenciamento de memória no ARM para a memória 
+virtual. O hardware de tradução da memória virtual usa um ou dois níveis de tabelas para tradução de endereços virtuais para físicos, conforme explicamos mais adiante. O TLB é uma cache de entradas recentes tabela de página. 
+Se uma entrada estiver disponível no TLB, então o TLB envia diretamente um endereço físico para a memória prin-
+Figura 8.21 Mecanismos de tradução de endereço de memória no Pentium
+Segmento Deslocamento
+Tabela de
+segmento
+Diretório
+de páginaDesl. Página Dir
+Tabela 
+de páginaEndereço
+físico
+Memória
+principal Paginação SegmentaçãoEndereço lógico
+Endereço linear
+Book 1.indb 238 19.11.09 14:37:27
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 239
+cipal, para uma operação de leitura ou escrita. Conforme explicamos no Capítulo 4, os dados são trocados entre o 
+processador e a memória principal por meio da cache. Se for usada uma organização lógica de cache (Figura 4.7a), então o ARM fornece esse endereço diretamente à cache, além de fornecê-lo ao TLB quando houver uma falta de cache. Se for usada uma organização física de cache (Figura 4.7b), então o TLB precisa fornecer o endereço físico para a cache.
+As entradas nas tabelas de tradução também incluem bits de controle de acesso, que especifi cam se determi-
+nado processo pode acessar determinada parte da memória. Se o acesso for negado, o hardware de controle de acesso fornece ao processador ARM um sinal de abortar.
+ Tradução de endereço da memória virtual
+O ARM admite acesso à memória com base em seções ou páginas:.
+superseções (opcional):  consistem em blocos de 16 MB de memória principal.
+seções:  consistem em blocos de 1 MB de memória principal.
+páginas grandes:  consistem em blocos de 64 KB de memória principal.
+páginas pequenas:  consistem em blocos de 4 KB de memória principal.
+Seções e superseções são usadas para permitir o mapeamento de uma grande região da memória enquanto 
+utilizam apenas uma única entrada no TLB. Outros mecanismos de controle de acesso são estendidos dentro das páginas pequenas a subpáginas de 1 KB, e dentro das páginas grandes, a subpáginas de 16 KB. A tabela de tradução mantida na memória principal tem dois níveis:
+Tabela de primeiro nível: 
+  mantém traduções de seção e superseção, e ponteiros para tabelas de segundo 
+nível.Tabelas de segundo nível: 
+  mantêm traduções de página grandes e pequenas.
+A unidade de gerenciamento de memória (MMU) traduz os endereços virtuais gerados pelo processador em 
+endereços físicos para acessar a memória principal, e também deriva e verifi ca a permissão de acesso. As traduções ocorrem como resultado de uma falta da TLB, e começam com uma busca de primeiro nível. Um acesso mapeado por seção só requer uma busca de primeiro nível, enquanto um acesso mapeado por página também requer uma busca de segundo nível.
+Figura 8.22 Visão geral do sistema de memória do ARM
+Hardware
+de controle
+de acessoBits de acesso,
+domínio
+Bits de acesso,
+domínio
+Abortar
+Bits de 
+controleEndereço físicoEndereço
+físico
+Endereço
+físico
+Endereço
+virtualEndereço virtual
+Núcleo
+ARMTLBUnidade de gerenciamento de memória (MMU)
+Hardware
+de busca
+de linha
+de cacheHardware de
+tradução da
+memória
+virtual
+Memória
+principal
+Cache e
+buﬀer de
+gravação
+Book 1.indb 239 19.11.09 14:37:27
+
+240 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A Figura 8.23 mostra o processo de tradução de endereço de dois níveis para páginas pequenas. Existe uma 
+única tabela de página de nível 1 (L1) com 4 K entradas de 32 bits. Cada entrada L1 aponta para uma tabela de pá-
+gina de nível 2 (L2) com 255 entradas de 32 bits. Cada entrada de L2 aponta para uma página de 4 KB na memória principal. O endereço virtual de 32 bits é interpretado da seguinte forma: os 12 bits mais signifi cativos são um índice para a tabela de página L1. Os próximos 8 bits são um índice para a tabela de página L2 relevante. Os 12 bits menos signifi cativos indexam um byte na página relevante da memória principal.
+Um procedimento semelhante de pesquisa de duas páginas é utilizado para páginas grandes. Para seções e 
+superseção, apenas a pesquisa da tabela de página L1 é necessária.
+ Formatos de gerenciamento de memória
+Para entender melhor o esquema de gerenciamento de memória do ARM, consideramos os principais formatos, 
+como mostra a Figura 8.24. Os bits de controle mostrados nessa fi gura são defi nidos na Tabela 8.6.
+Para a tabela L1, cada entrada descreve como sua faixa de endereços virtuais de 1 MB associados é mapeada. 
+Cada entrada tem um de quatro formatos alternativos:
+Bits [1:0] = 00: os endereços virtuais associados são não mapeados, e as tentativas de acessá-los geram uma 
+falha de tradução.
+Bits [1:0] = 01: a entrada dá o endereço físico de uma tabela de página L2, que especifi ca como o intervalo de 
+endereço virtual associado é mapeado.
+Bits [1:0] = 01 e bit 19 = 0: a entrada é um descritor de seção para seus endereços virtuais associados.Bits [1:0] = 01 e bit 19 = 1: a entrada é um descritor de superseção para seus endereços virtuais associados.As entradas com bits [1:0] = 11 são reservadas.
+Figura 8.23 Tradução de endereço de memória virtual do ARM para páginas pequenas
+Página pequena (4 KB)Memória principal Endereço virtual
+Tabela de página de nível 1 (L1)
+Tabela de página de nível 2 (L2)Índice L1
+End. base TP de L2Índice de 
+página0
+04095
+0255
+01
+end. base da pág.11 19 31
+Índice L2
+10
+Book 1.indb 240 19.11.09 14:37:28
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 241
+Figura 8.24 Formatos de gerenciamento de memória do ARMv6
+00 IGN Falta
+10 P Endereço de base da tabela de página 
+(a) Formatos alternativos de descritor de primeiro nível
+(b) Formatos alternativos de descritor de segundo nívelSBZ Domínio
+01 0S PA PAP
+X
+AP
+Xn
+GX
+NTEX BC Endereço de base da seçãoS
+B
+ZDomínio
+01 1S PA P
+AP
+XAP
+Xn
+G
+n
+GXNEnd. de base
+[39:36]End. de base
+[35:32]TEXEndereço de base 
+da superseçãoCBS
+B
+ZTabela de página
+Seção
+Superseção
+000123456789 1 0 1 1 1 2 1 4 1 5 6 1 130 1 2 3 4 5 8 9 10 11 12 14 20 19 24 23 31
+IGN Falta
+0 19 20 31
+Índice de seção Índice de tabela de nível 1 Seção
+0 19 11 02 12 31
+Índice de tabela de nível 1 Índice de páginaPágina
+pequenaPágina grande 10 Endereço de base de página grande
+(c) Formatos de endereço de memória virtualSBZ TEX1 S
+n
+GSX
+N
+XNBC Endereço de base de página pequena
+CAP
+AP BTEX Página pequena
+0 19 11 02 12 15 16 31
+Índice de tabela de nível 1Índice de 
+tabela de nível 2Índice de tabela de nível 2
+Índice de páginaPágina
+grande0 19 20 23 24 31
+Índice de superseção Índice de tabela de nível 1 Superseção
+Para a memória estruturada em páginas, é preciso haver um acesso à tabela de página em dois níveis. Os 
+bits [31:10] da entrada de página L1 contêm um ponteiro para uma tabela de página L1. Para páginas peque -
+nas, a entrada L2 contém um ponteiro de 20 bits para o endereço de base de uma página de 4 KB na memória 
+principal.
+Para páginas grandes, a estrutura é mais complexa. Assim como os endereços virtuais para páginas pequenas, 
+um endereço virtual para uma estrutura de página grande inclui um índice de 12 bits para a tabela de nível 1 e um índice de 8 bits para a tabela L2. Para as páginas grandes de 64 KB, a parte de índice de página do endereço virtual precisa ser de 16 bits. Para acomodar todos esses bits em um formato de 32 bits, existe uma sobreposição de 4 bits entre o campo de índice de página e o campo de índice de tabela L2. O ARM acomoda essa sobreposição exigindo que cada entrada da tabela de página em uma tabela de página L2, que aceita páginas grandes, seja replicada 16 vezes. Com efeito, o tamanho da tabela de página L2 é reduzido de 256 entradas para 16 entradas, se todas as 
+Book 1.indb 241 19.11.09 14:37:28
+
+242 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Permissão de acesso (AP  access permission), Extensão de permissão de acesso (APX  access permission extension)
+Esses bits controlam o acesso à região de memória correspondente. Se um acesso for feito a uma área da memória sem as permissões 
+exigidas, uma falta de permissão é levantada.
+Bit buﬀ erable (B)
+Determina, com os bits TEX, como o buff er de gravação é usado para a memória cacheável.
+Bit cacheable (C)
+Determina se essa região da memória pode ser mapeada pela cache.
+Domínio
+Coleção de regiões da memória. O controle de acesso pode ser aplicado com base no domínio.
+não Global (nG)
+Determina se a tradução deve ser marcada como global (0) ou específi ca ao processo (1).
+Compartilhado (S  shared)
+Determina se a tradução é para a memória não compartilhada (0) ou compartilhada (1).
+SBZ
+Should Be Zero (deverá ser zero).
+Extensão de tipo (TEX  type extension)
+Esses bits, juntamente com os bits B e C, controlam os acessos às caches, como o buff er de gravação é usado e se a região da memória 
+é compartilhável e, portanto, deve ser mantida coerente.
+Executar Nunca (XN)
+Determina se a região é executável (0) ou não executável (1).Tabela 8.6 Parâmetros de gerenciamento de memória do ARM
+ entradas referirem-se a páginas grandes. Porém, uma determinada página L2 pode atender a uma mistura de pági-
+nas grandes e pequenas, daí a necessidade de replicação para as entradas de página grande.
+Para a memória estruturada em seções ou superseções, um acesso à tabela de página de um nível é necessário. 
+Para seções, os bits [31:20] da entrada L1 contêm um ponteiro de 12 bits para a base da seção de 1 MB na memória principal.
+Para superseções, os bits [31:24] da entrada L1 contêm um ponteiro de 8 bits para a base da seção de 16 MB na 
+memória principal. Assim como as páginas grandes, uma replicação da entrada da tabela de página é necessária. No caso de superseções, a parte do índice da tabela L1 do endereço virtual sobrepõe por 4 bits com a parte de índice da superseção do endereço virtual. Portanto, 16 entradas da tabela de página L1 idênticas são necessárias.
+O intervalo de espaço de endereço físico pode ser expandido por até oito bits de endereço adicionais (bits 
+[23:20] e [8:5]). O número de bits adicionais depende da implementação. Esses bits adicionais podem ser interpre-tados como estendendo o tamanho da memória física por até 2
+8 = 256. Assim, a memória física de fato pode ser de 
+até 256 vezes o tamanho do espaço de memória disponível a cada processo individual.
+ Controle de acesso
+Os bits de controle de acesso AP em cada entrada de tabela controlam o acesso a uma região da memória por 
+determinado processo. Uma região da memória pode ser designada como sem acesso, apenas de leitura ou leitura-
+Book 1.indb 242 19.11.09 14:37:28
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 8 Suporte do sistema operacional 243
+-escrita. Além disso, a região pode ser designada como acesso privilegiado apenas, reservado para uso pelo SO e 
+não pelas aplicações.
+O ARM também emprega o conceito de um domínio, que é uma coleção de seções e/ou páginas que pos-
+suem permissões de acesso particulares. A arquitetura ARM admite 16 domínios. O recurso de domínio permite que múltiplos processos usem as mesmas tabelas de tradução enquanto mantêm algumas proteções umas das outras.
+Cada entrada de tabela de página e entrada de TLB contém um campo que especifi ca em qual domínio a en-
+trada se encontra. Um campo de 2 bits no Domain Access Control Register controla o acesso a cada domínio. Cada 
+campo permite que o acesso a um domínio inteiro seja ativado ou desativado muito rapidamente, de modo que áreas inteiras da memória possam entrar e sair da memória virtual de modo bastante efi ciente. Dois tipos de acesso de domínio são aceitos:
+clientes: 
+  usuários de domínios (executam programas e acessam dados) que precisam observar as permis-
+sões de acesso das seções individuais e/ou páginas que compõem esse domínio.gerentes: 
+  controlam o comportamento do domínio (as seções e páginas atuais no domínio, e o acesso do 
+domínio), e contornam as permissões de acesso para entradas de tabela nesse domínio.
+ Um programa pode ser um cliente de alguns domínios, e um gerente de alguns outros, e não ter acesso aos 
+domínios restantes. Isso permite uma proteção de memória bastante fl exível para programas que acessam diferen-tes recursos da memória.
+8.6 Leitura recomendada e sites Web
+Stallings (2009)c aborda os tópicos deste capítulo com detalhes.
+ Sites Web recomendados
+operating system Resource center: uma coleção útil de documentos e artigos sobre diversos tópicos de 
+sistema operacional.Acm special Interest group on operating systems: informações sobre publicações e conferências do SIGOPS.Ieee Technical committee on operating systems and Applications: inclui um boletim on-line e links para outros sites.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Sistema em lote Multitarefa Monitor residente
+Paginação por demanda núcleo Segmentação
+Sistemas operacionais interativos Sistema operacional (SO) Escalonamento de curto prazo
+Interrupção Paginação Swapping
+Job control language (JCL) Tabela de página Thrashing
+Kernel Particionamento Sistema de tempo compartilhado
+Endereço lógico Endereço físico Translation lookaside buff er (TLB)
+Escalonamento de longo prazo Instrução privilegiada Programa utilitário
+Escalonamento de médio prazo Processo Memória virtual
+Gerenciamento de memória Bloco de controle de processo
+Proteção de memória Estado do processo
+Multiprogramação Memória real
+Book 1.indb 243 19.11.09 14:37:29
+
+244 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Perguntas de revisão
+ 8.1 O que é um sistema operacional?
+ 8.2 Liste e defina resumidamente os principais serviços fornecidos por um sistema operacional.
+ 8.3 Liste e defina resumidamente os principais tipos de escalonamento do sistema operacional.
+ 8.4 Qual é a diferença entre um processo e um programa?
+ 8.5 Qual é a finalidade do swapping?
+ 8.6 Se um processo pode ser atribuído dinamicamente a diferentes locais na memória principal, qual é sua implicação para o mecanismo de 
+endereçamento?
+ 8.7 É necessário que todas as páginas de um processo estejam na memória enquanto o processo está sendo executado?
+ 8.8 As páginas de um processo na memória principal precisam ser contíguas?
+ 8.9 É necessário que as páginas de um processo na memória principal estejam em ordem sequencial?
+ 8.10 Qual é a finalidade do translation lookaside buffer (TLB)?
+Problemas
+8.1 Suponha que tenhamos um computador multiprogramado em que cada job tenha características idênticas. Em um período de computação, T, para uma tarefa, metade do tempo é gasto na E/S e a outra metade na atividade do processador. Cada job é executado por um total de N períodos. Suponha que uma prioridade round-robin simples seja usada, e que as operações de E/S possam se sobrepor com a operação do processador. Defina as seguintes quantidades:
+Tempo de 
+  turnaround = tempo real para completar um job.
+Throught put  = número médio de jobs completados por período T.
+Utilização do processador = percentagem de tempo que o processador está ativo (não esperando). 
+Calcule essas quantidades para um, dois e quatro jobs simultâneos, supondo que o período T seja distribuído em cada uma das seguintes 
+maneiras:
+a. E/S primeira metade, processador segunda metade.
+b. E/S primeira e quarta partes, processador segunda e terceira partes.
+8.2 Um programa voltado para E/S é tal que, se executado sozinho, gastaria mais tempo esperando pela E/S do que usando o processador. Um programa voltado para o processador é o oposto. Suponha que o algoritmo de escalonamento a curto prazo favoreça aqueles programas que usaram pouco tempo de processador recentemente. Explique por que esse algoritmo favorece os programas voltados para a E/S e ainda assim não nega permanentemente o tempo do processador para os programas voltados para o processador.
+8.3 Um programa calcula as somas de linhas
+Ci=an
+j=1aij
+de um array A de 100 por 100 elementos. Suponha que o computador use a paginação por demanda com um tamanho de página de 1.000 
+palavras, e que a quantidade de memória principal alocada para dados seja de cinco frames de página. Existe alguma diferença na taxa de falta de página se A fosse armazenado na memória virtual, tendo por parâmetro linhas ou colunas? Explique.
+8.4 Considere um esquema de particionamento com partições de mesmo tamanho de 2
+16 bytes e um tamanho de memória principal total de 224 
+bytes. Uma tabela de processo é mantida, que inclui um ponteiro para uma partição para cada processo residente. Quantos bits são exigidos para o ponteiro?
+8.5 Considere um esquema de particionamento dinâmico. Mostre que, na média, a memória contém uma quantidade de buracos que é a metade do número de segmentos.
+8.6 Suponha que a tabela de página para o processo atualmente em execução no processador se pareça com a seguinte. Todos os núme -
+ros são decimais, tudo é numerado a partir de zero e todos os endereços são endereços de byte da memória. O tamanho de página é de 1.024 bytes.
+Book 1.indb 244 19.11.09 14:37:29
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 8 Suporte do sistema operacional 245
+Número da página virtual Bit válido Bit de referência Bit de modificação Número do frame de página
+0 1 1 0 4
+1 1 1 1 7
+2 0 0 0 —
+3 1 0 0 2
+4 0 0 0 —
+5 1 0 1 0
+a. Descreva exatamente como, em geral, um endereço virtual gerado pela CPU é traduzido para um endereço físico da memória principal.
+b. A que endereço físico, se houver algum, cada um dos seguintes endereços virtuais corresponde? (não tente tratar de quaisquer faltas de 
+página, se houver.)
+ (i) 1.052 (ii) 2.221 (iii) 5.499
+8.7 Dê motivos para o tamanho de página em um sistema de memória virtual não ser nem muito pequeno nem muito grande.
+8.8 Um processo referencia cinco páginas, A, B, C, D e E, na seguinte ordem:
+A; B; C; D; A; B; E; A; B; C; D; E
+Suponha que o algoritmo de substituição seja “primeiro a entrar, primeiro a sair” (FIFO) e encontre o número de transferências de página durante 
+essa sequência de referências, começando com uma memória principal vazia com três frames de página. Repita para quatro frames de página.
+8.9 A sequência de números de página virtual a seguir é encontrada no curso de execução em um computador com memória virtual:
+3 4 2 6 4 7 1 3 2 6 3 5 1 2 3
+Suponha que seja adotada uma política de substituição de página usada menos recentemente (LRU). Desenhe um gráfico da razão de acerto 
+de página (fração de referências de página em que a página se encontra na memória principal) como uma função da capacidade da página de memória principal n para 1 ≤ n ≤ 8. Suponha que a memória principal esteja inicialmente vazia.
+8.10 no computador VAX, as tabelas de página do usuário estão localizadas nos endereços virtuais no espaço do sistema. Qual é a vantagem de ter 
+tabelas de página do usuário na memória virtual, e não na memória principal? Qual é a desvantagem?
+8.11 Suponha que a instrução de programa
+para (i = 1; i <= n; i++)a[i] = b[i] + c[i];
+seja executada em uma memória com tamanho de página de 1.000 palavras. Considere n = 1.000. Usando uma máquina que possui uma faixa 
+completa de instruções registrador-para-registrador e emprega registradores de índice, escreva um programa hipotético para implementar a instrução indicada. Depois, mostre a sequência de referências de página durante a execução.
+8.12 A arquitetura do IBM System/370 utiliza uma estrutura de memória de dois níveis e refere-se aos dois níveis como segmentos e páginas, 
+embora a técnica de segmentação não tenha muitos dos recursos descritos anteriormente neste capítulo. Para a arquitetura 370 básica, o tamanho de página pode ser 2 Kbytes ou 4 Kbytes, e o tamanho do segmento é fixo em 64 Kbytes ou 1 MByte. Para as arquiteturas 370/XA e 370/ESA, o tamanho de página é de 4 Kbytes e o tamanho de segmento é de 1 MByte. Que vantagens da segmentação esse esquema não possui? Qual é o benefício da segmentação para o 370?
+8.13 Considere um sistema de computação com segmentação e paginação. Quando um segmento está na memória, algumas palavras são desper-
+diçadas na última página. Além disso, para um tamanho de segmento s e tamanho de página p, existem s/p entradas de tabela de página. Quanto menor o tamanho da página, menor o desperdício na última página do segmento, porém maior a tabela de página. Que tamanho de página minimiza o overhead total?
+8.14 Um computador tem uma cache, uma memória principal e um disco usados para memória virtual. Se uma palavra referenciada estiver na 
+cache, 20 ns são necessários para acessá-la. Se estiver na memória principal, mas não na cache, 60 ns são necessários para carregá-la para a cache, e depois a referência é iniciada novamente. Se a palavra não estiver na memória principal, 12 ms são necessários para apanhar a 
+Book 1.indb 245 19.11.09 14:37:29
+
+246 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+palavra do disco, seguidos por 60 ns para copiá-la para a cache e depois a referência é iniciada novamente. A razão de acerto de cache é 0,9 e 
+a razão de acerto da memória principal é 0,6. Qual é o tempo médio em ns necessário para acessar uma palavra referenciada nesse sistema?
+8.15 Considere que uma tarefa é dividida em quatro segmentos de mesmo tamanho e que o sistema monte uma tabela de descritor de página com 
+oito entradas para cada segmento. Assim, o sistema tem uma combinação de segmentação e paginação. Suponha também que o tamanho de página seja de 2 KBytes.
+a. Qual é o tamanho máximo de cada segmento?
+b. Qual é o espaço de endereço lógico para a tarefa?
+c. Suponha que um elemento no local físico 00021ABC seja acessado por essa tarefa. Qual é o formato do endereço lógico que a tarefa gera para ela? Qual é o espaço de endereço físico máximo para o sistema?
+8.16 Considere um microprocessador capaz de acessar até 2
+32 bytes de memória principal física. Ele implementa um espaço de endereço lógico segmen-
+tado de tamanho máximo 231 bytes. Cada instrução contém o endereço inteiro em duas partes. Unidades de gerenciamento de memória (MMU) 
+externas são usadas, cujo esquema de endereçamento atribui blocos contíguos de memória física de tamanho fixo de 222 bytes aos segmentos. 
+O endereço físico inicial de um segmento sempre é divisível por 1.024. Mostre a ligação detalhada do mecanismo de mapeamento externo que converte endereços lógicos em endereços físicos usando o número apropriado de MMU, e mostre a estrutura interna detalhada de uma MMU (su-pondo que cada MMU contenha uma cache de descritor de segmento mapeado diretamente com 128 entradas) e como cada MMU é selecionada.
+8.17 Considere um espaço de endereço lógico paginado (composto de 32 páginas de 2 KBytes cada) mapeado em um espaço de memória física de 
+1 MByte.
+a. Qual é o formato do endereço lógico do processador?
+b. Qual é a extensão e a largura da tabela de página (desconsiderando os bits de “direitos de acesso”)?
+c. Qual é o efeito sobre a tabela de página se o espaço físico de memória for reduzido pela metade?
+8.18 no sistema operacional de mainframe do IBM OS/390, um dos principais módulos no kernel é o system resource manager (SRM). Esse módulo 
+é responsável pela alocação de recursos entre os espaços de endereço (processos). O SRM dá ao OS/390 um grau de sofisticação exclusivo entre os sistemas operacionais. nenhum outro SO de mainframe, e certamente nenhum outro tipo de SO, pode corresponder às funções realizadas pelo SRM. O conceito de recurso inclui processador, memória real e canais de E/S. O SRM acumula estatísticas pertencentes à utili-zação do processador, canal e diversas estruturas de dados básicas. Sua finalidade é oferecer desempenho ideal com base no monitoramento e na análise de desempenho. A instalação destaca diversos objetivos de desempenho, e estes servem como guia para o SRM, que modifica dinamicamente as características de instalação e desempenho do job com base na utilização do sistema. Por sua vez, o SRM oferece relatórios que permitem que o operador treinado refina a configuração e as definições de parâmetros para melhorar o serviço ao usuário.
+Este problema trata de um exemplo da atividade do SRM. A memória real é dividida em blocos de mesmo tamanho, chamados frames, 
+dos quais pode haver muitos milhares. Cada frame pode manter um bloco de memória virtual conhecido como página. O SRM recebe o controle aproximadamente 20 vezes por segundo e inspeciona todo e qualquer frame de página. Se a página não tiver sido referenciada ou alterada, um 
+contador é incrementado em 1. Com o passar do tempo, o SRM calcula a média desses números para determinar o número médio de segundos que um frame de página no sistema fica sem ser tocado. Qual poderia ser a finalidade disso, e que ação o SRM poderia tomar?
+8.19 Para cada um dos formatos de endereço virtual do ARM mostrados na Figura 8.24, mostre o formato do endereço físico.
+8.20 Desenhe uma figura semelhante à Figura 8.23 para a tradução da memória virtual do ARM quando a memória principal é dividida em seções.
+ Referências
+ a C LARK , D. e EMER , J. “Performance of the VAX-11/780 translation buffer: simulation and Measurement” . ACM Transactions on Computer Systems, 
+fev. 1985.
+ b S AT YA nARAYA nAn, M. e BhAn DARKAR , D. “Design trade-offs in VAX-11 translation buffer organization” . Computer, dez. 1981.
+ c S TALLIn GS, W. Operating systems, internals and design principles, 6 ed. Upper Saddle River, nJ: Prentice hall, 2009.
+Book 1.indb 246 19.11.09 14:37:29
+
+ASSUnTOS DA PARTE 3
+Até este ponto, vimos o processador basicamente como uma “caixa preta” e con-
+sideramos sua interação com a E/S e a memória. A Parte 3 examina a estrutura interna e a função do processador. Ele consiste em registradores, a unidade lógica e aritmética, a unidade de execução de instrução, uma unidade de controle e as in-terconexões entre esses componentes. As questões de arquitetura, como o projeto do conjunto de instruções e os tipos de dados, são explicadas. A parte também examina questões organizacionais, como pipeline.
+MAPA DA PARTE 3
+Capítulo 9 Aritmética do computador
+O Capítulo 9 examina a funcionalidade da unidade lógica e aritmética (ALU) e focaliza a representação dos números e técnicas para implementar operações aritméticas. Os processadores normalmente aceitam dois tipos de aritmética: inteiros, ou ponto fi xo, e ponto fl utuante. Para os dois casos, o capítulo primeiro examina a representação dos números e depois discute as operações aritméticas. O importante padrão IEEE 754 é examinado com detalhes.
+Capítulo 10 Conjuntos de instruções: características e funções
+Do ponto de vista de um programador, a melhor maneira de entender a operação de um processador é aprender o conjunto de instruções de máquina que ele exe-cuta. O tópico complexo do projeto do conjunto de instruções ocupa os capítulos 10 e 11. O Capítulo 10 focaliza os aspectos funcionais do projeto do conjunto de instruções. Ele examina os tipos de funções que são específicas pelas instruções do computador e depois examina especificamente os tipos de operandos (que espe-cificam os dados que serão atuados) e os tipos de operações (que especificam as operações a serem realizadas), normalmente encontrados nos conjuntos de instru-ções. Depois, o relacionamento das instruções do processador com a linguagem de montagem é explicado resumidamente.
+1 2 3 4 PARTE
+A unidade central de processamento
+Book 1.indb 247 19.11.09 14:37:30
+
+Capítulo 11 Conjuntos de instruções: modos de endereçamento e formatos
+Embora o Capítulo 10 possa ser visto como tratando da semântica do conjunto de 
+instruções, o Capítulo 11 trata mais da sintaxe dos conjuntos de instruções. Especi-ficamente, ele examina o modo como os endereços de memória são especificados e o formato geral das instruções do computador.
+Capítulo 12 Estrutura e função do processador
+O Capítulo 12 é dedicado a uma discussão da estrutura interna e função do proces-sador. O capítulo descreve o uso de registradores como a memória interna da CPU, e depois junta todo o material abordado até aqui para oferecer uma visão geral da estrutura e função da CPU. A organização geral (ALU, bancos de registradores, unidade de controle) é revisada. Depois, a organização do banco de registradores é discutida. O restante do capítulo descreve o funcionamento do processador na execução de ins-truções de máquina. O ciclo de instruções é examinado para mostrar a função e o in-terrelacionamento dos ciclos de busca, indireção, execução e interrupção. Finalmente, o uso do pipeline para melhorar o desempenho é explorado em profundidade.
+Capítulo 13 Reduced Instruction Set Computer (RISC)
+O restante da Parte 3 examina com mais detalhes as principais tendências no projeto da CPU. O Capítulo 13 descreve a técnica associada ao conceito de um computador com conjunto de instruções reduzido (RISC), que é uma das inovações mais significati-vas na organização e arquitetura do computador nos últimos anos. A arquitetura RISC é um desvio radical da tendência histórica na arquitetura de processador. Uma análise dessa técnica focaliza muitas das questões importantes na organização e arquitetura do computador. O capítulo examina a motivação para o uso do projeto RISC e depois examina os detalhes do projeto do conjunto de instruções RISC e a arquitetura da CPU RISC, comparando RISC com a técnica do computador com conjunto de instruções complexo (CISC).
+Capítulo 14 Paralelismo em nível de instrução e processadores superescalares
+O Capítulo 14 examina uma inovação de projeto ainda mais recente e igualmente im-portante: o processador superescalar. Embora a tecnologia superescalar possa ser usa-da em qualquer processador, ela é especialmente adequada a uma arquitetura RISC. O capítulo também examina a questão geral do paralelismo em nível de instrução.
+Book 1.indb 248 19.11.09 14:37:30
+
+Começamos nosso estudo do processador com uma visão geral da unida-
+de lógica e aritmética (ALU  arithmetic and logic unit). O capítulo, em 
+seguida, focaliza o aspecto mais complexo da ALU, a aritmética do compu-tador. As funções lógicas que fazem parte da ALU são descritas no Capítulo 10, e as implementações das funções lógicas e aritméticas simples na lógica digital são descritas no Capítulo 20.
+A aritmética do computador normalmente é realizada sobre dois tipos 
+diferentes de números: inteiros e ponto fl utuante. Nos dois casos, a representação escolhida é uma questão crucial de projeto e é tratada primeiro, seguida por uma discussão das operações aritméticas.
+Este capítulo inclui diversos exemplos, cada um destacado em uma caixa com fundo cinza.
+9.1 A Unidade Lógica e Aritmética (ALU)
+A ALU é aquela parte do computador que realmente realiza operações lógicas e aritméticas sobre os dados. 
+Todos os outros elementos do sistema de computação  unidade de controle, registradores, memória, E/S  exis-
+tem principalmente para trazer dados para a ALU processar, e depois levar os resultados de volta. De certa forma, chegamos ao núcleo ou essência de um computador quando consideramos a ALU.
+Uma ALU e, na realidade, todos os componentes eletrônicos no computador, são baseados no uso de dispositi-
+vos lógicos digitais simples, que podem armazenar dígitos binários e realizar operações lógicas booleanas simples. Para o leitor interessado, o Capítulo 20 explora a implementação da lógica digital.PRInCIPAIS POnTOS
+ As duas principais questões para a aritmética do computador são o 
+modo como os números são representados (o formato binário) e os al-goritmos usados para as operações aritméticas básicas (adição, subtração, multiplicação, divisão). Essas duas considerações se aplicam à aritmética de inteiros e de ponto fl utuante.
+ Os números de ponto fl utuante são expressos como um número (signifi -
+cando) multiplicado por uma constante (base) elevada a alguma potência inteira (expoente). Os números de ponto fl utuante podem ser usados para representar números muito grandes e muito pequenos.
+ A maioria dos processadores implementa o padrão IEEE 754 para a repre-
+sentação e a aritmética de ponto fl utuante. O IEEE 754 defi ne um formato de 32 bits e um de 64 bits.Aritmética do computador
+9.1 A Unidade Lógica e Aritmética (ALU)
+9.2 Representação de inteiros
+  Representação de sinal -magnitude
+  Representação de complemento a dois
+  Convertendo entre diferentes tamanhos em bits
+  Representação de ponto fi xo
+9.3 Aritmética com inteiros
+  negação
+  Adição e subtração
+  Multiplicação
+  Divisão
+9.4 Representação de ponto fl utuante
+  Princípios
+  Padrão do IEEE para a representação binária de ponto fl utuante
+9.5 Aritmética de ponto fl utuante
+  Adição e subtração
+  Multiplicação e divisão
+  Considerações de precisão
+  Padrão do IEEE para a aritmética binária de ponto fl utuante
+9.6 Leitura recomendada e Web sitesCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+Book 1.indb 249 19.11.09 14:37:31
+
+250 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A Figura 9.1 indica, em termos gerais, como a ALU é interconectada ao restante do processador. Os dados são 
+apresentados à ALU em registradores, e os resultados de uma operação são armazenados nos registradores. Esses 
+registradores são locais de armazenamento temporários dentro do processador, que são conectados por meio de sinais à ALU (por exemplo, veja a Figura 2.3). A ALU também pode defi nir fl ags como resultado de uma operação. Por exemplo, uma fl ag de overfl ow (estouro) é defi nida como 1 se o resultado de um cálculo ultrapassar o tamanho 
+do registrador no qual ele deve ser armazenado. Os valores de fl ag também são armazenados nos registradores dentro do processador. A unidade de controle oferece sinais que controlam a operação da ALU e o movimento dos dados para dentro e fora da ALU.
+9.2 Representação de inteiros
+No sistema numérico binário,1 números quaisquer podem ser representados apenas com os dígitos zero e um, 
+o sinal de menos e a vírgula, ou vírgula fracionada.
+-1101,01012=-13,3125
+10
+Para as fi nalidades de armazenamento e processamento no computador, porém, não temos o benefício dos 
+sinais de menos e vírgulas. Somente dígitos binários (0 e 1) podem ser usados para representar os números. Se estivermos limitados a inteiros não negativos, a representação é direta.
+Uma palavra de 8 bits pode representar os numeros de 0 a 255, incluindo
+11111111 =25500000001 =12810010100 =4110000000 = 100000000 = 0‘
+Em geral, se uma sequência de n bits de dígitos binários an–1 an–2 ... a1a0 for interpretada como um inteiro sem 
+sinal A, seu valor é
+A=an-1
+i=02iai
+1 Veja no Capítulo 19 uma revisão básica sobre sistemas numéricos (decimal, binário, hexadecimal).Figura 9.1 Entradas e saídas da ALU
+ALU Unidade 
+de controle
+RegistradoresFlags
+Registradores
+Book 1.indb 250 19.11.09 14:37:32
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 251
+ Representação em sinal -magnitude
+Existem várias convenções alternativas usadas para representar números inteiros negativos e também positivos, 
+todas envolvem o tratamento do bit mais signifi cativo (mais à esquerda) na palavra como um bit de sinal. Se o bit 
+de sinal for 0, o número é positivo; se o bit de sinal for 1, o número é negativo.
+A forma de representação mais simples que emprega um bit de sinal é a representação sinal -magnitude. Em 
+uma palavra de n bits, os n – 1 bits mais à direita representam a magnitude do inteiro.
+ -18 =10010010 (sinal-magnitude) +18 =00010010
+O caso geral pode ser expresso da seguinte forma:
+Sinal -magnitude
+ A=dan-2
+i=02iai if an-1=0
+-an-2
+i=02iaiif an-1=1 (9.1)
+Existem diversas desvantagens na representação sinal -magnitude. Uma é que adição e subtração exigem uma 
+consideração dos sinais dos números e de suas relativas magnitudes para executar a operação exigida. Isso deverá 
+fi car claro na discussão da Seção 9.3. Outra desvantagem é que existem duas representações do 0:
+ 010 =10000000 (sinal-magnitude) +010 =00000000
+-
+Isso é inconveniente porque é ligeiramente mais difícil de testar se um valor é igual a 0 (uma operação realizada 
+frequentemente nos computadores) do que se houvesse uma única representação.
+Por causa dessas desvantagens, a representação sinal -magnitude raramente é usada na implementação da 
+parte inteira da ALU. Em vez disso, o esquema mais comum é a representação de complemento a dois.2
+ Representação em complemento a dois
+Assim como sinal -magnitude, a representação de complemento de dois utiliza o bit mais significativo 
+como um bit de sinal, tornando mais fácil testar se um inteiro é positivo ou negativo. Ela difere do uso da representação sinal -magnitude no modo como os outros bits são interpretados. A Tabela 9.1 destaca as prin-cipais características da representação e da aritmética de complemento de dois, que são detalhadas nesta e na próxima seção.
+Tabela 9.1 Características da representação e aritmética de complemento a dois
+Intervalo – 2n–1 até 2n–1 – 1
+Número de representações de zero Uma
+NegaçãoApanhe o complemento booleano de cada bit do número positivo correspondente, 
+depois some 1 ao padrão de bits resultante visto como um inteiro sem sinal.
+Expansão do tamanho em bits Acrescente posições de bit adicionais à esquerda e preencha com o valor do bit de sinal original.
+Regra de overfl owSe dois números com o mesmo sinal (positivo ou negativo) são somados, 
+então o estouro ocorre se e somente se o resultado tem o sinal oposto.
+Regra de subtração Para subtrair B de A, apanhe o complemento a dois de B e some -o a A.
+2 Na literatura, o termo complemento de dois ou two’s complement é utilizado com frequência. Aqui, seguimos a prática utilizada nos documentos 
+de padrões e omitimos o apóstrofo (por exemplo, IEEE Std 100 -1992, The New IEEE Standard Dictionary of Electrical and Electronics Terms).
+Book 1.indb 251 19.11.09 14:37:34
+
+252 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A maioria dos tratamentos da representação de complemento de dois só define as regras para produzir nú-
+meros negativos, sem prova formal de que o esquema “funciona” . Em vez disso, nossa apresentação dos inteiros 
+com complemento de dois nesta seção e na Seção 9.3 é baseada em Dattatreya, G. (1993a), que sugere que a re-
+presentação de complemento de dois é mais bem entendida definindo -a em termos de uma soma ponderada de 
+bits, conforme fizemos anteriormente para as representações sem sinal e em sinal -magnitude. A vantagem desse tratamento é que ele não deixa qualquer dúvida de que as regras para operações aritméticas na notação de com-plemento a dois podem não funcionar para alguns casos especiais.
+Considere um inteiro de n bits, A, na representação de complemento a dois. Se A for positivo, então o bit de 
+sinal, a
+n–1, é zero. Os bits restantes representam a magnitude do número da mesma forma que a representação 
+sinal -magnitude:
+forAÚ0 A=an-2
+i=02iai
+O número zero é identificado como um número positivo e, portanto, tem um bit de sinal 0 e uma magni-
+tude contendo apenas 0s. Podemos ver que o intervalo de inteiros positivos que podem ser representados é de 0 (todos os bits de magnitude são 9) até 2
+n–1 – 1 (todos os bits de magnitude são 1). Qualquer número 
+maior exigiria mais bits.
+Agora, para um número negativo A (A < 0), o bit de sinal, an–1, é um. Os n–1 bits restantes podem assumir qual-
+quer um dos 2n–1 valores. Portanto, o intervalo de inteiros negativos que podem ser representados é de –1 a –2n–1. 
+Gostaríamos de atribuir os valores de bit a inteiros negativos de modo que a aritmética possa ser tratada de um modo simples, semelhante à aritmética de inteiros sem sinal. Na representação inteira sem sinal, para calcular o va-lor de um inteiro a partir da representação de bits, o peso do bit mais significativo é +2
+n–1. Para uma representação 
+com um bit de sinal, acontece que as propriedades aritméticas desejadas são alcançadas, conforme veremos na Seção 9.3, se o peso do bit mais significativo for –2
+n–1. Essa é a convenção usada na representação de complemento 
+a dois, gerando a seguinte expressão para números negativos:
+(9.2) Complemento a dois A=-2n-1an-1+an-2
+i=02iai
+A Equação 9.2 define a representação de complemento de dois para números positivos e negativos. Para an–1 = 0, 
+o termo –2n–1an–1 = 0 e a equação define um inteiro não negativo. Quando an–1 = 1, o termo 2n–1 é subtraído do termo 
+do somatório, resultando em um inteiro negativo.
+A Tabela 9.2 compara as representações sinal -magnitude e complemento de dois para inteiros de 4 bits. Embora 
+o complemento de dois seja uma representação estranha do ponto de vista humano, veremos que ela facilita as operações aritméticas mais importantes, adição e subtração. Por esse motivo, ela é usada quase universalmente como a representação do processador para inteiros.
+Uma ilustração útil da natureza da representação de complemento de dois é uma caixa de valores, em que o 
+valor no canto direito da caixa é 1 (2
+0), e cada posição sucessiva à esquerda é o dobro em valor, até a posição mais 
+à esquerda, que é negada. Como você pode ver na Figura 9.2a, o número de complemento de dois mais negativo que pode ser representado é –2
+n–1; se algum dos bits diferentes do bit de sinal for 1, ele soma uma quantidade po-
+sitiva ao número. Além disso, fica claro que um número negativo precisa ter um 1 em sua posição mais à esquerda e um número positivo precisa ter um 0 nessa posição. Assim, o maior número positivo é um 0 seguindo por todos os outros iguais a 1, que é igual a 2
+n–1 – 1.
+O restante da Figura 9.2 ilustra o uso da caixa de valores para converter de complemento de dois para decimal 
+e de decimal para complemento de dois.
+Book 1.indb 252 19.11.09 14:37:34
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 253
+Tabela 9.2 Representação alternativa para inteiros de 4 bits
+Representação decimal Representação sinal -magnitudeRepresentação em 
+complemento de doisRepresentação polarizada
++8 – – 1111
++7 0111 0111 1110
++6 0110 0110 1101
++5 0101 0101 1100
++4 0100 0100 1011
++3 0011 0011 1010
++2 0010 0010 1001
++1 0001 0001 1000
++0 0000 0000 0111
+–0 1000 – –
+–1 1001 1111 0110
+–2 1010 1110 0101
+–3 1011 1101 0100
+–4 1100 1100 0011
+–5 1101 1011 0010
+–6 1110 1010 0001
+–7 1111 1001 0000
+–8 – 1000 –
+128 
+128 2 1 125 1 
+ 1 
+120 128 8 (a) Uma caixa de valores de complemento a dois com oito posições
+(b) Convertendo o binário 10000011 para decimal
+(c) Convertendo o decimal 120 para binário64 32 16 8 4 2 1
+128 64 32 16 8 4 2 1
+128 64 32 16 8 4 2 10 0 0 0 0 1 1
+0 0 0 1 0 0 0Figura 9.2 Uso de uma caixa de valores para a conversão entre complemento de dois e decimal
+ Convertendo entre diferentes tamanhos em bits
+Às vezes, é desejável que um inteiro de n bits seja armazenado em m bits, onde m > n. Na notação sinal-
+-magnitude, isso é feito com facilidade: basta mover o bit de sinal para a posição mais à esquerda e preencher 
+com zeros.
+Book 1.indb 253 19.11.09 14:37:35
+
+254 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
++18= 00010010
++18=0000000000010010
+-18= 10010010
+-18=1000000000010010 1sinal-magnitude, 8 bits 2
+1sinal-magnitude, 16 bits 2
+1sinal-magnitude, 8 bits 2
+1sinal-magnitude, 16 bits 2
+Esse procedimento não funcionará para inteiros negativos de complemento de dois. Usando o mesmo exemplo,
++18= 00010010
++18= 0000000000010010
+-18= 11101110
+-32,658 = 1000000001101110 1complemento de dois, 8 bits 2
+1complemento de dois, 16 bits 2
+1complemento de dois, 8 bits 2
+1complemento de dois, 16 bits 2
+A penúltima linha é facilmente vista usando a caixa de valores da Figura 9.2. A última 
+linha pode ser verificada usando a Equação 9.2 ou uma caixa de valores de 16 bits.
+Em vez disso, a regra para inteiros de complemento de dois é mover o bit de sinal para a nova posição mais 
+à esquerda e preencher com cópias do bit de sinal. Para números positivos, preencha com zeros, e para números 
+negativos, preencha com uns. Isso é chamado de extensão de sinal.
+-18= 11101110
+-18=11111111111011101complemento de dois, 8 bits 2
+1complemento de dois, 16 bits 2
+Para ver por que essa regra funciona, vamos novamente considerar uma sequência de n bits de dígitos binários 
+an–1an–2 … a1a0 interpretada como um inteiro de complemento de dois A, de modo que seu valor é
+A=- 2n-1an-1+an-2
+i=02iai
+Se A é um número positivo, a regra claramente funciona. Agora, se A é negativo e quisermos construir uma 
+representação de m bits, com m > n, então
+A=-2m-1am-1+am-2
+i=02iai
+Os dois valores precisam ser iguais:
+ 1 am-2=Á=an-2=an-1=1 am-2
+i=n-12iai=am-2
+i=n-12i 1+an-2
+i=02i+am-2
+i=n-12iai=1+am-2
+i=02i2n-1+am-2
+i=n-12iai=2m-1 -2m-1+am-2
+i=n-12iai=- 2n-1 -2m-1+ am-2
+i=02iai=- 2n-1+an-2
+i=02iai
+Book 1.indb 254 19.11.09 14:37:36
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 9 Aritmética do computador 255
+Passando da primeira para a segunda equação, é preciso que os n – 1 bits menos signifi cativos não mudem 
+entre as duas representações. Depois, chegamos à penúltima equação, que só é verdadeira se todos os bits nas 
+posições n – 1 a m – 2 forem 1. Portanto, a regra de extensão de sinal funciona. O leitor poderá achar a regra mais 
+fácil de entender depois de estudar a discussão sobre a negação em complemento de dois, no início da Seção 9.3.
+ Representação em ponto fixo
+Finalmente, mencionamos que as representações discutidas nesta seção às vezes são chamadas de ponto fi xo. 
+Isso porque a vírgula (binária) é fi xa na posição à direita do bit menos signifi cativo. O programador pode usar a mes-ma representação para frações binárias, escalando os números de modo que a vírgula binária seja implicitamente posicionado em algum outro local.
+9.3 Aritmética com inteiros
+Esta seção examina as funções aritméticas comuns sobre número na representação de complemento de dois.
+ Negação
+Na representação sinal -magnitude, a regra para formar a negação de um inteiro é simples: inverta o bit de sinal. 
+Na notação de complemento de dois, a negação de um inteiro pode ser formada com as seguintes regras:
+1. Apanhe o complemento booleano de cada bit do inteiro (incluindo o bit de sinal). Ou seja, defi na cada 1 como 0, e cada 0 como 1.
+2. Tratando o resultado como um inteiro binário sem sinal, some 1.
+Esse processo em duas etapas é conhecido como a operação de complemento de dois, ou achar o comple-
+mento de dois de um inteiro.
++18=00010010
+complemento bit a bit =11101101
++ 1
+11101110 1complemento de dois 2
+=-18
+-18=11101110
+complemento bit a bit =00010001
++ 1
+00010010 1 2
+=+18complemento de doisConforme esperado, o negativo do negativo desse número é ele mesmo:+18=00010010
+complemento bit a bit =11101101
++ 1
+11101110 1complemento de dois 2
+=-18
+-18=11101110
+complemento bit a bit =00010001
++ 1
+00010010 1 2
+=+18complemento de dois
+Podemos demonstrar a validade da operação recém -descrita usando a defi nição da representação de comple-
+mento de dois na Equação 9.2. Novamente, interprete uma sequência de n bits de dígitos binários an–1an–2 … a1a0 
+com um inteiro complemento de dois A, de modo que seu valor é
+A=-2n-1an-1+an-2
+i=02iai
+Agora, forme o complemento booleano bit a bit, an–1an–2 … a0, e, tratando isso como um inteiro sem sinal, some 
+1. Finalmente, interprete a sequência resultante de n bits de dígitos binários como um inteiro de complemento de dois B, de modo que seu valor é
+B=-
+2n-1an-1+1+an-2
+i=02iai
+Book 1.indb 255 19.11.09 14:37:38
+
+256 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Agora, queremos A = –B, o que signifi ca que A + B = 0. Isso é facilmente demonstrado como verdadeiro:
+ =- 2n-1+2n-1=0 =- 2n-1+1+(2n-1-1) =- 2n-1+1+aan-2
+i=02ib A+B=-(an-1+an-1)2n-1+1+aan-2
+i=02i(ai+ai)b
+A derivação anterior considera que primeiro podemos tratar o complemento booleano bit a bit de A como 
+um inteiro sem sinal para a finalidade de somar 1 e depois tratar o resultado como um inteiro em comple-
+mento de dois. Existem dois casos especiais a considerar. Primeiro, considere A = 0. Nesse caso, para uma 
+representação de 8 bits:
+0=00000000
+complemento bit a bit =11111111
++ 1
+100000000 1complemento a dois 2
+=0
+Existe um carry (vai um) a partir da posição do bit mais signifi cativo, que é ignorado. O resultado é que a nega-
+ção de 0 é 0, como deveria ser.
+O segundo caso especial é um problema maior. Se apanharmos a negação do padrão de bits de 1 seguido por 
+n – 1 zeros, voltamos ao mesmo número. Por exemplo, para palavras de 8 bits,
+-128=10000000
+=01111111
++ 1
+10000000 
+=-128complemento bit a bit 1complemento a dois 2
+Alguma anomalia desse tipo é inevitável. O número de padrões de bits diferentes em uma palavra de n bits é 
+2n, que é um número par. Queremos representar inteiros positivos e negativos e 0. Se um número igual de inteiros 
+positivos e negativos forem representados (sinal -magnitude), então existem duas representações para 0. Se houver apenas uma representação de 0 (complemento a dois), então é preciso haver uma quantidade desigual para repre-sentar números negativos e positivos. No caso do complemento de dois, para um tamanho de n bits, existe uma 
+representação para –2
+n–1, mas não para +2n–1.
+ Adição e subtração
+A adição em complemento de dois é ilustrada na Figura 9.3. A adição prossegue como se os dois números 
+fossem inteiros sem sinal. Os quatro primeiros exemplos ilustram operações bem sucedidas. Se o resultado da operação for positivo, obtemos um número positivo na forma de complemento de dois, que é a mesma que na forma de inteiro sem sinal. Se o resultado da operação for negativo, obtemos um número negativo na forma de complemento a dois. Observe que, em alguns casos, existe um bit de carry além do fi nal da palavra (indicado pelo 
+sombreado), que é ignorado.
+Em qualquer adição, o resultado pode ser maior do que pode ser mantido no tamanho da palavra sendo 
+usado. Essa condição é chamada de overflow (estouro). Quando ocorre overflow, a ALU precisa sinalizar esse 
+fato de modo que não haja qualquer tentativa de usar o resultado. Para detectar o overflow, a seguinte regra 
+é observada:
+Book 1.indb 256 19.11.09 14:37:39
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 257
+Regra do overflow: se dois números são somados e ambos são positivos ou ambos 
+negativos, então o overflow ocorre se , e somente se , o resultado tiver o sinal oposto.
+As Figuras 9.3e e f mostram exemplos de overflow . Observe que o overflow pode ocorrer havendo ou não um carry.
+A subtração é facilmente tratada com a seguinte regra:
+Regra da subtração: para subtrair um número (subtraendo) de outro (minuendo), apanhe o complemento de dois (negação) do subtraendo e some-o ao minuendo.
+Assim, a subtração é obtida usando a adição, conforme ilustrado na Figura 9.4. Os dois últimos exemplos de-
+monstram que a regra do overflow ainda se aplica.0101 0100
+0100 1111
+0100 1010Figura 9.3 Adição de números na representação de complemento de dois
+Figura 9.4 Subtração de números na representação de complemento de dois (M – S)
+0010 = 2
+ +1001 = –7
+ 1011 = –5 0101 = 5 +1110 = –2
+10011 = 3
+(a) M = 2 = 0010 S = 7 = 0111 –S = 1001(b) M = 5 = 0101 S = 2 = 0010 –S = 1110
+ 1011 = –5 +1110 = –2
+11001 = –7 0101 = 5 +0010 = 2 0111 = 7
+(c) M = –5 = 1011 S = 2 = 0010 –S = 1110(d) M = 5 = 0101 S = –2 = 1110 –S = 0010
+ 0111 = 7 +0111 = 7 1110 = Overflow 1010 = –6 +1100 = –4
+10110 = Overflow
+(e) M = 7 = 0111 S = –7 = 1001 –S = 0111(f) M = –6 = 1010 S = 4 = 0100 –S = 1100
+Book 1.indb 257 19.11.09 14:37:40
+
+258 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Uma ideia melhor da adição e subtração em complemento a dois pode ser obtida examinando uma representa-
+ção geométrica (Benham, 1992b), como mostra a Figura 9.5. O círculo na metade superior de cada uma das partes da 
+fi gura é formado selecionando o segmento apropriado da linha de número e unindo as extremidades. Observe que, 
+quando os números são dispostos em um círculo, o complemento a dois de qualquer número é horizontalmente o oposto desse número (indicado por linhas horizontais tracejadas). Começando em qualquer número no círculo, po-demos somar k positivo (ou subtrair k negativo) a esse número movendo k posições em sentido horário, e podemos 
+subtrair k positivo (ou somar k negativo) desse número movendo k posições em sentido anti -horário. Se uma operação 
+aritmética ultrapassar do ponto onde as extremidades são unidas, a resposta estará incorreta (overfl ow ).
+Todos os exemplos das Figuras 9.3 e 9.4 são facilmente representados no círculo da Figura 9.5.
+A Figura 9.6 sugere os caminhos de dados e elementos de hardware necessários para realizar a adição e a subtração. 
+O elemento central é um somador binário, que recebe dois números para adição e produz uma soma e uma indicação de overfl ow . O somador binário trata os dois números como inteiros sem sinal. (Uma implementação de um circuito ló-
+gico pelo somador é dada no Capítulo 20.) Para a adição, os dois números são apresentados ao somador a partir de dois registradores, neste caso como registradores A e B. O resultado pode ser armazenado em um desses registradores ou 
+em um terceiro. A indicação de overfl ow é armazenada em um fl ag de overfl ow de 1 bit (0 = sem overfl ow ; 1 = overfl ow ). 
+Para a subtração, o subtraendo (registrador B) é passado por um circuito que calcula o complementador de dois, de modo que seu complemento de dois é passado ao somador. Observe que a Figura 9.6 só mostra os caminhos de dados. Sinais de controle são necessários para controlar se o complementador é usado ou não, dependendo se a operação é de adição ou subtração.
+ Multiplicação
+Em comparação com a adição e a subtração, a multiplicação é uma operação complexa, seja ela realizada 
+no hardware ou pelo software. Diversos algoritmos foram usados em diversos computadores. A fi nalidade desta 
+Figura 9.5 Representação geométrica dos inteiros de complemento de dois
+0000
+0 +1
++2
++3
++4
++5
++6
++7 –8 –7–6–5–4–3–2–10001Adição de 
+números 
+positivos Subtração de 
+ números positivos
+0010
+0011
+0100
+0101
+0110
+01111000
+ (b) Números de n bits (a) Números de 4 bits1001101010111100110111101111
+0 -1 -2 -3 -4 -5 -6 -7 -8 987654321 9-000 . . . 0 111 . . . 1 
+0 . . . 0 1 0 0 . . . 0 1 1
+011 . . . 1100 . . . 00
+2n–2
+–2n–1–2n–2–1Adição de 
+números 
+positivosSubtração de números positivos
+–2n–1
+–2n–1–1 2n–12n–1–12n–1–1
+Book 1.indb 258 19.11.09 14:37:41
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 9 Aritmética do computador 259
+ subseção é dar ao leitor alguma ideia do tipo de técnica normalmente utilizado. Começamos com o problema mais 
+simples de multiplicar dois inteiros sem sinal (não negativos) e depois examinamos uma das técnicas mais comuns para a multiplicação de números na representação de complemento a dois.
+INTEIROS SEM SINAL A Figura 9.7 ilustra a multiplicação de inteiros binários sem sinal, como poderiam ser 
+executados usando lápis e papel. Várias observações importantes podem ser feitas:
+1. A multiplicação envolve a geração de produtos parciais, um para cada dígito no multiplicador. Esses produ-tos parciais são então somados para produzir o produto final.
+2. Os produtos parciais são facilmente definidos. Quando o bit multiplicador é 0, o produto parcial é 0. Quando o multiplicador é 1, o produto parcial é o multiplicando.
+3. O produto total é produzido somando -se os produtos parciais. Para essa operação, cada produto parcial 
+sucessivo é deslocado uma posição à esquerda em relação ao produto parcial anterior.
+4. A multiplicação de dois inteiros binários de n bits resulta em um produto de até 2n bits de extensão (por 
+exemplo, 11 × 11 = 1001).
+Em comparação com a técnica de lápis e papel, existem várias coisas que podemos fazer para tornar a multipli-
+cação computadorizada mais eficiente. Primeiro, podemos realizar uma adição acumulada nos produtos parciais em vez de esperar até o final. Isso elimina a necessidade de armazenar de todos os produtos parciais; menos regis-
+tradores são necessários. Segundo, podemos economizar algum tempo na geração de produtos parciais. Para cada Figura 9.6 Diagrama em blocos do hardware para adição e subtração
+Somador OF
+OF = bit de over/f_low (do inglês overflow bit)
+SW = seletor – multiplexador (seleciona adição ou subtração)Complementador Registrador A Registrador B
+SW
+ 1011
+ 1101
+ 1011 0000 1011 101110001111Multiplicando (11)Multiplicador (13)
+Produto (143)Produtos parciaisFigura 9.7 Multiplicação de inteiros binários sem sinal
+Book 1.indb 259 19.11.09 14:37:42

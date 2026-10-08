@@ -1,0 +1,4 @@
+45. Certo
+90. Certo
+135. Certo
+180. Errado

@@ -1,0 +1,641 @@
+610 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+representação em complemento de dois Usada para representar inteiros binários. Um inteiro positivo é representado 
+como na representação sinal-magnitude. Um número negativo é representado calculando o complemento booleano de cada bit do número positivo correspondente, somando, depois, 1 ao padrão de bits resultante, considerando o padrão de bits resultante como um inteiro sem sinal.
+representação sinal-magnitude Usada para representar inteiros binários. Em uma palavra de N bits, o bit mais à esquer-
+da é o sinal (0 = positivo, 1 = negativo) e os N – 1 bits restantes compreendem a magnitude do número.salto condicional Um salto que ocorre somente quando a instrução que o especifica é executada e as condições espe-
+cificadas são satisfeitas. Compare com salto incondicional.
+salto incondicional Um salto que ocorre sempre que a instrução que o especificou é executada.semicondutor Uma substância sólida cristalina, como o silício ou o germânio, cuja condutividade elétrica é intermediária 
+entre os isolantes e os bons condutores. Usado para fabricar transistores e componentes em estado sólido.
+sistema de representação de ponto fixo Na representação em ponto fixo, sistema em que a posição da vírgula da raiz (biná-
+rio ou decimal, ou octal, ou hexadecimal) é fixa para um fator de escala (expoente) implícito (não representado) e constante.
+sistema de representação de ponto flutuante Um sistema de numeração em que um número real é representado por 
+um par de numerais distintos: o primeiro é o produto da parte de ponto fixo; o segundo é um valor obtido elevando-se a 
+base de ponto flutuante, implícita, a uma potência indicada pelo expoente da representação de ponto flutuante. 
+sistema operacional (so) Software que controla a execução dos programas e que oferece serviços como alocação de 
+recursos, escalonamento, controle de entrada/saída e gerenciamento de dados.
+stripping de disco Um tipo de mapeamento de um conjunto de disco em que blocos de dados logicamente contíguos, 
+ou strips, são mapeados em um padrão round-robin a membros consecutivos do array. Um conjunto de strips logicamente 
+consecutivos que mapeia exatamente um strip a cada membro do conjunto é conhecido como um stripe.
+tabela verdade Uma tabela que descreve uma função lógica listando todas as combinações possíveis de valores de 
+entrada e indicando, para cada combinação, o valor de saída.
+tempo de ciclo da memória O inverso da taxa em que a memória pode ser acessada. Esse é o tempo mínimo entre a 
+resposta a uma solicitação de acesso (leitura ou escrita) e a resposta à próxima solicitação de acesso.
+tempo de ciclo de processador O tempo exigido para a menor micro-operação bem definida da CPU. Ela é a unidade 
+de tempo básica para medir todas as ações da CPU. Sinônimo de tempo de ciclo de máquina.
+temporização assíncrona Uma técnica em que a ocorrência de um evento em um barramento acompanha e depende 
+da ocorrência de um evento anterior.
+temporização síncrona Uma técnica em que a ocorrência de eventos em um barramento é determinada por um clock. 
+Um clock define slots de tempo de mesma largura, e os eventos começam apenas no início de um slot de tempo.
+unidade central de processamento (ucp ou cpu , do inglês central processing unit) A parte de um computador 
+que busca e executa instruções. Ela consiste em uma unidade lógica e aritmética (ALU), uma unidade de controle e regis-
+tradores. Normalmente chamada apenas de processador.
+unidade de controle A parte da CPU que controla suas operações, incluindo as operações da ALU, a movimentação de 
+dados dentro da CPU e a troca de dados e de sinais de controle por meio de interfaces externas (por exemplo, o barra-
+mento do sistema).
+unidade lógica e aritmética (uLA ou AL u, do inglês arithmetic logic unit) Uma parte de um computador que realiza 
+operações aritméticas e lógicas. uniprocessamento Execução sequencial de instruções por uma unidade de processamento, ou uso independente de 
+uma unidade de processamento, em um sistema de multiprocessamento.
+variável global Uma variável definida em uma parte de um programa de computador e usada em pelo menos uma 
+outra parte desse mesmo programa.
+variável local Uma variável que é definida e usada apenas em uma parte especificada de um programa de computador.vetor (vector ou array) Uma quantidade normalmente caracterizada por um conjunto ordenado de escalares.
+Book 1.indb 610 19.11.09 14:41:31
+
+Referências
+ANDERSON, D.; SPARACIO, E. e TOMASULO, F. “The IBM System/360 Model 91: machine philosophy and instruction han-
+dling” . IBM journal of research and development, jan. 1967.
+BELL, C.; CADY, R.; McFARLAND, H.; DELAGI, B.; O’LOUGHLIN, J. e NONAN, R. “A new architecture for minicomputers — the 
+DEC PDP-11” . Proceedings, spring joint computer conference, 1970.
+BHARANDWAJ, J. et al. “The Intel IA-64 compiler code generator” . IEEE Micro, set./out. 2000.BROWN, S. e ROSE, S. “Architecture of FPGAs and CPLDs: a tutorial” . IEEE design and test of computers, vol. 13, n. 2, 1996.CHASIN, A. “Predication, speculation, and modern CPUs” . Dr. Dobb’s journal, mai. 2000.COLWELLl, R.; HITCHCOCK, C; JENSEN, E. e SPRUNT, H. “More controversy about ‘computers, complexity, and controversy.’” 
+Computer, dez. 1985.
+DULONG, C. “The IA-64 architecture at work” . Computer, jul. 1998.ECKERT, R. “Communication between computers and peripheral devices — an analogy” . ACM SIGCSE Bulletin, set. 1990.EVANS, J. e TRIMPER, G. Itanium architecture for programmers. Upper Saddle River, NJ: Prentice Hall, 2003.FURHT, B. e MILUTINOVIC, V. “A survey of microprocessor architectures for memory management” . Computer, mar. 1987.FUTRAL, W. Infi niBand architecture: development and deployment. Hillsboro, OR: Intel Press, 2001.
+GOLDBERG, D. “What every computer scientist should know about fl oating-point arithmetic” . ACM Computing surveys, mar. 1991.GREGG, J. Ones and zeros: understanding boolean algebra, digital circuits, and the logic of sets. Nova York: Wiley, 1998.HALFHILL, T. “Beyond Pentium II” . Byte , dez. 1997.
+HAEUSSER, B. et al. IBM system storage tape library guide for open systems. IBM Redbook SG24-5946-05, out. 2007. Disponível 
+em <ibm.com/redbooks>.HENNING, J. “SPEC CPU2006 benchmark descriptions” . Computer architecture news, set. 2006.HINTON, G. et al. “The microarchitecture of the Pentium 4 processor” . Intel technology journal, Q1 2001. Disponível em 
+<http://developer.intel.com/technology/itj/>.HUCK, J. et al. “Introducing the IA-64 architecture” . IEEE Micro, set./out. 2000.HWU, W. “Introduction to predicated execution” . Computer, jan. 1998.HWU, W.; AUGUST, D. e SIAS, J. “Program decision logic optimization using predication and control speculation” . Proceedings 
+of the IEEE, nov. 2001.
+INTEL CORP . Intel IA-64 Architecture Software Developer’s Manual (4 volumes). Documentos 245317 a 245320. Aurora, CO, 2000.
+INTEL CORP . Itanium processor microarchitecture reference for software optimization. Aurora, CO, Documento 245473, ago. 
+2000.
+Book 1.indb 611 19.11.09 14:41:34
+
+612 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+JARP , S. “Optimizing IA-64 Performance” . Dr. Dobb’s journal, jul. 2001.
+JOUPPI, N. “The nonuniform distribution of instruction-level and machine parallelism and its effect on performance” . IEEE 
+transactions on computers, dez. 1989.KAGAN, M. “InfiniBand: thinking outside the box design” . Communications system design, set. 2001. Disponível em www.
+csdmag.com>.KATHAIL. B.; SCHLANSKER, M. e RAU, B. “Compiling for EPIC architectures” . Proceedings of the IEEE, nov. 2001.LEONG, P . “Recent trends in FPGA architectures and applications” . Proceedings, 4th IEEE international symposium on electronic 
+design, test, and applications, 2008.MAHLKE, S. et al. “A comparison of full and partial predicated execution support for ILP processors” . Proceedings, 22nd inter-
+national symposium on computer architecture, jun. 1995.
+MAHLKE , S. et al. “Characterizing the impact of predicated execution on branch prediction” . Proceedings, 27th international 
+symposium on micro architecture, dez. 1994.MAZIDI, M. e MAZIDI, J. The 80x86 IBM PC and compatible computers: assembly language, design and interfacing. Upper Saddle 
+River, NJ: Prentice Hall, 2003.McNAIRY, C. e SOLTIS, D. “Itanium 2 processor microarchitecture” . IEEE Micro, mar.-abr. 2003.
+NAFFZIGER , S. et al. “The implementation of the itanium 2 microprocessor” . IEEE journal of solid-state circuits, nov. 2002.
+PATTERSON, D. e HENNESSY, J. “Response to ‘computers, complexity, and controversy.’” Computer, nov. 1985.SCHLANSKER, M. e RAU, B. EPIC: an architecture for instruction-level parallel processors. HPL Technical Report HPL-1999-111, 
+Hewlett-Packard Laboratories (www.hpl.hp.com), fev. 2000.SCHLANSKER, M. e RAU, B. “EPIC: explicitly parallel instruction computing” . Computer, fev. 2000.SEGARS, S.; CLARKE, K. e GOUDGE, L. “Embedded control problems, thumb, and the ARM7TDMI” . IEEE Micro, out. 1995.SHANNON, C. “Symbolic analysis of relay and switching circuits” . AIEE transactions, vol. 57, 1938.SHANLEY, T. InfinBand network architecture. Reading, MA: Addison-Wesley, 2003.
+SHARANGPANI, H. e ARONA, K. “Itanium processor microarchitecture” . IEEE Micro, set./out. 2000.SODERQUIST, P . e LEESER, M. “Area and performance tradeoffs in floating-point divide and square-root implementations” . 
+ACM computing surveys, set. 1996.
+STALLINGS, W. Data and computer communications, eighth edition. Upper Saddle River, NJ: Prentice Hall, 2007.
+STENSTROM, P . “A survey of cache coherence schemes of multiprocessors” . Computer, jun. 1990.STONHAM, T. Digital logic techniques. Londres: Chapman & Hall, 1996.
+THOMPASON, D. “IEEE 1394: changing the way we do multimedia communications” . IEEE multimedia, abri.-jun. 2000.TRIEBEL, W. Itanium architecture for software developers. Intel Press, 2001.
+WILKES, M. “Slave memories and dynamic storage allocation” , IEEE transactions on electronic computers, abr. 1965. Reimpres-
+so em Hill, 2000.
+Book 1.indb 612 19.11.09 14:41:34
+
+A
+Acerto/falha, leitura/escrita com, 526-527Acesso aleatório, 91Acesso direto, 91Acesso Direto à Memória (DMA), 68, 176, 191-
+193, 195-196confi gurações, 193, 194estrutura de interconexão, 67função, 176, 191-193Intel 8237A, controlador, 193, 195-196registradores, 195-196roubo de ciclos (cycle stealing), 192-193
+Acesso sequencial, 91Acumulador (AC), 16, 57, 290Adição, 256-258, 273-275
+inteiros na representação complemento de dois, 256-258números na representação com (ou em) ponto fl utuante, 273-275
+Algoritmo de Dijkstra, 323-325Algoritmos de substituição, memória cache, 
+109-110
+Alocação, processador Pentium 4, 445Alocação de bits, 340-343American Standard Code for Information 
+Interchange (ASCII), 179
+Antidependência, 437Arbitração, 72-73, 82-83
+método de interconexão, 72-73PCI, 82-83
+Árbitro (controlador de barramento), 72-73Aritmética de computador. Ver unidade 
+aritmética e lógica - ALU
+Aritmética de saturação, 313ARM (Advanced RISC Machine), 1-2, 35-38, 
+115-116, 238-243, 296, 313-315, 337-339, 348-349, 385-389, 446-452, 571-574ARM11 MPCore, 571-575códigos de condição, 314-315conjuntos de instruções da CPU, 296, 313-315, 337-339, 348-349controle de acesso, 242-243
+Cortex-A8, processador, 446-452Current Program Status Registers (CPSR), 387-389evolução, 36-38formato de instrução, 348-349formatos para gerenciamento de memória, 240-243gerenciamento de memória, 238-243instruções de máquina, 296, 313-315memória cache, 115-116modos, 386-387modos de endereçamento, 337-339MPCore (computadores multicore), 571-575operações (opcode), 313-315organização do processador, 385-389organização do registrador, 387-389organização do sistema de memória, 238-239paralelismo em nível de instrução, 446-452parâmetros para gerenciamento de memória, 242processamento de interrupção, 389projeto de processador superescalar, 446-452sistemas embarcados, 35-38tabelas de página, 239-240tipos de dados, 296tradução de endereço de memória virtual, 239-240Translation Lookaside Buff er (TLB), 238-239Unidade de Gerenciamento de Memória 
+(MMU), 239-240Armazenamento de variável global, 
+registradores, 402
+Arquitetura, Infi niBand, 203Arredondamento, padrões IEEE, 277-279Atraso rotacional (latência), discos magnéticos, 
+156
+Autoindexação, 36B
+Balanceamento de carga, clusters, 536Banco de memória, 135Barramento de microinstruções (MIB), 496-497, 498Big endian, ordenação, 325-329Bit de modifi cação (uso), 110bits de guarda, 276-277Bits de paridade, 137Blu-ray DVD, 166, 169Booleanas (lógicas), instruções, 289Booth, algoritmo, 262-265Borda de descida, 87-88Borda de subida, 87-88Buff er de alvo do desvio (BTB), 443-445, 448-449Buff er de histórico global (GHB), 448Buff er de laço, pipeline, 373Buff ering de dados, módulos de E/S, 180-181
+Busca antecipada, 365, 372-373Busca na cache de trace, processador Pentium 4, 
+443-445
+CCabeças de discos magnéticos, 150, 153Cache, 30Cache DRAM, 145Cache-Coherent Nonuniform Memory Access 
+(Acesso não uniforme à memória - CC-NUMA), 538-539
+Camada de enlace, 200-202, 205Camada de rede, 205Camada de transporte, 205Camada física, 200-201, 205Campos de endereço virtual, 234-235Canal multiplexador, 198Canal seletor, 196-197CAR (Control address register), 487Chamadas de procedimento, 305-307, 309, 399
+implementação de pilha, 306-307instruções de transferência de controle, 303-304
+Intel x86, instruções de chamada/retorno, 
+309-310
+Índice
+4 indice (613-624).indd 613 27.11.09 14:40:05
+
+614 Arquitetur A e org Aniz Ação de comput Adores Índice remissivo
+linguagem de programação de alto nível 
+(high-level language – HLL), 399-400
+Reduced instruction set computers (RISC), 
+399-400
+Chip de multiprocessamento, 514, 531-532. Ver 
+também MPCore (computadores multicore)IBM Power5, 532multithreading e, 514, 531-532Pentium 4, processador, 532
+Chips, 26-27, 31-34, 132-135
+células de memória principais, 132-135Ciclo de busca, 16, 56-59, 361, 362, 463-464Ciclo de execução, 17, 56-59, 361, 363, 465-466desenvolvimento, 26-27DRAM, 140-145empacotamento, 134EPROM, pacote, 134instruções de computador, 17, 56-59instruções do computador, 16, 56-59instruções do processador, 361, 362lógicos, 132-133memória intercalada (banco de memória), 135-136memória interna, 132-135micro-operações (micro-ops), 463-466instrução do processador, 361, 363organização, 31-34, 134-135pino Chip Enable (CE), 134processamento do computador, 31-34
+Ciclo de instrução, 15-16, 56-66, 361-364, 466. 
+Ver também acesso direto à memória (DMA)ciclo de busca, 16, 56-59, 361, 363ciclo de execução, 17, 56-59, 361, 363ciclo de interrupção, 60-63 361, 363ciclo indireto, 362código (ICC), 466computador IAS, 15-17diagramas de estado, 59, 64, 363fluxo de dados, 362-363funções do computador, 56-66interrupções, 59-66micro-operações, 465-466módulos de E/S, 67múltiplas interrupções, 63-66processador, 357-361
+Ciclo de instrução indireto, 362, 363, 464Ciclo de interrupção, 59-66, 361, 363, 465
+instruções de processador, 361, 363instruções do computador, 60-63, 64micro-operações (micro-ops), 464-466
+Ciclos de máquina, 474-475Cilindro, 153Circuitos integrados, desenvolvimento, 21-26CISC, 2, 396, 398, 406-410, 424-425
+características versus RISC, 409-410, 424-425
+High-level language (linguagens de programação de alto nível - HLL) e, 398, 406-407sistemas superescalares e RISC, comparação 
+com, 396
+Clock (barramento), ciclo, 73-74Clusters, 514, 532-538
+arquitetura computacional, 536-537configurações, 534-535projeto dos sistemas operacionais, 536requisitos de projeto, 532-533secundário passivo (standby passive), 534-535secundários ativos, 534-535servidores blade, 537-538SMP em comparação com, 538técnica de disco compartilhado, 535técnica sem compartilhamento, 535
+Codificação, execução de microinstrução, 495-496Codificação de recurso, 495-496Codificação funcional, 495Código de Hamming, 137Códigos de condição, 303-304, 310, 314-315, 
+357-358ARM, 314-315instruções de desvio, 303-304Instruções SIMD x86, 310registradores, 357-358
+Coerência de cache, 515, 523-526, 573-575
+acerto/falha de escrita, 526-527acerto/falha de leitura, 526-527consistência de cache L1-L2, 527MPCore (computadores multicore), 573-575problema, 523processador paralelo, 514, 523-527protocolo MESI (Shared), 525-527protocolos de diretório, 524protocolos de monitoração (snoopy), 524-525soluções por hardware, 524soluções por software, 523-524
+Comandos, 79-80, 182
+E/S programada, 181-182Peripheral component interconnection (PCI), 79-80
+Compact Disk (CD), 164-168
+Digital Versatile Disk (DVD), comparação com, 168gravável (CD-R), 166, 168regravável (CD-RW), 166, 168somente de leitura (CD-ROM), 166-168velocidade linear constante (Constant linear velocity - CLV), 167
+Compactação, 227Comparação entre memória e circuitos lógicos, 
+30-31
+Compatíveis, 19Complemento a dois, 251-253, 255-267
+algoritmo de restauração de divisão, 265-267aritmética, 255-258multiplicação, 260-265operação, 255representação, 251-253representação geométrica, 257
+Componente discreto, 21-22Computação paramétrica, 536Computação vetorial, 541-551
+conjunto de instruções da ALU, 550-551encadeamento, 545-546IBM 3090, facilidade vetorial, 546-551instruções compostas, 550organização registrador-a-registrador, 548-550processamento de vetor, 544processamento paralelo, 543-544processamento paralelo matricial, 546técnicas de pipeline, 543-546
+Computadores, 1-50
+ARM (Advanced RISC machine), 1-2, 35-38arquitetura, 1-11circuitos integrados, 21-26componentes, 9-11dados, 8-9desempenho, 29-45memória semicondutora, 27estrutura, 7, 9-11evolução, 12-29, 34-38função, 7-9instruções, 13introdução, 6-11mapa para leitores e professores, 2-4microprocessadores, 27-29newsgroups USENET, 4organização, 1-11porque estudar, 2-3projetando, 29-34recursos da Internet e Web, 3-4sistema Intel x86, 2, 34-35transistores, 19-21válvulas, 12-19
+Computadores comerciais, 18-19Computadores multicore, 513, 559-580
+ARM11 MPCore, 571-575aumento do tempo de sobrecargas, 563-564aumento em paralelismo, 560-562chips multiprocessador, 559consumo de energia, 562-563desempenho de software, 563-567desempenho do hardware, 559-563dimensionamento de banco de dados (database scaling), 564-566granularidade, 566Intel Core Duo, 568-570Intel Core i7, 570-571Intel x86, organização, 568-571organização, 567-568
+Comunicação de dispositivo, módulos de E/S, 179Comutador, 203Comutador, InfiniBand, 203Conceito de família, 395Conceito de programa armazenado, conceito, 13Conflito de recurso, paralelismo, 434Conjuntos de instruções, 40, 247-248, 286-354, 
+414-416, 421-423, 550-551
+4 indice (613-624).indd 614 27.11.09 14:40:05
+
+Arquitetur A e org Aniz Ação de comput Adores Índice remissivo 615
+Advanced RISC Machine (ARM), 296, 313-
+315, 337-339, 348-349arquitetura, 40CPU, funções, 247-248, 286-354formatos de instrução, 248, 339-351IBM 3090, ALU de facilidade vetorial, 550-551instruções de máquina, 286-321linguagem de montagem, 350-351microprocessador MIPS R4000, 414-416modos de endereçamento, 247, 329-339operações (opcode), 247, 287, 297-315operandos, 247, 287-288, 292-293ordens de byte endian, 325-328pilhas, 321-325constantes imediatas, ARM, 348projeto, 291-292RISC, 414-416, 421-423SPARC, 421-423tipos de dados, 294-296tipos de dados do x86, 294-295, 307-313, 335-337, 346-348
+Consumo de energia, 562-563Contador de programa (program counter – PC), 
+15, 56, 359
+Controlador Distribuído de Interrupções 
+(distributed interrupt controller - DIC), 571-573
+Controlador programável avançado de 
+interrupções (Advanced Programmable Interrupt Controller -APIC, 569
+Controladores, 73-74, 181, 188, 189, 193-195
+árbitro de barramento, 72-73 canais, 197-198 E/S, 181, 188, 193-196 Intel 8237A, DMA, 193-196 Intel 82C59A, interrupção, 188
+Controle, 179, 299, 303-307, 480-481, 484-487, 
+505-506implementação de pilha, 306-307 instruções de chamada de procedimento, 305-307instruções de desvio, 303-304instruções de salto, 304-305lógica de, 178memória, 481-482microinstruções, 480-482, 486módulos de E/S, 179operações (opcode), 299, 303-307operações do sistema, 299, 303palavra, 480-481TI 8800 SBD, campos do microssequenciador, 505-506transferência de, 297-300, 303-307Wilkes, controle microprogramado, 484-487
+Controle de acesso, 242-243Controle residual, 491Convertendo entre diferentes tamanhos em bits, 253-255Core, magnetização e, 27Correção de erro, 136-140bits de paridade, 137
+código de Hamming, 137erro não permanente, 136erro permanente, 136funções do código, 136memória interna, 136-140memória semicondutora, 136-140 palavra síndrome, 138SEC (correção de único erro), código, 140
+Correção de único erro (SEC) Single Error-Correcting, código, 140Cortex-A8, processador, 446-452
+arquitetura, 446-447instruções SIMD, 452paralelismo em nível de instrução, 446-452pipeline SIMD e de ponto flutuante, 452projeto superescalar, 446-452unidade de busca de instrução, 447-449unidade de decodificação de instrução, 449-450unidade de execução de inteiros, 450-452
+CPI (ciclos por instrução), 39-41CPSR, ARM, 387-389
+D
+Dados, 8-9, 17, 18, 26, 178, 289, 292-295
+ARM, tipos de, 296armazenamento, 8canais, 26controle, 8E/S, 178instruções de máquina, tipos de, 289, 292-295instruções de transferência, 17, 18Intel x86, tipos de, 294-295movimentação, 8operandos, 292-293processamento, 8
+Daisy chain, 188Decodificador, 484Dedicação física, 72Densidade de potência, 32Dependência de dados (fluxo) verdadeira, 
+paralelismo, 432-434
+Dependência de saída, paralelismo, 436-437Dependências procedurais, paralelismo, 433Desempenho de disco espelhado (RAID nível 1), 
+158-159, 161-162
+Desempenho de disco não redundante (RAID 
+nível 0), 157-161
+Desempenho de disco redundante via código de 
+Hamming (RAID nível 2), 158-159, 162
+Desempenho de sptriped disks (RAID nível 0), 
+159-161
+Desempenho do computador, 38-57
+ARM, 35-38balanço do, 30-31 velocidade do microprocessador, 29-30lei de Amdahl, 44-45organização do chip, 31-34programas de benchmark, 41-44 
+projetando visando, 29-34sistema Intel x86, 34-35sistemas embarcados, 35-36velocidade de clock, 39-41
+Desempenho do disco com paridade distribuída em nível de bloco (RAID nível 5), 158-160, 164Desempenho do disco com paridade em nível de 
+bloco (RAID nível 4), 158-160, 163-164
+Desempenho do disco com paridade intercalada 
+por bit (RAID nível 3), 158-160, 162-163
+Desempenho do disco com redundância dual 
+(RAID nível 6), 158-160
+Deslocamento aritmético, 263, 302Deslocamento (shift) lógico, 301-302Desvio atrasado, pipeline, 377, 41-412Desvios, 17-18, 289, 303-304, 339, 366-367, 
+372-377, 411-412, 439-440atrasados, 377, 41-412buffer de laço para, 373busca antecipada do alvo do, 372fluxos múltiplos para, 373hazard de controle, 372instruções, 289, 303-304, 339instruções condicionais, 16-17, 303-304, 366-367 instruções incondicionais, 16-17, 303-304instruções RISC, 411-412pipeline, 366-367, 372-377, 411-412previsão, 374-377, 439-440processadores superescalares, 440
+Detecção de erro, módulos de E/S, 180Diagramas de estado, operações de instrução, 
+59, 64, 363
+Diferença de desempenho entre lógica e 
+memória, 30-31
+Diferença semântica, 397Digital Equipment Corporation (DEC), 
+computadores da série PDP , 20, 25-26, 341-344
+Digital Versatile Disk (DVD), 166, 168-169Disco com cabeça fixa, 153Disco com cabeça móvel, 153Disco de dupla face, 153Disco magnético, 149-157
+atraso rotacional (latência), 155-156cabeça, 150, 153-154cilindro, 153contato (disquete ), 153detecção de posição rotacional (rotational positional sensing – RPS), 155face única e dupla, 153formatação de dados, 151-152formato Winchester, 153, 154gravação em múltiplas zonas, 152 leitura magnética, 150mecanismos de gravação, 150múltiplas placas, 153organização sequencial, 156-157parâmetros, 155-157tempo de busca (seek time), 155
+4 indice (613-624).indd 615 27.11.09 14:40:05
+
+616 Arquitetur A e org Aniz Ação de comput Adores Índice remissivo
+tempo de transferência, 155-156
+trilhas, 151, 154velocidade angular constante (constant angular velocity – CAV), 151
+Disco não removível, 153Disco removível, 153Disco rígido, 153Discos. Ver discos magnéticos; sistemas de 
+memória óptica (despachante), 220
+Discos de única face , 153Discos ópticos de alta definição (HD DVD), 169Dispositivos em estado sólido, 19Dispositivos externos (periféricos), E/S, 177-178Disquete (mecanismo de contato), discos 
+magnéticos, 153
+Divisão, 265-267, 275-279
+algoritmo de restauração de complemento de dois, 266-267números na representação com (ou em) ponto flutuante, 275-279 resto parcial, 265-266
+Double-Data-Rate SDRAM (DDR-SDRAM), 144DRAM Rambus (RDRAM), 143DRAM síncrona (SDRAM), 141-143Drive, processador Pentium 4, 442-445Dynamic random-access memory (DRAM, 29-30, 
+129-131, 132-133, 140-145cache DRAM, 145DDR-SDRAM, 144DRAM Rambus, 143DRAM síncrona, 141-143lógica do chip, 132-133memória principal interna, 129-131processador de alto desempenho, 140-145
+EE/S controlada por interrupção, 176, 181-183, 184-191
+desvantagens, 191-192E/S programada, 181-183, 188-191execução, 176-177, 181-183Intel 82C55A, interface de periférico programável, 188-191Intel 82C59A, controlador de interrupção, 188linhas de interrupção múltiplas, 187processamento de interrupção, 184-186projeto e implementação, 186-188técnica de arbitração de barramento, 188técnica de consulta por software, 187-188técnica de daisy chain, 188
+E/S independente, 183E/S mapeada na memória, 183E/S programada, 176, 181-184, 188-191
+comandos, 182-183desvantagens, 191E/S controlada por interrupção, 184-186execução, 176, 181-184
+independente, 183
+instruções, 183-184Intel 82C55A, interface de periférico programável, 188-191
+mapeada na memória, 183
+E/S via conjunto teclado/monitor, 179E/S, canais, 181, 197-198E/S, módulos, 67-68, 176-177, 179-181, 196-197
+buffering de dados, 180comunicação com o dispositivo, 180comunicação do processador, 68, 179-180detecção de erro, 180estrutura de interconexão, 67-68estrutura, 180-181evolução, 196-197função, 66-67, 179-180funções do computador, 66interfaces de entrada/saída, 176-177requisitos de controle e tempo, 179-180
+EFLAGS, registrador, processadores Intel x86, 379-380Electrically erasable programmable read-only 
+memory (memória somente de leitura programável e apagável eletricamente - EEPROM), 129, 132
+Elemento de controle de sistema (system control 
+element –SCE), 521
+Encadeamento, 545-546Endereçamento carregar/armazenar (load/store), 
+ARM, 337
+Endereçamento de carga/armazenamento 
+múltiplo (load/store), ARM, 339
+Endereçamento de carga/armazenar (load/store), 
+ARM, 337
+Endereçamento de instruções de processamento 
+de dados, ARM, 337-339
+Endereçamento múltiplo carregar/armazenar 
+(load/store), ARM, 338
+Endereçamento por registrador base, 333Endereço de base, 228Endereço físico, 228, 229Endereço lógico, 228, 229Endereço relativo, 228-229, 333 Endereços, 98-100, 227-229, 234, 239-240, 
+289-291acumulador (AC), 290base, 228campos, 235espaços, 234físicos, 228, 229gerenciamento de memória de E/S, 227-228, 234, 239-240instruções de máquina, 289-291lógicos, 228, 229memória cache, 98-100memória virtual, 235, 239-240número de, 289-291particionando, 227Pentium II, mecanismos de tradução, 234-238relativos, 229tabelas de página, 228-229, 239-240tradução ARM, 239-240
+Endian, ordens de byte, 325-328ENIAC (electronic numerical integrator and 
+computer), 12-13
+Entrada/saída (E/S), 10, 52, 55-56, 67-68, 160-
+161, 176-209, 299, 303
+alta capacidade de transferência de dados, 160-161alta taxa de solicitação, 161barramento serial FireWire, 199-202canais, 181, 197-198conjunto teclado/monitor, 179controlada por interrupção, 176, 184-191controladores, 181, 188, 193-196desempenho do RAID 0 para, 160-161dispositivos de dados periféricos, 8dispositivos periféricos (externos), 177-179DMA, 68, 176, 191-196estrutura de interconexão, 67-68 função, 196-197funções componentes, 21InfiniBand, 202-205Intel 8237A, controlador de DMA, 193-196Intel 82C55A, interface periférica programável, 188-191Intel 82C59A, controlador de interrupção, 188interfaces, 177, 188-191, 198-205interfaces multiponto, 199interfaces ponto-a-ponto, 199módulos, 67-68, 176-177, 179-181, 196-197movimento de dados, 8operações (opcode), 299, 303programada, 176, 181-184, 188-191registrador de buffer E/S (I/OBR), 55-56registrador de endereço E/S (I/OAR), 55-56sistemas de computador, 52, 55-56, 176-209unidade de disco, 179 técnicas de execução, 176, 181-183
+EPROM (memória somente de leitura programável e apagável), 129, 132, 134
+empacotamento de chip, 134 memória principal interna, 132, 134
+Erro não permanente, 136Escalonamento, 210, 214, 219-224, 446, 528
+curto prazo, 220-224eficiência, 213-214estado de um processo, 221filas, 223-224longo prazo, 219-220médio prazo, 220micro-operações (micro-ops), 442 multithreading, 528processo de interrupção, 223processo, 219-221, 528sistema operacional (SO), função, 210, 219-224técnicas, 220-222
+Escalonamento a curto prazo, 220Escalonamento a longo prazo, 219-220Escalonamento de banco de dados, 564-567Escalonamento de médio prazo, 220
+4 indice (613-624).indd 616 27.11.09 14:40:05
+
+Arquitetur A e org Aniz Ação de comput Adores Índice remissivo 617
+Estado de processo, 220-221
+Estrutura de computador de alto nível, 10-11, 
+51-88funções, 7-9, 51-66ciclo de instrução, 15-18, 56-59, 60-66interconexões, 10-11, 66-83diagramas de temporização, 87-88ciclo de busca, 16, 56-59ciclo de execução, 17, 56-59
+Exceções, interrupções e, 383, 389Execução, 39-41, 176, 181-182, 222-224, 396-
+400, 435-437, 440, 445-464, 468, 492-501, 528codificação, 495-496fora de ordem, 436-437, 445-446IBM 3033, processador, 499-501microinstruções, 492-501multithreading, 528processador LSI-11, 496-499processo, 222-223, 528programas superescalares, 440RISC, instruções de máquina, 396-400taxa de instruções, 39-41taxonomia, 492-494técnicas de E/S, 176, 181-182unidade de controle, 468, 492-501
+Execução fora de ordem, 445-446
+F
+Falha permanente, 136Falta de página (page fault), 230FIFO (first-in first-out - primeiro a entrar, primeiro 
+a sair), algoritmo, 109-110
+Filas intermediárias, 225-226Filas, 223, 446
+E/S, 211-212escalonamento de processador, 224fita de longo prazo, 223intermediária, 225micro-operações (micro-ops), 466troca de processos na memória, 224-225
+Fire Wire, barramento serial, 199-202
+camada de enlace, 200-202camada de transação, 200-201camada física, 200-201configurações, 199-200cycle master, 250
+Firmware (ou microprograma), 480Fita linear aberta (linear tape-open – LTO), 
+sistema de cartucho, 171
+Fita magnética, 169-171Flags de status, 310Fluxo de dados, ciclos de instruções, 362-364Formatação de dados, 151Formatos de instrução, 248, 339-351, 408-409, 
+416-417, 423-424alocação de bit, 340-343ARM, 348-349Frames, memória de E/S, 228-229linguagem de montagem, 350-351microprocessador MIPS R4000, 507PDP-10, projeto, 342-343
+PDP-11, projeto, 343-344PDP-8, projeto, 341-342RISC, 408-409, 417, 423-424SPARC, 423-424tamanho variável, 343tamanho, 340VAX, design, 344-346x86, 346-348
+Formatos de instrução de tamanho variável, 
+343-346
+Front end, processador Pentium 4, 442-445Funções, 7-9, 17, 19, 53-66, 83-86, 179-180, 
+196-197arquitetura de von Neuman, 54-56canais de E/S, 197-198ciclo de busca, 16, 56-59ciclo de execução, 17, 56-59ciclo de instrução, 16-17, 56-59, 60-66componentes de software, 54-55componentes, 19, 53-66entrada/saída (E/S), 66, 179-180, 196-197interrupções, 54-66módulos de E/S, 66, 179-180, 196-197operação do computador IAS, 16-17operação do computador, 7-9programas hardwired, 54
+Funções de mapeamento, 100-109
+associativas em conjunto, 104-109associativas, 104-106direto, 101-104memória cache, 100-109
+GGerenciador de recursos, SO, 212-213, 218-219Gerenciamento de falha, clusters, 536Gerenciamento de memória, 210, 219, 224-243
+Advanced RISC machine (ARM), 238-243compactação, 227controle de acesso, 242-243endereços, 227-228, 234, 239-240entrada/saída (E/S), 211, 219, 224-243formatos, 236, 240-241Intel Pentium II, processador, 234-238Intel x86, instruções de máquina, 309memória virtual, 229-231, 239-240multiprogramação, 219, 224paginação, 228-230, 235-238parâmetros, 237, 242particionamento, 226-228segmentação, 233-234, 234-235sistema operacional (SO), 210, 219, 224-243swapping, 224-226Translation lookaside buffer (TLB), 232-233, 238-239
+Gravação em múltiplas zonas, 152Gravação em serpentina, 170-171Gravação paralela, 170Gravação serial, 170H
+Hardware, 524-525, 559-563
+aumento de paralelismo, 560-562consumo de energia, 562-563desempenho de MPCore (computadores multicore), 559-563soluções de coerência de cache, 524-525
+Hash , funções, 231
+Hazards de controle, pipeline, 372Hazards de dados, pipeline, 372Hazards de recurso, pipeline, 70-371Host Channel Adapter (HCA), 203
+I
+IAS, computador, 15-18IBM. Ver International Business Machines (IBM)IEEE. Ver Institute of Electrical and Electronics 
+Engineers (IEEE)
+Imagem de sistema único, 536Indexação, 334InfiniBand, 202-205InfiniBand, pistas virtuais, 204-205infinito, interpretação do padrão IEEE, 279Institute of Electrical and Electronics Engineers 
+(IEEE), 2-3, 271-272, 277-280interpretação de infinito, 279Joint Task Force, publicações, 2-3NaN, padrões, 279padrões de notação de números em ponto flutuante, 271-272, 277-280padrões numéricos desnormalizados, 279técnicas de arredondamento, 27-279
+Instruções aritméticas, 17-18, 289Instruções call/return, 309-310Instruções compostas, facilidade de vetor do IBM 
+3090, 550
+Instruções de construir ou retirar, 440Instruções de desvio condicional, 17-18, 303-304, 
+367-368
+Instruções de desvio incondicionais, 17-18, 
+303-304
+Instruções de máquina, 286-321, 396-400
+aritméticas, 289chamada de procedimento, 305-307, 309, 399-400conjunto de instruções reduzido (reduced instruction set computers – RISC), 396-400, 409desvio-(branchs), 289, 303-304elementos, 287-288endereços, 289-291execução RISC, 396-400Intel x86, 294-295, 307-313linguagens de alto nível (HLL), 396-399lógicas (Booleanas), 289memória, 289operações (opcode), 287, 297-315, 397-398operandos, 287-288, 292-293, 398-399projeto do conjunto de instruções, 291-292representação simbólica, 288-289teste, 289
+4 indice (613-624).indd 617 27.11.09 14:40:05
+
+618 Arquitetur A e org Aniz Ação de comput Adores Índice remissivo
+tipos de dados, 287-287, 292
+tipos de dados do ARM, 296, 314, 315
+Instruções. Ver instruções de máquina, micro-
+operações
+Instruções de memória, 289Instruções de modificação de endereço, 18Instruções de salto, 304-305Instruções de teste, 289Instruções lógicas (Booleanas), 289Instruções privilegiadas, 216Instruction register (IR - registrador de instrução), 
+15, 56, 359-360
+Integração de pequena escala (SSI) Small-Scale 
+Integration, 23
+Integração em larga escala (large-scale 
+integration – LSI), 26
+Inteiros, 250-267, 446, 450-452
+adição, 256-258aritmética, 255-267complemento a dois, 251-253, 255-267conversão entre tamanhos de bit, 253-255divisão, 265-267multiplicação, 258-265multiplicação não sinalizada, 259-260negação, 255-256overflow , 256-258
+ponto fixo, 255representação, 250-255sinal-magnitude, 251subtração, 256-258unidade de execução do processado Cortex-A8, 450-452unidade de execução do processador Pentium 4, 446Unidade Lógica e Aritmética (ALU), dados, 250-267
+Intel x86, sistema, 1-2, 34-35, 188-191, 193-196, 234-238, 294-295, 307-313, 335-337, 346-348, 360-361, 377-385, 441-446, 472-475, 532, 568-571
+80386, registradores de microprocessador, 360-36180486, pipeline de informação, 377-3788086, registradores de microprocessador, 360-3618237A, controlador de DMA, 193-19682C55A, interface de periférico programável, 188-19182C59A, controlador de interrupção, 188Acesso Direto à Memória (Direct memory access - DMA) e, 193-196códigos de condição, 310Core Duo, 568-570Core i7, 570-571CPU, conjuntos de instruções, 294-295, 307-313, 335-337, 346-348E/S controlada por interrupção, 188-191E/S programável, 188-191evolução, 34-35flags de status, 310formato de instrução, 346-348gerenciamento de memória, 234-238instruções de call/return, 309-310 chip multiprocessador, 531-532instruções de gerenciamento de memória, 310 MMX (tarefa de multimídia), instruções, 310-313instruções de máquina, 294-295, 307-313MMX, registradores, 382modo de endereçamento, 335-337 memória cache, 113-115operação de temporização, 474-475operações (opcode), 307-313organização de computador multicore, 568-571organização do processador, 378-385organização do registrador, 378-382paralelismo em nível de instrução, 441-446Pentium 4, processador, 113-115, 441-446, 532Pentium II, processador, 234-238 processador 8085, unidade de controle, 472-475processamento de interrupção, 382-385projeto de processador superescalar, 441-446registrador de controle, 380-382registrador EFLAGS, 379-380SIMD, instruções, 310-313sinais externos, 473tipos de dados, 294-295
+Interconexão de barramento do sistema, 10, 68-79
+elementos de projeto, 72-76estrutura PCI, 76-79estrutura, 68-70hierarquia de barramento múltiplo, 70-72largura do barramento de dados, 68, 75Interconexão do sistema (bus), 10, 68, 356-357linhas de controle, 69-70linhas de dados, 68linhas de endereço, 68-69método de arbitração, 72-73temporização, 73-75tipo de transferência de dados, 75-76
+Interconexões, 10-11, 51, 67-86, 522
+barramento, 10, 68-76componente periférico (PCI), 76-83comutadas, SMP , 522estrutura do computador, 9-11, 51 trocas de dados, 68módulos de E/S, 67-68módulos de memória, 67sinais do processador, 68
+Interface serial de E/S, 198-199Interface usuário/computador, SO, 211-212Interfaces, 176-177, 188-191, 198-205
+barramento serial FireWire, 199-205E/S externa, 198-205E/S paralela, 198-199E/S serial, 198-199entrada/saída (E/S), 176-177, 188-191, 198-205InfiniBand, 202-205Intel 82C55A, periférico programável, 188-191módulos de E/S, 176-177multiponto, 199ponto-a-ponto, 199
+Interfaces de E/S paralela, 198Interfaces multiponto, 199Interfaces ponto-a-ponto, 199International Business Machines (IBM), 19-21, 23-25, 489-491, 499-501, 521-523, 532, 546-552
+3090, facilidade vetorial, 546-552700/7000, computadores seriais, 19-21computador da série 360, 23-25conjunto de instruções da ALU, 546-552execução de instrução composta, 550mainframes z990 SMP , 521-523organização registrador-a-registrador, 548-550Power5, chip de multiprocessamento, 532processador 3033, microinstruções, 489-491, 499-501sequenciação de geração de endereço, 489-491
+International Reference Alphabet (IRA), 179Interrupções, 59-66, 184-188, 189, 216, 223, 
+382-385, 389, 569, 571-573Advanced programmable interrupt controller (APIC - controlador programável avançado de interrupções), 569ARM 11 MPCore, 571-573ARM, 389ciclo de instrução, 59-66desabilitadas, 64DIC, 572-573exceções, 383, 387fluxo de controle do programa, 59-60Intel 82C59A, modos, 188Intel x86, processamento, 383-385, 568-569modo de máscara especial, 188modo de rotação, 188modo totalmente aninhado, 188MPCore (computadores multicore), 569, 571-573múltiplas, 63-66, 187-188processamento, 184-186processo de escalonamento, 222-223sinal de requisição, 60SO (sistema operacional), 216tabelas de vetor, 383-384, 389tratamento, 62, 384-385, 572-573vetorados, 187
+Intervalos e arbitração de imparcial, 201ISR (Interrupt Service Routine), 65-66
+J
+Janela de instrução, 436Janelas, aumento de tamanho do banco de 
+4 indice (613-624).indd 618 27.11.09 14:40:05
+
+Arquitetur A e org Aniz Ação de comput Adores Índice remissivo 619
+registradores usando, 400-402, 420-421
+Job, sistema operacional (SO), 214
+Job control language (JCL), 215
+K-L
+Kernel (núcleo), 213Laço desenrolado, pipeline, 412-413Lacunas entre registros, 170Lacunas, discos magnéticos, 151Lei de Amdahl, 44-45, 563-564Lei de Moore, 23-24Leitura atrasada, pipeline, 412Leitura com acerto/falha, 526-527 Leitura com intenção de modificar (RWITM), 527 Leitura magnética e mecanismo de gravação, , 
+150
+LFU (Least-Frequently Used), algoritmo, 109-110Linguagem de alto nível (HLL - high-level 
+language), 122, 396-400características de desempenho, 152-153chamadas de procedimento, 399 conjunto de instruções reduzido (RISC - reduced instruction set computers), 396-400diferença semântica, 397operações, 397-398operandos, 398-399
+Linguagem de microprogramação, 480Linguagem de montagem, 350-351Linhas, memória cache, 87-88, 89, 95-96, 
+111, 113
+Linhas de controle, 69Linhas de dados, 68-69Linhas de endereço, 68-69Linhas de sinal, PCI, 78Linhas migratórias, 574-575Links, InfiniBand, 203-204Little endian, ordenação, 325-328Livros, mainframes SMP , 521-523Localidade de referência, 93, 122-123Localidade espacial, 123Localidade temporal, 123Lógica de gerenciamento de energia, 569-570LRU (Least-Recently Used), algoritmo, 109-110, 
+230
+LSI (Integração em grande escala), 26LSI -11, processador, 491, 496-499
+execução, 496-499formato de microinstrução, 497-499microinstruções, 491, 496-499sequenciamento, 491unidade de controle, organização, 496
+LTO (fita linear aberta), sistema, 171
+M
+Mantissa, 268Mapeamento associativo em conjunto, 106-109Mapeamento associativo, 104-106Mapeamento direto, 101-104Mecanismos de gravação, discos magnéticos, 
+149-150
+Média aritmética, 42Média geométrica, 43Média harmônica, 42-43Memória cache de disco, 122Memória cache em dois níveis, 121-126, 523 Memória cache multinível, 111-113Memória cache separada, 113Memória cache unificada, 113Memória cache, 51, 89-127, 396, 402-404, 522-
+523, 571, 573-575
+Memória cache, 98-99, 122
+algoritmos de substituição, 109-110Computação de alto desempenho (HPC), 98desempenho de disco, 122desempenho de dois níveis, 98-99, 122desenvolvimento, 395dois níveis, 121-127, 522-523elementos de design, 98-113endereço físico na memória principal, 98-99, 121-122endereços, 98-99estrutura, 95-98função de mapeamento, 100-104 MPCore (computadores multicore), 571, 573-575grande banco de registradores versus, 402-404linhas, 95-97, 111localidade de referência, 122-123multinível, 111-112nível de hierarquia, 92-94 Linguagem de alto nível (HLL), operações, 122-123organização ARM, 115-116, 571, 573-575organização do Pentium 4, 113-115política de escrita, 110-111separadas, 113SMP compartilhada, 522-523tags, 95tamanho, 99-100, 111unidade de controle de monitoramento (SCU), 571, 573-575unidade de gerenciamento da (MMU), 98-99unificadas, 113
+Melhoria da velocidade, 368-370, 563-564Memória de acesso aleatório (RAM), 129-131Memória externa, 52, 149-175
+dispositivos de acesso direto, 170 discos magnéticos, 149-157dispositivos de acesso sequencial, 170fita magnética, 169-171RAID (Redundant array of independent disks), 149, 157-164, 165, 166sistemas ópticos, 164-169
+Memória flash, 129, 132Memória intercalada (interleaved memory), 
+135-136
+Memória interna, 52, 128-148
+chips, 132-135correção de erro, 136-140desempenho de alto nível, 140-145DRAM, 129-131, 132-133, 140-145EEPROM, 129, 132EPROM, 129, 132, 134intercalada, 135-136memória flash, 129, 132principal (célula), 128-136PROM, 129, 131RAM, 129-130ROM, 129, 131-132semicondutores, 128-148SRAM, 131
+Memória principal, 9, 55, 98, 99, 122, 128-131, 213-216
+cache (física), 98-99, 122componente do computador, 9-10, 55gerenciador de recurso do SO, 212-213interna (célula), 128-136kernel (núcleo), 213
+Memória real, 245Memória secundária (auxiliar), 94Memória semicondutora, 27, 128-148. Ver 
+também memória interna
+ memória somente de leitura (ROM), 129, 131-132Memória virtual, 229-231, 239-240
+campos de endereço do Pentium II, 234estrutura de tabela de página invertida, 230-231paginação por demanda, 229-230 gerenciamento de memória, 229-231, 239-240substituição de página, 230tradução de endereço no ARM, 239-240
+MESI (Modified, Exclusive, Shared, Invalid), protocolo, 525-527mestre de ciclo, 202Método de acesso, 91Método de cluster de secundário passivo (passive 
+standby), 534-535
+Método de clustering secundário ativo, 535métodos de clustering de servidor, 535 Métrica de taxa, 43Métrica de velocidade, 42Microeletrônica, desenvolvimento, 22-23Microinstruções, 480-482, 487-510
+codificação, 495-496execução, 492-501formatos, 497-499, 502-504horizontal, 481, 494IBM 3033, processador, 489-491, 499-501LSI-11, processador, 491, 496-499memória de controle, 481sequenciamento, 487-491, 504-506taxonomia, 492-494TI 8800 Software Development Board (SDB), 501-509verticais, 484, 494Wilkes, exemplo de, 486
+Microinstruções do LSI-11, 491, 496-497
+execução, 496-499formato da microinstrução, 497-499microinstruções, 491, 496-499sequenciamento, 491 
+4 indice (613-624).indd 619 27.11.09 14:40:06
+
+620 Arquitetur A e org Aniz Ação de comput Adores Índice remissivo
+unidade de controle, organização, 496-497
+Micro-operações (micro-ops), 441-442, 445-446, 
+462-466
+alocação, 445ciclo de busca, 463-464ciclo de execução, 465-466ciclo de instrução, 466ciclo de interrupção, 465ciclo indireto, 464filas de, 446 escalonamento de despacho, 446geração front end, 442-443Pentium 4, processador, 441-442, 445-446processadores superescalares, 441-442unidade de controle, 462-466
+Microprocessadores, 27-29, 29-30, 360-361
+desenvolvimento, 27-29organizações de registrador, 360-361registradores Intel 80386, 360-361registradores Intel 8086, 360-361registradores Motorola MC68000, 360-361velocidade (desempenho), 29-30
+Milhões de instruções por segundo (MIPS), taxa, 
+40
+Milhões de operações de ponto flutuante por 
+segundo (MFLOPS), taxa, 41
+MIPS R4000, microprocessador, 413-419
+conjunto de instruções, 414-416formato de instrução, 416pipelining de instruções, 416-419
+MMX (tarefas de multimídia), processadores Intel 
+x86, 310-313, 382instruções, 310-313registradores, 382
+Mnemônicos, 288Modo de interrupção totalmente aninhado, 189Modos de endereçamento, 248, 329-339, 407-
+408Advanced RISC Machine (ARM), 337-339conjuntos de instruções da CPU, 248, 329-339deslocamento, 331-332, 333-334direto, 331-332imediato, 331indireto, 332 Intel x86, 335-337pilha, 330-332, 334-335módulo de E/S, 179-180registrador indireto, 331, 333registrador, 332-333simplicidade do RISC, 407-409
+Módulo de interrupção rotativo, 188-189Módulos de memória, 67Monitor (SO em lote simples), 214-216Monitor residente, 214Motorola MC68000, registradores de 
+microprocessador, 360-361
+Mudança de fase, 168Múltiplas linhas de interrupção, E/S, 187Múltiplas placas, discos magnéticos, 153Multiple instruction, multiple data (MIMD), 515-517Multiple instruction, single data (MISD), 515-517Multiplexação de tempo, 72Multiplexador, 21Multiplexador de bloco, 198Multiplexador de byte, 197-198Multiplicação, 258-265, 275-279
+algoritmo de Booth, 263-265complemento de dois, 260-265inteiros sem sinal, 259-260números de ponto flutuante, 275-279
+Múltiplo processamento paralelo, 546Múltiplos fluxos, pipelining, 372-373Multiprocessadores simétricos (SMP), 512, 514-
+523, 538arquitetura paralela de processador, 515-516caches L2 compartilhadas, 523características do sistema, 517-518clusters comparados com, 538considerações sobre projeto de SO para interconexões chaveadas, 522multiprocessadores, 520-521mainframe, 521-523mainframes IBM z990, 521-523organização, 518-519
+Multitarefa, sistemas operacionais (SO), 216Multithread, 514, 528-532
+chip multiprocessadores, 514, 529 explícito, 528-532
+implícito, 528-529processamento paralelo, 514, 528-532processo, 528-529
+troca, 528 thread, 528
+Multithreading em bloco, 529-531Multithreading intercalado, 529-531Multithreading simultâneo (SMT), 529-531
+N
+NaNs, padrões do IEEE, 279Negação, inteiros, 255-256Nonuniform memory access (NUMA), 512, 514-
+516, 539-541com coerência de cache (CC-NUMA), 539-541motivação, 539organizações, 539-541prós e contras, 541sistemas de processadores paralelos, 514-516Uniform memory access (UMA), 539notação de infixo, 323
+Notação de números na representação com (ou 
+em) ponto fixo. Ver partições inteiras de tamanho fixo, 226-227
+Notação polonesa invertida, 323-324Notação pós-fixo, 323Números desnormalizados, padrões IEEE, 279-280Números normalizados, 269
+O
+Offset de endereçamento, ARM, 337
+Opcode . Ver operações (opcode)Operação de pilha POP , 321
+Operações (opcode), 15, 18, 287, 297-315, 397-398
+Advanced RISC Machine (ARM), 313-315aritméticas, 297, 300controle do sistema, 297, 303conversão, 298, 302-303entrada/saída (E/S), 298, 303instrução de máquina, 287, 297-315instruções de computador, 14, 18Intel x86, 307-313linguagem de programação de alto nível(High-Level Language – HLL), 397-398lógica, 298, 300-302Reduced Instruction Set Computers (RISC), 397transferência de controle, 299, 303-307transferência de dados, 297-300
+Operações aritméticas (opcode), 297, 300Operações de controle do sistema, 297-299, 303Operações de conversão, 298, 302-303Operações de transferência de controle, 297, 
+303-307
+Operações lógicas (opcode), 298, 300-302Operandos, 247, 287-288, 292-293, 398-399
+caracteres, 293dados lógicos, 293instrução de máquina, 287-288linguagem de alto nível (HLL), 398números, 292-293Reduced Instruction Set Computers (RISC), 399representação decimal agrupada, 292-293
+Operandos de dados de caractere, 293Operandos de dados lógicos, 293Operandos de dados numéricos, 292-293Ordenação de bits, endian, 328Ordenação de bytes, endian, 325-328Organização paralela, 512-576
+acesso não uniforme à memória (nonuniform memory access – NUMA), 513, 514-516, 538-541chip de multiprocessamento, 514, 531-532clusters, 514, 532-538coerência de cache, 514, 523-525computação vetorial, 541-551computadores multicore, 513, 559-576multiprocessadores simétricos (symmetric multiprocessors – SMP), 513, 514-523, 538multithreading, 514, 528-532organizações de múltiplos processadores, 515-516processamento paralelo, 513-558
+Organização registrador-para-registrador, 407-
+408
+Organização sequencial, discos magnéticos, 
+156-157
+Original equipment manufacturers (OEMs), 25Ortogonalidade, 344Otimização de registradores baseada em 
+compiladores, 404-405
+Overflow, 256-257, 270, 273
+4 indice (613-624).indd 620 27.11.09 14:40:06
+
+Arquitetur A e org Aniz Ação de comput Adores Índice remissivo 621
+P
+Paginação por demanda, 229-230Paginação, 228-231, 235-238
+alocação de frame, 228demanda, 229-230gerenciamento de memória, 228-231, 238-243memória virtual, 229-231processador Pentium II, 235-238substituição de página, 230tabela de página, 228-229, 230-231
+Palavra do estado do programa (program status 
+word – PSW), 359
+Palavra syndrome, 137-138Palavras, 15, 90, 340Paralelismo de máquina, 434, 438-439Paralelismo, 248, 429-458, 536, 560-562
+aplicações de cluster, 536-537aumento de computador multicore, 559-562de máquina, 434, 438-439limitações, 432-434, 435-436nível de instruções, 247, 429-458política de emissão de instruções, 44-437
+Paralelismo em nível de instrução, 248, 429-457
+antidependência, 436-437ARM, processador Cortex-A8, 446-452conflito de recurso, 433-434dependência de dados verdadeira, 432-434dependência de saída, 436dependência procedural, 433execução de programas superescalares, 440implementação de programas superescalares, 441Intel Pentium 4, processador, 441-446paralelismo de máquina, 434, 438-439paralelismo em nível de instrução, 432-434política de emissão de instrução, 434-437previsão de desvio, 439-440processadores superescalares, 248, 396, 429-457renomeação de registrador, 437-438, 446
+Parâmetros, discos magnéticos, 155-157Particionamento, gerenciamento de memória, 
+224-228
+Partições de tamanho variável, 226-227PCI. Ver Peripheral Component Interconnection 
+(PCI)
+PDP-10, conjunto de instruções, 342-343PDP-11, projeto de instrução, 343-344PDP-8, projeto de instrução, 341-342Pentium 4, processador, 113-115, 441-446, 532
+alocação, 445busca na trace cache, 445chip multiprocessadores, 531drive, 443, 445front end, 442-443lógica de execução fora de ordem, 445-446micro-operações (micro-ops), 441-442, 445-446organização, 113-115paralelismo em nível de instrução, 441-446ponteiro da próxima instrução da trace cache, 442-445projeto superescalar, 441-446renomeação de registradores, 446unidade de execução de inteiros, 446unidade de execução de ponto flutuante, 446
+Pentium II, processador, 234-238
+campos de endereço virtual, 235espaços de endereço, 234formatos para gerenciamento de memória, 236gerenciamento de memória de E/S, 234-238paginação, 235-238parâmetros de gerenciamento de memória, 237segmentação, 234-235
+Peripheral Component Interconnection (PCI), 
+76-83arbitração, 82-83comandos, 79-80 configuração, 76-77estrutura de interconexão de barramento, 76-79linhas de sinal, 78sinal de concessão (GNT), 82-83sinal de requisição (REQ), 82-83Special Interest Group (SIG), 76transferências de dados, 80-82
+Pilhas, 290, 306, 307, 324, 329, 331, 334, 335, 
+505avaliação de expressão, 323-324 frames, 307implementação de chamada de procedimento, 306-307implementação de processador, 322-323instruções com zero endereço, 291 
+microsequenciador TI 8800 SBD, 619
+modo de endereçamento, 329-331, 334-335operações, 32-322ponteiro (stack pointer – SP), 323
+Pipeline, 364-378, 396, 417-419, 452, 543-546
+bolha, 370buffer de laço, 373busca antecipada de instrução (busca sobreposta), 365, 372-373ciclo de tempo , 369desempenho, 368-370 instrução de processador, 364-378desenvolvimento, 395-396desvio atrasado, 377, 411-412desvios, 372-377estratégia, 364-368fator de melhoria da velocidade, 368-369hazards, 370-372instruções de ponto flutuante, 452, 545-546instruções RISC, 410-413, 416-419Intel 80486, processador, 377-378laço desenrolado, 412-413leitura atrasada, 412MIPS R4000, microprocessador, 417-419
+múltiplos fluxos, 372-373operações vetoriais, 543-546otimização, 411-413previsão de desvio, 374-377processador Cortex-A8, 450, 452Single-instruction multiple-data (SIMD), instruções, 452técnica superescalar comparada com, 432técnica superpipeline, 432
+Pistas, compact disk, 166Pistas, discos compactos, 166Placas, 150, 153-154Política de escrita, memória cache, 110-111Ponteiro da próxima instrução na cache de trace, 
+processador Pentium 4, 443-444
+Ponto flutuante, notação, 267-280, 446, 452
+adição, 272-275aritmética, 272-280arredondamento, 277-279bits de guarda, 276-277considerações de precisão, 276-279dados da unidade aritmética e lógica (ALU), 267-280divisão, 275-279interpretação de infinito, 279multiplicação, 275-279NaNs, 279números desnormalizados, 279-280números normalizados, 269-270overflow , 270, 273
+padrões IEEE para, 271-272, 277-280pipeline do processador Cortex-A8, 452-453princípios, 267-271representação polarizada, 268representação, 267-272significando, 268, 273subtração, 273-275 underflow, 270, 273unidade de execução do Pentium 4, 446valor de expoente, 268, 273
+Pós-indexação, 334, 338Processador matricial, 542, 546Processadores multicore, 33-34Processadores, 9, 68, 179-180, 248, 355-394
+Advanced RISC machine (ARM), organização, 378-389ciclo da instrução, 361-364comunicação, 68, 180estrutura e função, 248, 355-394Intel 8085, 472-475Intel x86, organização, 378-385interconexão do sistema (barramento), 10, 68, 356modos, ARM, 386-387módulos de E/S, 68, 180organização interna, 470-471pipeline de instruções, 364-378processamento de interrupção, 382-383, 389registradores, 11, 357-361, 378-382, 387-389
+4 indice (613-624).indd 621 27.11.09 14:40:06
+
+622 Arquitetur A e org Aniz Ação de comput Adores Índice remissivo
+requisitos funcionais, 466-467
+requisitos, 356-357sinais de controle, 468-469, 473sinais, 68unidade aritmética e lógica (ALU), 11, 356 unidade de controle, 11, 466-475
+Processadores superescalares, 248, 396, 429-458
+Advanced RISC machine (ARM) Cortex-A8, 446-452concluir (commit) ou retirar instruções, 440conclusão em-ordem, 435conclusão fora-de-ordem, 436-437desenvolvimento, 429-430execução de programas, 440implementação de programas, 441Intel Pentium 4, 441-446limitações do paralelismo, 432-434, 436-437paralelismo em nível de instrução, 248, 429-458política de emissão de instrução, 434-437previsão de desvio, 439questões de projeto, 434-437renomeação de registradores, 437-438sistemas CISC e RISC comparados com, 396técnica de superpipeline comparada com, 430-432
+Processo, 219-224, 528-529
+bloco de controle, 221chaveamento (ou troca), 528conceito, 219escalonamento, 219-224, 528estados, 220-222execução, 221-223, 528interrupção, 223multithreading, 528-529posse do recurso, 528
+Processo de posse de recurso, 528Programa hardwired, 54Programas de benchmark, 41-44Programmable read-only memory (PROM), 129, 
+131
+Projeto do formato de instrução do VAX, 344-346Projeto dos SO para multiprocessadores, 
+considerações sobre, 520-521
+Proteção da memória, SO, 215Protocolos de diretório, 524Protocolos de snoopy, coerência de cache, 524-
+525
+PUSH, operação de pilha, 322
+Q
+Quick Path Interconnect (QPI), 571Quiet NaN, 279Quociente multiplicador (Multiplier Quotient – 
+MQ), 16
+RRAID. Ver Redundant Array of Independent Disks 
+(RAID)
+Reduced Instruction Set Computers (RISC), 1, 248, 
+395, 428 Arquitetura com conjunto reduzido de 
+instruções, 405-410 arquitetura de processador escalável (SPARC) Scalable Processor Architecture, 420-424Característica do CISC versus RISC, 409-410chamadas de procedimento, 399 CISC RISC e superescalares, 396 compiladores, 404-405conjunto de instruções, 414-416, 421-423desenvolvimento, 395execuções de instruções, 396-400formato da instrução, 408, 416, 423-424instruções de máquinaRISC, 407 linguagens de alto nível (HLLs) High-Level Languages e, 396-400 MIPS R4000, 413-419modos de endereçamento simples, 408operações, 397-398operandos, 398-399Otimização de registradores baseada emPipeline com instruções regulares, 410-413, 416-419 registrador-para-registrador, 407registradores, 400-405, 420-421
+Redundant array of independent disks (RAID), 
+149, 157-164características, 157-159código de Hamming, via redundante (nível 2), 158-159, 162espelhado (nível 1), 158-159, 161-162intercalados (striped), (nível 0), 159-161não redundante (nível 0), 159-161níveis, 157-159, 165paridade distribuída em nível de bloco (nível 5), 158, 161, 164paridade em nível de bloco (nível 4), 158, 161, 163-164paridade por bit intercalado (nível 3), 158, 161, 162-163redundância dual (nível 6), 158, 161, 164redundância, 163
+Registrador de buffer de instrução (instruction 
+buffer register – IBR), 15
+Registrador de buffer de memória (memory 
+buffer register – MBR), 15, 55, 57, 359
+Registrador de endereço de memória (memory 
+address register – MAR), 15, 55, 57, 359
+Registradores, 11, 15, 330-335, 357-361, 378-
+383, 387-389, 400-404, 420-421, 504, 548-550Advanced RISC machine (ARM), organização, 387-389armazenamento de variável global, 402buffer de instrução (IBR), 15-16, 359buffer de memória (MBR), 15, 359códigos de condicionais (flags), 358-359contador de programa (PC), 15, 359controle, 357, 359-360, 380-382 Current Program Status (CPSR), 387-389dados, 358EFLAGS, 380-382endereço, 358endereço de memória (MAR), 15, 359estado, 357, 359-361IBM 3090, facilidade de vetor, 548-550instrução (IR), 16, 359janelas, 400-401, 420-421memória cache em comparação, 402-404memória do computador IAS, 15microprocessador Intel 8086, 360-361microprocessador Intel 80386, 360-361microprocessador Motorola MC68000, 360-361microsequenciador TI 8800 SBD, 501-502MMX, 382modo de endereçamento, 330-335modo de endereçamento indireto, 330, 332, 333organização do Intel x86, 378-381organizações de microprocessador, 360-361otimização baseada em compiladores, 404-405palavra de estado do programa (PSW), 359propósito geral, 357, 387Reduced Instruction Set Computers (RISC), 400-405, 420-421registradores, 11, 357-361Scalable Processor Architecture (SPARC), 420-421uso de um banco grande, 400-404visíveis ao usuário, 357-359
+Registradores de controle, 357, 359-360, 380-382Registradores de dados, 358Registradores de endereço, 358Registradores de propósito geral, 357, 387Registradores de status, 357, 359-360Registradores visíveis ao usuário, 357-359Regra de Pollack, 562Renomeação de registrador, 437-438, 446Representação decimal agrupada, 292-293Representação em sinal-magnitude, 251Representação polarizada, 268-269Requisição de interrupção, 190Resistência e capacitância (RC), atraso, 32Resto parcial, 266RISC. Ver Reduced Instruction Set Computers (RISC)
+Rotação (deslocamento cíclico), operação, 302Rotational positional sensing (RPS – detecção de 
+posição rotacional), 155
+Roubo de ciclo (cycle stealing), 192
+S
+Scalable Processor Architecture (SPARC – 
+arquitetura de processador escalável), 420-421conjunto de instruções, 421-423conjunto de registradores, 420-421formato de instrução, 423-424
+Segmentação, processador Pentium II, 233-235Sensor magnetorresistivo, 150Sequenciamento, 468, 487-491, 504-506
+de microinstruções, 487-491
+4 indice (613-624).indd 622 27.11.09 14:40:06
+
+Arquitetur A e org Aniz Ação de comput Adores Índice remissivo 623
+geração de endereço, 489-491
+microsequenciador TI 8800 SDB, 504-505processador IBM 3033, 490-491processador LSI-11, 491técnicas de sequenciamento, 487-489unidade de controle, 468, 487, 492
+Sequenciamento de geração de endereço, 489-491Servidores blade, 537-538Setores, discos magnéticos, 151Signaling NaN, 279Significando, 268, 273Simulação de campos contínuos, 541-542Sinais de controle, 178, 468-470, 473
+entrada/saída (E/S), 178Intel 8085, processador, 472-475unidade de controle, 468-470
+Sinais de estado, E/S, 178Sinal de Grant (GNT), PCI, 82-83Sinal de requisição (REQ), PCI, 82-83Sincronização (temporização), 73-74, 87-88, 
+179-180, 474-475 assíncrona, 74diagramas, 87-88Intel 8085, processador, 474-475interconexão de barramento, 73-74módulos de E/S, 179-180síncrona, 73
+Single Instruction, Single Data (SISD), dado, 
+515-516
+Single Large Expensive Disk (SLEP), 158Single-Instruction Multiple-Data (SIMD), 310-313, 
+451-452, 515-516 dado, 515-51 instruções de pipelining, 451-452instruções Intel x86, 310-313
+Sistema de computação, 7-11, 51-246
+barramento periférico (PCI), 76-83diagramas de temporização, 87-88entrada/saída (E/S), 52, 56, 176-209estrutura de alto nível, 9-11, 51, 53-88funções, 8-9, 53-66, 84-86interconexões, 10-11, 51, 67-86memória cache, 51, 89-127memória externa, 52, 149-175memória interna, 52, 128-148suporte do sistema operacional (SO), 52, 210-246
+Sistema operacional (SO), 52, 210-246
+Advanced RISC machine (ARM), gerenciamento de memória, 238-243batch, 213escalonamento, 210, 214, 219-224evolução, 213-214funções, 211-219gerenciador de recursos, 212-213, 218-219gerenciamento de memória, 210, 219, 224-243instruções privilegiadas, 216Intel Pentium II, gerenciamento de memória, 234-238interativo, 213interface usuário/computador, 211-212interrupções, 216multiprogramado, 213, 216-219objetivos, 211-212proteção da memória, 215suporte ao sistema operacional, 52, 210-246tempo compartilhado, 216, 219tempo de preparação, 214uniprogramação, 213, 219utilitários, 211
+Sistema operacional (SO) em lote (batch), 213-219
+Linguagem de controle de job (JCL - job control language), 215monitor (residente), 214-216multiprogramação, 216-219
+Sistema operacional (SO) interativo, 213Sistema operacional de multiprogramação (SO), 
+213, 216-219, 224-225comparação com uniprogramação, 213, 224-225gerenciamento de memória, 219, 224lote, 216-219
+Sistemas embarcados, 35-36Sistemas de memória ópticos, 164-169
+Blu-ray DVD, 166, 169Compact Disk (CD), 164-169Digital Versatile Disk (DVD), 166, 168-169discos ópticos de alta definição (HD DVD), 169produtos, 166
+Sistemas de memória, 89-209
+acerto, 93acesso, 91, 94cache, 89-127capacidade, 90características físicas, 92desempenho, 91-92, 94, 121-127dois níveis, 121-127externos, 149-209falha, 93 hierarquia, 92-95internos, 128-148localidade de referência, 93, 122-123localização, 90 organização, 92palavra, 90secundária (auxiliar), 94unidade de transferência, 90unidades endereçáveis, 90
+Sistemas operacionais (SO) de tempo 
+compartilhado, 219
+Sistemas operacionais de uniprogramação, 313Site Web, recursos, 3-4, 45Small Computer System Interface (SCSI), 199SMP , Ver multiprocessadores simétricos (SMP)
+Snoop Control Unit (SCU) unidade de controle de 
+monitoramento, 571, 573-574
+Sobreposição de busca, pipeline, 365, 373Software, 19, 54, 523-524, 563-567
+aplicação executando em um sistema (database scaling), 563-565coerência de cachê e protocolo, 523componentes do computador, 54-55desempenho de computador multicore, 563-567implementação, 20threading de jogo da Valve, 565-567
+Software Development Board (SBD), 501-509Special Interest Group (SIG), PCI, 76Static Random-Access Memory (SRAM), 130Subações, FireWire, 202Sub-redes, InfiniBand, 203Subtração, 256-258, 273-275
+números em (com) ponto flutuante, 273-275operação de complemento de dois, 255-256
+Sulcos, discos compactos, 166Swapping, gerenciamento de memória de E/S, 
+224-225
+System Performance Evaluation Corporation 
+(SPEC), 42-44
+TTabela de página, 228-229, 230-231, 239-240T arget channel adapter (TCA – adaptador do canal 
+de destino), 203
+T ags, memória cache, 95Taxa de execução de instrução, 39-41Taxa de transferência, 91-92Técnica de arbitração de barramento, E/S, 188Técnica de consulta por software (poll software), 
+E/S, 188
+Técnica de memória não cacheável, 111 Técnica de observação de barramento, 110Técnicas de sequenciamento lógico de controle 
+de desvio, 487-489
+Técnica de transparência de hardware, 111Tempo de acesso (latência), 91, 155-156Tempo de busca, discos magnéticos, 155-156Tempo de ciclo de memória, 20-21, 91Tempo de ciclo pipeline, 368-369Tempo de transferência, discos magnéticos, 
+155-156
+Temporização assíncrona, 74-75Temporização síncrona, 73Texas Instruments. Ver TI 8800 Software 
+Development Board (SBD)
+Thrashing, 104, 230Thread, 528Thread, computadores multicore, 567Thumb, mistura de instruções do ARM, 349TI 8800 Software Development Board (SBD), 
+501-511campos de controle, 505-506formato de microinstrução, 502-504microsequenciador, 504-506pilhas, 504registradores, 504unidade aritmética e lógica (ALU), 507-509unidades de controle microprogramadas, 501-513
+Tipos de sistemas operacionais (SO), 213-214Transdutor de E/S, 178
+4 indice (613-624).indd 623 27.11.09 14:40:06
+
+624 Arquitetur A e org Aniz Ação de comput Adores 
+Transferência de dados, 75-76, 80-82, 297-300
+interconexão de barramento, 75-76
+operações (opcode), 297-300PCI, 80-82
+Transistores, desenvolvimento dos, 19-21Translation lookaside buffer (TLB), 232-233, 238Transmissão de dados assíncrona, 201-202Transmissão de dados isócrono, 201-202Trilhas, discos magnéticos, 151, 153-154Trocas de dados, 67-68
+U
+Último-a-entrar-primeiro-a-sair (last in first out 
+– LIFO), lista, 321-322, 334-335
+Ultra-large-scale integration (integração em 
+escala ultragrande – ULSI), 26
+underflow gradual, 280Underflow, 270, 273, 280Unidade aritmética e lógica (arithmetic logic 
+unit- ALU), 11, 13, 247, 249-285, 507 509, 550-551adição, 256-258, 272-275considerações de precisão, 276-277desenvolvimento, 19divisão, 265-267, 275-279funções do computador, 11, 249-250IBM 3090, recurso vetorial, 550inteiros, 250-267 notação de números em (ou com) ponto fixo, 255-267multiplicação, 258-265, 275-279notação de números complemento em dois, 251-253, 255-267notação de números em (ou com) ponto flutuante, 267-280subtração, 256-258, 272-275TI 8800 SBD, 507-509
+Unidade central de processamento – CPU, 9-11, 20-21, 55-56, 247-457
+CISC (Computadores em conjuntos de instruções complexos), 396, 398, 424-425conjuntos de instruções, 247-248, 286-354desenvolvimento, 20-21formatos de instrução, 248, 339-351função e estrutura do processador, 9-11, 248, 355-394funções componentes, 56instrução de máquina, 286-293, 396-400, 407modos de endereçamento, 248, 329-339operações (opcode), 247, 287, 297-315, 397-398operandos, 247, 287-288, 292-293, 398-399 ordenação endian, 325-328paralelismo em nível de instrução, 248, 429-458 pilhas, 321-325processadores superescalares, 248, 396, 429-457registradores, 11, 356-361, 378-382, 387-389RISC (conjunto de instruções reduzido), 248, 395-428tipos de dados, 294-296 unidade aritmética e lógica – ALU, 11, 247, 249-285
+Unidade de busca de instrução, processador Cortex-A8, 447-449Unidade de controle, 11, 396, 459-511
+controle do processador, 11, 466-475entradas, 475-476execução, 468, 492-501implementação hardware, 475-477, 485Intel 8085, processador, 472-475 organização interna do processador, 470-472lógica, 476-477microinstruções, 480-482, 501-509micro-operações, 462-466microprogramada, 396, 459-460, 479-511operação, 459, 461-478requisitos funcionais, 466-468sequenciamento, 468, 487-491sinais de controle, 468-470, 473
+Unidade de controle hardware, 475-477, 485Unidade de controle térmica, 568Unidade de decodificação de instrução, 
+processador Cortex-A8, 449-450
+Unidade de disco, E/S, 179Unidade de gerenciamento de memória (memory 
+management unit – MMU), 98, 239
+Unidade de transferência, 91Unidades de controle microprogramadas, 396, 
+459-460, 479-611decodificadores, 484desenvolvimento, 479-480execução, 492-501firmware, 480LSI-11, processador, 491, 496-499memória de controle, 481microarquitetura, 482-483microinstruções, 480-482, 487-510processador IBM 3033, processador, 489-491, 499-501sequenciamento, 487-491TI 8800 Software Development Board (SBD), 501-509vantagens e desvantagens, 486-487Wilkes, exemplo de, 484-486
+Unidades endereçáveis, 90Uniform memory access (acesso uniforme à 
+memória – UMA), 539
+Universal Automatic Computer (UNIVAC), 19 Usado menos frequentemente (least frequently 
+used – LFU), algoritmo, 110
+Usado menos recentemente (least recently used – 
+LRU), algoritmo, 110, 230
+USENET, newsgroups, 4Utilitários do SO, 211-212
+V
+Valor de expoente, 268, 273Valve, software de jogo da, 565-567Válvulas, desenvolvimento, 12-19
+Vector Floating-Point (VFP - unidade vetorial de 
+ponto flutuante), 571
+Velocidade Angular Constante (Constant angular 
+velocity - CAV), 151, 166
+Velocidade de clock, 39-41Velocidade Linear Constante (Constant linear 
+velocity - CLV), 167
+Very-Large-Scale Integration (VLSI- integração em 
+escala muito grande), 26
+Vírgula fracionada, 250Von Neuman, máquina, 13-19, 54-56
+W
+WAR (dependência de escrita após leitura), 
+432-434
+Watchdog, 571WAW (dependência de escrita após escrita), 436Wilkes, controle, 484-487Winchester, formato de disco, 152, 154Write back, técnica, 110, 523Write through, técnica, 110, 523
+4 indice (613-624).indd 624 27.11.09 14:40:06
+
+Sobre o autor
+William Stallings tem contribuído de maneira singular para a compreensão da grande gama de desenvolvimentos 
+técnicos em segurança, redes e arquitetura de computadores: é autor de 17 títulos e, contando com as diversas edi-
+ções revisadas, tem publicados 42 livros que abordam diferentes aspectos de tais disciplinas. Seus escritos fi zeram parte de publicações da ACM e IEEE, incluindo Proceedings of the IEEE e ACM Computing Reviews, e ele já recebeu 10 vezes o prêmio de melhor livro-texto de ciência da computação do ano da Text and Academic Authors Association.
+Com mais de 30 anos na área, Stallings foi colaborador técnico, gerente técnico e executivo de várias empresas de alta 
+tecnologia. Ele projetou e implementou conjuntos de protocolos baseados em TCP/IP e OSI em diversos computadores e sistemas operacionais, variando desde microcomputadores até mainframes. Como consultor, assessorou agências do governo, fabricantes de computadores e softwares, e importantes usuários em questões relacionadas a projeto, seleção e uso de software e produtos de rede.
+O autor criou e mantém o Computer Science Student Resource Site, em <WilliamStallings.com/StudentSupport.html>. 
+Esse site oferece documentos e links sobre assuntos de interesse geral aos alunos (e profi ssionais) de ciência da computa-ção. Ele é membro da redação do Cryptologia, um jornal dedicado aos diversos aspectos que envolvem a criptologia.
+Dr. Stallings possui PhD pelo M.I.T. em ciência da computação e B.S. pela Universidade de Notre Dame em engenha-
+ria elétrica.
+Book 1.indb 625 19.11.09 14:41:37
+
+Book 1.indb 626 19.11.09 14:41:38
+
+ISBN 978-85-7605-564-8Computação
+www.pearson.com.brwww.pearson.com.br/stallings
+Professores e alunos encontram vasto material que complementa o conteúdo abordado no livro.Quatro vezes premiado como o melhor livro-texto de engenharia e 
+ciências da computação pela Text and Academic Authors Association, 
+Arquitetura e organização de computadores é bibliografia essencial a 
+estudantes e profissionais da área.
+Nesta oitava edição, William Stallings apresenta os fundamentos do 
+processador e do design de computadores completamente atualizados e vai além, abordando questões relacionadas à memória, à E/S e 
+a sistemas paralelos e trazendo exemplos concretos que auxiliam 
+nas escolhas necessárias durante a implementação de um sistema operacional atual.
+Acompanhando a rápida evolução da tecnologia, o conteúdo de 
+Arquitetura e organização de computadores não se restringe a suas 
+páginas: no site de apoio da obra, estudantes de ciências da computação, engenharia da computação e engenharia elétrica encontram capítulos e apêndices on-line (em inglês) e leituras complementares que 
+ampliam seu conhecimento, bem como simuladores e exercícios que 
+proporcionam a prática.ARQUITETURA E ORGANIZAÇÃO 
+DE COMPUTADORESARQUITETURA E ORGANIZAÇÃO 
+DE COMPUTADORES
+8a edição
+8a edição8a ediçãoWILLIAM STALLINGSSTALLINGS
+CVR_STAL5648_8_CVR.indd 1 08/11/2013 12:05:26

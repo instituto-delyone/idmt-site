@@ -1,0 +1,922 @@
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 585
+OPERANDO(S) Uma sentença da linguagem de montagem inclui zero ou mais operandos. Cada operando iden-
+tifica um valor imediato, um registrador ou uma posição de memória. Normalmente, a linguagem de montagem 
+fornece convenções para distinguir entre os três tipos de referências de operandos, assim como convenções para indicar o modo de endereçamento.
+Para arquitetura x86, um comando da linguagem de montagem pode referir-se ao operando registrador pelo 
+nome. A Figura B.2 ilustra os registradores de propósito geral do x86 e do com o seu nome simbólico e sua codifi-cação em bits. O montador vai traduzir o nome simbólico em um identificador binário do registrador.
+Conforme discutido na Seção 11.2, a arquitetura x86 possui um conjunto rico de modos de endereçamento, cada um 
+tendo que ser expresso simbolicamente na linguagem de montagem. Aqui citamos alguns dos exemplos mais comuns. Para endereçamento de registrador, o nome do registrador é usado na instrução. Por exemplo, MOV ECX, EBX copia 
+o conteúdo do registrador EBX para o registrador ECX. O endereçamento imediato indica que o valor é codificado dentro da instrução. Por exemplo, MOV EAX, 100H copia o valor hexadecimal 100 no registrador EAX. O valor imediato pode ser expresso como um número binário com sufixo B ou um número decimal sem sufixo. Assim, as sentenças equivalentes à anterior são MOV EAX, 100000000B e MOV EAX, 256. O endereçamento direto refere-se a uma posição de me -
+mória e é expresso como um deslocamento a partir do registrador de segmento DS. Isto é explicado melhor com um exemplo. Suponha que o registrador de segmentos de dados de 16 bits DS contenha o valor 1000H. Então, ocorre a seguinte sequência:
+MOV AX, 1234H
+MOV [3518H], AX
+Primeiro, o registrador AX de 16 bits é inicializado com 1234H. Depois, na linha dois, o conteúdo de AX é movido 
+para endereço lógico DS:3518H. Este endereço é formado pelo deslocamento do conteúdo de DS de 4 bits para 
+esquerda e adicionando 3518H para formar o endereço lógico 13518H de 32 bits.
+COMENTÁRIO Todas as linguagens de montagem permitem colocar comentários dentro do programa. Um co-
+mentário pode ocorrer do lado direito de um comando em linguagem ou pode ocupar uma linha de texto inteira. 
+Figura B.2 Registradores de execução de programa do Intel x86
+0
+AX AH AL
+BH BL
+CH CL
+DH DLBX
+CXDXEAX (000)EBX (011)ECX (001)EDX (010)16-bit 32-bit
+ESI (110)EDI (111)EBP (101)ESP (100)31
+Registradores de uso geral
+Registradores de segmento0
+CSDSSSESFSGS15
+Book 1.indb 585 19.11.09 14:41:16
+
+586 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Nos dois casos, o comentário começa com um caractere especial que sinaliza para o montador que o restante da 
+linha é um comentário e deve ser ignorado pelo montador. Normalmente, as linguagens de montagem para arqui-tetura x86 usam ponto e vírgula (;) como caractere especial.
+ Tipos de sentenças da linguagem de montagem
+As sentenças da linguagem de montagem podem ser de um dos quatro tipos: instrução, diretiva, defi nição de 
+macro e comentário. Uma sentença comentário é simplesmente uma sentença que consiste inteiramente de um comentário. Outros tipos são descritos brevemente nesta seção.
+INSTRUÇÕES Muitas das sentenças em um programa da linguagem de montagem são representações sim-
+bólicas de instruções de linguagem de máquina. Quase que invariavelmente, há um relacionamento de um para um entre uma instrução da linguagem de montagem e uma instrução de máquina. O montador resolve quaisquer referências simbólicas e traduz instruções da linguagem de montagem em cadeias binárias que repre-sentam uma instrução de máquina.
+DIRETIVAS Diretivas, também chamadas de pseudoinstruções, são sentenças da linguagem de montagem que 
+não são diretamente traduzidas para instruções da linguagem de máquina. Em vez disso, as diretivas são instruções para o montador executar ações específi cas durante o processo de montagem. Exemplos incluem o seguinte:
+Defi nir constantes.
+ 
+Designar áreas da memória para armazenar dados. 
+Inicializar áreas da memória. 
+Colocar tabelas ou outros dados fi xos na memória. 
+Permitir referências para outros programas. 
+A Tabela B.2 lista algumas diretivas do NASM. Como um exemplo, considere a seguinte sequência de sentenças:
+Tabela B.2 Algumas diretivas da linguagem de montagem do NASM
+(a) Letras para diretivas RESx e Dx
+Unidade Letra
+Byte B
+Palavra (2 bytes) W
+Palavra dupla (4 bytes) D
+Palavra quádrupla (8 bytes) Q
+Dez bytes T
+(b) Diretivas
+Nome Descrição Exemplo
+DB, DW, DD, DQ, DT Inicializa posiçõesL6 DD 1A92H
+; palavra dupla em L6 
+inicializada com 1A92H
+RESB, RESW, RESD, RESQ, REST Reserva posições não inicializadasBUFFER RESB 64
+; reserva 64 bytes começando 
+em BUFFER
+InCBIn Inclui arquivo binário na saídaINCBIN “ﬁ le.dat”
+; inclui este arquivo
+EQU Defi ne um símbolo para um dado valor constanteMSGLEN EQU 25
+; constante MSGLEN equivale 
+ao decimal 25
+TIMES Repete instrução várias vezesZEROBUF TIMES 64 DB 0
+; inicializa buﬀ er de 64 bytes 
+todo para zeros
+Book 1.indb 586 19.11.09 14:41:17
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 587
+L2 DB “A” ; byte inicializado para código ASCII de A (65)
+MOV AL, [L1] ; copiar byte que está em L1 para AL
+MOV EAX, L1 ; armazenar endereço do byte que está em L1 em EAXMOV [L1], AH ; copiar conteúdo de AH dentro do byte que está em L1
+Se um rótulo direto é usado, ele é interpretado como endereço (ou offset) de dados. Se o rótulo é colocado 
+dentro de colchetes, ele interpretado como dado no endereço.
+DEFINIÇÕES DE MACRO Uma definição de macro é semelhante a uma sub-rotina de várias formas. Uma sub-ro-
+tina é uma seção do programa que é escrita uma vez e pode ser usada várias vezes, chamando a sub-rotina a partir 
+de qualquer ponto do programa. Quando o programa é compilado ou montado, a sub-rotina é carregada apenas uma vez. Uma chamada da sub-rotina transfere controle para a sub-rotina e uma instrução da sub-rotina retorna o controle para o ponto de chamada. De forma semelhante, uma definição de macro é uma seção de código que o programador escreve uma vez e pode depois usar várias vezes. A principal diferença é que quando o montador encontra uma chamada de macro, ele substitui a chamada de macro pela macro em si. O processo é chamado de expansão de macro. Então, se uma macro é definida em um programa da linguagem de montagem e é chamada 10 vezes, então 10 instâncias da macro irão aparecer no código montado. Basicamente, sub-rotinas são tratadas pelo hardware em tempo de execução, enquanto que as macros são tratadas pelo montador em tempo de mon-tagem. Macros fornecem a mesma vantagem que as sub-rotinas em termos de programação modular, mas sem a sobrecarga em tempo de execução de chamada e retorno de uma sub-rotina. O custo disso é que a abordagem de macro usa mais espaço no código objeto.
+No NASM e em muitos outros montadores, uma distinção é feita entre uma macro de uma única linha e uma 
+macro de várias linhas. No NASM, macros de linha única são definidas usando diretiva %DEFINE. Aqui está um exem-plo em que várias macros de única linha são expandidas. Primeiro definimos duas macros:
+%DEFINE B(X) = 2*X
+%DEFINE A(X) = 1 + B(X)
+Em algum ponto do programa da linguagem de montagem, aparecem as seguintes sentenças:
+MOV AX, A(8)
+O montador expande esta sentença para:
+MOV AX, 1+2*8
+o que é montado para uma instrução de máquina para mover o valor imediato 17 para o registrador AX.
+Macros de várias linhas são definidas usando o mnemônico % MACRO. Aqui está o exemplo de uma definição 
+de macro de várias linhas:
+%MACRO PROLOGUE 1
+PUSH EBP ; coloca conteúdo de EBP na pilha
+; apontada por ESP e
+; decrementa conteúdo de ESP em 4
+MOV EBP, ESP ; copia conteúdo de ESP para EBPSUB ESP, %1 ; 
+%ENOMACROsubtrai o valor do primeiro parâmetro de ESP
+O número 1 depois do nome da macro na linha %MACRO define o número de parâmetros que a macro espera 
+receber. O uso de %1 dentro da definição da macro refere-se ao primeiro parâmetro da chamada da macro.
+A chamada da macro
+MYFUNC: PROLOGUE 12
+Book 1.indb 587 19.11.09 14:41:18
+
+588 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+expande para as seguintes linhas de código:
+MYFUNC: PUSH EBP
+MOV EBP, ESP
+SUB ESP, 12
+ Exemplo: programa do maior divisor comum
+Como um exemplo de uso da linguagem de montagem, analisamos um programa para calcular o maior divisor 
+comum de dois números inteiros. Defi nimos o maior divisor comum dos inteiros a e b da seguinte forma:
+gcd(a,b) = max[k, tal que k é divisor de a e k divisor de b]
+onde dizemos que k é divisor de a se não houver resto de divisão. O algoritmo de Euclides para o maior divisor 
+comum é baseado no seguinte teorema. Para quaisquer inteiros positivos a e b, 
+gcd(a, b) = gcd(b, a mod b)Aqui está um programa na linguagem C que implementa algoritmo de Euclides:
+unsigned int gcd (unsigned int a, unsigned int b)
+{
+if(a == 0 && b == 0)
+b = 1;
+else if (b == 0)
+b = a;
+else if (a != 0)
+while(a != b)
+if(a <b)
+b -= a;
+else
+a -= b;
+returnb;
+}
+A Figura B.3 mostra duas versões na linguagem de montagem do programa anterior. O programa à esquerda 
+foi feito por um compilador C; o programa à direita foi programado à mão. O último usa uma série de truques de 
+programação para produzir uma implementação mais compacta e efi ciente.
+ B.2 Montadores
+O montador é um software utilitário que recebe como entrada um programa em linguagem de máquina 
+(assembly) e produz o código objeto como saída. O código objeto é um arquivo binário. O montador enxerga esse arquivo como um bloco de memória iniciando na posição relativa 0.
+Existem duas abordagens gerais para os montadores: montador de dois passos e montador de um passo.
+ Montador de dois passos
+Analisamos primeiro o montador de dois passos, que é mais comum e um pouco mais fácil de entender. O 
+montador faz duas passagens pelo código fonte (Figura B.4):
+PRIMEIRO PASSO No primeiro passo, o montador se preocupa apenas com defi nições dos rótulos. O primeiro 
+passo é usado para construir uma tabela de símbolos que contém uma lista de todos os rótulos e seus valores 
+de contador de posição (LC, do inglês location counter). O primeiro byte do código objeto terá o valor 0 como LC. 
+Book 1.indb 588 19.11.09 14:41:19
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 589
+Figura B.3 Programas de montagem para o maior divisor comum
+gcd: mov ebx,eax
+mov eax,edx
+test ebx,ebxjne L1test edx,edxjne L1mov eax,1ret
+L1: test eax,eax
+jne L2mov eax,ebxret
+L2: test ebx,ebx
+je L5
+L3; cmp ebx,eax
+je L5jae L4sub eax,ebxjmp L3
+L4: sub ebx,eax
+jmp L3
+L5: ret
+(a) Programa compilado (b) Escrito diretamente na linguagem de montagemgcd: neg eax
+je L3
+L1: neg eax
+xchg eax,edx
+L2: sub eax,edx
+jg L2
+jne L1
+L3: add eax,edx
+jne L4inc eax
+L4: ret
+O primeiro passo examina cada sentença em linguagem de montagem. Embora o montador ainda não esteja 
+pronto para traduzir instruções, ele tem que examinar cada instrução suficientemente para determinar o tamanho da instrução de máquina correspondente e, portanto, em quanto incrementar o LC. Isso pode requerer não apenas a análise do opcode, mas também a análise dos operandos e dos modos de endereçamento.
+Diretivas como DQ e REST (veja Tabela B.2) fazem o contador de posição ser ajustado de acordo com a quanti-
+dade de armazenamento necessário.
+Quando o montador encontra uma sentença com um rótulo, ele coloca o rótulo na tabela de símbolos, junto com 
+o valor corrente de LC. O montador continua até que tenha lido todas as sentenças da linguagem de montagem.
+SEGUNDO PASSO O segundo passo lê o programa novamente desde o começo. Cada instrução é traduzida no 
+código binário de máquina apropriado. A tradução envolve as seguintes operações:
+1. Traduzir mnemônico em opcode binário.
+2. Usar o opcode para determinar o formato da instrução, a posição e o tamanho de vários campos na instrução.
+3. Traduzir o nome de cada operando para o registrador ou código de memória apropriado.
+4. Traduzir cada valor imediato em uma cadeia binária.
+5. Traduzir quaisquer referências a rótulos em valores de LC apropriados usando a tabela de símbolos.
+6. Definir quaisquer outros bits necessários dentro da instrução, incluindo indicadores do modo de endereça-mento, bits de códigos condicionais e assim por diante.
+Um exemplo simples, usando linguagem de montagem ARM, é mostrado na Figura B.5. A instrução da lingua-
+gem de montagem ARM ADDS, r3, r9, #19 é traduzida para instrução binária de máquina 1110 0010 0101 0011 0011 0000 0001 0011.
+PASSO ZERO A maioria das linguagens de montagem inclui a capacidade de definir macros. Quando elas estão 
+presentes, há um passo adicional que o montador deve fazer antes do primeiro passo. Normalmente, a linguagem de montagem requer que todas as definições de macro apareçam no início do programa.
+Book 1.indb 589 19.11.09 14:41:20
+
+590 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura B.4 Fluxograma do montador de dois passos
+Passo 1
+Passo 2Ler linha do
+arquivo fonte
+EOF?
+Rótulo
+de/f_inido?
+Determinar o
+tamanho da
+instrução
+LC = LC + tamanho
+Escrever linha fonte e
+outras informações no
+arquivo intermediárioFechar arquivo
+fonte e ir ao início do
+arquivo intermediário
+Armazenar nome e valor
+na tabela de símbolos1
+SimSim
+Não
+Não
+1Passo 2
+Parar EOF?
+Instrução
+do montadorLer próxima linha do
+arquivo intermediário
+Escrever instrução de objeto
+no arquivo de código objeto
+Escrever linhas fonte e de objeto
+no arquivo de listagemSim
+Não
+22
+Figura B.5 Traduzindo uma instrução em linguagem de montagem do ARM para uma instrução binária de máquina
+ADDS r3, r3, #19
+Formato intermediário de
+processamento de dadosSempre
+códigocondicionalFlags de atualização de condição Rotaçãozero
+Formatoda instr S Rn Rd cond Opcode Rotacionar Imediato1 1 1 0 0 0 1 0 0 1 0 1 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 1 0 0 1 1
+31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0O montador inicia este “passo zero” lendo todas as definições de macro. Uma vez reconhecidas todas as macros, 
+o montador vai pelo código fonte e as expande, com seus parâmetros associados, sempre que uma chamada de 
+macro é encontrada. O passo de processamento de macros gera um nova versão do código fonte com todas as expansões das macros no devido lugar e todas as definições de macro removidas.
+Book 1.indb 590 19.11.09 14:41:21
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 591
+ Montador de um passo
+É possível implementar um montador que faz uma única passagem pelo código fonte (sem contar o pas-
+so para processar macros). A principal dificuldade em tentar montar um programa em uma única passagem 
+envolve referências futuras a rótulos. Os operandos das instruções podem ser símbolos que ainda não foram definidos no programa fonte. Portanto, o montador não sabe qual endereço relativo inserir na instrução traduzida.
+Basicamente, o processo para resolver referências futuras funciona da seguinte forma. Quando o montador 
+encontra um operando da instrução que é um símbolo ainda não defi nido, ele:
+1. Deixa o campo do operando da instrução vazio (tudo zero) na instrução binária montada.
+2. Insere o símbolo usado como um operando na tabela de símbolos. A entrada da tabela é marcada para indicar que o símbolo não está defi nido.
+3. Adiciona o endereço do campo de operando da instrução que se refere ao símbolo indefi nido a uma lista de referências futuras associadas com a entrada na tabela de símbolos.
+Quando a defi nição de símbolo é encontrada de tal forma que o valor LC possa ser associado a ele, o montador 
+insere o valor LC na entrada adequada dentro da tabela de símbolos. Se há uma lista de referência futura associada com o símbolo, então o montador insere o endereço apropriado em qualquer instrução gerada previamente que esteja na lista de referência futura.
+ Exemplo: programa de números primos
+Analisamos agora um exemplo que inclui diretivas. Este exemplo analisa um programa que acha números 
+primos. Lembre que os números primos são divisíveis apenas por 1 e por si mesmos. Não há uma fórmula para 
+fazer isso. O método básico usado por este programa é localizar fatores de todos os números ímpares abaixo de um dado limite. Se nenhum fator puder ser encontrado para um número ímpar, então ele é um número primo. A Figura B.6 mostra o algoritmo básico escrito em C. A Figura B.7 mostra o mesmo algoritmo escrito na linguagem de montagem NASM.
+;sseug dengisnu
+;rotcaf dengisnu
+;timil dengisnu
+printf (“Find primes up to : ”);
+scanf(“%u”, &limit);
+/ * tratar dois primeiros primos */ ;)”n\2“( ftnirp
+/* caso especial */ ;)”n\3“( ftnirp
+/* suposição inicial */ ;5 = sseug
+while (guess < = limit) {
+factor = 3;while (factor * factor < guess && guess% factor != 0)factor + = 2;if (guess % factor != 0)
+printf (“%d\n”, guess);
+analisar apenas números ímpares */ ;2 =+ sseug
+}/* procurar por um fator da suposição *//* */
+/* */
+/* suposição atual para primo
+fator possível para suposição
+encontrar primos até este valor */
+/*Figura B.6 Programa C para verifi car os números primos
+Book 1.indb 591 19.11.09 14:41:22
+
+592 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura B.7 Programa em linguagem de montagem para verificar números primos
+%include “asm_io.inc”
+segment .dataMessage db “Find primes up to: ”, 0
+segment .bss
+encontrar primos até este limite ; 1 dser timiL
+suposição atual para primo ; 1 dser sseuG
+segment .text
+global _asm_main
+_asm_main:
+rotina de setup ; 0,0 retne
+pushamov eax, Message
+call print_string
+;)timil & ,”u%“(fnacs ; tni_daer llac
+mov [Limit], eax
+;)”n\2“(ftnirp ; 2 ,xae vom
+call print_intcall print_nl
+;)”n\3“(ftnirp ; 3 ,xae vom
+call print_intcall print_nl
+mov dword [Guess], 5 ; Guess = 5;
+)timiL =< sseuG( elihw ; :timil_elihw
+mov eax, [Guess]
+cmp eax, [Limit]jnbe end_while_limit ; usar jnbe porque os números não têm sinal
+;3 = rotcaf si xbe ; 3 ,xbe vom
+while_factor:
+mov eax,ebx
+xae*xae = xae:xde ; xae lum
+jo end_while_factor ; se a resposta não couber apenas em eax
+cmp eax, [Guess]jnb end_while_factor ; if !(factor*factor < guess)
+mov eax,[Guess]mov edx,0
+xbe %xae:xde = xde ; xbe vid
+cmp edx, 0je end_while_factor ; if !(guess% factor != 0)
+add ebx,2; factor += 2;jmp while_factor
+end_while_factor:
+)0 =! rotcaf %sseug(! fi ; fi_dne ej
+)”n\u%“(ftnirp ; ]sseuG[,xae vom
+call print_intcall print_nl
+end_if:
+add dword [Guess], 2 ; guess += 2
+jmp while_limit
+end_while_limit:
+popa
+C volta para ; 0 ,xae vom
+leaveret
+Book 1.indb 592 19.11.09 14:41:23
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 593
+ B.3 Carregamento e ligação
+O primeiro passo na criação de um processo ativo é carregar o programa na memória principal e criar uma 
+imagem de processo (Figura B.8). A Figura B.9 ilustra um cenário típico para a maioria dos sistemas. A aplicação 
+consiste de uma série de módulos compilados ou montados na forma de código objeto. Estes são vinculados para resolver quaisquer referências entre módulos. Ao mesmo tempo, referências às rotinas de biblioteca são resolvidas. As rotinas de biblioteca, por sua vez, podem ser incorporadas no programa ou referenciadas como código com-partilhado que deve ser fornecido pelo sistema operacional em tempo de execução. Nesta seção resumimos os principais recursos dos ligadores e carregadores (linkers e loaders). Primeiramente discutimos o conceito de reloca-ção. Depois, para esclarecer a apresentação, descrevemos a tarefa de carregamento quando um único módulo de programa está envolvido; nenhuma ligação é necessária. Depois podemos analisar vinculação e carregamento de funções como um todo.
+ Realocação
+Em um sistema multiprogramado, a memória principal disponível geralmente é compartilhada entre uma série 
+de processos. Normalmente, não é possível que o programador saiba de antemão quais outros processos estarão residentes na memória principal no momento da execução do seu programa. Além disso, gostaríamos de poder transferir processos ativos para dentro e para fora da memória principal para maximizar a utilização do processador fornecendo um conjunto grande de processos prontos para executar. Uma vez o processo sendo transferido para o disco, seria muito limitante declarar que, quando fosse transferido de volta, deveria ser colocado na mesma região da memória principal como antes. Em vez disso, podemos ter que realocar o processo para uma área diferente da 
+memória.
+Desta forma, não conseguimos saber de antemão onde o programa será colocado e temos que permitir que 
+o programa possa ser movido dentro da memória principal por causa das transferências. Estes fatos trazem à tona algumas preocupações técnicas relacionadas com endereçamento, conforme ilustrado na Figura B.10. Ela ilustra uma imagem de processo. Para simplifi car, vamos supor que a imagem de processo esteja ocupando uma região contínua da memória principal. Claramente, o sistema operacional terá que saber a posição da informação de 
+Figura B.8 Função de carregamento
+Bloco de controle de processo
+Imagem do processo na
+memória principalPrograma
+Dados
+Código objetoPrograma
+Dados
+Pilha
+Book 1.indb 593 19.11.09 14:41:23
+
+594 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura B.9 Um cenário de ligação e carregamento
+Memória
+principalLoader
+(Carregador)
+Linker/loader
+em tempo
+de execuçãox
+Carregar
+móduloLinker
+(ligador)
+Módulo 2Módulo 1
+Módulo nBiblioteca
+estáticaBiblioteca
+dinâmica
+Biblioteca
+dinâmica
+Figura B.10 Requisitos de endereçamento para um processo
+Bloco de controle do processo
+Programa
+Dados
+PilhaTopo atual
+da pilhaPonto de entrada
+do programaInformação de
+controle do processo
+Aumento de
+valores dos
+endereçosInstruçãode desvio
+Referência
+a dadoscontrole do processo e da pilha de execução, assim como o ponto de entrada para começar a execução do pro-
+grama para este processo. Como o sistema operacional está gerenciando a memória e é responsável por trazer esse processo para a memória principal, é fácil chegar até esses endereços. Além disso, o processador precisa lidar com referências de memória dentro do programa. As instruções de desvio contêm um endereço para referenciar a instrução a ser executada a seguir. As instruções de referência a dados contêm o endereço do byte ou da palavra 
+Book 1.indb 594 19.11.09 14:41:24
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 595
+de dados referenciados. De alguma forma, o hardware do processador e o software do sistema operacional devem 
+ser capazes de traduzir as referências de memória encontradas no código do programa para endereços físicos de memória reais, refl etindo a posição atual do programa na memória principal.
+ Carregamento
+Na Figura B.9, o carregador (loader) coloca o módulo na memória principal iniciando em posição x. Ao carregar 
+o programa, o requisito de endereçamento ilustrado na Figura B.10 deve ser satisfeito. Em geral, três abordagens podem ser tomadas:
+Carregamento absoluto.
+ 
+Carregamento realocável. 
+Carregamento dinâmico em tempo de execução. 
+CARREGAMENTO ABSOLUTO Um carregador absoluto requer que um dado módulo sempre seja carregado na 
+mesma posição da memória principal. Assim, no módulo carregável apresentado ao carregador, todas as referên-cias de endereço devem ser para endereços específi cos, ou absolutos, da memória principal. Por exemplo, se x na Figura B.9 for posição 1024, então a primeira palavra em um módulo a ser carregado destinado para essa região da memória tem endereço 1024.
+A atribuição de valores de endereço específi cos para referências de memória dentro de um programa pode 
+ser feita pelo programador ou em tempo de compilação ou execução (Tabela B.3a). Existem várias desvantagens para abordagem anterior. Em primeiro lugar, todo programador deveria saber a estratégia de atribuição pretendida para colocar módulos na memória principal. Em segundo lugar, se quaisquer modifi cações forem feitas para o pro-grama que envolva inclusão ou exclusão no corpo do módulo, então todos os endereços terão que ser alterados. Consequentemente, é preferível permitir que as referências de memória dentro dos programas sejam expressas simbolicamente e depois resolver essas referências simbólicas em tempo de compilação ou montagem. Isso é 
+(a) Loader (carregador)
+Tempo da ligação Função
+Tempo de programação Todos os endereços físicos reais são especifi cados diretamente pelo programador dentro do próprio programa.
+Tempo de compilação ou montagemO programa contém referências de endereços simbólicas e estas são convertidas para endereços 
+físicos reais pelo compilador ou montador.
+Tempo de carregamentoO compilador ou o montador produz endereços relativos, que são traduzidos, pelo carregador 
+para endereços absolutos em tempo de carregamento do programa.
+Tempo de execuçãoO programa carregado retém endereços relativos. Estes são convertidos dinamicamente para 
+endereços absolutos pelo hardware do processador.
+(b) Linker (ligador)
+Tempo de vinculação Função
+Tempo de programaçãonenhuma referência a programas externos ou dados é permitida. O programador deve colocar no programa o 
+código fonte para todos os subprogramas que são referenciados.
+Tempo de compilação ou montagem O montador deve obter o código fonte de cada subrrotina que é referenciada e montá-la como uma unidade.
+Criação do módulo a ser carregadoTodos os módulos objetos foram montados usando endereços relativos. Esses módulos são vinculados entre si 
+e todas as referências são refeitas com relação à origem do último módulo.
+Tempo de carregamentoReferências externas não são resolvidas até que o módulo esteja para ser carregado na memória principal. 
+nesse momento, os módulos de vinculação dinâmica referenciados são acrescidos ao módulo a ser carregado 
+e o pacote inteiro é carregado na memória principal ou virtual.
+Tempo de execuçãoReferências externas não são resolvidas até que a chamada externa seja executada pelo processador. nesse 
+momento, o processo é interrompido e o módulo desejado é vinculado ao programa que fez a chamada.Tabela B.3 Ligação de endereços
+Book 1.indb 595 19.11.09 14:41:25
+
+596 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ilustrado na Figura B.11. Toda referência para uma instrução ou item de dados é representada inicialmente por um 
+símbolo. Ao preparar o módulo para entrar em um carregador absoluto, o montador ou o compilador converterá todas essas referências para endereços específicos (neste exemplo, para um módulo para ser carregado iniciando na posição 1024), conforme mostrado na Figura B.11b.
+CARREGAMENTO REALOCÁVEL A desvantagem de ligar referências de memória a endereços específicos antes 
+do carregamento é que o módulo resultante a ser carregado pode ser colocado em apenas uma região da memória principal. No entanto, quando muitos programas compartilham a memória principal, pode não ser desejável de-cidir antecipadamente em qual região da memória um determinado módulo deve ser carregado. É melhor tomar essa decisão em tempo de carregamento. Precisamos, assim, de um módulo que pode ser alocado em qualquer lugar da memória principal.
+Para satisfazer esse novo requisito, o montador ou compilador produz não os endereços reais da memória prin-
+cipal (endereços absolutos), e sim os endereços relativos a algum ponto conhecido, como o início do programa. Esta técnica é ilustrada na Figura B.11c. Ao início do módulo carregável é atribuído o endereço relativo 0, e todas as outras referências de memória dentro do módulo são expressas com relação ao início do módulo.
+Com todas as referências de memória expressas no formato relativo, torna-se fácil para o carregador colocar 
+o módulo na posição desejada. Se o módulo for carregado começando na posição x, então o carregador deve 
+simplesmente adicionar x para cada referência de memória à medida que carrega o módulo na memória. Para 
+ajudar nesta tarefa, o módulo carregável deve incluir informação que diz ao carregador onde estão as referên-cias de memória e como devem ser interpretadas (normalmente serão relativas à origem do programa, mas também possivelmente relativas a algum outro ponto no programa, como por exemplo a posição atual). Este conjunto e informações é preparado pelo compilador ou montador e normalmente é chamado de dicionário de realocação.
+CARREGAMENTO DINÂMICO EM TEMPO DE EXECUÇÃO Carregadores realocáveis são comuns e fornecem bene-
+fícios óbvios se comparados aos carregadores absolutos. No entanto, em um ambiente de multiprogramação, até naquele que não depende da memória virtual, o esquema de carregamento realocável é inadequado. Já mencio-namos a necessidade de transferir imagens de processo para dentro e para fora da memória principal para maxi-mizar a utilização do processador. Para maximizar a utilização da memória principal, gostaríamos de ser capazes de 
+Figura B.11 Carregamento de módulos absoluto e realocável
+Endereços
+simbólicos
+PULAR X
+X
+YPROGRAMA
+DADOS
+(a) Módulo objetoCARREGAR YEndereços
+absolutos
+PULAR 1424
+14240 4201
+2224PROGRAMA
+DADOS
+(b) Carregamento
+absoluto de móduloCARREGAR 2224Endereços
+relativos
+PULAR 400
+400
+1200PROGRAMA
+DADOS
+(c) Carregamento
+relativo de móduloCARREGAR 1200xEndereços da
+memória principal
+PULAR 400
+400 + x
+1200 + xPROGRAMA
+DADOS
+(d) Módulo relativo carregado
+na memória principal iniciando
+em posição x CARREGAR 1200
+Book 1.indb 596 19.11.09 14:41:25
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 597
+transferir a imagem do processo de volta para posições diferentes em tempos diferentes. Assim, uma vez carregado, 
+um programa pode ser transferido para o disco e depois ser transferido de volta para uma posição diferente. Isto seria impossível se as referências de memória tivessem sido ligadas a endereços absolutos no momento do carre-gamento inicial.
+A alternativa é adiar o cálculo de um endereço absoluto até que seja realmente necessário em tempo de execu-
+ção. Para este propósito, o módulo é carregado na memória principal com todas as referências de memória na for-ma relativa (Figura B.11c). O endereço absoluto não é calculado até que uma instrução seja executada. Para garantir que essa funcionalidade não prejudique o desempenho, ela deve ser executada pelo hardware do processador especial em vez do software. Este hardware é descrito no Capítulo 8.
+O cálculo dinâmico de endereços fornece fl exibilidade completa. Um programa pode ser carregado em qual-
+quer região da memória principal. Subsequentemente, a execução do programa pode ser interrompida e o programa pode ser transferido para fora da memória principal, para depois ser transferido de volta para uma posição diferente.
+ Ligação
+A função de um ligador (linker) é receber como entrada uma coleção de módulos de objeto e produzir um mó-
+dulo carregável, consistindo de um conjunto integrado de módulos de programa e dados para ser passado para o carregador. Em cada módulo objeto pode haver referências de endereços para posições em outros módulos. Cada referência dessas apenas pode ser expressa simbolicamente em um módulo objeto não vinculado. O linker cria um único módulo carregável que é uma junção contínua de todos os módulos objeto. Por exemplo, o módulo A na Figura B.12a contém uma chamada de um procedimento do módulo B. Quando esses módulos são combinados no módulo carregável, esta referência simbólica para o módulo B é alterada para uma referência específi ca na posição do ponto de entrada de B dentro do módulo carregável.
+EDITOR DE LIGAÇÃO (linkage editor) A natureza desta ligação de endereços vai depender do tipo de módulo 
+carregável a ser criado e de quando a ligação ocorre (Tabela B.3b). Se, como acontece normalmente, um módulo carregável realocável for desejado, então a ligação é normalmente feita da seguinte maneira. Cada módulo objeto compilado ou montado é criado com referências relativas ao início do módulo objeto. Todos esses módulos são juntados em um único módulo carregável realocável com todas as referências relativas à origem do módulo car-regável. Este módulo pode ser usado com entrada para carregamento realocável ou carregamento dinâmico em tempo de execução.
+Um linker que produz um módulo carregável realocável frequentemente é referido como um editor de ligação 
+(linkage editor). A Figura B.12 ilustra a função do editor de ligação.
+LIGAÇÃO DINÂMICA Como acontece com carregamento, é possível adiar algumas funções de ligação. O termo 
+ligação dinâmica é usado para se referir à prática de adiar a ligação de alguns módulos externos até depois de o módulo carregável ter sido criado. Desta forma, o módulo carregável contém referências não resolvidas para outros programas. Essas referências podem ser resolvidas em tempo de carregamento ou em tempo de execução.
+Para ligação dinâmica em tempo de carregamento (envolvendo biblioteca dinâmica superior na Figura B.9), 
+ocorrem os seguintes passos. O módulo carregável (módulo da aplicação) a ser carregado é lido para memória. Qualquer referência para um módulo externo (módulo alvo) faz com que o carregador localize o módulo alvo, carregue-o e altere a referência para um endereço na memória relativa ao início do módulo da aplicação. Existem várias vantagens para esta abordagem quando comparada ao que podemos chamar de ligação estática:
+Torna-se mais fácil incorporar versões alteradas ou atualizadas do módulo alvo, o que pode ser um utilitário 
+ 
+do sistema operacional ou alguma outra rotina de propósito geral. Com ligação estática, uma mudança em um módulo de suporte como esse iria requerer a religação do módulo da aplicação inteiro. Não apenas isso é inefi ciente, mas pode ser impossível em algumas circunstâncias. Por exemplo, no campo de computado-res pessoais, a maioria dos softwares comerciais é distribuída na forma de módulo carregável; versões fonte e objeto não são fornecidas.Ter código alvo em um arquivo de ligação dinâmico cria o caminho para compartilhamento automático de 
+ 
+código. O sistema operacional pode reconhecer que mais do que uma aplicação está usando o mesmo código alvo porque ela carregou e ligou esse código. Ele pode usar essa informação para carregar uma única cópia do código alvo e ligá-lo para ambas as aplicações, em vez de ter que carregar uma cópia para cada aplicação.
+Book 1.indb 597 19.11.09 14:41:26
+
+598 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Torna-se mais fácil para desenvolvedores independentes de software estender as funcionalidades de um sis- 
+tema amplamente usado como Linux. Um desenvolvedor pode aparecer com uma nova função que pode 
+ser útil para uma variedade de aplicações e distribuí-la como um módulo de ligação dinâmica.
+Com a ligação dinâmica em tempo de execução (envolvendo biblioteca dinâmica inferior na Figura B.9), al-
+gumas ligações são adiadas até o momento da execução. Referências externas para módulos alvos permanecem no programa carregado. Quando uma chamada é feita para módulo ausente, o sistema operacional localiza o módulo, carrega-o e liga-o com o módulo que fez a chamada. Tais módulos normalmente são compartilhados. No ambiente Windows, esses módulos são chamados de bibliotecas de ligação dinâmico (DLL, do inglês dynamic-link 
+libraries). Assim, se um processo já está fazendo uso de um módulo compartilhado ligado dinamicamente, então o módulo está na memória principal e um novo processo pode simplesmente ligar o módulo já carregado.
+O uso de DLL pode levar a um problema normalmente chamado de inferno de DLL. Isso ocorre se dois ou mais 
+processos estão compartilhando um módulo DLL, porém esperam versões diferentes do módulo. Por exemplo, uma aplicação ou uma função do sistema pode ser reinstalada e trazer consigo uma versão mais antiga de um arquivo DLL.
+Vimos que carregamento dinâmico permite que um módulo carregável inteiro seja movido; no entanto, a es-
+trutura do módulo é estática, permanecendo inalterada durante a execução do processo e de uma execução para outra. No entanto, em alguns casos, não é possível determinar antes da execução quais módulos de objeto serão necessários. Esta situação é comum em aplicações com processamento transacional, como um sistema de reservas aéreas ou uma aplicação bancária. A natureza da transação dita quais módulos de programa são necessários e eles são carregados conforme necessário e ligados ao programa principal. A vantagem do uso de tal ligado dinâmico é que não é necessário alocar memória para unidades do programa a não ser que essas unidades sejam referencia-das. Essa capacidade é usada para suportar sistemas de segmentação.
+Um aprimoramento adicional é possível: uma aplicação não precisa saber os nomes de todos os módulos ou 
+pontos de entrada que podem ser chamados. Por exemplo, um programa gráfico pode ser escrito para trabalhar com variedades de ploters, dos quais cada um é controlado por um driver diferente. A aplicação pode aprender o 0Endereços
+relativos
+JSR " L"
+Retornar
+Retornar
+RetornarL – 1
+L
+L + M – 1
+L + M
+L + M + N– 1Módulo A
+Módulo B
+(b) Módulo carregávelJSR "L + M"
+Módulo CCHAMAR B;Referência ex-
+terna para
+módulo BTamanho L
+RetornarMódulo A
+ (a) Módulos de objetoCHAMAR C;
+Tamanho MMódulo B
+Retornar
+Tamanho N
+RetornarMódulo CFigura B.12 A função de vinculação
+Book 1.indb 598 19.11.09 14:41:26
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 599
+nome do ploter que está instalado atualmente no sistema a partir de outro processo ou procurando por ele em um 
+arquivo de confi guração. Isso permite ao usuário da aplicação instalar um novo ploter que não existia no tempo em que a aplicação foi escrita.
+ B.4 Leitura recomendada e sites Web
+Salomon (1993c) cobre o projeto e a implementação de montadores e carregadores.
+Os assuntos sobre ligação e carregamento são cobertos em muitos livros sobre desenvolvimento de programas, 
+arquitetura de computação e sistemas operacionais. Uma obra particularmente detalhada é Beck (1997d). Clarke e 
+Merusi (1998e) também contém uma boa discussão. Uma discussão prática aprofundada deste assunto, com vários 
+exemplos de SO, é Levine (2000f).
+Bartlett (2003g) é uma obra excelente para aprender linguagem de montagem para processadores x86, adequada 
+para autoestudo. Carter (2006b) cobre linguagem de montagem para máquinas x86. Para o programador x86 sério, 
+Fog (2008a) é muito útil. Knaggs e Welsh (2004h) é uma obra aprofundada sobre linguagem de montagem ARM.
+ Sites Web recomendados
+gavin’s guide to 80x86 Assembly: uma boa e concisa visão geral sobre linguagem de montagem x86.The Art of Assembly Language programming: um megalivro online de 1 500 páginas sobre o assunto. Deve ser sufi ciente para qualquer estudante do assunto.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Montador (assembler) Rótulo Mnemônico
+Linguagem de montagem (assembly) Editor de ligação Montador de um passo
+Comentário Ligação Operando
+Diretiva Ligação dinâmica em tempo de carregamento Realocação
+Ligador dinâmico Carregamento Ligação dinâmica em tempo de execução
+Instrução Macro Montador de dois passos
+Perguntas de revisão
+B.1 Relacione alguns motivos por que vale a pena estudar programação na linguagem de montagem.
+B.2 O que é uma linguagem de montagem?
+B.3 Relacione algumas desvantagens da linguagem de montagem quando comparada a linguagens de alto nível.
+B.4 Relacione algumas vantagens da linguagem de montagem quando comparada a linguagens de alto nível.
+B.5 Quais são os elementos típicos de uma sentença da linguagem de montagem?
+B.6 Relacione e defi na brevemente quatro tipos diferentes de sentenças da linguagem de montagem.
+B.7 Qual é a diferença entre um montador de um passo e um montador de dois passos?
+Problemas
+B.1 Guerra de núcleo é um jogo de programação introduzido para o público no começo dos anos 1980 (DEWDnEY , 1984i), que foi popular por um 
+período de mais ou menos 15 anos. O Guerra de núcleo possui quatro componentes principais: uma matriz de memória de 8 000 endereços, uma 
+Book 1.indb 599 19.11.09 14:41:27
+
+600 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Tabela B.4 Linguagem de montagem CodeBlue
+(a) Conjunto de instruções
+Formato Significado
+DATA <value> <value> definido na posição atual
+COPY A, B Copia origem A para destino B
+ADD A, B Adiciona A para B, colocando resultado em B
+JUMP A Transfere execução para A
+JUMPZ A, B Se B = 0, transfere para A
+(b) Modos de endereçamento
+Modo Formato Significado
+Literal # seguido de valor Este é um modo imediato, o valor do operando está na instrução.
+Relativo Valor O valor representa um deslocamento da posição atual, a qual contém o operando.
+Indireto @ seguido de valorO valor representa um deslocamento da posição atual; a posição no 
+deslocamento contém o endereço relativo da posição que contém o operando.linguagem de montagem simplificada chamada Redcode, um programa executável chamado MARS (um acrônimo para Memory Array Redcode 
+Simulator – Simulador de Matriz de Memória Redcode) e um conjunto de programas de batalha que competem. Dois programas de batalha são 
+inseridos na matriz de memória em posições escolhidas aleatoriamente; nenhum programa sabe onde está o outro. O MARS executa os programas em uma versão simples de tempo compartilhado. Dois programas se alternam: uma única instrução do primeiro programa é executada, depois uma única instrução do segundo e assim por diante. O que um programa de batalha faz durante os seus ciclos de execução depende completamente do programador. O objetivo é destruir o outro programa arruinando suas instruções. neste problema e em vários seguintes, usamos uma linguagem 
+ainda mais simples, chamada de CodeBlue, para explorar alguns conceitos do Guerra de n úcleos.
+O CodeBlue contém apenas cinco sentenças de linguagem de montagem e usa três modos de endereçamento (Tabela B.4). Para a última 
+posição da memória, o endereço relativo +1 se refere à primeira posição da memória. Por exemplo, ADD #4, 6 adiciona 4 para o con-
+teúdo da posição relativa 6 e armazena o resultado na posição 6; JUMP @5 transfere a execução para o endereço de memória contido na 
+posição cincos slots depois da instrução JUMP atual.
+a. O programa Imp é uma única instrução COPY 0, 1. O que ele faz?
+b. O programa Dwarf é a seguinte sequência de instruções:
+ADD #4, 3
+COPY 2, @2JUMP –2DATA 0 
+O que ele faz?
+c. Reescreva Dwarf usando símbolos para que ele se pareça mais com um programa típico da linguagem de montagem.
+B.2 O que acontece se fizermos Imp e Dwarf brigarem?
+B.3 Escreva um programa de “bombardeamento” em CodeBlue que zera toda a memória (com a possível exceção das posições do programa).
+B.4 Como o programa a seguir se sairia contra Imp?
+Loop COPY #0, -1
+JUMP -1
+Dica : lembre que a execução de instruções alterna entre dois programas adversários.
+B.5 a. Qual é o valor da flag C de estado depois da seguinte sequência: 
+mov al, 3
+add al, 4
+Book 1.indb 600 19.11.09 14:41:28
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Apêndice B Linguagem de montagem (assembly) e assuntos relacionados 601
+Tabela B.4 Linguagem de montagem CodeBlue
+(a) Conjunto de instruções
+Formato Significado
+DATA <value> <value> definido na posição atual
+COPY A, B Copia origem A para destino B
+ADD A, B Adiciona A para B, colocando resultado em B
+JUMP A Transfere execução para A
+JUMPZ A, B Se B = 0, transfere para A
+(b) Modos de endereçamento
+Modo Formato Significado
+Literal # seguido de valor Este é um modo imediato, o valor do operando está na instrução.
+Relativo Valor O valor representa um deslocamento da posição atual, a qual contém o operando.
+Indireto @ seguido de valorO valor representa um deslocamento da posição atual; a posição no 
+deslocamento contém o endereço relativo da posição que contém o operando.b. Qual é o valor da flag C de estado depois da seguinte sequência:
+mov al, 3
+sub al, 4
+B.6 Considere a seguinte instrução nASM:
+cmp vleft, vright
+Para inteiros com sinal, existem três flags de estado que são relevantes. Se vleft = vright, então ZF é definida para 1. Se vleft > vright, ZF 
+é definida para 0 e SF = OF . Se vleft < vright, ZF é definida para 0 e SF ≠ OF . Por que SF = OF se vleft > vright?
+B.7 Considere o seguinte fragmento de código nASM:
+mov al, 0cmp al, alje next
+Escreve um programa equivalente de uma única instrução.
+B.8 Considere o seguinte programa em C:
+/*um simples programa C para encontrar média de 3 inteiros*/
+main (){int avg;
+int i1 = 20;int i2 = 13;int i3 = 82;avg = (i1 + i2 + i3)/3;
+}
+Escreva uma versão nASM deste programa.
+B.9 Considere o seguinte fragmento de código em C:
+if (EAX == 0) EBX = 1;else EBX = 2;
+Escreva um fragmento de código nASM equivalente.
+B.10 As diretivas de inicialização de dados podem ser usadas para inicializar várias posições. Por exemplo,
+db 0x55, 0x56, 0x57
+reserva três bytes e inicializa seus valores.
+O nASM suporta o simbolo especial $ para permitir que cálculos envolvam a posição de montagem corrente, ou seja, $ avalia até a posição de 
+montagem no início da linha que contém a expressão. Tendo em mente os dois fatos anteriores, considere a seguinte sequência de diretivas:
+message db ʻhello, worldʼmsglen equ $-message
+Qual é o valor atribuído ao símbolo msglen?
+B.11 Suponha três variáveis simbólicas V1, V2 e V3 que contêm valores inteiros. Escreva um fragmento de código nASM que move o menor valor 
+inteiro para ax. Use apenas as instruções mov, cmp e jbe.
+B.12 Descreva o efeito desta instrução: cmp eax, 1
+Suponha que uma instrução anterior tenha atualizado o conteúdo de eax.
+B.13 A instrução xchg pode ser usada para trocar os conteúdos de dois registradores. Suponha que o conjunto de instruções x86 não suporte essa 
+instrução.
+a. Implemente xchg ax, bx usando apenas instruções push e pop.
+b. Implemente xchg ax, bx usando apenas instrução xor (não envolva outros registradores).
+Book 1.indb 601 19.11.09 14:41:29
+
+602 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+B.14 n o seguinte programa, suponha que a, b, x, y sejam símbolos para posições da memória principal. O que o programa faz? Você pode respon-
+der à pergunta escrevendo a lógica equivalente em C.
+mov eax,a
+mov ebx,bxor eax,x
+xor ebx,yor eax,ebxjnz L2
+L1: ; sequência de instruções...
+jmp L3
+L2: ; outra sequência de instruções...
+L3:
+B.15 A Seção B.1 inclui um programa C que calcula o maior divisor comum de dois inteiros.
+a. Descreva o algoritmo em palavras e mostre como o programa implementa a abordagem do algoritmo de Euclides para calcular o maior divisor comum.
+b. Adicione comentários para o programa em linguagem de máquina da Figura B.3a para deixar claro que ele implementa a mesma lógica que o programa C.
+c. Repita a parte (b) para o programa da Figura B.3b.
+B.16 a. Um montador de dois passos pode lidar com símbolos futuros e, por isso, uma instrução pode usar um símbolo futuro como um operando. Isso nem sempre é verdadeiro para diretivas. A diretiva EQU, por exemplo, não pode usar um símbolo futuro. A diretiva ‘A EQU B+1’ é fácil de executar se B for definido previamente, porém é impossível se B for um símbolo futuro. Qual é razão disso?
+b. Sugira uma maneira para o montador eliminar esta limitação de tal forma que qualquer linha de código fonte possa usar símbolos futuros.
+B.17 Considere uma diretiva com símbolo MAX que possui a seguinte forma:
+símbolo MAX lista de expressõesO rótulo é obrigatório e possui o valor da maior expressão no campo de operando. Exemplo:
+MSGLEN MAX A, B, C ; onde A, B, C são símbolos definidos
+Como MAX é executado pelo montador e em que passo?
+ Referências
+ a FOG, A. Optimizing subroutines in assembly language: an optimization guide for x86 platforms. Copenhagen University College of Engineering, 2008. 
+Disponível em: <http://www.agner.org/optimize/>.
+ b CARTER, P . PC Assembly Language. 23 jul. 2006. Disponível no site web deste livro. c SALOMOn, D. Assemblers and loaders. Ellis horwood Ltd, 1993. Disponível no site Web deste livro. d BECK, L. System software. Reading, MA: Addison-Wesley, 1997. e CLARKE, D. e MERUSI, D. System software programming: the way things work. Upper Saddle River, nJ: Prentice hall, 1998. f LEVInE, J. Linkers and Loaders. San Francisco: Morgan Kaufmann, 2000. g BARTLETT, J. Programming from the Ground Up. 2003. Disponível no site Web deste livro. h KnAGGS, P . e WELSh, S. ARM: Assembly Language Programming. Bournemouth University, School of Design, Engineering, and Computing, ago. 2004. 
+Disponível em: <www.freetechbooks.com/arm-assembly-language-programming-t729.html>.
+ i DEWDnEY , A. "In the game called core war hostile programs engage in a battle of bits." Scientific American, mai. 1984. 
+Book 1.indb 602 19.11.09 14:41:29
+
+Glossário
+acesso direto A capacidade de obter dados de um dispositivo de armazenamento ou de entrar com dados para um 
+dispositivo de armazenamento em uma sequência independente de sua posição relativa, por meio de endereços que indicam o local físico dos dados.
+acesso direto à memória (dmA, do inglês direct memory access) Uma forma de E/S em que um módulo especial, cha-
+mado módulo de DMA (ou controlador DMA), controla a transferência de dados entre a memória principal e um módulo de E/S. 
+A CPU envia uma solicitação para a transferência de um bloco de dados ao módulo de DMA e é interrompida somente depois 
+que o bloco inteiro tiver sido transferido.
+acumulador O nome de um registrador da CPU, especifi cado em um formato de instrução de único endereço. O acumu-
+lador, ou AC, é implicitamente um dos dois operandos da instrução.
+arbitração de barramento O processo de determinar qual bus master concorrente terá permissão para acessar o 
+barramento.
+memória de controle Parte da memória que contém microcódigos.memória virtual O espaço de armazenamento que pode ser considerado como armazenamento principal endereçável 
+pelo usuário de um sistema de computação em que os endereços virtuais são mapeados para endereços reais. O tamanho da memória virtual é limitado pelo esquema de endereçamento do sistema de computação e pela quantidade de arma-zenamento auxiliar disponível, e não pelo número real de locais na memória principal. 
+arquitetura de computador Os recursos de um sistema visíveis a um programador ou, em outras palavras, os recursos 
+que possuem um impacto direto sobre a execução lógica de um programa. Alguns exemplos de recursos da arquitetura 
+de um computador incluem o conjunto de instruções, o número de bits (tamanho das palavras) utilizados para representar diversos tipos de dados (por exemplo, números, caracteres), mecanismos de E/S e técnicas para endereçar a memória.
+array lógico programável (pLA, do inglês programmable logic array) Um conjunto de portas lógicas cujas interco-
+nexões podem ser programadas para realizar uma função lógica específi ca.array redundante de discos independentes (RAId, do inglês redundant array of independent disks) Um conjunto 
+de discos em que parte da capacidade física de armazenamento é usada para armazenar informações redundantes sobre 
+os dados de usuário, armazenados no restante da capacidade de armazenamento. A informação redundante permite a regeneração de dados do usuário caso um dos discos membros do conjunto ou o caminho de acesso falhe.
+AscII Do inglês American Standard Code for Information Interchange. O ASCII é um código de 7 bits usado para representar 
+caracteres numéricos, alfabéticos e especiais, imprimíveis. Ele também inclui códigos para caracteres de controle, que não 
+são impressos ou exibidos, mas especifi cam alguma função de controle.
+autoindexação Uma forma de endereçamento indexado em que o registrador de índice é incrementado ou decremen-
+tado automaticamente, a cada referência de memória.
+barramento Um caminho de comunicações compartilhado consistindo em uma única linha ou uma coleção de linhas. Em 
+alguns sistemas de computação, CPU, memória e componentes de E/S são conectados por um barramento comum. Como as linhas são compartilhadas por todos os componentes, somente um componente de cada vez pode transmitir com sucesso.
+Book 1.indb 603 19.11.09 14:41:31
+
+604 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+barramento de controle A parte de um barramento de um sistema de computação usada para a transferência de sinais 
+de controle.
+barramento de dados A parte de um barramento de um sistema de computação usada para transferência de dados.barramento de endereço A parte de um barramento de um sistema de computação usada para transferência de um 
+endereço. Normalmente, o endereço identifica um local da memória principal ou um dispositivo de E/S.barramento do sistema Um barramento utilizado para interconectar os principais componentes do computador (CPU, 
+memória, E/S).
+base No sistema de numeração normalmente usado em artigos científicos, o número que é elevado à potência indicada 
+pelo expoente e depois multiplicado pela mantissa, para determinar o número real representado (por exemplo, o número 10 na expressão 2,7 ×10
+2 = 270).
+bit Dígito binário. No sistema de numeração binário puro, um dos dígitos 0 e 1.
+bit de paridade Um dígito binário anexado a um grupo de dígitos binários para fazer com que a soma de todos os dígitos 
+binários sempre seja ímpar (paridade ímpar) ou par (paridade par).
+bloco de controle de processo A manifestação de um processo em um sistema operacional. Ele é uma estrutura de 
+dados contendo informações sobre as características e o estado do processo.
+buffer Armazenamento usado para compensar a diferença na taxa de fluxo de dados, ou no tempo de ocorrência de 
+eventos, ao transferir dados de um dispositivo para outro.
+bus master Um dispositivo conectado a um barramento capaz de iniciar e controlar a comunicação no barramento.byte Uma sequência de oito bits. Também chamado de octeto.
+cache Uma memória rápida relativamente pequena, interposta entre uma memória maior e mais lenta, e a lógica que 
+acessa a memória maior. A cache mantém dados acessados recentemente, e é projetada para agilizar o acesso subsequen-te aos mesmos dados, ou a dados com localizações adjacentes.
+canal de e/s Um módulo de E/S relativamente complexo, que libera a CPU dos detalhes das operações de E/S. Um canal de E/S 
+executa uma sequência de comandos de E/S a partir da memória principal sem a necessidade de envolvimento da CPU.canal multiplexador Um canal projetado para operar com uma série de dispositivos de E/S simultaneamente. Diversos 
+dispositivos de E/S podem transferir registros ao mesmo tempo, intercalando itens de dados. Ver também canal multiple-
+xador de byte, canal multiplexador de bloco.
+canal multiplexador de bloco Um canal multiplexador que intercala blocos de dados. Ver também canal multiplexador 
+de byte. Compare com canal seletor.canal multiplexador de byte Um canal multiplexador que intercala bytes de dados. Ver também canal de multiplexador 
+de bloco. Compare com canal seletor.canal seletor Um canal de E/S projetado para operar com apenas um dispositivo de E/S de cada vez. Quando o dispositi-
+vo de E/S é selecionado, um registro completo é transferido, com um byte de cada vez. Compare com canal multiplexador 
+de bloco, canal multiplexador.
+cd-Rom Do inglês Compact Disk Read-Only Memory. Um disco não apagável usado para armazenar dados do computa-
+dor. O sistema padrão utiliza discos de 12 cm e pode manter mais de 550 MB.ciclo de busca A parte do ciclo de instrução durante a qual a CPU busca da memória a instrução a ser executada.ciclo de execução A parte do ciclo de instrução durante a qual a CPU realiza a operação especificada pelo opcode da 
+instrução.ciclo de instrução O processamento realizado por uma CPU para executar uma única instrução.ciclo de interrupção A parte do ciclo da instrução durante a qual a CPU verifica as interrupções. Se uma interrupção 
+habilitada estiver pendente, a CPU salva o estado atual do programa e retoma o processamento em uma rotina de trata-mento de interrupção.
+ciclo indireto A parte do ciclo de instrução durante a qual a CPU realiza um acesso à memória para converter um ende-
+reço indireto em um endereço direto.
+circuito combinacional Um circuito lógico digital cujos valores de saída, em qualquer instante, dependem apenas dos 
+valores de entrada nesse instante. Um circuito combinacional é um caso especial de um circuito sequencial, que não tem uma capacidade de armazenamento. Sinônimo de circuito combinatório.
+Book 1.indb 604 19.11.09 14:41:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es glossário 605
+circuito integrado ( cI) Um pequeno pedaço de material sólido, como o silício, no qual é gravado ou impresso um con-
+junto de componentes eletrônicos e suas interconexões.
+circuito sequencial Um circuito lógico digital cuja saída depende da entrada atual e do estado do circuito. Os circuitos 
+sequenciais, portanto, possuem o atributo de memória.
+cluster Um grupo de computadores interconectados, completos, trabalhando juntos como um recurso de computação 
+unificado, que pode criar a ilusão de ser uma única máquina. O termo computador completo significa um sistema que pode 
+funcionar por conta própria, separado do cluster.
+código de condição Um código que reflete o resultado de uma operação anterior (por exemplo, aritmética). Uma CPU 
+pode incluir um ou mais códigos de condição, que podem ser armazenados separadamente dentro da CPU ou como parte de um registrador de controle maior. Também conhecido como flag.
+código de correção de erro Um código em que cada caractere ou sinal se ajusta a regras específicas da construção, de 
+modo que a quebra dessas regras indica a presença de um erro e que alguns ou todos os erros detectados podem ser corrigidos automaticamente.
+código de detecção de erro Um código em que cada caractere ou sinal se ajusta a regras específicas da construção, de 
+modo que a quebra dessas regras indica a presença de um erro.
+código de operação Código usado para representar as operações do computador. Normalmente abreviado para opcode. 
+compact disk (cd) Um disco não apagável que armazena informações de áudio digitalizado.componente em estado sólido Um componente cuja operação depende do controle de fenômenos elétricos ou mag-
+néticos nos sólidos (por exemplo, transistor, diodo a cristal, núcleo de ferrite).
+computação de alto desempenho (Hpc, do inglês high-performance computing) Uma área de pesquisa que lida 
+com supercomputadores e o software que é executado neles. A ênfase é nas aplicações científicas, que podem envolver 
+um uso pesado de cálculos de vetores e matrizes e algoritmos paralelos.
+comunicação de dados Transferência de dados entre dispositivos. O termo geralmente exclui a E/S.conjunto de instruções do computador Um conjunto completo dos operadores das instruções de um computador, 
+junto com uma descrição dos tipos de significados que podem ser atribuídos aos seus operandos. Sinônimo de conjunto 
+de instruções de máquina.
+contador de programa (PC, do inglês program counter) Registrador de endereço da instrução. controlador de e/s Um módulo de E/S relativamente simples, que requer o controle da CPU ou de um canal de E/S. 
+Sinônimo de controlador de dispositivo.cpu microprogramada Uma CPU cuja unidade de controle é implementada usando microprogramação.daisy chain Um método de interconexão de dispositivo para determinar a prioridade de interrupção conectando as fon-
+tes, que geram a interrupção, em série.
+decodificador Um dispositivo que tem um número de linhas de entrada das quais qualquer número de linhas pode 
+transportar sinais e um número de linhas de saída das quais não mais do que uma pode transportar um sinal, havendo uma correspondência um-para-um entre as saídas e as combinações de sinais de entrada.
+envio de instrução O processo de iniciar a execução da instrução nas unidades funcionais do processador. Isso ocorre 
+quando uma instrução se movimenta do estágio de decodificação do pipeline para o primeiro estágio de execução do pipeline.
+disco magnético Um prato circular com uma camada de superfície magnetizável, em um ou em ambos os lados, nos 
+quais os dados podem ser armazenados.
+disco óptico apagável Um disco que usa tecnologia óptica, mas que pode ser facilmente apagado e regravado. Estão 
+em uso discos de 3,25 polegadas e de 5,25 polegadas. Uma capacidade típica é de 650 MB.
+disquete Um disco magnético flexível envolvido em um recipiente protetor. Sinônimo de disco flexível.e/s controlada por interrupção Uma forma de E/S. A CPU emite um comando de E/S, continua a executar instruções 
+subsequentes e é interrompida pelo módulo de E/S quando seu trabalho estiver completo.
+e/s isolada Um método de endereçar módulos de E/S e dispositivos externos. O espaço de endereços de E/S é tratado 
+separadamente do espaço de endereços da memória principal. Instruções de máquina específicas de E/S precisam ser usadas. Compare com E/S mapeada na memória.
+Book 1.indb 605 19.11.09 14:41:31
+
+606 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+e/s mapeada na memória Um método de endereçamento de módulos de E/S e dispositivos externos. Um único espaço 
+de endereços é usado para a memória principal e para os endereços de E/S, e as mesmas instruções de máquina são usa-das para leitura/escrita da memória e de E/S.
+e/s programada Uma forma de E/S em que a CPU emite um comando de E/S a um módulo de E/S e necessita esperar o 
+término da operação, antes de prosseguir seu processamento.
+emulação A imitação de todo ou parte de um sistema por outro, principalmente pelo hardware, de modo que o sistema que 
+está imitando aceita os mesmos dados, executa os mesmos programas e alcança os mesmos resultados do sistema imitado.
+endereço absoluto Um endereço em uma linguagem de computação que identifica um local de armazenamento ou 
+um dispositivo, sem o uso de qualquer referência intermediária.
+endereço base Um valor numérico que é usado como uma referência no cálculo dos endereços, na execução de um 
+programa de computador.
+endereço direto Um endereço que designa o local de armazenamento de um item de dados a ser tratado como operan-
+do. Sinônimo de endereço de nível um.
+endereço imediato Conteúdo de um campo de endereço que contém o valor do operando e não o endereço do ope-
+rando. Sinônimo de endereço de nível zero.
+endereço indexado Um endereço que é modificado pelo conteúdo de um registrador de índice antes ou durante a 
+execução de uma instrução do computador.
+endereço indireto Um endereço de um local de armazenamento que contém outro endereço.entrada/saída (e/s) Pertencente a entrada, saída ou ambos. Refere-se à movimentação de dados entre um computador 
+e um periférico ligado diretamente.
+equipamento periférico Em um sistema de computação, com relação a uma unidade de processamento em particular, 
+qualquer equipamento que oferece comunicação externa para a unidade de processamento. Sinônimo de dispositivo 
+periférico.
+escalar Uma quantidade caracterizada por um único valor.espaço de endereçamento O intervalo de endereços (memória ou E/S) que pode ser referenciado.execução especulativa A execução das instruções ao longo de um caminho de um desvio. Se mais tarde esse desvio não 
+for tomado, então os resultados da execução especulativa são descartados.
+execução prevista Um mecanismo que admite a execução condicional de instruções individuais. Isso possibilita a execu-
+ção especulativa de desvios de uma instrução de desvio, e manutenção dos resultados do último desvio que foi tomado.
+falta de página Ocorre quando uma página contendo uma palavra referenciada não está na memória principal. Isso 
+causa uma interrupção e exige que o sistema operacional traga a página necessária.firmware Microcódigo armazenado em uma memória somente de leitura.fita magnética Uma fita com uma camada de superfície magnetizável, onde os dados podem ser armazenados por 
+gravação magnética.
+flip-flop Um circuito ou dispositivo contendo elementos ativos, capazes de assumir um ou dois estados estáveis em um 
+determinado momento. Sinônimo de circuito biestável, toogle.
+formato de instrução O layout de uma instrução de computador como uma sequência de bits. O formato divide a ins-
+trução em campos, correspondentes aos elementos constituintes da instrução (por exemplo, opcode, operandos).frame de página Uma área do armazenamento principal usada para manter uma página.g Prefixo significando 2
+30.
+indexação Uma técnica de modificação de endereço por meio de registradores de índice.instrução de computador Uma instrução que pode ser reconhecida pela unidade de processamento do computador 
+para o qual ela foi projetada. Sinônimo de instrução de máquina.
+interrupção Uma suspensão de um processo, como a execução de um programa do computador, causada por um even-
+to externo a esse processo, e realizada de modo que o processo possa ser retomado. interrupção desabilitada Uma condição, normalmente criada pela CPU, durante a qual esta ignora os sinais de solicita-
+ção de interrupção de uma classe especificada.
+Book 1.indb 606 19.11.09 14:41:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es glossário 607
+interrupção habilitada Uma condição, normalmente criada pela CPU, durante a qual esta responde a sinais de solicita-
+ção de interrupção de uma classe especificada.
+K Prefixo significando 210 = 1.024. Assim, 2Kb = 2.048 bits.
+linguagem de montagem (linguagem assembly) Uma linguagem orientada ao computador cujas instruções normal-
+mente têm correspondência um-para-um com as instruções do computador, e que pode oferecer facilidades como o uso de macroinstruções. Sinônimo de linguagem dependente do computador.
+linguagem de microprogramação Um conjunto de instruções usado para especificar microprogramas.linha de cache Um bloco de dados que constitui a unidade de transferência entre cache e memória. A ela está associada 
+uma tag, que a identifica na memória cache. 
+localidade de referência A tendência de um processador de acessar o mesmo conjunto de locais de memória repeti-
+damente por um curto período.m Prefixo significando 2
+20 = 1.048.576. Assim, 2 Mb = 2.097.152 bits.
+mainframe Um termo originalmente referenciando o gabinete que contém a unidade central de processamento ou 
+“main frame” de uma grande máquina de processamento em lotes (batch). Após o surgimento do projeto de minicompu-tadores, no início da década de 1970, as máquinas tradicionais maiores foram descritas como computadores mainframe, ou mainframes. As características típicas de um mainframe são que ele suporta um banco de dados grande, possui um hardware de E/S elaborado e é usado em uma instalação de processamento de dados central.
+memória associativa Uma memória cujos locais de armazenamento são identificados por seu conteúdo, ou por uma 
+parte de seu conteúdo, em vez de suas posições.
+memória cache É um buffer especial para armazenamento, menor e mais rápido que o armazenamento principal, usado 
+para manter uma cópia de instruções e dados, obtidos do armazenamento principal, que provavelmente serão utilizados em seguida, pelo processador.
+memória de acesso aleatório (RAm, do inglês random-access memory) Memória em que cada local endereçável 
+tem um mecanismo de endereçamento. O tempo para acessar um determinado local independe da sequência de acesso 
+anterior.
+memória não volátil Memória cujo conteúdo é estável e não exige uma fonte de alimentação constante.memória principal Armazenamento endereçável pelo programa, do qual as instruções e outros dados podem ser carre-
+gados diretamente em registradores para subsequente execução ou processamento.memória secundária Memória localizada fora do próprio sistema de computação, ou seja, ela não pode ser proces-
+sada diretamente pelo processador. Ela primeiro deve ser copiada para a memória principal. Alguns exemplos incluem discos e fitas.
+memória somente de leitura (R om, do inglês ready-only memory) Memória semicondutora cujo conteúdo não 
+pode ser alterado, exceto destruindo a unidade de armazenamento. Memória não apagável.memória somente de leitura programável (pRom, do inglês programmable read-only memory) Memória semi-
+condutora cujo conteúdo pode ser definido apenas uma vez. O processo de escrita é realizado eletricamente e pode ser 
+realizado pelo usuário em um momento posterior à fabricação original do chip.
+memória volátil Uma memória em que uma fonte de alimentação elétrica constante é necessária para manter o conte-
+údo da memória. Se a energia for desligada, a informação armazenada é perdida.
+microcomputador Um sistema de computador cuja unidade de processamento é um microprocessador. Um micro-
+computador básico inclui um microprocessador, armazenamento e uma facilidade para entrada/saída, que podem ou não estar em um único chip.
+microinstrução Uma instrução que controla o fluxo e a sequência de dados em um processador em um nível mais 
+fundamental do que as instruções de máquina. Instruções de máquina individuais e talvez outras funções podem ser implementadas por microprogramas.
+micro-operação Uma operação elementar da CPU, realizada durante um pulso de clock.microprocessador Um processador cujos elementos foram minimizados para um ou alguns circuitos integrados.microprograma Uma sequência de microinstruções que estão em um armazenamento especial, onde podem ser aces-
+sadas dinamicamente para realizar diversas funções.
+Book 1.indb 607 19.11.09 14:41:31
+
+608 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+módulo de e/s Um dos principais tipos de componente de um computador. Ele é responsável pelo controle de um ou 
+mais dispositivos externos (periféricos) e pela troca de dados entre esses dispositivos e a memória principal e/ou registra-dores da CPU.
+multiplexador Um circuito combinatório que conecta múltiplas entradas a uma única saída. A qualquer momento, ape-
+nas uma das entradas é selecionada para ser passada para a saída.
+multiprocessador Um computador que tem dois ou mais processadores, que possuem acesso comum a um armaze-
+namento principal.
+multiprocessador de acesso não uniforme à memória (n um A, do inglês monuniform memory access) Um mul-
+tiprocessador de memória compartilhada, em que o tempo de acesso para determinado processador a uma palavra na 
+memória varia com o local desta palavra na memória.
+multiprocessamento simétrico (smp , do inglês symmetric multiprocessing) Uma forma de multiprocessamento 
+que permite que o sistema operacional seja executado em qualquer processador disponível ou em diversos processadores 
+disponíveis, simultaneamente.
+multiprogramação Um modo de operação que permite a execução intervalada de dois ou mais programas de compu-
+tador por um único processador.
+multitarefa Um modo de operação que oferece desempenho concorrente ou execução intervalada de duas ou mais 
+tarefas do computador. O mesmo que multiprogramação, usando uma terminologia diferente.
+núcleo (kernel) A parte de um sistema operacional que contém suas funções básicas e usadas com mais frequência. 
+Normalmente o núcleo permanece residente na memória principal.
+opcode Forma abreviada para operation code. Ver código operacional.
+operador binário Um operador que representa uma operação sobre dois e somente dois operandos.operador unário Um operador que representa uma operação sobre um e somente um operando.operando Uma entidade sobre a qual uma operação é realizada.organização do computador Refere-se às unidades operacionais e suas interconexões, que realizam as especificações da 
+arquitetura do computador. Os recursos da organização do computador incluem os detalhes do hardware transparentes ao programador, tais como sinais de controle, interfaces entre o computador e periféricos e a tecnologia de memória utilizada.
+ortogonalidade Um princípio pelo qual duas variáveis ou dimensões são independentes umas das outras. No contexto 
+de um conjunto de instruções, o termo geralmente é usado para indicar que outros elementos de uma instrução (modo de endereçamento, número de operandos, tamanho do operando) são independentes do (não determinados pelo) opcode.
+pack de discos Uma montagem de discos magnéticos que podem ser removidos como um todo de uma unidade de 
+disco, junto com um recipiente do qual a montagem deverá ser separada quando estiver operando.página Em um sistema de armazenamento virtual, um bloco de tamanho fixo que tem um endereço virtual e que é 
+transferido como uma unidade entre o armazenamento real e o armazenamento auxiliar.paginação por demanda A transferência de uma página do armazenamento auxiliar para o armazenamento real, quan-
+do necessário.
+palavra (word) Um conjunto ordenado de bytes ou bits, que é a unidade normal em que a informação pode ser arma-
+zenada, transmitida ou operada dentro de determinado computador. Normalmente, se um processador tem um conjunto de instruções de tamanho fixo, então o tamanho da instrução é igual ao tamanho da palavra.
+palavra de instrução muito longa (VLIW, do inglês very long instruction word) Refere-se ao uso de instruções que 
+contêm múltiplas operações. Com efeito, múltiplas instruções estão contidas em uma única palavra. Normalmente, uma 
+VLIW é construída pelo compilador, que coloca operações que possam ser executadas em paralelo na mesma palavra.
+palavra de estado do programa ( psW, do inglês program status word) Uma área no armazenamento usada para in-
+dicar a ordem em que as instruções são executadas, e para manter e indicar o estado do sistema de computação. Sinônimo 
+de palavra de estado do processador.
+pilha Uma lista ordenada em que os itens são inseridos e excluídos da mesma extremidade da lista, conhecida como topo. Ou seja, o próximo item inserido à lista é colocado no topo, e o próximo item a ser removido da lista é o item que estava na lista por menos tempo. Esse método é caracterizado como “último a entrar, primeiro a sair” (last-in-first-out).
+Book 1.indb 608 19.11.09 14:41:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es glossário 609
+pipeline Uma organização de processador em que o processador consiste de uma série de estágios, permitindo que 
+múltiplas instruções sejam executadas simultaneamente.
+porta lógica Um circuito eletrônico que produz um sinal de saída que é uma operação booleana simples de seus sinais 
+de entrada.previsão de desvio (branch prediction) Um mecanismo utilizado pelo processador para prever o resultado de um 
+desvio condicional do programa, antes de sua execução.
+processador Em um computador, uma unidade funcional que interpreta e executa instruções. Um processador consiste 
+em pelo menos uma unidade de controle de instrução e uma unidade aritmética.
+processador de e/s Um módulo de E/S com seu próprio processador, capaz de executar suas próprias instruções, espe-
+cíficas, de E/S ou, em alguns casos, instruções de máquina de uso geral.processador superescalar Um projeto ou processador que inclui pipelines de múltiplas instruções, de modo que mais 
+de uma instrução pode ser executada no mesmo estágio de pipeline simultaneamente.processador com superpipeline Um projeto de processador em que o pipeline de instrução consiste em muitos está-
+gios pequenos, de modo que mais de um estágio de pipeline pode ser executado durante um ciclo de clock e, com isto, um grande número de instruções pode estar no pipeline ao mesmo tempo.
+processo Um programa em execução. Um processo é controlado e escalonado pelo sistema operacional (SO).protocolo de coerência de cache Um mecanismo para manter a validade dos dados entre múltiplas caches, de 
+modo que cada acesso aos dados sempre adquira a versão mais recente do conteúdo de uma palavra da memória principal.
+RAm dinâmica Uma memória RAM cujas células são implementadas usando capacitores. Uma RAM dinâmica perderá 
+seus dados gradualmente, a menos que os dados sejam reescritos periodicamente (refresh de memória).RAm estática Uma memória RAM cujas células são implementadas por meio de flip-flops. Uma RAM estática manterá 
+seus dados enquanto houver energia nela; os dados não necessitam ser reescritos periodicamente (refresh de memória).registrador de buffer de memória (mBR, do inglês memory buffer register) Um registrador que contém os dados 
+lidos da memória ou os dados a serem escritos na memória.registrador de endereço de instrução Um registrador de uso especial, utilizado para manter o endereço da próxima 
+instrução a ser executada.
+registrador de endereço de memória (m AR, do inglês memory address register) Um registrador, em uma unidade 
+de processamento, que contém o endereço do local de memória que está sendo acessado.registrador de índice Um registrador cujo conteúdo pode ser usado para modificar um endereço de operando durante 
+a execução de instruções; ele também pode ser usado como um contador. Um registrador de índice pode ser usado para controlar a execução de um loop, para controlar o uso de um array, como uma chave, para pesquisa em uma tabela de 
+pesquisa ou como um ponteiro.
+registrador de instrução Um registrador que é usado para manter uma instrução para interpretação.registrador de propósito geral Um registrador, normalmente endereçável explicitamente, dentro de um conjunto de 
+registradores, que pode ser usado para diferentes finalidades como, por exemplo, um acumulador, um registrador de índi-
+ce ou um manipulador especial de dados.
+registradores A memória de alta velocidade, interna à CPU. Alguns registradores são visíveis ao usuário, ou seja, estão 
+disponíveis ao programador por meio do conjunto de instruções da máquina. Outros registradores são usados apenas pela CPU, para fins de controle.
+registradores de controle Registradores da CPU empregados para controlar a operação desta. A maioria deles não é 
+visível ao usuário.registradores visíveis ao usuário Registradores da CPU que podem ser referenciados pelo programador. O formato 
+do conjunto de instruções permite que um ou mais registradores sejam especificados como operandos ou endereços de operandos.
+representação em complemento de um Usada para representar inteiros binários. Um inteiro positivo é representado 
+como na representação sinal-magnitude. Um inteiro negativo é representado pela reversão de cada bit, na representação de um inteiro positivo de mesma magnitude.
+Book 1.indb 609 19.11.09 14:41:31

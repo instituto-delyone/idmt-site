@@ -1,0 +1,1090 @@
+Derivação e integração numérica 122
+Obtemos assim duas fórmulas de diferenças ﬁnitas de primeira ordem em hpara aproximar
+a primeira derivada de uma função num ponto. A
+(+f)(xk) =f(xk+1)f(xk)
+h
+é usual chamar fórmula de diferenças ﬁnitas progressivas e a
+(f)(xk) =f(xk)f(xk1)
+h
+costuma chamar-se fórmula de diferenças ﬁnitas regressivas .
+Fórmulas com três pontos
+Para obter fórmulas mais precisas para aproximar a primeira derivada de uma função num
+ponto, vamos considerar fórmulas com mais pontos. No próximo exercício apresentam-se
+as fórmulas de diferenças ﬁnitas progressivas, centradas e regressivas com três pontos.
+Exercício 6.1 Prove que:
+1.f0(xk) =1
+2h[3f(xk) + 4f(xk+1)f(xk+2)] +h2
+3f000(); 2]xk;xk+2[;
+2.f0(xk) =1
+2h[f(xk+1)f(xk1)]h2
+6f000(); 2]xk1;xk+1[;
+3.f0(xk) =1
+2h[f(xk2)4f(xk1) + 3f(xk)] +h2
+3f000(); 2]xk2;xk[.
+Resolução: Vamos só deduzir a segunda fórmula. Desenvolvendo fem série de Taylor em
+torno do ponto xk, e assumindo que f2C3([a;b]), temos
+f(xk+1) =f(xk) +f0(xk)h+h2
+2f00(xk) +h3
+6f000(1);  12]xk;xk+1[;
+f(xk1) =f(xk)f0(xk)h+h2
+2f00(xk)h3
+6f000(2);  22]xk1;xk[:
+Subtraindo membro a membro, e colocando f0(xk)em evidência, obtemos
+f0(xk) =1
+2h[f(xk+1)f(xk1)]h2f000(1) +f000(2)
+12;  12]xk;xk+1[;22]xk1;xk[:
+Comof000é contínua em [a;b], existe um2]xk1;xk+1[tal que
+f000() =1
+2
+f000(1) +f000(2)
+: (6.2)
+De facto, atendendo a que f000é contínua e o intervalo [a;b]é fechado, temos que
+2 min
+x2[a;b]f000(x)f000(1) +f000(2)2 max
+x2[a;b]f000(x):
+Pelo Teorema de Bolzano conclui-se que existe 2]xk1;xk+1[tal que (6.2) se veriﬁca.
+Provámos, assim, que
+f0(xk) =1
+2h[f(xk+1)f(xk1)]h2f000()
+6; 2]xk1;xk+1[:
+
+Derivação e integração numérica 123
+A
+(f)(xk) =1
+2h[f(xk+1)f(xk1)]
+chamamos fórmula de diferenças ﬁnitas centradas de segunda ordem em h.
+O próximo exercício generaliza o raciocínio efectuado no exercício anterior e vai ser
+usado, frequentemente, para deduzir as fórmulas do erro na derivação e na integração
+numérica.
+Exercício 6.2 Mostre que, se ffor uma função contínua em [a;b]ek2[a;b], parak=
+1;:::;M, então existe um 2[a;b]tal que
+f() =1
+MMX
+k=1f(k):
+Exercício 6.3 Considere os seguintes valores da função f(x) =xex:
+xi 1,8 1,9 2,0 2,1 2,2
+f(xi)10,889365 12,703199 14,778112 17,148957 19,855030.
+Aproxime o valor de f0(2;0) = 22;167168usando as fórmulas de diferenças ﬁnitas dadas no
+exercício anterior e compare os erros cometidos.
+Resolução: Vamos considerar as três fórmulas separadamente.
+Fórmula progressiva de segunda ordem com h= 0:1.
+f0(2;0)1
+0;2[3f(2;0) + 4f(2;1)f(2;2)] = 22;032310:
+O erro cometido é aproximadamente 1;35101.
+Fórmula regressiva de segunda ordem com h= 0;1.
+f0(2;0)1
+0;2[f(1;8)4f(1;9) + 3f(2;0)] = 22;054525:
+O erro cometido é aproximadamente 1;13101.
+Fórmula centrada de segunda ordem com h= 0;1.
+f0(2;0)1
+0;2[f(2;1)f(1;9)] = 22;228790:
+O erro cometido é aproximadamente 6;16102.
+Note-se que o erro cometido quando se usa a fórmula de diferenças centradas é aproxi-
+madamente metade do erro cometido com as outras fórmulas, o que conﬁrma o resultado
+do exercício anterior.
+
+Derivação e integração numérica 124
+6.1.2 Aproximação da segunda derivada
+Queremos aproximar a segunda derivada de fnum dos pontos xk,k2f0;1;:::;ng, da
+partição (6.1). Desenvolvendo fem série de Taylor em torno do ponto xk, e assumindo
+quef2C4([a;b]), temos
+f(xk+1) =f(xk) +f0(xk)h+h2
+2f00(xk) +h3
+6f000(xk) +h4
+24f(4)(1);  12]xk;xk+1[
+e
+f(xk1) =f(xk)f0(xk)h+h2
+2f00(xk)h3
+6f000(xk) +h4
+24f(4)(2);  22]xk1;xk[:
+Se adicionarmos estas duas expressões obtemos
+f00(xk) =1
+h2[f(xk1)2f(xk) +f(xk+1)]h2
+24
+f(4)(1) +f(4)(2)
+:
+Uma vez que f(4)é contínua em [xk1;xk+1], o Exercício 6.2 permite concluir que existe
+um2]xk1;xk+1[tal que
+f(4)() =1
+2
+f(4)(1) +f(4)(2)
+:
+Assim,
+f00(xk) =1
+h2[f(xk1)2f(xk) +f(xk+1)]h2
+12f(4)(): (6.3)
+A fórmula
+(2f)(xk) =1
+h2[f(xk1)2f(xk) +f(xk+1)] (6.4)
+é conhecida como fórmula de diferenças centradas de segunda ordem para aproximar a se-
+gunda derivada. Por um raciocínio semelhante poderiam ser obtidas outras fórmulas de
+diferenças ﬁnitas para aproximar a segunda derivada, não só centradas como também pro-
+gressivas e regressivas.
+Exercício 6.4 Prove que
+f00(xk) =1
+12h2[f(xk2) + 16f(xk1)30f(xk) + 16f(xk+1)f(xk+2)] +h4
+90f(6)();
+com2]xk2;xk+2[:
+Exercício 6.5 Considere, de novo, os valores da função f(x) =xexdados na tabela do
+Exercício 6.3. Aproxime o valor de f00(2;0) = 29;556224usando a fórmula de diferenças ﬁnitas
+centradas de segunda ordem.
+Resolução: Temos que
+f00(2;0)1
+0;01[f(1;9)2f(2;0) +f(2;1)] = 29;593200:
+O erro cometido é aproximadamente 3;7102.
+Exercício 6.6 Mostre, a partir do polinómio interpolador de Lagrange da função fnos pontos
+x0,x1ex2, tais quex1x0=hex2x1=h, que
+f00(x)2
+h2f(x0)
+1 +f(x1)
++f(x2)
+(1 +)
+:
+Veriﬁque que quando = 1se recupera a fórmula das diferenças centradas.
+
+Derivação e integração numérica 125
+6.2 Integração numérica
+Nesta secção vamos obter e analisar as chamadas fórmulas de quadratura numérica que
+permitem determinar, de forma aproximada, o integral deﬁnido
+I(f) =Zb
+af(x)dx
+de uma função real de variável real fnum dado intervalo real [a;b].
+Sejafuma função conhecida em M+ 1pontosa=x0<x 1<<xM1<xM=b,
+comxk=x0+kHeH= (ba)=M. Assim sendo, temos que
+I(f) =Zb
+af(x)dx=MX
+k=1Zxk
+xk1f(x)dx:
+Aschamadasfórmulasqueiremosconsiderarpermitemobteraproximaçõesa I(f)apro-
+ximando, emcadaintervalo Ik= [xk1;xk],k= 1;:::;M, afunçãofporumseupolinómio
+interpolador. Se Pk
+nfor o polinómio de grau menor ou igual a ninterpolador de femn+1
+pontos deIk, temos que f(x) =Pk
+n(x) +ek
+n(x);comx2Ik, ondeek
+n(x)é o erro cometido
+na interpolação. Assim,
+I(f) =INC(f;n) +ENC(f;n);
+com
+INC(f;n) =MX
+k=1Zxk
+xk1Pk
+n(x)dxeENC(f;n) =MX
+k=1Zxk
+xk1ek
+n(x)dx: (6.5)
+As fórmulas (6.5) são conhecidas como fórmulas de Newton-Cotes (compostas) , em homena-
+gem a Newton e Roger Cotes (1682-1716), e dependem, obviamente, do grau do polinómio
+escolhido. As fórmulas de Newton-Cotes (simples) são aquelas que se obtêm quando se
+consideraM= 1ou, de forma equivalente, H=ba.
+Uma vez que a n-ésima fórmula de Newton-Cotes é obtida à custa da aproximação da
+função integranda por um polinómio de grau n, será de esperar que esta seja exacta para
+polinómios de grau menor ou igual a n. Este facto conduz-nos ao conceito de grau de
+exactidão de uma fórmula de quadratura numérica.
+Deﬁnição 6.1 (Grau de exactidão) Uma fórmula de quadratura numérica (6.5)
+diz-se com grau de exactidão nse é exacta para polinómios de grau menor ou igual a
+n.
+Outra forma de analisar o erro cometido ao aproximar um integral por uma fórmula de
+quadratura numérica é através da sua ordem de convergência.
+Deﬁnição 6.2 (Ordem de convergência) Uma fórmula de quadratura numérica (6.5)
+diz-se com ordem de convergência psejENC(f;n)jCHp;comCuma constante indepen-
+dente deHeM.
+6.2.1 Fórmula do ponto médio
+Consideremos, em Ik,k= 1;:::;M, afunçãofaproximadapeloseupolinómiointerpolador
+de grau 0 no ponto médio do intervalo xk= (xk1+xk)=2, isto é,
+f(x)f(xk); x2Ik:
+
+Derivação e integração numérica 126
+Para isso, a função ftambém terá que ser conhecida nos pontos xk,k= 1;:::;M. Então,
+I(f) =Zb
+af(x)dx=MX
+k=1Zxk
+xk1f(x)dxMX
+k=1Zxk
+xk1f(xk)dx=HMX
+k=1f(xk):
+Obtivemos, assim, a chamada fórmula do ponto médio (composta)
+Ic
+PM(f) =HMX
+k=1f(xk):
+Afórmula do ponto médio (simples) é a que se obtém quando se considera M= 1, isto é,
+IPM(f) = (ba)fa+b
+2
+:
+Vamos agora analisar o erro que se comete na aproximação I(f)IPM(f). Para isso,
+temos que considerar o seguinte teorema.
+Teorema 6.1 (Valor Médio para integrais) Sejafuma função contínua em [a;b]e
+guma função integrável que não muda de sinal em [a;b]. Então existe pelo menos um
+2]a;b[tal que
+f()Zb
+ag(x)dx=Zb
+af(x)g(x)dx:
+Usando o desenvolvimento em série de Taylor, e assumindo que f2C2([a;b]), temos
+que, considerando x= (a+b)=2,
+I(f)IPM(f) =Zb
+a(f(x)f(x))dx
+=Zb
+a
+f0(x)(xx) +f00(x)
+2(xx)2
+dx; x2Ifx;xg:
+Atendendo a que ( prove)Zb
+a(xx)dx= 0
+e ao facto de (xx)2não mudar de sinal em [a;b], usando o Teorema 6.1, temos que
+I(f)IPM(f) =f00()
+2Zb
+a(xx)2dx; 2]a;b[:
+Então (prove)
+EPM(f) =I(f)IPM(f) =f00()
+24(ba)3; 2]a;b[:
+Pelas deﬁnições dadas anteriormente, temos que a fórmula do ponto médio simples tem
+ordem de convergência 3 e grau de exactidão 1. No entanto, como veremos no próximo
+exercício, a fórmula do ponto médio perde uma ordem de convergência quando usada na
+sua forma composta.
+Exercício 6.7 Mostre que
+Ec
+PM(f) =I(f)Ic
+PM(f) =H2
+24(ba)f00(); 2]a;b[:
+
+Derivação e integração numérica 127
+Resolução: Temos que
+Ec
+PM(f) =MX
+k=1f00(k)
+24(xk1xk)3=H3
+24MX
+k=1f00(k); k2]xk1;xk[:
+Atendendo ao Exercício 6.2 provamos o pretendido.
+Face ao exercício anterior, podemos aﬁrmar que a fórmula do ponto médio tem ordem
+de convergência 2 e grau de exactidão 1.
+Na prática a fórmula do erro aparece, normalmente, em valor absoluto. É usual consi-
+derar a expressão
+jEc
+PM(f)jH2
+24(ba)M2;comM2= max
+x2[a;b]jf00(x)j:
+6.2.2 Fórmula do trapézio
+Vamos considerar o caso em que pretendemos aproximar, em cada intervalo Ik,k=
+1;:::;M, uma função f2C2([a;b])por um polinómio do primeiro grau que passa pe-
+los pontos (xk1;f(xk1))e(xk;f(xk)). Como é sabido, usando interpolação de Lagrange,
+f(x) =f(xk1)xxk
+xk1xk+f(xk)xxk1
+xkxk1+f00(k)
+2(xxk1)(xxk);
+comk2]xk1;xk[um valor que depende de x. Assim,
+Zb
+af(x)dx=MX
+k=1Zxk
+xk1f(x)dxMX
+k=1Zxk
+xk1
+f(xk1)xxk
+xk1xk+f(xk)xxk1
+xkxk1)
+dx
+=H
+2MX
+k=1(f(xk1) +f(xk)) =H
+2[f(a) + 2f(x1) ++ 2f(xM1) +f(b)]:
+Obtivemos, assim, a chamada fórmula do trapézio (composta)
+Ic
+T(f) =H
+2[f(a) + 2f(x1) ++ 2f(xM1) +f(b)]:
+Afórmula do trapézio (simples) é a que se obtém quando se considera M= 1, isto é,
+IT(f) =ba
+2[f(a) +f(b)]: (6.6)
+Vamos agora analisar o erro que se comete na aproximação I(f)IT(f). Temos que,
+sef2C2([a;b]),
+I(f)IT(f) =Zb
+af00(x)
+2(xa)(xb); x2]a;b[:
+Como (xa)(xb)não muda de sinal em ]a;b[, pelo Teorema 6.1, temos que ( prove)
+ET(f) =I(f)IT(f) =(ba)3
+12f00(); 2]a;b[:
+Tal como para a fórmula do ponto médio simples, temos que a fórmula do trapézio
+simples tem ordem de convergência 3 e grau de exactidão 1. No entanto, como veremos no
+próximo exercício, a fórmula do trapézio, tal como a do ponto médio, perde uma ordem de
+convergência quando usada na sua forma composta.
+
+Derivação e integração numérica 128
+y=f(x)
+-1-0.5 0.511.522.524681012
+b a
+Figura 6.1: Fórmula do trapézio.
+Exercício 6.8 Mostre que
+Ec
+T(f) =I(f)Ic
+T(f) =H2
+12(ba)f00(); 2]a;b[:
+Resolução: Temos que
+Ec
+T(f) =MX
+k=1f00(k)
+12(xk1xk)3=H3
+12MX
+k=1f00(k); k2]xk1;xk[:
+Atendendo ao Exercício 6.2 provamos o pretendido.
+Face ao exercício anterior, podemos aﬁrmar que a fórmula do trapézio, tal como a do
+ponto médio, tem ordem de convergência 2 e grau de exactidão 1.
+Na prática a fórmula do erro aparece, normalmente, em valor absoluto. É usual consi-
+derar a expressão
+jEc
+T(f)jH2
+12(ba)M2;comM2= max
+x2[a;b]jf00(x)j:
+O valor do integral de uma determinada função fnum intervalo [a;b]pela fórmula do
+trapézio pode ser dado de acordo com o seguinte algoritmo.
+Algoritmo 6.1 Fórmula do trapézio
+Dados:a,beM
+H:= (ba)=M
+x:=a
+s:= 0
+Parakde1atéM1fazer
+x:=x+H
+s:=s+f(x)
+IT:= (H=2)(f(a) + 2s+f(b))
+Resultado: IIT
+
+Derivação e integração numérica 129
+Exercício 6.9 SejaI=Z1
+2xe2xdx. Calcule, usando a fórmula do trapézio, o valor aproxi-
+mado deIcom três casas decimais correctas.
+Resolução: Sejaf(x) =xe2x. Temos que, para x2[2;1], o erro para a fórmula do
+trapézio é dado por
+jEc
+T(x)j1
+12H2M2=1
+12M2M2;
+sendo
+M2= max
+x2[2;1]jf00(x)j= max
+x2[2;1](4e2x(x+ 1)):
+Se tomarmos g(x) =4e2x(x+ 1)temos queg0(x) = 0)x=1;5. Logo
+M2= maxfg(2);g(1;5);g(1)g= 2e3:
+Vamos então determinar qual o menor valor de Mque satisfaz
+e3
+6M20;5103:
+Efectuando os cálculos, concluímos imediatamente que M4;074o que implica M= 5.
+Necessitamos de 6pontos igualmente distanciados no intervalo [2;1]para obter uma
+aproximação ao valor de Icom três casas decimais correctas. Assim,
+I0;1[f(2)+2f(1;8)+2f(1;6)+2f(1;4)+2f(1;2)+f(1)] =0;0788762:
+Como só podemos garantir três casas decimais correctas temos que I0;079:
+6.2.3 Fórmula de Simpson
+Consideremos agora o caso em que pretendemos aproximar, em cada intervalo Ik,k=
+1;:::;M, uma função f2C3([a;b])por um polinómio do segundo grau que passa pelos
+pontos (xk1;f(xk1)),(xk;f(xk))e(xk;f(xk)), comxk= (xk1+xk)=2. Como foi visto
+no capítulo dedicado à interpolação de Lagrange, para x2Ik,
+f(x) =f(xk1)2(xxk)(xxk)
+H2f(xk)4(xxk1)(xxk)
+H2
++f(xk+1)2(xxk1)(xxk)
+H2+f000(k)
+6(xxk1)(xxk)(xxk);
+comk2]xk1;xk[um valor que depende de x.
+Exercício 6.10 Prove que o valor do integral
+Zxk
+xk1
+f(xk1)2(xxk)(xxk)
+H2f(xk)4(xxk1)(xxk)
+H2
++f(xk+1)2(xxk1)(xxk)
+H2
+dx;
+comxk= (xk1+xk)=2, é dado por
+H
+6[f(xk1) + 4f(xk) +f(xk)]:
+
+Derivação e integração numérica 130
+y=f(x)
+-1-0.5 0.511.522.52.557.51012.515
+a
+(a+b)/2b
+Figura 6.2: Fórmula de Simpson.
+Pelo exercício anterior podemos obter a chamada fórmula de Simpson (composta)
+Ic
+S(f) =H
+6MX
+k=1[f(xk1) + 4f(xk)) +f(xk)];
+estabelecida por Thomas Simpson (1710-1761), que também pode ser escrita na forma
+Ic
+S(f) =H
+6"
+f(a) + 4MX
+k=1f(xk) + 2M1X
+k=1f(xk) +f(b)#
+: (6.7)
+Afórmula de Simpson (simples) é a que se obtém quando se considera M= 1, isto é,
+IS(f) =ba
+6
+f(a) + 4fa+b
+2
++f(b)
+:
+Ao contrário do que foi efectuado para as fórmulas do ponto médio e do trapézio, neste
+caso não podemos aplicar o Teorema 6.1 para determinar o erro cometido na aproximação
+I(f)IS(f), uma vez que (xa)(x(a+b)=2)(xb)muda de sinal em [a;b]. É possível,
+no entanto, demonstrar que, se f2C4([a;b]), o erro associado à fórmula de Simpson
+(simples) é dado por
+ES(f) =(ba)5
+2880f(4)(); 2]a;b[:
+Uma vez que a fórmula de Simpson foi obtida pela aproximação da função integranda
+por um polinómio de segundo grau, seria de esperar que tivesse grau de exactidão 2. No
+entanto, de forma surpreendente, a expressão obtida para o erro diz-nos que a fórmula de
+Simpson tem grau de exactidão três, isto é, esta fórmula é exacta sempre que a função a
+integrar é um polinómio de grau menor ou igual a 3.
+A determinação do valor do erro que está associado à fórmula de Simpson (composta)
+pode ser feita de forma semelhante ao efectuado para a fórmula do trapézio (composta).
+De facto, pelo Exercício 6.2, como f2C4([a;b]), existe um 2]a;b[tal que
+MX
+k=1f(4)(k) =Mf(4)():
+Assim sendo,
+Ec
+S(f) =H5
+2880Mf(4)() =H4
+2880(ba)f(4)(); 2]a;b[:
+
+Derivação e integração numérica 131
+Na fórmula a prática é usual considerar a fórmula do erro em valor absoluto. No caso
+da fórmula de Simpson temos que
+jEc
+S(f)jH4
+2880(ba)M4;comM4= max
+x2[a;b]jf(4)(x)j:
+O exercício seguinte dá-nos uma forma alernativa de escrever a fórmula de Simpson.
+Exercício 6.11 Sejafumafunçãoconhecidaapenasnospontos (xk;f(xk)),k= 0;1;:::;M,
+comMpar,xk=a+kHeH= (ba)=M, mostre que uma aproximação para o integralRb
+af(x)dxpela a fórmula de Simpson (composta) é dado por
+Ic
+S(f) =H
+3[f(a) + 4f(x1) + 2f(x2) + 4f(x3) ++ 2f(xM2) + 4f(xM1) +f(b)];(6.8)
+com erro
+Ec
+S(f) =H4
+180(ba)f(4)(); 2]a;b[;
+o que implica
+jEc
+S(f)jH4
+180(ba)M4;comM4= max
+x2[a;b]jf(4)(x)j: (6.9)
+A fórmula (6.8) é aquela que mais iremos usar na resolução de exercícios práticos.
+Nessa fórmula, os pontos xk, comkímpar, correspondem, em (6.7), aos pontos médios do
+intervalo.
+O valor do integral de uma determinada função fnum intervalo [a;b]pela fórmula de
+Simpson pode ser dado de acordo com o seguinte algoritmo.
+Algoritmo 6.2 Fórmula de Simpson
+Dados:a,beM(par)
+H:= (ba)=M
+x:=a
+s:= 0
+Parakde1atéM1fazer
+x:=x+H
+Sekpar entãos:=s+ 2f(x)caso contrário s:=s+ 4f(x)
+IS:= (H=3)(f(a) +s+f(b))
+Resultado: IIS
+
+Derivação e integração numérica 132
+Exercício 6.12 SejaI=Z1
+0excosxdx. Calcule, usando a fórmula de Simpson, o valor apro-
+ximado deIcom erro inferior a 103.
+Resolução: Sejaf(x) =excosx. Temos que, para x2[0;1], o erro dado pela fórmula de
+Simpson (6.8) é (ver (6.9))
+jES(x)j1
+180H4M4=1
+180M4M4;
+sendo
+M4= max
+x2[0;1]jf(4)(x)j= max
+x2[0;1](4excosx):
+Se tomarmos g(x) = 4excosxtemos queg0(x) = 0)x=
+4. Logo
+M4= maxfg(0);g(
+4);g(1)g= 2p
+2e=4:
+Vamos então determinar qual o menor valor de Mque satisfaz
+p
+2e=4
+90M4<103:
+Efectuando os cálculos, concluímos imediatamente que M2;42. ComoMtem que
+ser par temos que M= 4. Então, necessitamos de 5pontos igualmente distanciados no
+intervalo [0;1]para obter uma aproximação ao valor de Ium erro inferior ao pretendido.
+Assim,
+I1
+12[f(0) + 4f(0;25) + 2f(0;5) + 4f(0;75) +f(1)] = 1;377903843:
+Como só podemos garantir duas casas decimais correctas I1;38:
+6.3 Problemas
+6.3.1 Exercícios para resolver nas aulas
+Exercício 6.13 É dada a seguinte tabela de valores de uma certa função v:
+ti0 60 120 180 240 300
+v(ti)0,0000 0,0824 0,2747 0,6502 1,3851 3,229.
+1. Determine uma aproximação para v0(180)usando: i. Diferenças progressivas; ii. Diferen-
+ças regressivas; iii. Diferenças centradas.
+2. Como poderia proceder para determinar uma aproximação para v0(300)? Justiﬁque.
+Exercício 6.14 Calculeaordemdeprecisãodaseguintefórmulaparaaaproximaçãonumérica
+f0(xi)f(xi2)6f(xi1) + 3f(xi) + 2f(xi+1)
+6h;
+ondehé distância entre os pontos xj,j=i2;:::;i + 1:
+
+Derivação e integração numérica 133
+Exercício 6.15 É dada a seguinte tabela de valores de uma certa função f:
+xi3,1 3,2 3,3 3,4 3,5
+f(xi)0,0 0,6 1,0 1,2 1,3.
+1. Determine aproximações para f0(3;1)ef0(3;5)usando interpolação linear.
+2. Determine aproximações para f00(3;3).
+3. Determine o polinómio interpolador de Hermite de fno suportef3;1; 3;5g.
+Exercício 6.16 Considere os valores de f(x) =xexdados na seguinte tabela
+xi1,8 1,9 2,0 2,1 2,2
+f(xi)10,889365 12,703199 14,778112 17,148957 19,855030.
+Aproxime o valor de f0(2;0)usando diferenças ﬁnitas e compare com o valor exato.
+Exercício 6.17 A tabela a seguir mostra a distância percorrida por um veículo, em função
+do tempo
+t(s)0 10 20 30 40 50 60
+y(m)0 50 125 205 280 350 410.
+Sejav(t)a velocidade do veículo no instante t,v=dy
+dt. Determine uma aproximação para
+v(50)usando diferenças regressivas, progressivas e centradas.
+Exercício 6.18 A produção de citrinos em Itália foi monitorizada, desde 1970 até 1990, como
+é mostrado na tabela seguinte:
+Ano 1970 1980 1985 1990
+Produção (105Kg)24001 25961 34336 29036.
+Determine uma aproximação para a taxa de crescimento da produção de citrinos no ano de
+1990.
+Exercício 6.19 A taxa de arrefecimento de um corpo pode ser expressa por
+dT
+dt=k(TTa)
+ondeTeTasão as temperaturas do corpo e do meio circundante (em graus Celsius), respec-
+tivamente, e ké uma constante de proporcionalidade (por minuto). Se uma esfera de metal
+aquecida a 90oC é mergulhada em água mantida à temperatura constante de Ta= 20oC, a
+temperatura da esfera toma os seguintes valores:
+Tempo (min.) 0 5 10 15 20 25
+Temperatura (oC)90 62,5 45,8 35,6 29,5 25,8.
+1. Use diferenciação numérica para aproximardT
+dtem cada momento.
+2. Use a alínea anterior para obter uma estimativa para a constante de proporcionalidade k.
+
+Derivação e integração numérica 134
+Exercício 6.20 (Matlab) Os valores seguintes representam a evolução no tempo do número
+n(t)de indivíduos de uma dada população.
+t(meses) 0 0,5 1 1,5 2 2,5 3
+n(t)100 147 178 192 197 199 200.
+Utilizar estes dados para aproximar a taxa de variação desta população, usando diferentes
+fórmulas. Em seguida, comparar com a taxa exacta n0(t) = 2n(t)0;01n2(t).
+Exercício 6.21 (Matlab) Considere-se o deslocamento de um carro numa recta. Use os
+dados da tabela (tempo gasto e distância percorrida) para aproximar o valor da velocidade nos
+instantes referidos.
+Tempo (s) 0 3 5 8 10 13
+Distância percorrida (m) 0 225 383 623 742 993.
+Exercício 6.22 (Matlab) Considere a função f(x) =e2xx.
+1. Determine o valor exacto de f0(2).
+2. Aproxime o valor de f0(2), recorrendo a diferenças centradas, com h= 0;5, ou seja,
+usando os pontos x= 20;5. A seguir, diminua os incrementos hde0;1atéh= 0;1.
+3. Repita o procedimento da alínea anterior com diferenças progressivas e regressivas.
+4. Compare os valores obtidos nas duas alíneas anteriores e compare com o valor exacto da
+derivada.
+Exercício 6.23 (Matlab) Os dados da tabela indicam a altura h em diferentes instantes
+dum foguetão espacial em movimento ascendente vertical. Use diferenciação numérica para
+completar a tabela.
+Tempo (s) 0 4 8 12 16 20
+Altura (km) 0 0,84 3,53 8,41 15,97 27,00
+Velocidade (km/s).
+Exercício 6.24 Determine um valor aproximado de
+I=Z1
+0excosxdx;
+com uma casa decimal correcta, usando a fórmula do ponto médio.
+Exercício 6.25 Determine valores aproximados para
+Z1
+0exdx;
+usando a fórmula do ponto médio e a fórmula do trapézio. Indique um limite superior para o
+erro cometido em cada um dos casos.
+Exercício 6.26 Considere o integral
+I=Z1
+0(2t40;25)dt:
+Use a fórmula dos trapézios para obter um valor aproximado de Icom um erro absoluto inferior
+a0;1.
+
+Derivação e integração numérica 135
+Exercício 6.27 Considere a seguinte tabela da função f
+xi0,00 0,50 1,00
+f(xi)4,76 1,05 0,00.
+1. Determine o valor aproximado do integralZ1
+0f(x)dx, a partir dos dados da tabela,
+usando a fórmula dos trapézios composta.
+2. Sabendo que
+max
+x2[0;1]jf00(x)j62
+determine um majorante para o erro absoluto cometido na aproximação anterior.
+Exercício 6.28 Considere os seguintes integrais
+Z1
+0x dx;Z1
+0(x2+ 10x+ 3)dx;Z1
+0cos(x)dx:
+1. Para quais dos integrais anteriores são as fórmulas do ponto médio e dos trapézios exac-
+tas?
+2. Usando a fórmula de Simpson, determine um valor aproximado para os três integrais de
+tal forma que o erro absoluto cometido seja inferior a 102.
+Exercício 6.29 Considere a seguinte igualdade = 4Z1
+01
+1 +x2dx.
+1. Calcule o número de pontos que deve considerar na fórmula do trapézio por forma a
+aproximar o valor de com uma casa decimal correcta.
+2. Determine um valor aproximado do integral usando a fórmula do trapézio e o número de
+pontos calculado na alínea anterior.
+Exercício 6.30 Considere o integral
+I(f) =Z1
+0exdx:
+1. Determine quantos pontos necessita para aproximar o valor de I(f)com um erro absoluto
+inferior a 5104, usando a regra dos trapézios e de Simpson.
+2. Use a regra de Simpson com cinco pontos e determine um valor aproximado para I(f).
+Exercício 6.31 SejaI=R
+0xe2xdx.
+1. Qual o menor número de pontos que deve considerar na fórmula do trapézio por forma a
+aproximar o valor do integral com uma casa decimal correcta.
+2. Calcule o valor aproximado de Ide acordo com a alínea anterior.
+3. Repita as alíneas anteriores usando, agora, a fórmula de Simpson.
+
+Derivação e integração numérica 136
+Exercício 6.32 SejaI1eI2os valores obtidos pela fórmula composta do trapézio, aplicada
+com dois passos de comprimentos diferentes H1eH2, ao cálculo aproximado de I(f) =Rb
+af(x)dx. Veriﬁque que, se f00variar pouco em ]a;b[, o valor
+IR=I1+I1I2
+(H2=H1)21
+dá uma melhor aproximação de I(f)do queI1eI2. Esta técnica designa-se por método de
+extrapolação de Richardson.
+Exercício 6.33 Considere a seguinte tabela da função f(x):
+xi0,0 0,2 0,4 0,6 0,8 1,0
+f(xi)1,00 0,83 0,71 0,62 0,36 0,30.
+1. Será possível calcular um valor aproximado para o integral I=Z1
+0f(x)dx, usando a
+fórmula de Simpson ou a regra dos trapézios, através da tabela, com um erro que não
+exceda 103? Justiﬁque a sua resposta.
+2. Calcule um valor aproximado de Ie indique uma estimativa para o erro cometido.
+Exercício 6.34 Pretende calcular-se um valor aproximado para o integral I=Z2
+1ln1
+xdx.
+1. Use a fórmula de Simpson para obter Icom 3 casas decimais correctas.
+2. Sem calcular o valor exacto de I, diga, justiﬁcando, se a aproximação calculada é por
+defeito ou por excesso.
+Exercício 6.35 Considere a seguinte equação diferencial y0(t)+a(t)y(t) = 0:A solução desta
+equação é da forma y(t) =y(0)eRt
+0a(s)ds:Sabendo que a(0) = 1,a(1) = 2,a(2) = 1e que
+y(0) = 1, determine uma aproximação para y(2).
+Exercício 6.36 A massa que é libertada por um reactor num dado período de tempo é dada
+por
+M=Zt2
+t1QCdt;
+ondet1et2são os momentos inicial e terminal, respectivamente. Usando Q= 5m3=min e os
+dados da tabela
+t (min.) 0 10 20 30 40
+C (mg/m3)10,00 35,00 54,73 52,16 37,07,
+aproxime o valor da masssa libertada pelo reactor nos primeiros 40 minutos.
+Exercício 6.37 Pretende-se determinar uma fórmula para aproximar o valor do integral
+Z1
+1f(x)dx
+da forma
+Af
+1p
+3
++Bf1p
+3
+que seja exata para polinómios de grau inferior ou igual a 1. Determine os coeﬁcientes AeB.
+
+Derivação e integração numérica 137
+Exercício 6.38 DetermineAeBpor forma a que a fórmula dos trapézios corrigida
+Z1
+0f(t)dt1
+2(f(0) +f(1)) +Af0(0) +Bf0(1)
+tenha o maior grau de exatidão possível.
+Exercício 6.39 Determine os pesos e os nós na fórmula de integração
+Z1
+0f(x)dxw1f(0) +w2f(x2)
+por forma a que tenha um grau de precisão o mais elevado possível.
+Exercício 6.40 Construa uma regra de integração da forma
+I(f) =Z1
+1f(x)dxA0f(1
+2) +A1f(0) +A2f(1
+2)
+de modo a ter grau de exactidão igual a 2.
+Exercício 6.41 (Matlab) Determine uma aproximação do valor do integral
+Z1
+0sinx
+xdx;
+usando uma regra de integração apropriada.
+Exercício 6.42 (Matlab) Um carro de corrida completa uma volta num circuito em 84 s. A
+velocidade do carro (em metros por segundo) em diferentes instantes temporais (em segundos)
+é dada na seguinte tabela.
+Tempo 0 6 12 18 24 30 36 42 48 54 60 66 72 78 84
+Velocidade 124 134 148 156 147 133 121 109 99 85 78 89 104 116 123.
+Determine um valor aproximado do comprimento do circuito.
+Exercício 6.43 (Matlab) Determine um valor aproximado do integral
+Z
+0excosx dx
+usando a fórmula dos trapézios composta, com 2, 20, 200 e 2000 subintervalos.
+Exercício 6.44 (Matlab) Determine o comprimento aproximado do arco do gráﬁco da fun-
+çãof(x) =x3x, entre os pontos (-1,0) e (2,6), usando a fórmula do trapézio composta,
+com 4 subintervalos.
+
+Derivação e integração numérica 138
+Exercício 6.45 (Matlab) Considere a função f(x) =ex+ 2x.
+1. Calcule uma aproximação para a raiz de f(x)aplicando o método de Newton 2 vezes.
+2. Utilizando a fórmula de Simpson, aproxime a área da região limitada por yex,y2x
+ex0.
+Exercício 6.46 (Matlab) Determine o número mínimo de subintervalos para aproximar,
+usando a fórmula composta do ponto médio com erro inferior a 104, os integrais das seguintes
+funções:f1(x) = 1=(1+(x)5), em [0,5],f2(x) =excosx, em[0;]ef3(x) =p
+x(1x),
+em [0,1].
+Exercício 6.47 (Matlab) Consideremos um condutor eléctrico esférico de raio arbitrário r
+e condutividade . Pretendemos calcular a distribuição da densidade de corrente jem função
+deret(tempo), conhecendo a distribuição inicial da densidade de corrente (r). O problema
+pode ser resolvido usando as relações entre a densidade de corrente, o campo eléctrico e a
+densidade de carga e observando que, pela simetria da conﬁguração, j(r;t) =j(r;t)r=jrj, em
+quej=jjj. Obtém-se
+j(r;t) =
+(r)et=" 0; 
+(r) =
+"0r2Zr
+0()2d;
+onde"0= 8;8591012farad/m é a constante dieléctrica do vazio. Usando a fórmula de
+Simpson composta, determine a função 
+(r), parar=k=10m comk=1,...,10,() =ee
+= 0;36W/(mK). (Recorde que: m=metros, W=watts, K=graus Kelvin).
+Exercício 6.48 (Matlab) A ﬁm de planiﬁcar uma sala para raios infravermelhos, estamos
+interessados em calcular a energia emitida por um corpo negro (isto é, um objecto capaz de
+irradiar em todo o espectro à temperatura ambiente) no espectro (infravermelho) compreendido
+entre os comprimentos de onda 3 m e 14m. A solução deste problema obtém-se calculando
+o integral
+E(T) = 2;391011Z14104
+3104dx
+x5(e1;432=(Tx)1);
+que é a equação de Planck para a energia E(T), ondexé o comprimento de onda (em cm) e
+Ta temperatura (em Kelvin) do corpo negro. Recorra à fórmula de Simpson adaptativa para
+determinar a função E(T), comT= 213K.
+6.3.2 Exercícios de aplicação à engenharia
+Exercício 6.49 Num circuito eléctrico com voltagem aplicada E(t)e inductância L, a pri-
+meira Lei de Kirchoﬀ dá-nos a relação
+E(t) =LI0(t)RI(t);
+ondeRé a resistência no circuito e I(t)a corrente no instante t. Suponhamos que medimos
+a corrente para vários valores de t=ti,i= 1;:::; 5, obtendo
+ti1,00 1,01 1,02 1,03 1,04
+I(ti)3,10 3,12 3,14 3,18 3,24,
+onde tempo é medido em segundos, a corrente em amperes, a inductância é uma constante
+dada porL= 0;98henries e a resistência é 0;142ohms. Aproxime a voltagem Enos valores
+detdados na tabela.
+
+Derivação e integração numérica 139
+Exercício 6.50 Os valores seguintes representam a evolução no tempo do número N(t)de
+indivíduos de uma dada população cuja taxa de crescimento é constante ( b= 2) e cuja taxa de
+mortalidade é d(t) = 0;01N(t):
+t(meses) 0 0,5 1 1,5 2 2,5 3
+N100 147 178 192 197 199 200.
+1. Utilize os dados da tabela para aproximar com a maior precisão possível a taxa de variação
+desta população.
+2. Compare os resultados obtidos na alínea anterior com a taxa exacta N0(t) = 2N(t)
+0;01N2(t).
+Exercício 6.51 A alturaq(t)atingida no tempo tpor um ﬂuido contido num reservatório
+cilíndrico rectilíneo de raio R= 1m tendo na sua base um orifício circular de raio r= 0;1m,
+foi medida em cada 5 segundos, tendo-se registado os seguintes valores:
+t0 5 10 15 20
+q(t)0,6350 0,5336 0,4410 0,3572 0,2822.
+1. Utilize os dados da tabela para aproximar com a maior precisão possível a velocidade de
+esvaziamento q0(t).
+2. Compare os resultados obtidos na alínea anterior com velocidade prevista pela lei de
+Torricelli:q0(t) =
+(r=R)2p
+2gq(t), ondegé a aceleração da gravidade e 
+= 0;6é
+um factor de correcção.
+Exercício 6.52 Fugacidade é o termo usado na engenharia para descrever a trabalho resul-
+tante de um processo isotérmico. Para um gás ideal, a fugacidade fé igual à pressão P, mas
+para os gases reais,
+lnf
+P=ZP
+0C1
+Pdp
+ondeCé um factor de compressibilidade determinado experimentalmente. Para o metano os
+valores deCsão:
+P(atm.)C
+1 0,9940
+10 0,9370
+20 0,8683
+40 0,7043
+60 0,4515P(atm.)C
+80 0,3429
+120 0,4259
+160 0,5252
+250 0,7468
+400 1,0980.
+Escreva um programa que calcule o valor de fcorrespondente a cada valor da pressão dado na
+tabela. Assuma que o valor de Cvaria linearmente entre os valores calculados e que Ctende
+para um quando Ptende para zero.
+Exercício 6.53 A função
+f(x) =2pZx
+0et2dt
+é usada com muita frequência em disciplinas tão diversas como a teoria das probabilidades,
+distribuição de calor, difusão de matérias, etc. Usando uma das regras de integração estudadas,
+calcule uma aproximação para o valor do referido integral indicando um majorante para o erro
+cometido.
+
+Derivação e integração numérica 140
+Exercício 6.54 Uma partícula de massa mmovendo-se num ﬂuído está sujeita a uma re-
+sistência de viscosidade R, que é função da velocidade v. A relação entre a resistência R, a
+velocidadeve o tempoté dada pela equação
+t=Zv(t)
+v(t0)m
+R(u)du:
+ondeRé a resistência no circuito e I(t)a corrente. Suponhamos que R(v) =vpvpara
+um ﬂuído particular, onde Ré dado em newtons e vem metros/segundo. Se m= 10kg e
+v(0) = 10 m/seg aproxime o tempo necessário para a partícula reduzir a sua velocidade para
+v= 5m/seg.
+Exercício 6.55 A intensidade de luz com comprimento de onda viajando através de uma
+grelha de difracção com naberturas a um ângulo é dada por
+I() =n
+k2
+sin2k;
+onde
+k=ndsin
+
+edé a distância entre cada abertura. Um laser de hélio-néon com comprimento de onda
+= 632;8109m emite uma banda estreita de luz, dada por 106<< 106, através de
+uma grelha com 10000 aberturas separadas por 104m. Obtenha um valor aproximado para a
+intensidade de luz total que sai da grelha
+Z106
+106I()d:
+
+Capítulo 7
+Equações diferenciais ordinárias
+As primeiras equações diferenciais são tão antigas quanto o cálculo diferencial. Newton
+considerou-as, em 1671, no seu tratado de cálculo diferencial e discutiu a sua solução por
+integração e por expansão em série. Leibniz, o segundo inventor do cálculo, chegou às
+equações diferenciais por volta de 1676 considerando o problema geométrico do inverso das
+tangentes : paraquecurva y(x)atangenteemcadaponto Ptemumcomprimentoconstante
+(com o eixo dos x’s), digamos a? Este problema conduziu à equação y0=y=p
+a2y2.
+Em 1696, Johann Bernoulli (1667-1748) convidou os mais ilustres matemáticos do seu
+tempopararesolvero problema da braquistócrona (curvadetempomínimo), principalmente
+para refutar a resposta, que esperava errada, do seu irmão Jacob Bernoulli (1657-1705). O
+problema consistia em determinar a curva y(x)que une dois pontos P0eP1de tal modo
+que um ponto, partindo de P0e “deslizando”, nessa curva, sujeito apenas a forças gravíticas,
+atinjaP1no menor tempo possível. A resposta a este problema foi dada dada por vários
+matemáticos (inclusivé Jacob Bernoulli) e é, como se sabe, a ciclóide. Essa curva pode ser
+determinada como sendo a solução de uma equação diferencial ordinária.
+Muitos problemas da engenharia e da ciência têm como modelo equações diferenciais.
+Neste curso iremos efectuar uma breve introdução ao estudo dos métodos numéricos para
+a resolução de problemas que envolvem equações diferenciais. Os problemas que iremos
+considerar serão de dois tipos: problemas com condição inicial e problemas com condições
+de fronteira.
+7.1 O problema de Cauchy
+Consideremos uma equação diferencial ordinária de primeira ordem, isto é, uma equação
+da forma
+y0(t) =f(t;y(t)); t2[t0;T]; (7.1)
+em quef: [t0;T]R!R. O estudo que iremos efectuar para este tipo de equações
+pode ser facilmente generalizado a sistemas de equações diferencias ordinárias de primeira
+ordem, istoé, paraocasoemque f: [t0;T]RN!RN. Porumaquestãodesimpliﬁcação
+de exposição optámos por apresentar o estudo para o caso escalar ( N= 1).
+Antes de se pensar em resolver uma determinada equação diferencial há que garantir
+que essa equação tem solução e que é única. Note-se que a solução equação (7.1), se existir,
+não é única pois, ao integrarmos, introduzimos sempre uma constante de integração.
+Uma das condições para obter a unicidade da solução consiste em especiﬁcar y(t)num
+ponto qualquer do intervalo [t0;T], usualmente o ponto inicial t0. Ficamos assim com o
+141
+
+Equações diferenciais ordinárias 142
+problema de condição inicial (PCI)
+y0(t) =f(t;y(t)); t2]t0;T]
+y(t0) =y0; (7.2)
+também chamado problema de Cauchy , em homenagem a Augustin-Louis Cauchy (1789-
+1857).
+Apesar de contornado este problema ainda não temos a garantia da existência e uni-
+cidade da solução do PCI (7.2). Antes de apresentarmos o teorema que estabelece as
+condições suﬁcientes para que o problema tenha solução única consideremos a deﬁnição
+seguinte devida a Rudolf Otto Sigismund Lipschitz (1832-1903).
+Deﬁnição 7.1 (Função lipschitziana) Uma função f(t;y)veriﬁca a condição de Lips-
+chitz(ou élipschitziana ), na variável y, num conjunto DR2se existir uma constante
+L>0tal que
+jf(t;y1)f(t;y2)jLjy1y2j;
+sempre que (t;y1);(t;y2)2D. ALchama-se constante de Lipschitz .
+Exercício 7.1 Prove que a função f(t;y) =tjyjé lipschitziana, na variável y, no conjunto
+D=f(t;y)2R2: 1t2;3y4g:
+Resolução: Temos que
+jf(t;y1)f(t;y2)j=jtjy1jtjy2jj2jjy1jjy2jj2jy1y2j:
+Logo, a constante de Lipschitz é L= 2.
+O teorema seguinte, atribuído a Charles Émile Picard (1856 -1941), estabelece condições
+suﬁcientes para que um problema com condição inicial tenha solução única.
+Teorema 7.1 (Picard) Sejaf(t;y)uma função contínua (nas variáveis tey) e lipschit-
+ziana (na variável y) emD=f(t;y) :t0tT;y2Rg. Então o PCI (7.2) tem solução
+únicay(t)2C1([t0;T]).
+A demonstração deste teorema estabelece um processo iterativo de aproximação da
+solução do PCI (7.2) conhecido por método de Picard . Seffor contínua em relação a t, de-
+terminar a solução do PCI (7.2) é equivalente a determinar y, continuamente diferenciável,
+que veriﬁca
+y(t) =y0+Zt
+af(;y())d: (7.3)
+O que se prova na demonstração do Teorema de Picard é que a sucessão de funções fuj(t)g,
+deﬁnida recursivamente por
+u0(t) =y0;
+uj+1(t) =y0+Rt
+af(;uj())d: j = 0;1;:::;
+converge para a única solução de (7.3).
+Como corolário do Teorema de Picard temos o seguinte resultado que apresentamos,
+igualmente, sem demonstração.
+
+Equações diferenciais ordinárias 143
+Corolário 7.2 Suponhamos que f(t;y)está deﬁnida num conjunto convexo DR2, isto
+é, num conjunto DR2tal que, para qualquer (t1;y1);(t2;y2)2D, se veriﬁca
+((1)t1+t2;(1)y1+y2)2D; 2[0;1]:
+Se existir uma constante L>0tal que
+@f
+@y(t;y)L;8(t;y)2D;
+entãofsatisfaz a condição de Lipschitz, na variável y, comLa respectiva constante e,
+como tal, o PCI (7.2) tem solução única y(t)2C1([t0;T]).
+Note-se que o conjunto D=f(t;y) :t0tT;y2Rgé, obviamente, convexo.
+Exercício 7.2 Mostre que o problema de condição inicial
+8
+<
+:y0(t) =1
+1 +y2; t2]a;b]
+y(a) = 0
+tem solução única.
+Resolução: SejaD=f(t;y) :atb;y2Rge
+f(y) =1
+1 +y2:
+Vamos provar que a função
+@f
+@y(t;y)=2y
+(1 +y2)2
+é limitada em D. Para isso há que determinar
+L= max
+y2R2y
+(1 +y2)2:
+Como a função que queremos provar limitada é par temos que
+L= max
+y2R+
+02y
+(1 +y2)2:
+Consideremos
+g(y) =2y
+(1 +y2)2:
+Como
+g0(y) = 0)y=p
+3
+3
+temos que
+L= max(
+g(0); g p
+3
+3!
+;lim
+y!+1g(y))
+= maxf0;0;6594;0g= 0;6594:
+Está assim provado o pretendido.
+
+Equações diferenciais ordinárias 144
+7.2 Métodos numéricos para o problema de Cauchy
+Consideremos, de novo, o PCI (7.2) veriﬁcando as condições do Teorema de Picard. Os
+métodosnuméricosqueiremosconsiderarpararesolveresteproblemasão métodosdiscretos ,
+isto é, são métodos que determinam aproximações u0;u1;:::;unpara a solução exacta
+y0=y(t0);y1=y(t1);:::;yn=y(tn)nos pontos distintos da malha
+t0<t1<<tn1<tn=T:
+Àsdistâncias hi=titi1,i= 1;:::;n, dá-seonomede passosdediscretização (oumedidas
+do passo) da malha. Se os passos forem todos iguais a malha diz-se uniforme ou depasso
+constante . Caso contrário diz-se de passo variável . Neste curso vamos apenas considerar
+malhas uniformes, isto é, tais que ti=t0+ih,i= 0;:::;n, ondeh=Tt0
+n.
+Osmétodosnuméricospermitemdeterminarvalores uiyi=y(ti)pormeioderelações
+de recorrência deduzidas do PCI (7.2) de modo a que o valor de ui+1venha expresso em
+função deui;ui1;:::;u 0, sendou0=y0. Afu0=y0;u1;u2;:::;un1;ungchama-se
+solução numérica . É usual agrupar os métodos numéricos para a resolução de problemas de
+condição inicial em duas grandes classes.
+Métodos de passo único. São métodos que determinam o valor de ui+1apenas à custa
+deui.
+Métodos de passo múltiplo. São métodos que determinam o valor de ui+1à custa de
+ui;ui1;:::;uir+1. Neste caso diz-se que o método é de rpassos.
+Neste curso iremos apenas abordar os métodos de passo único. Estes métodos, por sua
+vez, podem ainda ser de dois tipos.
+Métodos explícitos. São métodos em que o valor de ui+1é determinado directamente
+a partir de ui. Estes métodos podem ser escritos na forma
+ui+1=ui+h(ti;ui;h): (7.4)
+Métodos implícitos. São métodos em que o valor de ui+1depende implicitamente de
+si mesmo através de f. Estes métodos podem ser escritos na forma
+ui+1=ui+h(ti;ti+1;ui;ui+1;h): (7.5)
+A funçãoque deﬁne os métodos (7.4) e (7.5) é chamada função de iteração oufunção
+incremento do método numérico.
+
+Equações diferenciais ordinárias 145
+7.2.1 Métodos baseados na série de Taylor
+Consideremos o PCI (7.2) com fuma função suﬁcientemente diferenciável nas variáveis t
+ey. Então, fazendo o desenvolvimento em série de Taylor temos
+y(t) =y(t0) + (tt0)y0(t0) +(tt0)2
+2!y00(t0) +:
+As derivadas que aparecem nesta expressão não são conhecidas explicitamente visto que a
+solução também não é conhecida. No entanto, podemos escrever
+y0(t) =f(t;y);
+y00(t) =df
+dt(t;y) = (ft+fyy0)(t;y) = (ft+fyf)(t;y);
+y000(t) =d2f
+dt2(t;y) = (ftt+ 2ftyf+fyyf2+ftfy+f2
+yf)(t;y);
+...
+onde
+ft(t;y) =@f
+@t(t;y); fy(t;y) =@f
+@y(t;y); ::::
+Por razões práticas temos que limitar o número de termos na expansão em série de y(t)a
+um número razoável, o que nos conduz a restrições nos valores de tpara os quais a expansão
+nos dá uma boa aproximação.
+Se tomarmos a série de Taylor truncada temos, para t=t1,
+y(t1)u1=u0+hf(t0;u0) +h2
+2f0(t0;u0) ++hk
+k!f(k1)(t0;u0);
+onde
+f(j)(t0;u0) =djf
+dtj(t0;u0):
+Podemos deﬁnir assim, para cada k= 1;2:::, um método de passo único explícito que
+permite obter soluções aproximadas uiy(ti)da forma (7.4) em que
+(t;u;h) =f(t;u) +h
+2f0(t;u) ++hk
+k!f(k1)(t;u): (7.6)
+Os métodos assim deﬁnidos são conhecidos por métodos de Taylor . O método desta
+classe mais simples é quando k= 1, isto é, o método
+ui+1=ui+hf(ti;ui); i= 0;:::;n; u 0=y0; (7.7)
+designado por método de Euler progressivo (ou explícito) .
+O seguinte algoritmo permite determinar a solução do PCI (7.2) em t=T, usando o
+método com função incremento (7.6).
+
+Equações diferenciais ordinárias 146
+Algoritmo 7.1 Método de Taylor
+Dados:n,k,t0,Tey0
+h:= (Tt0)=n
+t:=t0
+u:=y0
+Paraide1aténfazer
+:= 0
+Parajde1atékfazer
+:=+f(j)(t;u)hj=j!
+u:=u+h
+t:=t+h
+Resultado: y(T)u
+Exercício 7.3 Considere o problema de condição inicial
+y0(t) =2y
+y(0) = 1:
+Determine, usando o método de Euler progressivo, o valor aproximado de y(1), fazendoh= 1,
+h= 0:5eh= 0:25. Compare os resultados obtidos sabendo que y(t) =e2t.
+Resolução: A solução exacta deste problema é y(1) = 0;135335283 . Consideremos agora as
+soluções numéricas para os três casos propostos. Seja f(y) =2y.
+h= 1
+y(0) =u0=y0= 1
+y(1)u1=u0+hf(u0) = 1 + 1(2) =1:
+Logojy(1)u1j= 1;135335283 .
+h= 0:5
+y(0) =u0=y0= 1
+y(0;5)u1=u0+hf(u0) = 1 + 0;5(2) = 0
+y(1)u2=u1+hf(u1) = 0 + 0;50 = 0:
+Logojy(1)u2j= 0;135335283 .
+h= 0;25
+y(0) =u0=y0= 1
+y(0;25)u1=u0+hf(u0) = 1 + 0;25(2) = 0;5
+y(0;5)u2=u1+hf(u1) = 0;5 + 0;25(1) = 0;25
+y(0;75)u3=u2+hf(u2) = 0;25 + 0;25(0;5) = 0;125
+y(1)u4=u3+hf(u3) = 0;125 + 0;25(0;25) = 0;0625:
+Logojy(1)u4j= 0;072835283 .
+Nota-se que, quanto menor for a medida do passo mais pequeno é o erro cometido.

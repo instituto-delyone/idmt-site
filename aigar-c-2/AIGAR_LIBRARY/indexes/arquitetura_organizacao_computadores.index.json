@@ -1,0 +1,305 @@
+{
+  "schema_version": "1.0",
+  "builder_version": "1.0.0",
+  "source": {
+    "name": "arquitetura-e-organizacao-computadores-8a.pdf",
+    "key": "arquitetura_organizacao_computadores",
+    "sha256": "5eac460e33281c166dd5c74532de663934f395ab916bee75c98df559ff4ae570",
+    "type": "pdf"
+  },
+  "chunking": {
+    "unit": "pages",
+    "size": 25,
+    "preserves_source_text": true,
+    "summarizes": false,
+    "cache_policy": "private_local"
+  },
+  "chunks": [
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-C7BD5AB44F2D",
+      "sequence": 1,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 1,
+      "end_page": 25,
+      "text_length": 69428,
+      "text_checksum": "f5c8e2e172607676ec4af15d3c70e872a92e5056734abf01ef7cfe732c792d35",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-C7BD5AB44F2D.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-1B02DB9BC61F",
+      "sequence": 2,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 26,
+      "end_page": 50,
+      "text_length": 78667,
+      "text_checksum": "647b3d46b72363d46e37b2bdd1c69f5117e130321e3fdc62ddd1c2b96af5ee87",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-1B02DB9BC61F.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-C0B64EAB1D21",
+      "sequence": 3,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 51,
+      "end_page": 75,
+      "text_length": 77677,
+      "text_checksum": "663926a7cf3164c3d793034f93c6fbac6813ee722a60775cfed685cab5386938",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-C0B64EAB1D21.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-6A494AE01650",
+      "sequence": 4,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 76,
+      "end_page": 100,
+      "text_length": 70036,
+      "text_checksum": "16a860075be3f2b3c8c6031216efaa6ec2dbe5a0da67cdf3058a949275342438",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-6A494AE01650.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-06295063ED1D",
+      "sequence": 5,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 101,
+      "end_page": 125,
+      "text_length": 67749,
+      "text_checksum": "09f426ae123adbe2d8f24f65f7676f699b432b4e8852377fbeb7de71244ded88",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-06295063ED1D.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-143F2D77E7E1",
+      "sequence": 6,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 126,
+      "end_page": 150,
+      "text_length": 87035,
+      "text_checksum": "51f32471a1aa4ca82fd203e17d8d7b64459b7f07b95a93ed39dd45cf771e7b91",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-143F2D77E7E1.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-A92F9E9A451B",
+      "sequence": 7,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 151,
+      "end_page": 175,
+      "text_length": 70489,
+      "text_checksum": "ee20d7263c0f270aaf83fa1a94eeae77fc545b8feea8e3d6f452fe66067f5f70",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-A92F9E9A451B.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-D908DC9F8D90",
+      "sequence": 8,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 176,
+      "end_page": 200,
+      "text_length": 80386,
+      "text_checksum": "35168113a57fd82b886ac2b1fc9aaa167e871dfea6abc2bcec2c678f6f2cbc48",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-D908DC9F8D90.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-4EA5B96F140A",
+      "sequence": 9,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 201,
+      "end_page": 225,
+      "text_length": 79033,
+      "text_checksum": "fc9cbbe290d7c4589a38961fd7d09e263faeeaf8bfc99f85d8f7fdfafe0197a8",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-4EA5B96F140A.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-92620C9F0553",
+      "sequence": 10,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 226,
+      "end_page": 250,
+      "text_length": 74021,
+      "text_checksum": "905eb885d19141a8c80705a0c766a8301fba09b91cf13e3efb834157df8b033d",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-92620C9F0553.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-40B869267294",
+      "sequence": 11,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 251,
+      "end_page": 275,
+      "text_length": 66824,
+      "text_checksum": "3c1c0c5b44071fa027dea8d1d1e1160a530bf2c3b7ac255da5a57575cb3939b7",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-40B869267294.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-CE9998A6682C",
+      "sequence": 12,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 276,
+      "end_page": 300,
+      "text_length": 67168,
+      "text_checksum": "09df73643d7e500086cdc971e4aa751e909773248252ad18027af723cd594c16",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-CE9998A6682C.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-E57EC8F1F07D",
+      "sequence": 13,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 301,
+      "end_page": 325,
+      "text_length": 77946,
+      "text_checksum": "3139cce2b455466671efa135cd7e625a788ce4ac78f15e6f5af6056cae621df2",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-E57EC8F1F07D.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-EBF52220181C",
+      "sequence": 14,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 326,
+      "end_page": 350,
+      "text_length": 77415,
+      "text_checksum": "9e88ed6720b199757fc8e17400e91065beaa0478ab6dc6df502970a9c8a502a7",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-EBF52220181C.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-C8AF9B7B4A22",
+      "sequence": 15,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 351,
+      "end_page": 375,
+      "text_length": 85558,
+      "text_checksum": "a162652442d948efd486ced6469bf95ecaa243d11307a1aaacc944bd2d16b52d",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-C8AF9B7B4A22.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-9A52B29D4FCC",
+      "sequence": 16,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 376,
+      "end_page": 400,
+      "text_length": 74248,
+      "text_checksum": "d4e45b111704b846e922f0fd9834ff04ee92577515dce0e900de9aa0bfb02b71",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-9A52B29D4FCC.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-8A5686C25DD6",
+      "sequence": 17,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 401,
+      "end_page": 425,
+      "text_length": 87065,
+      "text_checksum": "92d5c439a6e042b73b99d2c3fdc19df23096c12f14a6d3875c4a9ff48857fb1b",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-8A5686C25DD6.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-C0A088BEB67B",
+      "sequence": 18,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 426,
+      "end_page": 450,
+      "text_length": 75675,
+      "text_checksum": "15f79e4d4d53632d70bc81da4803c4b32dabfd47e408138bed3e52943411f474",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-C0A088BEB67B.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-339776D6963E",
+      "sequence": 19,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 451,
+      "end_page": 475,
+      "text_length": 77891,
+      "text_checksum": "6f49b5acc30c722197caecf278197a5823d7bd5c3b99e771fc558f025e17b4a9",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-339776D6963E.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-9DEAAE995621",
+      "sequence": 20,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 476,
+      "end_page": 500,
+      "text_length": 64922,
+      "text_checksum": "be47037d4003fdf65c71ae8f1f1d7dee1ed191b503dfb562664b3651b1c26b64",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-9DEAAE995621.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-FA7E40A31EF8",
+      "sequence": 21,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 501,
+      "end_page": 525,
+      "text_length": 66603,
+      "text_checksum": "95b70d06938beb8ed1376b796331122611877dafcc61170780718cfe2aa126f8",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-FA7E40A31EF8.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-2A545793EE5C",
+      "sequence": 22,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 526,
+      "end_page": 550,
+      "text_length": 82117,
+      "text_checksum": "d78b580a667c1fc6ede9993a70cbcd4cfab54765865d2e2277f7f4c989fba934",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-2A545793EE5C.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-43D9DDB4B9C8",
+      "sequence": 23,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 551,
+      "end_page": 575,
+      "text_length": 79083,
+      "text_checksum": "3339d90edf47ab07a22f611d11bfa9cdea746cc1714c579183931605f940e532",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-43D9DDB4B9C8.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-D2FBDDBF93C6",
+      "sequence": 24,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 576,
+      "end_page": 600,
+      "text_length": 76399,
+      "text_checksum": "39e979cb680f108c1d1e59b91db8e6aae44fde4968712ebed61edcf4170276cd",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-D2FBDDBF93C6.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-DD2EB89CFCE1",
+      "sequence": 25,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 601,
+      "end_page": 625,
+      "text_length": 78133,
+      "text_checksum": "b235d16a2640c4abcf505e7aaf24f50b32b0a2329a3464671c9340e67213b453",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-DD2EB89CFCE1.txt"
+    },
+    {
+      "id": "ARQUITETURA_ORGANIZACAO_COMPUTADORES-AE56892F3041",
+      "sequence": 26,
+      "source": "arquitetura-e-organizacao-computadores-8a.pdf",
+      "source_key": "arquitetura_organizacao_computadores",
+      "start_page": 626,
+      "end_page": 643,
+      "text_length": 72812,
+      "text_checksum": "77db53cb31634e2a509091f7af8725aaff927ac1b1ec0fb1ca6a12afba361fc7",
+      "cache_file": "arquitetura_organizacao_computadores\\ARQUITETURA_ORGANIZACAO_COMPUTADORES-AE56892F3041.txt"
+    }
+  ]
+}

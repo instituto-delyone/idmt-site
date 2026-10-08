@@ -1,0 +1,956 @@
+510 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+16.5 Leitura recomendada
+Há vários livros dedicados à microprogramação. Talvez o mais compreensivo seja Lynch (1993g). Segee e Field (1991h) 
+apresentam os fundamentos de microcódigos e projeto de sistemas microcodifi cados por meio de um projeto 
+passo a passo de um processador simples de 16 bits. Carter (1996i) também apresenta os conceitos básicos usando 
+uma máquina simples. Parker e Hamblen (1989j) e Texas Instruments (1990k) fornecem uma descrição detalhada de 
+TI 8800 Software Development Board.
+Vassiliadis, Wong e Cotofana (2003l) discutem a evolução do uso de microcódigo no projeto de computadores 
+e seu status atual.
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Memória de controle Codifi cação de microinstruções Unidade de controle microprogramada
+Palavra de controle Execução de microinstruções Linguagem de microprogramação
+Firmware Sequenciamento de microinstruções Microprogramação soft
+Microprogramação hard Microinstruções Microinstrução não empacotada
+Microprogramação horizontal Microprograma Microinstrução vertical
+Perguntas de revisão
+ 16.1 Qual é a diferença entre uma implementação por hardware e uma implementação microprogramada de uma unidade de controle?
+ 16.2 Como é interpretada um microinstrução horizontal?
+ 16.3 Qual é o propósito de uma memória de controle?
+ 16.4 Qual é a sequência típica na execução de uma microinstrução horizontal?
+ 16.5 Qual é a diferença entre microinstruções horizontais e verticais?
+ 16.6 Quais são tarefas básicas executadas por uma unidade de controle microprogramada?
+ 16.7 Qual é a diferença entre microinstruções empacotadas e não empacotadas?
+ 16.8 Qual é a diferença entre programação hard e soft?
+ 16.9 Qual é a diferença entre codifi cação funcional e de recursos?
+ 16.10 Enumere algumas aplicações comuns da microprogramação.
+Problemas
+16.1 Descreva a implementação da instrução múltipla na máquina hipotética projetada por Wilkes. Use narrativa e um fl uxograma.
+16.2 Suponha um conjunto de microinstruções que inclui uma microinstrução com a seguinte forma simbólica:
+IF (AC0=1) THEN CAR ;(C0-6) ELSE CAR ;(CAR)+1
+onde AC0 é o bit de sinal do acumulador e C0 –6 são primeiros sete bits da microinstrução. Usando esta microinstrução, escreva um microprogra-
+ma que implementa uma instrução de máquina Branch Register Minus (BRM) que desvia se AC for negativo. Suponha que os bits de C1 até Cn 
+da microinstrução especifi cam um conjunto paralelo de micro-operações. Expresse o programa simbolicamente.
+16.3 Um processador simples possui quatro fases principais para o seu ciclo de instrução: busca, indireto, execução e interrupção. Dois fl ags de 1 bit 
+defi nem a fase atual em uma implementação por hardware.
+Book 1.indb 510 19.11.09 14:40:26
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 16 Controle microprogramado 511
+a. Por que estes flags são necessários?
+b. Por que eles não são necessários em uma unidade de controle microprogramada?
+16.4 Considere a unidade de controle da Figura 16.7. Suponha que a memória de controle tenha um tamanho de 24 bits. A parte de controle do 
+formato da microinstrução é dividida em dois campos. Um campo de micro-operação de 13 bits que especifica as micro-operações a serem efetuadas. Um campo de seleção de endereço que especifica uma condição, com base em flags, que causará um desvio de microinstrução. Existem oito flags.
+a. Quantos bits há no campo de seleção de endereço?
+b. Quantos bits há no campo de endereço?
+c. Qual é o tamanho da memória de controle?
+16.5 Como pode ser feito o desvio incondicional sob circunstâncias do problema anterior? Como o desvio pode ser evitado; ou seja, descreva uma 
+microinstrução que não especifica nenhum desvio, condicional ou incondicional.
+16.6 Queremos fornecer 8 palavras de controle para cada rotina de instrução de máquina. Os opcodes da instrução de máquina têm 5 bits e a memó-
+ria de controle possui 1.024 palavras. Sugira um mapeamento do registrador de instrução para registrador de endereço de controle.
+16.7 Um formato de microinstrução codificado é usado. Mostre como um campo de micro-operação de 9 bits pode ser dividido em subcampos para 
+especificar 46 ações diferentes.
+16.8 Um processador tem 16 registradores, uma ALU com 16 funções lógicas e 16 aritméticas e um deslocador com 8 operações, todos conectados por um 
+barramento interno do processador. Projete um formato de microinstrução para especificar várias micro-operações para o processador.
+ Referências
+ a WILKES, M. “The best way to design an automatic calculating machine” . Proceedings, Manchester University Computer Inaugural Conference, jul. 1951.
+ b hILL , R. “Stored logic programming and applications” . Datamation, fev. 1964.
+ c W ILKES , M. e STRIn GER , J. “Microprogramming and the design of the control circuits in an electronic digital computer” . Proceedings of the 
+Cambridge Philosophical Society, abr. 1953. Reimpresso em Siewiorek, Bell e newell, 1982.
+ d S IEWIOREK , D.; B ELL, C; e nEWELL , A. Computer Structures: Principles and Examples. n ova York: McGraw-hill, 1982.
+ e T UCKER , S. “Microprogram control for System/360” . IBM Systems Journal, no. 4,1967.
+ f S EBERn, M. “A Minicomputer-compatible microcomputer system: The DEC LSI-11” . Proceedings of the IEEE, jun. 1976.
+ g LYnCh, M. Microprogrammed state machine design. Boca Raton, FL: CRC Press, 1993. h S EGEE , B. e F IELD , J. Microprogramming and computer architecture. n ova York: Wiley, 1991.
+ i C ARTER , J. Microprocesser architecture and microprogramming. Upper Saddle River, nJ: Prentice hall, 1996.
+ j P ARKER , A. e hAMBLEn , J. An introduction to microprogramming with exercises designed for the Texas Instruments SN74ACT8800 Software 
+Development Board. Dallas, TX: Texas Instruments, 1989.
+ k T EXAS InSTRUMEn TS InC. SN74ACT880 Family Data Manual. SCSS006C, 1990.
+ l V ASSILIADIS , S.; WOnG, S. e C OTOFA nA, S. “Microcode processing: positioning and directions” . IEEE Micro, jul./ago. de 2003.
+Book 1.indb 511 19.11.09 14:40:26
+
+ASSUnTOS DA PARTE 5
+A parte fi nal do livro analisa uma importante área em constante crescimento que é a 
+organização paralela. Em uma organização paralela, várias unidades de processamento cooperam para executar aplicações. Enquanto um processador superescalar explora as oportunidades para execução paralela em nível de instruções, uma organização de processamento paralelo procura um nível mais abrangente de paralelismo, um que possibilite que o trabalho seja feito em paralelo e de forma cooperativa por vários pro-cessadores. Uma série de questões vem à tona com tais organizações. Por exemplo, se múltiplos processadores, cada um com sua cache, compartilham acesso à mesma memória, então alguns mecanismos, em hardware ou em software, devem ser empre-gados para garantir que todos os processadores compartilhem uma imagem válida da memória principal: isto é conhecido como problema de coerência de cache. Esta e outras questões de projeto são analisadas na Parte 5.
+MAPA DA PARTE 5
+Capítulo 17 Processamento paralelo
+O Capítulo 17 fornece uma visão sobre as considerações do processamento paralelo. Depois, o capítulo analisa três abordagens para organizar vários processadores: multi-processadores simétricos (SMP , do inglês symmetric multiprocessor), clusters e máquinas 
+de acesso não uniforme à memória (NUMA, do inglês nonuniform memory access). O 
+SMP e os clusters são duas maneiras mais comuns de organizar múltiplos processado-res para melhorar o desempenho e a disponibilidade. Sistemas NUMA são um conceito mais novo que ainda não atingiu um sucesso comercial grande, mas que se mostra bastante promissor. Finalmente, o Capítulo 17 analisa uma organização especial co-
+nhecida como processador vetorial.
+1 2 3 4 5PARTE
+Organização paralela
+Book 1.indb 512 19.11.09 14:40:27
+
+Capítulo 18 Computadores multicore
+Um computador multicore é um chip de computador que contém mais do que um 
+processador (núcleo). Chips com vários núcleos possibilitam aumento maior na capa-cidade computacional quando comparados a uma única capacidade computacional feita continuamente para exe cutar mais rapidamente. O Capítulo 18 analisa algumas 
+questões fundamentais de projeto dos computadores de múltiplos núcleos e fornece 
+exemplos das arquiteturas Intel x86 e ARM.
+Book 1.indb 513 19.11.09 14:40:27
+
+PRInCIPAIS POnTOS
+ Um jeito tradicional para melhorar o desempenho do sistema é usar 
+múltiplos processadores que possam executar em paralelo para suportar uma certa carga de trabalho. Duas organizações mais comuns de múlti-plos processadores são multiprocessadores simétricos (SMP , do inglês 
+symmetric multiprocessor) e clusters. Mais recentemente, sistemas de aces-
+so não uniforme à memória (NUMA, do inglês nonuniform memory acess) 
+foram introduzidos comercialmente.
+ Um SMP consiste de vários processadores semelhantes dentro de um 
+mesmo computador, interconectados por um barramento ou algum tipo de arranjo de comutação. O problema mais crítico a ser resolvido em um SMP é a coerência de cache. Cada processador possui a sua própria cache e, assim, é possível que uma determinada informação esteja presente em mais de uma cache. Se tal informação for alterada em uma cache, então a memória principal e a outra cache possuem uma versão inválida dessa informação. Os protocolos de coerência de cache são projetados para lidar com esse problema.
+ Quando mais de um processador é implementado em um chip único, 
+a confi guração é conhecida como chip de multiprocessamento. Um 
+esquema de projeto relacionado é replicar alguns dos componentes 
+de um único processador para que o processador possa executar várias threads de forma concorrente; isto é conhecido como um processador multithread.
+ Um cluster é um grupo de computadores completo conectados tra-
+balhando juntos como um recurso computacional unificado que pode 
+criar a ilusão de ser apenas uma máquina. O termo computador comple-
+to significa um sistema que pode funcionar por conta própria, separado 
+do cluster.
+ Um sistema NUMA é um multiprocessador de memória compartilhada em que o tempo de acesso para determinado processador a uma palavra na memória varia de acordo com a posição da palavra na memória.
+ Um propósito especial de organização paralela é o recurso vetorial, o qual 
+é dedicado ao processamento de vetores ou matrizes de dados.Processamento paraleloCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+17.1 Organizações de múltiplos 
+processadores
+  Tipos de sistemas de processadores 
+paralelos
+  Organizações paralelas
+17.2 Multiprocessadores simétricos
+  Organização
+  Considerações sobre projeto dos sistemas operacionais para multiprocessadores
+  Um mainframe SMP
+17.3 Coerência de cache e protocolo MESI
+  Soluções por software
+  Soluções por hardware
+  O protocolo M ESI
+17.4 Multithreading e chips 
+multiprocessadores
+  Multithreading implícito e explícito
+  Abordagens para multithreading explícito
+  Exemplos de sistemas
+17.5 Clusters
+  Confi gurações de cluster
+  Questões sobre projeto dos sistemas operacionais
+  Arquitetura de um cluster computacional
+  Servidores blade
+  Clusters comparados a SMP
+17.6 Acesso não uniforme à memória
+  Motivação
+  Organização
+  Prós e contras de nUMA
+17.7 Computação vetorial
+  Abordagens para computação vetorial
+  Recurso vetorial do IBM 3090
+17.8 Leitura recomendada e sites Web
+  Sites Web recomendados
+Book 1.indb 514 19.11.09 14:40:28
+
+capítulo 17 Processamento paralelo 515
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18Tradicionalmente, o computador tem sido visto como uma máquina sequencial. A maioria das linguagens de 
+programação de computadores requer que o programador especifi que algoritmos como uma sequências de 
+instruções. Os processadores executam programas executando as instruções de máquina em sequência e uma por vez. Cada instrução é executada em uma sequência de operações (obter instrução, obter operandos, executar ope-ração, armazenar resultados).
+Esta visão do computador nunca foi totalmente verdadeira. Em nível de micro-operações, vários sinais de con-
+trole são gerados ao mesmo tempo. O pipeline de instruções, pelo menos quando há sobreposição de operações de leitura e execução, está presente há muito tempo. Ambos são exemplos de desempenho de funções em para-lelo. Esta abordagem é aprofundada com a organização superescalar, a qual explora paralelismo em nível de instru-ções. Em uma máquina superescalar existem várias unidades de execução dentro de um único processador e estes podem executar várias instruções de um mesmo programa em paralelo.
+À medida que a tecnologia computacional evoluiu e o custo de hardware computacional baixou, os projetistas 
+procuraram mais e mais oportunidades para paralelismo, normalmente para melhorar o desempenho e, em al-guns casos, para aumentar a disponibilidade. Depois de uma introdução, este capítulo analisa algumas abordagens mais promissoras para organização paralela. Primeiro, analisamos multiprocessadores simétricos (SMP), um dos primeiros e ainda mais comuns exemplos da organização paralela. Em uma organização SMP , vários processadores compartilham uma memória comum. Esta organização levanta a questão da coerência de cache, a qual uma seção separada é dedicada. Depois descrevemos os clusters, os quais consistem em vários computadores independentes 
+organizados de forma cooperativa. A seguir, o capítulo analisa os processadores multithread e chips multiproces-sadores. Clusters tornaram-se muito comuns para suportar cargas de trabalho que estão além da capacidade de 
+um único SMP . Outra abordagem para uso de vários processadores que analisamos são máquinas de acesso não uniforme à memória ( NUMA ). A abordagem NUMA é relativamente nova e ainda não aprovada no mercado, mas 
+é frequentemente considerada como uma alternativa para abordagem SMP ou cluster. Finalmente, este capítulo 
+analisa as abordagens de organização de hardware para computação vetorial. Estas abordagens otimizam a ALU para processamento de vetores ou matrizes de números de ponto fl utuante. Elas são comuns na classe de sistemas conhecida como supercomputadores.
+17.1 Organizações de múltiplos processadores
+ Tipos de sistemas de processadores paralelos
+Uma taxonomia introduzida inicialmente por Flynn ( FLYNN , 1972a) é ainda a maneira mais comum de categorizar sis-
+temas com capacidade de processamento paralelo. Flynn propôs as seguintes categorias de sistemas computacionais:
+Instrução única, único dado (sIsd, do inglês  single instruction, single data): um processador único 
+executa uma única sequência de instruções para operar nos dados armazenados em uma única memória. Uniprocessadores enquadram-se nesta categoria.Instrução única, múltiplos dados (sImd, do inglês 
+  single instruction, multiple data): uma única ins-
+trução de máquina controla a execução simultânea de uma série de elementos de processamento em ope-rações básicas. Cada elemento de processamento possui uma memória de dados associada, então cada instrução é executada em um conjunto diferente de dados por processadores diferentes. Processadores de vetores e matrizes se enquadram nesta categoria e são discutidos na Seção 18.7.múltiplas instruções, único dado (mIsd, do inglês 
+  multiple instruction, single data): uma sequência 
+de dados é transmitida para um conjunto de processadores, onde cada um executa uma sequência de ins-truções diferente. Esta estrutura não é implementada comercialmente.múltiplas instruções, múltiplos dados (mImd, do inglês 
+  multiple instruction, multiple data): Um 
+conjunto de processadores que executam sequências de instruções diferentes simultaneamente em dife-rentes conjuntos de dados. SMPs, clusters e sistemas NUMA enquadram-se nesta categoria.
+Com a organização MIMD, os processadores são de uso geral; cada um é capaz de processar todas as instruções 
+necessárias para efetuar transformação de dados apropriada. MIMDs podem ser ainda divididos pelos meios de comunicação do processador (Figura 17.1). Se os processadores compartilham uma memória comum, então cada 
+Book 1.indb 515 19.11.09 14:40:29
+
+516 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+processador acessa programas e dados armazenados na memória compartilhada e os processadores se comuni-
+cam uns com os outros por meio dessa memória. A forma mais comum desse sistema é conhecida como multipro-
+cessador simétrico (smp), o qual examinamos na Seção 17.2. Em um SMP , múltiplos processadores compartilham 
+uma única memória ou um pool de memória por um barramento compartilhado ou algum outro mecanismo de interconexão; um recurso diferenciado é que o tempo de acesso à memória de qualquer região de memória é apro-ximadamente o mesmo para cada processador. Um desenvolvimento mais recente é a organização de acesso não 
+uniforme à memória (numA ), a qual é descrita na Seção 17.5. Como o próprio nome sugere, o tempo de acesso 
+à memória de diferentes regiões da memória pode diferir para um processador NUMA.
+Uma coleção de uniprocessadores independentes ou SMPs pode ser interconectada para formar um cluster. 
+A comunicação entre os computadores é feita por caminhos fi xos ou por alguma facilidade de rede.
+ Organizações paralelas
+A Figura 17.2 ilustra a organização geral da taxonomia da Figura 17.1. A Figura 17.2a mostra a estrutura de um 
+SISD. Existe um tipo de unidade de controle (CU, do inglês control unit) que fornece um fl uxo de instruções (IS, do inglês instruction stream) para a unidade de processamento (PU , do inglês processing unit). A unidade de processa-
+mento opera em cima de um único fl uxo de dados (DS , do inglês data stream) de uma unidade de memória (MU , 
+do inglês memory unit). Com um SIMD, ainda há uma única unidade de controle, alimentando agora um único fl uxo 
+de instruções para várias PUs. Cada PU pode ter a sua própria memória dedicada (Figura 17.2b) ou pode haver uma memória compartilhada. Finalmente, com MIMD, há várias unidades de controle, cada uma alimentando um fl uxo de instruções separado para a sua própria PU. O MIMD pode ser um multiprocessador de memória compartilhada (Figura 17.2c) ou um computador de memória distribuída (Figura 17.2d).
+As questões de projeto relativas a SMPs, clusters e NUMA são complexas e envolvem pontos de organização 
+física, estruturas de interconexão, comunicação entre processadores, projeto de sistemas operacionais e técnicas de aplicações de software. O nosso foco aqui é, em primeiro lugar, a organização, embora analisamos brevemente as questões sobre projeto de sistemas operacionais.
+Figura 17.1 Uma taxonomia de arquiteturas de processadores paralelos
+Organizações dos processadores
+Instrução única, 
+único dado
+(SISD)Instrução única, 
+múltiplos de dados
+(SIMD)Múltiplas instruções,
+fluxo de dados único
+(MISD)Múltiplas instruções,
+múltiplos de dados
+(MIMD)
+Processador
+vetorial
+ClustersUniprocessador
+Processador
+de matrizes
+Multiprocessador
+simétrico
+(SMP)Acesso à
+memória não
+uniforme
+(NUMA)Memória compartilhada
+(fortemente acoplada)Memória distribuída
+(fracamente acoplada)
+Book 1.indb 516 19.11.09 14:40:30
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 517
+17.2 Multiprocessadores simétricos
+Até recentemente, quase todos os computadores pessoais e a maioria de estações de trabalho continham um 
+único microprocessador de propósito geral. À medida que a demanda por desempenho aumenta e o custo de 
+microprocessadores continua a baixar, os fabricantes têm introduzido sistemas com uma organização SMP . O termo SMP refere-se a uma arquitetura de hardware computacional e também ao comportamento do sistema operacio-nal que refl ete essa arquitetura. Um SMP pode ser defi nido como um sistema de computação independente com as seguintes características:
+1. Há dois ou mais processadores semelhantes de capacidade comparável.
+2. Esses processadores compartilham a mesma memória principal e os recursos de E/S, e são interconectados por um barramento ou algum outro esquema de conexão interna, de tal forma que o tempo de acesso à memória é aproximadamente igual para cada processador.
+3. Todos os processadores compartilham acesso aos dispositivos de E/S, ou pelos mesmos canais ou por canais diferentes que fornecem caminhos para o mesmo dispositivo.
+4. Todos os processadores desempenham as mesmas funções (daí o termo simétrico).
+5. O sistema é controlado por um sistema operacional integrado que fornece interação entre processadores e seus programas em nível de trabalhos, tarefas, arquivos ou elementos de dados.
+Os itens de 1 a 4 são autoexplicativos. O item 5 ilustra um dos contrastes com um sistema de multiprocessamen-
+to fracamente acoplado, como um cluster. No último, a unidade física de interação é normalmente uma mensagem 
+ou um arquivo completo. Em um SMP , elementos individuais de dados podem constituir o nível de interação e pode haver um alto grau de cooperação entre processos.
+O sistema operacional de um SMP faz o agendamento de processos ou threads por meio de todos os proces-
+sadores. Uma organização SMP possui um número de vantagens potenciais em relação a uma organização de uniprocessador, incluindo o seguinte:Figura 17.2 Organizações alternativas de computadores
+LM nDSLM 1
+LM 2DS
+DSISIS
+ISUC
+PUn LM nDSPU 1 LM 1
+PU 2 LM 2DS
+DS
+•
+••IS
+(b) SIMD (com memória distribuída)UCIS
+(a) SISDPU MUDS
+UC1
+UC2
+UCn PUnIS
+IS
+IS DS
+(c) MIMD (com memória compartilhada)PU 1
+PU 2DS
+DS
+•
+••UC1
+UC2
+UCn PUnPU1
+PU2
+•••
+Rede de 
+interconexãoMemória
+compartilhada
+(d) MIMD (com memória distribuída)UC = unidade de controle SISD = instrução única, 
+IS = /f_luxo de instruções único dadoPU = unidade de processamento SIMD = instrução única, DS = /f_luxo de dados múltiplos dadosMU = unidade de memória MIMD = múltiplas instruções, LM = memória local múltiplos dados
+Book 1.indb 517 19.11.09 14:40:30
+
+518 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+desempenho  : se o trabalho a ser feito por um computador pode ser organizado de tal forma que algumas 
+partes do trabalho possam ser feitas em paralelo, então um sistema com vários processadores vai atingir 
+desempenho melhor do que um com um único processador do mesmo tipo (Figura 17.3).disponibilidade
+  : em um multiprocessador simétrico, como todos os processadores podem efetuar as 
+mesmas funções, a falha de um único processador não trava a máquina. Em vez disso, o sistema pode con-tinuar a funcionar com desempenho reduzido.crescimento incremental
+  : o usuário pode melhorar o desempenho de um sistema acrescentando um 
+processador adicional.escalabilidade
+  : fornecedores podem oferecer uma série de produtos com diferentes preços e característi-
+cas de desempenho com base no número de processadores confi gurado no sistema.
+É importante observar que estes benefícios são potenciais e não garantidos. O sistema operacional deve forne-
+cer ferramentas e funções para explorar o paralelismo em um sistema SMP .
+Um recurso atraente de um SMP é que a existência de vários processadores é transparente para usuário. O 
+sistema operacional toma conta do escalonamento de threads ou processos em processadores individuais e da sincronização entre processadores.
+ Organização
+A Figura 17.4 ilustra, em termos gerais, a organização de um sistema multiprocessado. Existem dois ou mais 
+processadores. Cada um é autossufi ciente, incluindo uma unidade de controle, uma ALU, registradores e, nor-malmente, um ou mais níveis de cache. Cada processador possui acesso à memória principal compartilhada e aos dispositivos de E/S por meio de alguma forma de mecanismo de interconexão. Os processadores podem comunicar-se uns com outros pela memória (mensagens e informações de estado são colocadas em áreas co-muns da memória). Os processadores também podem trocar sinais diretamente. A memória é frequentemente 
+Figura 17.3 Multiprogramação e multiprocessamento
+Processo 1
+Processo 2
+Processo 3
+(a) Intercalado (multiprogramação, um processador)
+Processo 1
+Processo 2
+Processo 3
+(b) Intercalado e sobreposto (multiprocessamento; múltiplos processadores)
+Bloqueado ExecutandoTempo
+Book 1.indb 518 19.11.09 14:40:31
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 519
+Figura 17.4 Diagrama de blocos genérico de um multiprocessador fortemente acoplado
+Processador
+Memória principal• • •
+• • •Rede de interconexãoProcessador Processador
+E/S
+E/S
+E/S
+organizada de tal forma que vários acessos simultâneos a blocos de memória separados sejam possíveis. Em 
+algumas configurações, cada processador pode ter a sua própria memória principal e seus próprios canais de E/S além dos recursos compartilhados.
+A organização mais comum para computadores pessoais, estações de trabalho e servidores é o barramento de 
+tempo compartilhado. O barramento de tempo compartilhado é o mecanismo mais simples para construir um sis-tema multiprocessador (Figura 17.5). As estruturas e as interfaces são basicamente as mesmas para um sistema de um processador único que usa um barramento de interconexão. O barramento consiste de linhas de controle, en-dereço e dados. Para facilitar transferências DMA pelos processadores de E/S, os seguintes recursos são fornecidos:
+endereçamento
+  : deve ser possível distinguir os módulos no barramento para determinar a origem e o 
+destino dos dados.Arbitração
+  : qualquer módulo de E/S pode funcionar temporariamente como “mestre” . Um mecanismo é 
+fornecido para arbitrar requisições concorrentes para o controle do barramento, usando algum tipo de es-quema de prioridade.Tempo compartilhado
+  : quando um módulo está controlando o barramento, outros módulos são bloquea-
+dos e devem, se necessário, suspender a operação até que o acesso ao barramento seja possível.
+Estes recursos de uniprocessadores são utilizáveis diretamente em uma organização SMP . Neste último caso, 
+existem agora múltiplos processadores, assim como múltiplos processadores de E/S, tentando obter o acesso a um ou mais módulos de memória pelo barramento.
+A organização de barramento possui vários recursos atraentes:simplicidade
+  : esta é a abordagem mais simples para organização de multiprocessadores. A interface física 
+e lógica de endereçamento, arbitração e tempo compartilhado de cada processador permanecem as mes-mas, como em um sistema de um único processador.Flexibilidade
+  : normalmente é fácil expandir o sistema anexando mais processadores ao barramento.
+confiabilidade  : o barramento é basicamente um meio passivo, e uma falha de qualquer dispositivo conec-
+tado não deve causar uma falha do sistema todo.
+Book 1.indb 519 19.11.09 14:40:31
+
+520 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A principal desvantagem da organização de barramento é o desempenho. Todas as referências à memória 
+passam pelo barramento comum. Assim, o tempo de ciclo do barramento limita a velocidade do sistema. Para 
+melhorar o desempenho, é desejável equipar cada processador com uma memória cache. Isto deveria reduzir drasticamente o número de acessos ao barramento. Normalmente, as estações de trabalho e computadores pes-soais SMP possuem dois níveis de cache, a cache L1 interno (o mesmo chip do processador) e cache L2 interno ou externo. Alguns processadores, hoje em dia, usam também uma cache L3.
+O uso da cache introduz algumas novas considerações sobre projeto. Como cada cache local contém uma ima-
+gem de uma parte da memória, se uma palavra é alterada em uma cache, isso poderia, de uma maneira concebível, invalidar essa palavra em outra cache. Para prevenir isso, outros processadores devem ser avisados que ocorreu uma atualização. Este problema é conhecido como problema de coerência de cache e é normalmente resolvido pelo hardware, em vez de ser solucionado pelo sistema operacional. Discutimos esta questão na Seção 17.4.
+ Considerações sobre projeto dos sistemas operacionais para multiprocessadores
+Um sistema operacional SMP gerencia processadores e outros recursos computacionais para que o usuário 
+perceba um único sistema operacional controlando os recursos do sistema. Na verdade, tal confi guração deveria aparecer como um sistema multiprogramado de um único processador. Tanto em SMP como em uniproces-sadores, vários trabalhos ou processos podem estar ativos ao mesmo tempo e é responsabilidade do sistema operacional escalonar a sua execução e alocar recursos. O usuário pode construir aplicações que usam vários processos ou várias threads dentro do processo sem se preocupar se um processador único ou vários processa-dores estarão disponíveis. Assim, um sistema operacional para multiprocessadores deve fornecer toda a funcio-nalidade de um sistema multiprogramado mais os recursos adicionais para acomodar múltiplos processadores. Temos, dentre as principais questões de projeto:
+processos concorrentes simultâneos
+  : rotinas do SO precisam ser reentrantes para permitir que vários 
+processadores executem o mesmo código do SO simultaneamente. Com múltiplos processadores execu-Figura 17.5 Organização de um multiprocessador simétrico
+cache L1Processador
+Memória
+principal
+E/SSubsistema deBarramento compartilhado
+E/SProcessador Processador• • •
+cache L2 cache L2 cache L2cache L1 cache L1
+Adaptador
+E/SE/SAdaptador
+Adaptador
+Book 1.indb 520 19.11.09 14:40:32
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 521
+tando mesmas ou diferentes partes do SO, tabelas do SO e estruturas de gerenciamento devem ser geren-
+ciadas de acordo para evitar deadlock ou operações inválidas.escalonamento
+  : qualquer processador pode efetuar escalonamento, portanto os confl itos devem ser evi-
+tados. O escalonador deve atribuir processos prontos para processadores disponíveis.sincronização
+  : com múltiplos processos ativos tendo acesso potencial a espaços da memória comparti-
+lhada ou recursos de E/S compartilhados, cuidados devem ser tomados para fornecer sincronização efi cien-te. A sincronização é um recurso que reforça a exclusão mútua e ordenação de eventos.gerenciamento de memória
+  : gerenciamento de memória em um multiprocessador precisa lidar com 
+todas as questões encontradas em máquinas de um processador, conforme discutido no Capítulo 8. Além disso, o sistema operacional precisa explorar o paralelismo disponível no hardware, tais como memórias com multiplas portas para alcançar o melhor desempenho. Os mecanismos de paginação em diferentes processadores devem ser coordenados para reforçar a consistência quando vários processadores comparti-lham uma página ou um segmento para decidir sobre substituição de página.confi abilidade e tolerância a falhas
+  : o sistema operacional deve prover uma degradação sutil perante 
+uma falha do processador. O escalonador e outras partes do sistema operacional devem reconhecer a perda de um processador e reestruturar as tabelas de gerenciamento de acordo.
+ Um mainframe SMP
+A maioria dos PCs e estações de trabalho SMP usa uma estratégia de barramento de interconexão conforme ilus-
+trado na Figura 17.5. É instrutivo analisar uma abordagem alternativa, a qual é usada para uma implementação recente da família de mainframes zSeries da IBM ( SIEGEL , PFEFFER e MAGEE , 2004
+b, MAK ET AL., 2004c), chamada de z990. Esta 
+família abrange uma faixa desde um uniprocessador com um cartão de memória até sistemas de alto nível com 48 processadores e 8 placas de memória. Os principais componentes da confi guração são mostrados na Figura 17.6:
+chip de processador de dois núcleos (dual-core)
+  : cada processador inclui dois processadores centrais idênti-
+cos (CP). O CP é um microprocessador CISC superescalar onde a maioria das instruções é executada por hardware e o restante é executado pelo microcódigo vertical. Cada CP inclui uma cache de instruções L1 de 256 KB e uma cache de dados L1 de 256 KB.cache L2
+  : cada cache L2 contém 32 MB. Caches L2 são arranjadas em grupos de cinco, com cada grupo 
+suportando oito chips de processador e fornecendo acesso a todo o espaço da memória principal.elemento de controle do sistema (sce, do inglês 
+  system control element): o SCE faz arbitração da 
+comunicação do sistema e tem um papel central em manter a coerência de cache.controle do armazenamento principal (msc, do inglês 
+  main store control): o MSC interconecta ca-
+ches L2 e a memória principal.cartão de memória
+  : cada cartão contém 32 GB de memória. O máximo confi gurável de memória consiste 
+de 8 placas de memória para um total de 256 GB. Placas de memória se interconectam à MSC pelas interfa-ces de memória síncrona (SMI, do inglês synchronous memory interfaces).Adaptador de barramento de memória (mBA, do inglês 
+  memory bus adapter): o MBA provê uma 
+interface para vários tipos de canais de E/S. Tráfego para/de canais vai diretamente para cache L2.
+O microprocessador em z990 é relativamente incomum se comparado com outros processadores modernos 
+porque, embora seja superescalar, ele executa instruções em ordem estritamente arquitetural. No entanto, ele com-pensa isso tendo um pipeline mais curto, e caches e TLB muito maiores, se comparado com outros processadores, além de outros recursos que melhoram a desempenho.
+O sistema z990 engloba de um a quatro livros. Cada livro é uma unidade conectável contendo até 12 proces-
+sadores com até 64 GB de memória, adaptadores de E/S e um elemento de controle de sistema (SCE) que conecta esses outros elementos. O SCE dentro de cada livro contém uma cache L2 de 32 MB que serve como um ponto central de coerência para esse livro específi co. A cache L2 e a memória principal são acessíveis por um processador ou adaptador de E/S dentro desse livro ou qualquer outros dos três livros no sistema. Os chips SCE e cache L2 tam-bém se conectam com elementos correspondentes em outros livros em uma confi guração de anel.
+Existem vários recursos interessantes na confi guração de SMP de z990, os quais discutimos agora:
+Interconexão chaveada.
+ 
+Caches L2 compartilhadas. 
+Book 1.indb 521 19.11.09 14:40:32
+
+522 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+INTERCONEXÃO CHAVEADA Um único barramento compartilhado é um arranjo comum em SMPs para PCs e 
+estações de trabalho (Figura 17.5). Com este arranjo, o barramento único se torna um gargalo que afeta a escalabi-
+lidade (habilidade de expansão para tamanhos maiores) do projeto. O z990 lida com o problema de duas maneiras. Primeiro, a memória principal é dividida em múltiplos cartões, cada um com o seu controlador de armazenamento próprio que consegue lidar com acessos à memória em altas velocidades. A carga média de tráfego para memória principal é reduzida por causa dos caminhos independentes para partes separadas da memória. Cada livro inclui dois cartões de memória, para um total de oito cartões para a configuração máxima. Segundo, a conexão a partir dos processadores (mais precisamente a partir de caches L2) para um único cartão de memória não está na forma de um barramento compartilhado, e sim na forma de ligações ponto a ponto. Cada chip de processador possui uma ligação para cada uma das caches L2 no mesmo livro e cada cache L2 possui uma ligação, por meio de MSC, para cada um dos cartões de memória no mesmo livro.
+Cada cache L2 se conecta apenas com os dois cartões de memória no mesmo livro. O controlador do sistema 
+fornece ligações (não mostradas) para outros livros na configuração, de tal forma que toda a memória principal seja acessível para todos os processadores.
+As ligações ponto a ponto em vez de um barramento fornecem conexões para os canais de E/S. Cada cache L2 
+em um livro se conecta com cada MBA desse livro. As MBAs, por sua vez, se conectam com os canais de E/S.Figura 17.6 Estrutura do multiprocessador IBM z990
+CP
+CP
+CPCP
+CPCP
+CPCP
+CPCP
+CPCP
+CPCP
+CPCP
+CacheL2CacheSCEL2CacheL2Cache
+MSC MSCMódulo cerâmico
+de múltiplos chipsMBA
+MBA
+MBA
+SMI SMI SMI SMI SMI
+CP = processador central
+MBA = adaptador do barramento de memóriaMSC = controle do armazenamento principalSCE = elemento de controle do sistemaSMI = interface de memória síncronaCartão de memória Cartão de memóriaSMI SMI SMI SMI SMIL2
+Book 1.indb 522 19.11.09 14:40:33
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 523
+CACHES L2 COMPARTILHADAS Em um esquema típico de cache de dois níveis em um SMP , cada processador 
+possui uma cache L1 dedicada e uma cache L2 também dedicada. Nos últimos anos, tem crescido o interesse pelo 
+conceito de uma cache L2 compartilhada. Em uma versão anterior do seu mainframe SMP , conhecido como gera-ção 3 (G3), a IBM fez uso de caches L2 dedicadas. Em suas versões posteriores (séries G4, G5 e série z900), uma cache L2 compartilhada foi usada. Duas considerações defi niram esta mudança:
+1. Ao mudar de G3 para G4, a IBM duplicou a velocidade dos microprocessadores. Se a organização G3 fosse mantida, um aumento signifi cativo de tráfego no barramento teria ocorrido. Ao mesmo tempo, houve um desejo de reutilizar o máximo possível de componentes G3. Sem uma atualização signifi cativa do barramen-to, o BSN teria se tornado um gargalo.
+2. Análises de cargas de trabalho típicas de mainframe revelaram um alto grau de compartilhamento de ins-truções e dados entre os processadores.
+Estas considerações levaram os projetistas da G4 a considerar o uso de uma ou mais caches L2, cada uma sendo 
+compartilhada por vários processadores (cada processador tendo um uma cache L1 dedicada no chip). À primeira vista, compartilhar uma cache L2 pode parecer uma ideia ruim. O acesso à memória a partir dos processadores deveria ser mais lento porque os processadores devem agora competir pelo acesso a uma única cache L2. No en-tanto, se uma quantidade sufi ciente de dados é, de fato, compartilhada por vários processadores, então uma cache compartilhada pode aumentar o rendimento ao invés de diminuí-lo. Dados que são compartilhados e encontrados na cache compartilhada são obtidos mais rapidamente do que se tivessem que ser obtidos pelos barramentos.
+17.3 Coerência de cache e protocolo MESI
+Nos atuais sistemas multiprocessadores, é comum haver um ou dois níveis de cache associados a cada pro-
+cessador. Esta organização é essencial para alcançar um desempenho razoável. No entanto, isso cria um problema conhecido como problema de coerência de cache. Em essência, o problema é: várias cópias dos mesmos dados 
+podem existir em caches diferentes simultaneamente e, se for permitido aos processadores atualizarem as suas próprias cópias livremente, isso pode resultar em uma imagem da memória inconsistente. No Capítulo 4, defi nimos duas políticas de escrita comuns:
+Write-back
+  : operações de escrita são feitas normalmente apenas na cache. A memória principal é atualiza-
+da apenas quando a linha de cache correspondente é retirada da cache.Write-through
+  : todas as operações de escrita são feitas na memória principal e na cache, garantindo que a 
+memória principal sempre esteja válida.
+É claro que uma política de write-back pode resultar em inconsistência. Se duas caches contêm a mesma linha, e 
+a linha é atualizada em uma cache, a outra cache terá um valor inválido sem saber. Leituras subsequentes dessa linha inválida produzem resultados inválidos. Mesmo com a política de write-through, inconsistências podem ocorrer a não ser que outras caches monitorem o tráfego de memória ou recebam alguma notifi cação direta sobre a atualização.
+Nesta seção, analisamos brevemente várias abordagens para o problema de coerência de cache e depois foca-
+mos na abordagem que é a mais usada: protocolo MESI , do inglês Modifi ed, Exclusive, Shared, Invalid. Uma versão 
+deste protocolo é usada nas implementações de Pentium 4 e PowerPC.
+Para qualquer protocolo de coerência de cache, o objetivo é deixar que variáveis locais recém-usadas cheguem à cache 
+apropriada e permaneçam aí durante várias leituras e escritas, enquanto o protocolo é usado para manter a consistência das variáveis compartilhadas que podem estar em várias caches ao mesmo tempo. Abordagens para coerência de cache geralmente têm sido divididas em abordagens por hardware e por software. Algumas implementações adotam uma es-tratégia que envolve tanto elementos de software quanto de hardware. Mesmo assim, a classifi cação em abordagens por software e por hardware ainda é instrutiva e comumente usada ao analisar as estratégias de coerência de cache.
+ Soluções por software
+Esquemas de coerência por cache por software tentam evitar a necessidade de hardware adicional, circuitos e 
+lógicas, contando com compilador e sistema operacional para lidar com o problema. Abordagens de software são atraentes porque a sobrecarga de detectar problemas potenciais é transferida do tempo de execução para o tempo de compilação e a complexidade de projeto é transferida do hardware para o software. Por outro lado, abordagens 
+Book 1.indb 523 19.11.09 14:40:34
+
+524 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+de software em tempo de compilação geralmente devem tomar decisões conservadoras, levando à utilização ine-
+fi ciente da cache.
+Os mecanismos de coerência baseados em compiladores efetuam uma análise do código para determinar que 
+itens de dados podem se tornar problemas se armazenados na cache; eles ainda marcam esses itens de maneira adequada. O sistema operacional ou hardware, então, evitam que esses itens indevidos sejam colocados em cache.
+A abordagem mais simples é evitar que quaisquer variáveis de dados compartilhadas sejam colocadas na ca-
+che. Isto é conservador demais, porque uma estrutura de dados pode ser usada exclusivamente durante alguns períodos e pode ser efetivamente usada somente para leitura durante outros períodos. A coerência de cache se torna um problema apenas durante os períodos nos quais pelo menos um processo pode atualizar a variável e pelo menos um outro processado pode acessar a variável.
+Abordagens mais efi cientes analisam o código para determinar períodos seguros para variáveis compartilhadas. 
+O compilador, então, insere instruções no código gerado para reforçar coerência de cache durante os períodos crí-ticos. Uma série de técnicas tem sido desenvolvidas para efetuar a análise e para reforçar os resultados; veja análises em Lilja (1993
+d) e Stenstrom (1990e).
+ Soluções por hardware
+Soluções baseadas em hardware são geralmente conhecidas como protocolos de coerência de cache. Estas 
+soluções fornecem reconhecimento dinâmico em tempo de execução de condições de inconsistência potenciais. 
+Como o problema é tratado apenas quando aparece de fato, há um uso mais efi ciente de cache, o que leva a um desempenho melhor se comparado com a abordagem de software. Além disso, estas abordagens são transparen-tes ao programador e ao compilador, reduzindo o trabalho no desenvolvimento de software.
+Esquemas de hardware diferem em uma série de particularidades, incluindo onde a informação sobre estado 
+das linhas por dados é guardada, como essa informação é organizada, onde a coerência é reforçada e os meca-nismos de reforço. Em geral, os esquemas por hardware podem ser divididos em duas categorias: protocolos de diretório e protocolos de detecção.
+PROTOCOLOS DE DIRETÓRIO Protocolos de diretório coletam e mantêm a informação sobre onde as cópias das 
+linhas residem. Normalmente, há um controlador centralizado que é parte do controlador da memória principal e um diretório que é guardado na memória principal. O diretório contém informação de estado global sobre o conteúdo de várias caches locais. Quando um controlador de cache individual faz uma requisição, o controlador centralizado verifi ca e emite comandos necessários para transferência de dados entre memória e caches e entre caches. Ele é responsável também por guardar a informação de estado atualizada; portanto, cada ação local que pode afetar o estado global de uma linha deve ser reportada para o controlador central.
+Normalmente, o controlador mantém a informação sobre quais processadores têm uma cópia de quais linhas. 
+Antes que um processador possa escrever em uma cópia local de uma linha, ele deve requisitar o acesso exclusivo para a linha ao controlador. Antes de conceder esse acesso exclusivo, o controlador envia uma mensagem para todos os processadores com uma cópia da cache dessa linha, forçando cada processador a invalidar a sua cópia. Depois de receber o reconhecimento de volta de cada processador, o controlador concede acesso exclusivo para o processador requisitante. Quando outro processador tenta ler uma linha que está exclusivamente concedida para outro processador, ele envia uma notifi cação de falha para o controlador. O controlador, então, emite um comando para o processador que guarda essa linha para que o processador escreva-a de volta na memória principal. A linha agora pode ser compartilhada para leitura pelo processador original e processador requisitante.
+Esquemas de diretório tem a desvantagem de um gargalo central e de uma sobrecarga de comunicação entre 
+os vários controladores de cache e o controlador central. No entanto, eles são efi cientes em sistemas de grande escala que envolvem vários barramentos ou algum outro esquema complexo de interconexão.
+PROTOCOLOS DE MONITORAÇÃO (Snoopy Protocols) Protocolos snoopy distribuem a responsabilidade de man-
+ter a coerência de cache entre todos os controladores de cache em um multiprocessador. Uma cache deve reco-nhecer quando uma linha que ela guarda é compartilhada com outras caches. Quando uma ação de atualização é feita em uma linha compartilhada na cache, ela deve ser anunciada para todas as outras caches por meio de um mecanismo de difusão (broadcast). Cada controlador de cache é capaz de “monitorar” na rede essas notifi cações de dispersão e reagir de acordo.
+Protocolos de snoopy encaixam-se perfeitamente em um multiprocessador baseado em barramento, porque 
+o barramento compartilhado fornece um meio simples para difusão e monitoramento. No entanto, como um dos 
+Book 1.indb 524 19.11.09 14:40:34
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 525
+objetivos do uso de caches locais é evitar acessos ao barramento, cuidado deve ser tomado para que o tráfego de 
+barramento aumentado para difusão e monitoramento não anule os ganhos do uso de caches locais.
+Duas abordagens básicas para protocolo de detecção foram exploradas: write invalidate e write update (ou wri-
+te broadcast). Com um protocolo de write invalidate, pode haver vários leitores, mas apenas um escritor ao mesmo tempo. Inicialmente, uma linha pode ser compartilhada entre várias caches para propósitos de leitura. Quando uma das caches deseja escrever na linha, ela primeiramente emite um aviso que invalida essa linha em outras caches, tornando a linha exclusiva para a cache que estará escrevendo. Uma vez a linha se tornando exclusiva, o processa-dor proprietário pode fazer as escritas locais e baratas até que algum outro processador solicite a mesma linha.
+Em um protocolo de write updates, pode haver vários escritores como também vários leitores. Quando um 
+processador deseja atualizar uma linha compartilhada, a palavra a ser atualizada é distribuída para todas as outras e as caches que contêm essa linha podem atualizá-la.
+Nenhum destes dois protocolos é superior a outro em todas as situações. O desempenho depende do número 
+de caches locais e do padrão de leituras e escritas de memória. Alguns sistemas implementam protocolos adaptá-veis que implementam ambos os mecanismos, write invalidate e write update.
+A abordagem write invalidate é a mais usada em sistemas multiprocessadores comerciais, como Pentium 4 e 
+PowerPC. Ela marca o estado de cada linha de cache (usando dois bits extras na marcação da cache) como modi-fi cada, exclusiva, compartilhada ou inválida. Por esta razão, o protocolo write invalidate é chamado de MESI.
+1 No 
+restante desta seção, analisamos o seu uso entre caches locais por meio de um multiprocessador. Para simplicidade da apresentação, não analisamos os mecanismos envolvidos em coordenação entre os níveis 1 e 2 localmente, assim como o tempo de coordenação pelo multiprocessador distribuído. Isso não adicionaria nenhum princípio novo, porém complicaria muito a discussão.
+ O protocolo MESI
+Para fornecer a consistência de cache em um SMP , a cache de dados frenquentemente suporta um protocolo 
+conhecido como MESI . Para o MESI , a cache de dados inclui dois bits de estado para cada tag, para que cada linha 
+possa estar em um dos quatro estados:
+modifi cada  : a linha na cache foi modifi cada (diferente da memória principal) e está disponível apenas nesta 
+cache.exclusiva
+  : a linha na cache é a mesma da memória principal e não está presente em nenhuma outra cache.
+compartilhada  : a linha na cache é a mesma da memória principal e pode estar presente em outra cache.
+Inválida  : a linha na cache não contém dados válidos.
+A Tabela 17.1 resume o signifi cado dos quatro estados, e a Figura 17.7 mostra um diagrama de estado para o protoco-
+lo MESI. Tenha em mente que cada linha de cache tem os seus próprios bits de estado e, portanto, a sua própria instância do diagrama de estado. A Figura 17.7a mostra as transições que ocorrem por causa das ações iniciadas pelo processador associado a essa cache. A Figura 17.7b mostra as transições que ocorrem por causa dos eventos que são detectados no barramento comum. Esta apresentação de diagramas de estado separados para ações de iniciar processador e iniciar bar-
+1 Nota do tradutor: a letra S na sigla MESI vem do inglês Shared (compartilhada).M
+Modifi cadaE
+ExclusivaS (shared)
+CompartilhadaI
+Inválida
+Esta linha da cache está válida? Sim Sim Sim não
+A cópia da memória está... desatualizada válida válida —
+há cópias em outras caches? não não Talvez Talvez
+Uma escrita nesta linha... não vai para barramento não vai para barramentovai para barramento e atualiza 
+a cachevai diretamente para barramentoTabela 17.1 Estado das linhas da cache MESI
+Book 1.indb 525 19.11.09 14:40:35
+
+526 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+ramento ajuda a esclarecer a lógica do protocolo MESI . A qualquer momento, a linha da cache está em um estado único. 
+Se o próximo evento vem do processador anexo, então a transição é ditada pela Figura 17.7a, e se o próximo evento vem 
+do barramento, a transição é ditada pela Figura 17.7b. Vamos analisar essas transições em mais detalhes.
+LEITURA COM FALHA (READ MISS) Quando ocorre uma falha de leitura em uma cache local, o processador inicia 
+uma leitura de memória para ler a linha da memória principal que contém o endereço que está faltando. O proces-sador insere um sinal no barramento que avisa todos os outros processadores/unidades de cache para detectarem a transação. Há vários desfechos possíveis:
+Se outra cache possui uma cópia limpa (não modificada desde a leitura da memória) da linha no estado 
+ 
+exclusivo, ela retorna um sinal indicando que compartilha essa linha. O processador que respondeu passa o estado da sua cópia de exclusiva para compartilhada e o processador que iniciou lê a linha da memória principal e passa a linha na sua cache de inválida para compartilhada.Se uma ou mais caches têm uma cópia limpa da linha no estado compartilhado, cada uma delas sinaliza 
+ 
+que compartilha essa linha. O processador que iniciou lê a linha e passa a linha na sua cache de inválida para compartilhada.Se outra cache tem uma cópia modificada da linha, então essa cache bloqueia a leitura de memória e for-
+ 
+nece a linha para a cache que requisitou por meio do barramento compartilhado. A cache que respondeu muda, então, a sua linha de modificada para compartilhada.
+2 A linha enviada para a cache requisitante é 
+também recebida e processada pelo controlador de memória, que guarda o bloco na memória.
+2 Em algumas implementações, a cache com a linha modificada sinaliza o processador que iniciou para tentar novamente. Enquanto isso, o 
+processador com a cópia modificada segura o barramento, escreve a linha modificada de volta na memória principal e passa a linha na sua cache de modificada para compartilhada. Subsequentemente, o processador requisitante tenta novamente e descobre que um ou mais processadores possuem uma cópia limpa da linha no estado compartilhado, conforme descrito no ponto anterior.Figura 17.7 Diagrama de transição do estado do protocolo MESI
+Cópia de linha suja
+Transação inválidaLeitura com intenção de modi/f_icarPreenchimento de linha da cache RH = leitura com acerto (hit)
+ RMS = leitura com falha, compartilhada RME = leitura com falha, exclusiva WH = escrita com acerto (hit) WM = escrita com falha SHR = detectar acerto na leituraSHW = detectar acerto na escrita ou leitura com intenção de modi/f_icarModi/f_icada
+(a) Linha na cache ao iniciar o processadorRH
+WHRHRH
+ExclusivaCompar-
+tilhadaInválida Inválida RMS
+WHSHW
+SHWRME
+SHR
+Modi/f_icada
+(b) Linha na cache de detecçãoExclusiva
+SHRSHWWMSHR
+WHCompar-
+tilhada
+Book 1.indb 526 19.11.09 14:40:35
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 527
+Se nenhuma outra cache tem uma cópia da linha (limpa ou modificada), então nenhum sinal é retornado. O 
+processador que iniciou lê a linha e passa a linha na sua cache de inválida para exclusiva.
+LEITURA COM ACERTO (READ HIT) Quando uma leitura com acerto ocorre em uma linha que está atualmente 
+na cache local, o processador simplesmente lê o item requerido. Não há mudança de estado: o estado permanece 
+modificado, compartilhado ou exclusivo.
+ESCRITA COM FALHA Quando ocorre uma escrita com falha na cache local, o processador inicia uma leitura de 
+memória para ler a linha da memória principal contendo o endereço que faltou. Para este propósito, o processador emite um sinal no barramento que significa leitura com intenção de modificar (RWITM, do ingês read-with-intent-to-
+modify). Quando a linha é carregada, ela é imediatamente marcada como modificada. Em relação a outras caches, dois cenários possíveis antecedem o carregar da linha de dados.
+Primeiro, alguma outra cache pode ter uma cópia modificada dessa linha (estado = modificado). Neste caso, o 
+processador alertado sinaliza ao processador iniciante que outro processador tem uma cópia modificada da linha. O processador que iniciou entrega o barramento e espera. O outro processador obtém acesso ao barramento, es-creve a linha de cache modificada de volta na memória principal e passa o estado da linha de cache para inválida (porque o processador que iniciou vai modificar esta linha). Subsequentemente, o processador que iniciou emite novamente um sinal RWITM para o barramento e depois lê a linha da memória principal, modifica a linha na cache e muda a linha para estado modificado.
+O segundo cenário é quando nenhuma outra cache possui uma cópia modificada da linha requisitada. 
+Neste caso, nenhum sinal é retornado e o processador que iniciou continua a ler a linha e a modificá-la. Enquanto isso, se uma ou mais caches possuem uma cópia limpa da linha no estado compartilhado, cada cache invalida a sua cópia da linha e se uma cache tiver uma cópia limpa da linha no estado exclusivo, ela invalida a sua cópia da linha.
+ESCRITA COM ACERTO (WRITE HIT) Quando ocorre uma escrita com sucesso em uma linha que está atualmente 
+na cache local, o efeito depende do estado atual dessa linha na cache local:
+compartilhada
+  : antes de efetuar atualização, o processador deve obter a propriedade exclusiva da linha. 
+O processador sinaliza a sua intenção no barramento. Todo processador que tem uma cópia compartilhada da linha na sua cache passa-a de compartilhada para inválida. O processador que iniciou então efetua a atualização e passa a sua cópia da linha de compartilhada para modificada.exclusiva
+  : o processador já possui o controle exclusivo desta linha, então ele simplesmente efetua a atuali-
+zação e passa a sua cópia da linha de exclusiva para modificada.modificada
+  : o processador já possui o controle exclusivo desta linha e a linha está marcada como modifi-
+cada, então ele simplesmente efetua a atualização.
+CONSISTÊNCIA DE CACHE L1‑L2 Até agora descrevemos protocolos de coerência de cache em termos de ati-
+vidade cooperativa entre caches conectadas ao mesmo barramento ou outro recurso de interconexão de SMP . Normalmente, estas caches são caches L2 e cada processador possui também uma cache L1 que não se conecta diretamente ao barramento e, portanto, não pode fazer parte de um protocolo de detecção. Assim, algum esque-ma é necessário para manter a integridade de dados entre ambos os níveis de cache e entre todas as caches na configuração SMP .
+A estratégia é estender o protocolo MESI (ou qualquer protocolo de coerência de cache) para caches L1. 
+Assim, cada linha na cache L1 inclui bits para indicar o estado. Basicamente, o objetivo é o seguinte: para cada linha que está presente na cache L2 e na sua cache L1 correspondente, o estado da linha L1 deve seguir o estado da linha L2. Uma forma simples de fazer isso é adotar a política de write through na cache L1; neste caso, a escrita direta é para a cache L2 e não para a memória. A política de write through de L1 força qualquer modificação em uma linha L1 para a cache L2 e assim a torna visível para outras caches L2. O uso da política de write through de L1 requer que o conteúdo de L1 seja um subconjunto do conteúdo L2. Isso, por sua vez, sugere que a associati-vidade da cache L2 seja igual ou maior que a associatividade de L1. A política de write-through de L1 é usada no 
+IBM S/390 SMP .
+Se a cache L1 tem uma política write-back, a relação entre as duas caches é mais complexa. Existem várias 
+abordagens para manter a coerência. Por exemplo, a abordagem usada no Pentium II é descrita em detalhes em Shanley (2005
+f).
+Book 1.indb 527 19.11.09 14:40:35
+
+528 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+17.4 Multithreading e chips multiprocessadores
+A medida mais importante de desempenho para um processador é a taxa em que ele executa as instruções. 
+Isso pode ser expresso como:
+MIPS Taxa =f*IPC
+onde f é a frequência de clock do processador, em MHz, e IPC (instruções por ciclo) é o número médio de instruções 
+executadas por ciclo. De acordo com isso, os projetistas têm perseguido o objetivo de aumentar o desempenho em 
+duas frentes: aumento de frequência de clock e aumento de número de instruções executadas ou, mais apropria-damente, o número de instruções completadas durante um ciclo do processador. Conforme vimos em capítulos anteriores, os projetistas aumentaram o IPC usando um pipeline de instruções e pipelines múltiplos paralelos de instruções em uma arquitetura superescalar. Com projetos de pipeline e pipelines múltiplos, o principal problema é maximizar a utilização de cada estágio do pipeline. Para melhorar o rendimento, os projetistas criaram mecanismos cada vez mais complexos, como executar algumas instruções em uma ordem diferente da forma que ocorrem no fl uxo de instruções e começar a execução de instruções que podem nunca ser necessárias. Mas como foi discutido na Seção 2.2, esta abordagem pode estar alcançando o limite por causa da complexidade e dos problemas de consumo de energia.
+Uma abordagem alternativa, a qual permite um grau mais alto de paralelismo em nível de instruções sem au-
+mentar a complexidade dos circuitos ou consumo de energia, é chamada de multithreading. Basicamente, o fl uxo 
+de instruções é dividido em vários fl uxos menores, conhecidos como threads, de modo que cada thread possa ser 
+executada em paralelo.
+A variedade de projetos específi cos de multithreading realizada nos sistemas comerciais e nos experimentais é 
+muito grande. Nesta seção, fazemos uma breve análise dos principais conceitos.
+ Multithreading implícito e explícito
+O conceito de thread usado na discussão sobre processadores multithread pode ou não ser o mesmo que o con-
+ceito de threads de software em sistemas operacionais multiprogramados. Será útil defi nir os termos rapidamente:
+processo  : uma instância de um programa executando em um computador. Um processo engloba duas 
+características principais:
+posse do recurso  : um processo inclui um espaço de endereço virtual para guardar a imagem do pro-
+cesso; a imagem do processo é coleção de programa, dados, pilhas e atributos que defi nem o processo. De tempos em tempos, a um processador pode ser dada a posse (ou controle) de recursos, como me-mória principal, canais de E/S, dispositivos de E/S e arquivos.escalonamento/execução
+  : a execução de um processo segue um caminho de execução (rastro) por 
+um ou mais programas. Esta execução pode ser intercalada com a de outros processos. Assim, um pro-cesso possui um estado de execução (Executando, Pronto etc.) e uma prioridade de despacho, e é a entidade que é escalonada e despachada pelo sistema operacional.
+Troca de processos
+  : uma operação que troca em um processador de um processo para outro, salvando 
+todos os dados de controle do processador, registradores e outras informações do primeiro e substituindo-as com informações de processo do segundo.
+3
+Thread  : uma unidade de trabalho dentro de um processo que pode ser despachada. Ela inclui um contexto 
+de processador (o qual inclui o contador de programa e o ponteiro de pilha) e sua própria área de dados para uma pilha (para possibilitar desvio de subrotinas). Uma thread executa sequencialmente e pode ser 
+interrompida para que o processador possa se dedicar a outra thread.Troca de 
+  thread: o ato de trocar o controle do processador de uma thread para outra dentro do mesmo 
+processo. Normalmente, este tipo de troca é muito menos custoso do que uma troca de processo.
+3 O termo troca de contexto é frequentemente encontrado em literatura e livros sobre SO. Infelizmente, embora a maior parte da literatura 
+use este termo para se referir ao que é chamado aqui de troca de processo, outras fontes o usam para se referir à troca de thread. Para evitar 
+ambiguidade, o termo não é usado neste livro.
+Book 1.indb 528 19.11.09 14:40:36
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes capítulo 17 Processamento paralelo 529
+Desta forma, uma thread preocupa-se com escalonamento e execução, enquanto um processo se preocupa com 
+escalonamento/execução e posse de recursos. Várias threads dentro de um processo compartilham os mesmos re-
+cursos. É por isso que uma troca de thread consome bem menos tempo do que uma troca de processo. Os sistemas 
+operacionais tradicionais, como versões anteriores do Unix, não suportavam threads. A maioria de sistemas operacio-
+nais modernos, como Linux, outras versões de Unix e Windows, suporta threads. Uma distinção é feita entre threads em 
+nível de usuário, as quais são visíveis para o programa da aplicação, e threads em nível de kernel, as quais são visíveis 
+apenas para o sistema operacional. Ambas podem ser referidas como threads explícitas, defi nidas em software.
+Todos os processadores comerciais e a maioria de processadores experimentais até hoje têm usado multithrea-
+ding explícito. Esses sistemas executam instruções de diferentes threads explícitas diferentes de forma concorrente, 
+ou com intercalação de instruções de diferentes threads em pipelines compartilhados ou com execução paralela 
+em pipelines paralelos. Multithreading implícito refere-se à execução concorrente de múltiplas threads extraídas de 
+um único programa sequencial. Estas threads implícitas podem ser defi nidas estaticamente pelo compilador ou dinamicamente pelo hardware. No restante desta seção, consideramos multithreading explícito.
+ Abordagens para multithreading explícito
+Um processador multithread deve prover no mínimo um contador de programa separado para cada thread de exe-
+cução a ser executada concorrentemente. Os projetos diferem em quantidade e tipo de hardware adicional usado para suportar execução de threads concorrentes. Em geral, a busca de instruções ocorre na base de threads. O processador 
+trata cada thread separadamente e pode usar uma série de técnicas para otimizar a execução de uma thread, incluindo 
+previsão de desvio, renomeação de registradores e técnicas superescalares. Desta forma, alcança-se paralelismo em nível de threads, o que pode prover melhor desempenho quando casado com paralelismo em nível de instruções.
+Em termos gerais, existem quatro abordagens principais para multithreading:
+Multithreading
+  intercalado: isto é conhecido também como multithreading de granularidade fi na. 
+O processador lida com dois ou mais contextos de thread ao mesmo tempo, trocando de uma thread para 
+outra a cada ciclo de clock. Se uma thread é bloqueada por causa das dependências de dados ou latências 
+de memória, ela é pulada e uma thread pronta é executada.Multithreading
+  bloqueado: isto é conhecido também como multithreading de granularidade grossa. 
+As instruções de uma thread são executadas sucessivamente até que ocorra um evento que possa causar 
+atraso, como uma falha de cache. Este evento induz uma troca para outra thread. Esta abordagem é efi ciente 
+em um processador em-ordem que iria parar o pipeline num evento de atraso como uma falha de cache.Multithreading
+  simultâneo (smT): instruções são enviadas simultaneamente a partir de múltiplas threads 
+para unidades de execução de um processador superescalar. Isto combina a capacidade de envio de instru-ções superescalares com o uso de múltiplos contextos de threads.chip multiprocessadores
+  : neste caso, o processador inteiro é replicado em um único chip e cada proces-
+sador lida com threads separadas. A vantagem desta abordagem é que a área de lógica disponível em um chip é usada efi cientemente sem depender da sempre crescente complexidade no projeto do pipeline. Isto é conhecido como multicore; analisamos este tópico separadamente no Capítulo 18.
+Para as duas primeiras abordagens, instruções de diferentes threads não são executadas simultaneamente. Em vez 
+disso, o processador é capaz de trocar rapidamente de uma thread para outra, usando um conjunto de registradores 
+diferente e outra informação de contexto. Isso resulta em uma utilização melhor dos recursos de execução do proces-sador e evita uma penalidade grande por causa das falhas de cache e outros eventos de atraso. A abordagem SMT en-volve a verdadeira execução simultânea de instruções de diferentes threads, usando recursos de execução replicados. 
+Chips multiprocessadores possibilitam também execução simultânea de instruções de diferentes threads.
+A Figura 17.8, baseada em uma figura de Ungerer, Rubic e Silc (2002
+g), ilustra algumas arquiteturas possí-
+veis de pipeline, que envolvem multithreading, e as compara com as abordagens que não usam multithrea-
+ding. Cada linha horizontal representa um slot (ou slots) de envio em potencial para um ciclo de execução único; ou seja, a largura de cada linha corresponde ao número máximo de instruções que podem ser emiti-
+das em um único ciclo de clock.
+4 A dimensão vertical representa a sequência de tempo de ciclos de clock.
+4 Slots de envio são as posições das quais as instruções podem ser enviadas em um dado ciclo de clock. Lembre que, no Capítulo 14, vimos 
+que o envio de instrução é o processo de inicializar a execução da instrução em unidades funcionais do processador. Isto ocorre quando 
+uma instrução se move do estágio de decodifi cação no pipeline para o primeiro estágio de execução no pipeline.
+Book 1.indb 529 19.11.09 14:40:37
+
+530 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Um slot vazio (sombreado) representa um slot de execução não usado em um pipeline. Um no-op (no opera-
+tion) é indicado por um N.
+As três primeiras ilustrações na Figura 17.8 mostram abordagens diferentes com um processador escalar (isto é, 
+emissão única):
+Thread  escalar único: este é o pipeline simples encontrado em máquinas RISC e CISC tradicionais, sem 
+multithreading.Multithread
+  escalar intercalado: esta é a abordagem de multithreading mais fácil de ser implementada. 
+Ao trocar de uma thread para outra em cada ciclo de clock, os estágios do pipeline podem ser mantidos AA
+A
+A
+AA
+A
+AA
+Trocas de threadsA
+B
+C
+D
+A
+BBCDTrocas de threadsA
+DB
+DA
+B
+D
+AA
+B
+C
+D
+A
+BBCD
+Trocas de threadsA
+DB
+DA
+B
+D
+AAN
+N
+NN
+NN
+NNNNN
+B
+C
+D
+A
+BBCDTrocas de threadsA
+N BA
+B
+N N NA NN
+B
+B
+CBCD A
+AD
+AA
+D
+D
+DA AA
+D
+D
+B
+C
+ABB
+BB
+A
+A
+AB C
+A DACB
+A
+A A B D D
+A
+A
+DBCD A
+BB
+BBA
+AA
+A
+A
+AADDD
+D
+CC
+C
+C
+C CBCDTrocas de threadsA
+BA
+A
+B
+Issue bandwidthCiclo de
+latênciaCiclos
+(a) Escalar de
+thread única
+(g) VLIW
+(i) Multithread VTLTM
+multithread
+bloqueado(j) Multithread
+simultâneo
+(SMT)(k) Chip multiprocessador (multicore)(b) Multithread
+escalar 
+intercalado(c) Multithread
+escalar
+bloqueado(d) Superescalar
+(e) Multithread
+superescalar
+intercalado(f) Multithread
+superescalar
+bloqueadoEncaixe de emissão A
+A
+B
+B
+CBCDA
+Trocas de threadsA
+A
+A
+B
+BBCD
+AA
+A
+AA
+A AAAAA
+AA
+N
+AAN
+N
+AAN
+N
+NA
+A A NN
+NN NAD AA
+B DB D DDB
+BB
+BDD
+D
+D(h) Multithread VLIV 
+intercaladoFigura 17.8 Abordagens para execução de múltiplos threads
+Book 1.indb 530 19.11.09 14:40:41
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 531
+totalmente ocupados, ou quase totalmente ocupados. O hardware deve ser capaz de trocar de um contexto 
+de thread para outro entre os ciclos.Multithread
+  escalar bloqueado: neste caso, uma única thread é executada até que ocorra um evento de 
+atraso que pararia o pipeline, momento em que o processador troca para outra thread.
+A Figura 17.8c mostra uma situação na qual o tempo para executar uma troca de thread é de um ciclo, enquanto 
+a 17.8b mostra que a troca de thread ocorre em zero ciclos. No caso de multithread intercalado, assume-se que não há 
+dependências de dados ou controle entre threads, o que simplifica o projeto do pipeline e deveria, portanto, permitir a 
+troca de thread sem nenhum atraso. No entanto, dependendo do projeto e da implementação específica, multithread 
+de bloqueio pode requerer um ciclo de clock para efetuar a troca de thread, conforme ilustrado na Figura 17.8. Isso é ver -
+dade se a instrução obtida dispara a troca de thread e deve ser descartada do pipeline ( UNGERER , RUBIC E SILC 2003h).
+Embora a multithread intercalado pareça oferecer melhor utilização do processador do que a multithread de 
+bloqueio, ele consegue isso sacrificando o desempenho de thread únicos. Vários threads competem pelos recursos 
+de cache, o que eleva a probabilidade de uma falha de cache para uma determinada thread.
+Mais oportunidades para execução paralela estão disponíveis se o processador puder enviar várias instruções 
+por ciclo. As figuras de 17.8d a 17.8i ilustram um número de variações entre processadores que possuem hardware para enviar quatro instruções por ciclo. Em todos estes casos, apenas as instruções de uma única thread são emiti-
+das em um único ciclo. As seguintes alternativas são ilustradas:
+superescalar
+  : esta é a abordagem superescalar básica sem nenhum multithread. Até há relativamente 
+pouco tempo, esta era a abordagem mais poderosa para permitir paralelismo dentro de um processador. Observe que, durante alguns ciclos, nem todos os slots de envio são usados. Durante esses ciclos, menos que o número máximo de instruções é usado; chamamos isso de perda horizontal. Durante outros ciclos de instrução, nenhum slot de envio é usado; estes são os ciclos quando nenhuma instrução pode ser enviada; chamamos isso de perda vertical.Multithread 
+  superescalar intercalado: durante cada ciclo são emitidas tantas instruções quantas forem 
+possíveis a partir de um único thread. Com esta técnica, atrasos potenciais por causa das trocas de threads 
+são eliminados, conforme discutido anteriormente. No entanto, o número de instruções enviado em qual-quer ciclo ainda é limitado pelas dependências que existem dentro de qualquer thread.Multithread s
+  uperescalar bloqueado: novamente, as instruções de apenas uma thread podem ser emiti-
+das durante qualquer ciclo e a multithread bloqueado é usado.slot de envio (VLIW, do inglês 
+  very long instruction word): uma arquitetura VLIW, como IA-64, coloca 
+várias instruções em uma única palavra. Normalmente, uma VLIW é construída pelo compilador, o qual co-loca operações que podem ser executadas em paralelo na mesma palavra. Em uma máquina VLIW simples (Figura 17.8g), se não for possível preencher a palavra completamente com instruções a serem emitidas em paralelo, no-ops são usados.VLIW 
+  Multithread intercalado: esta abordagem deveria fornecer eficácia semelhante àquela provida por 
+multithreading intercalada em uma arquitetura superescalar.Multithread
+  VLIW bloqueado: esta abordagem deveria fornecer eficácia semelhante àquela provida por 
+multithread bloqueado em uma arquitetura superescalar.
+Duas últimas abordagens ilustradas na Figura 17.8 possibilitam execução paralela e simultânea de várias threads:
+Multithreading  simultâneo: a Figura 17.8i mostra um sistema capaz de emitir 8 instruções ao mesmo 
+tempo. Se um thread possui um alto grau de paralelismo em nível de instruções, ela pode, em alguns ciclos, 
+ser capaz de preencher todos os slots horizontais. Em outros ciclos, as instruções de duas ou mais threads 
+podem ser enviados. Se threads suficientes estão ativos, normalmente seria possível enviar o número máxi-
+mo de instruções em cada ciclo, fornecendo um nível alto de eficiência.chip multiprocessador (multicore)
+  : a Figura 17.8k mostra um chip que contém quatro processadores, 
+cada um tendo um processador superescalar de envio dupla. A cada processador é atribuído um thread 
+a partir do qual ele pode enviar até duas instruções por ciclo. Discutiremos computadores multicore no Capítulo 18.
+Comparando as figuras 17.8j e 17.8k, vemos que um chip multicore com a mesma capacidade de enviados 
+de instruções como um SMT não pode alcançar o mesmo grau de paralelismo em nível de instruções. Isso ocorre 
+porque o chip multicore não é capaz de esconder os atrasos enviando instruções de outros threads. Por outro lado, 
+Book 1.indb 531 19.11.09 14:40:41
+
+532 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+o chip multicore deve ter um desempenho melhor que um processador superescalar com a mesma capacidade 
+de envio de instruções porque as perdas horizontais serão maiores para o processador superescalar. Além disso, é possível usar multithread dentro de cada processador em um chip multicore, e isso é feito em algumas máquinas atuais.
+ Exemplo de sistemas
+PENTIUM 4 Modelos mais recentes de Pentium 4 usam uma técnica de multithread à qual a literatura da Intel 
+refere-se como hyperthreading (M ARR et al. 2002i). Basicamente, a abordagem do Pentium 4 é usar SMT com supor-
+te para dois threads. Assim, um único processador multithread torna-se logicamente dois processadores.
+IBM POWER5 O chip IBM Power5, o qual é usado em produtos PowerPC de alto nível, combina o chip multi-
+processador com SMT ( KALLA , SINHAROY e TENDLER, 2004j). O chip possui dois processadores separados, sendo 
+que cada um é um processador multithread capaz de suportar dois threads concorrentemente usando SMT. É in-
+teressante que os projetistas simularam várias alternativas e descobriram que dois processadores SMT two-way em um único chip fornecem desempenho superior do que um processador SMT único four-ways. As simulações mostraram que multithread adicional, além do suporte para dois threads, pode diminuir o desempenho por causa 
+do trabalho com a cache, os dados de uma thread deslocam os dados necessários para outra thread.
+A Figura 17.9 mostra o diagrama de fl uxo da instrução de IBM Power5. Apenas poucos elementos no processa-
+dor precisam ser replicados, com elementos separados dedicados a threads separadas. Dois contadores de progra-
+ma são usados. O processador alterna a leitura de instruções, até oito por vez, entre dois threads. Todas as instruções 
+são armazenadas em uma cache comum de instruções e compartilham um recursos de tradução de instruções que fazem a decodifi cação parcial da instrução. Quando um desvio condicional é encontrado, o recurso de previsão de desvio prevê a direção do desvio e, se possível, calcula o endereço alvo. Para prever o alvo do retorno de uma sub-rotina, o processador usa uma pilha de retorno, uma para cada thread.
+Instruções então movem-se para dois buff ers de instruções separados. Depois, com base na prioridade de 
+threads, um grupo de instruções é selecionado e decodifi cado em paralelo. A seguir, as instruções fl uem por um recurso de renomeação de registradores na ordem do programa. Os registradores lógicos são mapeados para regis-tradores físicos. O Power5 possui 120 registradores físicos de uso geral e 120 registradores físicos de ponto fl utuante. As instruções então são movidas para fi las de envio. A partir das fi las de envio, as instruções são emitidas usando multithread simétrico. Isto é, o processador tem uma arquitetura superescalar e pode emitir instruções a partir de uma ou ambos os threads em paralelo. No fi m do pipeline, os recursos de threads separados são necessários para 
+encerrar a instrução.
+17.5 Clusters
+Um recurso importante e relativamente recente no projeto de computadores é o clustering. Clusters são uma 
+alternativa para multiprocessamento simétrico como uma abordagem para fornecer alto desempenho e dispo-nibilidade e são bastante atraentes para aplicações de servidores. Podemos defi nir um cluster como um grupo 
+de computadores completos interconectados trabalhando juntos, como um recurso computacional unifi cado que pode criar a ilusão de ser uma única máquina. O termo computador completo signifi ca um sistema que pode 
+funcionar por si só, à parte do cluster; na literatura, cada computador em um cluster normalmente é chamado 
+de um nó.
+Brewer (1997
+k) lista quatro benefícios que podem ser conseguidos com cluster. Estes podem ser pensados tam-
+bém como objetivos ou requisitos de projeto:
+escalabilidade absoluta  : é possível criar clusters grandes que ultrapassam em muito o poder de máquinas 
+maiores máquinas que trabalham sozinhos. Um cluster pode ter dezenas, centenas ou até milhares de má-
+quinas, cada uma sendo um multiprocessador.escalabilidade incremental
+  : um cluster é confi gurado de tal forma que é possível adicionar novos siste-
+mas ao cluster em incrementos pequenos. Assim, um usuário pode começar com um sistema modesto e 
+expandi-lo conforme a necessidade, sem ter que fazer uma atualização grande onde um sistema existente pequeno é substituído por um sistema maior.
+Book 1.indb 532 19.11.09 14:40:42
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es capítulo 17 Processamento paralelo 533
+Figura 17.9 Fluxo de dados da instrução do Power5
+BXU = unidade de execução de desvio
+CRL = unidade de execução de registrador lógico de condiçãoFPU = unidade de execução de ponto /f_lutuanteFXU = unidade de execução de ponto /f_ixoLSU = unidade de leitura/escritaContador de
+programa
+Alternar
+Prioridade
+de threadSeleção dinâmica
+de instruções
+Tabelas de
+histórico
+de desviosPilha de
+retorno
+Compartilhado por duas threads Recurso da thread 0 Recurso da thread 1Cache
+alvo
+Mapeamento 
+de registradores
+compartilhadosFilas de
+emissão
+compartilhadasUnidades
+de execução
+compartilhadas
+Leitura de arquivos
+de registradores
+compartilhadosEscrita de arquivos
+de registradores
+compartilhadosTradução
+de dadosCache
+de dadosPrevisão de desvio
+Buﬀer 0 de
+instrução
+Buﬀer de
+instrução 1Despacho de decodi/f_icação
+de instrução formando gruposLSU0
+FXU0
+FPU0
+FPU1
+BXU
+CRLLSU1
+FXU1 Conclusão
+de grupoFila de arma-
+zenamento
+Tradução
+de dadosCache
+de dados
+Cache
+L2•
+•••••••••••
+Cache de
+instrução
+Tradução de
+instrução
+Alta disponibilidade  : como cada nó no cluster é um computador independente, a falha de um nó não signi-
+fica a perda do serviço. Em muitos produtos, a tolerância a falhas é tratada automaticamente por software.
+preço/desempenho superior  : usando a ideia de blocos de construção, é possível montar um cluster com 
+poder computacional igual ou maior do que uma única máquina de grande porte, com custo bem menor.
+Book 1.indb 533 19.11.09 14:40:42
+
+534 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Confi gurações de cluster
+Na literatura, os clusters são classifi cados de várias maneiras diferentes. Talvez a classifi cação mais simples seja ba-
+seada no fato de os computadores em um cluster compartilharem acesso aos mesmos discos. A Figura 17.10a mostra 
+um cluster de dois nós onde a única interconexão é feita por uma ligação da alta velocidade que pode ser usada para 
+troca de mensagens para coordenar as atividade do cluster. A ligação pode ser uma LAN compartilhada com outros 
+computadores que não fazem parte do cluster ou a ligação pode ser um recurso de interconexão dedicado. No último 
+caso, um ou mais computadores no cluster terão a ligação para uma LAN ou WAN para que haja uma conexão entre 
+o cluster servidor e sistemas clientes remotos. Observe que, na fi gura, cada computador é ilustrado como sendo um 
+multiprocessador. Isso não é necessário, porém aumenta o desempenho e a disponibilidade.
+Na classifi cação simples mostrada na Figura 17.10, outra alternativa é um cluster de disco compartilhado. Neste 
+caso, geralmente ainda há uma ligação de mensagens entre os nós. Além disso, existe um subsistema de discos que é diretamente ligado a vários computadores dentro do cluster. Nesta fi gura, um subsistema de discos comum é um 
+sistema RAID. O uso de RAID ou de alguma outra tecnologia de discos redundante é comum em clusters para que 
+a alta disponibilidade conseguida com a presença de vários computadores não seja comprometida com um disco compartilhado como um ponto único de falha.
+Uma ideia mais clara das possibilidades de opções de clusters pode ser obtida ao se analisarem alternativas fun-
+cionais. A Tabela 17.2 fornece uma classifi cação útil de acordo com linhas funcionais, as quais analisamos agora.
+Um método comum e mais antigo, conhecido como secundário passivo ( passive standby) , resume-se a 
+ter um computador lidando com toda a carga de processamento enquanto outro permanece inativo, pronto 
+Figura 17.10 Confi gurações de clusters
+P P
+Ligação para troca de mensagem de alta velocidade
+Ligação para troca de mensagem de alta velocidadeM E/S E/SP P
+E/S E/S M
+(a) Servidor sem disco compartilhado
+P P
+RAIDM E/S E/SP P
+E/S E/S M
+(b) Disco compartilhadoE/S E/S
+Book 1.indb 534 19.11.09 14:40:43

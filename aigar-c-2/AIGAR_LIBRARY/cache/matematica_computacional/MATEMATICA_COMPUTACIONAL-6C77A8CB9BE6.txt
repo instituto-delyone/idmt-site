@@ -1,0 +1,1235 @@
+Valores próprios e valores singulares 47
+Considerem-se Q(0)eR(0)as matrizes obtidas pela decomposição QRda matrizA.
+Deﬁna-seA(1)=R(0)Q(0)e considerem-se as matrizes Q(1)eR(1)obtidas pela decom-
+posiçãoQRda matrizA(1). Podemos obter assim a matriz A(2)=R(1)Q(1). É possível
+demonstrar que, se os valores próprios de Aforem tais que
+j1j>j2j>>jnj;
+lim
+k!+1A(k)=T=2
+66641t12t1n
+2t2n
+...
+n3
+7775;
+com
+A(k)=R(k1)Q(k1);
+sendoQ(k1)eR(k1)as matrizes obtidas pela decomposição QRda matrizA(k1).
+3.3 Decomposição em valores singulares
+Uma matriz diz-se diagonalizável se for semelhante a uma matriz diagonal. Prova-se fa-
+cilmente que se A2Mn(C)tivernvectores próprios linearmente independentes, então
+U1AU= , comUa matriz cujas colunas são os vectores próprios de Aea matriz
+diagonal formada pelos correspondentes valores próprios.
+SeAfor uma matriz real simétrica a decomposição em valores próprios A=UU1é
+sempre possível e as colunas de Usão os vectores próprios de Aque podem ser escolhidos
+por forma a constituir uma base ortonormada de Rn. Nesse caso, a matriz Ué uma matriz
+ortogonal (unitária no caso complexo) uma vez que UTU=UUT=Ie a decomposição
+em valores próprios pode ser escrita na forma A=UUT
+Consideremos agora uma matriz arbitrária A2Mmn(R)(a generalização para o caso
+complexo pode ser feita facilmente). Neste caso prova-se que a decomposição em valores
+singulares
+A=UVT(3.2)
+existe sempre, com U2Mm(R)eV2Mn(R)duas matrizes ortogonais e 2Mmn(R)
+uma matriz diagonal de elemento genérico
+ij=0; i6=j;
+i0; i=j:
+Os elementos ida diagonal são chamados valores singulares da matrizAe podem ser
+ordenados na forma
+12p;
+comp=minfm;ng. As colunas uideUevideVsão chamados os vectores singlares
+esquerdos e direitos, respectivamente.
+Exemplo 3.2 Seja
+A=2
+6641 2 3
+4 5 6
+7 8 9
+10 11 123
+775:
+
+Valores próprios e valores singulares 48
+A decomposição em valores singulares de Aé dada por
+UVT=2
+6640;141 0;8250;4200;351
+0;344 0;426 0;298 0;782
+0;547 0;0278 0;6640;509
+0;7500;3710;542 0;07903
+7752
+66425;5 0 0
+0 1;29 0
+0 0 0
+0 0 03
+7752
+40;505 0;574 0;644
+0;7610;057 0;646
+0;4080;816 0;4083
+5:
+O seguinte resultado mostra que o número de valores próprios não nulos de uma matriz
+coincide com a característica dessa matriz.
+Teorema 3.1 SeA2Mmn(R)tiver característica r, entãoAtemrvalores singulares
+positivos.
+Demonstração: Uma vez que Ué quadrada e com característica me queVTé quadrada
+e com característica n;sabemos, pelas propriedades da característica de uma matriz, que
+car(A) =car(UVT) =car():
+Mas é uma matriz em escada com rpivots (os valores singulares ’s positivos), o que
+mostra o pretendido.
+Os vectores singulares à esquerda (as colunas da matriz U) contêm uma base para o
+espaço das colunas de A. Os vectores singulares à direita (as colunas da matriz V) contêm
+uma base para o espaço nulo de A. Estes factos são enunciados e provados de seguida.
+Teorema 3.2 SejaA2Mmn(R)uma matriz com característica r. SejaA=UVTa
+sua decomposição em valores singulares. Então:
+1. Uma base para C(A)é dada por u1;:::;ur.
+2. Uma base para N(A)é dada por vr+1;:::vn.
+Demonstração: Como dim(C(A)) =redim(N(A)) =nre quer as colunas de U
+quer as de Vsão linearmente independentes, basta provar que ui2C(A),i= 1;:::;r, e
+quevi2N(A),i=r+ 1;:::;n.
+É fácil veriﬁcar que ui2C(A), para um dado i2f1;:::;rg, multiplicando A por vi:
+Avi=UVTvi=Uei=iUei=iui;
+em queeidesigna ai-ésima coluna da matriz identidade de ordem n. ComoAvi2C(A),
+tem-se que ui= (1=i)Avi2C(A).
+Para mostrar que vi2N(A), comi2fr+ 1;:::;ng, calcula-se, novamente, o mesmo
+produtoAvi, masdestavezcomíndices icorrespondentesàscolunasnulasde , obtendo-se
+Avi=UVTvi=Uei= 0:
+Notemos a relação que existe entre a decomposição em valores singulares e a decom-
+posição em valores próprios. Consideremos a matriz simétrica ATAque tem todos os seus
+valores próprios são reais. Temos que
+ATA= (UVT)T(UVT) =VT(UTU)VT:
+ComoUé ortogonal, UTU=Ie então
+ATA=V2VT:
+A matriz 2= T2Mn(R). Observamos, assim, que ATAe2são semelhantes (pois
+VT=V1) e, como tal, têm os mesmos valores próprios. Logo, se Ativer característica r,
+os valors próprios não nulos de ATAsão1;:::;r. Provámos, assim, o seguinte teorema.
+
+Valores próprios e valores singulares 49
+Teorema 3.3 SejaA2Mmn(R)uma matriz com característica r. Então, os rvalores
+singulares não nulos de Asão as raízes quadradas dos rvalores próprios de ATA.
+Exemplo 3.3 Pretende-se calcular a decomposição em valores singulares de
+A=2 2
+11
+:
+Para isso, calculam-se os valores próprios de
+ATA=5 3
+3 5
+;
+que facilmente se prova serem iguais a 8 e 2, e os respectivos vectores próprios (ortonormados)
+v1=1=p
+2
+1=p
+2
+ev2=1=p
+2
+1=p
+2
+:
+Temos então
+ =1
+2
+=2p
+2p
+2
+eV=1=p
+21=p
+2
+1=p
+2 1=p
+2
+:
+As colunas da matriz Usão obtidas fazendo
+1u1=Av1=2 2
+111=p
+2
+1=p
+2
+=
+2p
+2
+0
+)u1=1
+0
+e
+2u2=Av2=2 2
+111=p
+2
+1=p
+2
+=0p
+2
+)u2=0
+1
+:
+Assim, a decomposição em valores singulares de A=UVTé
+2 2
+11
+=1 0
+0 12p
+2p
+21=p
+2 1=p
+2
+1=p
+2 1=p
+2
+:
+Exemplo 3.4 Calculemos, agora, a decomposição em valores singlares de
+A=2
+41 0
+0p
+2
+0p
+23
+5:
+Como
+AAT=1 0
+0 4
+;
+tem-se que
+ =2
+42 0
+0 1
+0 03
+5:
+Para construir Vbasta encontrar um conjunto ortonormado de vectores, próprios da matriz
+AAT, associados a cada um dos valores singulares não nulos. Assim
+V= [v1v2] =0 1
+1 0
+:
+
+Valores próprios e valores singulares 50
+Para determinar a matriz ortogonal U, temos que as duas primeiras colunas são obtidas fazendo
+ui=1
+iAvi;
+ou seja
+u1=1
+22
+41 0
+0p
+2
+0p
+23
+50
+1
+=2
+40
+1=p
+2
+1=p
+23
+5; u 2=1
+12
+41 0
+0p
+2
+0p
+23
+51
+0
+=2
+41
+0
+03
+5:
+O vectoru3será determinado por forma a ser ortogonal a fu1;u2gusando o processo de
+ortogonalização de Gram-Schmidt. Obtemos assim
+u3=2
+40
+1=p
+2
+1=p
+23
+5
+e então
+A=UVT=2
+40 1 0
+1=p
+2 01=p
+2
+1=p
+2 0 1=p
+23
+52
+42 0
+0 1
+0 03
+50 1
+1 0
+:
+Existem muitas aplicações práticas onde o conhecimento da decomposição em valores
+singulares de uma matriz pode ser importante. Uma delas prende-se com o cálculo da
+norma de uma matriz A. Atendendo ao teorema anterior, tem-se que kAk2=1. Como
+consequência, temos que
+K2(A) =1
+r:
+Também se pode provar que se Ativer característica r,kAkF=p
+2
+1++2r.
+No capítulo anterior deﬁnimos a matriz pseudo-inversa de uma matriz A2Mmn(R)
+commn, de característica máxima n, como sendo
+A+= (ATA)1AT:
+Anoçãodematrizpseudo-inversapodesergeneralizadaparaqualquermatriz A2Mmn(R)
+(mesmo não sendo ATAinvertível), a partir da decomposição em valores singulares. Se
+A=UVT, então
+A+=V+UT;
+onde +é obtida transpondo e invertendo as suas entradas não nulas.
+Outroexemploprende-secomasoluçãodoproblemadosmínimosquadradoscorrespon-
+dente ao sistema Ax=b, quando a matriz Aé mal condicionada ou não tem caracteística
+máxima. De acordo com o Exercício 3.18, a solução bxdo problema dos mínimos quadrados
+é dada por
+bx=X
+i6=0uT
+ib
+ivi;
+onde osi,uievisão os valores singulares e os correspondentes vectores singulares de A.
+Para problemas mal condicionados, os valores singulares pequenos podem ser omitidos na
+soma e, assim, estabilizar a solução
+
+Valores próprios e valores singulares 51
+O problema da compressão de imagens pode, também, ser abordado usando a decom-
+posição em valores singulares de uma matriz. Com efeito, uma imagem a preto e branco
+pode ser representada por uma matriz A2Mmn(R), ondemensão, respectivamente,
+o número de pixeisnas direcções horizontal e vertical e o elemento genérico aijdeAre-
+presenta o nível de cinzento do (i;j)-ésimopixel. Efectuando a decomposição em valores
+singulares (3.2) de A, obtemos
+A=1u1vT
+1+2u2vT
+2++pupvT
+p:
+Podemos aproximar Apela matriz Akobtida truncando a soma anterior nos kprimeiros
+termos, para k= 1;2;:::;p. Como os valores singulares iestão por ordem decrescente, se
+os últimospkforem despresados isso não deverá afectar signiﬁcativamente a qualidade
+da imagem. Para transferir a imagem comprimida Ak, bastará transferir os vectores ui,vi
+e os valores singulares i, parai= 1;2;:::;k, e não todos os elementos de A.
+3.4 Problemas
+3.4.1 Exercícios para resolver nas aulas
+Exercício 3.2 SejaAuma matriz nnda qual se conhece um vector próprio x. Mostre que
+xé vector próprio associado ao valor próprio =xTAx
+kxk2;ondexTdenota o vector-linha cuja
+i-ésima componente é igual ao complexo conjugado de xi.
+Exercício 3.3 Veriﬁcar que o método da potência não permite calcular o valor próprio de
+módulo máximo da seguinte matriz, e explicar porquê:
+A=2
+6641=3 2=3 2 3
+1 01 2
+0 05=32=3
+0 0 1 03
+775:
+Exercício 3.4 SejaA= (P1DP)Tcom
+P=2
+41 1 1
+10 20 30
+100 50 603
+5; D =2
+41 0 0
+0 20 0
+0 0 603
+5:
+Calcule os valores próprios de A.
+Exercício 3.5 Usando os círculos de Gershgorin, localize os valores próprios da matriz
+A=2
+41 21
+0 2 3
+2 4 23
+5
+e calcule um majorante para o seu raio espectral.
+Exercício 3.6 Use os círculos de Gershgorin para provar que os valores próprios de
+A=2
+40 1 0
+2 5 1
+1 033
+5
+são todos reais.
+
+Valores próprios e valores singulares 52
+Exercício 3.7 Considere a matriz
+A=2
+40 1 2
+1 0 4
+2 4 03
+5:
+1. Desenhe os círculos de Gershgorin por linhas e diga o que pode concluir sobre o raio
+espectral de A(o maior valor próprio de Aem valor absoluto).
+2. Utilize o método da potência, com vector inicial x0= [1;0;0]Tpara aproximar esse valor
+(calcule duas iterações do método).
+Exercício 3.8 Use o método da potência em segunda aproximação para determinar uma
+aproximação do valor próprio de módulo máximo da seguinte matriz
+A=2
+66421 0 0
+1 21 0
+01 21
+0 01 23
+775:
+Exercício 3.9 Localize, usando os círculos de Gershgorin, os valores próprios da seguinte
+matriz
+A=2
+66421=2 01=2
+0 4 0 2
+1=2 0 6 1 =2
+0 0 1 93
+775:
+Exercício 3.10 Considere a matriz
+B=2
+6645 0 0;5 0;5
+0;5 2 0;5 0
+0 1 0 0 ;5
+0 0;25 0;5 33
+775:
+Com base no teorema de Gershgorin obtenha um majorante para o maior módulo de um valor
+próprio deBe aproxime esse valor próprio efectuando duas iterações do método da potência.
+Exercício 3.11 Mostrar que as matrizes A(k)construídas nas iterações do método QR são
+todas semelhantes à matriz A.
+Exercício 3.12 (Matlab) Fixando a tolerância igual a "= 1010e partindo da aproximação
+inicialx(0)= [1 2 3]T, usar o método da potência para aproximar o valor próprio de módulo
+máximo das seguintes matrizes:
+A1=2
+41 2 0
+1 0 0
+0 1 03
+5;A2=2
+40;1 3;8 0
+1 0 0
+0 1 03
+5;A3=2
+401 0
+1 0 0
+0 1 03
+5:
+Comentar a convergência do método nos três casos.
+Exercício 3.13 (Matlab) Veriﬁcar que o método da potência não permite calcular o valor
+próprio de módulo máximo da seguinte matriz, e explicar porquê:
+A=2
+6641
+32
+32 3
+1 01 2
+0 05
+32
+3
+0 0 1 03
+775:
+
+Valores próprios e valores singulares 53
+Exercício 3.14 (Matlab) Têm sido propostos vários modelos matemáticos com o objectivo
+de prever a evolução de determinadas espécies (humanas ou animais). O modelo de população
+mais simples, introduzido por Lotka em 1920 e formalizado por Leslie vinte anos mais tarde, é
+baseado nas taxas de mortalidade e fecundidade para diferentes intervalos de idade, digamos
+i=0,...,n. Seja x(t)
+io número de fêmeas (os machos não intervêm neste contexto) cujas idades
+no tempotpertencem ao i-ésimo intervalo. Os valores de x(0)
+isão conhecidos. Além disso,
+sejasia taxa de sobrevivência das fêmeas que pertencem ao i-ésimo intervalo, e mio número
+médio de fêmeas geradas por uma fêmea no i-ésimo intervalo de idade.
+O modelo de Lotka e Leslie é deﬁnido pelas equações
+x(t+1)
+i+1=x(t)
+isi; i= 0;:::;n1; x(t+1)
+0 =nX
+i=0x(t)
+imi:
+Asnprimeiras equações descrevem o desenvolvimento da população, a última a sua reprodução.
+Em notação matricial, temos
+x(t+1)=Ax(t);
+em quex(t)=h
+x(t)
+0;:::;x(t)
+niT
+eAé a matriz de Leslie
+A=2
+6666664m0m1::: ::: m n
+s00::: ::: 0
+0s1...:::...
+...............
+0 0 0 sn103
+7777775:
+Pode mostrar-se que que a dinâmica desta população é determinada pelo valor próprio de
+módulo máximo de A, digamos1, enquanto que a distribuição dos indivíduos nos diferentes
+intervalos de idade (normalizada pela população total), obtém-se como o limite de x(t)para
+t!+1e veriﬁcaAx=1x:
+As características de uma população de peixes são descritas pela seguinte matriz de Leslie
+anteriormente referida:
+Intervalo de idade (meses) x(0)misi
+03 6 0 0 ;2
+36 12 0 ;5 0;4
+69 8 0 ;8 0;8
+912 4 0 ;3:
+Determinar o vector xda distribuição normalizada desta população para diferentes intervalos
+de idade.
+Exercício 3.15 (Matlab) Usando os círculos de Gershgorin, dar uma estimativa do número
+máximo de valores próprios complexos das seguintes matrizes:
+A=2
+66421
+201
+2
+0 4 0 2
+1
+20 61
+2
+0 0 1 93
+775;B=2
+6645 01
+21
+21
+221
+20
+0 1 01
+2
+01
+41
+233
+775:
+Exercício 3.16 (Matlab) Use o comando eigpara determinar todos os valores próprios das
+matrizes do exercício anterior.
+
+Valores próprios e valores singulares 54
+Exercício 3.17 Considere a matriz de Fibonacci A=1 1
+1 0
+:
+1. Determine os valores próprios e os vectores próprios unitários de ATAeAAT.
+2. Calcule a decomposição em valores singulares da matriz A.
+Exercício 3.18 SeA2Mmn(R), com decomposição em valores singulaes A=UVT, e
+b2R, prove que a solução bxdo problema dos mínimos quadrados correspondente ao sistema
+Ax=bé dada por
+bx=V+UTb;
+onde +é obtida transpondo e invertendo as suas entradas não nulas.
+Exercício 3.19 Prove que a pseudo-inversa A+da matrizA2Mmn(R)veriﬁca as chama-
+das condições de Moore-Penrose:
+1.AA+A=A; 2.A+AA+=A+; 3. (AA+)T=AA+; 4. (A+A)T=A+A.
+Exercício 3.20 Mostre que se A2Mn(R)é não singular, A+=A1.
+3.4.2 Exercícios de aplicação à engenharia
+Exercício 3.21 Os momentos de inércia, para uma determinada placa, em relação a um
+sistema coordenado xeysão
+Ixx= 0;20Kg m2; Iyy= 0;12Kg m2;
+enquanto que os produtos de inércia são
+Ixy=Iyx=0;14Kg m2:
+O tensor de inércia é representado por
+J=IxxIxy
+IyxIyy
+:
+Os momentos de inércia principal correspondem aos valores próprios de Je os respectivos
+vectores próprios correspondem aos eixos associados. Use o método da potência para calcular
+os momentos de inércia principal e a respectiva direcção dos eixos associados.
+Exercício 3.22 Considere um corpo formado por três massas: m1= 1Kg no ponto P1=
+1p
+2;0;1p
+2
+;m2= 2Kg no ponto P2=
+1
+2;1p
+2;0;1
+2
+;m3= 5Kg no ponto P3=
+1
+2;1p
+2;1
+2
+:
+1. Calcule o tensor de inércia
+J=2
+4Pmi(y2
+i+z2
+i)PmixiyiPmixizi
+Pmiyixi)Pmi(x2
+i+z2
+i)Pmiyizi
+PmizixiPmiziyiPmi(x2
+i+y2
+i)3
+5:
+2. Com base no exercício anterior, determine o maior momento de inércia principal e o seu
+eixo associado, usando o método da potência com erro relativo inferior a 103e partindo
+dev= [2;1;5;0]T.
+
+Capítulo 4
+Equações não lineares
+A solução de equações e sistemas de equações é um capítulo em que a análise numérica en-
+contraumasoluçãobastanteprecisa. Vamosagoraexporalgunsmétodosquenospermitem
+obter aproximações para as soluções reais de uma equação real da forma
+f(x) = 0; (4.1)
+ondefé uma função que pode ser algébrica ou transcendente.
+Os valores de tais quef() = 0são designados por zerosdef, ouraízesdef(x) = 0.
+Só para algumas escolhas particulares de fé que são conhecidos processos que permitem
+calcular os referidos valores com um número ﬁnito de operações.
+Exemplo 4.1 As raízes da equação do segundo grau
+ax2+bx+c= 0
+são facilmente obtidas pela chamada “fórmula resolvente”
+x=bp
+b24ac
+2a; a6= 0:
+Exemplo 4.2 As raízes da equação
+x3+px2+qx+r= 0
+podem ser obtidas pelo processo que se segue, devido a Scipione del Ferro (1465-1515) e
+Niccolò Tartaglia (1499-1557), publicado pela primeira vez por Gerolamo Cardano (1501-1576).
+Fazendo a mudança de variável x=zp
+3obtém-se a equação
+z3+az+b= 0;
+onde
+a=1
+3(3qp2)eb=1
+27(2p39pq+ 27r):
+As raízes desta nova equação são dadas por
+z1=A+B; z 2=A+B
+2+AB
+2p
+3; z 3=A+B
+2AB
+2p
+3;
+onde
+A=3s
+b
+2+r
+b2
+4+a3
+27; B =3s
+b
+2r
+b2
+4+a3
+27:
+Assim as raízes da equação dada são
+x1=z1p
+3;x2=z2p
+3;x3=z3p
+3:
+55
+
+Equações não lineares 56
+É também possível determinar analiticamente as raízes de uma equação polinomial de
+quarta ordem. Tal fórmula é devida a Ludovico Ferrari (1522-1569). A fórmula para calcular
+as raízes de uma equação polinomial de quinta ordem foi procurada durante séculos. Em
+1826, o matemático norueguês Niels Henrik Abel (1802-1829) provou que essa fórmula não
+existe. Assim, para calcular as raízes de uma equação polinomial de grau igual ou superior
+a cinco temos que recorrer a métodos numéricos. Além disso, de um modo geral, não
+existem fórmulas para a determinação das raízes de uma equação não polinomial. É o caso
+que acontece quando consideramos, por exemplo,
+ex+ tanx+ logx= 0:
+A solução analítica de sistemas de equações não lineares também não é possível de obter
+na maioria dos casos. Como exemplo, considere-se
+x2y+ 2xy2xy= 3
+xy22x2y+ 4xy=1:
+Problemas numéricos desta natureza ocorrem com muita frequência na resolução de
+equações diferenciais, integração, determinação de extremos, etc. Na impossibilidade de
+obter a sua solução exacta, vamos considerar os chamados métodos iterativos por forma a
+obter uma solução aproximada para o problema.
+4.1 Métodos iterativos
+Consideremos o problema (4.1). A ﬁlosoﬁa dos métodos iterativos consiste em, partindo
+de uma aproximação inicial x(0)para uma solução do problema, gerar uma sucessão de
+valores
+x(k+1)=(x(k)); k = 0;1;2;:::; (4.2)
+que seja convergente para essa solução.
+Deﬁnição 4.1 (Convergência) Ométodo iterativo (4.2) diz-se convergente parase
+lim
+k!+1je(k)j= 0;
+ondee(k)=e(x(k)) =x(k)é o erro (absoluto) da iteração k.
+Dados vários processos iterativos convergentes para uma solução de (4.1) coloca- -se a
+questão de saber qual dos processos é mais eﬁciente. A eﬁciência de um processo iterativo
+pode ser medida de várias maneiras: esforço computacional, tempo gasto, etc. Nesta
+secção iremos deﬁnir um conceito que servirá para medir a velocidade de convergência de
+um determinado processo iterativo.
+Deﬁnição 4.2 (Ordem de convergência) Uma sucessão de iterações fx(k)gdiz-se que
+converge com ordemdeconvergência p1para um ponto se existir uma constante M > 0,
+independente de k, e uma ordem k02Na partir da qual
+je(k+1)jMje(k)jp: (4.3)
+A constante Mé chamada constante-erro .
+
+Equações não lineares 57
+A velocidade de convergência de um processo iterativo está usualmente associada ao
+conceito de ordem de convergência. Quanto maior for a ordem de convergência mais rá-
+pida é, em geral, a velocidade de convergência do processo. A constante-erro também
+pode ser um aspecto a considerar mas, normalmente, só é tida em conta quando se com-
+param processos iterativos com a mesma ordem de convergência. Aqui, quanto menor for
+a constante-erro mais rápida é a convergência do processo.
+Sep= 1diz-se que o método iterativo converge linearmente para. Neste caso a
+constante erro Mterá que ser inferior a 1 (para o método convergir) e a relação (4.3) pode
+ser escrita na forma je(k+1)jMk+1je(0)j:Sep= 2diz-se que a convergência é quadrática
+e sep= 3diz-se que a convergência é cúbica.
+Outras questões que surgem naturalmente quando se fala de métodos iterativos são
+as seguintes: como determinar a aproximação inicial? como deﬁnir um método iterativo
+convergente? como saber que a solução dada pelo método iterativo constitui uma boa
+aproximação para a solução exacta, isto é, como parar o processo iterativo?
+Seja (4.2) o processo iterativo gerador de uma sucessão de aproximações convergente
+para a solução de (4.1). Os critérios de paragem mais frequentes, quando se pretende
+aproximar a raiz com uma precisão ", são:
+1. Critério do erro absoluto: jx(k)x(k1)j";
+2. Critério do erro relativo: jx(k)x(k1)j"jx(k)j;
+3. Critério do valor da função: jf(x(k))j"1, onde"1":
+Note-seque, sefx(k)gforumasucessãoconvergente, asucessão fjx(k)x(k1)jgtambém
+o é e o seu limite é zero. Este facto garante-nos a eﬁcácia dos critérios do erro absoluto e
+relativo.
+Comofactordesegurança, parapreverocasoemqueoprocessoiterativopossadivergir,
+também se considera o critério de paragem:
+4. Critério do número máximo de iterações: k=kmax:
+4.2 Determinação da aproximação inicial
+Num processo iterativo é necessário determinar uma estimativa inicial para a solução do
+problema a resolver. Por várias razões, algumas delas óbvias, é de todo o interesse que essa
+aproximação esteja o mais próximo possível da solução exacta. Existem vários processos
+que permitem encontrar essas aproximações iniciais.
+Exemplo 4.3 As soluções de x2;14x+ 2 = 0 podem ser aproximadas inicialmente pelas
+soluções de x24x+ 2 = 0:
+Exemplo 4.4 Se pretendermos aproximar a maior raiz de x5x500 = 0podemos tomar
+para aproximação inicial x5p
+500 = 3;468:
+As técnicas usadas nos exemplos anteriores são muito intuitivas e não podem ser gene-
+ralizadas a uma gama elevada de problemas. O processo mais usual de obter uma aproxi-
+mação inicial consiste em tentar obter graﬁcamente um intervalo que contenha a raiz do
+problema (4.1) que pretendemos calcular. Ora, o traçado gráﬁco da função fpode não ser
+evidente e constituir, em si, um processo de complicada resolução sem recurso a software
+
+Equações não lineares 58
+apropriado. Este problema pode ser contornado se reescrevermos a equação (4.1) na forma
+equivalente
+f1(x) =f2(x); (4.4)
+sendof1ef2funções cujo traçado gráﬁco seja mais simples que o de f. Assim as raízes de
+(4.1) serão as soluções de (4.4), isto é, os pontos de intersecção de f1comf2.
+O processo de determinação gráﬁca de um intervalo que contém a raiz deve ser sempre
+acompanhado de uma conﬁrmação analítica. Para isso, é conveniente relembrar o seguinte
+teorema devido a Bernard Placidus Johann Nepomuk Bolzano (1781-1848).
+Teorema 4.1 (Bolzano) Seffor uma função contínua em [a;b]então, para todo o y
+compreendido entre f(a)ef(b), existe pelo menos um x2[a;b]tal quef(x) =y.
+Como pode ser veriﬁcado, este teorema estabelece um resultado intuitivo: uma função
+contínua para passar de um ponto para outro tem de passar por todos os valores intermé-
+dios. Como corolário imediato do teorema anterior, temos o seguinte resultado.
+Teorema 4.2 (Corolário do Teorema de Bolzano) Seffor uma função contínua em
+[a;b]e sef(a)f(b)<0então existe pelo menos um c2]a;b[tal quef(c) = 0.
+Se, para além das hipóteses do teorema anterior, se veriﬁcar que a derivada de fnão
+muda de sinal no intervalo [a;b], então a raiz é única nesse intervalo. Temos assim um
+critério para veriﬁcar a existência e unicidade de zero de uma função contínua fnum dado
+intervalo [a;b]: sefé contínua em [a;b],f(a)f(b)<0ef0não muda de sinal em [a;b],
+então existe uma e uma só raiz de f(x) = 0em[a;b].
+Exercício 4.1 Localize graﬁcamente as raízes de f(x) = 0, sendof(x) =jxjex.
+Resolução: Comof(x) = 0,jxj=ex;traçando o gráﬁco de y=jxjey=ex(Figura 4.1)
+veriﬁcamos que o seu (único) ponto de intersecção, (a raiz def(x) = 0), se situa no
+intervalo ]1;0[.
+-1 -0.5 0.5 10.511.522.5
+y=|x|y=ex
+Figura 4.1: Localização gráﬁca.
+De facto, tal acontece uma vez que:
+1.f2C(]1;0[);
+2.f(1)f(0) = 0;632(1) =0;632<0;
+3.f0(x) =1ex, parax<0, e como tal f0(x)<0para todo o x2]1;0[.
+
+Equações não lineares 59
+4.3 Método da bissecção
+Sejafuma função contínua em [a;b]tal quef(a)f(b)<0. Então, pelo Teorema 4.2,
+existe pelo menos uma raiz def(x) = 0em]a;b[. Se, para além disso, se veriﬁcar que a
+derivada de fnão muda de sinal no intervalo [a;b], então a raiz é única nesse intervalo.
+Localizada a raiz (localizar uma raiz signiﬁca encontrar um intervalo que contenha essa
+e apenas essa raiz), vamos construir uma sucessão de aproximações convergente para essa
+raiz. O método mais simples, de entre os que iremos estudar, é o método das divisões
+sucessivas conhecido por método da bissecção .
+No método da bissecção não é necessário o conceito de aproximação inicial mas sim o
+de intervalo inicial I(0)=]a;b[=]a(0);b(0)[. Comecemos por determinar o ponto médio de
+I(0),
+x(0)=a(0)+b(0)
+2:
+Casof(a(0))f(x(0))<0, temos que 2]a(0);x(0)[; caso contrário temos que 2]x(0);b(0)[.
+Suponhamos, sem perda de generalidade, que 2I(1)=]a(0);x(0)[=]a(1);b(1)[. Obtemos
+assim um intervalo que contém a raiz de amplitude igual a metade da amplitude do
+intervalo inicial. Determinando agora o ponto médio de I(1),
+x(1)=a(1)+b(1)
+2;
+podemos obter, de forma análoga, um novo intervalo que contenha a raiz , de amplitude
+igual a metade da amplitude do intervalo I(1). Seja esse intervalo I(2)=]a(2);b(2)[. O
+processo repete-se determinando uma sucessão fx(k)gque converge, evidentemente, para
+.
+O algoritmo do método da bissecção pode ser dado como se segue.
+Algoritmo 4.1 Método da bissecção
+Dados:a,b,"1e"2
+Sef(a)f(b)0então parar
+x:= (a+b)=2
+erro :=jbaj=2
+Enquantoerro>" 1ejf(x)j>"2fazer
+Sef(a)f(x)0entãob:=xcaso contrário a:=x
+x:= (a+b)=2
+erro :=jbaj=2
+Resultado: x
+Notemos que, no método da bissecção, a exigência de unicidade de raiz é supérﬂua. A
+única exigência é a de que a função tenha sinal contrário nos extremos do intervalo e tal é
+veriﬁcado sempre que exista, nesse intervalo, um número ímpar de raízes.
+Veriﬁca-se facilmente que, sendo o intervalo inicial I(0)=]a;b[, a amplitude do intervalo
+I(n)(obtido ao ﬁm de niterações) é dada por
+ba
+2n;
+uma vez que a amplitude do intervalo I(k+1)é sempre igual a metade da amplitude do
+intervaloI(k), parak= 1;2;:::.
+
+Equações não lineares 60
+Exercício 4.2 Considere o método da bissecção. Seja [a;b]o intervalo que contém uma e
+uma só raiz def(x) = 0efx(0);x(1);x(2);:::ga sucessão de pontos médios gerados pelo
+referido método. Mostre que
+1.jx(k)jjx(k)x(k1)j=ba
+2k+1.
+2. O número, kmin, de iterações necessárias para garantir uma aproximação da raiz com
+uma precisão é dado porkminlog2ba
+
+1 =ln
+ba
+ln 21.
+Resolução: 1. Faz-se, sem problemas, por indução.
+2. Ao ﬁm de kminiterações obtemos o valor x(kmin). Assim, pela primeira parte, para
+calcular qual o kminque veriﬁcajx(kmin)j;vamos determinar qual o kmin
+tal que
+jx(kmin)x(kmin1)j=ba
+2kmin+1:
+Temos, sucessivamente,
+L
+2kmin+1)ba
+2kmin+1)kminln
+ba
+ln 21:
+Note-se que, atendendo ao que foi demonstrado no exercício anterior, a convergência
+do método da bisseção resulta imediatamente uma vez que
+lim
+k!+1jx(k)j lim
+k!+1ba
+2k+1= 0:
+Este método possui algumas vantagens bem como algumas desvantagens em relação
+a outros métodos que iremos estudar nas secções seguintes. A primeira grande vantagem
+é que o método da bissecção converge sempre (desde que exista raiz no intervalo inicial).
+A segunda vantagem é que existe uma possibilidade de, a priori, se poder indicar um
+majorante para o erro cometido ao ﬁm de um certo número de iterações.
+A grande desvantagem do método da bissecção reside no facto da sua velocidade de
+convergência ser muito lenta quando comparada com a dos outros métodos. De facto,
+prova-se que, atendendo à deﬁnição de ordem de convergência dada, o método da bissecção
+converge linearmente e possui uma constante erro M=1
+2, isto é,
+je(k+1)j1
+2je(k)j:
+Exercício 4.3 É bem sabido que os planetas ao girar em torno do Sol (e os satélites artiﬁciais
+em torno da Terra) descrevem órbitas elípticas. Para determinar em que ponto da elipse se
+encontra o móvel num determinado instante thá que resolver a chamada equação de Johannes
+Kepler (1571-1630)
+xesinx=z;
+ondeeé a excentricidade (conhecida) da elipse (e que é um valor que varia entre zero, caso a
+órbita seja circular, e próximo de um, caso a órbita seja muito alongada) e zé um número que
+se calcula a partir de t. Considerando e= 0;5ez= 0;7, determine a solução do problema com
+uma casa decimal correcta.
+
+Equações não lineares 61
+Resolução: Neste casof(x) =xesinxz, come= 0;5ez= 0;7. Temos que f(0) =
+0;7<0ef(2) = 1;30;5 sin 2>1;30;5 = 0;8>0. Assim, podemos começar o
+método da bissecção com o intervalo I(0)=]0;2[. Pelo facto de f(1)<0temos que a
+soluçãopretendidaseencontranointervalo I(1)=]1;2[. Apóscincoaplicaçõesdométodo
+da bissecção concluímos que a solução se encontra no intervalo I(5)=]1;125;1;1875[.
+Tomando como aproximação para a solução o ponto médio 1;15625 = (1;125+1;1875)=2
+temos a garantia que o valor absoluto do erro é inferior a 0;03125<0:5101.
+Exercício 4.4 Usando o método da bissecção, determine um valor aproximado para o zero
+def(x) =jxjex, com um erro que não exceda 0;15.
+Resolução: Atendendo ao Exercício 4.1, temos que a raiz def(x) = 0existe e é única no
+intervalo ]1;0[. Vamosdeterminarqualomenorvalorde nparaoqualjx(n)j0;15:
+Pelo Exercício 4.2, esse valor pode ser determinado por
+1
+2n+10;15,nln 0;15
+ln 21 = 1;74:
+Logo,n= 2, isto é, temos que efectuar 2iterações. Partindo do intervalo inicial ]1;0[
+temosx(0)= 0;5. Comof(x(0)) =0;16065vem que
+2]1;0;5[:
+Prosseguindo o processo obtemos x(1)=0;75e, comof(0;75) = 2;7776, vem que
+2]0;75;0;5[:
+Concluímos então que x(2)=0;6256é uma aproximação cujo erro não excede a
+tolerância dada.
+4.4 Método de Newton
+O método que iremos estudar nesta secção, devido a Newton e a Joseph Raphson (1648-
+1715), é um dos métodos mais conhecidos e usados na determinação de aproximações
+numéricas de raízes de equações não lineares. Para o deﬁnir, iremos começar por efectuar
+uma abordagem analítica fazendo depois a sua interpretação geométrica.
+Sejaf2C2([a;b]), com [a;b]R, e2[a;b]a única raiz de f(x) = 0nesse intervalo.
+Pela fórmula de Taylor temos que, se x(0)2[a;b],
+f() =f(x(0)) +f0(x(0))(x(0)) +f00()
+2(x(0))2; 2If;x(0)g:
+Comof() = 0, e supondo f0()6= 0para todo o x2[a;b], vem que
+=x0f(x(0))
+f0(x(0))f00()
+2f0(x(0))(x(0))2; 2If;x(0)g: (4.5)
+Sejax(1)=x(0)f(x(0))
+f0(x(0)). Procedendo de forma análoga, poderemos deﬁnir um método
+iterativo pela fórmula de recorrência
+x(k+1)=x(k)f(x(k))
+f0(x(k)); k = 0;1:::; (4.6)
+que pretendemos que seja convergente para . Este processo iterativo é designado por
+método de Newton oumétodo de Newton-Raphson ou ainda método das tangentes . Esta
+última designação resulta da sua interpretação geométrica.
+
+Equações não lineares 62
+Interpretação geométrica. Consideremos a recta tangente à curva y=f(x)no ponto
+de abcissax(k). Essa recta é dada por
+y=f(x(k)) +f0(x(k))(xx(k)):
+O ponto de intersecção da recta tangente com o eixo das abcissas é dado por
+x=x(k)f(x(k))
+f0(x(k)):
+Temos assim que a iteração x(k+1)dada pelo método de Newton é a abcissa do ponto de
+intersecção da recta tangente à curva y=f(x)no ponto (x(k);f(x(k)))com a recta y= 0.
+x2 x1 x0
+Figura 4.2: Método de Newton.
+Vamos agora apresentar as condições que deverão ser impostas para que a sucessão de
+aproximações geradas pelo método de Newton convirja para a raiz def(x) = 0.
+Teorema 4.3 Sejafuma função real de variável real deﬁnida num intervalo [a;b]. Se
+1.f2C2([a;b]),
+2.f(a)f(b)<0,
+3.f0(x)6= 0,x2[a;b],
+4.f00(x)0ouf00(x)0,x2[a;b],
+então a sucessão fx(k)g,k= 0;1;:::, gerada pelo método (4.6), com x(0)2[a;b]tal que
+5.f(x(0))f00(x(0))>0,
+converge para a única raiz def(x) = 0em[a;b].
+Demonstração: Vamos supor, sem perda de generalidade, que f(a)<0,f0é positiva
+em[a;b]e quef00é não negativa no mesmo intervalo. Supondo veriﬁcadas as hipóteses do
+teorema, consideremos x0=b. Provemos que a sucessão fxkggerada pelo método (4.6)
+tem as seguintes propriedades.
+A sucessão é não crescente e limitada.
+Vamos provar, por indução, que x(k+1)2[;x(k)], para todo o k2N0. Por (4.5)
+tem-se que,
+x(1)=f00()
+2f0(b)(b)20; 2If;bg;
+
+Equações não lineares 63
+isto é,x(1). Por outro lado, por (4.6), com k= 0, tem-se que x(1)< b. Su-
+ponhamos agora que x(k)2[;x(k1)][;b]. Temos então que, de modo análogo
+ao efectuado em (4.5),
+ 
+x(k)f(x(k))
+f0(x(k))!
+=f00(k)
+2f0(x(k))(x(k))2; k2If;(k)g;(4.7)
+ou seja
+x(k+1)=f00(k)
+2f0(x(k))(x(k))20:
+Isto implica que x(k+1). Por outro lado, por (4.6) e atendendo às hipóteses do
+teorema, temos que x(k+1)x(k)0. Provámos então o pretendido.
+A sucessão converge para .
+A convergência da sucessão decorre do facto de ela ser não crescente e limitada. Seja
+= limk!+1x(k):Vamos provar que =. Tomando limites em (4.6) e tendo em
+conta o facto de f2C2([a;b]), temos que =f()
+f0();o que implica f() = 0:
+Uma vez que é a única raiz de fem[a;b]temos que= limk!+1x(k)=:
+Está assim demonstrado o teorema.
+Este método possui vantagens e desvantagens em relação ao método da bissecção. As
+grandes desvantagens do método de Newton residem no facto deste poder divergir (caso a
+aproximação inicial escolhida não seja suﬁcientemente próxima da raiz) e de haver neces-
+sidade de calcular a derivada da função (mais esforço computacional). Por outro lado o
+método de Newton converge muito rapidamente o que faz com que seja um dos métodos
+mais eﬁcazes para a aproximação de raízes de equações não lineares.
+O teorema seguinte estabelece igualmente uma condição necessária para a convergência
+dométododeNewton. Adiferençaemrelaçãoaoanteriorresideapenasnaquintacondição:
+enquanto que o teorema anterior nos dá um critério para a escolha da aproximação inicial,
+o seguinte dá-nos uma condição que garante a convergência do método para qualquer apro-
+ximação inicial escolhida no intervalo [a;b].
+Teorema 4.4 Sejafuma função real de variável real deﬁnida no intervalo [a;b]. Se
+1.f2C2([a;b]),
+2.f(a)f(b)<0,
+3.f0(x)6= 0,x2[a;b],
+4.f00(x)0ouf00(x)0,x2[a;b],
+5.f(a)
+f0(a)baef(b)
+f0(b)ba,
+então, qualquer que seja x(0)2[a;b], a sucessãofx(k)ggerada pelo método (4.6) converge
+para a única raiz def(x) = 0em[a;b].
+
+Equações não lineares 64
+Demonstração: As hipóteses 1, 2 e 3 garantem a existência e unicidade de raiz em [a;b].
+Provemos que se x(0)=aoux(0)=bentãox(1)2]a;b[. Com efeito, sendo x(0)=atem-se
+x1=af(a)=f0(a)e, da hipótese 5, vem que(ba)< f(a)=f0(a)< ba, donde
+x(1)<b. Por outro lado, pelas hipóteses 2e3, temos que f(a)tem sinal contrário a f0(a)
+e como talf(a)=f0(a)<0. Assimx(1)a<0e logoa<x 1. De modo idêntico se provaria
+que sex(0)=bentãox(1)2]a;b[.
+Suponhamos que f(a)<0. Pela hipótese 4, para x2[a;b],f00(x)0ouf00(x)0.
+Consideremos f00(x)0. Então, de (4.5),
+x(1)=f00()
+2f0(a)(x(0))20; 2]a;[;
+e, como tal, x(1)2]a;[. Prova-se também que, nas mesmas condições, x(2)2]x(1);[e,
+sucessivamente, x(k+1)2]x(k);[,k= 0;1;:::.
+Provámos assim que a sucessão fx(k)gconverge monotonamente para .
+Os restantes casos podem ser considerados de forma análoga.
+O algoritmo para o método de Newton pode ser dado como se segue.
+Algoritmo 4.2 Método de Newton
+Dados:x(0),"ekmax
+x:=x(0)
+k:= 0
+erro :="+ 1
+Enquantoerro>" ek<kmaxfazer
+k:=k+ 1
+d:=f(x)=f0(x)
+x:=x+d
+erro :=jdj
+Resultado: x
+NãoédifícilprovaraconvergênciaquadráticadométododeNewton. Defacto, tomando
+módulos em (4.7) obtemos
+je(k+1)jMje(k)j2;
+com
+M=1
+2maxx2[a;b]jf00(x)j
+minx2[a;b]jf0(x)j: (4.8)
+Assim, supondo veriﬁcadas as hipóteses do Teorema 4.3, concluímos que o método de
+Newton tem ordem de convergência p= 2.
+Outra vantagem do método de Newton em relação ao método da bissecção tem a ver
+com o facto do método de Newton se poder generalizar muito facilmente (como veremos)
+para sistemas de equações não lineares. Além disso, este método também se pode aplicar
+ao cálculo numérico de raízes complexas.
+
+Equações não lineares 65
+Exercício 4.5 Localize graﬁcamente as raízes de f(x) = 0, onde
+f(x) =x21ln (x+ 1);
+e aproxime a maior delas usando o método de Newton duas vezes.
+Resolução: Comof(x) = 0,x21 = ln (x+ 1);traçando o gráﬁco de y=x21
+e dey= ln (x+ 1)(Figura 4.3) veriﬁcamos que f(x) = 0possui duas raízes reais:
+12]1;0[e22]1;2[.
+-2 -1 1 2
+-3-2-1123
+y=ln(x+1)y=x2
+Figura 4.3: Localização gráﬁca.
+Façamos a conﬁrmação analítica apenas para 2. Assim:
+1.f2C(]1;2[);
+2.f(1) =ln 2<0ef(2) = 3ln 3 = 1;901388>0;
+3.f0(x) = 2x(x1)1>0, parax2]1;2[.
+Logo a raiz 2def(x) = 0existe e é única no intervalo [1;2].
+Para aplicarmos o método de Newton temos primeiro que provar a sua convergência.
+Comof(x) =x21ln (x+ 1),f0(x) = 2x(x+ 1)1ef00(x) = 2 + (x+ 1)2
+temos quef2C2([1;2]). Por outro lado, como f0(x)>0(prove!) ef00(x)0, para
+todo ox2[1;2], o Teorema 4.3 garante que o método de Newton aplicado à equação
+dada gera uma sucessão de valores convergentes para 2, desde que x(0)seja escolhido
+por forma a que f(x(0))f00(x(0))>0, isto é, por forma a que f(x(0))>0:
+Seja, então, x(0)= 2. Assim
+x(1)= 2f(2)
+f0(2)= 1;48144;
+x(2)= 1;48144f(1;48144)
+f0(1;48144)= 1;369785:
+Uma estimativa para o erro absoluto pode ser dada por jx(2)x(1)j= 0;1116554:
+4.5 Método do ponto ﬁxo
+O método do ponto ﬁxo não é propriamente um método mas sim uma classe de métodos
+(o método de Newton, por exemplo, pertence à classe de métodos do ponto ﬁxo). Este
+método tem grande importância na resolução de todo o tipo de equações, incluindo as
+equações diferenciais e integrais. Neste momento vamos apenas considerar o problema da
+determinação das raízes de uma equação não linear f(x) = 0.
+
+Equações não lineares 66
+O método do ponto ﬁxo consiste em converter o problema de determinar os zeros de
+uma função no problema (equivalente) de calcular os pontos ﬁxos de uma outra função.
+Deﬁnição 4.3 (Ponto Fixo) Sejauma função deﬁnida num intervalo real [a;b]. Di-
+zemos que2[a;b]é umponto ﬁxo dese=().
+Assim, o problema de determinar os valores de xpara os quais f(x) = 0(zeros de
+f) é transformado no problema equivalente de determinar os valores de xpara os quais
+(x) =x(pontos ﬁxos de ). Consideremos o seguinte exemplo.
+Exemplo 4.5 A excentricidade da órbita de Vénus é dada por e= 0;07. Suponhamos que
+pretendemos resolver a equação de Kepler x0;007 sinxz= 0;quandoz= 0;7. Como o
+termo 0;007 sinxé muito menor que 0;7temos que uma aproximação para a solução pode ser
+dada porx0;7. Substituindo este valor em 0;007 sinxobtemos 0;007 sin 0:70;004510.
+Introduzindo este valor na equação de Kepler temos uma nova aproximação para a sua raiz
+dada porx0;7+0;004510 = 0;704510. Este processo poderia continuar dando assim origem
+a um processo iterativo da forma x(k+1)=(x(k)),k= 0;1;:::, com(x) = 0;7 + 0;007 sinx
+ex(0)= 0;7.
+Depois de transformar o problema na forma da determinação dos pontos ﬁxos de uma
+função, as sucessivas aproximações são calculadas, a partir de uma aproximação inicial
+x(0)dada, pela fórmula
+x(k+1)=(x(k)); k = 0;1;2;:::: (4.9)
+A funçãoé chamada função de iteração do método. Notemos que, no caso do método
+de Newton, a função de iteração é dada por
+N(x) =xf(x)
+f0(x):
+A questão que se coloca é a seguinte: dada uma equação f(x) = 0com raiz2[a;b],
+como escolher uma função de iteração por forma a que as sucessivas aproximações dadas
+por (4.9) convirjam para ? Antes de mais notemos que, supondo que é contínua e que
+x(k)!, se tem
+= lim
+k!+1x(k+1)= lim
+k!+1(x(k)) =
+lim
+k!+1x(k)
+=():
+Assim, uma condição necessária para que o processo iterativo (4.9) convirja para zero de
+fé queseja um ponto ﬁxo de .
+Exemplo 4.6 A equação de Kepler dada no exemplo anterior pode escrever-se na forma
+x=(x) = arcsinx0;7
+0;007
+:
+Neste caso, para a aproximação inicial x(0)= 0;7temos quex(1)= 0ex(2)= arcsin (100)
+que é um valor que nem sequer está deﬁnido. Como tal, esta escolha para a função de iteração
+não é adequada.
+Como poderemos decidir qual a melhor escolha para a função de iteração? Em geral,
+interessa que (x)varie pouco com x. O caso ideal seria ter constante; nesse caso, para
+x(0)arbitrário, teríamos x(1)=. Para responder a esta questão, consideremos o seguinte
+teorema.
+
+Equações não lineares 67
+Teorema 4.5 (Ponto Fixo) Sejauma função real de variável real deﬁnida no intervalo
+[a;b]. Se
+1.é uma função contínua em [a;b]e
+2.(x)2[a;b]para todo o x2[a;b],
+entãotem um ponto ﬁxo 2[a;b]. Se, além disso, é diferenciável em ]a;b[e
+3.j0(x)jK < 1, para todo o x2]a;b[,
+então o ponto ﬁxo é único e a sucessão gerada por (4.9) converge para esse ponto, qualquer
+que seja a aproximação inicial x(0)2[a;b]. Além disso
+lim
+k!+1x(k+1)
+x(k)=0(): (4.10)
+Demonstração: Vamos mostrar sucessivamente a existência de ponto ﬁxo, a unicidade
+e, ﬁnalmente, a convergência do método.
+Existência.
+Se(a) =aou(b) =btemosquetem(obviamente)umpontoﬁxo. Casocontrário,
+e atendendo à hipótese 2 do teorema, temos que (a)>ae(b)<b. Consideremos a
+função auxiliar (x) =(x)xdeﬁnida em [a;b]. Como é contínua e (a) (b)<0
+concluímos que existe um ponto 2[a;b]tal que () = 0, ou seja, tal que () =.
+Unicidade.
+Suponhamos que 1e2são dois pontos ﬁxos de . Então
+j12j=j(1)(2)j=j0()jj12jKj12j;
+ondepertence ao intervalo deﬁnido por 1e2. Assim sendo (1K)j12j0,
+o que implica 1=2, uma vez que 0K < 1.
+Convergência e (4.10).
+Considerando x(0)2[a;b]temos que
+jx(k+1)j=j(x(k))()j
+=j0(k)jjx(k)jKjx(k)j; k2If;x(k)g:(4.11)
+Assim sendo
+jx(k+1)jKk+1jx(0)j: (4.12)
+Tomando limites e atendendo a que K < 1temos que
+lim
+k!+1x(k+1)=;
+o que prova a convergência do método. Para provar (4.10), notemos que, de (4.11)
+sai que
+x(k+1)
+x(k)=0(k); k2If;x(k)g:
+Como o método converge para , tomando limites em ambos os membros, provamos
+o pretendido.
+
+Equações não lineares 68
+Notemos que, atendendo a (4.10), o método do ponto ﬁxo tem, no caso geral, uma
+convergência linear . Além disso, essa convergência élocal, uma vez que ela só acontece
+quando ox(0)está suﬁcientemente próximo do ponto ﬁxo.
+Exemplo 4.7 Resolvamos, mais uma vez, a equação de Kepler considerando: (i) a excentri-
+cidadee= 0;5ez= 0;7; (ii) a excentricidade e= 0;5ez= 2. Vamos apenas efectuar os
+cálculos para o caso (ii), isto é, vamos considerar apenas a equação x0;5 sinx2 = 0. Para
+usar o método do ponto ﬁxo consideremos a função de iteração
+(x) = 0;5 sinx+ 2; x2[2;3]:
+Vejamos se, para esta função e para este intervalo, se veriﬁcam as condições de convergência
+do método. Como é uma função contínua, vamos provar que (x)2[2;3], para todo o
+x2[2;3], isto é, que o gráﬁco de está totalmente contido no quadrado [2;3][2;3]. Para
+isso temos que provar que (2);(3)2[2;3]e que o valor em todos os seus extremos locais
+também se encontra nesse intervalo. Ora, (2) = 2;4546,(3) = 2;0706e a função é
+monótona decrescente (pois 0(x) = 0;5 cosx). Assim sendo, (x)2[2;3], para todo o xa
+variar nesse intervalo. Para provar que o método converge basta apenas provar que o majorante
+do módulo de 0, em ]2;3[, é inferior a um. Como se vê facilmente j0(x)j=j0;5 cosxj0;5;
+e, como tal, K= 0;5e o método x(k+1)= 0;5 sinx(k)+ 2,k= 0;1;2;:::, converge para a
+única raiz da equação em [2;3], qualquer que seja x(0)2[2;3]. A determinação das sucessivas
+iterações é feita de forma óbvia.
+0.2 0.5 x0 x1x2 1.40.20.40.60.811.21.4
+Figura 4.4: Caso (i): (x) = 0;5 sinx+ 0;7ex(0)= 0;7.
+2.2 x0 x1x2 2.822.22.42.62.83
+Figura 4.5: Caso (ii): (x) = 0;5 sinx+ 2ex(0)= 2;5.
+
+Equações não lineares 69
+Nas Figuras 4.4 e 4.5 podemos visualizar o gráﬁco da função de iteração do método do
+ponto ﬁxo considerado no exemplo anterior, para os casos (i) e (ii), respectivamente, bem
+como o gráﬁco da bissectriz dos quadrantes ímpares. A abcissa da intersecção dos dois
+gráﬁcos é o ponto ﬁxo que pretendemos calcular. Como se pode ver, o método do ponto
+ﬁxo pode ser descrito da seguinte forma (gráﬁca). A partir de x(0), no eixo das abcissas,
+traçamos um segmento de recta vertical até intersectar o gráﬁco de . A ordenada da
+intersecção é o ponto x(1). A partir do ponto de intersecção traçamos um segmento de
+recta horizontal até encontrarmos a bissectriz y=x. A abcissa desse ponto ﬁnal é x(1).
+Para determinar as restantes iterações repete-se sucessivamente este processo: vertical até
+ao gráﬁco de , horizontal até à bissectriz .
+Regressemos, de novo, à questão de saber qual a melhor escolha para a função de
+iteração. O Teorema do Ponto Fixo permite-nos aﬁrmar que se uma função de iteração não
+veriﬁcar as hipóteses do teorema, essa função não deve ser considerada. Pode, no entanto,
+dar-se o caso de possuirmos duas funções de iteração que veriﬁquem, ambas, as hipóteses
+do teorema. Neste caso, por qual optar? Notemos que, por (4.12), se considerarmos duas
+funções de iteração 1e2tais que
+j0
+1(x)jj0
+2(x)j<1; x2]a;b[;
+podemos concluir que a sucessão deﬁnida pelo método x(k+1)=1(x(k)),k= 0;1;:::,
+converge mais rapidamente do que a sucessão deﬁnida por x(k+1)=2(x(k)),k= 0;1;:::,
+pois para o primeiro método temos je(k+1)jM1je(k)je para o segundoje(k+1)jM2je(k)j,
+comM1M2. Assim sendo, a escolha deveria recair sobre a função 1.
+Como vimos, o método do ponto ﬁxo tem convergência linear. No entanto, o método
+de Newton (caso particular do método do ponto ﬁxo quando a função de iteração é dada
+porN(x) =xf(x)=f0(x)) tem convergência quadrática. O próximo teorema diz-nos
+em que condições podemos garantir uma ordem de convergência dois no método do ponto
+ﬁxo.
+Teorema 4.6 Suponhamos que, para além das hipóteses do Teorema do Ponto Fixo, se
+tem0() = 0(ondeé o único ponto ﬁxo de em[a;b]), e00limitada em ]a;b[.
+Então o método do ponto ﬁxo (4.9) converge para de forma quadrática, qualquer que seja
+x(0)2[a;b]. Além disso
+lim
+k!+1x(k+1)
+(x(k))2=00(): (4.13)
+Demonstração: Pelo Teorema do Ponto Fixo temos que o método (4.9) converge para
+. Falta apenas provar que a convergência é quadrática.
+Pela fórmula de Taylor temos que
+x(k+1)=0()(x(k)) +1
+200(k)(x(k))2; k2If;x(k)g:
+Como0() = 0concluímos queje(k+1)jMje(k)j2;ondeM=1
+2maxx2[a;b]j00(x)j:Está,
+assim, demonstrado que o método (4.9) tem ordem 2. A demonstração de (4.13) é seme-
+lhante à efectuada para demonstrar (4.10).
+Exercício 4.6 Mostre que, se no ponto ﬁxo dese tem0() =00() = 0, podemos
+concluir (mediante certas condições) que o método (4.9) tem convergência cúbica. Diga quais
+são essas condições de convergência.
+
+Equações não lineares 70
+Consideremos agora os seguintes corolários do Teorema do Ponto Fixo, úteis para de-
+terminar estimativas a prioripara o erro cometido ao ﬁm de um determinado número de
+iterações.
+Corolário 4.7 Nas hipóteses do Teorema do Ponto Fixo tem-se que
+je(k)jKkmaxfx(0)a;bx(0)g:
+Demonstração: Resulta imediatamente de (4.12).
+Corolário 4.8 Nas hipóteses do Teorema do Ponto Fixo tem-se que
+je(k)jKk
+1Kjx(1)x(0)j:
+Demonstração: Por um processo análogo ao efectuado na demonstração do Teorema do
+Ponto Fixo temos que
+jx(k+1)x(k)jKkjx(1)x(0)j:
+Consideremos l>kejx(l)x(k)j. Assim
+jx(l)x(k)jl1X
+j=kjx(j+1)x(j)jjx(1)x(0)jlX
+j=kKj:
+Logo
+lX
+j=kKjKk1X
+j=0Kj=Kk
+1K:
+Concluímos então que
+jx(l)x(k)jKk
+1Kjx(1)x(0)j:
+Tomando o limite quando l!+1temos
+jx(k)jKk
+1Kjx(1)x(0)j;
+o que prova o pretendido.
+4.6 Equações algébricas
+Suponhamos agora que pretendemos resolver a equação algébrica Pn(x) = 0onde
+Pn(x) =anxn+an1xn1++a1x+a0; an6= 0; (4.14)
+éumpolinómiodecoeﬁcientesreais. Esteproblemaaparececommuitafrequênciaeexistem
+para ele muitos resultados especíﬁcos. Nesta secção faremos apenas uma breve referência
+a alguns desses resultados.
+Um resultado básico sobre polinómios é dado no Teorema Fundamental da Álgebra,
+devido a Gauss e a Euler e que apresentamos sem demonstração.
+
+Equações não lineares 71
+Teorema 4.9 (Teorema Fundamental da Álgebra) SejaPnum polinómio de grau n,
+comn1, de coeﬁcientes reais. Então existe 2Ctal quePn() = 0.
+Temos também que, no caso particular dos polinómios, se é um zero real de Pnentão
+Pn(x) = (x)Qn1(x;);
+ondeQn1é um polinómio de grau n1de coeﬁcientes reais que dependem de . Seé
+um zero complexo de Pno seu conjugado também o é e, como tal,
+Pn(x) = (x)(x)Qn2(x;);
+sendoQn2um polinómio de grau n2de coeﬁcientes reais. Atendendo a estes resultados
+podemos escrever.
+Corolário 4.10 Um polinómio de grau n1de coeﬁcientes reais admite, exactamente,
+nzeros, reais ou complexos, iguais ou distintos.
+Corolário 4.11 SePnfor um polinómio de grau ímpar admite, pelo menos, uma raiz real.
+A localização das raízes reais de uma equação algébrica pode ser feita por variadíssimos
+processos. De entre os processos mais populares destaca-se o método de Rolle. A justi-
+ﬁcação teórica do método é dada por um corolário do seguinte teorema estabelecido por
+Michel Rolle (1652-1719).
+Teorema 4.12 (Rolle) Seffor uma função contínua em [a;b], diferenciável em ]a;b[e
+sef(a) =f(b)então existe pelo menos um 2]a;b[tal quef0() = 0.
+Notemos que, quando f(a) =f(b) = 0, este teorema diz-nos, em linguagem comum,
+que entre dois zeros de uma função contínua existe, pelo menos, um zero da sua derivada.
+O corolário que importa considerar neste contexto, é o seguinte.
+Teorema 4.13 (Corolário do Teorema de Rolle) Seffor uma função contínua num
+intervalo [a;b]e diferenciável em ]a;b[e seaebsão dois zeros consecutivos de f0, então
+existe, no máximo, um 2]a;b[tal quef() = 0.
+Esteteorema,emlinguagem(muito)informal,costumaserenunciadodeformaseguinte:
+entre dois zeros consecutivos da derivada de uma dada função, existe, no máximo, um zero
+dessa função.
+Para deﬁnir o método de Rolle consideremos, previamente, a seguinte deﬁnição.
+Deﬁnição 4.4 (Números de Rolle) Chamam-se números de Rolle da equação f(x) = 0,
+deﬁnida em IR, ao conjunto formado pelos pontos fronteira de Ie pelos zeros da
+derivada de f.
+Atendendo ao teorema anterior temos que, uma vez ordenados de forma crescente, entre
+dois números de Rolle consecutivos existe, no máximo, uma raiz real da equação. Assim se
+o valor da função tiver o mesmo sinal nos extremos do intervalo deﬁnido por dois números
+de Rolle consecutivos, a equação não tem nenhuma raiz real nesse intervalo; caso contrário,
+a equação tem uma só raiz real no intervalo.

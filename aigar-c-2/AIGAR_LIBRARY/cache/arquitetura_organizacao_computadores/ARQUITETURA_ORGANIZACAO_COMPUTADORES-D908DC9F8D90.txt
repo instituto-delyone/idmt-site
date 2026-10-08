@@ -1,0 +1,876 @@
+160 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+distribuídos como os segundos strips em cada disco; e assim por diante. A vantagem desse layout é que, se uma 
+única solicitação de E/S consistir em múltiplos strips logicamente contíguos, então até n strips para essa solicita-
+ção podem ser tratados em paralelo, reduzindo bastante o tempo de transferência de E/S.
+A Figura 6.9 indica o uso de software de gerenciamento de array para mapear entre o espaço de disco lógico e 
+físico. Esse software pode ser executado no subsistema de disco ou em um computador principal (host).
+RAID 0 PARA ALTA CAPACIDADE DE TRANSFERÊNCIA DE DADOS O desempenho de qualquer um dos níveis de 
+RAID depende criticamente dos padrões de solicitação do sistema principal e do layout dos dados. Essas questões podem ser resolvidas mais claramente no RAID 0, onde o impacto da redundância não interfere com a análise. Primeiro, vamos considerar o uso de RAID 0 para conseguir uma alta taxa de transferência de dados. Para as aplica-ções possam ter uma alta taxa de transferência, dois requisitos precisam ser atendidos. Primeiro, precisa haver uma Figura 6.8 Níveis de RAID (continuação)
+bloco 12
+(e) RAID 4 (paridade em nível de bloco)bloco 8bloco 4bloco 0
+bloco 13bloco 9bloco 5bloco 1
+bloco 14bloco 10bloco 6bloco 2
+bloco 15bloco 7bloco 3
+P(12-15)P(8-11)P(4-7)P(0-3)
+bloco 12bloco 8bloco 4bloco 0
+bloco 9bloco 5bloco 1
+bloco 13bloco 6bloco 2
+bloco 14bloco 10bloco 3
+bloco 15
+P(16-19)P(12-15)P(8-11)P(4-7)
+bloco 16 bloco 17 bloco 18 bloco 19bloco 11bloco 7
+(f) RAID 5 (paridade em nível de bloco distribuída )(d) RAID 3 (paridade de bit intercalada)b0 b1 b2 b3 P(b)
+P(0-3)bloco 11
+bloco 12
+(g) RAID 6 (redundância dual)bloco 8bloco 4bloco 0
+P(12-15)bloco 9bloco 5bloco 1
+Q(12-15)P(8-11)bloco 6bloco 2
+bloco 13P(4-7)bloco 3
+bloco 14bloco 10Q(4-7)P(0-3)
+Q(8-11)
+bloco 15bloco 7Q(0-3)
+bloco 11
+Book 1.indb 160 19.11.09 14:36:51
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 161
+grande capacidade de transferência ao longo do caminho inteiro entre a memória do sistema principal e as unida-
+des de disco individuais. Isso inclui barramentos controladores internos, barramentos de E/S do sistema principal, adaptadores de E/S e barramentos de memória do sistema principal.
+O segundo requisito é que a aplicação deve fazer solicitações de E/S que controlem o array de disco de modo 
+efi caz. Esse requisito é atendido se a solicitação típica for para grandes quantidades de dados logicamente contí-guos, em comparação com o tamanho de um strip. Nesse caso, uma única solicitação de E/S envolve a transferência paralela de dados de vários discos, aumentando a taxa de transferência efetiva em comparação com uma transfe-rência de único disco.
+RAID 0 PARA ALTA TAXA DE SOLICITAÇÃO DE E/S Em um ambiente orientado à transação, o usuário normalmente 
+se preocupa mais com o tempo de resposta do que com a taxa de transferência. Para uma solicitação de E/S indivi-dual para uma pequena quantidade de dados, o tempo de E/S é dominado pelo movimento das cabeças de disco (tempo de busca) e pelo movimento do disco (latência rotacional).
+Em um ambiente de transação, pode haver centenas de solicitações de E/S por segundo. Um array de disco 
+pode oferecer altas taxas de execução de E/S equilibrando a carga de E/S pelos diversos discos. O balanceamento de carga efetivo só é alcançado se houver normalmente várias solicitações de E/S pendentes. Isso, por sua vez, im-plica que existam múltiplas aplicações independentes ou uma única aplicação orientada à transação que é capaz de realizar múltiplas solicitações de E/S assíncronas. O desempenho também será infl uenciado pelo tamanho do strip. Se o tamanho do strip for relativamente grande, de modo que uma única solicitação de E/S só envolva um único acesso ao disco, então múltiplas solicitações de E/S que estão aguardando podem ser tratadas em paralelo, reduzindo o tempo de enfi leiramento para cada solicitação.
+ RAID nível 1
+RAID 1 difere dos níveis de RAID de 2 a 6 no modo como a redundância é obtida. Nesses outros esquemas RAID, 
+alguma forma de cálculo de paridade é usada para introduzir redundância, enquanto, em RAID 1, a redundância é obtida pelo simples expediente de duplicar todos os dados. Como mostra a Figura 6.8b, o striping de dados é uti-strip 12strip 8strip 4strip 0Disco físico
+ 0
+strip 3
+strip 4
+strip 5
+strip 6
+strip 7
+strip 8
+strip 9
+strip 10
+strip 11
+strip 12
+strip 13
+strip 14
+strip 15strip 2strip 1strip 0Disco lógicoDisco físico
+ 1Disco físico
+ 2Disco físico
+ 3
+strip 13strip 9strip 5strip 1
+strip 14strip 10strip 6strip 2
+strip 15strip 11strip 7strip 3
+Software de
+gerenciamento 
+de arrayFigura 6.9 Mapeamento de dados para um array RAID nível 0
+Book 1.indb 161 19.11.09 14:36:52
+
+162 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+lizado, como no RAID 0. Mas, neste caso, cada strip lógico é mapeado para dois discos físicos separados, de modo 
+que cada disco no array tenha um disco espelho que contém os mesmos dados. O RAID 1 também pode ser imple-mentado sem o striping de dados, embora isso seja menos comum.
+Existem diversos aspectos positivos da organização RAID 1:
+Uma solicitação de leitura pode ser atendida por qualquer um dos dois discos que contenha os dados soli-
+ 
+citados, aquele que envolver o mínimo de tempo de busca mais latência rotacional.Uma solicitação de gravação requer que os dois strips correspondentes sejam atualizados, mas isso pode ser 
+ 
+feito em paralelo. Assim, o desempenho da gravação é ditado pela mais lenta das duas gravações (ou seja, aquela que envolve o maior tempo de busca mais latência rotacional). Porém, não existe uma “penalidade na gravação” com RAID 1. RAID níveis 2 a 6 envolvem o uso de bits de paridade. Portanto, quando um único strip é atualizado, o software de gerenciamento do array deve primeiro calcular e atualizar os bits de parida-de, além de atualizar o strip real em questão.A recuperação de uma falha é simples. Quando uma unidade falha, os dados ainda podem ser acessados 
+ 
+pela segunda unidade.
+A principal desvantagem do RAID 1 é o custo; ele requer o dobro de espaço em disco que a capacidade lógica 
+do disco a que ele dá suporte. Por causa disso, uma confi guração RAID 1 provavelmente será limitada a unidades que armazenam software e dados do sistema, e outros arquivos muito críticos. Nesses casos, RAID 1 oferece cópia em tempo real de todos os dados, de modo que, no caso de uma falha no disco, todos os dados críticos ainda es-tarão imediatamente disponíveis.
+Em um ambiente orientado à transação, RAID 1 pode alcançar altas taxas de solicitação de E/S se a maior parte 
+das solicitações for para leituras. Nessa situação, o desempenho de RAID 1 pode alcançar o dobro daquele do RAID 0. Porém, se uma fração substancial das solicitações de E/S for com solicitações de gravação, então pode não ha-ver ganho signifi cativo no desempenho em relação à RAID 0. RAID 1 também pode oferecer melhor desempenho em relação à RAID 0 para aplicações com uso intenso de transferência de dados, com uma alta percentagem de leituras. A melhoria ocorre se a aplicação puder dividir cada solicitação de leitura de modo que os dois membros do disco participem.
+ RAID nível 2
+RAID níveis 2 e 3 utilizam uma técnica de acesso paralelo. No array com acesso paralelo, todos os discos mem-
+bros participam na execução de cada solicitação de E/S. Normalmente, os eixos das unidades individuais são sincro-nizados de modo que cada cabeça de disco esteja na mesma posição em cada disco a qualquer instante.
+Assim como nos outros esquemas de RAID, o striping de dados é usado. No caso de RAID 2 e 3, os strips são 
+muito pequenos, normalmente como um único byte ou palavra. Com RAID 2, um código de correção de erro é calculado para os bits correspondentes em cada disco de dados, e os bits do código são armazenados nas posições dos bits correspondentes nos vários discos de paridade. Normalmente, um código de Hamming é utilizado, que é capaz de corrigir erros de único bit e detectar erros em dois bits.
+Embora RAID 2 exija menos discos que RAID 1, ele é bem mais caro. O número de discos redundantes é propor-
+cional ao logaritmo do número de discos de dados. Em uma única leitura, todos os discos são acessados simulta-neamente. Os dados solicitados e o código de correção de erro associado são entregues ao controlador do array. Se houver um erro de único bit, o controlador pode reconhecer e corrigir o erro instantaneamente, de modo que o tempo de acesso de leitura não é prolongado. Em uma única gravação, todos os discos de dados e discos de paridade precisam ser acessados para a operação de gravação.
+RAID 2 só seria uma escolha efi caz em um ambiente em que ocorrem muitos erros de disco. Dada a alta confi a-
+bilidade dos discos individuais e unidades de disco, RAID 2 é um exagero, e normalmente não é implementado.
+ RAID nível 3
+RAID 3 é organizado de uma forma semelhante ao RAID 2. A diferença é que RAID 3 exige apenas um único 
+disco redundante, não importa o tamanho do array de discos. RAID 3 emprega o acesso paralelo, com dados distri-buídos em pequenos strips. Em vez de um código de correção de erro, um bit de paridade simples é calculado para o conjunto de bits individuais na mesma posição em todos os discos de dados.
+Book 1.indb 162 19.11.09 14:36:52
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 163
+REDUNDÂNCIA No caso de uma falha de disco, a unidade de paridade é acessada e os dados são reconstruídos 
+a partir dos dispositivos restantes. Quando a unidade que falhou for substituída, os dados que faltam podem ser 
+restaurados na nova unidade e a operação continua.
+A reconstrução de dados é simples. Considere um array de cinco unidades, em que X0 a X3 contêm dados e X4 
+é o disco de paridade. A paridade para o bit i é calculada da seguinte forma:
+X4(i) = X3(i) ⊕ X2(i) ⊕ X1(i) ⊕ X0(i)
+onde ⊕ é a função OU-EXCLUSIVO (XOR). 
+Suponha que a unidade X1 tenha falhado. Se adicionarmos a função X4(i ) ⊕ X1(i) aos dois lados da equação anterior, 
+obtemos:
+X1(i) = X4(i) ⊕ X3(i) ⊕ X2(i) ⊕ X0(i)Assim, o conteúdo de cada strip de dados em X1 pode ser regenerado a partir do conteúdo dos strips corres-
+pondentes nos discos restantes no array. Esse princípio é verdadeiro para RAID nos níveis de 3 a 6.
+No caso de uma falha do disco, todos os dados ainda estão disponíveis no que é chamado de modo reduzi-
+do. Nesse modo, para leituras, os dados que faltam são regenerados no ato, usando o cálculo do OU-EXCLUSIVO. Quando os dados são gravados em um array RAID 3 reduzido, a consistência da paridade precisa ser mantida para regeneração posterior. O retorno à operação plena requer que o disco que falhou seja substituído e seu conteúdo inteiro seja regenerado no novo disco.
+DESEMPENHO Como os dados são armazenados em strips muito pequenos, RAID 3 pode alcançar taxas de 
+transferência de dados muito altas. Qualquer solicitação de E/S envolverá a transferência paralela de dados de to-dos os discos de dados. Para transferências grandes, a melhoria no desempenho é especialmente observável. Por outro lado, somente uma solicitação de E/S pode ser executada de cada vez. Assim, em um ambiente orientado a transação, o desempenho é prejudicado.
+ RAID nível 4
+Os RAIDs níveis de 4 a 6 utilizam uma técnica de acesso independente. Em um array de acesso independente, 
+cada disco membro opera independentemente, de modo que solicitações de E/S separadas podem ser satisfeitas em paralelo. Por causa disso, arrays com acesso independente são mais adequados para aplicações que exigem altas taxas de solicitação de E/S, e são relativamente menos adequados para aplicações que exigem altas taxas de transferência de dados.
+Assim como nos outros esquemas de RAID, o striping de dados é utilizado. No caso do RAID de níveis 4 a 6, os 
+strips são relativamente grandes. Com RAID 4, um strip de paridade bit a bit é calculado pelos strips correspondentes em cada disco de dados, e os bits de paridade são armazenados no strip correspondente no disco de paridade.
+O RAID 4 envolve uma penalidade de gravação quando uma solicitação de gravação de E/S de pequeno tamanho 
+é realizada. Toda vez que ocorre uma gravação, o software de gerenciamento do array precisa atualizar não apenas os dados do usuário, mas também os bits de paridade correspondentes. Considere um array de cinco unidades em que os dados estejam armazenados em X0 e X3 e X4 é o disco de paridade. Suponha que uma gravação seja realizada envolvendo apenas um strip no disco X1. Inicialmente, para cada bit i , temos o seguinte relacionamento:
+X4(i) = X3(i) ⊕ X2(i) ⊕ X1(i) ⊕ X0(i) (6.1)Após a atualização, com bits potencialmente alterados indicados por ':X4´(i) = X3(i) ⊕ X2(i) ⊕ X1´(i) ⊕ X0(i)
+ = X3(i) ⊕ X2(i) ⊕ X1´(i) ⊕ X0(i) ⊕ X1(i) ⊕ X1(i) = X3(i) ⊕ X2(i) ⊕ X1(i) ⊕ X0(i) ⊕ X1(i) ⊕ X1´(i) = X4(i) ⊕ X1(i) ⊕ X1´(i)
+Esse conjunto de equações é derivado da seguinte forma: a primeira linha mostra que uma mudança em 
+X1 também afetará o disco de paridade X4. Na segunda linha, adicionamos os termos ⊕ X1(i ) ⊕ X1(i )´. Como o 
+OU-EXCLUSIVO de qualquer quantidade consigo mesma é 0, isso não afeta a equação. Porém, essa é uma conveni-ência usada para criar a terceira linha, pela reordenação. Finalmente, a Equação 6.1 é usada para substituir os quatro primeiros termos por X4(i).
+Para calcular a nova paridade, o software de gerenciamento de array precisa ler o strip do usuário antigo e o strip 
+de paridade antigo. Depois, ele pode atualizar esses dois strips com os dados novos e a paridade recém-calculada. Assim, cada gravação de strip envolve duas leituras e duas gravações.
+Book 1.indb 163 19.11.09 14:36:52
+
+164 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+No caso de uma gravação de E/S de tamanho maior, que envolva strips em todas as unidades de disco, a parida-
+de é facilmente calculada usando apenas os novos bits de dados. Assim, a unidade de paridade pode ser atualizada 
+em paralelo com as unidades de dados e não existem leituras ou gravações extras.
+De qualquer forma, cada operação de gravação precisa envolver o disco de paridade, que, portanto, pode se 
+tornar um gargalo.
+ RAID nível 5
+RAID 5 é organizado de uma forma semelhante ao RAID 4. A diferença é que RAID 5 distribui os strips de pari-
+dade por todos os discos. Uma alocação típica é um esquema round-robin, conforme ilustrado na Figura 6.8f. Para um array de n discos, o strip de paridade está em um disco diferente para os primeiros n stripes, e o padrão então 
+se repete.
+A distribuição dos strips de paridade por todas as unidades evita o gargalo de E/S em potencial encontrado no 
+RAID 4.
+ RAID nível 6
+RAID 6 foi introduzido em um artigo subsequente pelos pesquisadores em Berkeley (KATZ, GIBSON E PATTERSON, 
+1989c). No esquema RAID 6, dois cálculos de paridade diferentes são executados e armazenados em blocos sepa-
+rados em discos diferentes. Assim, um array RAID 6 cujos dados do usuário exigirem N discos consiste em N + 2 
+discos.
+A Figura 6.8g ilustra o esquema. P e Q são dois algoritmos de verifi cação de dados diferentes. Um dos dois é o 
+cálculo de OU-EXCLUSIVO, usado no RAID 4 e 5. Mas o outro é um algoritmo de verifi cação de dados independente. 
+Isso possibilita regenerar os dados mesmo que haja falha em dois discos contendo dados do usuário.
+A vantagem de RAID 6 é que ele oferece uma disponibilidade de dados extremamente alta. Três discos 
+teriam que falhar dentro do intervalo de tempo médio para reparo (MTTR, do inglês meantime to repair) para 
+que os dados fossem perdidos. Por outro lado, RAID 6 exige uma penalidade de gravação substancial, pois cada gravação afeta dois blocos de paridade. Benchmarks de desempenho (EISCHEN, 2007
+d) mostram que um 
+controlador RAID 6 pode sofrer mais de 30% de queda no desempenho geral da gravação em comparação com uma implementação RAID 5. Os desempenhos de leitura de RAID 5 e RAID 6 são semelhantes.
+A Tabela 6.4 é um resumo comparativo dos sete níveis.
+6.3 Memória óptica
+Em 1983, um dos produtos de consumidor mais bem sucedidos de todos os tempos foi apresentado: o 
+sistema de áudio digital de disco compacto (CD, do inglês Compact Disk). O CD é um disco não apagável que 
+pode armazenar mais de 60 minutos de informação de áudio em um lado. O imenso sucesso comercial do CD permitiu o desenvolvimento da tecnologia de armazenamento de disco óptico de baixo custo, que revolucionou o armazenamento de dados em computador. Diversos sistemas de disco óptico foram introduzidos (Tabela 6.5). 
+Vamos rever rapidamente cada um deles.
+ Compact disk
+CD‑ROM Tanto o CD de áudio quanto o CD-ROM compartilham uma tecnologia semelhante. A principal dife-
+rença é que os aparelhos de reprodução de CD-ROM são mais resistentes e possuem dispositivos de correção de 
+erro para garantir que os dados sejam transferidos corretamente do disco ao computador. Os dois tipos de disco são fabricados da mesma forma. O disco é formado por uma resina, como o policarbonato. Informações registra-das digitalmente (música ou dados do computador) são impressas como uma série de sulcos microscópicos na superfície do policarbonato. Isso é feito, em primeiro lugar, com um laser de precisão e alta intensidade, para criar um disco mestre. O mestre é usado, por sua vez, para criar um substrato para estampar cópias no policarbonato. A superfície furada é então coberta com uma superfície altamente refl etora, normalmente, alumínio ou ouro. Essa 
+Book 1.indb 164 19.11.09 14:36:53
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 6 Memória externa 165
+Tabela 6.4 Comparação de RAID
+Nível Vantagens Desvantagens Aplicações
+0Desempenho de E/S bastante melhorado, distribuindo a 
+carga de E/S por muitos canais e unidades
+não há overhead de cálculo de paridade envolvido
+Projeto muito simples
+Fácil de implementarA falha de apenas uma unidade resultará na perda 
+de todos os dados em um arrayProdução e edição de vídeo
+Edição de imagens
+Aplicações de pré-impressão
+Qualquer aplicação exigindo alta 
+largura de banda
+1100% de redundância de dados significa que não é 
+preciso reconstruir em caso de falha do disco, apenas 
+uma cópia para o disco substituto
+Sob certas circunstâncias, RAID 1 pode sustentar 
+múltiplas falhas de unidade simultâneas
+Projeto mais simples do subsistema de 
+armazenamento RAIDOverhead de disco mais alto de todos os tipos de 
+RAID (100%)  ineficazContabilidade
+Folha de pagamento
+Financeiras
+Qualquer aplicação exigindo 
+disponibilidade muito alta
+2Taxas de transferência de dados extremamente 
+altas são possíveis
+Quantidade mais alta a taxa de transferência de dados 
+exigida, melhor a razão entre discos de dados 
+e discos ECC
+Projeto de controlador relativamente simples 
+em comparação com RAID 3, 4 e 5Razão muito alta entre discos ECC e discos de 
+dados com menores tamanhos 
+de palavra  ineficaz
+Custo muito alto para cada nível  necessita 
+requisitos de taxa de transferência muito altos 
+para justificarnenhuma implementação comercial; 
+inviável comercialmente
+3Taxa de transferência de dados para leitura muito alta
+Taxa de transferência de dados para gravação muito alta
+Falha de disco tem um impacto insignificante 
+sobre o throughput
+Baixa razão entre discos de ECC (paridade) e 
+discos de dados significa alta eficiênciaTaxa de transação igual à de uma única unidade de 
+disco no máximo (se os eixos forem sincronizados)
+Projeto de controlador muito complexoProdução de vídeo e streaming ao vivo
+Edição de imagens
+Edição de vídeo
+Aplicações de pré-impressão
+Qualquer aplicação exigindo alta vazão
+4Taxa de transação de dados muito alta para leitura
+Baixa razão entre discos de ECC (paridade) e discos 
+de dados significa alta eficiênciaProjeto de controlador muito complexo
+Pior taxa de transação de gravação e taxa de 
+transferência de gravação agregada
+Reconstrução de dados difícil e ineficaz no caso de 
+falha de disconenhuma implementação comercial; 
+inviável comercialmente
+5Mais alta taxa de transação de dados para leitura
+Baixa razão entre discos de ECC (paridade) e discos 
+ de dados o que significa alta eficiência
+Bom tempo de transferência agregadoProjeto de controlador mais complexo de todos
+Difícil de reconstruir no caso de uma falha de disco 
+(comparado com RAID nível 1)Servidores de arquivo e aplicação
+Servidores de banco de dados
+Servidores Web, de e-mails e de notícias
+Servidores de intranet
+nível RAID mais versátil
+6Oferece uma tolerância a falhas extremamente alta e 
+pode sustentar múltiplas falhas de unidade simultâneasProjeto de controlador mais complexo
+Overhead do controlador extremamente alto para 
+calcular endereços de paridadeSolução perfeita para aplicações de 
+missão crítica
+fina superfície é protegida contra poeira e arranhões por uma camada externa de acrílico claro. Finalmente, um 
+rótulo pode ser aplicado sobre o acrílico.
+As informações são recuperadas de um CD ou CD-ROM por um laser de baixa potência, acomodado em um 
+aparelho de disco óptico, ou unidade de disco. O laser incide no policarbonato claro enquanto um motor gira o disco (Figura 6.10). A intensidade da luz refletida do laser muda quando encontra um sulco. Especificamente, se o 
+Book 1.indb 165 19.11.09 14:36:53
+
+166 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 6.10 Operação do CD
+Plástico policarbonatoAcrílico 
+protetor
+Alumínio
+Transmissão/recepção de laserSulco PistaRótulofeixe de laser cair em um sulco, que tem uma superfície áspera, a luz se espalha e uma baixa intensidade é refleti-
+da de volta à origem. As áreas entre os sulcos são chamadas de pistas. Uma pista é uma superfície lisa, que reflete 
+o raio com maior intensidade. A mudança entre sulcos e pistas é detectada por um fotorresistor e convertida em um sinal digital. O sensor testa a superfície em intervalos regulares. O início ou o final de um sulco representa um 1; quando não ocorre qualquer mudança na elevação entre os intervalos, um 0 é registrado.
+Lembre-se de que, em um disco magnético, a informação é registrada em trilhas concêntricas. Com o sistema 
+de velocidade angular constante (CAV), o número de bits por trilha é constante. Um aumento na densidade é obtido com a gravação em múltiplas zonas, em que a superfície é dividida em uma série de zonas, com as zonas Tabela 6.5 Produtos de disco óptico
+CD
+Compact disk. Um disco não apagável que armazena informações de áudio digitalizadas. O sistema padrão utiliza discos de 12 cm e pode gravar mais de 60 minutos de 
+tempo de execução sem interrupção.
+CD-ROM
+Compact disk read-only memory. Um disco não apagável para armazenar dados de computador. O sistema padrão utiliza discos de 12 cm e pode manter mais de 650 MBytes.
+CD-R
+CD Gravável. Semelhante a um CD-ROM. O usuário pode gravar no disco apenas uma vez.
+CD-RW
+CD Regravável. Semelhante a um CD-ROM. O usuário pode apagar e regravar no disco várias vezes.
+DVD
+Digital versatile disk. Uma tecnologia para produzir representação digitalizada e compactada de informações de vídeo, além de grandes volumes de outros dados digitais. São usados diâmetros de 8 e 12 cm, com uma capacidade de dupla face chegando até a 17 GBytes. O DVD básico é somente de leitura (DVD-ROM).
+DVD-R
+DVD Gravável. Semelhante a um DVD-ROM. O usuário pode gravar no disco apenas uma vez. Só podem ser usados discos de uma face.
+DVD-RW
+DVD Regravável. Semelhante a um DVD-ROM. O usuário pode apagar e regravar no disco várias vezes. Só podem ser usados discos de uma face.
+Blu-Ray DVD
+Disco de vídeo de alta definição. Oferece densidade de armazenamento de dados muito maior que o DVD, usando um laser de 405 nm (azul violeta). Uma única camada em uma única face pode armazenar 25 GBytes.
+Book 1.indb 166 19.11.09 14:36:54
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 6 Memória externa 167
+mais distantes do centro contendo mais bits que as zonas mais próximas do centro. Embora essa técnica aumente 
+a capacidade, ela ainda não é ideal.
+Para conseguir maior capacidade, CDs e CD-ROMs não organizam informações sobre trilhas concêntricas. 
+Em vez disso, o disco contém uma única trilha espiral, começando próximo ao centro e espiralando para a borda externa do disco. Os setores perto da margem externa do disco têm o mesmo tamanho daqueles perto do inte-rior. Assim, as informações são empacotadas por igual pelo disco em segmentos do mesmo tamanho e estes são varridos na mesma velocidade, girando o disco em uma velocidade variável. Os sulcos são então lidos pelo laser em uma velocidade linear constante (CLV, do inglês constant linear velocity). O disco gira mais lentamente para os acessos perto da margem externa do que aqueles próximos ao centro. Assim, a capacidade de uma trilha e o atraso rotacional aumentam para as posições perto da margem externa do disco. A capacidade de disco para um CD-ROM é cerca de 680 MB.
+Os dados no CD-ROM são organizados como uma sequência de blocos. Um formato de bloco típico aparece na 
+Figura 6.11. Ele consiste nos seguintes campos:
+sync: 
+  o campo de sincronismo identifica o início de um bloco. Ele consiste em um byte apenas com 0s, 10 
+bytes apenas com 1s e um byte apenas com 0s.cabeçalho: 
+  o cabeçalho contém o endereço de bloco e o byte de modo. O modo 0 especifica um campo 
+de dados em branco; o modo 1 especifica o uso de um código de correção de erro e 2 048 bytes de dados; o modo 2 especifica 2 336 bytes de dados do usuário sem código de correção de erro.dados: 
+  dados do usuário.
+Auxiliar:  dados adicionais do usuário no modo 2. No modo 1, este é um código de correção de erro com 
+288 bytes.
+Com o uso de CLV, o acesso aleatório se torna mais difícil. Localizar um endereço específico envolve mover a 
+cabeça para a área geral, ajustar a velocidade de rotação e ler o endereço, e depois fazer pequenos ajustes para encontrar e acessar o setor específico.
+O CD-ROM é apropriado para a distribuição de grandes quantidades de dados para um grande número de 
+usuá rios. Devido ao custo do processo de gravação inicial, ele não é apropriado para aplicações individualizadas. 
+Em comparação com os discos magnéticos tradicionais, o CD-ROM tem duas vantagens:
+O disco óptico, junto com a informação nele armazenada, podem ser replicados em massa de modo pouco 
+ 
+dispendioso  diferente de um disco magnético. O banco de dados em um disco magnético precisa ser 
+reproduzido copiando um disco de cada vez, usando duas unidades de disco. O disco óptico é removível, permitindo que o próprio disco seja usado para arquivamento. A maioria dos 
+ 
+discos magnéticos é não removível. A informação nos discos magnéticos não removíveis precisa ser primei-ro copiada para outro meio de armazenamento antes que a unidade de disco e, portanto, o disco possa ser usado para armazenar novas informações.
+As desvantagens do CD-ROM são as seguintes:
+Ele é apenas de leitura e não pode ser atualizado.
+ 
+Ele tem um tempo de acesso muito m  aior que o de uma unidade de disco magnético, de até meio segundo.
+Figura 6.11 Formato de bloco do CD-ROM
+Dados 00 00
+12 bytes
+SYNC4 bytes
+ID2048 bytes
+Dados288 bytes
+L-ECCLayered
+ECCMIN
+SEC
+Setor
+ModoFF ... FF
+2352 bytes
+Book 1.indb 167 19.11.09 14:36:54
+
+168 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+CD GRAVÁVEL Para acomodar aplicações em que apenas um ou um pequeno número de cópias de um conjun-
+to de dados é necessário, foi desenvolvido o CD que grava uma vez e lê muitas vezes, conhecido como CD gravável 
+(CD-R). Para o CD-R, um disco é preparado de modo que possa mais tarde ser gravado uma vez com um feixe de laser de intensidade moderada. Assim, com um controlador de disco um pouco mais caro que para o CD-ROM, o cliente pode gravar uma vez além de ler o disco.
+O meio do CD-R é semelhante, mas não idêntico ao de um CD ou CD-ROM. Para CDs e CD-ROMs, a informação 
+é gravada pelo sulco da superfície do meio, que muda a refl etividade. Para um CD-R, o meio inclui uma camada de substrato. O substrato é usado para mudar a refl etividade e é ativado por um laser de alta intensidade. O disco resultante pode ser lido em uma unidade de CD-R ou em uma unidade de CD-ROM.
+O disco óptico de CD-R é atraente para arquivamento de documentos e arquivos. Ele oferece um registro per-
+manente de grandes volumes de dados do usuário.
+CD REGRAVÁVEL O disco óptico de CD-RW pode ser gravado e regravado repetidamente, assim como um 
+disco magnético. Embora diversas técnicas tenham sido experimentadas, a única técnica óptica pura que pro-vou ser atraente é denominada mudança de fase. O disco por mudança de fase usa um material que possui 
+duas refl etividades signifi cativamente diferentes em dois estados de fase diferentes. Existe um estado amorfo, em que as moléculas exibem uma orientação aleatória que mal refl ete a luz; e um estado cristalino, que tem uma superfície lisa, que refl ete bem a luz. Um feixe de luz de laser pode mudar o material de uma fase para a outra. A principal desvantagem dos discos ópticos por mudança de fase é que o material por fi m perde per-manentemente estas propriedades. Os materiais atuais podem ser usados para algo entre 500 000 e 1 000 000 ciclos de apagamento.
+O CD-RW tem a vantagem óbvia em relação ao CD-ROM e ao CR-R de poder ser regravado e, portanto, é 
+usado como um armazenamento secundário verdadeiro. Dessa forma, ele concorre com o disco magnético. A principal vantagem do disco óptico é que as tolerâncias de engenharia para os discos ópticos são muito menos severas do que para os discos magnéticos de alta capacidade. Assim, eles exibem confi abilidade mais alta e vida mais longa.
+ Digital versatile disk
+Com o amplo disco versátil digital (DVD, do inglês digital versatile disk), a indústria eletrônica por fi m encontrou 
+uma substituição aceitável para a fi ta de vídeo VHS analógica. O DVD substituiu a fi ta de vídeo usada nos gravadores de videocassete (VCR, do inglês video cassete recorder) e, mais importante para esta discussão, substituiu o CD-ROM nos computadores pessoais e servidores. O DVD leva o vídeo para a era digital. Ele oferece fi lmes com qualidade de imagem impressionante, e podem ser acessado aleatoriamente, como os CDs de áudio, que as máquinas de DVD também podem reproduzir. Grandes volumes de dados podem ser colocados no disco, atualmente sete vezes mais que um CD-ROM. Com a imensa capacidade de armazenamento e a excelente qualidade de imagem do DVD, os jogos para PC se tornaram mais realistas e o software educacional incorporou mais vídeo. Em seguida, na onda desse desenvolvimento, tem havido um novo pico de tráfego pela Internet e intranets corporativas, à medida que esse material é incorporado nos sites Web.
+A maior capacidade do DVD deve-se a três diferenças dos CDs (Figura 6.12):1. Os bits são acomodados mais de perto em um DVD. O espaçamento entre os loops de uma espiral em um CD é de 1,6 µm e a distância mínima entre os sulcos ao longo da espiral é de 0,834 µm. O DVD usa um laser com comprimento de onda mais curto e alcança um espaçamento de loop de 0,74 µm e uma distância mínima entre os sulcos de 0,4 µm. O resultado dessas duas melhorias é um aumento de cerca de sete vezes na capacidade, para algo em torno de 4,7 GB.
+2. O DVD emprega uma segunda camada de sulcos e pistas em cima da primeira camada. Um DVD de camada dupla tem uma camada semirrefl etora em cima da camada refl etora e, ajustando o foco, os lasers nas unida-des de DVD podem ler cada camada separadamente. Essa técnica quase dobra a capacidade do disco, para cerca de 8,5 GB. A menor refl etividade da segunda camada limita sua capacidade de armazenamento, de modo que não é possível dobrar a capacidade total.
+3. O DVD-ROM pode ser de dois lados, enquanto os dados são gravados em apenas um lado de um CD. Isso leva a capacidade total para até 17 GB.
+Assim como o CD, os DVDs possuem versões graváveis e também somente de leitura (Tabela 6.5).
+Book 1.indb 168 19.11.09 14:36:55
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 6 Memória externa 169
+ Discos ópticos de alta definição
+Os discos ópticos de alta defi nição são projetados para armazenar vídeos de alta defi nição e oferecem uma 
+capacidade de armazenamento muito maior em comparação com os DVDs. A densidade de bits mais alta é alcan-
+çada usando um laser com um comprimento de onda mais curto, na faixa do azul violeta. Os sulcos de dados, que constituem os 1s e 0s digitais, são menores nos discos ópticos de alta defi nição em comparação com o DVD, devido ao comprimento do laser mais curto.
+Dois formatos e tecnologias de disco concorrentes competiram inicialmente pela aceitação do mercado: HD 
+DVD e Blu-ray DVD. O esquema Blu-ray, por fi m, conseguiu o domínio do mercado. O esquema HD DVD pode arma-
+zenar 15 GB em uma única camada em uma única face. O Blu-ray posiciona a camada de dados no disco mais perto 
+do laser (mostrado no lado direito de cada diagrama da Figura 6.13). Isso permite um foco mais estreito e menos distorção e, portanto, menores sulcos e trilhas. O Blu-ray pode armazenar 25 GB em uma única camada. Existem três 
+versões: somente leitura (BD-ROM), gravável uma vez (BD-R) e regravável (BD-RE).
+6.4 Fita magnética
+Os sistemas de fi ta utilizam as mesmas técnicas de leitura e gravação que os sistemas de disco. O meio é uma 
+fi ta de poliéster fl exível (semelhante ao que é usado em alguns tecidos) coberta com material magnetizável. 
+A cobertura pode consistir em partículas de metal puro em pastas especiais ou fi lmes de vapor de metal. A fi ta e a unidade de fi ta são semelhantes a um sistema de gravador de fi ta doméstico. As larguras de fi ta variam de 0,38 a 1,27 cm. As fi tas costumavam vir em carrretéis abertos que precisavam ser rebobinados para um segundo eixo, para serem usados. Hoje, praticamente todas as fi tas são acomodadas em cartuchos.1,2 mm 
+de espessura
+1,2 mm de
+ espessura Rótulo
+Camada protetora (acrílico)
+Camada re/f_letora (alumínio)
+Substrato de policarbonato (plástico)
+Substrato de policarbonato, face 2
+Camada semirre/f_letora, face 2
+Camada de policarbonato, face 2
+Camada totalmente re/f_letora, face 2
+Camada totalmente re/f_letora, face 1
+Camada de policarbonato, face 1
+Camada semirre/f_letora, face 1
+Substrato de policarbonato, face 1Laser focaliza os sulcos de policarbonato
+ na frente da camada re/f_letora.
+(a) CD-ROM — Capacidade de 682 MB
+(b) DVD-ROM, dupla face, dupla camada — Capacidade de 17 GBLaser focaliza sulcos em uma camada
+em uma face de cada vez. O disco precisa 
+ser virado para ler o outro lado.Figura 6.12 CD-ROM e DVD-ROM
+Book 1.indb 169 19.11.09 14:36:55
+
+170 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Os dados na fita são estruturados como uma série de trilhas paralelas no sentido do comprimento da fita. Os 
+sistemas de fita mais antigos normalmente usavam nove trilhas. Isso possibilitava o armazenamento de dados um 
+byte de cada vez, com um bit de paridade adicional sendo a nona trilha. Isso foi substituído por sistemas de fita usando 18 ou 36 trilhas, correspondendo a uma palavra ou dupla palavra digital. A gravação de dados dessa forma é conhecida como gravação paralela. A maioria dos sistemas modernos, em vez disso, usa a gravação serial, 
+em que os dados são dispostos como uma sequência de bits ao longo de cada trilha, como é feito com os discos magnéticos. Assim como o disco, os dados são lidos e gravados em blocos contíguos, chamados registros físicos, 
+em uma fita. Os blocos na fita são separados por lacunas conhecidas como lacunas entre registro. Assim como o 
+disco, a fita é formatada para auxiliar na localização dos registros físicos.
+A técnica de gravação típica usada nas fitas seriais é conhecida como gravação em serpentina. Nessa 
+técnica, quando os dados estão sendo gravados, o primeiro conjunto de bits é gravado ao longo de toda a ex -
+tensão da fita. Quando o final da fita é alcançado, as cabeças são reposicionadas para gravar uma nova trilha, e a 
+fita novamente é gravada em sua extensão completa, desta vez na direção oposta. Esse processo continua, indo e voltando, até que a fita esteja cheia (Figura 6.14a). Para aumentar a velocidade, a cabeça de leitura-gravação é capaz de ler e gravar uma série de trilhas adjacentes simultaneamente (normalmente, duas a oito trilhas). Os dados ainda são gravados de forma serial ao longo das trilhas individuais, mas os blocos em sequência são arma-zenados em trilhas adjacentes, conforme sugere a Figura 6.14b.
+Uma unidade de fita é um dispositivo de acesso sequencial. Se a cabeça da fita estiver posicionada no registro 1, 
+então, para ler o registro N, é preciso ler os registradores físicos de 1 até N = 1, um de cada vez. Se a cabeça estiver 
+atualmente posicionada além do registro desejado, é preciso rebobinar a fita por uma certa distância e começar a ler para frente. Diferente do disco, a fita está em movimento apenas durante uma operação de leitura ou escrita.
+Ao contrário da fita, a unidade de disco é denominada um dispositivo de acesso direto. Uma unidade de disco 
+não precisa ler sequencialmente todos os setores em um disco para chegar àquele que deseja. Ela só precisa espe-rar pelos setores intermediários dentro de uma trilha e pode fazer acessos sucessivos a qualquer trilha.
+A fita magnética foi o primeiro tipo de memória secundária. Ela ainda é muito usada como o componente 
+mais lento e de mais baixo custo da hierarquia de memória.Ponto do
+ raioSulcoCamada de dados
+Comprimento de
+onda do laser = 780 nm
+650 nm405 nmCD2,11 µm
+DVD Blu-ray1,2 µm Pit
+Trilha
+0,6 µm0,1 µm1,32 µm0,58 µmFigura 6.13 Características da memória óptica
+Book 1.indb 170 19.11.09 14:36:59
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 6 Memória externa 171
+A tecnologia de fita dominante nos dias de hoje é um sistema de cartucho conhecido como fita linear aberta 
+(LTO, do inglês linear tape open). A LTO foi desenvolvida no final da década de 1990 como uma alternativa de fon-
+te aberta para os diversos sistemas patenteados no mercado. A Tabela 6.6 mostra os parâmetros para as diversas 
+gerações de LTO. Veja mais detalhes no Apêndice J.Figura 6.14 Características de uma fita magnética típica
+Borda inferior
+ da fitaDireção da 
+leitura-gravação
+Direção do movimento
+ da fita(a) Leitura e gravação em serpentina
+(b) Layout em bloco para sistema que lê-grava quatro trilhas simultaneamenteTrilha 0
+Trilha 0Trilha 1Trilha 2Trilha 3Trilha 1Trilha 2
+4 8 12 16 20
+3 7 11 15 19
+2 6 10 14 18
+1 5 9 13 17
+Tabela 6.6 Unidades de fita LTO
+LTO-1 LTO-2 LTO-3 LTO-4 LTO-5 LTO-6
+Data de lançamento 2000 2003 2005 2007 TBA TBA
+Capacidade compactada 200 GB 400 GB 800 GB 1 600 GB 3,2 TB 6,4 TB
+Taxa de transferência 
+compactada (MB/s)40 80 160 240 360 540
+Densidade linear (bits/mm) 4 880 7 398 9 638 13 300
+Trilhas de fita 384 512 704 896
+Comprimento da fita 609 m 609 m 680 m 820 m
+Largura da fita (cm) 1,27 1,27 1,27 1,27
+Elementos de gravação 8 8 16 16
+Book 1.indb 171 19.11.09 14:36:59
+
+172 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+6.5 Leitura recomendada e sites Web
+Jacob, Ng e Wang (2008e) oferecem exposição consistente sobre discos magnéticos. Mee e Daniel (1996f) 
+apresentam um bom estudo da tecnologia básica de gravação de sistemas de disco e fi ta. Mee e Daniel (1996g) 
+focalizam as técnicas de armazenamento de dados para sistemas de disco e fi ta. Comerford (2000h)é um artigo 
+curto, porém instrutivo, sobre as tendências atuais na tecnologia de armazenamento de disco magnético. Radding 
+(2008i) e Anderson (2003j) oferecem uma discussão mais recente sobre a tecnologia de armazenamento de disco 
+magnético.
+Um excelente estudo sobre tecnologia RAID, escrito pelos inventores do conceito RAID, é Chen et al.(1994k). Um 
+bom artigo introdutório é Friedman (1996l). Uma boa comparação de desempenho das arquiteturas RAID é Chen 
+e Towsley (1996m).
+Marchant (1990n) oferece uma excelente visão geral do campo de armazenamento óptico. Um bom estudo da 
+tecnologia básica de gravação e leitura é Mansuripur e Sincerbox (1997o).
+Rosch (2003p) oferece uma visão abrangente de todos os tipos de sistemas de memória externos, com alguns 
+de detalhes técnicos sobre cada um. Khurshudov (2001q) é outro bom estudo.
+Haeusser et al. (2007r) oferecem um tratamento detalhado de LTO.
+ Sites Web recomendados
+optical storage Technology Association: boa fonte de informações sobre tecnologia e vendedores de ar-
+mazenamento óptico, mais uma extensa lista de links relevantes.L To site Web: oferece informações sobre a tecnologia LTO e vendedores licenciados.
+ 
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Tempo de acesso DVD-RW Sulco
+Blu-ray Disco de cabeça fi xa Prato
+CD Disquete RAID
+CD-ROM Lacuna (gap) Disco removível
+CD-R Cabeça Atraso rotacional
+CD-RW Pista Setor
+Velocidade angular constante (CAV) Disco magnético Tempo de busca
+Velocidade linear constante (CLV) Fita magnética Gravação em serpentina
+Cilindro Magnetorresistivo Dados intercalados (strip data)
+DVD Disco de cabeça móvel Substrato
+DVD-ROM Gravação em múltiplas zonas Trilha
+DVD-R Disco não removível Tempo de transferência
+Memória ótica
+Perguntas de revisão
+ 6.1 Quais são as vantagens de usar um substrato de vidro para um disco magnético?
+ 6.2 Como os dados são gravados em um disco magnético?
+ 6.3 Como os dados são lidos de um disco magnético?
+Book 1.indb 172 19.11.09 14:37:00
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 6 Memória externa 173
+ 6.4 Explique a diferença entre um sistema CAV simples e um sistema com gravação em múltiplas zonas.
+ 6.5 Defina os termos trilha, cilindro e setor.
+ 6.6 Qual é o tamanho típico de um setor de disco?
+ 6.7 Defina os termos tempo de busca, atraso rotacional, tempo de acesso e tempo de transferência.
+ 6.8 Que características comuns são compartilhadas por todos os níveis de RAID?
+ 6.9 Defina resumidamente os sete níveis de RAID.
+ 6.10 Explique o termo dados intercalados (striped data).
+ 6.11 Como a redundância é obtida em um sistema RAID?
+ 6.12 n o contexto do RAID, qual é a distinção entre acesso paralelo e acesso independente?
+ 6.13 Qual é a diferença entre CAV e CLV?
+ 6.14 Que diferenças entre um CD e um DVD são responsáveis pela maior capacidade de armazenamento do segundo?
+ 6.15 Explique a gravação em serpentina.
+Problemas
+ 6.1 Considere um disco com N trilhas numeradas de 0 a (N – 1) e considere que os setores requisitados são distribuídos aleatoria e uniformemen-
+te pelo disco. Queremos calcular o número médio de trilhas atravessadas por uma busca.
+a. Primeiro, calcule a probabilidade de uma busca de tamanho j quando a cabeça está atualmente posicionada sobre a trilha t. Dica: isso é uma 
+questão de determinar o número total de combinações, reconhecendo que todas as posições de trilha para o destino da busca são igualmente 
+prováveis.
+b. Em seguida, calcule a probabilidade de uma busca de tamanho K. Dica : isso envolve o somatório de todas as combinações possíveis de 
+movimentos de K trilhas.
+c. Calcule o número médio de trilhas atravessadas por uma busca, usando a fórmula para o valor esperado
+an
+i=1i=n(n+1)
+2; an
+i=1i2=n(n+1)(2n+1)
+6.E[x]=aN-1
+i =0i*Pr[x=i].
+Dica: use as igualdades: 
+ an
+i=1i=n(n+1)
+2; an
+i=1i2=n(n+1)(2n+1)
+6.E[x]=aN-1
+i =0i*Pr[x=i].
+d. Mostre que, para valores grandes de N, o número médio de trilhas atravessadas por uma busca se aproxima de N/3.
+ 6.2 Defina o seguinte para um sistema de disco: t
+s = tempo de busca; tempo médio para posicionar a cabeça sobre a trilha
+ r = velocidade de rotação do disco, em rotações por segundo n = número de bits por setor N = capacidade de uma trilha, em bits t
+A = tempo para acessar um setor
+ Desenvolva uma fórmula para tA como uma função dos outros parâmetros.
+ 6.3 Considere uma unidade de disco magnético com 8 superfícies, 512 trilhas por superfície e 64 setores por trilha. O tamanho do setor é de 1 KB. 
+O tempo de busca médio é de 8 ms, o tempo de acesso de uma trilha para outra é de 1,5 ms, e a unidade gira a 3 600 rpm. As trilhas sucessi-vas em um cilindro podem ser lidas sem movimento da cabeça.
+a. Qual é a capacidade do disco?b. Qual é o tempo médio de acesso? Suponha que esse arquivo seja armazenado em setores sucessivos e trilhas de cilindros sucessivos, come-çando no setor 0, trilha 0 do cilindro i.
+c. Estime o tempo necessário para transferir um arquivo de 5 MB.
+d. Qual é a taxa de transferência de rajada (burst)?
+ 6.4 Considere um disco com único prato, com os seguintes parâmetros: velocidade de rotação: 7 200 rpm; número de trilhas em um lado da placa: 
+30.000; número de setores por trilha: 600; tempo de busca: um ms para cada cem trilhas atravessadas. Considere que o disco recebe uma solicitação para acessar um setor aleatório em uma trilha aleatória e suponha que a cabeça do disco comece na trilha 0.
+Book 1.indb 173 19.11.09 14:37:00
+
+174 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+a. Qual é o tempo médio de busca?
+b. Qual é a o atraso rotacional médio?
+c. Qual é o tempo de transferência para um setor?
+d. Qual é o tempo total médio para atender a uma solicitação?
+ 6.5 Existe uma distinção entre registros físicos e registros lógicos. Um registro lógico é uma coleção de elementos de dados relacionados, 
+tratados como uma unidade conceitual, independentemente de como e onde a informação é armazenada. Um registro físico é uma área contígua do espaço de armazenamento, definida pelas características do dispositivo de armazenamento e do sistema operacional. Considere um sistema de disco em que cada registro físico contenha trinta registros lógicos de 120 bytes. Calcule quanto espaço em disco (em setores, trilhas e superfícies) serão necessários para armazenar 300 000 registros lógicos se o disco tiver um tamanho fixo de 512 bytes/setor, com 96 setores/trilha, 110 trilhas por superfície e 8 superfícies utilizáveis. Ignore quaisquer registros de cabeçalho de arquivo e índices de trilha, e suponha que os registros não possam se espalhar por dois setores.
+ 6.6 Considere um disco que gira a 3 600 rpm. O tempo de busca para mover a cabeça entre trilhas adjacentes é de 2 ms. Existem 32 setores por 
+trilha, que são armazenados em ordem linear a partir do setor 0 até o setor 31. A cabeça vê os setores em ordem ascendente. Suponha que a cabeça de leitura/gravação esteja posicionada no início do setor 1 na trilha 9. Existe um buffer de memória principal grande o suficiente para manter uma trilha inteira. Os dados são transferidos entre os locais do disco lendo da trilha de origem para o buffer da memória principal e depois gravando os dados do buffer para a trilha de destino.
+a. Quanto tempo levará para transferir o setor 1 na trilha 8 para o setor 1 na trilha 9?
+b. Quanto tempo levará para transferir todos os setores da trilha 8 para os setores correspondentes da trilha 9?
+ 6.7 Deve ter ficado claro que o striping de disco pode melhorar a taxa de transferência de dados quando o tamanho do strip é pequeno em comparação com o tamanho da solicitação de E/S. Também deve estar claro que RAID 0 oferece melhor desempenho em relação a um único disco grande, pois múltiplas solicitações de E/S podem ser tratadas em paralelo. Porém, nesse último caso, o striping de disco é necessário? Ou seja, o striping de disco melhora o desempenho da taxa de solicitação de E/S em comparação com um array de disco sem striping?
+ 6.8 Considere um array RAID com 4 unidades, com 200 GB por unidade. Qual é a capacidade de armazenamento de dados disponível para cada 
+um dos níveis de RAID 0, 1, 3, 4, 5 e 6?
+ 6.9 Para um CD, o áudio é convertido para digital com amostras de 16 bits, e é tratado como um fluxo de bytes de 8 bits para fins de armazenamento. Um esquema simples para armazenar esses dados, chamado gravação direta, seria representar um 1 por uma pista e um 0 por um sulco. Em vez disso, cada byte é expandido para um número binário de 14 bits. Acontece que exatamente 256 (2
+8) 
+do total de 16.134 (214) números de 14 bits possuem pelo menos dois 0s entre cada par de 1s, e esses são os números selecionados 
+para a expansão de 8 para 14 bits. O sistema óptico detecta a presença de 1s detectando uma transição de sulco a pista ou de pista a sulco. Ele detecta 0s medindo as distâncias entre as mudanças de intensidade. Esse esquema requer que não haja 1s sucessivos; daí o uso do código de 8 para 14.
+A vantagem desse esquema é a seguinte. Para determinado diâmetro do raio laser, existe um tamanho de sulco mínimo, independentemente 
+de como os bits são representados. Com esse esquema, esse tamanho mínimo do sulco armazena 3 bits, pois pelo menos dois 0s vêm após cada 1. Com a gravação direta, o mesmo sulco seria capaz de armazenar apenas um bit. Considerando tanto o número de bits armazenados por sulco quanto a expansão de 8 para 14, que esquema armazena mais bits e por que fator?
+ 6.10 Crie uma estratégia de backup para um sistema de computação. Uma opção é usar discos externos removíveis, que custam US$ 150 para cada 
+unidade de 500 GB. Outra opção é comprar uma unidade de fita por US$ 2 500, e fitas de 400 GB por US$ 50 a peça. (Estes eram preços reais em 2008.) Uma estratégia de backup típica é ter dois conjuntos de mídia de backup no local, com backups gravados alternadamente neles, de modo que, caso o sistema falhe enquanto se faz o backup, a versão anterior ainda estaria intacta. há também um terceiro conjunto mantido fora do local, com o conjunto fora do local trocado periodicamente por um conjunto no local.
+a. Suponha que você tenha 1 TB (1 000 GB) de dados para fazer backup. Quanto custaria um sistema de backup de disco?b. Quanto custaria um sistema de backup em fita para 1 TB?
+c. Que tamanho cada backup precisaria ter para que a estratégia de fita fosse menos dispendiosa?
+d. Que tipo de estratégia de backup favorece as fitas?
+Book 1.indb 174 19.11.09 14:37:00
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 6 Memória externa 175
+ Referências
+ a STALLInGS, W. Operating systems, internals and design principles, 6th Edition. Upper Saddle River, nJ: Prentice hall, 2009.
+ b PATTERSOn, D.; GIBSOn, G. E KATZ, R. “A case for redundant arrays of inexpensive disks (RAID)” . Proceedings, ACM SIGMOD Conference of 
+Management of Data, jun. 1988.
+ c KATZ, R; GIBSOn, G. E PATTERSOn, D. "Disk system architecture for high performance computing." Proceeding of the IEEE, dez. 1989.
+ d EISChEn, C. “RAID 6 covers more bases” . Network World, 9 abr. 2007.
+ e JACOB, B.; ng, S. e Wang, D. Memory systems: cache, DRAM, disk. Boston: Morgan Kaufmann, 2008. f MEE, C. e Daniel, E. eds. Magnetic recording technology. n ova York: McGraw-hill, 1996.
+ g MEE, C. e Daniel, E. eds. Magnetic storage handbook. n ova York: McGraw-hill, 1996.
+ h COMERFORD, R. “Magnetic storage: the medium that wouldn’t die” . IEEE Spectrum, dez. 2000. i RADDInG, A. “Small disks, big specs” . Storage Magazine, set. 2008. j AnDERSOn, D. “You don’t know jack about disks” . ACM Queue, jun. 2003. k ChEn , P .; LEE, E.; Gibson, G.; Katz, R. e Patterson, D. “RAID: high-performance, reliable secondary storage” . ACM Computing Surveys, jun. 1994.
+ l FRIEDMAn, M. “RAID keeps going and going and... ” . IEEE Spectrum, abr. 1996. m ChEn, S. e TOWSLEY , D. “A performance evaluation of RAID Architectures” . IEEE Transactions on Computers, out. 1996.
+ n MARChAnT, A. Optical recording. Reading, MA: Addison-Wesley, 1990. o MAnSURIPUR, M. e SInCERBOX, G. “Principles and techniques of optical data storage” . Proceedings of the IEEE, nov. 1997.
+ p ROSCh, W. Winn L. Rosch hardware bible. Indianapolis, In: Que Publishing, 2003.
+ q KhURShUDOV, A. The essential guide to computer data storage. Upper Saddle River, nJ: Prentice hall, 2001. r hAEUSSER, B., et al. IBM system storage tape library guide for open systems. IBM Redbook SG24-5946-05, out. 2007. Disponível em: 
+<ibm.com/redbooks>.
+Book 1.indb 175 19.11.09 14:37:00
+
+Além do processador e um conjunto de módulos de memória, o tercei-
+ro elemento chave de um sistema de computação é um conjunto de 
+módulos de E/S. Cada módulo se conecta ao barramento do sistema ou comutador central e controla um ou mais dispositivos periféricos. Um mó-dulo de E/S não é simplesmente um conjunto de conectores mecânicos que conectam um dispositivo fi sicamente ao barramento do sistema. Em vez disso, o módulo de E/S contém uma lógica para realizar uma função de comunicação entre o periférico e o barramento.
+O leitor poderá perguntar por que não se conectam os periféricos direta-
+mente no barramento do sistema. Os motivos são os seguintes:PRInCIPAIS POnTOS
+ A arquitetura de E/S do sistema de computação é a sua interface com 
+o mundo exterior. Essa arquitetura oferece um meio sistemático de con-trolar a interação com o mundo exterior e fornece ao sistema operacio-nal as informações de que precisa para gerenciar a atividade de E/S de modo eficaz. Existem três técnicas principais de E/S: e/s programada, em que a E/S 
+ocorre sob o controle direto e contínuo do programa solicitando a opera-ção de E/S; e/s controlada por interrupção, em que um programa emite um comando de E/S e depois continua a executar, até que seja interrompi-do pelo hardware de E/S para sinalizar o fi nal da operação de E/S; e acesso 
+direto à memória (dmA), em que um processador de E/S especializado assume o controle de uma operação de E/S para mover um grande bloco de dados. Dois exemplos importantes de interfaces de E/S são FireWire e Infi niBand.Entrada/SaídaCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+7.1 Dispositivos externos
+  Teclado/monitor
+  Unidade de disco
+7.2 Módulos de E/S
+  Função do módulo
+  Estrutura do módulo de E/S
+7.3 E/S programada
+  Visão geral da E/S programada
+  Comandos de E/S
+  Instruções de E/S
+7.4 E/S controlada por interrupção
+  Processamento de interrupção
+  Aspectos de projeto
+  Controlador de interrupção Intel 82C59A
+  A interface de periférico programável 
+Intel 82C55A
+7.5 Acesso direto à memória
+  Desvantagens da E/S programada e controlada por interrupção
+  Função do DMA
+  Controlador de DMA Intel 8237A
+7.6 Canais e processadores de E/S
+  A evolução da função de E/S
+  Características dos canais de E/S
+7.7 A interface externa: Firewire e Infi niBand
+  Tipos de interfaces
+  Confi gurações ponto a ponto e multiponto
+  Barramento serial FireWire
+  Infi niBand
+7.8 Leitura recomendada e sites Web 
+  Sites web recomendadosFerramenta de projeto de sistema de E/S
+Book 1.indb 176 19.11.09 14:37:01
+
+Capítulo 7 Entrada/Saída 177
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18Existe uma grande variedade de periféricos, com diversos métodos de operação. Seria impraticável incorpo- 
+rar a lógica necessária dentro do processador para controlar todos os tipos de dispositivos.
+A taxa de transferência de dados dos periféricos normalmente é muito mais lenta do que a da memória ou 
+do processador. Assim, é impraticável usar o barramento de alta velocidade do sistema para se comunicar diretamente com um periférico.Por outro lado, a taxa de transferência de dados de alguns periféricos é maior do que a da memória 
+ 
+ou do processador. Novamente, uma diferença levaria a ineficiências se não fosse controlada correta-mente.Os periféricos normalmente utilizam formatos de dados e tamanhos de palavras diferentes do que é usado 
+ 
+pelo computador ao qual estão conectados.
+Assim, um módulo de E/S é necessário. Esse módulo tem duas funções principais (Figura 7.1):
+Interface com o processador e a memória por meio do barramento do sistema ou  comutador central.
+Interface com um ou mais dispositivos periféricos por conexões de dados adequados. 
+Vamos começar este capítulo com uma breve discussão sobre os dispositivos externos, seguida por uma visão 
+geral da estrutura e função de um módulo de E/S. Depois, veremos as diversas maneiras como a função de E/S pode ser realizada em cooperação com o processador e a memória: a interface de E/S interna. Finalmente, examinamos a interface de E/S externa, entre o módulo de E/S e o mundo exterior.
+7.1 Dispositivos externos
+As operações de E/S são realizadas por meio de uma grande variedade de dispositivos externos, que oferecem 
+um meio de trocar dados entre o ambiente externo e o computador. Um dispositivo externo se conecta ao com-putador por uma conexão com um módulo de E/S (Figura 7.1). A conexão é usada para trocar sinais de controle, estado e dados entre os módulos de E/S e o dispositivo externo. Um dispositivo externo conectado a um módulo de E/S normalmente é chamado de dispositivo periférico ou, simplesmente, um periférico.
+Podemos classifi car os dispositivos externos em geral em três categorias:
+Figura 7.1 Modelo genérico de um módulo de E/S
+Módulo de E/S
+Conexões para 
+dispositivos periféricosLinhas de endereço
+Barramento do sistemaLinhas de dados
+Linhas de controle
+Book 1.indb 177 19.11.09 14:37:02
+
+178 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Legíveis ao ser humano:  adequados para a comunicação com usuários de computador.
+Legíveis à máquina:  adequados para a comunicação com equipamentos.
+comunicação:  adequados para a comunicação com dispositivos remotos.
+Alguns exemplos de dispositivos legíveis ao ser humano são monitores de vídeo e impressoras. Alguns exem-
+plos de dispositivos legíveis à máquina são sistemas de disco magnético e fita, e sensores e atuadores, como aque-
+les usados em uma aplicação de robótica. Observe que estamos vendo os sistemas de disco e fita como dispositivos de E/S neste capítulo, enquanto, no Capítulo 6, eles são vistos como dispositivos de memória. Por um ponto de vista funcional, esses dispositivos fazem parte da hierarquia de memória, e seu uso é discutido apropriadamente no Capítulo 6. Por um ponto de vista estrutural, esses dispositivos são controlados por módulos de E/S e, por isso, devem ser considerados neste capítulo.
+Dispositivos de comunicação permitem que um computador troque dados com um dispositivo remoto, que 
+pode ser um dispositivo legível ao ser humano, como um terminal, um dispositivo legível à máquina, ou até mesmo outro computador.
+Em termos muito gerais, a natureza de um dispositivo externo é indicada na Figura 7.2. A interface com o 
+módulo de E/S ocorre na forma de sinais de controle, dados e estado. Os sinais de controle determinam a função 
+que o dispositivo realizará como enviar dados ao módulo de E/S (INPUT ou READ), aceitar dados do módulo de E/S (OUTPUT ou WRITE), informar o estado ou realizar alguma função de controle particular ao dispositivo (por exemplo, 
+posicionar uma cabeça de disco). Os dados estão na forma de um conjunto de bits a serem enviados ou recebidos do módulo de E/S. Os sinais de estado indicam o estado do dispositivo. Alguns exemplos são READY/NOT-READY, 
+para indicar se o dispositivo está pronto para uma transferência de dados.
+A lógica de controle, associada ao dispositivo, controla a operação do dispositivo em resposta à direção do 
+módulo de E/S. O transdutor converte dados de elétrico para outras formas de energia durante a saída e de outras 
+formas para elétrico durante a entrada. Normalmente, um buffer é associado ao transdutor para manter tempora-riamente os dados sendo transferidos entre o módulo de E/S e o ambiente externo; um tamanho de buffer de 8 a 16 bits é comum.
+A interface entre o módulo de E/S e o dispositivo externo será examinada na Seção 7.7 A interface entre 
+o dispositivo externo e o ambiente está fora do escopo deste livro, mas vamos mostrar alguns exemplos ra-pidamente.
+Figura 7.2 Diagrama em blocos de um dispositivo externo
+Buffer
+TransdutorLógica de 
+controleSinais de controle 
+do módulo de E/SSinais de estado ao módulo de E/SBits de dados de e para o módulo de E/S
+Dados (device-unique)
+de e para o ambiente
+Book 1.indb 178 19.11.09 14:37:03
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 7 Entrada/Saída 179
+ Teclado/monitor
+O meio mais comum de interação entre computador/usuário é o conjunto de teclado/monitor. O usuário forne-
+ce entrada pelo teclado. Essa entrada é então transmitida ao computador e também pode ser exibida no monitor. 
+Além disso, o monitor exibe dados fornecidos pelo computador.
+A unidade de troca básica é o caractere. Associado a cada caractere existe um código, normalmente com 7 ou 8 
+bits. O código de texto mais utilizado é o International Reference Alphabet (IRA).1 Cada caractere nesse código é repre-
+sentado por um código binário exclusivo com 7 bits; assim, 128 caracteres diferentes podem ser representados. Os caracteres são de dois tipos: imprimíveis e de controle. Os caracteres imprimíveis são os caracteres alfabéticos, numé-ricos e especiais, que podem ser impressos em papel ou exibidos em um monitor. Alguns dos caracteres de controle têm a ver com o controle da impressão ou exibição de caracteres; um exemplo é o carriage return. Outros caracteres 
+de controle tratam dos procedimentos de comunicação. Veja mais detalhes no Apêndice F.
+ Para a entrada do teclado, quando o usuário pressiona uma tecla, isso gera um sinal eletrônico que é interpreta-
+do pelo transdutor no teclado e traduzido para o padrão de bits do código IRA correspondente. Esse padrão de bits é então transmitido ao módulo de E/S no computador, onde o texto pode ser armazenado no mesmo código IRA. Na saída, os caracteres do código IRA são transmitidos para um dispositivo externo do módulo de E/S. O transdutor no dispositivo interpreta esse código e envia os sinais eletrônicos exigidos ao dispositivo de saída, ou para exibir o caractere indicado ou realizar a função de controle solicitada.
+ Unidade de disco
+Uma unidade de disco contém a eletrônica para trocar sinais de dados, controle e estado com um módulo de 
+E/S mais a eletrônica para controlar os mecanismos de leitura/escrita de disco. Em um disco de cabeça fi xa, o trans-dutor é capaz de converter os padrões magnéticos na superfície do disco móvel em bits no buff er do dispositivo (Figura 7.2). Um disco com cabeça móvel também precisa ser capaz de fazer o braço do disco se mover radialmente para dentro e fora pela superfície do disco.
+7.2 Módulos de E/S
+ Função do módulo
+As principais funções ou requisitos para um módulo de E/S encontram-se nas seguintes categorias:
+Controle e temporização. 
+Comunicação com o processador. 
+Comunicação com o dispositivo. 
+Armazenamento temporário (  buff ering) de dados.
+Detecção de erro 
+Durante qualquer período, o processador pode se comunicar com um ou mais dispositivos externos em padrões 
+imprevisíveis, dependendo da necessidade de E/S do programa. Os recursos internos, como a memória principal e o barramento do sistema, precisam ser compartilhados entre uma série de atividades, incluindo E/S de dados. Assim, a função de E/S inclui um requisito de controle e temporização, para coordenar o fl uxo de tráfego entre 
+os recursos internos e dispositivos externos. Por exemplo, o controle da transferência de dados de um dispositivo externo ao processador poderia envolver a seguinte sequência de etapas:
+1. O processador interroga o módulo de E/S para verifi car o estado do dispositivo conectado.
+2. O módulo de E/S retorna o estado do dispositivo.
+3. Se o dispositivo estiver operacional e pronto para transmitir, o processador solicita a transferência de dados por meio de um comando ao módulo de E/S.
+1 IRA é defi nido na ITU-T Recommendation T.50, e era conhecido originalmente como International Alphabet Number 5 (IA5). A versão do IRA 
+para os EUA é conhecida como American Standard Code for Information Interchange (ASCII). 
+Book 1.indb 179 19.11.09 14:37:03
+
+180 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+4. O módulo de E/S obtém uma unidade de dados (por exemplo, 8 ou 16 bits) do dispositivo externo.
+5. Os dados são transferidos do módulo de E/S ao processador.
+Se o sistema emprega um barramento, então cada uma das interações entre o processador e o módulo de E/S 
+envolve uma ou mais arbitragens de barramento.
+Esse cenário simplifi cado também ilustra que o módulo de E/S precisa se comunicar com o processador e com 
+o dispositivo externo. A comunicação do processador envolve o seguinte:
+decodifi cação de comando:  o módulo de E/S aceita comandos do processador, normalmente enviados 
+como sinais no barramento de controle. Por exemplo, um módulo de E/S para uma unidade de disco precisa 
+aceitar os seguintes comandos: READ SECTOR, WRITE SECTOR, SEEK número de trilha e SCAN ID de registro. Cada um dos dois últimos comandos inclui um parâmetro que é enviado no barramento de dados.dados:
+  os dados são trocados entre o processador e o módulo de E/S pelo barramento de dados.
+Informação de estado:  como os periféricos são muito lentos, é importante conhecer o estado do módulo 
+de E/S. Por exemplo, se um módulo de E/S tiver que enviar dados ao processador (leitura), ele pode não ser capaz de fazer isso porque ainda está trabalhando no comando de E/S anterior. Esse fato pode ser relatado com um sinal de estado, sendo os mais comuns BUSY e READY. Também pode haver sinais para relatar di-versas condições de erro.Reconhecimento de endereço:
+  assim como cada palavra de memória tem um endereço, cada dispositivo 
+de E/S também tem. Desse modo, um módulo de E/S precisa reconhecer um endereço exclusivo para cada periférico que controla.
+Por outro lado, o módulo de E/S também deve ser capaz de realizar comunicação com o dispositivo. Essa 
+comunicação envolve comandos, informação de estado e dados (Figura 7.2).
+Uma tarefa essencial de um módulo de E/S é o buff ering de dados. A necessidade dessa função é aparente 
+pela Figura 2.11. Enquanto a taxa de transferência para entrada e saída na memória principal ou no processador é muito alta, as taxas da maioria dos dispositivos periféricos compreendem uma grande faixa. Os dados vindos da memória principal são enviados para um módulo de E/S em uma maneira rápida. Os dados são mantidos em um buff er no módulo de E/S e depois enviados ao dispositivo periférico em sua taxa de dados. Na direção oposta, os dados são mantidos em buff er para não reter a memória com uma operação de transferência lenta. Assim, o mó-dulo de E/S precisa ser capaz de operar nas velocidades do dispositivo e da memória. De modo semelhante, se o dispositivo de E/S opera em uma taxa mais alta que a taxa de acesso à memória, então o módulo de E/S realiza a operação de buff ering necessária.
+Finalmente, um módulo de E/S normalmente é responsável pela detecção de erro e, subsequentemente, por 
+relatar erros ao processador. Uma classe de erros inclui defeitos mecânicos e elétricos relatados pelo dispositivo (por exemplo, papel emperrado, trilha de disco com defeito). Outra classe consiste em mudanças não intencionais no padrão de bits quando são transmitidos do dispositivo ao módulo de E/S. Alguma forma de código de detecção de erro normalmente é usada para detectar erros de transmissão. Um exemplo simples é o uso de um bit de paridade em cada caractere de dados. Por exemplo, o código de caracteres IRA ocupa 7 bits de um byte. O oitavo bit é defi ni-do de modo que o número total de 1s no byte seja par (paridade par) ou ímpar (paridade ímpar). Quando um byte é recebido, o módulo de E/S verifi ca a paridade para determinar se ocorreu um erro.
+ Estrutura do módulo de E/S
+Os módulos de E/S variam bastante em complexidade e o número de dispositivos externos controlados 
+por eles. Aqui, tentaremos apenas dar uma descrição. (Um dispositivo específi co, o Intel 82C55A, é descrito na Seção 7.4.) A Figura 7.3 oferece um diagrama de blocos geral de um módulo de E/S. O módulo se conecta ao restante do computador por meio de um conjunto de linhas de sinal (por exemplo, linhas de barramento do sistema). Os dados transferidos de e para o módulo são mantidos em um buff er, em um ou mais registradores de dados. Também pode haver um ou mais registradores de estado que oferecem informações do estado atual. 
+Um registrador de estado também pode funcionar como um registrador de controle, para aceitar informações de controle detalhadas do processador. A lógica dentro do módulo interage com o processador por meio de um conjunto de linhas de controle. O processador usa as linhas de controle para emitir comandos ao módulo de E/S. Algumas das linhas de controle podem ser usadas pelo módulo de E/S (por exemplo, para sinais de arbitração 
+Book 1.indb 180 19.11.09 14:37:04
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 7 Entrada/Saída 181
+e estado). O módulo também precisa ser capaz de reconhecer e gerar endereços associados aos dispositivos que 
+ele controla. Cada módulo de E/S tem um endereço exclusivo ou, se controlar mais de um dispositivo externo, um conjunto exclusivo de endereços. Finalmente, o módulo de E/S contém lógica específi ca à interface com cada dispositivo que ele controla.
+Um módulo de E/S funciona para permitir que o processador veja uma grande variedade de dispositivos de 
+uma maneira simples. Existe um espectro de capacidades que podem ser oferecidas. O módulo de E/S pode ocultar os detalhes de temporização, formatos e eletromecânica de um dispositivo externo, de modo que o processador pode funcionar em termos de comandos simples de leitura e escrita, e possivelmente comandos para abrir e fechar arquivo. Em sua forma mais simples, o módulo de E/S ainda pode ter grande parte do trabalho de controlar um dispositivo (por exemplo, rebobinar uma fi ta) visível ao processador.
+Um módulo de E/S, que assume a maior parte do processamento, apresentando uma interface de alto nível ao 
+processador, normalmente é conhecido como canal de E/S ou processador de E/S. Um módulo de E/S que é muito 
+primitivo e requer controle normalmente é conhecido como controlador de E/S ou controlador de dispositivo. Os 
+controladores de E/S normalmente são vistos nos microcomputadores, enquanto os canais de E/S são usados em mainframes.
+A seguir, usaremos o termo genérico módulo de E/S quando não houver confusão, e usaremos termos mais 
+específi cos onde for necessário.
+7.3 E/S programada
+Três técnicas são possíveis para operações de E/S. Com a E/S programada, os dados são trocados entre o pro-
+cessador e o módulo de E/S. O processador executa um programa que lhe oferece controle direto da operação de E/S, incluindo percepção do estado de dispositivo, envio de um comando de leitura ou escrita e transferência dos dados. Quando o processador emite um comando ao módulo de E/S, ele precisa esperar até que a operação de E/S termine. Se o processador for mais rápido que o módulo de E/S, isso desperdiça o tempo do processador. Com a E/S controlada por interrupção, o processador emite um comando de E/S, continua a executar outras instruções e é interrompido pelo módulo de E/S quando o último tiver completado seu trabalho. Com a E/S pro-Figura 7.3 Diagrama de blocos de um módulo de E/S
+Registradores de estado/controleRegistradores de dados Interface para 
+barramento do sistema
+Lógica 
+de E/S
+Linhas de 
+controleLinhas de endereçoLinhas de dados
+Lógica de 
+interface de 
+dispositivo 
+externoDados
+EstadoControleLógica de 
+interface de 
+dispositivo 
+externo
+•
+••Dados
+EstadoControleInterface para 
+dispositivo externo
+Book 1.indb 181 19.11.09 14:37:04
+
+182 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+gramada e por interrupção, o processador é responsável por obter dados da memória principal para saída, e por 
+amarzenar dados na memória principal para entrada. A alternativa é conhecida como acessos direto à memória 
+(DMA). Nesse modo, o módulo de E/S e a memória principal trocam dados diretamente, sem envolvimento do processador.
+A Tabela 7.1 indica a relação entre essas três técnicas. Nesta seção, exploramos a E/S programada. A E/S por 
+interrupção e DMA são exploradas nas duas seções seguintes, respectivamente.
+ Visão geral da E/S programada
+Quando o processador está executando um programa e encontra uma instrução relacionada a E/S, ele exe-
+cuta essa instrução emitindo um comando ao módulo de E/S apropriado. Com a E/S programada, o módulo de E/S realizará a ação exigida e depois defi nirá os bits apropriados no registrador de estado de E/S (Figura 7.3). O módulo de E/S não toma outra ação para alertar o processador. Em particular, ele não interrompe o processador. Assim, é responsabilidade do processador verifi car periodicamente o estado do módulo de E/S até descobrir se a operação terminou.
+Para explicar a técnica de E/S programada, primeiramente a veremos do ponto de vista dos comandos de 
+E/S emitidos pelo processador ao módulo de E/S, e depois do ponto de vista das instruções de E/S executadas pelo processador.
+ Comandos de E/S
+Para executar uma instrução relacionada a E/S, o processador emite um endereço, especifi cando o módulo de 
+E/S e dispositivo externo em particular, e um comando de E/S. Existem quatro tipos de comandos de E/S que um módulo de E/S pode receber quando é endereçado por um processador:
+controle:
+  usado para ativar um periférico e dizer-lhe o que fazer. Por exemplo, uma unidade de fi ta magné-
+tica pode ser instruída a rebobinar ou mover um registrador para frente. Esses comandos são ajustados ao tipo específi co de dispositivo periférico.Teste:
+  usado para testar diversas condições de estado associadas a um módulo de E/S e seus periféricos. O 
+processador desejará saber se o periférico de interesse está ligado e disponível para uso. Ele também deseja saber se a operação de E/S mais recente terminou e se houve algum erro.Leitura:
+  faz com que o módulo de E/S obtenha um item de dados do periférico e o coloque em um buff er 
+interno (representado como um registrador de dados na Figura 7.3). O processador pode obter o item de dados solicitando que o módulo de E/S o coloque no barramento de dados.escrita:
+  faz com que o módulo de E/S apanhe um item de dado (byte ou palavra) do barramento de dados 
+e depois transmita esse item de dado ao periférico.
+A Figura 7.4a dá um exemplo do uso da E/S programada para ler um bloco de dados de um dispositivo pe-
+riférico (por exemplo, um registro da fi ta) para a memória. Os dados são lidos em uma palavra (por exemplo, 16 bits) de cada vez. Para cada palavra lida, o processador precisa permanecer em um ciclo de verifi cação de estado até que determine que a palavra está disponível no registrador de dados do módulo de E/S. Esse fl uxograma destaca a principal desvantagem dessa técnica: é um processo demorado, que mantém o processador ocupado desnecessariamente.
+Tabela 7.1 Técnicas de E/S
+Sem interrupções Uso de interrupções
+Transferência de E/S para memória via processador E/S programada E/S controlada por interrupção
+Transferência direta de E/S para memória Acesso direto à memória (DMA)
+Book 1.indb 182 19.11.09 14:37:05
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 7 Entrada/Saída 183
+ Instruções de E/S
+Com a E/S programada, existe uma correspondência próxima entre as instruções relacionadas à E/S que o pro-
+cessador busca na memória e os comandos de E/S que o processador emite a um módulo de E/S, para executar as 
+instruções. Ou seja, as instruções são facilmente mapeadas em comandos de E/S, e normalmente existe uma simples relação um para um. A forma da instrução depende do modo como os dispositivos externos são endereçados.
+Normalmente, haverá muitos dispositivos de E/S conectados por meio dos módulos de E/S ao sistema. Cada 
+dispositivo recebe um identifi cador ou endereço exclusivo. Quando o processador emite um comando de E/S, o comando contém o endereço do dispositivo desejado. Assim, cada módulo de E/S precisa interpretar as linhas de endereço para determinar se o comando é para ele mesmo.
+Quando o processador, a memória principal e a E/S compartilham um barramento comum, dois modos de 
+endereçamento são possíveis: E/S mapeada na memória e E/S independente. Com a e/s mapeada na memória, 
+existe um único espaço de endereço para locais de memória e dispositivos de E/S. O processador trata os registra-dores de estado e dados dos módulos de E/S como locais de memória, e usa as mesmas instruções de máquina para acessar a memória e os dispositivos de E/S. Assim, por exemplo, com 10 linhas de endereço, um total combi-nado de 2
+10 = 1 024 locais de memória e endereços de E/S podem ser aceitos, em qualquer combinação.
+Com a E/S mapeada na memória, uma única linha de leitura e uma única linha de escrita são necessárias no 
+barramento. Como alternativa, o barramento pode ter linhas de leitura e escrita de memória além das linhas de comando de entrada e saída. Agora, a linha de comando especifi ca se o endereço se refere a um local de memória ou a um dispositivo de E/S. A faixa completa de endereços pode estar disponível para ambos. Novamente, com 10 linhas de endereço, o sistema agora pode aceitar 1 024 locais de memória e 1 024 endereços de E/S. Como o espaço de endereço para E/S é independente do espaço da memória, isso é chamado de e/s independente.
+A Figura 7.5 compara essas duas técnicas de E/S programada. A Figura 7.5a mostra como a interface para um 
+dispositivo de entrada simples, como um teclado de, poderia aparecer a um programador usando a E/S mapeada Figura 7.4 Três técnicas para entrada de um bloco de dados
+Emite comando 
+de leitura ao módulo de E/S
+Lê registrador 
+de estado do 
+módulo E/SLê registrador 
+de estado do 
+módulo E/S
+Veri/f_ica 
+o estado
+Lê palavra do módulo de E/S
+Grava palavrana memória
+Terminou?
+Próxima instrução
+(a) E/S programadaCondição 
+de erro
+Pronto Pronto
+Sim SimNãoNão prontoEmite comando de leitura ao módulo de E/SFaz algo mais
+Interrupção
+Grava palavrana memória
+Terminou?
+Próxima instrução
+(b) E/S controlada por interrupçãoInterrupção
+NãoCPU E/S
+E/S CPU
+Condição 
+de erroCPU E/S
+E/S CPU
+E/S CPU E/S CPUVeri/f_ica 
+o estado
+CPU Memória CPU MemóriaLê palavra do módulo de E/SEmite comando de leitura ao módulo de E/SCPU DMA
+Faz algo mais
+DMA CPULê registrador 
+estado do 
+módulo DMA
+Próxima instrução
+(c) Acesso direto à memória
+Book 1.indb 183 19.11.09 14:37:05
+
+184 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+na memória. Considere um endereço de 10 bits, com uma memória de 512 bits (locais 0-511) e até 512 endere-
+ços de E/S (locais 512-1 023). Dois endereços são dedicados à entrada do teclado de um terminal em particular. O endereço 516 refere-se ao registrador de dados e o endereço 517 refere-se ao registrador de estado, que também funciona como um registrador de controle para receber comandos do processador. O programa mostrado lerá 1 byte de dados do teclado para um registrador acumulador no processador. Observe que o processador entra em um loop até que o byte de dados esteja disponível. 
+Com a E/S independente (Figura 7.5b), as portas de E/S são acessíveis apenas por comandos de E/S especiais, 
+que ativam as linhas de comando de E/S no barramento.
+Para a maioria dos tipos de processadores, existe um conjunto relativamente grande de diferentes instruções 
+para referenciar a memória. Se a E/S independente for usada, haverá apenas algumas instruções de E/S. Assim, uma vantagem da E/S mapeada na memória é que esse grande repertório de instruções pode ser usado, permitindo uma programação mais efi ciente. Uma desvantagem é que um espaço de endereços de memória valioso é utiliza-do. Tanto a E/S mapeada na memória quanto a E/S independente são comumente utilizadas.
+7.4 E/S controlada por interrupção
+O problema com a E/S programada é que o processador tem que esperar muito tempo para que o módulo de 
+E/S de interesse esteja pronto para recepção ou transmissão de dados. O processador, enquanto espera, precisa interrogar repetidamente o estado do módulo de E/S. Como resultado, o nível de desempenho do sistema inteiro é bastante degradado.
+Uma alternativa é que o processador emita um comando de E/S para um módulo e depois continue realizando 
+algum outro trabalho útil. O módulo de E/S, então, interromperá o processador para solicitar atendimento quando estiver pronto para trocar dados com o processador. O processador, então, executa a transferência de dados, como antes, e depois retoma seu processamento anterior.Figura 7.5 E/S mapeada na memória e isolada
+765
+ Registrador de dados de entrada do teclado 61543210
+765
+517
+(a) E/S mapeada na memóriaRegistrador de estado e controle 
+da entrada do teclado
+1 pronto
+0 ocupado43210
+De/f_inido como 1 para iniciar a leitura
+ENDEREÇO
+200
+202INSTRUÇÃO
+Carrega ACArmazena ACCarrega ACDesvia se sinal = 0Carrega ACOPERANDO
+“1”
+517517202216COMENTÁRIOCarrega acumuladorInicia leitura do tecladoApanha byte de estadoLoop até estar prontoCarrega byte de dados
+ENDEREÇO
+200201INSTRUÇÃOCarrega E/STesta E/SDesvia se não pronto EntradaOPERANDO
+55
+201
+5COMENTÁRIOInicia leitura do tecladoVerifica términoLoop até estar prontoCarrega byte de dados
+(b) E/S isolada
+Book 1.indb 184 19.11.09 14:37:06

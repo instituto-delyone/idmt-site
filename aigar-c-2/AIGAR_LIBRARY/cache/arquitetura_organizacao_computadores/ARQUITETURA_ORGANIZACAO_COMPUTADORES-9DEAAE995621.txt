@@ -1,0 +1,886 @@
+Capítulo 16 Controle microprogramado
+No Capítulo 16, analisamos como o conceito de micro-operações leva a uma aborda-
+gem elegante e poderosa de uma implementação da unidade de controle conhecida como microprogramação. Basicamente, uma linguagem de programação de baixo nível é desenvolvida. Cada instrução na linguagem de máquina do processador é tra-duzida em uma sequência de instruções da unidade de controle de baixo nível. Essas instruções de baixo nível são conhecidas como microinstruções e o processo de tra-dução é conhecido como microprogramação. O capítulo descreve o layout de uma memória de controle contendo um microprograma para cada instrução de máquina que é descrita. A estrutura e a função da unidade de controle microprogramada en-tão poderão ser explicadas.
+Book 1.indb 460 19.11.09 14:39:49
+
+PRInCIPAIS POnTOS
+ A execução de uma instrução envolve a execução de uma sequência 
+de subpassos, geralmente chamados de ciclos. Por exemplo, uma execu-
+ção pode consistir de ciclos de busca, indireto, execução e interrupção. Cada ciclo é, por sua vez, feito de uma sequência de operações mais bá-sicas chamadas de micro-operações. Uma única micro-operação geral-mente envolve uma transferência entre registradores, uma transferência entre um registrador e um barramento externo ou uma simples opera-ção da ALU. A unidade de controle de um processador efetua duas tarefas: (1) ela faz com que o processador execute uma série de micro-operações na sequên-cia correta, com base no programa que está sendo executado e (2) ela gera os sinais de controle que fazem com que cada micro-operação seja executada. Os sinais de controle gerados pela unidade de controle causam a aber-tura e o fechamento de portas lógicas, resultando na transferência de da-dos para e de registradores e na operação da ALU.
+ Uma técnica para implementar uma unidade de controle é conhecida como implementação por hardware 
+(hardwired), onde a unidade de controle é um circuito combinatório. Seus sinais lógicos de entrada, governados 
+pela instrução de máquina corrente, são transferidos para um conjunto de sinais de controle de saída.Operação da unidade de controle
+15.1 Micro-operações
+  Ciclo de busca
+  Ciclo indireto
+  Ciclo de interrupção
+  Ciclo de execução
+  Ciclo de instrução
+15.2 Controle do processador
+  Requisitos funcionais
+  Sinais de controle
+  Exemplo de sinais de controle
+  Organização interna do processador
+  Intel 8085
+15.3 Implementação por hardware
+  Entradas da unidade de controle
+  Lógica da unidade de controle
+15.4 Leitura recomendadaCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+No Capítulo 10, destacamos que um conjunto de instruções de máquina nos leva à defi nição de um processador. Se conhecemos o conjunto de instruções de máquina, incluindo o entendimento do efeito de cada opcode e o entendi-
+mento de modos de endereçamento, e se conhecemos o conjunto de registradores visíveis ao usuário, então sabemos as funções que o processador deve efetuar. Esta não é uma imagem completa. Precisamos conhecer as interfaces externas, normalmente por meio de um barramento, e como as interrupções são tratadas. Com esta linha de raciocínio, surge a seguinte lista de itens necessários para especifi car o funcionamento de um processador:
+1. Operações (opcode).
+2. Modos de endereçamento.
+3. Registradores.
+4. Interface com módulos de E/S.
+Book 1.indb 461 19.11.09 14:39:50
+
+462 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+5. Interface com o módulo de memória.
+6. Interrupções.
+Esta lista, embora generalizada, é bastante completa. Os itens de 1 até 3 são defi nidos pelo conjunto de instru-
+ções. Os itens 4 e 5 são normalmente defi nidos ao se especifi car o barramento do sistema. E o item 6 é defi nido 
+parcialmente pelo barramento do sistema e parcialmente pelo tipo de suporte que o processador oferece ao sis-tema operacional.
+Esta lista de seis itens pode ser denominada como os requisitos funcionais para um processador. Eles determi-
+nam o que um processador tem que fazer. Foi isso o que nos ocupou nas partes dois e três. Agora nos voltamos para a questão de como essas funções são efetuadas ou, mais especifi camente, como os vários elementos do pro-cessador são controlados para oferecer essas funções. Assim chegamos à discussão sobre a unidade de controle, a qual controla a operação do processador.
+15.1 Micro-operações
+Vimos que a operação de um computador, ao executar um programa, consiste de uma sequência de ciclos de 
+instrução, com uma instrução de máquina por ciclo. É claro que devemos lembrar que essa sequência de ciclos de instruções não é necessariamente a mesma que a sequência da escrita das instruções no programa por causa da existência de instruções de desvio. Aqui nos referimos à sequência de instruções em tempo de execução.
+Vimos também que cada ciclo de instrução é feito de um número de pequenas unidades. Uma subdivisão 
+conveniente é busca, indireto, execução e interrupção, sendo que apenas os ciclos de busca e execução sempre ocorrem.
+No entanto, para projetar uma unidade de controle, precisamos detalhar ainda mais a descrição. Na nossa dis-
+cussão sobre pipeline no Capítulo 12, nós começamos a ver que uma decomposição maior é possível. Na verdade, veremos que cada um dos ciclos menores envolve uma série de passos, onde cada um destes envolve os registrado-res do processador. Iremos nos referir a esses passos como micro-operações. O prefi xo micro refere-se ao fato de que cada passo é muito simples e realiza muito pouco. A Figura 15.1 ilustra a relação entre vários conceitos que estivemos discutindo. Para resumir, a execução de um programa consiste da execução sequencial de instruções. Cada instrução é executada durante um ciclo de instrução feito de subciclos menores (por exemplo, busca, indireto, execução, inter-rupção). A execução de cada subciclo envolve uma ou mais operações mais curtas, ou seja, micro-operações.
+As micro-operações são operações funcionais, ou atômicas, de um processador. Nesta seção, analisamos 
+micro-operações para obter um entendimento sobre como os eventos de um ciclo de instrução podem ser descritos como uma sequência dessas micro-operações. Um exemplo simples será usado. No restante deste 
+Figura 15.1 Elementos que constituem uma execução de programa
+Execução de programa
+Ciclo de instrução • • • Ciclo de instrução Ciclo de instrução
+Indireto Execução Interrupção Busca
+OP OP OP OP OPµµ µµ µ
+Book 1.indb 462 19.11.09 14:39:50
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 15 Operação da unidade de controle 463
+capítulo mostramos como o conceito de micro-operações serve como uma orientação para projetar uma 
+unidade de controle.
+ Ciclo de busca
+Começamos com a análise do ciclo de busca, o qual ocorre no início de cada ciclo de instrução e faz com que 
+uma instrução seja obtida da memória. Para propósitos desta discussão assumimos a organização ilustrada na Figura 12.6. Quatro registradores estão envolvidos:
+Registrador de endereço de memória (mAR)
+  : conectado às linhas de endereço do barramento de siste-
+ma. Ele especifi ca o endereço na memória para uma operação de leitura ou escrita.Registrador de buff er de memória (mBR)
+  : conectado às linhas de dados do barramento de sistema. Ele 
+contém o valor a ser guardado na memória ou o último valor lido da memória.contador de programa (pc)
+  : guarda o endereço da próxima instrução a ser lida.
+Registrador de instrução (IR)  : guarda a última instrução lida.
+Vamos olhar a sequência de eventos para ciclo de leitura do ponto de vista dos seus efeitos nos registra-
+dores do processador. Um exemplo aparece na Figura 15.2. No início do ciclo de instrução, o endereço da próxima instrução a ser executada está no contador de programa (PC); neste caso, o endereço é 1100100. O primeiro passo é mover esse endereço para o registrador de endereço de memória (MAR) porque este é o único registrador conectado às linhas de endereços do barramento de sistema. O segundo passo é trazer a instrução. O endereço desejado (em MAR) é colocado no barramento do endereços, a unidade de controle emite um comando READ no barramento de controle e o resultado aparece no barramento de dados e é co-piado para o registrador de buffer de memória (MBR). Precisamos também incrementar PC pelo tamanho da instrução para se preparar para a próxima instrução. Como estas duas ações (ler da memória e incrementar PC) não interferem uma com a outra, podemos executá-las simultaneamente para economizar tempo. O terceiro passo é mover o conteúdo de MBR para registrador de instrução (IR). Isto libera MBR para uso durante um possível ciclo indireto.
+Assim, o simples ciclo de leitura na prática consiste de três passos e quatro micro-operações. Cada micro-opera-
+ção envolve movimentação de dados para dentro ou fora de um registrador. Enquanto essas movimentações não interferem umas nas outras, várias delas podem ocorrer durante um passo, economizando tempo. Simbolicamente, podemos escrever esta sequência de eventos da seguinte forma:
+Figura 15.2 Sequência de eventos, ciclo de leituras
+0000000001100100MAR
+MBR
+PC
+IR
+AC
+(a) Início (antes de t 1)00000000011001000000000001100100 MAR
+MBR
+PC
+IR
+AC
+(b) Depois do primeiro passo
+000000000110010100010000001000000000000001100100 MAR
+MBR
+PC
+IR
+AC
+(c) Depois do segundo passo0000000001100101
+000100000010000000010000001000000000000001100100 MAR
+MBR
+PC
+IR
+AC
+(d) Depois do terceiro passo
+Book 1.indb 463 19.11.09 14:39:51
+
+464 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+t1: MAR ←(PC)
+t2: MBR ←Memory
+PC ←(PC) + I
+t3: IR ←(MBR)
+onde I é o tamanho da instrução. Precisamos fazer vários comentários sobre esta sequência. Assumimos que um 
+clock está disponível para propósitos de tempo e que ele emite pulsos de clock em intervalos regulares. Cada pulso 
+de clock defi ne uma unidade de tempo. Assim, todas as unidades de tempo são de duração igual. Cada micro--operação pode ser efetuada dentro do tempo de uma única unidade de tempo. A notação (t
+1, t2, t3) representa 
+unidades de tempo sucessivas. Desta forma temos:
+primeira unidade de tempo  : move conteúdo de PC para MAR.
+segunda unidade de tempo  : move conteúdo da posição de memória especifi cada por MAR para MBR. 
+Incrementado em I o conteúdo de PC.Terceira unidade de tempo
+  : move o conteúdo de MBR para IR.
+Observe que a segunda e a terceira micro-operações ocorrem durante a segunda unidade de tempo. A terceira 
+micro-operação poderia ser agrupada com a quarta sem afetar a operação de leitura:
+t1: MAR ←(PC)
+t2: MBR ←Memory
+t3: PC ←(PC) + I
+IR ←(MBR)
+O agrupamento de micro-operações deve seguir duas regras simples:1. A sequência de eventos apropriada deve ser seguida. Assim (MAR ← (PC)) deve preceder (MBR ← Memória) 
+porque as operações de leitura de memória usam o endereço em MAR.
+2. Confl itos devem ser evitados. Não se deve tentar ler e escrever no mesmo registrador em uma unidade de tempo, porque os resultados seriam imprevisíveis. Por exemplo, as micro-operações (MBR ← Memória) e 
+(IR ← MBR) não devem ocorrer durante a mesma unidade de tempo.
+Um último ponto que deve ser observado é relacionado com as micro-operações que envolvem uma adição. 
+Para evitar a duplicidade de circuitos, essa adição poderia ser efetuada ela ALU. O uso da ALU pode envolver micro--operações adicionais, dependendo da funcionalidade da ALU e da organização do processador. Deixamos a dis-cussão sobre este ponto para mais à frente neste capítulo.
+É útil comparar eventos descritos nesta e nas próximas subseções com a Figura 3.5. Apesar da micro-operações 
+serem ignoradas nessa fi gura, esta discussão mostra as micro-operações necessárias para efetuar os subciclos do ciclo de instrução.
+ Ciclo indireto
+Uma vez lida a instrução, o próximo passo é busca os operandos fontes. Continuando o nosso exemplo simples, 
+imaginemos um formato da instrução com um endereço, com endereçamento direto e indireto permitido. Se a instrução especifi ca um endereço indireto, então um ciclo indireto deve preceder o ciclo de execução. O fl uxo de dados difere um pouco do mostrado na Figura 12.7 e inclui as seguintes micro-operações:
+t1: MAR ←(IR(Endereço))
+t2: MBR ←Memória
+t3: IR(Endereço) ←(MBR(Endereço))
+O campo de endereço da instrução é transferido para MAR. Este é então usado para obter o endereço do ope-
+rando. Finalmente, o campo de endereço de IR é atualizado a partir de MBR, então agora ele contém um endereço direto em vez de um indireto.
+O IR agora está no mesmo estado como se endereçamento indireto não tivesse sido usado e está pronto para o 
+ciclo de execução. Pulamos esse ciclo por um momento para analisar o ciclo de interrupção.
+Book 1.indb 464 19.11.09 14:39:52
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 15 Operação da unidade de controle 465
+ Ciclo de interrupção
+Ao completar o ciclo de execução, um teste é feito para determinar se houve qualquer interrupção habilitada. 
+Se sim, ocorre o ciclo de interrupção. A natureza deste ciclo varia muito de uma máquina para outra. Apresentamos 
+uma sequência muito simples de eventos, conforme ilustrado na Figura 12.8. Temos
+t1: MBR ←(PC)
+t2: MAR ←Endereço_salvar
+PC ←Endereço_rotina
+t3: Memória ←(MBR)
+No primeiro passo, o conteúdo de PC é transferido para MBR, para que ele possa ser salvo para o retorno da 
+interrupção. O MAR é então carregado com o endereço onde o conteúdo de PC deve ser salvo e o PC é carregado com o endereço do início da rotina do tratamento de interrupção. Cada uma destas duas ações pode ser uma única micro-operação. No entanto, como a maioria dos processadores fornece vários tipos e/ou níveis de interrupções, pode levar uma ou mais micro-operações adicionais para obter Endereço_Salvar e Endereço_Rotina antes que eles possam ser transferidos para MAR e PC, respectivamente. De qualquer forma, uma vez feito isso, o passo fi nal é armazenar MBR, o qual contém o valor antigo de PC, em memória. O processador está pronto agora para começar o próximo ciclo de instrução.
+ Ciclo de execução
+Os ciclos de busca, indireto e interrupção são simples e previsíveis. Cada um deles envolve uma sequência pe-
+quena e fi xa de micro-operações e, em cada caso, as mesmas micro-operações são repetidas a cada vez.
+Isso não é verdade para o ciclo de execução. Por causa da variedade de opcodes, existe uma série de diferentes 
+sequências de micro-operações que podem ocorrer. Vamos considerar alguns exemplos hipotéticos.
+Primeiro, considere uma instrução de soma:
+ADD R1, X
+a qual adiciona o conteúdo da posição X para o registrador R1. A seguinte sequência de micro-operações pode 
+ocorrer:
+t1: MAR ←(IR(endereço))
+t2: MBR ←Memória
+t3: R1 ←(R1) + (MBR)
+Começamos com IR contendo a instrução ADD. No primeiro passo, a parte de endereço de IR é carregado em 
+MAR. Então a posição de memória referenciada é lida. Finalmente, os conteúdos de R1 e MBR são adicionados por ALU. Novamente, este é um exemplo simplifi cado. Micro-operações adicionais podem ser necessárias para extrair a referên-cia do registrador de IR e talvez para armazenar entradas e saídas da ALU em alguns registradores intermediários.
+Vamos olhar dois exemplos mais complexos. Uma instrução comum é incrementar e pular se zero:
+ISZ X
+O conteúdo da posição X é incrementado por 1. Se o resultado for 0, a próxima instrução é pulada. Uma sequên-
+cia possível de micro-operações é 
+t
+1: MAR ←(IR(endereço))
+t2: MBR ←Memória
+t3: MBR ←(MBR) + 1
+t4: Memória ←(MBR)
+se ((MBR) = 0) então (PC ←(PC) + I)
+Um novo recurso introduzido aqui é a ação condicional. O PC é incrementado se (MBR) = 0. Este teste e ação podem 
+ser implementados com uma micro-operação. Observe também que esta micro-operação pode ser efetuada durante a 
+mesma unidade de tempo em que o valor atualizado em MBR está sendo armazenado de volta em memória.
+Book 1.indb 465 19.11.09 14:39:53
+
+466 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+Finalmente, considere uma instrução de chamada de sub-rotina chamando instrução. Considere como exem-
+plo uma instrução de desvio-e-salvar-endereço:
+BSA X
+O endereço da instrução que segue a instrução BSA é salvo na posição X e a execução continua na posição X + 
+I. O endereço salvo será usado posteriormente para retorno. Esta é uma técnica simples para permitir chamadas de 
+sub-rotinas. A seguinte micro-operação é sufi ciente:
+t1: MAR ←(IR(endereço))
+MBR ←(PC)
+t2: PC ←(IR(endereço))
+Memória ←(MBR)
+t3: PC ←(PC) + I
+O endereço em PC no início da instrução é o endereço da próxima instrução na sequência. Isto é salvo no ende-
+reço designado em IR. O endereço posterior é incrementado também para fornecer o endereço da instrução para o próximo ciclo de instrução.
+ Ciclo de instrução
+Vimos que cada fase do ciclo de instrução pode ser decomposto em uma sequência de micro-operações bási-
+cas. No nosso exemplo há uma sequência para cada ciclo de busca, indireto e interrupção e para o ciclo de execu-
+ção há uma sequência de micro-operações para cada opcode.
+Para completar o quadro precisamos ligar as sequências de micro-operações juntas e isso é feito na Figura 15.3. 
+Supomos um novo registrador de 2 bits chamado de código de ciclo de instrução (ICC). O ICC defi ne o estado do processador, ou seja, em qual parte do ciclo o mesmo se encontra:
+00: Busca.01: Indireto.10: Execução.11: Interrupção.
+No fi m de cada um dos quatro ciclos, ICC é defi nido apropriadamente. O ciclo indireto é sempre seguido de 
+ciclo de execução. O ciclo de interrupção é sempre seguido do ciclo de busca (veja Figura 12.4). Para ciclo de leitura 
+e para o de execução, o próximo ciclo depende do estado do sistema.
+Assim, o fl uxograma da Figura 15.3 defi ne a sequência completa de micro-operações, dependendo apenas da 
+sequência de instruções e do padrão de interrupção. É claro que este é um exemplo simplifi cado. O fl uxograma para um processador real seria mais complexo. De qualquer maneira, nós alcançamos o ponto em nossa discussão onde a operação do processador é defi nida como desempenho de uma sequência de micro-operações. Podemos 
+agora considerar como a unidade de controle faz com que essa sequência ocorra.
+15.2 Controle do processador
+ Requisitos funcionais
+Como resultados das nossas análises da seção anterior, decompusemos o comportamento ou o funcionamento 
+do processador em operações básicas, chamadas de micro-operações. Ao reduzir a operação do processador para o seu nível mais básico, somos capazes de defi nir o que exatamente a unidade de controle deve fazer acontecer. Assim, podemos defi nir os requisitos funcionais para a unidade de controle: aquelas funções que a unidade de con-
+trole tem que executar. Uma defi nição desses requisitos funcionais é a base para o projeto e a implementação da unidade de controle.
+Com a informação em mãos, o próximo processo de três passos leva a uma caracterização da unidade de controle:1. Defi nir elementos básicos do processador.
+2. Descrever as micro-operações que o processador executa.
+3. Determinar as funções que a unidade de controle deve realizar para fazer com que as micro-operações sejam executadas.
+Book 1.indb 466 19.11.09 14:39:55
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 15 Operação da unidade de controle 467
+Nós já fizemos os passos 1 e 2. Vamos resumir o resultado. Primeiro, os elementos funcionais básicos do proces-
+sador são os seguintes:
+ALU. 
+Registradores. 
+Caminhos de dados internos. 
+Caminhos de dados externos. 
+Unidade de controle. 
+Alguma reflexão deverá convencê-lo de que esta lista está completa. A ALU é a essência funcional do 
+computador. Os registradores são usados para armazenar os dados internamente ao processador. Alguns re -
+gistradores contêm a informação de estado necessária para gerenciar o sequenciamento de instruções (por 
+exemplo, uma palavra de estado de programa). Outros contêm os dados que vêm de ou vão para ALU, me -
+mória e módulos de E/S. Caminhos de dados internos são usados para mover dados entre registradores e entre registrador e ALU. Caminhos de dados externos ligam os registradores com memória e módulos de E/S, frequentemente por meio de um barramento do sistema. A unidade de controle faz com que as operações aconteçam dentro do processador.
+A execução de um programa consiste em operações envolvendo esses elementos do processador. Conforme 
+vimos, essas operações consistem em uma sequência de micro-operações. Depois de rever a Seção 15.1, o leitor deveria perceber que todas as micro-operações se enquadram em uma das categorias a seguir:
+Transferência de dados de um registrador para outro.
+ 
+Transferência de dados de um registrador para uma interface externa (por exemplo, barramento do 
+sistema).Transferência de dados de uma interface externa para um registrador.
+ 
+Efetuar uma operação aritmética ou lógica, usando registradores para entrada e saída. 
+Todas as micro-operações necessárias para efetuar um ciclo de instrução, incluindo todas as micro-operações 
+para executar cada instrução dentro do conjunto de instruções, encaixam-se em uma dessas categorias.
+Podemos agora ser mais explícitos sobre a maneira como funciona a unidade de controle. A unidade de con-
+trole desempenha duas tarefas básicas:Figura 15.3 Fluxograma do ciclo de instrução
+ICC 00
+ICC 00 ICC 11ICC 10
+ICC 10 ICC 01ICC?
+Iniciar
+interrupçãoOpcodeLer
+endereçosObter
+instrução
+Endereçamento
+indireto?
+Interrupção
+de interrupção
+habilitada?00 (busca) 11 (interrupção)
+10 (execução) 01 indireto
+Não SimExecutar
+instrução
+Sim Não
+Book 1.indb 467 19.11.09 14:39:55
+
+468 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+sequenciamento  : a unidade de controle faz o processador executar por uma série de micro-operações na 
+sequência correta, com base no programa que está sendo executado.
+execução  : a unidade de controle faz cada micro-operação ser executada.
+O que precede é uma descrição funcional sobre o que a unidade de controle faz. A chave para o funcionamento 
+da unidade de controle é o uso de sinais de controle.
+ Sinais de controle
+Nós defi nimos os elementos que fazem o processador (ALU, registradores, caminhos de dados) e as micro-
+-operações que são executadas. Para que a unidade de controle desempenhe a sua função, ela precisa ter entradas 
+que lhe permitam determinar o estado do sistema e saídas que lhe permitam controlar o comportamento do sis-tema. Essas são as especifi cações externas da unidade de controle. Internamente, a unidade de controle precisa ter a lógica necessária para desempenhar as suas funções de sequenciamento e execução. Adiamos a discussão sobre a operação interna da unidade de controle para a Seção 15.3 e o Capítulo 16. O restante desta seção concentra-se na interação entre a unidade de controle e outros elementos do processador.
+A Figura 15.4 é um modelo geral da unidade de controle, mostrando todas as suas entradas e saídas. As 
+entradas são:
+clock
+  : é como a unidade de controle “mantém o tempo” . A unidade de controle faz uma micro-operação 
+(ou um conjunto de micro-operações simultâneas) ser executada em cada pulso de clock. Isso, às vezes é chamado de tempo de ciclo do processador ou tempo de ciclo do clock.Registrador de instrução
+  : o opcode e o modo de endereçamento da instrução corrente são usados para 
+determinar qual micro-operação executar durante o ciclo de execução.Flags
+  : estas são necessárias para a unidade de controle determinar o estado do processador e das saídas 
+das operações anteriores da ALU. Por exemplo, para a instrução incrementar-e-pular-se-zero (ISZ), a unidade de controle irá incrementar PC se o fl ag zero tiver calor igual a 1.sinais de controle do barramento de controle
+  : barramento de controle é uma parte do barramento de 
+sistema que fornece sinais para a unidade de controle.
+As saídas são:
+sinais de controle dentro do processador  : existem dois tipos: aqueles que fazem os dados serem movi-
+dos de um registrador para outro e aqueles que ativam as funções específi cas da ALU.sinais de controle para barramento de controle
+  : existem dois tipos também: sinais de controle para 
+memória e sinais de controle para módulos de E/S.
+Figura 15.4 Diagrama de blocos da unidade de controle
+Unidade de controleRegistrador de instrução
+Flags
+ClockSinais de controle dentro de CPU
+Sinais de controle do
+barramento de controle
+Sinais de controle para o
+barramento de controle•
+••
+Barramento de controle
+Book 1.indb 468 19.11.09 14:39:56
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 15 Operação da unidade de controle 469
+Três tipos de sinais de controle são usados: os que ativam uma função da ALU, os que ativam um caminho de 
+dados e os que são sinais para o barramento externo do sistema ou para outra interface externa. Todos estes sinais 
+no fi nal das contas são aplicados como entradas binárias para portas lógicas individuais.
+Vamos considerar novamente o ciclo de busca para ver como a unidade de controle mantém o controle. A uni-
+dade de controle mantém a informação sobre onde está dentro do ciclo de instrução. Em um determinado ponto, ela sabe que o ciclo de leitura será executado a seguir. O primeiro passo é transferir o conteúdo de PC para MAR. A unidade de controle faz isso ativando o sinal de controle que abre as portas lógicas entre os bits de PC e bits de MAR. O próximo passo é ler uma palavra da memória para dentro de MBR e incrementar PC. A unidade de controle faz isso enviando os seguintes sinais de controle simultaneamente:
+Um sinal de controle que abre portas lógicas, permitindo que o conteúdo de MAR seja transferido para o 
+ 
+barramento de endereços.Um sinal de controle de leitura de memória é colocado no barramento de controle.
+ 
+Um sinal de controle que abre as portas, permitindo que o conteúdo do caminho de dados seja armazenado 
+em MBR.Sinais de controle para lógica que adicionam 1 ao conteúdo de PC e armazenam o resultado de volta em PC.
+ 
+Depois disso, a unidade de controle envia um sinal de controle que abre portas lógicas entre MBR e IR.Isso completa o ciclo de leitura exceto para uma coisa: a unidade de controle precisa decidir se executa um ciclo 
+indireto ou um ciclo de execução a seguir. Para decidir isso, ela examina IR para ver se uma referência indireta de memória é feita.
+O ciclo indireto e o de interrupção funcionam de maneira semelhante. Para o ciclo de execução, a unidade de 
+controle começa examinando o opcode e, com base nisso, decide qual sequência de micro-operações deve execu-
+tar no ciclo de execução.
+ Exemplo de sinais de controle
+Para ilustrar o funcionamento da unidade de controle, vamos analisar um exemplo simples. A Figura 15.5 ilustra 
+o exemplo. Trata-se de um processador simples com um único acumulador (AC). Os caminhos de dados entre os elementos estão indicados. Os caminhos de controle para sinais que se originam da unidade de controle não são mostrados, porém as terminações dos sinais de controle são marcadas como C
+i e indicadas por um círculo. 
+Figura 15.5 Caminhos de dados e sinais de controle
+M
+B
+R
+M
+A
+RPCAC
+ClockIR
+Unidade de
+controle
+Sinais de
+controleFlagsALUC3
+C2C4C10C5
+C8 C1
+C0C12
+C13C7
+C6C9C11
+Sinais de
+controle
+Book 1.indb 469 19.11.09 14:39:56
+
+470 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A unidade de controle recebe entradas a partir do clock, do registrador de instrução e fl ags. A cada ciclo de clock, a 
+unidade de controle lê todas as suas entradas e emite um conjunto de sinais de controle. Os sinais de controle vão para três destinos diferentes:
+caminhos de dados
+  : a unidade de controle controla o fl uxo interno de dados. Por exemplo, durante a lei-
+tura da instrução, o conteúdo do registrador de buff er de memória (MBR) é transferido para o registrador de instrução. Para cada caminho a ser controlado, há uma chave (indicado por um círculo na fi gura). Um sinal de controle da unidade de controle abre as portas temporariamente para deixar os dados passarem.ALu
+  : a unidade de controle controla a operação de ALU por meio de um conjunto de sinais de controle. 
+Esses sinais ativam vários circuitos e portas lógicas dentro da ALU.Barramento de sistema
+  : a unidade de controle envia sinais de controle para linhas de controle do barra-
+mento de sistema (por exemplo, READ para leitura de memória).
+A unidade de controle deve manter a informação sobre onde está dentro do ciclo de instrução. Usando esse 
+conhecimento e lendo todas as suas entradas, a unidade de controle emite uma sequência de sinais de controle que fazem com que as micro-operações ocorram. Ela usa pulsos de clock para temporizar a sequência de eventos, permitindo um tempo entre eventos para os níveis de sinal estabilizarem-se. A Tabela 15.1 indica os sinais de con-trole que são necessários para algumas sequências de micro-operações descritas anteriormente. Por simplicidade, os caminhos de dados e de controle para incrementar PC e para carregar endereços fi xos em PC e MAR não são mostrados.
+Vale a pena analisar a natureza mínima da unidade de controle. Ela é a máquina que faz funcionar todo o 
+computador inteiro. E faz isso sabendo apenas as instruções a serem executadas e a natureza dos resultados das operações aritméticas e lógicas (por exemplo, positivo, over-fl ow etc.). Ela nunca verifi ca os dados sendo processa-
+dos ou os resultados produzidos, e ela controla tudo com poucos sinais de controle dentro do processador e no barramento de sistema.
+ Organização interna do processador
+A Figura 15.5 indica o uso de vários caminhos de dados. A complexidade desse tipo de organização deve 
+ficar clara. Normalmente algum tipo de arranjo de barramento interno, como o sugerido na Figura 12.2, será usado.
+Usando um barramento interno do processador, a Figura 15.5 pode ser rearranjada conforme mostrado na 
+Figura 15.6. Um único barramento interno conecta a ALU e todos os registradores do processador.
+Micro-operações Sinais de controle ativos
+t1: MAR  (PC) C2
+Busca: t2: MBR Memória C5,CR
+PC  (PC) +1
+t3: IR  MBR C4
+t1: MAR  (IR(Endereço)) C8
+Indireto: t2: MBR  Memória C5, CR
+t3: IR (Endereço)  (MBR(Endereço)) C4
+t1: MBR  (PC) C1
+Interrupção t2: MAR  Endereço-salvar
+PC  Endereço-rotina
+t3: Memória (MBR) C12, CW
+CR = Sinal de controle de leitura para o barramento de sistema.
+CW = Sinal de controle de escrita para o barramento de sistema.Tabela 15.1 Micro-operações e sinais de controle
+Book 1.indb 470 19.11.09 14:39:57
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 15 Operação da unidade de controle 471
+Portas e sinais de controle são disponibilizados para a movimentação de dados do barramento para cada re-
+gistrador e vice-versa. Sinais de controle adicionais controlam a transferência de dados para e do barramento do 
+sistema (externo) e a operação da ALU.
+Dois novos registradores, definidos como Y e Z, foram adicionados à organização. Estes são necessários para a 
+correta operação da ALU. Quando uma operação que envolve dois operandos é executada, um pode ser obtido do barramento interno, mas outro tem que ser obtido de outra fonte. O AC pode ser usado para esse propósito, mas isso limita a flexibilidade do sistema e não funcionaria com um processador com vários registradores de propósito geral. O registrador Y permite armazenamento temporário para outra entrada. A ALU é um circuito combinatório (veja o Capítulo 20) sem nenhum local de armazenamento interno. Assim, quando o sinal de controle ativa uma função da ALU, a entrada para a ALU é transformada em saída. Assim, a saída da ALU não pode ser conectada diretamente ao barramento, porque essa saída alimentaria de volta a entrada. O registrador Z permite o armazenamento temporário de saída. Com esse arranjo, uma operação para adicionar um valor da memória para AC teria os seguintes passos:
+t
+1: MAR ←(IR(endereço))
+t2: MBR ←Memória
+t3: Y ←(MBR)
+t4: Z ←(AC) + (Y)
+t5: AC ←(Z)
+Outras organizações são possíveis, mas em geral algum tipo de barramento interno ou conjunto de barramen-
+tos internos é usado. O uso de caminhos de dados comuns simplifica o layout de interconexão e o controle do processador. Outra razão prática para uso de um barramento interno é para economizar espaço.Unidade
+de controle
+Linhas de
+endereços
+Linhas
+de dados
+ULAIR
+PC
+MAR
+MBR
+AC
+Y
+Z
+Barramento interno da CPUFigura 15.6 CPU com barramento interno
+Book 1.indb 471 19.11.09 14:39:57
+
+472 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+ Intel 8085
+Para ilustrar alguns dos conceitos introduzidos até agora neste capítulo, vamos analisar o Intel 8085. A sua orga-
+nização é mostrada na Figura 15.7. Vários componentes-chave que podem não ser autoexplicativos são:
+Latch incrementador/decrementador de endereço  : lógica que pode adicionar 1 a ou subtrair 1 de con-
+teúdo do ponteiro de pilha ou contador de programa. Isto economiza tempo evitando o uso de ALU para 
+esse propósito.controle de interrupção
+  : este módulo lida com múltiplos níveis de sinais de interrupção.
+controle e/s serial  : este módulo é uma interface para os dispositivos que comunicam 1 bit por vez.
+A Tabela 15.2 descreve os sinais externos para dentro e fora do 8085. Eles são ligados com o barramento do 
+sistema externo. Esses sinais são a interface entre o processador 8085 e o restante do sistema (Figura 15.8).
+A unidade de controle é identifi cada como tendo dois componentes chamados de (1) decodifi cador de instrução 
+e codifi cação de ciclo de máquina e (2) temporização e controle. A discussão sobre o primeiro é adiada para a próxima seção. A essência da unidade de controle é o módulo de temporização e controle. Este módulo inclui um relógio e aceita como entradas a instrução atual e alguns sinais de controle externos. As suas saídas consistem de sinais de con-trole para outros componentes do processador mais sinais de controle para o barramento de sistema externo.
+Figura 15.7 Diagrama de blocos da CPU Intel 8085
+Barramento de dados interno de 8 bitsControle de interrupçãoControle de 
+E/S serialINTR
+ClkOutFonte de
+alimentação+5V
+GND
+X1
+X2
+HLDA Reset out ALE S0S1
+ReadyINT A
+Hold Reset inRST 6.5 TRAP
+RST 5.5 RST 7.5 SID SOD
+(8)
+Acumulador(8)
+Regis. Temp.(8)
+Flags(8)
+Registrador 
+de instrução
+Decodi/f_icador de
+instrução e codi/f_i-
+cação do ciclo de
+máquinaALU(8)
+B reg.(8)
+C reg.
+(8)
+D reg.(8)
+E reg.
+(8)
+H reg.(8)
+L reg.
+(16)
+Ponteiro de pilha
+(16)
+Contador de programador
+(8)
+Buﬀer de endereço(8)
+AD7 – AD 0
+Barramento de
+endereços/dadosA15 – A 8
+Barramento de
+endereços/dados(16)
+Latch incrementador/
+decrementador de
+endereçosVetor de
+registradores
+RD WR IO/MClk
+Gen Controle EstadoTemporização e controle
+DMA Buﬀer de endereço Reset
+Book 1.indb 472 19.11.09 14:39:59
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 15 Operação da unidade de controle 473
+Sinais de endereços e dados
+Endereços altos (A15-A8) 8 bits superiores de um endereço de 16 bits.
+Endereço/Dados (AD7-AD0) 8 bits inferiores de um endereço de 16 bits ou 8 bits de dados. Esta multiplexação economiza pinos.
+Dados de entrada serial (SID) Uma entrada de um único bit para acomodar dispositivos que transmitem serialmente (um bit por vez).
+Dados de saída serial (SOD) Uma saída de um único bit para acomodar dispositivos que recebem serialmente.
+Sinais de temporização e controle
+CLK (OUT) O clock do sistema. Sinal CLK vai para chips periféricos e sincroniza as suas temporizações.
+X1, X2 Estes sinais vêm de um cristal externo ou outro dispositivo para controlar o gerador de clock interno.
+habilitar Latch de endereços (ALE)Ocorre durante o primeiro estado do clock de um ciclo de máquina e faz com que os chips periféricos 
+armazenem linhas de endereços. Isto permite que o módulo de endereço (por exemplo, memória, E/S) reconheça que está sendo endereçado.
+Estado (S0, S1) Sinais de controle usados para indicar se está ocorrendo uma operação de leitura ou escrita.
+IO/M Usado para habilitar módulo de E/S ou de memória para operações de leitura e escrita.
+Controle de leitura (RD)Indica que a memória selecionada ou módulo de E/S está para ser lido e que o barramento de dados está disponível para transferência de dados.
+Controle de escrita (WR)Indica que os dados no barramento de dados estão para ser escritos na posição de memória ou E/S selecionada.
+Símbolos iniciados pela memória ou pela E/S
+Espera (hOLD)Requisita a CPU que abandone o controle e o uso do barramento externo de sistema. A CPU irá completar a execução da instrução atualmente em IR e depois irá entrar em um estado de espera durante o qual nenhum sinal é inserido pela CPU para os barramentos de controle, endereços ou dados. Durante o estado de espera, o barramento pode ser usado para operações DMA.
+Reconhecimento de espera (hOLDA)Este sinal de controle da unidade de controle que reconhece o sinal hOLD e indica que o barramento está disponível agora.
+READY (PROnTO)Usado para sincronizar a CPU com dispositivos de memória ou E/S mais lentos. Quando um disposi-tivo endereçado envia um READY , a CPU pode proceder com uma operação de entrada (DBIn) ou saída (WR). Caso contrário, a CPU entra em um estado de espera até que o dispositivo esteja pronto.
+Sinais relacionados com interrupções
+TRAP Interrupções de reinicialização (RST 7.5, 6.5, 5.5).
+Requisição de interrupção (InTR)Estas cinco linhas são usadas por um dispositivo externo para interromper a CPU. Ela não atenderá a re -
+quisição se estiver no estado de espera ou se a interrupção estiver desabilitada. Uma interrupção é atendida apenas na conclusão de uma instrução. As interrupções estão na ordem descendente de prioridade.
+Reconhecimento Reconhece uma interrupção.
+Inicialização de CPU
+RESET In Faz o conteúdo de PC ser definido para zero. A CPU continua a execução na posição zero.
+RESET OUT Reconhece que a CPU foi reiniciada. O sinal pode ser usado para reiniciar o restante do sistema.
+Voltagem e aterramento
+VCC Fonte de alimentação de +5 volts.
+VSS Aterramento elétrico.Tabela 15.2 Sinais externos de Intel 8085
+Book 1.indb 473 19.11.09 14:39:59
+
+474 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 15.8 Configuração de pinos de Intel 8085
+40
+39
+383736353433323130292827262512345678910111213141516
+24 17
+23 18
+22 19
+21 20X1
+X2
+Reset out
+SOD
+SID
+Trap
+RST 7.5RST 6.5RST 5.5
+INTR
+INTA
+AD0
+AD1
+AD2
+AD3
+AD4VccHOLD
+HLDA
+CLK (out)Reset in
+Ready
+IO/M
+S1
+Vpp
+RD
+WR
+S0
+A15
+A14
+A13
+A12
+AD5A11
+AD6A10
+AD7A9
+Vss A8
+A temporização das operações do processador é sincronizada pelo clock e controlada pela unidade de controle 
+por meio de sinais de controle. Cada ciclo de instrução é dividido em um até cinco ciclos de máquina; cada ciclo de 
+máquina por sua vez é dividido em três a cinco estados. Cada estado dura um ciclo de clock. Durante um estado, 
+o processador executa uma ou um conjunto de micro-operações simultâneas conforme determinado pelos sinais de controle.
+O número de ciclos de máquina é fixo para uma determinada instrução, mas varia de uma instrução para outra. 
+Os ciclos de máquina são definidos para serem equivalentes a acessos ao barramento. Assim, o número de ciclos de máquina para uma instrução depende do número de vezes que o processador precisa se comunicar com dispo-sitivos externos. Por exemplo, se uma instrução consiste de duas partes de 8 bits, então dois ciclos de máquina são necessários para obter a instrução. Se essa instrução envolve uma operação de memória ou E/S de 1 byte, então um terceiro ciclo de máquina é necessário para execução.
+A Figura 15.9 mostra um exemplo de temporização do 8085, mostrando o valor dos sinais de controle externos. 
+É claro que, ao mesmo tempo, a unidade de controle gera sinais de controle internos que controlam transferências de dados internas. O diagrama mostra o ciclo de instrução para uma instrução OUT. Três ciclos de máquina (M
+1, M2, 
+M3) são necessários. A instrução OUT é obtida durante o primeiro ciclo. O segundo ciclo de máquina obtém a se-
+gunda metade da instrução, a qual contém o número do dispositivo I/O selecionado para saída. Durante o terceiro ciclo, o conteúdo de AC é escrito no dispositivo selecionado através do barramento de dados.
+Book 1.indb 474 19.11.09 14:40:00
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 15 Operação da unidade de controle 475
+O pulso Habilitar Latch de Endereço (ALE, do inglês address latch enable) sinaliza o início da cada ciclo de máquina a par-
+tir da unidade de controle. Ele alerta os circuitos externos. Durante o estado de tempo T1 do ciclo de máquina M1 a unidade 
+de controle defi ne o sinal IO/M para indicar que se trata de uma operação de memória. Além disso, a unidade de controle 
+faz com que o conteúdo de PC seja colocado no barramento de endereços (A15 até A8) e no barramento de endereços/
+dados (AD7 até AD0). Na borda de descida do pulso ALE, os outros módulos no barramento armazenam o endereço.
+Durante o estado de tempo T2, o módulo de memória endereçado coloca o conteúdo da posição de memória ende-
+reçada no barramento de endereços/dados. A unidade de controle defi ne o sinal de Controle de Leitura (RD) para indicar uma leitura, porém aguarda até T
+3 para copiar dados do barramento. Isso dá tempo ao módulo de memória para colocar 
+dados no barramento e aos níveis de sinal para se estabilizarem. O estado fi nal T4 é o estado de barramento ocioso duran-
+te o qual o processador decodifi ca a instrução. Os ciclos de máquina restantes procedem de maneira semelhante.
+15.3 Implementação por hardware
+Discutimos a unidade de controle em termos de suas entradas, saídas e funções. Abordaremos agora o assunto 
+sobre a implementação da unidade de controle. Uma grande variedade de técnicas têm sido usadas. A maioria se enquadra em uma das duas categorias:
+Implementação por hardware.
+ 
+Implementação microprogramada. 
+Em uma implementação por hardware, a unidade de controle é basicamente um circuito que implementa 
+uma máquina de estado. Seus sinais lógicos de entrada são transformados em um conjunto de sinais lógicos de saída, que são os sinais de controle. Esta abordagem é analisada nesta seção. A implementação microprogramada é assunto do Capítulo 16.
+ Entradas da unidade de controle
+A Figura 15.4 ilustra a unidade de controle da forma que a discutimos até agora. As principais entradas são o 
+registrador de instrução, o clock, os fl ags e os sinais do barramento de controle. No caso das fl ags e dos sinais do CLK de 3 MHz
+A15 A8
+AD7 AD0
+ALET1M1 M2 M3
+T2 T3 T4 T1 T2 T3 T1 T2 T3
+PC Out WZ Out Instr IR X PC OutOUT byte
+PCLPCH PCH
+INSTR INSTR INSTR INSTR ACUMULADORPORTA E/S
+PC 1 PC 1 byte A PortRD
+WR
+IO/M
+Busca da instrução Leitura de memória Escrita de saída PC PC Z, WFigura 15.9 Diagrama de temporização para instrução OUT do Intel 8085
+Book 1.indb 475 19.11.09 14:40:00
+
+476 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+barramento de controle, cada bit individual normalmente possui algum signifi cado (por exemplo, overfl ow ). No 
+entanto, duas outras entradas não são diretamente úteis para a unidade de controle.
+Considere primeiro o registrador de instrução. A unidade de controle faz uso do opcode e irá efetuar diferentes 
+ações (emitir uma combinação diferente de sinais de controle) para instruções diferentes. Para simplifi car a lógica 
+da unidade de controle, deveria haver uma única de entrada lógica para cada opcode. Esta função pode ser execu-
+tada por um decodifi cador, o qual recebe uma entrada codifi cada e produz uma única saída. Em geral, um decodi-
+fi cador terá n entradas binárias e 2n saídas binárias. Cada um de 2n padrões diferentes de entrada ativará uma única 
+saída. A Tabela 15.3 é um exemplo para n = 4. O decodifi cador de uma unidade de controle normalmente terá que 
+ser mais complexo do que isso para poder lidar com opcodes de tamanhos variáveis. Um exemplo da lógica digital 
+usada para implementar um decodifi cador é apresentado no Capítulo 20.
+O clock da unidade de controle envia uma sequência repetitiva de pulsos. Isto é útil para medir a duração de 
+micro-operações. Basicamente, o período dos pulsos de clock deve ser longo sufi cientemente para permitir a pro-
+pagação de sinais pelos caminhos de dados e pelos circuitos do processador. No entanto, como já vimos, a unidade de controle envia diferentes sinais de controle em unidades diferentes de tempo dentro de um mesmo ciclo de instrução. Desta forma, é necessário um contador como entrada para unidade de controle, com um sinal de con-trole diferente sendo usado para T
+1, T2 e assim por diante. Ao fi m do ciclo de instrução, a unidade de controle deve 
+reiniciar o contador para reiniciá-lo em T1.
+Com estes dois refi namentos, a unidade de controle pode ser ilustrada como na Figura 15.10.
+ Lógica da unidade de controle
+Para defi nir a implementação por hardware de uma unidade de controle, tudo o que resta é discutir a lógica in-
+terna da unidade de controle, que produz sinais de controle de saída como uma função de seus sinais de entrada.
+Basicamente, o que deve ser feito para cada sinal de controle é derivar uma expressão lógica desse sinal como 
+uma função das entradas. Isto é explicado melhor com um exemplo. Vamos considerar novamente nosso exemplo ilustrado na Figura 15.5. Vimos na Tabela 15.1, as sequências de micro-operações e sinais de controle necessários para controlar três das quatro fases do ciclo de instrução.
+Vamos considerar um único sinal de controle, C
+5. Este sinal faz os dados serem lidos a partir do barramento de 
+dados externos para MBR. Podemos ver que ele é usado duas vezes na Tabela 15.1. Vamos defi nir dois novos sinais de controle, P e Q, que possuem a seguinte interpretação:
+I1 I2 I3 I4 o1 o2 o3 o4 o5 o6 o7 o8 o9 o10 o11 o12 o13 o14 o15 o16
+0000000000000 0 0 0 0 0 0 1
+0001000000000 0 0 0 0 0 1 0
+0010000000000 0 0 0 0 1 0 0
+0011000000000 0 0 0 1 0 0 0
+0100000000000 0 0 1 0 0 0 0
+0101000000000 0 1 0 0 0 0 0
+0110000000000 1 0 0 0 0 0 0
+0111000000001 0 0 0 0 0 0 0
+1000000000010 0 0 0 0 0 0 0
+1001000000100 0 0 0 0 0 0 0
+1010000001000 0 0 0 0 0 0 0
+1011000010000 0 0 0 0 0 0 0
+1100000100000 0 0 0 0 0 0 0
+1101001000000 0 0 0 0 0 0 0
+1110010000000 0 0 0 0 0 0 0
+1111100000000 0 0 0 0 0 0 0Tabela 15.3 Um decodifi cador com quatro entradas e 16 saídas
+Book 1.indb 476 19.11.09 14:40:02
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 15 Operação da unidade de controle 477
+PQ = 00 Ciclo de busca
+PQ = 01 Ciclo indiretoPQ = 10 Ciclo de execução
+PQ = 11 Ciclo de interrupção
+Então, a seguinte expressão lógica defi ne C5:
+C5=P#Q#T2+P#Q#T2 
+Ou seja, o sinal de controle C5 será defi nido durante a segunda unidade de tempo do ciclo de busca e do ciclo indireto.
+Esta expressão não está completa. C5 é necessário também durante o ciclo de execução. Para nosso simples 
+exemplo, vamos supor que existam apenas três instruções que leem da memória: LDA, ADD e AND. Agora defi ni-
+mos C5 como:
+C5=P#Q#T2+P#Q#T2+P#Q#(LDA+ADD+AND)#T2
+Este mesmo processo poderia ser repetido para cada sinal de controle gerado pelo processador. O resultado 
+seria um conjunto de equações lógicas que defi nem o comportamento da unidade de controle e do processador.
+Para juntar tudo, a unidade de controle deve controlar o estado do ciclo de instrução. Conforme mencionamos, 
+ao fi m de cada subciclo (busca, indireto, execução, interrupção), a unidade de controle emite um sinal que faz o temporizador reiniciar e gere T
+1. A unidade de controle precisa também defi nir os valores apropriados de P e Q para 
+defi nir o próximo subciclo a ser executado.
+O leitor deveria ser capaz de compreender que, em um processador moderno complexo, o número de equa-
+ções lógicas necessário para defi nir a unidade de controle é muito grande. A tarefa de implementar um circuito combinatório que satisfaça todas essas equações se torna extremamente difícil. O resultado é que uma aborda-gem bem mais simples, conhecida como microprogramação, normalmente é usada. Este é o assunto do próximo 
+capítulo.
+15.4 Leitura recomendada
+Uma série de livros trata dos princípios básicos da função da unidade de controle; dois tratamentos bastantes 
+esclarecedores são Farhat (2004a) e Mano (2004b).Figura 15.10 Unidade de controle com entradas decodifi cadas
+Registrador de instrução
+Decodi/f_icador
+Unidade de
+controle FlagsTemporizador•
+•••••
+TnClockT2T1I0 I1 Ik • • •
+C0 C1 Cm • • •
+Book 1.indb 477 19.11.09 14:40:03
+
+478 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Barramento de controle Sinal de controle Implementação por hardware
+Caminho de controle Unidade de controle Micro-operações
+Perguntas de revisão
+ 15.1 Explique a diferença entre a sequência de escrita e a sequência de tempo de uma instrução.
+ 15.2 Qual é a relação entre instruções e micro-operações?
+ 15.3 Qual é a função geral de uma unidade de controle do processador?
+ 15.4 Defina um processo em três passos que leva à caracterização da unidade de controle.
+ 15.5 Quais tarefas básicas uma unidade de controle efetua?
+ 15.6 Forneça uma lista típica de entradas e saídas de uma unidade de controle.
+ 15.7 Relacione três tipos de sinais de controle.
+ 15.8 Explique resumidamente o que significa uma implementação por hardware de uma unidade de controle.
+Problemas
+15.1 Sua ALU pode adicionar seus dois registradores de entrada e pode logicamente complementar os bits de cada um dos registradores de entrada, 
+mas não pode subtrair. números devem ser armazenados na representação de complemento de dois. Quais micro-operações a sua unidade de 
+controle deve efetuar para fazer a subtração.
+15.2 Mostre as micro-operações e os sinais de controle da mesma forma como na Tabela 15.1 para o processador da Figura 15.5 para seguintes instruções:
+Carregar acumulador. 
+Armazenar acumulador. 
+Adicionar para acumulador. 
+AnD para acumulador. 
+Salto. 
+Salto se AC = 0. 
+Complementar acumulador. 
+15.3 Suponha que os atrasos de propagação pelo barramento e pela ALU da Figura 15.6 sejam de 20 e 100 ns, respectivamente. O tempo necessário 
+para um registrador copiar dados do barramento é 10 ns. Qual é o tempo que deve ser permitido para
+a. transferir dados de um registrador para outro?
+b. incrementar o contador de programa?
+15.4 Escreva a sequência de micro-operações necessária para a estrutura de barramento da Figura 15.6 adicionar um número para AC quando o número for:a. um operando imediato.
+b. um operando de endereço direto.
+c. um operando de endereço indireto.
+15.5 Uma pilha é implementada conforme mostrado na Figura 10.14. Mostre a sequência de micro-operações para:a. tirar elemento da pilha.
+b. colocar elemento na pilha.
+ Referências
+ a FARhAT, h. Digital design and computer organization. Boca Raton, FL: CRC Press, 2004.
+ b MAnO, M. Logic and computer design fundamentals. Upper Saddle River, nJ: Prentice hall, 2004.
+Book 1.indb 478 19.11.09 14:40:03
+
+PRInCIPAIS POnTOS
+ Uma alternativa para unidade de controle por hardware é a unidade 
+de controle microprogramada, na qual a lógica da unidade de controle 
+é especifi cada por um microprograma. Um microprograma consiste de uma sequência de instruções em uma linguagem de microprogramação. Trata-se de instruções que especifi cam micro-operações. Uma unidade de controle microprogramada é um circuito lógico rela-
+tivamente simples que é capaz de (1) sequenciar pelas microinstruções e (2) gerar sinais de controle para executar cada microinstrução. Assim como em uma unidade de controle por hardware, os sinais de 
+controle gerados por uma microinstrução são usados para causar trans-ferências de registradores e operações de ALU.Controle microprogramadoCAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+O termo microprograma foi criado por M. V. Wilkes no começo dos anos 
+1950 (WILKES, 1951a). Wilkes propôs uma abordagem para design de 
+unidade de controle que era organizado e sistemático e evitava a comple-xidade de uma implementação embutida. A ideia intrigou muitos pesquisa-dores, mas parecia inviável porque iria requerer uma memória de controle rápida e relativamente cara.
+A tecnologia de microprogramação foi revista na revista Datamation na 
+sua edição de fevereiro de 1964. Nenhum sistema microprogramado estava em grande uso naquele tempo e um dos artigos (HILL, 1964
+b) sumarizou a 
+visão popular daquela época de que o futuro da microprogramação “é um tanto nebuloso. Nenhum dos grandes fabri-cantes mostrou o interesse na técnica, embora aparentemente todos a tenham analisado” .
+Esta situação mudou consideravelmente poucos meses depois. O System/360 da IBM foi anunciado em abril e todos os 
+modelos, exceto os maiores, eram microprogramados. Embora a série 360 tenha antecedido a disponibilidade da memória ROM semicondutora, as vantagens de microprogramação eram sufi cientemente atraentes para IBM fazer esse movimento. A microprogramação se tornou uma técnica popular para implementar a unidade de controle dos processadores CISC. Nos últimos anos a microprogramação começou a ser menos usada, mas permanece como uma ferramenta disponível para os projetistas de computadores. Por exemplo, conforme já vimos no Pentium 4, as instruções de máquina são con-vertidas em um formato parecido com RISC e a maioria delas é executada sem o uso de microprogramação. Entretanto, algumas das instruções são executadas usando a microprogramação.16.1 Conceitos básicos
+  Microinstruções
+  Unidade de controle 
+microprogramada
+  Controle de Wilkes
+  Vantagens e desvantagens
+16.2 Sequenciamento de microinstruções
+  Considerações sobre projeto
+  Técnicas de sequenciamento
+  Geração de endereços
+  Sequenciamento de microinstruções do LSI-11
+16.3 Execução de microinstruções
+  Taxonomia de microinstruções
+  Codifi cação de microinstruções
+  Execução de microinstruções no LSI-11
+  Execução de microinstruções no IBM 3033
+16.4 TI 8800
+  Formato da microinstrução
+  Microssequenciador
+  ULA com registradores
+16.5 Leitura recomendada
+Book 1.indb 479 19.11.09 14:40:04
+
+480 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+16.1 Conceitos básicos
+ Microinstruções
+A unidade de controle parece um dispositivo bastante simples. Mesmo assim, implementar uma unidade de 
+controle como uma interconexão de elementos lógicos básicos não é uma tarefa simples. O projeto deve incluir 
+a lógica para sequenciamento por meio de micro-operações, execução de instruções, interpretação de opcodes 
+e decisões tomadas com base em fl ags do ALU. É difícil projetar e testar tal peça de hardware. Além disso, o projeto é relativamente infl exível. Por exemplo, é difícil alterá-lo se alguém quiser adicionar uma nova instrução de máquina.
+Uma alternativa usada em vários processadores CISC é implementar uma unidade de controle micropro-
+gramada.
+Considere a Tabela 16.1. Além de usar os sinais de controle, cada micro-operação é descrita em notação simbó-
+lica. Esta notação parece-se de forma suspeita com uma linguagem de programação. De fato, é uma linguagem, conhecida como linguagem de microprogramação. Cada linha descreve um conjunto de micro-operações ocor-
+rendo ao mesmo tempo e é conhecida como uma microinstrução. Uma sequência de instruções é conhecida 
+como um microprograma ou fi rmware. Este último termo refl ete o fato de que um microprograma é uma ponte 
+entre hardware e software. É mais fácil projetar um fi rmware do que um hardware, mas é mais difícil escrever um 
+programa fi rmware do que um programa software.
+Como podemos usar o conceito de microprogramação para implementar uma unidade de controle? Considere 
+que, para cada micro-operação, tudo o que é permitido para a unidade de controle fazer é gerar um conjunto de sinais de controle. Assim, para cada micro-operação, cada linha de controle que se origina da unidade de controle 
+Ordem Efeito da ordem
+A n C(Acc) + C(n) para Acc1
+S n C(Acc) – C(n) para Acc1
+H n C(n) para Acc2
+V n C(Acc2) × C(n) para Acc, onde C(n) ≥ 0
+T n C(Acc1) para n, 0 para Acc
+U n C(Acc1) para n
+R n C(Acc) × 2 –(n+1) para Acc
+L n C(Acc) × 2 n+1 para Acc
+G nIF C(Acc) < 0, transferir controle para n; se C(Acc) ≥ 0, ignorar 
+(isto é, proceder serialmente)
+I n Ler próximo caractere do mecanismo de entrada para n
+O n Enviar C(n) para mecanismo de saída
+Acc = acumulador n = localização de armazenamento n
+Acc1 = metade mais signifi cativo do acumulador C(X) = conteúdo de X (X = registrador da localização de armazenamento)
+Acc2 = metade menos signifi cativo do acumulador Tabela 16.1 Conjunto de instruções de máquina para exemplo de Wilkes
+Book 1.indb 480 19.11.09 14:40:05
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 16 Controle microprogramado 481
+está ligada ou desligada. É claro que esta condição pode ser representada por um dígito binário para cada linha 
+de controle. Assim, podemos construir uma palavra de controle onde cada bit represente uma linha de controle. Então, cada micro-operação seria representada por um padrão diferente de 1 e 0 na palavra de controle.
+Suponha que façamos uma cadeia de uma sequência de palavras de controle para representar a sequência de 
+micro-operações executadas pela unidade de controle. A seguir, devemos reconhecer que a sequência de micro-operações não é fixa. Às vezes temos um ciclo indireto, às vezes não. Vamos então colocar as nossas palavras de controle em uma memória onde cada palavra possui um endereço único. Adicionamos agora um campo de en-dereço para cada palavra de controle indicando a posição da próxima palavra de controle a ser executada se uma determinada condição for verdadeira (por exemplo, o bit indireto em uma referência de memória for 1). Além disso, adicionamos alguns bits para especificar a condição.
+O resultado é conhecido como uma microinstrução horizontal e um exemplo é mostrado na Figura 16.1a. O 
+formato da microinstrução ou palavra de controle está descrito a seguir. Existe um bit para cada linha de controle interna do processador e um bit para cada linha de controle do barramento do sistema. Há um campo de condição indicando a condição em que deve haver um desvio e há um campo com o endereço da microinstrução a ser exe-cutada depois que um desvio é tomado. Tal microinstrução é interpretada como segue:
+1. Para executar esta microinstrução, ligar todas as linhas de controle indicadas por um bit 1; desligar todas as linhas de controle indicadas por um bit 0. Os sinais de controle resultantes farão com que uma ou mais micro-operações sejam executadas.
+2. Se a condição indicada pelos bits de condição for falsa, executar a próxima microinstrução na sequência.
+3. Se a condição indicada pelos bits de condição for verdadeira, a próxima microinstrução a ser executada é indicada no campo de endereço.
+A Figura 16.2 mostra como essas palavras de controle ou microinstruções poderiam ser arranjadas em uma 
+memória de controle. As microinstruções em cada rotina serão executadas sequencialmente. Cada rotina termina com uma instrução de desvio ou salto indicando para onde deve ir a seguir. Existe um ciclo de execução especial cujo único propósito é sinalizar que uma das rotinas de instrução de máquina (AND, ADD e outras) está para ser executada a seguir, dependendo do opcode corrente.
+A memória de controle da Figura 16.2 é uma descrição concisa da operação completa da unidade de controle. 
+Ela define a sequência de micro-operações para serem executadas durante cada ciclo (busca, indireto, execução, interrupção) e especifica o sequenciamento desses ciclos. Esta notação seria uma maneira útil para documentar o 
+Figura 16.1 Formatos típicos de microinstruções
+Endereço da microinstrução
+Condição de salto— Incondicional— Zero— Overflow— Bit indiretoSinais do barramento de controle
+Sinais de controle internos da CPU
+Endereço da microinstrução
+Condição de salto
+Códigos de função(a) Microinstrução horizontal
+(b) Microinstrução vertical
+Book 1.indb 481 19.11.09 14:40:06
+
+482 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+funcionamento de uma unidade de controle de um computador específi co, mas ela é mais do que isso. Ela é tam-
+bém uma forma de implementar a unidade de controle.
+ Unidade de controle microprogramada
+A memória de controle da Figura 16.2 contém um programa que descreve o comportamento da unidade de 
+controle. Poderíamos implementar a unidade de controle simplesmente executando o programa.
+A Figura 16.3 mostra os elementos-chave de tal implementação. O conjunto de microinstruções é armazenado 
+na memória de controle. O registrador de endereço de controle contém o endereço da próxima microinstrução a ser 
+lida. Quando uma microinstrução é lida a partir da memória de controle, ela é transferida para um registrador de 
+buff er de controle. A parte esquerda desse registrador (veja Figura 16.1a) conecta-se às linhas de controle que saem da unidade de controle. Assim, ler uma microinstrução a partir da memória de controle é o mesmo que executar 
+essa microinstrução. O terceiro elemento mostrado na fi gura é uma unidade de sequenciamento que carrega o registrador de endereço de controle e emite um comando de leitura.
+Vamos analisar esta estrutura em mais detalhes, conforme ilustrado na Figura 16.4. Ao comparar isto com a 
+Figura 16.4, vemos que a unidade de controle ainda tem as mesmas entradas (IR, ALU, fl ags, clock) e saídas (sinais de controle). A unidade de controle funciona desta forma:
+1. Para executar uma instrução, a unidade lógica de sequenciamento emite um comando READ para memória de controle.
+2. A palavra cujo endereço é especifi cado no registrador de endereço de controle é lida para dentro do regis-trador de buff er de controle.Figura 16.2 Organização da memória de controle
+Saltar para indireto ou executarRotina do
+ciclo deleitura
+Rotina
+do ciclo indireto
+Rotina do
+ciclo deinterrupção
+Rotina AND
+Rotina ADD
+Rotina IOFComeço do ciclo de execuçãoSaltar para executar
+Saltar para busca ou interrupçãoSaltar para busca ou interrupçãoSaltar para busca ou interrupçãoSaltar para busca
+Saltar para rotina opcode
+Book 1.indb 482 19.11.09 14:40:06
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 16 Controle microprogramado 483
+Lógica de
+sequenciamento
+LeituraRegistrador de endereço de controle
+Registrador de buﬀer de controleMemória de
+controleFigura 16.3 Microarquitetura da unidade de controle
+Figura 16.4 Funcionamento da unidade de controle microprogramada
+Lógica de
+sequenciamentoUnidade de controle
+Decodi/f_icador
+Decodi/f_icador
+Sinais de controle
+para barramentodo sistemaSinais de controleinternos da CPUFlags do
+ALU
+clock
+Leitura
+Controle do próximo endereçoRegistrador de endereço de controleRegistrador de instrução
+Registrador de buﬀer de controleMemória
+de controle
+Book 1.indb 483 19.11.09 14:40:07
+
+484 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+3. O conteúdo do registrador de buff er de controle gera sinais de controle e a informação do próximo endere-
+ço para a unidade lógica de sequenciamento.
+4. A unidade lógica de sequenciamento carrega um novo endereço no registrador de endereço de controle com base na informação do próximo endereço a partir do registrador de buff er de controle e fl ags do ALU.
+Tudo isto ocorre durante um pulso de clock.O último passo mencionado precisa ser melhor explicado. Na conclusão de cada microinstrução, a unidade 
+lógica de sequenciamento carrega um novo endereço no registrador de endereço de controle. Dependendo do valor das fl ags da ALU e do registrador de buff er de controle, uma das três decisões é tomada:
+obter a próxima instrução
+  : adiciona 1 ao registrador de endereço de controle.
+saltar para uma nova rotina com base em uma microinstrução de salto  : carregar o campo de ende-
+reço do registrador de buff er de controle no registrador de endereço de controle.saltar para uma rotina de instrução de máquina
+  : carregar o registrador de endereço de controle com 
+base no opcode que está em IR.
+A Figura 16.4 mostra dois módulos chamados decodifi cadores. O decodifi cador superior traduz o opcode armaze-
+nado em IR para um endereço de controle de memória. O decodifi cador inferior não é usado para microinstruções horizontais, mas é usado para microinstruções verticais (Figura 16.1b). Conforme mencionado, em uma instrução horizontal um código é usado para cada ação a ser executada (por exemplo, MAR ← (PC)) e o decodifi cador traduz este 
+código em sinais de controle individuais. A vantagem de microinstruções verticais é que elas são mais compactas (me-nos bits) do que as microinstruções horizontais, a custo de uma pequena de lógica e tempo de atraso condicionais.
+ Controle de Wilkes
+Conforme mencionamos antes, Wilkes foi o primeiro a propor o uso de uma unidade de controle microprogra-
+mada, em 1951 (WILKES, 1951a). A seguir, esta proposta foi elaborada para um projeto mais detalhado (WILKES e 
+STRINGER, 1953c). É interessante a análise desta importante proposta.
+A confi guração proposta por Wilkes é ilustrada na Figura 16.5. O coração do sistema é uma matriz parcialmente 
+preenchida com diodos. Durante um ciclo de máquina, uma linha da matriz é ativada com um pulso. Isto gera 
+Figura 16.5 A unidade de controle microprogramada de Wilkes
+Registrador II
+Registrador I
+Decodi/f_icador
+de endereço
+Sinais de controleSinais de
+controleClockA partir doregistradorde instrução
+Sinal condicional• • •
+• • •
+• • •
+Book 1.indb 484 19.11.09 14:40:08

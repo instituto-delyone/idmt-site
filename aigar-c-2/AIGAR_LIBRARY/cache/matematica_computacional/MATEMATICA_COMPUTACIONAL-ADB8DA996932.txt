@@ -1,0 +1,1299 @@
+Equações diferenciais ordinárias 147
+Exercício 7.4 Seja dado o problema de condição inicial
+8
+<
+:y0(t) =1
+1 +y2
+y(0) = 1:
+Use o método de Taylor, com k= 2, para determinar o valor aproximado de y(1), fazendo
+h= 0;5.
+Resolução: Sejaf(y) = (1 +y2)1. Temos que o método de Taylor com k= 2é dado por
+ui+1=ui+hf(ui) +h2
+2df
+dt(ui) =ui+h1
+1 +u2
+ih2ui
+(1 +u2
+i)3:
+Assim, fazendo h= 0;5temos
+y(0) =u0=y0= 1
+y(0;5)u1= 1 + 0;51
+20;251
+8= 1;21875
+y(1)u2= 1;21875 + 0;51
+2;4853515630;251;21875
+15;35194798= 1;4:
+7.2.2 Métodos de passo único implícitos
+Osmétodos de passo único implícitos da forma (7.5) também têm muita relevância prática.
+Não havendo possibilidade de explicitar o valor de ui+1temos necessidade de o calcular
+resolvendo a equação (geralmente não linear)
+ui+1uih(ti;ti+1;ui;ui+1;h) = 0:
+Usualmente considera-se um método numérico na resolução desta equação.
+Se considerarmos o método de Newton, a primeira questão a resolver é a da determi-
+nação de uma aproximação inicial u(0)
+i+1. Normalmente toma-se para aproximação inicial o
+valor deui; outra hipótese será a de considerar a aproximação inicial obtida pela aplicação
+de um método explícito. Deteminado o valor de u(0)
+i+1temos que
+u(k+1)
+i+1=u(k)
+i+1g(u(k)
+i+1)
+g0(u(k)
+i+1); k = 0;1;:::;
+sendo
+g(u) =uuih(ti;ti+1;ui;u;h):
+Os métodos implícitos são usados visto que, em geral, são mais precisos e menos sensí-
+veis a erros que os métodos explícitos. Por outro lado, o esforço computacional exigido no
+cálculo deui+1é, para os métodos implícitos, muito maior. Assim, estes métodos só devem
+ser usados quando há necessidade de uma precisão muito elevada em problemas sensíveis
+a erros.
+Exemplos comuns de métodos implícitos são o chamado método de Euler regressivo (ou
+implícito) , dado pela expressão
+ui+1=ui+hf(ti+1;ui+1); i= 0;:::;n1; u 0=y0;
+
+Equações diferenciais ordinárias 148
+e ométodo dos trapézios oumétodo de Crank-Nicolson , em homenagem a John Crank (1916-
+2006) ePhyllis Nicolson (1917-1968), dado por
+ui+1=ui+h
+2(f(ti;ui) +f(ti+1;ui+1)); i= 0;:::;n1; u 0=y0:
+Exercício 7.5 Considere o problema de condição inicial
+y0=30y
+y(0) = 1
+e os método de Euler progressivo e regressivo. Usando cada um dos métodos determine a
+solução do problema em t= 1comh<1, comparando os resultados obtidos.
+Resolução: Sejaf(y) =30ye consideremos h= 0;5. Vamos aplicar os dois métodos
+separadamente.
+1. Método de Euler progressivo
+y(0) =u0=y0= 1
+y(0;5)u1= 1 + 0:5(30) =14
+y(1)u2=14 + 0;5(30(14)) = 196:
+2. Método de Euler regressivo
+y(0) =u0=y0= 1
+y(0;5)u1= 1 + 0;5(30u1) = 115u1:
+Resolvendo a equação temos que y(0;5)u1= 0;0625. Continuando temos
+y(1)u2= 0;0625 + 0:5(30u2) = 0;062515u2;
+e assim,y(1)u2= 3;9103.
+Atendendoaqueasoluçãoexactaédadapor y(t) =e30ttemosquey(1) = 9;361014.
+Note-se que, enquanto o método implícito se aproxima da solução o método explícito dá
+um resultado completamente disparatado. Os problemas que não podem ser resolvidos
+por métodos explícitos são chamados stiﬀe ocorrem com muita frequência em problemas
+de engenharia química.
+7.3 Estudo do erro
+Quando se determinam valores numéricos para aproximar quantidades desconhecidas, te-
+mos necessidade de conhecer estimativas para o erro que se comete nessas aproximações.
+No caso dos métodos numéricos para a resolução de equações diferenciais vamos considerar
+dois tipos de erros: o erro de truncatura local e o erro global (ou da aproximação).
+Comecemos por considerar métodos numéricos de passo único explícitos da forma
+ui+1=ui+h(ti;ui;h); i= 0;:::;n1; u 0=y0: (7.8)
+Pretendemos estudar o comportamento do seu erro global.
+
+Equações diferenciais ordinárias 149
+Deﬁnição 7.2 (Erro global e convergência) Considere-se o PCI (7.2) e um método
+numérico de passo único explícito (7.8) que determine aproximações uipara a solução
+exactay(ti),i= 0;1;:::;n. Ae(ti) =y(ti)uichama-se erro global do método no ponto
+ti. Se
+lim
+h!0max
+1inje(ti)j= 0;
+o método diz-se convergente . O método diz-se de ordem (de convergência) p>0se existir
+umC > 0tal que
+je(ti)jChp; i = 1;:::;n
+ou, noutra notação, se je(ti)j=O(hp),i= 1;:::;n.
+O estudo do erro global pode ser difícil. Para isso, considere-se,
+e(ti) =y(ti)ui= (y(ti)u
+i) + (u
+iui);
+com
+u
+i=y(ti1) +h(ti1;y(ti1);h); i= 1;:::;n; u 0=y0; (7.9)
+istoé, asoluçãonuméricacalculadanoníveltemporal ti, supondouj=y(tj),j= 0;:::;i1.
+Deﬁnição 7.3 (Erro de truncatura e consistência) Considere-se o PCI (7.2), veriﬁ-
+cando as condições do Teorema de Picard, e um método numérico de passo único (7.8) que
+determine aproximações uipara a solução exacta y(ti),i= 0;1;:::;n. Oerro de truncatura
+localdo método no ponto tié deﬁnido por
+Ti(h) =y(ti)u
+i
+h:
+Se
+lim
+h!0max
+1injTi(h)j= 0;
+o método diz-se consistente com o PCI (7.2). O método diz-se de ordem (de consistência)
+p>0se existir um C > 0tal que
+jTi(h)jChp; i = 1;:::;n
+ou, noutra notação, se jTi(h)j=O(hp),i= 1;:::;n.
+Da deﬁnição anterior conclui-se que o erro de truncatura local é deﬁnido com sendo
+hTi(h) =y(ti)u
+i=y(ti)y(ti1)h(ti1;y(ti1);h); i = 1;:::;n:
+Assim, o erro local pode ser determinado através dos seguintes passos: (i) substituir na
+expressão que deﬁne o método numérico a solução aproximada no ponto ti,ui, pela solução
+exactay(ti); (ii) considerar a hipótese ui1=y(ti1); (iii) efectuar o desenvolvimento em
+série de Taylor de y(ti)em torno de ti1.
+
+Equações diferenciais ordinárias 150
+Exercício 7.6 Mostre que:
+1. um método é consistente se tiver, pelo menos, ordem um ou, o que é equivalente, se
+(t;y; 0) =f(t;y);
+2. o erro local para o método de Taylor de função incremento (7.6) é dado por
+Ti(h) =hk
+(k+ 1)!y(k+1)(); 2]ti1;ti[;
+ou seja,Ti(h) =O(hk)e, como tal, o método tem ordem k;
+3. para o método de Euler progressivo se tem Ti(h) =O(h), ou seja, o método tem ordem
+um.
+O próximo teorema estabelece as condições para as quais se pode concluir que o erro
+global tem a mesma ordem que o erro local.
+Teorema 7.3 Sejay(t)a única solução do PCI (7.2), veriﬁcando as condições do Teorema
+de Picard, e (7.8) um método numérico que supomos ser consistente com o problema e ter
+ordemp, isto é,jTi(h)jChp,i= 1;:::;n,p1. Se existir h0>0tal que(t;y;h)é
+contínua, nas variáveis tey, e lipschitziana, na variável y, no conjunto
+D=f(t;y;h) :t0tT;y2R;0hh0g;
+então
+je(ti)jC
+Lhph
+eL(tit0)1i
+; i = 1;:::;n:
+sendoLa constante de Lipschitz de .
+Demonstração: Considerando a deﬁnição de erro global temos que
+e(ti) =e(ti1) +h[(ti1;y(ti1);h)(ti1;ui1;h)] +hTi(h); i = 1;:::;n:
+Uma vez que a função é lipschitziana, na variável y, e o método tem ordem p1é
+possível concluir que
+je(ti)j(1 +hL)je(ti1)j+Chp+1:
+Comoe(t0) = 0obtém-se
+je(ti)jChp+1i1X
+j=0(1 +hL)j=Chp+11(1 +hL)i
+1(1 +hL)C
+Lhph
+eihL1i
+:
+O teorema ﬁca assim demonstrado uma vez que ti=t0+ih.
+Note-se que a consistência, por si só, não implica convergência uma vez que existem
+mais tipos de erros que podem ocorrer para além do erro de truncatura local. De facto,
+nem as condições iniciais nem a aritmética usada estão isentas de erros. Temos portanto
+necessidade de garantir que os métodos usados sejam estáveisno sentido de que pequenas
+alterações nas condições iniciais não produzam, por aplicação do método, grandes altera-
+ções nos resultados. No caso dos métodos de passo único, o teorema anterior permite-nos
+estabelecer o seguinte resultado.
+
+Equações diferenciais ordinárias 151
+Corolário 7.4 Suponhamos que o PCI (7.2) é aproximado pelo método (7.8). Se existir
+h0>0tal que(t;y;h)é contínua, nas variáveis tey, e lipschitziana, na variável y, no
+conjunto
+D=f(t;y;h) :t0tT;y2R;0hh0g;
+então o método (7.8): (i) é estável; (ii) é convergente se e só se é consistente.
+Apesar do estudo da consistência e convergência de um método iterativo ter sido efec-
+tuado apenas para métodos explícitos, estes conceitos ainda são válidos para métodos
+implícitos. Para o método implícito (7.5) o erro de truncatura local é deﬁnido por
+hTi(h) =y(ti)u
+i=y(ti)y(ti1)h(ti1;ti;y(ti1);y(ti);h); i = 1;:::;n:
+Exercício 7.7 Considere o método dos trapézios na resolução de um problema de condição
+inicial.
+1. Determine a ordem e o erro de truncatura local do método.
+2. Aplique o método ao problema de condição inicial
+y0(t) =ty2; t2]0;1]
+y(0) = 2
+e obtenha uma aproximação em t= 1usandoh<1. (Considere a solução exacta positiva
+em[0;1].)
+Resolução: 1. Atendendo à deﬁnição de erro local temos que hTi(h) =y(ti)u
+i:Desen-
+volvendoy(ti)eu
+iem série de Taylor em torno do ponto ti1, temos que
+y(ti) =y(ti1) +hy0(ti1) +h2
+2y00(ti1) +h3
+6y000(ti1) +
+e
+u
+i=y(ti1) +h
+2
+y0(ti1) +y0(ti1) +hy00(ti1) +h2
+2y000(ti1) +
+:
+Subtraindo membro a membro vem
+hTi(h) =h3
+12y000(ti1) +:
+Assim sai que
+Ti(h) =h2
+12y000(); 2]ti1;ti[:
+ComoTi(h) =O(h2)temos que o método dos trapézios tem ordem 2.
+2. Sejaf(t;y) =ty2eh= 0:5. Assim,
+y(0) =u0=y0= 2
+y(0;5)u1=u0+h
+2(f(t0;u0) +f(t1;u1)) = 20;125u2
+1:
+Vamos agora resolver a equação 0;125u2
+1+u12 = 0. Esta equação resolve-se
+sem diﬁculdade pois
+0;125u2
+1+u12 = 0)u1=9;6598ouu1= 1;6568:
+
+Equações diferenciais ordinárias 152
+Como a solução é positiva temos que u1= 1;6568. Continuando,
+y(1)u2=u1+h
+2(f(t1;u1) +f(t2;u2)) = 1;31370;25u2
+2:
+Resolvendo a equação 0;25u2
+2+u21;3137 = 0 , temos
+0;25u2
+2+u21;3137 = 0)u2=5;0422ouu2= 1;0422:
+Como a solução é positiva temos que y(1)u2= 1;0422.
+7.4 Estabilidade absoluta
+A convergência dos métodos numéricos é veriﬁcada quando hpuder ser escolhido arbitra-
+riamente pequeno. No entanto, quando consideramos a aplicação de um método numérico
+consideramo-la com um hﬁxo. Este facto pode levar a que, especialmente se os interva-
+los de integração forem muito grandes, o método numérico dê uma solução que em nada
+corresponda à solução exacta do problema.
+Por exemplo, em fenómenos dissipativos, isto é, onde as soluções do problema tendam
+para zero quando a variável independente tende para inﬁnito, é muito frequente veriﬁcar
+que certos métodos numéricos produzem soluções oscilatórias, oscilações essas que não
+estão presentes na solução exacta.
+Considere-se, por exemplo, a aplicação do método de Euler progressivo ao problema
+teste y0=y; t2]0;+1[
+y(0) = 1; (7.10)
+comum número real negativo. A solução exacta deste problema é y(t) =et. Como
+<0, tem-se que y(t)tende para zero quando ttende para inﬁnito.
+Consideremos agora a solução numérica dada pelo método de Euler explícito. Temos,
+sucessivamente, u0= 1,
+ui+1=ui+hui= (1 +h)ui= (1 +h)i+1u0= (1 +h)i+1:
+Assim sendo, a solução numérica tende para zero com o número de iterações, isto é,
+lim
+i!+1ui= 0; (7.11)
+se e só se
+jR(h)j<1;
+comR(h) = 1 +h. Temos então que
+jR(h)j<1,1<1 +h< 1,h2
+0;2
+jj
+:
+Um método numérico diz-se absolutamente estável se, quando aplicado ao problema
+teste (7.10), a sua solução numérica veriﬁca (7.11). Podemos então dizer que o método de
+Euler explícito é condicionalmente absolutamente estável pois é absolutamente estável se
+e só seh2i
+0;2
+jjh
+.
+Num problema geral (diferente do problema teste) a propriedade da estabilidade abso-
+luta corresponde à garantia do controlo das oscilações quando tcresce.
+
+Equações diferenciais ordinárias 153
+Vamos agora considerar as importantes noções de intervalo e região de estabilidade
+absoluta. Consideremos um método numérico, explícito ou implícito, aplicado ao problema
+teste (7.10). É possível mostrar que esse método se pode escrever na forma
+ui+1=R(z)ui;comz=h:
+Ointervalo de estabilidade absoluta é deﬁnido por
+IEA=fz2R:jR(z)j<1g:
+Note-se que um método numérico é incondicionalmente absolutamente estável se e só
+se o intervalo ]1;0[estiver contido no seu intervalo de estabilidade absoluta.
+No caso de se considerar, no problema teste, 2C, com Re ()<0, podemos deﬁnir a
+região de estabilidade absoluta de um método numérico como sendo
+REA=fz2C:jR(z)j<1g:
+Os métodos numéricos que possuem regiões de estabilidade absoluta que incluam o
+plano Cdizem-se A-estáveis . Paraessesmétodosnãoénecessárioimporqualquerrestrição
+na medida do passo por forma a os tornar absolutamente estáveis. É possível demonstrar
+que não existem métodos de passo único explícitos A-estáveis.
+7.5 Sistemas de equações diferenciais
+A teoria apresentada nas secções precedentes pode ser facilmente generalizada para siste-
+mas de equações diferenciais ordinárias de primeira ordem. Todos os métodos numéricos
+apresentados podem ser adaptados ao cálculo da solução aproximada do PCI
+Y0(t) =F(t;Y); t2]t0;T]
+Y(t0) =Y(0) ; (7.12)
+onde
+Y(t) =2
+6664Y1(t)
+Y2(t)
+...
+YN(t)3
+7775; F (t;Y) =2
+6664F1(t;Y)
+F2(t;Y)
+...
+FN(t;Y)3
+7775:
+Os métodos numéricos irão, neste caso, determinar aproximações U(i)paraY(ti). O
+método de Euler progressivo, por exemplo, é dado por
+U(i+1)=U(i)+hF(ti;U(i)); i= 0;:::;n; U(0)=Y(0);
+comh=Tt0
+na medida do passo.
+Equações diferenciais de ordem superior a um. Uma situação importante onde
+surgem sistemas de equações diferenciais é quando pretendemos resolver uma equação
+diferencial de ordem superior a um. Note-se que qualquer equação diferencial de ordem N
+pode ser escrita como um sistema de Nequações diferenciais de primeira ordem. A forma
+como essa passagem se processa é bastante simples e pode ser facilmente compreendida
+com a ajuda de um exemplo.
+
+Equações diferenciais ordinárias 154
+Exemplo 7.1 Consideremos o problema de condição inicial y003y0+2y= 0,y(0) =y0(0) =
+1:Efectuando a mudança de variável z=y0obtemos o problema de condição inicial de primeira
+ordem
+8
+>><
+>>:y0(t) =z
+z0(t) = 3z2y
+y(0) = 1
+z(0) = 1)8
+>>>><
+>>>>:y
+z0
+(t) =z
+3z2y
+y
+z
+(0) =1
+1:
+Exercício 7.8 Converta num sistema de equações diferenciais de primeira ordem o problema
+y0000;1(1y2)y0+y= 0; y (0) = 1; y0(0) =y00(0) = 0:
+Resolução: Efectuando a mudança de variável z=y0ew0=y00obtemos o problema de
+condição inicial de primeira ordem
+8
+>>>>>><
+>>>>>>:y0(t) =z
+z0(t) =w
+w0(t) = 0;1(1y2)zy
+y(0) = 1
+z(0) = 0
+w(0) = 0:
+Exercício 7.9 Considere a equação diferencial y00+ 4ty0+ 2y2= 0com condições iniciais
+y(0) = 1 ey0(0) = 0. Comh= 0;1, utilize o método de Euler progressivo para obter
+aproximações para y(0;2)ey0(0;2).
+Resolução: Sejaz=y0. Assim o nosso problema é equivalente a
+8
+>><
+>>:y0(t) =z
+z0(t) =4tz2y2
+y(0) = 1
+z(0) = 0)8
+>>>><
+>>>>:y
+z0
+(t) =z
+4tz2y2
+y
+z
+(0) =1
+0:
+Seja
+F(t;Y) =z
+4tz2y2
+;comY=y
+z
+e
+Y(0)=y
+z
+(0) =1
+0
+:
+Considerando o método de Euler progressivo temos
+y
+z
+(0) =U(0)=Y(0)=1
+0
+y
+z
+(0;1)U(1)=U(0)+hF
+t0;U(0)
+=1
+0;2
+y
+z
+(0;2)U(2)=U(1)+hF
+t1;U(1)
+=0;98
+0;392
+:
+Temos assim que y(0;2)0;98ey0(0;2)0;392.
+Exercício 7.10 Adapte o Algoritmo 7.1 a sistemas de equações diferenciais.
+
+Equações diferenciais ordinárias 155
+7.6 Métodos de Runge-Kutta
+O método mais simples para aproximar a solução do PCI (7.2) é o método (7.7), descrito
+por Euler, em 1768, na sua obra Institutiones Calculi Integralis . É um método muito
+simples de entender e de programar mas, como se irá ver na próxima secção, pouco preciso.
+Por exemplo, se pretendermos uma precisão de, digamos, 6 casas decimais, o método de
+Euler necessita de aproximadamente um milhão de passos.
+SeusarmosoutrosmétodosdeTaylor, aprecisãopodeseraumentada. Agrandedesvan-
+tagem destes métodos reside no facto de termos necessidade de calcular muitas derivadas
+da funçãofpara obter métodos precisos. Esse cálculo, além de muito fastidioso, torna
+impraticável a aplicação de tais métodos na resolução de (7.2) quando a função ftem uma
+expressão analítica complicada.
+Uma alternativa a esses métodos foi dada por Carl David Tolmé Runge (1856-1927), em
+1875, e que consistia em, partindo do conhecimento de y(t0), considerar
+y(t0+h)y0+hf
+t0+h
+2;y
+t0+h
+2
+;
+mas, que valor atribuir a y
+t0+h
+2
+? A sugestão de Runge foi a de considerar o método
+de Euler com passoh
+2. A aplicação sucessiva deste processo permitiu a Runge deﬁnir o
+seguinte método iterativo:
+k1=f(ti;ui);
+k2=f
+ti+h
+2;ui+h
+2k1
+;
+ui+1=ui+hk2;(7.13)
+comuiy(ti). Como veremos este método, apesar de recorrer ao método de Euler,
+vai ser mais preciso e não necessita de calcular derivadas de f. A generalização desta
+ideia deu origem à seguinte deﬁnição, cuja autoria é partilhada com Martin Wilhelm Kutta
+(1867-1944).
+Deﬁnição 7.4 (Métodos de Runge-Kutta) Sejasum número inteiroe a21;a31;a32;:::,
+as1;:::;as;s1,c2;c3;:::;cs,b1;b2; :::;bs, coeﬁcientes reais. O método
+k1=f(ti;ui);
+k2=f(ti+c2h;ui+a21hk1);
+k3=f(ti+c3h;ui+a31hk1+a32hk2);
+...
+ks=f(ti+csh;ui+as1hk1+as2hk2++as;s1hks1);
+ui+1=ui+h(b1k1+b2k2++bsks);
+é chamado método de Runge-Kutta explícito de setapaspara o PCI (7.2).
+Usualmente considera-se
+ci=i1X
+j=1aij; i = 2;3;:::;s: (7.14)
+Uma notação muito usada na prática para os métodos de Runge-Kutta foi apresentada
+porJohn Charles Butcher (1933-), em 1964, e é dada pelo seguinte quadro, designado por
+quadro de Butcher :
+
+Equações diferenciais ordinárias 156
+0
+c2a21
+c3a31a32
+............
+csas1as2as;s1
+b1b2bs1bs.
+Antes de continuarmos, notemos que os métodos de Runge-Kutta constituem uma ex-
+celente ideia. A única solução do PCI bem posto (7.2) é uma curva integral em R2. No
+entanto, devido aos erros cometidos, a solução numérica vai ser afectada pelo comporta-
+mento das curvas integrais vizinhas. É assim importante conhecer o comportamento de
+toda a família de curvas integrais e não apenas o de uma única curva.
+Os método de Runge-Kutta usam, deliberadamente, informação de várias curvas inte-
+grais em simultâneo. A título de exemplo considere-se o método de três etapas
+k1=f(ti;ui);
+k2=f(ti+c2h;ui+c2hk1);
+k3=f(ti+c3h;ui+ (c3a32)hk1+a32hk2);
+ui+1=ui+h(b1k1+b2k2+b3k3):
+Para determinar a solução numérica do PCI (7.2) por este método, começa-se pelo ponto
+(ti;ui)e aplica-se um passo do método de Euler com passo c2h. Seguidamente, calcula-se o
+valor dek2como sendo o vector derivada no ponto obtido. Temos assim dois valores para
+a derivada: k1ek2; iremos usar uma média pesada entre estes dois valores,
+(c3a3;2)hk1+a3;2hk2;
+numa nova aplicação do método de Euler, a partir do ponto (ti;ui), com passo c3h. Cal-
+culando a derivada novamente obtém-se o valor de k3. O último passo do algoritmo é mais
+uma aplicação do método de Euler, a partir do ponto (ti;ui), com passo h.
+Exercício 7.11 Considere o problema de condição inicial
+y0(t) =ty2
+y(1) = 2:
+Determine um valor aproximado para y(1;1), usando o método de Heun, devido a Karl Heun
+(1859-1929), dado por
+k1=f(ti;ui);
+k2=f(ti+h;ui+hk1);
+ui+1=ui+h
+2(k1+k2);(7.15)
+comh= 0;05.
+Resolução: Sejaf(t;y) =ty2. Temos que
+y(1) =u0=y0= 2
+y(1;05)u1=u0+h
+2(k1+k2) = 2 + 0;025(k1+k2):
+Por outro lado
+k1=f(t0;u0) =f(1;2) = 4
+k2=f(t0+h;u 0+hk1) =f(1;05;2;2) = 5;082:
+
+Equações diferenciais ordinárias 157
+Assim,y(1;05)u1= 2;22705. Continuando a aplicação do método
+y(1;1)u2=u1+h
+2(k1+k2) = 2;22705 + 0;025(k1+k2):
+Para este segundo passo temos que voltar a calcular k1ek2. Assim,
+k1=f(t1;u1) =f(1;05;2;22705) = 5;207739
+k2=f(t1+h;u 1+hk1) =f(1;1;2;487437) = 6 ;806077:
+Logo,y(1;1)u2= 2;5273954.
+Um método de Runge-Kutta (de quarta ordem) muito famoso é dado por
+k1=f(ti;ui); k 2=f(ti+h
+2;ui+h
+2k1);
+k3=f(ti+h
+2;ui+h
+2k2); k 4=f(ti+h;ui+hk3);
+ui+1=ui+h
+6(k1+ 2k2+ 2k3+k4):
+O seguinte algoritmo permite determinar a solução do PCI (7.2) em t=T, usando este
+método de Runge-Kutta.
+Algoritmo 7.2 Método de Runge-Kutta
+Dados:n,t0,Tey0
+h:=Tt0
+n
+t:=t0
+u:=y0
+Paraide1aténfazer
+k1:=f(t;u)
+k2:=f(t+ 0;5h;u+ 0;5hk1)
+k3:=f(t+ 0;5h;u+ 0;5hk2)
+k4:=f(t+h;u+hk3)
+u:=u+h(k1+ 2k2+ 2k3+k4)=6
+t:=t+h
+Resultado: y(T)u
+Exercício 7.12 Construa um algoritmo que permita determinar a solução do PCI (7.2) em
+t=T, usando um método de Runge-Kutta explícito de setapas qualquer.
+O método de Heun é dado por (7.15). Vamos determinar qual o seu erro local e,
+consequentemente, qual a sua ordem. Atendendo à deﬁnição de erro local temos que
+hTi=y(ti)u
+i, comu
+ia solução numérica obtida pelo método supondo ui1=y(ti1).
+Desenvolvendo y(ti)em série de Taylor em torno do ponto ti1temos,
+y(ti) =y(ti1) +hf(ti1;y(ti1)) +h2
+2df
+dt(ti1;y(ti1)) +h3
+6d2f
+dt2(ti1;y(ti1)) +:
+
+Equações diferenciais ordinárias 158
+Por outo lado, considerando o desenvolvimento de u
+i, recorrendo à série de Taylor para
+duas variáveis, temos
+u
+i=y(ti1) +h
+2(f(ti1;y(ti1)) +f(ti1;y(ti1)) +h(ft+fyf)(ti1;y(ti1)) +
+h2
+2(ftt+ 2ffty+f2fyy)(ti1;y(ti1)) +):
+Subtraindo membro a membro, temos
+hTi=h3
+12(ftt+ 2ffty+f2fyy2ftfy2ff2
+y)(ti1;y(ti1)) +:
+Assim sai que
+Ti=h2
+12(ftt+ 2ffty+f2fyy2ftfy2ff2
+y)(;y()); 2]ti1;ti[:
+ComoTi=O(h2)concluímos que o método de Heun tem ordem 2.
+Exercício 7.13 Mostre que o método de Heun (7.15), aplicado à resolução do PCI (7.2), é
+convergente.
+Resolução: Atendendo à deﬁnição do método de Heun temos que este pode ser dado pela
+expressãoui+1=yi+h(ti;ui;h);com
+(t;y;h) =1
+2(f(t;y) +f(t+h;y+hf(t;y))):
+Para provar que o método é convergente vamos provar que é consistente e estável.
+1. Consistência. Provámos que o método de Heun tem ordem dois e, assim sendo,
+é consistente. Poderiamos ainda provar a consistência provando que (t;y; 0) =
+f(t;y). De facto,
+(t;y; 0) =1
+2(f(t;y) +f(t;y)) =f(t;y):
+2. Estabilidade. Para provar que o método é estável vamos provar que (t;y;h)é
+lipschitziana, na variável y, emD=f(t;y;h) :atb;y2R;0hh0g.
+SejaLa constante de Lipschitz de f(t;y)na variávely. Então
+j(t;y1;h)(t;y2;h)j=1
+2(f(t;y1) +f(t+h;y1+hf(t;y1)))
+1
+2(f(t;y2) +f(t+h;y2+hf(t;y2)))
+1
+2(Ljy1y2j+Ljy1+hf(t;y1)y2hf(t;y2)j)
+Ljy1y2j+1
+2hL2jy1y2j
+
+L+1
+2hL2
+jy1y2j:
+Assim(t;y;h)satisfaz a condição de Lipschitz, na variável y, emDsendo a sua
+constante de Lipschitz dada por K=
+L+1
+2h0L2
+:Finalmente, tanto comof
+são contínuas em D. Está assim provada a estabilidade do método.
+
+Equações diferenciais ordinárias 159
+Exercício 7.14 Considere a equação diferencial y00+ 4ty0+ 2y2= 0com condições iniciais
+y(0) = 1ey0(0) = 0. Comh= 0;1, utilize o método de Heun para obter aproximações para
+y(0;2)ey0(0;2).
+Resolução: Sejaz=y0. Assim o nosso problema é equivalente a
+8
+>><
+>>:y0(t) =z
+z0(t) =4tz2y2
+y(0) = 1
+z(0) = 0)8
+>>>><
+>>>>:y
+z0
+(t) =z
+4tz2y2
+y
+z
+(0) =1
+0:
+Seja
+F(t;Y) =z
+4tz2y2
+;comY=y
+z
+eY(0)=y
+z
+(0) =1
+0
+:
+Considerando o método de Heun temos
+y
+z(0)
+=U(0)=Y(0)=1
+0
+y
+z
+(0;1)U(1)=U(0)+h
+2(K1+K2);
+onde
+K1=F
+t0;U(0)
+=0
+2
+K2=F
+t0+h;U(0)+hK1
+=0;2
+1;92
+:
+Logoy
+z
+(0;1)U(1)=0;99
+0;196
+:
+Continuando a aplicação do método temos
+y
+z
+(0;2)U(2)=U(1)+h
+2(K1+K2);
+onde
+K1=F
+t1;U(1)
+=0;196
+1;8818
+;
+K2=F
+t1+h;U(1)+hK1
+=0;38418
+1;6335
+:
+Logoy
+z
+(0;2)U(2)=0;988059
+0;371765
+:
+Temos assim que y(0;2)0;988059ey0(0;2)0;371765.
+
+Equações diferenciais ordinárias 160
+7.7 Problemas com condições de fronteira
+Neste capítulo, até ao momento, estudámos as equações diferenciais ordinárias no contexto
+dos sistema dinâmicos em que a variável independente natural é o tempo (nem sempre
+assim é). Vamos agora considerar o estudo orientado para regimes estacionários em que o
+objectivo consiste em determinar a distribuição espacial de uma grandeza.
+Exemplo 7.2 Um problema comum em engenharia civil tem a ver com a deﬂexão de uma
+barra de secção rectangular sujeita a uma carga uniforme quando os extremos estão ﬁxos. A
+equação diferencial que serve de modelo a esta situação física é da forma
+w00=S
+EIw+qx
+2EI(xL);
+ondew=w(x)é a deﬂexão no ponto que dista xdo extremo esquerdo da barra, e L,q,E,S
+eIrepresentam, respectivamente, o comprimento da barra, a intensidede da carga uniforme, o
+módulo da elasticidade, a tensão nos extremos e o momento central de inércia. Uma vez que
+os extremos da barra estão ﬁxos, temos associadas a esta equação diferencial as equações de
+fronteira
+w(0) =w(L) = 0:
+Quando a barra é feita de material uniforme EIé uma constante e como tal a solução da
+equação é imediata. Caso contrário I=I(x)e temos que usar métodos numéricos para
+determinar uma aproximação para a solução.
+Os problemas físicos que dependem de uma posição no espaço em vez de um instante
+no tempo são muitas vezes descritos em termos de equações diferenciais com condições
+impostas em mais do que um ponto: problemas com condições de fronteira (PCF) . Os PCF
+que iremos considerar nesta secção envolvem uma equação diferencial ordinária de segunda
+ordem
+y00=f(x;y;y0); x2]a;b[; (7.16)
+e ascondições de fronteira1y(a) +1y0(a) =
+1
+2y(b) +2y0(b) =
+2; (7.17)
+comi;i;
+i2R,i= 1;2. Estas condições de fronteira podem ser de três tipos:
+1.Dirichelet , em homenagem a Johann Peter Gustav Lejeune Dirichlet (1805-1859), se
+1=2= 0;
+2.Neumann , em homenagem a John von Neumann (1903-1957), se 1=2= 0;
+3.Robin, emhomenagema VictorGustaveRobin (1855-1897), ou mistas, sej1j+j2j6= 0
+ej1j+j2j6= 0.
+Quando
+1=
+2= 0dizemos que as condições de fronteira sãohomogéneas . No caso em
+que a equação (7.16) é da forma
+y00=p(x)y0+q(x)y+r(x); x2]a;b[; (7.18)
+dizemos que (7.16)–(7.17) é um problema com condições de fronteira linear .
+Tal como no caso dos problemas de condição inicial também aqui se torna importante
+saber em que condições (7.16)–(7.17) tem solução única. Esse estudo foge ao âmbito deste
+
+Equações diferenciais ordinárias 161
+curso e como tal não irá ser apresentado. No entanto, para problemas com condição de
+fronteira lineares a teoria é mais simples e, a título ilustrativo, iremos considerar apenas o
+seguinte teorema, que apresentamos sem demonstração.
+Teorema 7.5 Sejamq;r2C([a;b])eq0. Então o PCF linear
+y00+q(x)y=r(x); x2]a;b[
+y(a) =y(b) = 0(7.19)
+tem uma única solução y2C2([a;b]).
+7.8 Método das diferenças ﬁnitas
+Um método muito usado para determinar soluções aproximadas do PCF (7.16)–(7.17)
+consiste em substituir as derivadas que nela intervêm por fórmulas de diferenças ﬁnitas.
+Suponhamos que oproblema (7.16)–(7.17) admiteuma e umasó soluçãoe consideremos
+a partição
+a=x0<x 1<<xn1<xn=b (7.20)
+do intervalo [a;b]. Ométodo das diferenças ﬁnitas permite-nos obter aproximações ui,
+i= 0;:::;n, para os valores da solução nos pontos da partição, isto é, uiy(xi),i=
+0;:::;n. Por uma questão de simpliﬁcação da abordagem vamos considerar a partição
+(7.20) uniforme, ou seja, tal que xixi1=h,i= 1;:::;n.
+7.8.1 Caso linear
+Vamos considerar o PCF linear (7.18) com condições de fronteira (7.17) de Dirichlet ( 1=
+2= 1,1=2= 0). Este problema pode ser escrito, para cada ponto da partição (7.20),
+na forma
+y00(xi) =p(xi)y0(xi) +q(xi)y(xi) +r(xi); i= 1;:::;n1
+y(x0) =
+1; y(xn) =
+2;
+comxi=ih,i= 0;:::;n. Substituindo as derivadas pelas fórmulas de diferenças centradas
+de segunda ordem
+y0(xi) =y(xi+1)y(xi1)
+2hh2
+6y000(i); i2]xi1;xi+1[;
+e
+y00(xi) =y(xi+1)2y(xi) +y(xi1)
+h2h2
+12y(4)(i); i2]xi1;xi+1[;
+obtemos
+8
+>>>>>>><
+>>>>>>>:y(xi+1)2y(xi) +y(xi1)
+h2=p(xi)y(xi+1)y(xi1)
+2h+q(xi)y(xi) +r(xi)
+h2
+12h
+2p(xi)y000(i)y(4)(i)i
+; i= 1;:::;n1
+y(x0) =
+1; y(xn) =
+2:
+
+Equações diferenciais ordinárias 162
+Se tomarmos uiy(xi),i= 1;:::;n1, um método de diferenças ﬁnitas com erro O(h2)
+pode ser deﬁnido pelo sistema linear
+8
+><
+>:ui+12ui+ui1
+h2p(xi)ui+1ui1
+2hq(xi)ui=r(xi); i= 1;:::;n1
+u0=
+1; un=
+2;
+ou, de forma equivalente,
+8
+>>>><
+>>>>:
+1 +h
+2p(xi)
+ui1
+2 +h2q(xi)
+ui+
+1h
+2p(xi)
+ui+1=h2r(xi);
+i= 1;:::;n1
+u0=
+1; un=
+2:
+Notemos que o sistema linear obtido é da forma
+Au=b; (7.21)
+em queu= [u1;u2;:::;un2;un1]T,
+A=2
+6666642h2q(x1) 1h
+2p(x1)
+1 +h
+2p(x2)2h2q(x2) 1h
+2p(x2)
+.........
+1 +h
+2p(xn2)2h2q(xn2) 1h
+2p(xn2)
+1 +h
+2p(xn1)2h2q(xn1)3
+777775
+e
+b=2
+666664h2r(x1)
+1 +h
+2p(x1)
+
+1
+h2r(x2)
+...
+h2r(xn2)
+h2r(xn1)
+1h
+2p(xn1)
+
+23
+777775:
+A questão que naturalmente se coloca é a de saber se o sistema (7.21) tem solução
+única. Para responder a essa questão considerere-se o seguinte exercício cuja resolução
+está fora do âmbito deste curso.
+Exercício 7.15 Suponhamos que A= (aij)n
+i;j=1é uma matriz de ordem n, tridiagonal, com
+ai;i1;ai;i+16= 0, para cada i= 2;:::;n1. Se
+ja11j>ja12j;jannj>jan;n1j
+e
+jaiijjai;i1j+jai;i+1j; i = 2;:::;n1;
+entãoAé não singular.
+O resultado estabelecido neste exercício permite concluir, de forma imediata, o seguinte
+teorema.
+
+Equações diferenciais ordinárias 163
+Teorema 7.6 Considere-se o PCF linear (7.18) com condições de fronteira (7.17) de Di-
+richlet (1=2= 1,1=2= 0) e comp;q;rfunções contínuas em [a;b]. Seq(x)0,
+para todo o x2[a;b], então o sistema tridiagonal (7.21) tem solução única desde que
+h<2=L, onde
+L= max
+x2[a;b]jp(x)j:
+Exercício 7.16 Obtenha a solução aproximada do problema
+y00+y=x; x2]0;1[
+y(0) =y(1) = 0;
+usando o método das diferenças ﬁnitas com uma malha uniforme de espaçamento h=1
+n.
+Concretize para o caso n= 4.
+Resolução: O PCF dado pode ser escrito, para cada ponto da partição (7.20) na forma
+y00(xi) +y(xi) =xi; i= 1;:::;n1
+y(x0) =y(xn) = 0;
+comxi=ih,i= 0;:::;n. Se aproximarmos y00pela fórmula de diferenças centradas de
+segunda ordem (três pontos) temos
+y00(xi)1
+h2(ui12ui+ui+1);
+comuiy(xi),i= 1;:::;n1. Substituindo na equação temos, em cada ponto da
+partição, o problema (linear) aproximado
+(ui12ui+ui+1) +h2ui=ih3; i= 1;:::;n1
+u0=un= 0;
+Notemos que o sistema linear obtido é da forma Au=b;em queb= (ih3)n1
+i=1e
+A= (aij)n1
+i;j=1com
+aij=8
+<
+:h2+ 2; i=j
+1; j =i1;j=i+ 1
+0;jjij>1:
+A matriz do sistema é tridiagonal, simétrica e estritamente diagonal dominante por linhas;
+logo é invertível. Fica deste modo garantida a existência e unicidade de solução.
+Considerando n= 4, ou sejah=1
+4, obtemos
+2
+42;031251 0
+1 2;031251
+01 2;031253
+52
+4u1
+u2
+u33
+5=2
+41=128
+1=64
+3=1283
+5)2
+40;03484
+0;05633
+0;050043
+5:
+Pode dar-se o caso (muito frequente) das condições de fronteira não serem de Dirichlet
+mas de Neumann ou mistas. Suponhamos que temos o PCF
+y00=p(x)y0+q(x)y+r(x); x2]a;b[
+y0(a) =
+1; y0(b) =
+2: (7.22)
+
+Equações diferenciais ordinárias 164
+Considerando, tal como para o caso anterior, a substituição das derivadas que aparecem
+na equação diferencial pelas fórmulas de diferenças centradas de segunda ordem obtemos
+
+1 +h
+2p(xi)
+ui1+
+2 +h2q(xi)
+ui
+1h
+2p(xi)
+ui+1=h2r(xi); i= 1;:::;n1;
+comuiy(xi),i= 1;:::;n1. Quanto às equações de fronteira, o mais comum é
+considerarem-se diferenças progressivas na discretização de y0(a)e regressivas na discreti-
+zação dey0(b). Se usarmos diferenças progressivas e regressivas com dois pontos (ordem
+um) obtemos
+u0=u1h
+1; un=un1+h
+2;
+ondeu0y(x0)euny(xn). Deste modo, o sistema linear a resolver difere, em relação
+ao caso em que considerámos condições de Dirichlet, apenas nas primeira e última linhas.
+Neste caso, a primeira e a última linha do sistema linear a resolver são, respectivamente,
+
+1 +h
+2p(x1)h2q(x1)
+u1+
+1h
+2p(x1)
+u2=h2r(x1) +h
+1 +h
+2p(x1)
+
+1
+e
+
+1 +h
+2p(xn1)
+un2+
+1h
+2p(xn1)h2q(xn1)
+un1
+=h2r(xn1)h
+1p(xn1)h
+2
+
+2:
+7.8.2 Caso não linear
+Finalmente, façamos uma pequena abordagem ao caso não linear. Consideremos o proble-
+ma não linear geral (7.16) com condições de fronteira (7.17) de Dirichlet ( 1=2= 1,
+1=2= 0). Tal como no caso linear, vamos substituir as derivadas que aparecem na
+equção diferencial pelas fórmulas de diferenças centradas de segunda ordem. Obtemos
+assim
+8
+>>>>>>>><
+>>>>>>>>:y(xi+1)2y(xi) +y(xi1)
+h2=f
+xi;y(xi);y(xi+1)y(xi1)
+2hh2
+6y000(i)
++h2
+12y(4)(i); i= 1;:::;n1
+y(x0) =
+1; y(xn) =
+2;
+comi;i2]xi1;xi+1[. O método de diferenças ﬁnitas que resulta quando se desprezam
+os termosO(h2)das fórmulas de diferenças centradas e se usam as condições de fronteira
+é8
+>><
+>>:ui+12yi+ui1
+h2=f
+xi;ui;ui+1ui1
+2h
+; i= 1;:::;n1
+u0=
+1; un=
+2;
+comuiy(xi),i= 1;:::;n1. Temos então necessidade de resolver um sistema não
+linear da forma
+F(x;u) = 0;
+
+Equações diferenciais ordinárias 165
+ondex= [x1;x2;:::;xn2;xn1]T,u= [u1;u2;:::;un2;un1]Te
+8
+>>>>>>>>>>>><
+>>>>>>>>>>>>:f1(x;u) =2u1+u2h2f
+x1;u1;u2
+1
+2h
++
+1
+fi(x;u) =ui12ui+ui+1h2f
+xi;ui;ui+1ui1
+2h
+; i= 2;:::;n2
+fn1(x;u) =un22un1h2f
+xn1;un1;
+2un2
+2h
++
+2:
+Prova-se que este sistema não linear tem solução única se h<2Londe
+L= max
+x2[a;b]jfy0(x;y;y0)j:
+A sua solução pode ser obtida, de forma aproximada, pelo método de Newton.
+7.9 Problemas
+7.9.1 Exercícios para resolver nas aulas
+Exercício 7.17 Mostre que o problema de condição inicial
+y0=ty
+y(0) = 1;
+parat2[0;T], tem solução única.
+Exercício 7.18 Considere o problema de condição inicialy0=y
+y(0) = 1. Determine,
+usando o método de Euler progressivo, o valor aproximado de y(1), fazendoh= 1,h= 0;5e
+h= 0;25. Compare os resultados obtidos sabendo que a solução exacta é y(t) =et.
+Exercício 7.19 (Matlab) Num circuito de voltagem aplicada E, resistência R, inductância
+Le capacitância Cem paralelo, a corrente Isatisfaz a equação diferencial
+I0=CE00+E0
+R+E
+L:
+Suponha que C= 0;3farad,R= 1;4ohm,L= 1;7henrye a voltagem é dada pela equação
+E(t) =e0;06tsin (2t). SeI(0) = 0, determine o valor da corrente Iparat= 0;2j, para
+j= 1;:::; 5, usando o método de Euler progressivo.
+Exercício 7.20 Considere o problema de condição inicialy0=50y
+y(0) = 1e os métodos
+de Euler progressivo e Euler regressivo. Usando cada um dos métodos determine a solução do
+problema em t= 1comh<1, comparando os resultados obtidos.
+Exercício 7.21 Prove que os métodos de Euler progressivo e regressivo são consistentes e
+determine a sua ordem e erro de truncatura local.
+Exercício 7.22 Determine os intervalos de estabilidade absoluta para os métodos de Euler
+(explícito e implícito) e para o método dos trapézios.
+
+Equações diferenciais ordinárias 166
+Exercício 7.23 Determine as regiões de estabilidade absoluta do métodos de Euler, Euler
+regressivo e trapézios. Conclua que os métodos dos trapézios e Euler regressivo são A-estáveis.
+Exercício 7.24 (Matlab) Aplique os métodos de Euler regressivo e progressivo à resolução
+do problema de Cauchy
+y0= sint+y; t2]0;1]; y(0) = 0:
+Compare os resultados obtidos com a solução exacta y(t) =1
+2(sin(t) + cos(t)) +1
+2et:
+Exercício 7.25 (Matlab) Considere o problema de Cauchy
+y0=tey; t2]0;1]; y(0) = 0:
+1. Aplique os métodos de Euler progressivo e regressivo com h= 1=2;1=22;:::;1=210:
+2. Compare os resultados obtidos na alínea anterior com a solução exacta
+y(t) = ln(1t2
+2):
+Exercício 7.26 (Matlab) Considere o problema de Cauchy
+y0=10y;0<t2; y(0) = 1;
+cuja solução é y(t) =e10t. O que é que se passa quando se aplica um método de Euler com
+h= 0;1?
+Exercício 7.27 (Matlab) Compare assoluçõesnuméricasdos seguintesproblemascomcon-
+dição inicial:
+1.y0= 1y;0<t2; y(0) = 0;ey0= 1y+ 0;1;0<t2; y(0) = 0;1
+2.y0=y;2<t4; y(2) = 0;ey0=y+ 0;01;2<t4; y(2) = 0;1:
+Exercício 7.28 (Matlab) Consideremos um corpo pontual de massa me temperatura in-
+ternaTinserido num meio ambiente de temperatura constante Ta= 295K. A transferência
+de calor entre o corpo e o exterior pode ser descrita pela lei de Stefan-Boltzmann
+v(t) =
+S(T4(t)T4
+a);
+comtvariável temporal, a constante de Stefan-Boltzmann ( 5;67108Jm2K4s1),
+constante de emissividade do corpo, Sa área da sua superfície e va velocidade de transferência
+de calor. A taxa de variação de energia E(t) =mCT (t)(ondeCdesigna o calor especíﬁco
+do material que constitui o corpo) é igual, em valor absoluto, à velocidade v. Por conseguinte,
+fazendoT(0) =T0, o cálculo de T(t)exige a resolução da equação diferencial ordinária
+dT
+dt=v(t)
+mC:
+Suponha que o corpo em questão é um cubo de lado 1 m e massa 1 Kg, T0= 275K,
+
+= 0;5eC= 100. Recorra a um método de Euler para comparar os resultados obtidos com
+h= 20;10;5;1, parata variar entre 0 e 200 segundos.
+
+Equações diferenciais ordinárias 167
+Exercício 7.29 (Matlab) Considere o seguinte problema de Cauchy
+y0=y; t> 0; y(0) = 1;
+ondeé um número real negativo. A solução exacta é y(t) =etque tende para zero quando
+t tende para inﬁnito. Faça =1.
+1. Represente graﬁcamente, no intervalo [0,30], as soluções obtidas para três valores dife-
+rentes deh:h= 30=14,h= 30=16eh= 1=2, usando os métodos de Euler implícito e
+explícito.
+2. Resolva a alínea anterior com o método de Crank-Nicolson, para os valores de hreferidos
+anteriormente.
+Exercício 7.30 Considere o problema de condição inicialy0=ty2+y
+y(1) = 2. Determine
+um valor aproximado para y(1;1), usando o método de Heun.
+Exercício 7.31 Considere o problema de condição inicial
+8
+<
+:y0=y2t
+y
+y(0) = 1:
+Determine um valor aproximado para y(0;8), usando o método de Runge-Kutta de ordem
+quatro:
+00 0 0 0
+1=21=20 0 0
+1=20 1=20 0
+10 0 1 0
+1=6 1=3 1=3 1=6:
+Exercício 7.32 Mostre que, quando o segundo membro fnão depende de y, o método de
+Runge-Kutta de quarta ordem se reduz à aplicação da regra de Simpson.
+Exercício 7.33 Mostre que o método de Runge (7.13) tem ordem dois.
+Exercício 7.34 Mostre que o método de Heun é absolutamente estável se 2<h< 0, em
+queé um real negativo.
+Exercício 7.35 O método de Euler modiﬁcado é deﬁnido por:
+u
+i+1=ui+hf(ti;ui); ui+1=ui+hf(ti+1;u
+i+1):
+Determinar a condição sobre hpara que este método seja absolutamente estável.
+Exercício 7.36 AtaxadearrefecimentodeumcorpopodeserexpressapordT
+dt=k(TTa);
+ondeTeTasão as temperaturas do corpo e do meio circundante, respectivamente, (em graus
+Celsius), e ké uma constante de proporcionalidade (por minuto). Considerando que uma
+esfera de metal aquecida a 90oC é mergulhada em água mantida à temperatura constante de
+Ta= 20oC, use um método numérico para calcular quanto tempo leva a esfera a arrefecer até
+aos 30oC sek= 0;1min1.
+
+Equações diferenciais ordinárias 168
+Exercício 7.37 (Matlab) Aproxime a solução do problema
+y0(t) = arctan(3 y)3y+t; t> 0; y(0) = 1;
+usando o método:
+1. de Euler progressivo, com h= 2=3eh= 2=3 + 0;1;
+2. de Euler regressivo, para os valores do passo de discretização dados na alínea anterior;
+3. de Crank-Nicolson;
+4.ode23;
+5.ode45.
+Comente os resultados obtidos.
+Exercício 7.38 (Matlab) A funçãoy(t)indica a quantidade vendida de um determinado
+produto ao ﬁm de tmeses após ter sido introduzido no mercado. Suponha que y(t)satisfaz a
+equação diferencial
+dy
+dt=2y
+t(t+ 1):
+Ao ﬁm do primeiro mês foram vendidas 1000 unidades daquele produto. A solução do problema
+éy(t) = 4000t2=(1 +t)2.
+1. Aproxime a solução do problema durante o primeiro ano, usando diferentes métodos
+numéricos.
+2. Tendo em conta a evolução da venda do produto mensalmente durante o primeiro ano,
+aproxime o valor das vendas após 8 meses.
+Exercício 7.39 Determineasoluçãodosistemadeequaçõesdiferenciais Y0=AYnoinstante
+t= 1, com
+A=1 2
+14
+;
+usando o método de Euler progressivo com h<1, a partir da condição inicial Y(0) = (1;0).
+Exercício 7.40 (Matlab) A equação de Van der Pol
+y00
+y21
+y0+y= 0;
+com > 0, é um modelo para o ﬂuxo de corrente num tubo de vácuo com três elementos
+internos. Seja = 0;5ey(0) = 0,y0(0) = 1. Aproxime yey0no intervalo temporal [0;30]
+usando os métodos ode45eode23s. Repita o exercício considerando =1000ey(0) = 2,
+y0(0) = 0e o intervalo temporal [0;3000].
+Exercício 7.41 Determine a solução aproximada do problema
+y003xy=x; x2]0;1[
+y(0) =y(1) = 0
+usando o método das diferenças ﬁnitas numa malha uniforme de espaçamento h=1
+4.
+
+Equações diferenciais ordinárias 169
+Exercício 7.42 Usar o método das diferenças ﬁnitas para aproximar o problema de valores
+na fronteira(
+Ty00(x) +ky(x) =w(x); x2]0;1[
+y(0) =y(1) = 0;
+ondeyrepresenta o deslocamento vertical de uma corda de comprimento 1, submetida a
+uma carga transversal de intensidade wpor unidade de comprimento, Té a tensão e kum
+coeﬁciente associado à elasticidade da corda. No caso em que w(x) = 1 + sin(4 x),T= 1
+ek= 0;1, calcular a solução correspondente a h=1
+4.
+7.9.2 Exercícios de aplicação à engenharia
+Exercício 7.43 Umprojéctilélançadodasuperfícieterrestecomumavelocidade V. Supondo
+que não há arrasto a equação do movimento é
+d
+dr=gR2
+r2;
+ondeé a velocidade à distância rdo centro da Terra que tem raio R. Considerando g= 9;81
+m/seg2,R= 6;37106m eV= 15000 m/seg, calcule a velocidade quando r= 2R.
+Exercício 7.44 Uma solução líquida ﬂui de forma constante ao longo de um tubo na direcção
+x. Alguns dos solutos contidos na solução difundem-se através da parede do tubo reduzindo a
+concentração zno tubo. A concentração zé dada por
+dz
+dx=z(0;2 +pz)e0;03x:
+Se tomarmos z= 1;5emx= 2determine o valor de zemx= 2;4.
+Exercício 7.45 Uma quantidade de 10quilogramas de material é despejada num reservatório
+contendo 60quilogramas de água. A concentração da solução, c(em percentagem), vem dada
+em função do tempo, t(em segundos), por
+(601;2112c)c0=k
+3(20014c)(1004c);
+ondek, o coeﬁciente de transferência de massa, é igual a 0;0589. A condição inicial em t= 0
+éc= 0. Determine a relação entre cet.
+Exercício 7.46 A equação química irreverssível na qual duas moléculas de dicromato de po-
+tássio(K2Cr2O7)sólido,duasmoléculasdeágua( H2O)etrêsátomosdeenxofre( S)sólidodão
+origem a três moléculas de dióxido de enxofre ( SO2) gasoso, quatro moléculas de hidróxido de
+potássio(KOH)sólidoeduasmoléculasóxidodecrómio( Cr2O3)sólidopodeserrepresentada,
+simbolicamente, pelo esquema
+2K2Cr2O7+ 2H2O+ 3S!4KOH + 2Cr2O3+ 3SO2:
+Se existirem inicialmente n1moléculas de 2K2Cr2O7,n2moléculas de H2Oen3moléculas
+deSa equação seguinte descreve a quantidade x(t)deKOHao ﬁm de um tempo t(em
+segundos)
+x0=k
+n1x
+22
+n2x
+22
+n33x
+43
+;
+ondeké a velocidade da reação (constante). Se k= 6;221019,n1=n2= 1000 e
+n3= 1500, quantas unidades de hidróxido de potássio serão formadas ao ﬁm de 2segundos?
+
+Equações diferenciais ordinárias 170
+Exercício 7.47 Na teoria da proliferação de uma doença contagiosa, podem ser usadas equa-
+ções diferenciais relativamente elementares para prever o número de indivíduos infectados na
+população em cada instante, desde que sejam efectuadas simpliﬁcações apropriadas. Esta
+teoria foi estudada por N.T.J. Bayley em 1957 e 1967 em dois livros, um sobre matemática
+aplicada à medecina (’The Mathematical Approach to Biology and Medicine’, John Wiley &
+Sons, NY, 1967) e outro sobre a teoria matemática das epidemias (’The Mathematical Theory
+of Epidemics’, Hafner, NY, 1957).
+Em particular, consideremos que todos os indivíduos numa população ﬁxa têm uma pro-
+babilidade igual de ser infectados e que uma vez portadores da doença permanecerão sempre
+nessa condição. Se x(t)denotar o número de indivíduos susceptíveis de contrair a doença no
+instantetey(t)o número de indivíduos infectados, é razoável assumir que a razão à qual
+o número de infectados varia é proporcional ao produto de x(t)pory(t)visto que a razão
+depende tando do número de infectados como do número de susceptíveis presentes, para cada
+t. Se a população for suﬁcientemente grande para considerarmos que x(t)ey(t)são variáveis
+contínuas, o problema pode ser expresso na forma
+y0(t) =kx(t)y(t);
+ondeké uma constante e x(t)+y(t) =mé a população total. Esta equação pode ser reescrita
+por forma a depender apenas de y(t). Assim
+y0(t) =ky(t)(my(t)): (7.23)
+1. Assumindo que m= 100000 ,y(0) = 1000 ,k= 2106e o tempo medido em dias,
+determine o número de indivíduos infectados ao ﬁm de 30dias.
+2. A equação (7.23) é conhecida por equação de Bernoulli e pode ser transformada numa
+equação diferencial linear em z(t)se efectuarmos a mudança de variável z(t) = (y(t))1.
+Usando esta técnica, determine a solução exacta y(t)da equação diferencial (7.23), com
+as hipóteses consideradas no ponto anterior, e compare-a com a solução numérica obtida.
+3. Determine lim
+t!1y(t). Este resultado está de acordo com a sua intuição?
+Exercício 7.48 Consideremos um pêndulo simples constituído por uma bola uniforme de
+massame uma barra ﬁna de comprimento le massa negligenciável. Se considerarmos que a
+resistência do ar é porpocional ao quadrado da velocidade angular do pêndulo, a equação do
+movimeto é dada por
+00+ 2k
+02=g
+lsin;
+sendoo ângulo agudo que a barra do pêndulo faz com a vertical. Considerando que em t= 0
+se tem=
+3determine o valor de e de0nos instantes (em minutos) ti=ih, comh= 0;05
+ei= 0;1;:::; 50.
+
+Equações diferenciais ordinárias 171
+Exercício 7.49 No exercício anterior, todos os indivíduos infectados permanecem na popula-
+ção ajudando a difundir a doença. Uma situação mais realista consiste em introduzir uma nova
+variávelz(t)para representar tanto o número de indivíduos que são retirados da população
+infectada num determinado instante t, por isolamento, como os que são tratados (e consequen-
+temente tornados imunes) ou os que morrem. O problema posto nestes termos é, naturalmente,
+mais complicado mas Bayley mostrou que a solução aproximada do problema pode ser dada na
+forma
+x(t) =x(0)e(k1=k2)z(t)ey(t) =mx(t)z(t);
+ondek1ek2são, respectivamente, as taxas de crescimento de y(t)e dez(t), sendoz(t)
+determinada pela equação diferencial
+z0(t) =k2
+mz(t)x(0)e(k1=k2)
+:
+Como não é possível determinar a solução exacta deste problema, temos que recorrer à solução
+numérica. Assim, determine uma aproximação para z(30),y(30)ex(30)assumindo que m=
+100000,x(0) = 99000 ,k1= 2106ek2= 104.
+Exercício 7.50 O estudo de modelos matemáticos para estimar a evolução de uma população
+de espécies que competem entre si teve a sua origem no início do século com os trabalhos
+de A.J. Lotka e V. Volterra. Consideremos o problema de estimar a população constituida
+por duas espécies, uma das quais é predadora, cuja população no instante téx2(t), e que
+se alimenta comendo a outra espécie, a que chamamos presa e cuja população é x1(t). Este
+problemaéusualmentedesignadoporpredador-presa. Vamosassumirqueapresapossuisempre
+uma quantidade de comida adequada e que a sua taxa de natalidade em todos os instantes
+é proporcional ao número de presas vivas nesse instante; isto é, a taxa de natalidade (presa)
+é dada por k1x1(t). A taxa de mortalidade das presas depende tanto do número de presas
+como de predadores vivos nesse instante. Por uma questão de simplicidade vamos assumir
+que a taxa de mortalidade (presa) é k2x1(t)x2(t). A taxa de natalidade dos predadores, por
+outro lado, depende da quantidade de comida existente, x1(t), assim como do número de
+predadores existentes para ﬁns de reprodução. Por essas razões vamos assumir que a taxa
+de natalidade (predador) é k3x1(t)x2(t). A taxa de mortalidade dos predadores será tomada
+proporcionalmente ao número de predadores vivos nesse instante; isto é, a taxa de mortalidade
+(predador) é dada por k4x2(t).
+A variação da população de presas e predadores pode ser dada pelas seguintes equações
+diferenciais x0
+1(t) =k1x1(t)k2x1(t)x2(t)
+x0
+2(t) =k3x1(t)x2(t)k4x2(t):
+Assumindo que a população inicial de presas é 1000e a de predadores 200, e que as constantes
+k1= 3,k2= 0;002,k3= 0;0006ek4= 0;5, trace o gráﬁco das soluções deste problema e
+descreva o fenómeno físico representado. Será que o problema possui alguma solução estável?
+Se sim, para que valores de x1ex2é que tal acontece?

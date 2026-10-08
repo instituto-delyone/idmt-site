@@ -1,0 +1,1420 @@
+Sistemas de equações lineares 22
+Atendendo a que
+x(k+1)=Bx(k)+g,Px(k+1)= (PA)x(k)+b,P(x(k+1)x(k)) =bAx(k);
+o método (2.2) pode igualmente ser deﬁnido por
+P(k)=r(k);
+(k)=x(k+1)x(k);
+com
+r(k)=Ax(k)b:
+O processo iterativo termina quando se cumprirem os critérios de paragem estabeleci-
+dos. Os critérios mais comuns são:
+1. Critério do erro absoluto: kx(k)x(k1)k";
+2. Critério do erro relativo: kx(k)x(k1)k"kx(k)k;
+3. Critério do número máximo de iterações: k=kmax:
+Os métodos iterativos são sobretudo usados para matrizes esparsas de grandes dimen-
+sões, que surgem frequentemente em problemas de análise de circuitos ou cálculos de es-
+truturas. Para esses problemas, os métodos iterativos são competitivos face aos métodos
+directos. Para matrizes densas ou de pequena dimensão os métodos directos são mais
+vantajosos.
+Exemplo 2.1 Consideremos o seguinte sistema
+Ax=b,8
+<
+:10x12x2+ 5x3= 13
+x1+ 3x2x3= 1
+x1+ 4x2+ 2x3= 7
+que tem solução única [x1;x2;x3]T= [1;1;1]T. Para converter o sistema na forma equivalente
+x=Bx+gfaçamos
+x=Bx+g,8
+><
+>:x1=1
+10[2x25x3+ 13]
+x2=1
+3[x1+x3+ 1]
+x3=1
+2[x14x2+ 7]:
+Neste caso temos que a matriz Bde iteração e o vector gsão dados por
+B=2
+40 2=105=10
+1=3 0 1 =3
+1=24=2 03
+5eg=2
+413=10
+1=3
+7=23
+5:
+O método iterativo é dado na forma
+x(k+1)=Bx(k)+g,8
+>>>><
+>>>>:x(k+1)
+1 =1
+10h
+2x(k)
+25x(k)
+3+ 13i
+x(k+1)
+2 =1
+3h
+x(k)
+1+x(k)
+3+ 1i
+x(k+1)
+3 =1
+2h
+x(k)
+14x(k)
+2+ 7i; k = 0;1;:::;
+sendox(0)= [x(0)
+1;x(0)
+2;x(0)
+3]Tum valor dado.
+
+Sistemas de equações lineares 23
+O método descrito no exemplo anterior é conhecido por método de Jacobi e é um dos
+métodos que iremos estudar. Este método, quando aplicado ao sistema Ax=b, com
+aii6= 0,i= 1;:::;n, pode ser dado por
+x(k+1)
+i =1
+aii2
+4nX
+j=1;j6=iaijx(k)
+j+bi3
+5; i = 1;:::;n: (2.3)
+Exercício 2.6 Escreva um algoritmo para determinar a solução aproximada de Ax=bpelo
+método de Jacobi.
+Um melhoramento ao método de Jacobi pode ser dado de acordo com o próximo exem-
+plo.
+Exemplo 2.2 Consideremos, de novo, o sistema linear dado no exemplo anterior e o processo
+iterativo 8
+>>>><
+>>>>:x(k+1)
+1 =1
+10h
+2x(k)
+25x(k)
+3+ 13i
+x(k+1)
+2 =1
+3h
+x(k+1)
+1 +x(k)
+3+ 1i
+x(k+1)
+3 =1
+2h
+x(k+1)
+14x(k+1)
+2 + 7i; k = 0;1;:::;
+sendox(0)= [x(0)
+1;x(0)
+2;x(0)
+3]Tum valor dado. Como se pode ver, este método usa as com-
+ponentes da nova aproximação logo após estas terem sido calculadas. Neste caso a matriz de
+iteração do método já não é tão simples de escrever.
+O método descrito no exemplo anterior é chamado método de Gauss-Seidel . Quando
+aplicado à resolução numérica de Ax=b, comaii6= 0,i= 1;:::;n, o método é dado por
+x(k+1)
+i =1
+aii2
+4i1X
+j=1aijx(k+1)
+jnX
+j=i+1aijx(k)
+j+bi3
+5; i = 1;:::;n: (2.4)
+Exercício 2.7 Escreva um algoritmo para determinar a solução aproximada de Ax=bpelo
+método de Gauss-Seidel.
+2.5 Convergência dos métodos iterativos
+Vamos agora abordar a questão da convergência do método iterativo (2.2).
+Deﬁnição 2.2 (Convergência) Sejaxa solução (única) de Ax=befx(k)guma su-
+cessão de aproximações obtida pelo método (2.2). O método diz-se convergente se
+lim
+k!+1ke(k)k= lim
+k!+1
+
+xx(k)
+
+= 0:
+Caso contrário o método diz-se divergente . Ae(k)chama-se erro (absoluto) da iteração k.
+Notemos o seguinte resultado cuja demonstração é muito simples.
+Teorema 2.4 O método iterativo (2.2) converge, qualquer que seja a aproximação inicial
+x(0), se e só se
+lim
+k!+1kBkk= 0:
+
+Sistemas de equações lineares 24
+Demonstração: De facto, atendendo a que x=Bx+g, tem-se que
+e(k)=xx(k)=BxBx(k1)=Be(k1); k = 1;2;::::
+Assim
+e(k)=Bke(0); k = 1;2;:::; (2.5)
+e, como tal,
+lim
+k!+1ke(k)k= 0,lim
+k!+1kBkk= 0;
+o que prova o pretendido.
+Outro aspecto importante a determinar quando se lida com métodos iterativos tem a
+ver com a determinação de majorantes para o erro cometido. O teorema seguinte é, nesse
+sentido, muito importante. Além disso, estabelece uma condição suﬁciente de convergência
+mais útil que a referida no teorema anterior.
+Teorema 2.5 SekBk<1então o método iterativo (2.2) converge, qualquer que seja a
+aproximação inicial escolhida, e tem-se que
+ke(k)kkBkkke(0)k; k = 1;2;:::: (2.6)
+Demonstração: Considerando normas em (2.5) obtemos (2.6). Tomando limites e aten-
+dendo a quekBk<1concluímos que o método é convergente.
+Notemos que, se B2SPD, a expressão (2.6) pode ser substituída por
+ke(k)k(B)kke(0)k; k = 1;2;:::: (2.7)
+Por outro lado, se for conhecido um valor aproximado de kBk(ou(B)), de (2.6) (ou
+(2.7)) poder-se-á deduzir o número mínimo de iterações kminnecessárias para reduzir o
+erro inicialke(0)kde um factor ". Com efeito, kminserá o menor inteiro positivo para o
+qualkBkkmin"(ou(B)kmin").
+O resultado anterior dá-nos apenas uma condição suﬁciente de convergência. Para
+estabelecer uma condição necessária e suﬁciente de convergência temos que usar a noção
+de raio espectral de uma matriz.
+Pelo Exercício 2.25 podemos concluir que (A)kAk, o que permite estabelecer o
+seguinte teorema.
+Teorema 2.6 O método iterativo (2.2) converge, qualquer que seja a aproximação inicial
+x(0)escolhida, se e só se (B)<1.
+Demonstração: Se(B)<1pode demonstrar-se que existe uma norma matricial tal
+quekBk<1. Logo, pelo teorema anterior, o método converge.
+Falta provar que se o método convergir então o raio espectral da matriz de iteração é
+menor que um. Vamos demonstrar este facto provando que se o raio espectral de Bfor
+maior ou igual a um podemos deﬁnir um processo iterativo de forma (2.2) divergente. De
+facto, se(B)1existe um valor próprio deBtal quejj1. Sejazo vector próprio
+associado a esse valor próprio. Considerando, em (2.2), a aproximação inicial x(0)=ze
+g=ztemos
+x(1)=Bz+z=z+z= (1 +)z:
+
+Sistemas de equações lineares 25
+Repetindo o processo temos, sucessivamente,
+x(2)=Bx(1)+z= (1 ++2)z; :::; x(k)=Bx(k1)+z=0
+@kX
+j=0j1
+Az:
+Comojj1concluímos que o método iterativo assim deﬁnido é divergente.
+Vamos agora estudar a convergência dos métodos de Jacobi e Gauss-Seidel. Seja Ax=
+b, comA2Mn(R)uma matriz invertível. Considerando
+A=P(PA);comPuma matriz invertível, (2.8)
+podemos deﬁnir (como vimos) o método iterativo
+x(0)dado
+x(k+1)=Bx(k)+g; k = 0;1;:::;(2.9)
+comB=P1(PA)eg=P1b.
+A escolha dos diferentes métodos iterativos depende da forma como se deﬁne a partição
+(2.8), isto é, como se deﬁne o pré-condicionador P. Para deﬁnir os métodos de Jacobi e
+Gauss-Seidel, considera-se A=DLU;em que
+D=2
+6664aii
+a22
+...
+ann3
+7775;
+L=2
+66640
+a21 0
+.........
+an1 an;n103
+7775; U =2
+66640a12 a1n
+.........
+0an1;n
+03
+7775:
+Método de Jacobi. Para deﬁnir o método de Jacobi, temos sucessivamente
+Ax=b,(DLU)x=b,Dx= (L+U)x+b:
+CasoDseja invertível, temos que
+x=D1(L+U)x+D1b:
+O método de Jacobi é assim dado por (2.9), com B=D1(L+U)eg=D1b, ou seja, é
+o método iterativo que resulta da escolha de P=Dcomo pré-condicionador.
+Método de Gauss-Seidel. Para deﬁnir o método de Gauss-Seidel, consideramos
+Ax=b,(DLU)x=b,(DL)x=Ux+b:
+CasoDLseja invertível ou, o que é equivalente, caso Dseja invertível, temos que
+x= (DL)1Ux+ (DL)1b:
+O método de Gauss-Seidel é assim dado por (2.9), com B= (DL)1Ueg= (DL)1b,
+ou seja, é o método iterativo que resulta da escolha de P=DLcomo pré-condicionador.
+Oestudodaconvergênciadestesmétodositerativospodeserefectuadodeacordocomos
+resultados estabelecidos na secção anterior. Assim, se Dfor invertível, temos que, qualquer
+que seja a aproximação inicial escolhida:
+
+Sistemas de equações lineares 26
+Método de Jacobi
+1.(D1(L+U))<1,o método converge;
+2.kD1(L+U)k<1)o método converge;
+Método de Gauss-Seidel
+1.((DL)1U)<1,o método converge;
+2.k(DL)1Uk<1)o método converge.
+Para o caso particular dos métodos de Jacobi e Gauss-Seidel existe um resultado de
+convergência especíﬁco que pode ser útil na prática. Esse resultado é dado no próximo
+teorema, cuja demonstração irá ser feita apenas para o caso do método de Jacobi.
+Teorema 2.7 SeAé uma matriz estritamente diagonal dominante por linhas, então os
+métodos de Jacobi e Gauss-Seidel convergem para a única solução do sistema Ax=b,
+qualquer que seja a aproximação inicial escolhida.
+Demonstração: Vamos efectuar a demonstração apenas para o caso do método de Ja-
+cobi. A matriz Bde iteração do método é dada por
+B=D1(L+U) =2
+66640a12
+a11 a1n
+a11
+a21
+a220 a2n
+a22............
+an1
+annan2
+ann 03
+7775:
+ComoAé estritamente diagonal dominante por linhas temos que
+kBk1= max
+i=1;:::;n8
+<
+:1
+jaiijnX
+j=1;j6=ijaijj9
+=
+;<1:
+Assim, pelo Teorema 2.5, temos que o método de Jacobi converge para a solução de Ax=b,
+qualquer que seja a aproximação inicial escolhida.
+Note-se que o teorema anterior nos dá apenas uma condição suﬁciente de convergência.
+Assim, se a matriz do sistema a for estritamente diagonal dominante por linhas os métodos
+de Jacobi e Gauss-Seidel irão gerar sucessões de aproximações convergentes para a sua
+solução; caso contrário, nada poderemos aﬁrmar quanto à convergência dessas sucessões.
+Exercício 2.8 Mostre que se Aé uma matriz estritamente diagonal dominante por colunas,
+então o método de Jacobi converge para a única solução do sistema Ax=b, qualquer que seja
+a aproximação inicial escolhida.
+2.6 O método dos mínimos quadrados
+Desde a sua primeira aplicação a um problema de astronomia por Gauss2, o método dos
+mínimos quadrados tem vindo a ser aplicado num vasto conjunto de situações tanto no
+campo da ciência como no da engenharia.
+2A questão de saber a quem deve ser dado o crédito do método dos mínimos quadrados deu azo a uma
+famosa disputa entre Gauss, que o inventou, por volta de 1790, e Legendre, que o publicou primeiro, em
+1805 (no mesmo ano em que Gauss inventou a transformada rápida de Fourier e que também não publicou).
+
+Sistemas de equações lineares 27
+Consideremos o sistema linear Ax=bonde o número de equações excede o número
+de incógnitas, isto é, um sistema linear onde Aé uma matriz do tipo mn, comm>n.
+Generalizandoanotaçãousadaduranteocapítulodiremosque A2Mmn(R), comm>n.
+Ossistemasdestetiposão,emgeral(masnemsempre)impossíveis. Noentanto,elessurgem
+em muitas aplicações práticas e, por isso, vão merecer a nossa atenção.
+Regressão linear. Suponhamos duas grandezas físicas xeyrelacionadas pela expressão
+y=a+bx;em queaebsão parâmetros a determinar. Suponhamos que foram efectuados
+seis pares de medições (xi;yi),i= 1;2;:::; 6. Ficamos assim com o sistema (geralmente
+impossível)2
+66666641x1
+1x2
+1x3
+1x4
+1x5
+1x63
+7777775a
+b
+=2
+6666664y1
+y2
+y3
+y4
+y5
+y63
+7777775:
+Determinação de cotas em topograﬁa. Obtiveram-se as cotas xide um conjunto de
+pontosi= 1;2;3;4relativamente uns aos outros, tendo-se tomado a cota do ponto i= 4
+como referência. As relações obtidas foras as seguintes:
+8
+>>>>>><
+>>>>>>:x1x2= 1;0
+x2x3= 2;0
+x3x4= 1;5
+x1x4= 3;0
+x1x3= 2;8
+x2x4= 3;0:
+Em notação matricial, e fazendo x4= 0, temos o sistema impossível
+2
+666666411 0
+0 11
+0 0 1
+1 0 0
+1 01
+0 1 03
+77777752
+4x1
+x2
+x33
+5=2
+66666641;0
+2;0
+1;5
+3;0
+2;8
+3;03
+7777775: (2.10)
+Ajustar uma curva a um conjunto de pontos dados. São dadas as coordenadas
+(xi;yi),i= 1;2;:::;m, dempontos e pretende-se ajustar uma curva do tipo
+f(x) =c11(x) +c22(x) ++cnn(x);
+em que1;2;:::;nsão funções conhecidas, sendo os cj, comj= 1;2;:::;n, parâmetros
+a determinar. Obtemos assim o sistema
+Ax=b,2
+66641(x1)2(x1)::: n(x1)
+1(x2)2(x2)::: n(x2)
+............
+1(xm)2(xm)::: n(xm)3
+77752
+6664c1
+c2
+...
+cn3
+7775=2
+6664y1
+y2
+...
+ym3
+7775:
+Como, em geral, mn, o sistema é, normalmente, impossível.
+
+Sistemas de equações lineares 28
+Como vimos temos muitas vezes que considerar sistemas Ax=b, comA2Mmn(R),
+m>n, impossíveis. Nesses casos o resíduoAxbé diferente de zero, isto é,
+r(x) =Axb6= 0;8x2Rn:
+Como não existe x2Rnque tornar(x) = 0, vamos determinar o vector bx2Rnque
+minimiza a norma do resíduo, isto é, que minimiza kr(x)k. O vectorbxnestas condições
+é chamado a solução deAx=b(no sentido) dos mínimos quadrados , pois, normalmente,
+calcula-se o vector que minimiza kr(x)k2.
+Oseguinteteorema, cujademonstraçãoseráomitida, estabeleceaexistênciaeunicidade
+de solução do problema dos mínimos quadrados.
+Teorema 2.8 ParaA2Mmn(R)eb2Rmexiste uma única solução de Ax=bno
+sentido dos mínimos quadrados se e só se car(A) =n.
+A determinação da solução dos mínimos quadrados, caso exista, é feita de acordo com
+o seguinte teorema.
+Teorema 2.9 ParaA2Mmn(R)eb2Rmtemos quebx2Rné a solução de Ax=bno
+sentido dos mínimos quadrados se e só se for a solução de ATAbx=ATb:
+Exercício 2.9 Determine a solução dos mínimos quadrados do sistema Ax=bdado por
+(2.10).
+Resolução: Para este problema temos que
+ATA=2
+41 0 0 1 1 0
+1 1 0 0 0 1
+01 1 01 03
+52
+666666411 0
+0 11
+0 0 1
+1 0 0
+1 01
+0 1 03
+7777775=2
+4311
+1 31
+11 33
+5
+e
+ATb=2
+41 0 0 1 1 0
+1 1 0 0 0 1
+01 1 01 03
+52
+66666641;0
+2;0
+1;5
+3;0
+2;8
+3;03
+7777775=2
+46;8
+4;0
+3;33
+5:
+Assim, o vector bx=2
+4bx1
+bx2
+bx33
+5, solução dos mínimos quadrados do sistema, é dado por
+ATAbx=ATb,2
+4311
+1 31
+11 33
+52
+4bx1
+bx2
+bx33
+5=2
+46;8
+4;0
+3;33
+5:
+
+Sistemas de equações lineares 29
+Para resolver este sistema, vamos usar o método de eliminação de Gauss. Temos suces-
+sivamente
+2
+43116;8
+1 314;0
+11 33;33
+5L2= 3L2+L1!L3= 3L3+L1
+2
+43116;8
+08418;8
+04 83;13
+5!L3=L3+ (1=2)L22
+43116;8
+0 8418;8
+0 0 66;33
+5:
+Passando à fase ascendente conclui-se imediatamente que
+bx=2
+4bx1
+bx2
+bx33
+5=2
+43;575
+2;875
+1;053
+5:
+Consideremos os dados f(xi;yi);i= 0;:::;mg, que pretendemos ajustar a um modelo
+deﬁnido à custa de um número de parâmetros muito inferior ao número de dados. Uma
+situação muito usual consiste em considerar o modelo como sendo um polinómio
+pn(x) =a0+a1x++anxn;
+coma0;:::;anos parâmetros a determinar. Temos então que resolver o sistema
+8
+>>><
+>>>:a0+a1x0+a2x2
+0++anxn
+0 =y0
+a0+a1x1+a2x2
+1++anxn
+1 =y1
+...
+a0+a1xm+a2x2
+m++anxn
+m=ym:
+que pode ser escrito na forma matricial
+Ax=b,2
+666641x0xn
+0
+1x1xn
+1............
+1xmxn
+m3
+777752
+66664a0
+a1
+...
+an3
+77775=2
+66664y0
+y1
+...
+ym3
+77775:
+Comnm, este sistema é, em geral, impossível. Como tal, Axb6= 0. O problema dos
+mínimos quadrados, como vimos, consiste na determinação dos valores de bx= [ba0;:::;ban]T
+que minimizam a norma do quadrado dos resíduos, isto é, kAxbk2. De acordo com o
+Teorema 2.9, o vector bxque torna mínima esta norma é a solução de ATAbx=ATb;que,
+para este exemplo, pode ser escrito na forma
+2
+6666666666664m+ 1mX
+i=0ximX
+i=0xn
+i
+mX
+i=0ximX
+i=0x2
+imX
+i=0xn+1
+i
+............
+mX
+i=0xn
+imX
+i=0xn+1
+imX
+i=0x2n
+i3
+77777777777752
+66664ba0
+ba1
+...
+ban3
+77775=2
+6666666666664mX
+i=0yi
+mX
+i=0yixi
+...
+mX
+i=0yixn
+i3
+7777777777775:(2.11)
+
+Sistemas de equações lineares 30
+Estas equações são chamadas equações normais . Resolvendo as equações normais, obtemos
+os valores deba0;:::;bane, como tal, o polinómio dos mínimos quadrados.
+Notemos que, no sistema de equações normais, a matriz é simétrica. Além disso,
+também se pode mostrar que, caso os pontos xi,i= 0;:::;m, sejam distintos, é não
+singular. Assim sendo, o problema da determinação do polinómio dos mínimos quadrados
+tem solução única.
+O problema da determinação do polinómio dos mínimos quadrados poderia ser colocado
+da seguinte forma alternativa: determinar os parâmetros ba0;:::;banpor forma a que
+(ba0;ba1;:::;ban) = min
+ai;i=0;:::;n(a0;a1:::;an);
+com
+(a0;a1:::;an) =mX
+i=0(yia0a1xianxn
+i)2:
+Consideremos as observações f(xi;yi);i= 0;:::;mgque correspondem a pontos do
+plano que pretendemos ajustar a uma recta da forma p1(x) =ba0+ba1x. A questão que se
+coloca é a de determinar os valores ba0eba1por forma a
+(ba0;ba1) = min
+a0;a1mX
+i=0(yia0a1xi)2:
+O ponto (ba0;ba1)onde esta função atinge o mínimo satisfaz as condições
+8
+>><
+>>:@
+@a0(ba0;ba1) = 0
+@
+@a1(ba0;ba1) = 0,8
+>>>>><
+>>>>>:mX
+i=0(yiba0ba1xi) = 0
+mX
+i=0(yiba0ba1xi)xi= 0
+Temos então um sistema linear para resolver da forma
+2
+666664m+ 1mX
+i=0xi
+mX
+i=0ximX
+i=0x2
+i3
+777775"ba0
+ba1#
+=2
+666664mX
+i=0yi
+mX
+i=0yixi3
+777775: (2.12)
+Resolvendo este sistema linear, obtemos os valores de ba0eba1e, logo, a recta dos mínimos
+quadrados (ou recta de regressão).
+No caso da determinação do polinómio dos mínimos quadrados de grau n, o ponto
+(ba0;ba1;:::;ban)que minimiza a função , é tal que
+8
+>>>><
+>>>>:@
+@a0(ba0;ba1;:::;ban) = 0
+...
+@
+@an(ba0;ba1;:::;ban) = 0,8
+>>>>>>><
+>>>>>>>:mX
+i=0(yiba0ba1xi;banxn
+i) = 0
+...
+mX
+i=0(yiba0ba1xi;banxn
+i)xn
+i= 0
+Temos então um sistema linear para resolver da forma (2.11).
+
+Sistemas de equações lineares 31
+Exercício 2.10 Mostre que o sistema de equações normais (2.12) pode ser escrito na forma
+ATAbx=ATb, com
+A=2
+666641x0
+1x1
+......
+1xm3
+77775;bx="ba0
+ba1#
+eb=2
+66664y0
+y1
+...
+ym3
+77775:
+Na prática, com o intuito de simpliﬁcar a notação, é usual omitir a notação bxpara
+representar a solução do sistema Ax=bno sentido dos mínimos quadrados. Assim,
+dado um sistema de equações lineares Ax=b, iremos considerar a solução dos mínimos
+quadrados(casoexista)comosendoovector xqueésoluçãodosistemadeequaçõesnormais
+ATAx=ATb.
+Exercício 2.11 Foi efectuado um teste mecânico para estabelecer a relação entre tensões e
+deformações relativas numa amostra de tecido biológico, tendo-se obtido a seguinte tabela:
+tensão(N/cm2)0,06 0,14 0,25 0,31 0,47 0,60
+deformação (cm)0,08 0,14 0,20 0,23 0,25 0,28.
+Usando a recta dos mínimos quadrados, obtenha uma estimativa para a deformação correspon-
+dente a uma tensão de = 0;08N/cm2.
+Resolução: O sistema de equações normais que perminte obter a recta de regressão =
+a0+a1pode ser escrito na forma ATAx=ATb, com
+A=2
+66666641 0;06
+1 0;14
+1 0;25
+1 0;31
+1 0;47
+1 0;603
+7777775; x=a0
+a1
+eb=2
+66666640;08
+0;14
+0;20
+0;23
+0;25
+0;283
+7777775;
+ou seja, é dado por
+ATAx=ATb,6 1;83
+1;83 0;7627a0
+a1
+=1;18
+0;4312
+;
+cuja solução éa0
+a1
+=0;09035
+0;34857
+:
+Concluímos então que a recta de regressão é dada por
+= 0;09035 + 0;34857:
+Uma estimativa para a deformação correspondente a uma tensão de = 0;08N/cm2
+pode ser agora dada por
+= 0;09035 + 0;34857;08 = 0;1182356 cm0;12cm:
+
+Sistemas de equações lineares 32
+Como vimos, a solução dos mínimos quadrados consiste em resolver
+ATAx=ATb:
+Este sistema é não singular se Ativer característica máxima n. Se assim for, a matriz ATA
+é SPD e a solução dos mínimos quadrados é dada de forma única por
+x= (ATA)1ATb:
+A matriz
+A+= (ATA)1AT
+é chamada a matriz pseudo-inversa da matrizA.
+Note-se que, se a matriz Afor mal condicionada, a matriz ATApode ser muito mal
+condicionada. Atente-se, por exemplo, ao seguinte exemplo. Seja
+A=0
+0 1
+; 0<1:
+Considerando a norma kk 2temos queK2(A) =(A)(A1) = 1=1. Assim,
+K2(ATA) =2=1K2(A)K2(A):
+Para contornar este problema, considera-se uma técnica alternativa para resolver o
+problemadosmínimosquadrados. Essatécnica, maisrobusta, consisteemobterachamada
+factorizaçãoQR damatrizA. SejaA2Mmn(R), commn, umamatrizdecaracterística
+n. Neste caso, a matriz Apode ser escrita na forma A=QR, sendoQ2Mm(R)e
+R2Mmn(R), comQumamatriz ortogonal , isto é, uma matriz tal que QTQ=QQT=I;
+eRuma matriz trapezoidal superior cujas linhas são nulas a partir da (n+1)-ésima. Assim
+ATAx=ATb,RTQTQRx =RTQTb,RTRx=RTQTb:
+A solução dos mínimos quadrados é então obtida na forma
+x=^R1^QTb;
+onde ^R2Mn(R)e^Q2Mmn(R)são dadas, respectivamente, pelas primeiras nlinhas
+da matrizRe as primeiras ncolunas da matriz Q.
+2.7 Problemas
+2.7.1 Exercícios para resolver nas aulas
+Exercício 2.12 Considere o sistema Ax=bondeA=4 1
+1 3
+eb=1
+2
+:
+1. Mostre que Aadmite uma decomposição A=LU.
+2. Determine a solução dos sistema tendo em atenção a alínea anterior.
+Exercício 2.13 Determine a solução do sistema
+2
+41 0 3
+3 6 4
+2 2 23
+52
+4x
+y
+z3
+5=2
+41
+1
+13
+5
+usando a fatorização LU da matriz do sistema,
+1. sem escolha parcial de pivot,
+2. com escolha parcial de pivot.
+
+Sistemas de equações lineares 33
+Exercício 2.14 (Matlab) Determine a factorização LUdas matrizes
+A=2
+41 0 3
+2 2 2
+3 6 43
+5eB=2
+41 1 3
+2 2 2
+3 6 43
+5:
+Exercício 2.15 (Matlab) Veriﬁque que a matriz A=2
+44 11
+1 2 0
+1 0 33
+5é simétrica e posi-
+tiva deﬁnida e determine a factorização LLTdeA.
+Exercício 2.16 (Matlab) Recorra à factorização LU para resolver o sistema
+8
+>><
+>>:x1+ 2x2+x3+x4= 2
+2x1+ 3x2+ 4x3+x4= 6
+x1+ 2x2+ 2x3+x4= 2
+3x1+ 7x2x3x4=8:
+Exercício 2.17 (Matlab) Determine a factorização PA=LUdas seguintes matrizes, re-
+correndo à escolha parcial de pivot:
+A=2
+41 0 3
+2 2 2
+3 6 43
+5;B=2
+40 2 3
+1 11
+01 13
+5:
+Exercício 2.18 (Matlab) Determine a solução do sistema
+8
+<
+:x1+x2x3= 1
+5x1+ 2x2+ 2x3=4
+3x1+x2+x3= 1:
+1. usando a factorização LU, sem escolha parcial de pivot;
+2. usando a factorização LU, com escolha parcial de pivot.
+Exercício 2.19 (Matlab) Um engenheiro electrotécnico supervisiona a produção de três
+tipos de componentes electrónicas. Três tipos de material - metal, plástico e borracha - são
+necessários para a produção. As quantidades exigidas para produzir cada componente são
+indicadas na tabela:
+componente metal(g/componente) plástico(g/componente) borracha(g/componente)
+1 15 0 ;30 1 ;0
+2 17 0 ;40 1 ;2
+3 19 0 ;55 1 ;5:
+Se diariamente estiverem disponíveis 3;89,0;095e0;;282quilogramas de metal, plástico e
+borracha, respectivamente, quantas componentes podem ser produzidas por dia?
+Exercício 2.20 (Matlab) O sistemaAx=btem solução única. Use a factorização LU
+para a determinar, sabendo que
+A=2
+6641 2 1 1
+2 3 4 1
+1 2 2 2
+3 7113
+775eb=2
+6642
+6
+2
+83
+775:
+
+Sistemas de equações lineares 34
+Exercício 2.21 (Matlab) Considere os dados da tabela
+Teste 1 2 3 4 5 6 7 8
+Tensão 0,00 0,06 0,14 0,25 0,31 0,47 0,60 0,70
+Deformação 0,00 0,08 0,14 0,20 0,23 0,25 0,28 0,29,
+correspondentes aos valores da deformação para diferentes valores da tensão aplicada numa
+amostra de tecido biológico (um disco invertebral). Determine a equação da recta de regressão,
+usando processos diferentes: 1. a instrução polyfit; 2. o comandon. Estime o valor da
+deformação correspondente a uma tensão igual a 0,9.
+Exercício 2.22 (Matlab) O seguinte sistema de equações foi obtido aplicando a lei da
+corrente em rede a um determinado circuito.8
+<
+:55I125I4=200
+37I3 4I4=250
+25I1 4I3+ 29I4= 100:
+Resolva o sistema.
+Exercício 2.23 Dada a matriz A=2
+421 0
+12 0
+21 03
+5;calculekAk1,kAk1ekAk2.
+Exercício 2.24 SejaAuma matriz quadrada de ordem n. Mostre que:
+1. seAé não singular K(A)1;
+2. para a matriz identidade, K(I) = 1;
+3. para todo o escalar ,K(A) =K(A);
+4. seAé uma matriz diagonal A=diag(ai),K2(A) =maxjaij
+minjaij.
+Exercício 2.25 SejaAuma matriz real, não singular e de ordem n. Prove que se é um
+valor próprio de Aentão
+1
+kA1kjjkAk:
+Exercício 2.26 SejaAuma matriz simétrica e deﬁnida positiva.
+1. Mostre que K2(A) =M=m;ondeMemsão, respectivamente, o maior e menor
+valor próprio de Aem valor absoluto.
+2. Mostre que K2(A2) = (K2(A))2:
+Exercício 2.27 As matrizes dos sistemasxy = 1
+x1;00001y= 0exy = 1
+x0;99999y= 0
+são aproximadamente iguais. Determine e compare as suas soluções. Explique os resultados
+obtidos.
+Exercício 2.28 Resolva o sistema2;000112x1+ 1;414215x2= 0;521471
+1;414215x1+ 1;000105x2= 0;232279
+pelo método de eliminação de Gauss. Sabendo que (x1;x2) = (607;1248;858;2826)é a sua
+solução exacta, explique os resultados obtidos.
+
+Sistemas de equações lineares 35
+Exercício 2.29 SejaAamatrizdeﬁnidapor A=1a
+0 2
+,cominversa A1=1a=2
+0 1=2
+:
+1. Calcule o número de condição da matriz Aassociado à norma kk 1.
+2. Suponha que, ao resolver o sistema Ax=bpor eliminação de Gauss, com a= 10,
+encontra uma solução bxque satisfazkAbxbk1=kbk1<103. Determine um majorante
+para o erro relativo de bx.
+Exercício 2.30 (Matlab) SejaA"=1
+0 1
+; 0<1:
+1. CalculeK2(A")eK2(AT
+"A"), quando!0e represente os resultados graﬁcamente.
+2. Suponha que quer resolver o sistema A"x=b", ondeb"é determinado tal que x= [1;1]T
+e a solução do sistema. Determine como evolui o erro relativo da solução numérica
+calculada xem função de .
+Exercício 2.31 (Matlab) Considere o sistema linear A"x=b", com
+A"=2
+422 0
+"2 2 0
+01 33
+5
+eb"é escolhido por forma a que a solução do sistema seja x= [1;1;1]T, sendo"um número
+real positivo.
+1. Seja"= 0;1. Calcule a factorização LU com e sem escolha parcial de pivot. Determine
+a solução do sistema linear usando ambas as factorizações. Calcule kA"bxb"k2, sendo
+bxcada uma das soluções obtidas.
+2. Mostre experimentalmente que se "!0entãojl32j!1(sem efectuar escolha parcial
+de pivot). O que acontece ao número de condição da matriz A"e dos factores LeU
+(relativamente à norma kk 2) à medida que "!0?.
+3. Considerando novamente "!0, qual o comportamento do erro relativo do sistema em
+função de"? Comente os resultados.
+Exercício 2.32 (Matlab) Considere a matriz Hn= (hij)n
+i;j=1tal que
+hij=1
+i+j1; i;j = 1;:::;n;
+chamada matriz de Hilbert de ordem n, em homenagem ao famoso matemático alemão David
+Hilbert (1862-1943).
+1. Fazendo nvariar entre 2 e 10, determine o número de condição (relativamente à norma
+kk 2) da matriz Hne represente os resultados graﬁcamente.
+2. Supondo que se pretende resolver o sistema Hnx=b, ondebé determinado tal que
+x= [1;1;:::;1]Té a solução do sistema, determine como evolui o erro relativo da solução
+numérica calculada xem função de n(faça variar nentre 2 e 10).
+
+Sistemas de equações lineares 36
+Exercício 2.33 ConsidereA=2
+41 0a
+0 1 0
+a0 13
+5;coma2R, e veriﬁque que
+A1=2
+41=(1 +a2) 0a=(1 +a2)
+0 1 0
+a=(1 +a2) 0 1=(1 +a2)3
+5:
+1. Calcule as normas kk1ekk 1da matrizA.
+2. CalculeK1(A)eK1(A). Para que valores de ahá mau condicionamento da matriz?
+Exercício 2.34 Aplicando o método de Jacobi, determine uma aproximação da solução do
+seguinte sistema2
+431 1
+3 6 2
+3 3 73
+52
+4x1
+x2
+x33
+5=2
+41
+0
+43
+5;
+começando com uma aproximação inicial x(0)= [0;0;0]T.
+Exercício 2.35 Obtenha duas aproximações para a solução do seguinte sistema linear
+8
+<
+:8x+y+z= 1
+x5y+z= 16
+x+y4z= 7;
+partindo do vector inicial x(0)= [0;0;0]T, usando o método de Jacobi e o método de Gauss-
+-Seidel. Qual o erro absoluto e relativo das aproximações obtidas?
+Exercício 2.36 Considere o sistema linear Ax=b, onde
+A=2
+42 1 0
+4=3 2 1=2
+0 1 23
+5; b =2
+44
+6
+43
+5:
+1. Deduza a expressão do método de Jacobi aplicado à resolução do sistema linear Ax=b.
+2. Mostre que o método de Jacobi converge para a solução do sistema, qualquer que seja a
+aproximação inicial escolhida.
+3. Efetue duas iterações do método de Jacobi considerando a aproximação inicial x(0)=
+[0; 0; 0]T.
+4. Determine quantas iterações do método de Jacobi devem ser efetuadas para garantir que
+o erro inicial, medido na norma kk1, seja reduzido de um factor de 107.
+Exercício 2.37 Considere o sistema linear
+x2y=2
+2x+y= 2:
+1. Veriﬁque que o método de Gauss-Seidel aplicado ao sistema diverge.
+2. Reordene as equações de modo a obter um sistema equivalente que lhe permita garantir
+que este método converge.
+
+Sistemas de equações lineares 37
+Exercício 2.38 Para aproximar a solução (x1;x2;x3)de um sistema linear Ax=b, recorreu-
+-se ao seguinte método iterativo
+8
+><
+>:x(k+1)
+1 =0;6x(k)
+20;6x(k)
+3+ 1
+x(k+1)
+2 =0;6x(k)
+10;6x(k)
+3+ 1
+x(k+1)
+3 =0;6x(k)
+10;6x(k)
+2+ 1; k = 0;1;::::
+1. Escreva a respectiva matriz de iteração. O método será convergente para todo o ponto
+inicial?
+2. O método apresentado pode ser identiﬁcado com o método de Jacobi ou com o método
+de Gauss-Seidel? Justiﬁque a sua resposta.
+3. Sabendo que b= [1;1;1]T;obtenha a matriz A.
+Exercício 2.39 Considere o sistema linear8
+<
+:4xyz= 2
+x+ky+ 3z= 4
+x+ 2y+ 0;5z= 4:
+1. Determine os valores do parâmetro kpara os quais o sistema tem uma só solução.
+2. Parak= 0poderá aplicar o método de Gauss-Seidel sem alterar o sistema? Justiﬁque.
+3. Determine valores de kpara os quais seja garantida a convergência do método de Jacobi.
+4. Façak= 0e calcule duas aproximações para a solução do sistema, utilizando o método
+de Jacobi.
+Exercício 2.40 Considere o sistema linear8
+<
+:xyz=1
+2y+az= 0
+x + 2z= 3;coma2R.
+1. Determine todos os valores do parâmetro aque garantem a convergência do método de
+Gauss-Seidel quando aplicado a este sistema.
+2. Paraa=1efectue duas iterações do referido método, indicando uma estimativa para
+o erro cometido.
+Exercício 2.41 Considere o sistema
+2
+45 2 3
+2 3 1
+3 1 53
+5x=2
+46
+7
+03
+5:
+1. Prove que o polinómio característico associado à matriz de iteração do método de Gauss-
+-Seidel, quando aplicado ao sistema anterior, é P() =3+46
+7522
+25:
+2. Localize e separe as raízes de P() = 0.
+3. O método de Gauss-Seidel, aplicado ao sistema anterior, é convergente? Justiﬁque.
+4. Determine a segunda aproximação gerada pelo método de Gauss-Seidel, quando aplicado
+ao sistema anterior.
+
+Sistemas de equações lineares 38
+Exercício 2.42 Considere a matriz A=2
+40 2 1
+1 1 2
+0313
+5:
+1. Mostre que o polinómio característico associado a AéP() =37+ 1:
+2. Localize e separe todos os valores próprios de A.
+3. SejaAamatrizdeiteraçãodeummétodoiterativoqueaproximaasoluçãode umsistema
+de equações lineares Cx=d. Será que, recorrendo ao resultado da alínea anterior, pode
+tirar alguma conclusão acerca da convergência desse método iterativo? Justiﬁque.
+Exercício 2.43 (Matlab) O sistema5xy= 3
+x+ 10y= 19tem a solução [1;2]T. Aproxime-
+-a usando os métodos iterativos de Jacobi e Gauss-Seidel com x(0)= [0;0]T;e compare os
+resultados.
+Exercício 2.44 (Matlab) Aplique os métodos de Jacobi e Gauss-Seidel para aproximar a
+solução do sistema2
+40 1
+00
+1 03
+5x=2
+41
+0
+13
+5;
+para= 2e=2. Comente os resultados obtidos.
+Exercício 2.45 (Matlab) Veriﬁque se os métodos de Jacobi e Gauss-Seidel convergem
+quando aplicados aos seguintes sistemas:
+1.8
+<
+:9x+ 3y+z= 13
+6x+ 8 z= 2
+2x+ 5yz= 6; 2.8
+<
+:x+y+ 6z= 8
+x+ 5yz= 5
+4x+ 2y2z= 4;
+3.8
+<
+:3x+ 4y+ 5z= 6
+2x+ 2y3z=3
+2yz= 1.
+Exercício 2.46 (Matlab) Uma fábrica de equipamento electrónico produz transistores, re-
+sistências e chips de computadores. Para a respectiva construção, os materiais exigidos são
+cobre, zinco e vidro. O número de unidades necessárias para cada componente são indicadas
+na tabela:
+componente cobre zinco vidro
+transistores 4 1 2
+resistências 3 3 1
+chips de computadores 2 1 3:
+Numa determinada semana as quantidades de materiais disponíveis são 960 unidades de cobre,
+510 de zinco e 610 de vidro.
+1. Obtenha o sistema que permite determinar o número de componentes de cada tipo que
+podem ser produzidas naquela semana.
+2. Aproxime a solução do sistema recorrendo aos métodos de Jacobi e de Gauss-Seidel.
+3. Compare os resultados obtidos em na alínea anterior com a solução exacta.
+
+Sistemas de equações lineares 39
+Exercício 2.47 Considere o sistema Ax=bonde
+A=2
+4111
+0 2
+1 0 23
+5eb=2
+41
+0
+33
+5
+1. Determine todos os valores de para os quais o método de Gauss-Seidel é convergente.
+2. Para=1, efetue duas iterações do referido método.
+Exercício 2.48 Estabelaça uma condição suﬁciente para de tal modo que os métodos de
+JacobieGauss-Seidelsejamconvergentesquandoaplicadosaaproximarasoluçãodeumsistema
+com matriz 10 2
+5
+:
+Exercício 2.49 Considere o sistema linear
+10x 9y=1
+x+ 31y= 2:
+1. Escreva o método de Gauss-Seidel na forma matricial para o sistema dado.
+2. Pode garantir a convergência do método? Justiﬁque.
+3. Aplicando (duas vezes) o método de Gauss-Seidel, determine uma aproximação para a
+solução do sistema partindo da aproximação inicial x(0)= [0; 0]T.
+Exercício 2.50 Considere o sistema linear Ax=b, onde
+A=2
+441 0
+1 41
+02 33
+5; b =2
+40
+1
+13
+5:
+1. Escreva o método de Jabobi na forma matricial para o sistema dado.
+2. Pode garantir a convergência do método? Justiﬁque.
+3. Aplicando (duas vezes) o método de Jacobi, determine uma aproximação para a solução
+do sistema partindo da aproximação inicial x(0)= [0 0 0]T. Calcule o fator de redução
+do erro absoluto associado à segunda iteração do método de Jacobi, face ao erro inicial.
+Exercício 2.51 Determine a linha recta que melhor se ajusta, no sentido dos mínimos qua-
+drados, aos seguintes pontos (e represente graﬁcamente):
+1.(1;2);(1;3);(2;5);(0;0);2.(1;1);(2;5);(3;7);(4;9);(5;12):
+Exercício 2.52 Determine a solução no sentido dos mínimos quadrados do sistema (com m
+equações e uma incógnita) x=1; x=2;:::; x =m:
+Exercício 2.53 O sistema 8
+<
+:x1+ 2x2= 1
+2x1+ 5x2= 0
+3x1+ 7x2= 2
+é impossível. Veriﬁque que a solução no sentido dos mínimos quadrados é única.
+
+Sistemas de equações lineares 40
+Exercício 2.54 O proprietário de uma empresa em rápido crescimento económico veriﬁcou
+que, nos primeiros seis anos, o lucro, L, da sua empresa em função do número de anos decor-
+ridos,N, poderia ser aproximado por uma transformação linear L=a+bN. Atendendo a que
+os resultados do seu negócio foram
+N(número de anos) 0 1 3 6
+L(lucro, em milhares de euros) 0 1 3 4,
+determine:
+1. a recta dos mínimos quadrados para o problema descrito;
+2. um valor para o lucro previsível no ﬁnal do sétimo ano.
+Exercício 2.55 Veriﬁcar que a recta de regressão passa pelo ponto cuja abcissa é a média
+dosxi,i= 1;:::;n, e cuja ordenada é a média dos f(xi),i= 1;:::;n.
+Exercício 2.56 (Matlab) Calcule a parábola dos mínimos quadrados para a função fdada
+pela seguinte tabela
+xi0 0,1 0,2 0,3 0,4 0,5 0,6
+f(xi)2,9 2,8 2,7 2,3 2,1 2,1 1,7.
+Exercício 2.57 Determine a função da forma f(x) =ax2+bpxque melhor se ajusta, no
+sentido dos mínimos quadrados, aos dados da tabela seguinte
+x0 1 3 4 5
+y10 50 71 95 122.
+Exercício 2.58 Considere os pontos (0;1),(1;2),(2;5),(4;8). Determine as constantes a
+ebpor forma a que a função
+f(x) =a(x+ 1) +bx2
+se ajuste aos dados no sentido dos mínimos quadrados.
+Exercício 2.59 Determine as constantes aebpor forma a que y=beaxse ajuste aos dados
+da tabela
+xi1 1;25 1;5 1;75 2;0
+yi5;1 5;8 6;5 7;5 8;4
+no sentido dos mínimos quadrados.
+Exercício 2.60 A pressão sistólica p(em milímetros de mercúrio) de uma criança saudável
+com pesow(em quilogramas) é dada, de forma aproximada, pela equação p=a+blnw. Use
+os seguintes dados experimentais
+w20 28 37 51 59
+p91 99 104 108 111
+para estimar a pressão sistólica de uma criança de 45 quilogramas.
+
+Sistemas de equações lineares 41
+Exercício 2.61 Pretende-se ajustar a função
+g(x) =a+bsinx; a;b2R;
+no sentido dos mínimos quadrados, aos pontos da seguinte tabela:
+xi0,0 1,0 2,0 3,0 4,0
+fi1,0 1,8 1,9 1,1 0,2
+1. Mostre que aebveriﬁcamMx=d, comMuma matriz a determinar, x= [a;b]Te
+d=6;0
+3;2462
+:
+2. Suponhamos que se pretende resolver o sistema linear anterior com o segundo membro
+dado por
+d=6;00
+3;2
+:
+Mostre que a solução xdeMx=dveriﬁca
+kxxk
+kxkK(M)kddk
+kdk
+e deduza qual o erro relativo que se comete quando se considera a norma kk1e a
+aproximação dada para o segundo membro.
+Exercício 2.62 Pretende-se ajustar a função
+g(x) =a+bx2; a;b2R;
+no sentido dos mínimos quadrados, aos pontos da seguinte tabela:
+xi0,0 1,5 3,0 4,5 6,0
+fi1,00 1,57 2,00 4,30 7,00
+1. Mostre que aebveriﬁcam
+Mx=d,5 67;5
+67;5 1792;125a
+b
+=15;87
+360;6075
+2. A resolução do sistema anterior pode ser feita recorrendo ao método de Gauss-Seidel.
+Mostre que este método é convergente quando aplicado ao problema anterior.
+3. Mostre que, para um método iterativo x(k+1)=Bx(k)+c,k= 0;1;:::, usado na
+aproximação de xse tem
+kxx(k)kkBkkkxx(0)k
+e determine quantas iterações são necessárias do método de Gauss-Seidel por forma a
+reduzir o erro inicial da aproximação por um fator de 103.
+
+Sistemas de equações lineares 42
+Exercício 2.63 (Matlab) Seja
+A=2
+666641 2
+1 2
+1 2
+1 2
+1 23
+77775eb=2
+666641
+2
+3
+4
+53
+77775:
+Calcule a aproximação dos mínimos quadrados para o problema Ax=busando processos
+diferentes: 1. a instrução polyfit; 2. o comandon; 3. a instrução pinv; 4. a decomposição
+qr.
+Exercício 2.64 A lei de Hooke, devida a Robert Hooke (1635-1703), estabelece que a força
+Faplicada a uma mola é directamente proporcional ao deslocamento provocado de acordo com
+a seguinte relação
+F=k(ee0);
+ondeké a constante da mola, eo comprimento da mola quando sujeita à força Fee0o
+comprimento inicial da mola.
+No sentido de determinar a constante da mola usaram-se diferentes forças (conhecidas)
+tendo sido observados os comprimentos resultantes, dados na seguinte tabela
+forçaF(em gramas) 3 5 8 10
+comprimento e(em milímetros) 13;3 16;3 19;4 20;9.
+Sabendo que o comprimento inicial da mola é e0= 10mm, determine a melhor estimativa para
+a constante da mola no sentido dos mínimos quadrados.
+2.7.2 Exercícios de aplicação à engenharia
+Exercício 2.65 Considere um barra horizontal ﬁxa numa extremidade e livre no restante do
+seu comprimento. Um modelo discreto de forças na barra conduz ao sistema de equações
+linearesAx=b, ondeAé a matriz quadrada de ordem n, com estrutura de banda, dada por
+2
+666666666464 1
+4 64 1
+14 64 1
+...............
+14 64 1
+14 6 1
+14 63
+7777777775:
+O vectorbé dado pela carga que é imposta à barra (incluindo o seu próprio peso), e o vector
+xrepresenta a deformação da barra que queremos determinar. Considermos a barra sujeita a
+uma carga uniforme dada por bi= 1, parai= 1;:::;n. Considerando n= 100, resolva o
+sistema usando métodos directos e métodos iterativos, comparando a sua eﬁcácia.
+
+Capítulo 3
+Valores próprios e valores singulares
+Dada uma matriz A2Mn(C), os valores próprios de Asão os escalares para os quais
+Ax=x; x2Cn; x6= 0:
+Axchama-se vector próprio associado ao valor próprio .
+Note-se que o vector próprio associado a um determinado valor póprio não é dado de
+forma única. Se xé vector próprio de A, entãoxtambém é, com um escalar não nulo.
+Conhecendo um vector próprio xde uma matriz A, o valor próprio associado é dado
+peloquociente de Rayleigh ,
+=xTAx
+kxk2;
+comxT, isto é o vector transposto do seu conjugado. Note-se que, se x2Rn,xT=xT.
+Este quociente é assim chamado como homenagem Lord Rayleigh (1842-1919).
+A forma usada nas disciplinas de Álgebra Linear para determinar os valores próprios
+de uma matriz, é a que recorre ao uso do polinómio característico, obtido sucessivamente
+por
+Ax=x;,(AI)x= 0)det(AI) = 0;
+uma vez que x6= 0. Os valores próprios de Asão asnraízes, reais com complexas, iguais
+ou distintas, do polinómio característico det(AI) = 0, em, de graun.
+Por outro lado, dado um polinómio mónico arbitrário
+p() =n+cn1n1++c1+c0;
+ele é o polinómio característico da sua matriz companheira
+Cn=2
+6666640 00c0
+1 00c1
+0 10c2
+...............
+0 01cn13
+777775:
+Como as raízes de um poliómio de grau superior a 4 não podem, em geral, ser calculadas
+num número ﬁnito de passos temos que o mesmo se passa para o cálculo de valores próprios
+de matrizes com ordem superior a 4. Temos, pois, que pensar em métodos iterativos para
+o cálculo dos valores próprios de uma matriz.
+43
+
+Valores próprios e valores singulares 44
+3.1 Método da potência
+Considere-se A2Mn(C)uma matriz com valores próprios i,i= 1;:::;n, tais que
+j1j>j2jjnj:
+Sejaxio vector próprio de módulo 1 associado a i, isto é, tal que kxik= 1. Se os
+vectores próprios de Aforem linearmente independentes, o método da potência , que calcula
+a sucessão de vectores x(k+1)=Ax(k),k= 0;1;2;:::, partindo de um vector não nulo x(0),
+permite obter o vector próprio x1associado ao maior valor próprio (em módulo) 1da
+matrizA.
+De facto, considere-se x(0)escrito como combinação linear dos vectores própios de A,
+isto é,
+x(0)=nX
+i=1ixi:
+Tal combinação é sempre possível pois assumimos que os vectores próprios de Asão line-
+armente independentes. Então
+x(k)=Ax(k1)==Akx(0)=nX
+i=1k
+iixi:
+Colocando k
+1em evidência ( 16= 0), temos que
+x(k)=k
+1 
+1x1+nX
+i=2i
+1k
+ixi!
+:
+Comoi
+1<1, para todo o i>1, temos que a sucessão converge para um múltiplo de x1.
+Uma vez calculado o vector próprio x1, por normalização, o valor próprio 1é calculado
+usando o quociente de Rayleigh.
+Exemplo 3.1 Considere-se a matriz Ae o vectorx(0)dados por
+A=1;5 0;5
+0;5 1;5
+; x(0)=0
+1
+:
+Pelo método da potência obtemos
+k
+x(k)T(k)
+1
+00,0 1,0
+10,5 1,5 1,8000
+21,5 2,5 1,9412
+33,5 4,5 1,9846
+47,5 8,5 1,9961
+515,5 16,5 1,9990
+631,5 32,5 1,9998
+763,5 64,5 1,9999
+8127,5 128,5 2,0000
+que, permite antever a convergência do método para o valor próprio de maior módulo, que é
+igual a 2.
+
+Valores próprios e valores singulares 45
+O crescimento geométrico das componentes do vector em cada iteração põe em risco
+o eventual overﬂow (ouunderﬂow se1<1). Para contornar esse problema, as sucessivas
+aproximações ao vector próprio devem ser normalizadas, dando lugar ao esquema iterativo
+x(k)=Ay(k1); y(k)=x(k)=kx(k)k;
+a partir de y(0)=x(0)=kx(0)k. Com esta normalização, obtemos o seguinte algoritmo.
+Algoritmo 3.1 Método da potência
+Dados:A,x(0),"
+y:=x(0)=kx(0)k
+:=yTAy
+k:= 0
+erro :="jj+1
+Enquantoerro>"jjfazer
+k:=k+ 1
+x:=Ay
+y:=x=kxk
+:=yTAy
+erro :=jj
+:=
+Resultado: 1
+A velocidade de convergência do método da potência depende da razão j2=1j. Esco-
+lhendo um escalar tal que
+j2j
+j1j<j2j
+j1j(3.1)
+a convergência do método da potência pode ser acelerada.
+Exercício 3.1 Mostre que, se é um valor próprio de A,
+1.é um valor próprio de AI, comIa matriz identidade da mesma ordem da
+matrizA;
+2. comAuma matriz invertível, então 1é um valor próprio de A1.
+Atendendo ao exercício anterior, temos que a convergência do método da potência pode
+seraceleradaseconsiderarmos, naaproximaçãodovalorprópriodemaiormódulodamatriz
+AI, umque veriﬁque (3.1). Para calcular o valor próprio de maior módulo de A
+basta adicionar ao resultado.
+Atendendo ainda ao exercício anterior podemos concluir que o método da potência
+permite calcular o menor valor próprio (em módulo) de uma matriz A, calculando o maior
+valor próprio da sua inversa. Neste caso, temos o esquema iterativo
+Ax(k)=y(k1); y(k)=x(k)=kx(k)k;
+
+Valores próprios e valores singulares 46
+que evita o cálculo explícito da matriz inversa. O método inverso da potência pode ser usado
+de forma muito eﬁcaz se uma boa aproximação para o valor próprio de menor módulo da
+matrizAfor conhecida. Essa aproximação pode ser obtida pelo quociente de Rayleigh, de
+acordo com o esquema iterativo
+k=
+y(k1)T
+Ay(k1); (AkI)x(k)=y(k1); y(k)=x(k)=kx(k)k:
+Suponhamos agora que pretendemos calcular o valor próprio deAque está mais
+próximo de , comum número real ou complexo. Neste caso, o menor valor próprio
+deAIémin=0. Para calcular procede-se da seguinte forma, cuja
+justiﬁcação se encontra expressa no exercício anterior: calcula-se min, o menor valor
+próprio (em módulo) de AI, pelo método inverso da potência; faz-se =min+.
+Para ter uma ideia onde se situam os valores próprios de uma matriz A= [ai;j]n
+i;j=1,
+podem usar-se os círculos de Gershgorin
+C(l)
+i=8
+<
+:z2C:jzaiijnX
+j=1;j6=ijaijj9
+=
+;; ;i = 1;:::;n;
+ou
+C(c)
+j=8
+<
+:z2C:jzajjjnX
+i=1;i6=jjaijj9
+=
+;; j = 1;:::;n;
+deﬁnidos por Semyon Aranovich Gershgorin (1901-1933). A C(l)
+ieC(c)
+jchamam-se, respec-
+tivamente, o i-ésimocírculo por linhas ej-ésimocírculo por colunas .
+Demonstra-se que todos os valores próprios de uma matriz A2Mn(C)pertencem à
+região do plano complexo deﬁnido pela intersecção das duas regiões constituídas, respec-
+tivamente, pela união dos círculos de Gershgorin por linhas e pela união dos círculos por
+colunas. Além disso, se os mcírculos por linhas (ou por colunas), com 1mn, forem
+disjuntos da união dos restantes mncírculos, então a sua união contém exactamente m
+valores próprios.
+3.2 Cálculo de todos os valores próprios
+Deﬁnição 3.1 (Matrizes semelhantes) DuasmatrizesAeBsãosemelhantes se existir
+uma matriz invertível Ptal queP1AP=B.
+Pode provar-se facilmente que duas matrizes semelhantes têm os mesmos valores pró-
+prios. De facto, se é valor próprio de AentãoAx=x, comx6= 0. Multiplicando por
+P1à esquerda ambos os membros desta iqualdade obtemos
+BP1x=P1x,By=y;
+comy=P1x, ou seja,é valor próprio de B.
+O método que iremos apresentar baseia-se na decomposição QR. SejaA2Mn(R).
+A ideia consiste em constuir uma sucessão de matrizes A(k), todas semelhantes a A, que
+tende para uma matriz cujos valores próprios são simples de calcular.

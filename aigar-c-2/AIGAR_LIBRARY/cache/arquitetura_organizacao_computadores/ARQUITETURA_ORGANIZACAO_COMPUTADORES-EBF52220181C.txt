@@ -1,0 +1,966 @@
+310 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+técnica RISC para o projeto de processador evitaria instruções complexas, como ENTER, e poderia produzir uma 
+implementação mais eficiente com uma sequência de instruções mais simples.
+GERENCIAMENTO DE MEMÓRIA Outro conjunto de instruções especializadas lida com a segmentação da 
+memória. Estas são instruções privilegiadas que só podem ser executadas a partir do sistema operacional. Elas permitem que tabelas de segmento locais e globais (chamadas tabelas de descritores) sejam carregadas e lidas, e permitem que o nível de privilégio de um segmento seja verificado e alterado.
+As instruções especiais para lidar com a cache no chip foram discutidas no Capítulo 4.FLAGS DE STATUS E CÓDIGOS DE CONDIÇÃO Os flags de status são bits em registradores especiais que po-
+dem ser definidos por certas operações e usados em instruções de desvio condicional. O termo código de condição 
+refere-se às configurações de um ou mais flags de status. No x86 e em muitas outras arquiteturas, os flags de status 
+são definidos por operações aritméticas e de comparação. A operação de comparação na maioria das linguagens subtrai dois operandos, assim como uma operação de subtração. A diferença é que uma operação de comparação só define flags de status, enquanto uma operação de subtração também armazena o resultado da subtração no 
+operando de destino. Algumas arquiteturas também definem os flags de status para instruções de transferência de dados.
+A Tabela 10.9 lista os flags de status usados no x86. Cada flag, ou combinações de flags, podem ser testados para 
+um salto condicional. A Tabela 10.10 mostra os códigos de condição (combinações de valores de flag de status) para 
+os quais os opcodes de salto foram definidos.
+Várias observações interessantes podem ser feitas sobre essa lista. Primeiro, podemos querer testar dois ope-
+randos para determinar se um número é maior que outro. Mas isso dependerá de os números terem sinal ou não. 
+Por exemplo, o número de 8 bits 11111111 é maior que 00000000 se os dois números forem interpretados como inteiros sem sinal (255 > 0), mas é menor se eles forem considerados como números de 8 bits por complemento de dois (–1 < 0). Muitas linguagens assembly, portanto, introduzem dois conjuntos de termos para distinguir os dois 
+casos: se estivermos comparando dois números como inteiros com sinal, usamos os termos menor que e maior que; 
+se os estivermos comparando como inteiros sem sinal, usamos os termos abaixo e acima.
+Uma segunda observação refere-se à complexidade da comparação de inteiros com sinal. Um resultado com 
+sinal é maior ou igual a zero se (1) o bit de sinal for zero e não houver overflow (S = 0 AND O = 0), ou (2) o bit de sinal 
+for 1 e houver um overflow . Um estudo da Figura 9.4 deverá convencê-lo de que as condições testadas para as várias 
+operações com sinal são apropriadas.
+INSTRUÇÕES SIMD DO X86 Em 1996, a Intel introduziu a tecnologia MMX em sua linha de produtos Pentium. 
+MMX é um conjunto de instruções altamente otimizado para tarefas de multimídia. Existem 57 novas instruções que tratam de dados em um padrão SIMD (única instrução, múltiplos dados), possibilitando realizar a mesma operação, como adição ou multiplicação, sobre múltiplos elementos de dados ao mesmo tempo. Cada instrução 
+Bit de status Nome Descrição
+C CarryIndica a existência do bit de transporte ou empréstimo (carry bit) na posição do bit mais à esquerda após uma operação aritmética. 
+Também modificado por algumas das operações de deslocamento e rotação.
+P ParityParidade do byte menos significativo do resultado de uma operação aritmética ou lógica. 1 indica paridade par; 
+0 indica paridade ímpar.
+A Auxiliary carryRepresenta a existência do bit de transporte ou empréstimo (carry bit) na posição entre dois bytes após 
+uma operação aritmética ou lógica de 8 bits. Usado na aritmética BCD.
+Z Zero Indica que o resultado de uma operação aritmética ou lógica é 0.
+S Sign Indica o sinal do resultado de uma operação aritmética ou lógica.
+O Overflow Indica um overflow aritmético após uma adição ou subtração de aritmética de complemento a dois.Tabela 10.9 Flags de status do x86
+Book 1.indb 310 19.11.09 14:38:15
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 311
+normalmente utiliza um único ciclo de clock para ser executada. Para a aplicação correta, essas operações paralelas 
+rápidas podem gerar um ganho de velocidade de 2 a 8 vezes em comparação com algoritmos que não usam as instruções MMX (Atkins, 1996 
+c). Com a introdução da arquitetura x86 de 64 bits, a Intel expandiu essa extensão para 
+incluir operandos de quatro palavras (double quadwords) duplos (128 bits) e operações de ponto flutuante. Nesta 
+subseção, descrevemos os recursos do MMX.
+O foco do MMX é a programação multimídia. Dados de vídeo e áudio normalmente são compostos de grandes 
+arrays de pequenos tipos de dados, como 8 ou 16 bits, enquanto as instruções convencionais são ajustadas para operar sobre dados de 32 ou 64 bits. Aqui estão alguns exemplos: em gráficos e vídeo, uma única cena consiste em um array de pixels,
+2 e existem 8 bits para cada pixel ou 8 bits para cada componente de cor do pixel (vermelho, 
+verde, azul). As amostras de áudio típicas são quantizadas usando 16 bits. Para alguns algoritmos gráficos 3D, 32 bits são comuns para os tipos de dados básicos. Para permitir operação paralela sobre esses tamanhos de dados, três novos tipos de dados são definidos em MMX. Cada tipo de dados tem 64 bits de extensão e consiste em múltiplos campos de dados menores, cada um mantendo um inteiro de ponto fixo. Os tipos são os seguintes:
+pacote de bytes: 
+  oito bytes agrupados em uma quantidade de 64 bits.
+pacote de palavras:  quatro palavras de 16 bits agrupadas em 64 bits.
+pacote de palavras duplas:  duas palavras duplas de 32 bits agrupadas em 64 bits.
+2 Um pixel, ou elemento de imagem, é o menor elemento de uma imagem digital que pode receber um nível de cinza. De modo equivalente, 
+um pixel é um ponto individual em uma representação de matriz de pontos de uma figura.Símbolo Condição testada Comentário
+A, nBE C = 0 AnD Z = 0 Acima; não abaixo ou igual (maior que, sem sinal)
+AE, nB, nC C = 0 Acima ou igual; não abaixo (maior que ou igual, sem sinal); Sem carry
+B, nAE, C C = 1 Abaixo; não acima ou igual (menor que, sem sinal); Carry definido
+BE, nA C = 1 OR Z = 1 Abaixo ou igual; não acima (menor que ou igual, sem sinal)
+E, Z Z = 1 Igual; Zero (com ou sem sinal)
+G, nLE[(S = 1 AnD O = 1) OR (S = 0 e O = 0)] 
+AnD [Z = 0]Maior que; não menor que ou igual (com sinal)
+GE, nL (S = 1 AnD O = 1) OR (S = 0 AnD O = 0) Maior que ou igual; não menor que (com sinal)
+L, nGE (S = 1 AnD ∅ = O) OR (S = 0 AnD O = 1) Menor que; não maior que ou igual (com sinal)
+LE, nG (S = 1 An D O = 0) OR (S = 0 An D O = 1) OR (Z=1) Menor que ou igual; não maior que (com sinal)
+nE, nZ Z = 0 não igual; não zero (com ou sem sinal)
+nO O = 0 Sem overflow
+nS S = 0 Sem sinal (não negativo)
+nP , PO P = 0 Sem paridade; Paridade ímpar
+O O = 1 Overflow
+P P = 1 Paridade; Paridade par
+S S = 1 Sinal (negativo)Tabela 10.10 Códigos de condição do x86 para instruções de salto condicional e SETcc
+Book 1.indb 311 19.11.09 14:38:16
+
+312 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A Tabela 10.11 lista o conjunto de instruções MMX. A maior parte das instruções envolve a operação paralela so-
+bre bytes, palavras ou palavras duplas. Por exemplo, a instrução PSLLW realiza um deslocamento lógico à esquerda 
+separadamente em cada uma das quatro palavras no operando de pacote de palavras; a instrução PADDB apanha os operandos de pacotes de bytes como entrada e realiza adições paralelas em cada posição de byte independen-temente para produzir uma saída de pacotes de bytes.
+Categoria Instrução Descrição
+AritméticaPADD [B, W, D]Adição paralela de oito pacotes de bits, quatro palavras de 16 bits ou duas 
+ palavras duplas de 32 bits, com contorno.
+PADDS [B, W] Adição com saturação.
+PADDUS [B, W] Adição sem sinal com saturação.
+PSUB [B, W, D] Subtração com contorno.
+PSUBS [B, W] Subtração com saturação.
+PSUBUS [B, W] Subtração sem sinal com saturação.
+PMULhWMultiplicação paralela de quatro palavras de 16 bits com sinal, com 16 bits 
+de alta ordem do resultado de 32 bits escolhidos.
+PMULLWMultiplicação paralela de quatro palavras de 16 bits com sinal, com 16 bits 
+de baixa ordem do resultado de 32 bits escolhidos.
+PMADDWDMultiplicação paralela de quatro palavras de 16 bits com sinal; 
+soma pares adjacentes de resultados de 32 bits
+ComparaçãoPCMPEQ [B, W, D]Comparação paralela de igualdade; resultado é máscara 
+de 1s se verdadeiro ou 0s se falso.
+PCMPGT [B, W, D]Comparação paralela de maior; resultado é máscara de 
+1s se verdadeiro ou 0s se falso.
+ConversãoPACKUSWB Agrupa palavras em bytes com saturação sem sinal.
+PACKSS [WB, DW] Agrupa palavras em bytes, ou palavras duplas em palavras, com saturação com sinal.
+PUnPCKh [BW, WD, DQ]Desagrupa em paralelo (mesclagem intervalada) bytes, palavras ou 
+palavras duplas de alta ordem do registrador MMX.
+PUnPCKL [BW, WD, DQ]Desagrupa em paralelo (mesclagem intervalada) bytes, palavras 
+ou palavras duplas de baixa ordem do registrador MMX.
+LógicaPAnD AnD lógico bit a bit com 64 bits.
+PnDn AnD nOT lógico bit a bit com 64 bits.
+POR OR lógico bit a bit com 64 bits.
+PXOR XOR lógico bit a bit com 64 bits.
+DeslocamentoPSLL [W, D, Q]Deslocamento lógico paralelo à esquerda de pacotes de palavra, palavras duplas ou 
+quatro palavras pela quantidade especificada no registrador MMX ou valor imediato.
+PSRL [W, D, Q]Deslocamento lógico paralelo à direita de pacotes de palavra, 
+palavras duplas ou quatro palavras agrupadas.
+PSRA [W, D]Deslocamento aritmético paralelo à direita de pacotes de palavra, 
+palavras duplas ou quatro palavras.
+Transferência de dados MOV [D, Q] Move palavras duplas ou quatro palavras de/para registrador MMX.
+Ger. de estado EMMS Esvazia estado MMX (esvazia bits de tag dos registradores FP).
+Nota: se uma instrução aceitar vários tipos de dados [byte (B), palavra (W), doubleword (D), quadword (Q)], os tipos de dados são indicados entre colchetes.Tabela 10.11 Conjunto de instruções MMX
+Book 1.indb 312 19.11.09 14:38:16
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 313
+Um recurso incomum do novo conjunto de instruções é a introdução da aritmética de saturação para ope-
+randos de byte e palavra de 16 bits. Com a aritmética sem sinal comum, quando em uma operação ocorre overfl ow 
+(ou seja, um carry sai pelo bit mais signifi cativo), o bit extra é truncado. Isso é conhecido como contorno, pois o 
+efeito do truncamento pode ser, por exemplo, produzir um resultado de adição menor que os dois operandos da entrada. Considere a adição das duas palavras, em hexadecimal, F00H e 3000h. A soma seria expressa como
+ 10010 0000 0000 0000 =2000h +3000h =0011 0000 0000 0000h000F =1111 0000 0000 0000
+Se os dois números representassem intensidade de imagem, então o resultado da adição é tornar a combinação 
+dos dois tons escuros mais clara. Isso normalmente não é o que foi intencionado. Com a aritmética de saturação, se a adição resultar em overfl ow ou a subtração resultar em underfl ow, o resultado é defi nido para o maior ou menor 
+valor representável. Para o exemplo anterior, com a aritmética de saturação, temos
+ 1111 1111 1111 1111 =FFFFh 10010 0000 0000 0000 +3000h =0011 0000 0000 0000h000F =1111 0000 0000 0000
+Para dar uma ideia para uso de instruções MMX, examinamos um exemplo, tomado de Peleg, Wilkie e Weiser 
+(1997d). Uma aplicação de vídeo comum é o efeito fade-out, fade-in, em que uma cena gradualmente se dissolve 
+em outra. Duas imagens são combinadas com uma média ponderada:
++ Pixel resultado = Pixel A fade Pixel B (1 – fade) * *
+Esse cálculo é realizado sobre cada posição de pixel em A e B. Se uma série de frames de vídeo for produzida 
+enquanto se muda gradualmente o valor de fade de 1 para 0 (escalados devidamente para um inteiro de 8 bits), o 
+resultado é o fade da imagem A para a imagem B.
+A Figura 10.11 mostra a sequência de etapas exigidas para um conjunto de pixels. Os componentes de pixel de 
+8 bits são convertidos para elementos de 16 bits para acomodar a capacidade de multiplicação em 16 bits do MMX. Se essas imagens utilizarem resolução de 640 × 480, e a técnica de dissolução usar todos os 255 valores possíveis do valor de fade, então o número total de instruções executadas usando MMX é 535 milhões. O mesmo cálculo, 
+realizado sem as instruções MMX, requer 1,4 bilhão de execuções de instruções (Intel, 1998
+e).
+ Tipos de operação do ARM
+A arquitetura ARM oferece uma grande variedade de tipos de operando. A seguir estão as principais categorias:
+Instruções  load e store: na arquitetura ARM, somente instruções load e store acessam locais da memória; 
+instruções aritméticas e lógicas são realizadas apenas sobre registradores e os valores imediatos são codifi ca-
+dos na instrução. Essa limitação é característica do projeto RISC e é explorada com mais detalhes no Capítulo 13. A arquitetura ARM admite dois tipos gerais de instruções que carregam ou armazenam o valor de um único registrador, ou um par de registradores, de ou para a memória: (1) carregar ou armazenar uma palavra de 32 bits ou um byte sem sinal de 8 bits, e (2) carregar ou armazenar uma meia-palavra sem sinal de 16 bits, e carregar e estender o sinal de uma meia-palavra de 16 bits ou um byte de 8 bits.Instruções de desvio:
+  o ARM admite uma instrução de desvio que permite um desvio condicional para frente 
+ou para trás em até 32 MB. Como o contador de programa é um dos registradores de uso geral (R15), um desvio ou salto também pode ser gerado escrevendo um valor em R15. Uma chamada de sub-rotina pode ser realiza-da por uma variante da instrução de desvio padrão. Além de permitir um desvio para frente ou para trás em até 32 MB, a instrução Branch with Link (BL) guarda o endereço da instrução após o desvio (o endereço de retorno) 
+no LR (R14). Os desvios são determinados por um campo de condição de 4 bits na instrução.Instruções de processamento de dados:
+  essa categoria inclui instruções lógicas (AND, OR, XOR), instru-
+ções de adição e subtração, e instruções de teste e comparação.Instruções de multiplicação:
+  as instruções de multiplicação de inteiros operam sobre operandos de pala-
+vra ou meia-palavra e podem produzir resultados normais ou grandes. Por exemplo, existe uma instrução de multiplicação que apanha dois operandos de 32 bits e produz um resultado de 64 bits.Instruções paralelas de adição e subtração:
+  além das instruções normais de processamento de dados 
+e multiplicação, existe um conjunto de instruções paralelas de adição e subtração, em que partes dos dois 
+Book 1.indb 313 19.11.09 14:38:17
+
+314 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+operandos são operadas em paralelos. Por exemplo, ADD16 soma as meias-palavras do topo dos dois regis-
+tradores para formar a meia-palavra superior do resultado e soma as meias-palavras inferiores dos mesmos dois registradores para formar a meia-palavra inferior do resultado. Essas instruções são úteis em aplicações de processamento de imagem, semelhantes às instruções MMX do x86.Instruções de extensão:
+  existem várias instruções para desagrupar dados, estendendo por sinal ou com 
+zeros, de bytes para meias-palavras ou palavras, ou de meias-palavras para palavras.Instruções de acesso do registrador de 
+  status: o ARM oferece a capacidade de ler e também escrever 
+em partes do registrador de status.
+CÓDIGOS DE CONDIÇÃO A arquitetura ARM define quatro flags de condição que são armazenados no regis-
+trador de status do programa: N, Z, C e V (Negativo, Zero, Carry e Overflow), com significados basicamente iguais aos 
+flags S, Z, C e V na arquitetura x86. Esses quatro flags constituem um código de condição no ARM. A Tabela 10.12 mostra a combinação de condições para as quais a execução condicional é definida.Figura 10.11 Composição de imagem na representação do plano de cores
+RGBAlfa
+Imagem ARGBAlfa
+Imagem B
+Ar3 Ar2 Ar1 Ar0
+r3 r2 r1 r0Ar3 Ar2 Ar1
+SubtraçãoAr0
+r3 r2 r1 r0
+fade fade fade fade
+fade r3 fade r2 fade r1 fade r0Br3 Br2 Br1 Br0
+Br3 Br2 Br1 Br0
+newr3 newr2 newr1 newr0Br3 Br2 Br1 Br0 1. Desagrupe os componentes de
+pixel do byte B das imagens A e B
+2. Subtraia a imagem B da imagem A
+3. Multiplique o resultado pelo valor de fade
+4. Some os pixels da imagem B
+Sequência de código MMX realizando esta operação:5. Agrupe novos pixels componentes 
+de volta aos bytes
+pxor mm7, mm7 ; zera mm7movq mm3, fad_val ; carrega valor de fade replicado 4 vezesmovd mm0, imageA ; carrega 4 componentes de pixel vermelhos da imagem Amovd mm1, imageB; carrega 4 componentes de pixel vermelhos da imagem Bpunpckblw mm0, mm7 ; desagrupa 4 pixels para 16 bitspunpckblw mm1, mm7 ; desagrupa 4 pixels para 16 bitspsubw mm0, mm1 ; subtrai imagem B da imagem Apmulhw mm0, mm3 ; multiplica o resultado da subtração por valores de fade padddw mm0, mm1 ; soma resultado à imagem Bpackuswb mm0, mm7 ; agrupa resultados de 16 bits de volta para bytes
+Book 1.indb 314 19.11.09 14:38:17
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 315
+Existem dois aspectos incomuns no uso dos códigos de condição no ARM:
+1. Todas as instruções, não apenas as de desvio, incluem um campo de código de condição, o que signifi ca que praticamente todas as instruções podem ser executadas condicionalmente. Qualquer combinação de valores de fl ag, exceto 1110 ou 1111 no campo de código de condição de uma instrução signifi ca que a instrução só será executada se a condição for atendida.
+2. Todas as instruções de processamento de dados (aritméticas, lógicas) incluem um bit S, que indica se a ins-trução atualiza os fl ags de condição.
+O uso da execução condicional e de valores condicionais dos fl ags de condição ajuda no projeto de programas 
+mais curtos, que usam menos memória. Por outro lado, todas as instruções incluem 4 bits para o código de condi-ção, de modo que existe uma escolha, porque menos bits na instrução de 32 bits estão disponíveis para o opcode 
+e os operandos. Como o ARM é um projeto RISC que conta bastante com o endereçamento do registrador, essa parece ser uma escolha razoável.
+10.6 Leitura recomendada
+O conjunto de instruções do x86 é muito bem explicado por Brey (2009f). O conjunto de instruções do ARM 
+é explicado em Sloss, Symes e Wright (2004g) e Knaggs e Welsh (2004h). Intel (2004i) descreve considerações de 
+software relacionadas à arquitetura endian do microprocessador, e discute diretrizes para o desenvolvimento de código independente do tipo endian.Tabela 10.12 Condições do ARM para execução de instrução condicional
+Código Símbolo Condição Testada Comentário
+0000 EQ Z = 1 Igual
+0001 nE Z = 0 não igual
+0010 CS/hS C = 1 Carry 'setado'/acima ou igual sem 'sinal'
+0011 CC/LO C = 0 Carry zerado/abaixo sem sinal
+0100 MI n = 1 Menos/negativo
+0101 PL n = 0 Mais/positivo ou zero
+0110 VS V = 1 O v e r fl o w
+0111 VC V = 0 nenhum overfl ow
+1000 hI C = 1 AnD Z = 0 Acima sem sinal
+1001 LS C = 0 OR Z = 1 Abaixo ou igual sem sinal
+1010 GEn = V
+[(n = 1 AnD V = 1)
+OR (n = 0 AnD V = 0)]Sinalizado maior que ou igual
+1011 LTn ≠ V
+[(n = 1 AnD V = 0)
+OR (n = 0 AnD V = 1)]Sinalizado menor que
+1100 GT (Z = 0) AnD (n = V) Sinalizado maior que
+1101 LE (Z = 1) OR (n ≠ V) Sinalizado menor que ou igual
+1110 AL — Sempre (incondicional)
+1111 — — Esta instrução só pode ser executada incondicionalmente
+Book 1.indb 315 19.11.09 14:38:18
+
+316 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Principais termos, perguntas de revisão e problemas
+Principais termos
+Acumulador Salto Chamada de procedimento
+Endereço Little-endian Retorno de procedimento
+Deslocamento aritmético Deslocamento lógico Push
+Bi-endian Instrução de máquina Procedimento reentrante
+Big-endian Operando notação polonesa invertida
+Desvio Operação Rotação
+Desvio condicional Decimal agrupado Salto
+Conjunto de instruções Pop Pilha
+Perguntas de revisão
+ 10.1 Quais são os elementos típicos de uma instrução de máquina?
+ 10.2 Que tipos de locais podem manter operandos de origem e destino?
+ 10.3 Se uma instrução contém quatro endereços, qual poderia ser a finalidade de cada endereço?
+ 10.4 Liste e explique resumidamente cinco questões importantes no projeto do conjunto de instruções.
+ 10.5 Que tipos de operandos são típicos nos conjuntos de instrução de máquina?
+ 10.6 Qual é o relacionamento entre o código de caracteres IRA e a representação decimal agrupada?
+ 10.7 Qual é a diferença entre um deslocamento aritmético e um deslocamento lógico?
+ 10.8 Por que são necessárias instruções de transferência de controle?
+ 10.9 Liste e explique resumidamente duas maneiras comuns de gerar a condição a ser testada em uma instrução de desvio condicional.
+ 10.10 O que significa o termo aninhamento de procedimentos?
+ 10.11 Liste três locais possíveis para armazenar o endereço de retorno para um retorno de procedimento.
+ 10.12 O que é um procedimento reentrante?
+ 10.13 O que é notação polonesa invertida?
+ 10.14 Qual é a diferença entre big-endian e little-endian?
+Problemas
+10.1 Mostre em notação hexa:
+a. O formato decimal agrupado para 23
+b. Os caracteres ASCII 23
+10.2 Para cada um dos seguintes números decimais agrupados, mostre o valor decimal:a. 0111 0011 0000 1001
+b. 0101 1000 0010
+c. 0100 1010 0110
+10.3 Determinado microprocessador tem palavras de 1 byte. Qual é o menor e o maior inteiro que pode ser representado nas seguintes representações:a. Sem sinal
+b. Sinal-magnitude
+c. Complemento a um
+d. Complemento a dois
+e. Decimal agrupado sem sinal
+f. Decimal agrupado com sinal
+Book 1.indb 316 19.11.09 14:38:18
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 317
+10.4 Muitos processadores oferecem uma lógica para realizar aritmética sobre números decimais agrupados. Embora as regras para a aritmética 
+decimal sejam semelhantes àquelas para operações binárias, os resultados decimais podem exigir algumas correções aos dígitos individuais se 
+a lógica binária for usada.
+Considere a adição decimal de dois números sem sinal. Se cada número consistir em N dígitos, então existem 4N bits em cada número. Os dois 
+números devem ser somados usando um somador binário. Sugira uma regra simples para corrigir o resultado. Realize a adição dessa forma sobre os números 1698 e 1786.
+10.5 O complemento de dez do número decimal X é definido como sendo 10
+N –X, onde N é a quantidade de dígitos decimais no número. Descreva o 
+uso da representação em complemento de dez para realizar subtração decimal. Ilustre o procedimento subtraindo (0326)10 de (0736)10.
+10.6 Compare máquinas de zero, um, dois e três endereços escrevendo programas para calcular
+X = (A + B × C)/(D – E × F)
+para cada uma das quatro máquinas. As instruções disponíveis para uso são as seguintes:
+0 endereço 1 endereço 2 endereços 3 endereços
+PUSh M LOAD M MOVE (X  y) MOVE (X  Y)
+POP M STORE M ADD (X  X + Y) ADD (X  Y + Z)
+ADD ADD M SUB (X  X – Y) SUB (X  Y – Z)
+SUB SUB M MUL (X  X × Y) MUL (X  Y × Z)
+MUL MUL M DIV (X  X/Y) DIV (X  Y/Z)
+DIV DIV M
+10.7 Considere um computador hipotético com um conjunto de instruções de apenas duas instruções de n bits. O primeiro bit especifica o opcode, e 
+os bits restantes especificam uma das 2n–1 palavras de n bits da memória principal. As duas instruções são as seguintes:
+SUBS X Subtrai o conteúdo do local X do acumulador e armazena o resultado no local X e no acumulador.JUMP X Coloca o endereço X no contador de programa.Uma palavra na memória principal pode conter uma instrução ou um número binário na notação de complemento a dois. Demonstre que esse repertório de instruções é razoavelmente completo, especificando como as seguintes operações podem ser programadas:
+a. Transferência de dados: local X para acumulador, acumulador para local X.
+b. Adição: adicionar conteúdo do local X para acumulador.
+c. Desvio condicional.
+d. OR lógico.
+e. Operações de E/S.
+10.8 Muitos conjuntos de instruções contêm a instrução nOOP , significando nenhuma operação, a qual não tem efeito sobre o estado do processador, 
+além de incrementar o contador de programa. Sugira alguns usos dessa instrução.
+10.9 na Seção 10.4, afirmamos que um deslocamento aritmético à esquerda e um deslocamento lógico à esquerda correspondem a uma multiplica-
+ção por 2 quando não existe overflow , e se houver overflow , as operações de deslocamento aritmético e lógico à esquerda produzem resultados 
+diferentes, mas o deslocamento aritmético à esquerda retém o sinal do número. Demonstre que essas afirmações são verdadeiras para inteiros em complemento de dois com 5 bits.
+10.10 De que maneira os números são arredondados usando o deslocamento aritmético à direita (por exemplo, arredondar para +q, arredondar para 
+–q, para zero, para longe de 0)?
+10.11 Suponha que uma pilha deva ser usada pelo processador para gerenciar chamadas e retornos de procedimento. O contador de programa pode 
+ser eliminado usando o topo da pilha como um contador de programa?
+10.12 A arquitetura x86 inclui uma instrução chamada Decimal Adjust after Addition (DAA). DAA realiza a seguinte sequência de instruções:
+Book 1.indb 317 19.11.09 14:38:18
+
+318 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+if((AL AND 0FH) >9) OR (AF = 1) then
+AL←AL + 6;
+AF←1;
+else
+AF←0;
+endif;
+if(AL > 9FH) OR (CF = 1) then
+AL←AL + 60H;
+CF←1;
+else
+CF←0;
+endif.
+“h” indica hexadecimal. AL é um registrador de 8 bits que mantém o resultado da adição de dois inteiros sem sinal com 8 bits. AF é um flag que 
+é 'setado' se houver um carry do bit 3 ao bit 4 no resultado de uma adição. CF é um flag 'setado' se houver um carry do bit 7 ao bit 8. Explique 
+a função realizada pela instrução DAA.
+10.13 A instrução x86 Compare (CMP) subtrai o operando de origem do operando de destino; ela atualiza os flags de status (C, P , A, Z, S, O), mas não 
+altera operando algum. A instrução CMP pode ser usada para determinar se o operando de destino é maior, igual ou menor que o operando de origem.
+a. Suponha que os dois operandos sejam tratados como inteiros sem sinal. Mostre quais flags de status são relevantes para determinar o 
+tamanho relativo dos dois inteiros e que valores dos flags correspondem a maior, igual ou menor.
+b. Suponha que os dois operandos sejam tratados como inteiros com sinal em complemento de dois. Mostre quais flags de status são relevan-
+tes para determinar o tamanho relativo dos dois inteiros e que valores dos flags correspondem a maior, igual ou menor.
+c. A instrução CMP pode ser seguida por uma instrução Jump condicional (Jcc) ou Set Condition (SETcc), onde cc refere-se a uma das 16 condi-
+ções listadas na Tabela 10.10. Demonstre que as condições testadas para uma comparação numérica com sinal são corretas.
+10.14 Suponha que queiramos aplicar a instrução CMP do x86 aos operandos de 32 bits que contenham números em um formato de ponto flutuante. 
+Para obter resultados corretos, que requisitos precisam ser atendidos nas áreas a seguir?
+a. A posição relativa dos campos de significando, sinal e expoente.
+b. A representação do valor zero.
+c. A representação do expoente.
+d. O formato do IEEE cumpre esses requisitos? Explique.
+10.15 Muitos conjuntos de instrução de microprocessador incluem uma instrução que testa uma condição e define um operando de destino se a 
+condição for verdadeira. Alguns exemplos incluem o SETcc no x86, o Scc no Motorola MC68000 e o Scond no national nS32000.
+a. Existem algumas diferenças entre essas instruções:
+SETcc e Scc operam apenas sobre um byte, enquanto Scond opera sobre operandos de byte, palavra e palavra dupla.
+ 
+SETcc e Scond definem o operando como o inteiro 1 se verdadeiro e zero se falso. Scc define o byte com 1s binários se verdadeiro e 0s 
+se falso.
+Quais são as vantagens e desvantagens relativas dessas diferenças?
+b. nenhuma dessas instruções define qualquer um dos flags de código de condição, e assim é preciso haver um teste explícito do resultado da 
+instrução para determinar seu valor. Discuta se os códigos de condição devem ser definidos como um resultado dessa instrução.
+c. Uma instrução IF simples como IF a > b ThEn pode ser implementada com um método de representação numérica, ou seja, tornando o 
+valor booleano explícito, ao contrário de um método de fluxo de controle, que representa o valor de uma expressão booleana por um certo 
+ponto no programa. Um compilador poderia implementar IF a > b ThEn com o seguinte código x86:
+SUB CX, CX ; atualizar CX com 0
+MOV AX, B ; mover o conteúdo da localização de memória B para o registrador AX CMP AX, A ; comparar o conteúdo do registrador AX e da localização de memória AJLE TEST ; salta se INC CX ; somar 1 ao conteúdo do registrador CX
+TEST JCXZ OUT ; salta se o conteúdo de CX é igual a 0 THEN OUTA…B
+Book 1.indb 318 19.11.09 14:38:19
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 319
+O resultado de (A > B) é um valor booleano mantido em um registrador e disponível depois, fora do contexto do fluxo de código mostrado. É 
+conveniente usar o registrador CX para isso, pois muitos dos opcodes de desvio e loop possuem um teste embutido para CX.Mostre uma implementação alternativa usando a instrução SETcc que economize memória e tempo de execução. (Dica : nenhuma instrução x86 
+nova é necessária, além de SETcc.)
+d. Agora considere a instrução em linguagem de alto nível:
+A: = (B > C) OR (D = F)
+Um compilador poderia gerar o seguinte código:
+ MOV EAX, B ; move conteúdo da localização B para registrador EAX
+ CMP EAX, C ; compara conteúdo do registrador EAX e da localização C MOV BL, 0 ; 0 representa falso JLE N1 ; salta se B … C MOV BL, 1 ; 1 representa falsoN1 MOV EAX, D CMP EAX, F MOV BH, 0 JNE N2 MOV BH, 1N2 OR BL,BH
+ Mostre uma implementação alternativa usando a instrução SETcc que economize memória e tempo de execução.
+10.16 Suponha que dois registradores contenham os seguintes valores hexadecimais: AB0890C2, 4598EE50. Qual é o resultado de somá-los usando 
+instruções MMX?
+a. Para pacote de bytes
+b. Para pacote de palavras
+ Considere que a aritmética de saturação não é utilizada.
+10.17 O Apêndice 10A indica que não existem instruções orientadas a pilha em um conjunto de instruções se a pilha tiver que ser usada apenas pelo 
+processador para finalidades tais como tratamento de procedimento. Como o processador pode usar uma pilha para qualquer finalidade sem 
+instruções orientada a pilha?
+10.18 Converta as seguintes fórmulas da notação polonesa invertida para infixo:a. AB + C + D ×
+b. AB/CD/ +
+c. ABCDE +××/
+d. ABCDE + F/ + G – h/ × +
+10.19 Converta as seguintes fórmulas da notação infixo para polonesa invertida:a. A + B + C + D + E
+b. (A + B) × (C + D) + E
+c. (A × B) + (C × D) + E
+d. (A –B) × (((C –D × E)/F)/G) × h
+10.20 Converta a expressão A + B – C para a notação de pós-fixo usando o algoritmo de Dijkstra. Mostre as etapas envolvidas. O resultado é equiva-
+lente a (A + B) – C ou A + (B – C)? Isso faz diferença?
+10.21 Usando o algoritmo para converter infixo para pós-fixo, definido no Apêndice 10A, mostre as etapas envolvidas na conversão da expressão da 
+Figura 10.15 para pós-fixo. Use uma apresentação semelhante à da Figura 10.17.
+10.22 Mostre o cálculo da expressão na Figura 10.17, usando uma apresentação semelhante à da Figura 10.16.
+10.23 Redesenhe o layout little-endian da Figura 10.18 de modo que os bytes apareçam como numerados no layout big-endian. Ou seja, mostre a 
+memória em linhas de 64 bits, com os bytes listados da esquerda para a direita, de cima para baixo.
+10.24 Para as seguintes estruturas de dados, desenhe os layouts big-endian e little-endian, usando o formato da Figura 10.18, e comente os 
+resultados.
+Book 1.indb 319 19.11.09 14:38:19
+
+320 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+struct {
+double i; //0x1112131415161718
+} s1;
+struct {
+int i; //0x11121314
+int j; //0x15161718
+} s2;
+struct {
+short i; //0x1112short j; //0x1314short k; //0x1516short l; //0x1718
+} s3;a.
+b.
+c.
+10.25 A especificação de arquitetura IBM Power não dita como um processador deve implementar o modo little-endian. Ela especifica apenas a visão da 
+memória que um processador precisa ter ao operar no modo little-endian. Ao converter uma estrutura de dados de big-endian para little-endian, os 
+processadores são livres para implementar um mecanismo de troca de byte ou usar algum tipo de mecanismo de modificação de endereço. Os processa-
+dores Power atuais são todos máquinas big-endian por padrão e usam a modificação de endereço para tratar dados como little-endian.
+Considere a estrutura s definida na Figura 10.18. O layout na parte inferior direita da figura mostra a estrutura s conforme vista pelo processa-dor. na verdade, se a estrutura s for compilada no modo little-endian, seu layout na memória aparece na Figura 10.12. Explique o mapeamento 
+envolvido, descreva um modo fácil de implementar o mapeamento e discuta a eficácia dessa técnica.
+10.26 Escreva um pequeno programa para determinar o tipo de endian da máquina e informar os resultados. Execute o programa em qualquer com-
+putador que lhe esteja disponível e informe a saída.
+10.27 O processador MIPS pode ser definido para operar no modo big-endian ou little-endian. Considere a instrução Load Byte unsigned (LBU), que 
+carrega um byte da memória para os 8 bits de baixa ordem de um registrador e preenche os 24 bits de alta ordem do registrador com zeros. A descrição de LBU é dada no manual de referência do MIPS, usando uma linguagem de transferência de registrador como
+mem←LoadMemory( ...)
+byte←VirtualAddress 1..0
+ifCONDITION then
+GPR[rt] ←024| |mem318 byte .. 24 8 byte
+else
+GPR[rt] ←024| |mem78 byte .. 8 byte
+endif
+onde byte refere-se aos dois bits de baixa ordem do endereço efetivo e mem refere-se ao valor carregado da memória. no manual, em vez da 
+palavra COnDITIOn, uma das duas palavras a seguir é usada: BigEndian, LittleEndian. Qual palavra é usada?
+Mapeamento de endereço little-endian Endereço
+de byte
+00
+081018
+2010 11 12 13 14 15 16 17'D' 'C' 'B' 'A' 31 32 33 3408 09 0A 0B 0C 0D 0E 0F21 22 23 24 25 26 27 2800 01 02 03 04 05 06 07 11 12 13 14
+18 19 1A 1B 1C 1D 1E 1F 51 52 'G' 'F' 'E'
+20 21 22 23 24 25 26 27 61 62 63 64Figura 10.12 Estrutura s little-endian da arquitetura Power na memória
+Book 1.indb 320 19.11.09 14:38:20
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 321
+10.28 A maior parte, mas não todos os processadores, utiliza a ordenação de bits big-endian ou little-endian dentro de um byte que é coerente com a ordenação 
+big ou little-endian dos bytes dentro de um escalar multibytes. Vamos considerar o Motorola 68030, que usa a ordenação de bytes big-endian. A docu-
+mentação do 68030 referente a formatos é confusa. O manual do usuário explica que a ordenação de bit dos campos de bit é o oposto da ordenação de 
+bit dos inteiros. A maior parte das operações com campo de bit opera com uma ordenação endian, mas algumas operações com campo de bit exigem a 
+ordenação oposta. A descrição a seguir, do manual do usuário, ilustra a maior parte das operações de campo de bit:
+Um operando de bit é especifi cado por um endereço de base que seleciona um byte na memória (o byte de base), e um número de bit que seleciona um bit nesse byte. O bit mais signifi cativo é o bit sete. O operando de campo de bit é especifi cado por: (1) um endereço de base que seleciona um 
+byte na memória; (2) um deslocamento de campo de bit que indica o bit mais à esquerda (base) do campo de bit em relação ao bit mais signifi cativo 
+do byte de base; e (3) uma largura de campo de bit que determina quantos bits à direita do byte de base estão no campo de bit. O bit mais signifi ca-tivo do byte de base é o deslocamento do campo de bit 0, o bit menos signifi cativo do byte de base é o deslocamento do campo de bit 7.Essas instruções utilizam a ordenação de bits big-endian ou little-endian?
+ Apêndice 10A Pilhas
+Pilhas
+Uma pilha é um conjunto ordenado de elementos dos quais somente um pode ser acessado de cada vez. O ponto de acesso é chamado de topo da 
+pilha. O número de elementos na pilha, ou tamanho da pilha, é variável. O último elemento na pilha é a base da pilha. Os itens só podem ser acrescen-
+tados ou excluídos do topo da pilha. Por esse motivo, uma pilha também é conhecida como lista pushdown3 ou lista último-a-entrar-primeiro-a-sair 
+(ou LIFO  Last In First Out).
+A Figura 10.13 mostra as operações básicas da pilha. Começamos em algum ponto no tempo em que a pilha contém alguma quantidade de ele-
+mentos. Uma operação PUSh acrescenta um novo item ao topo da pilha. Uma operação POP remove o item do topo da pilha. nos dois casos, o topo da pilha se move conforme a operação. Os operadores binários, que exigem dois operandos (por exemplo, multiplicar, dividir, somar, subtrair), utilizam os dois itens do topo da pilha como operandos, removem os dois itens e colocam o resultado de volta à pilha. As operações unárias, que exigem apenas um operando (por exemplo, nOT lógico), utilizam o item no topo da pilha. Todas essas operações são resumidas na Tabela 10.13.
+3 Um termo melhor seria colocar-no-topo da lista (place-on-top-of-list), pois os elementos existentes da lista não são movidos para a memória, mas um novo elemento é acrescentado 
+no próximo endereço de memória disponível.I
+J
+K
+L
+M
+Após PUSHBPSP
+J
+K
+L
+M
+Estado inicialBPSP J
+K
+L
+M
+BPSP
+Após POPKJ
+L
+M
+Após operação
+de multiplicação
+Endereços decrescentes
+BPSP
+SP = stack pointer (ponteiro de pilha)
+BP = base pointer (ponteiro de base)Figura 10.13 Operação básica da pilha (cheia/decrescente)
+Book 1.indb 321 19.11.09 14:38:21
+
+322 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Implementação da pilha
+A pilha é uma estrutura útil para ser fornecida como parte da implementação de um processador. Um de seus usos, já discutido na Seção 10.4, 
+é gerenciar as chamadas e os retornos de procedimento. As pilhas também podem ser úteis ao programador. Um exemplo disso é a avaliação de 
+expressões, discutida mais adiante nesta seção.
+A implementação de uma pilha depende em parte dos seus usos em potencial. Se for desejado tornar as operações da pilha disponíveis ao 
+programador, então o conjunto de instruções incluirá operações orientadas a pilha, como PUSh, POP e operações que usam um ou dois elementos do topo da pilha como operandos. Como todas essas operações se referem a um local exclusivo, a saber, o topo da pilha, o endereço do operando ou operandos é implícito e não precisa ser incluído na instrução. Estas são as instruções de zero endereços, a que nos referimos na Seção 10.1.
+Se o mecanismo de pilha tiver que ser usado apenas pelo processador, para fins como tratamento de procedimento, então não haverá instruções explí-
+citas orientadas a pilha no conjunto de instruções. De qualquer forma, a implementação de uma pilha requer que haja algum conjunto de locais usados para armazenar os elementos da pilha. Uma técnica típica é ilustrada na Figura 10.14. Um bloco contíguo de locais é reservado na memória principal (ou memória virtual) para a pilha. Quase sempre, o bloco é parcialmente preenchido com os elementos da pilha e o restante está disponível para crescimento da pilha.Tabela 10.13 Operações orientadas à pilha
+PUSh Acrescenta um novo elemento ao topo da pilha.
+POP Retira o elemento do topo da pilha.
+Operação unáriaRealiza operação sobre o elemento do topo da pilha. Substitui 
+o elemento do topo pelo resultado.
+Operação bináriaRealiza operação sobre os dois elementos do topo da pilha. 
+Exclui os dois elementos da pilha. Coloca o resultado da operação no topo da pilha.
+Figura 10.14 Típica organização da pilha (completa/decrescente)
+Bloco
+reservadopara a pilhaMemória
+principalRegistradoresdo processador
+LivreLimite da pilha
+Ponteiro
+de pilha
+Base
+da pilha
+Em uso
+Endereços decrescentes
+Book 1.indb 322 19.11.09 14:38:21
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 323
+Três endereços são necessários para a operação correta, e estes normalmente são armazenados nos registradores do processador:
+Ponteiro de pilha (SP ,  do inglês stack pointer): Contém o endereço do topo da pilha. Se um item for acrescentado ou removido da 
+pilha, o ponteiro é incrementado ou decrementado para conter o endereço do novo topo da pilha.
+Base da pilha:  contém o endereço do local inferior do bloco reservado. Se for feita uma tentativa de POP quando a pilha estiver vazia, 
+um erro é informado.Limite da pilha:
+  contém o endereço da outra extremidade do bloco reservado. Se for feita uma tentativa de PUSh quando o bloco 
+estiver totalmente utilizado para a pilha, um erro é informado.
+As implementações de pilha possuem dois atributos-chave:
+Crescente/decrescente:  uma pilha crescente cresce na direção dos endereços maiores, começando de um endereço baixo e prosse-
+guindo para um endereço mais alto. Ou seja, uma pilha crescente é aquela em que o SP é incrementado quando os itens são acrescenta-dos e decrementado quando os itens são removidos. Uma pilha decrescente cresce na direção dos endereços menores, começando de um endereço alto e prosseguindo para um endereço mais baixo. A maioria das máquinas implementa pilhas decrescentes como padrão.Cheio/vazio:
+  essa é uma terminologia confusa, pois não se refere a se a pilha está completamente cheia ou completamente vazia. Em 
+vez disso, o SP pode apontar para o item do topo na pilha (método cheio) ou para o próximo espaço livre na pilha (método vazio). Para o método cheio, quando a pilha está completamente cheia, o SP aponta para o limite superior da pilha. Para o método vazio, quando a pilha está completamente vazia, o SP aponta para a base da pilha.
+A Figura 10.13 é um exemplo de uma implementação decrescente/cheia (supondo que os endereços numericamente inferiores sejam repre-
+sentados mais no alto da página). A arquitetura ARM permite que o programador de sistemas especifique o uso de operações de pilha crescente ou decrescente, vazia ou cheia. A arquitetura x86 utiliza uma convenção decrescente/vazia.
+Avaliação de expressão
+As fórmulas matemáticas normalmente são expressas no que é conhecido como notação de infixo. n essa forma, um operador binário aparece 
+entre os operandos (por exemplo, a + b). Para expressões complexas, parênteses são usados para determinar a ordem de avaliação das expressões. Por exemplo, a + (b × c) gerará um resultado diferente de (a + b) × c. Para diminuir o uso de parênteses, as operações possuem uma precedência implícita. Geralmente, a multiplicação tem precedência sobre a adição, de modo que a + b × c é equivalente a a + (b × c).
+Uma técnica alternativa é conhecida como notação polonesa invertida, ou pós-fixo. n essa notação, o operador vem após seus dois ope-
+randos. Por exemplo,
+a+b torna-se a b
++
+a+1b*c2 torna-se a b c *+
+1a+b2*c torna-se a b +c*
+Observe que, independentemente da complexidade de uma expressão, nenhum parêntese é exigido quando se usa a notação polonesa 
+invertida.
+A vantagem da notação de pós-fixo é que uma expressão nessa forma é facilmente avaliada usando uma pilha. Uma expressão em notação 
+de pós-fixo é varrida da esquerda para a direita. Para cada elemento da expressão, as seguintes regras são aplicadas:
+1. Se o elemento for uma variável ou constante, coloque-a na pilha.
+2. Se o elemento for um operador, remova os dois itens do topo da pilha, realize a operação e coloque o resultado no topo da pilha.
+Após a expressão inteira ter sido varrida, o resultado está no topo da pilha.A simplicidade desse algoritmo torna-o conveniente para avaliar expressões. Consequentemente, muitos compiladores apanharão uma ex-
+pressão em uma linguagem de alto nível, a converterão para a notação de pós-fixo e depois gerarão as instruções de máquina a partir da notação. A Figura 10.15 mostra a sequência de instruções de máquina para avaliar f = (a – b)/(c + d × e) usando instruções orientadas a pilha. A figura também mostra o uso de instruções de um endereço e dois endereços. Observe que, embora as regras orientadas a pilha não fossem usadas nos dois últimos casos, a notação de pós-fixo serviu como um guia para gerar as instruções de máquina. A sequência de eventos para o programa na pilha aparece na Figura 10.16.
+O processo de converter uma expressão de infixo para uma expressão de pós-fixo por si só é facilmente realizado usando uma pilha. O algo-
+ritmo a seguir é atribuído a Dijkstra (1963
+j).A expressão de infixo é verificada da esquerda para a direita e a expressão de pós-fixo é desenvolvida 
+e gerada durante a verificação. As etapas são as seguintes:
+1. Examine o próximo elemento na entrada.
+2. Se for um operando, mande-o para a saída.
+3. Se for um parêntese inicial, coloque-o na pilha.
+4. Se for um operador, então
+Book 1.indb 323 19.11.09 14:38:22
+
+324 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Figura 10.15 Comparação de três programas para calcular f=a-b
+c+(d*e)
+Pilha Registradores gerais Registrador único
+Número de instruções 10 7 8
+Acesso à memória 10 op + 6 d 7 op + 6 d 8 op + 8 dPush a
+Push b
+Subtract
+Push c
+Push d
+Push e
+Multiply
+Add
+Divide
+Pop fLoad R1, a
+Subtract R1, b
+Load R2, d
+Multiply R2, e
+Add R2, c
+Divide R1, R2
+Store R1, fLoad d 
+Multiply e
+Add c
+Store f
+Load a
+Subtract b
+Divide f
+Store f
+Figura 10.16 Uso da pilha para calcular f = (a – b)/[(d × e) + c]
+a ac c bd
+a – b a – b a – b
+cd d ee
+a – bc
+a – b a – b
+a – b(d e) + c
+(d e) + cSe o topo da pilha for um parêntese inicial, então coloque o operador no topo da pilha. 
+Se tiver uma prioridade mais alta que o topo da pilha (multiplicação e divisão têm maior prioridade do que adição e subtração), então 
+coloque o operador na pilha.
+Se não, remova a operação da pilha e mande-a para a saída, e repita a etapa 4. 
+5. Se for um parêntese final, remova os operadores para a saída até que um parêntese inicial seja encontrado. Remova e descarte o parêntese inicial.
+6. Se houver mais entrada, vá para a etapa 1.
+7. Se não houver mais entrada, desempilhe os operandos restantes.
+A Figura 10.17 ilustra o uso desse algoritmo. Este exemplo deverá dar ao leitor alguma ideia do poder dos algoritmos baseados em pilha.
+Book 1.indb 324 19.11.09 14:38:23
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 10 Conjuntos de instruções: características e funções 325
+ Apêndice 10B Little, big e bi-endian
+Um fenômeno incômodo e curioso se relaciona como os bytes dentro de uma palavra e os bits dentro de um byte são referenciados e repre-
+sentados. Primeiro, examinamos o problema da ordenação de bytes e depois consideramos a dos bits.
+Ordenação de byte
+O conceito do tipo de endian foi discutido inicialmente na literatura por Cohen (1981k). Com relação aos bytes, o tipo de endian tem a ver 
+com a ordenação dos bytes de valores escalares em múltiplos bytes. A questão é mais bem entendida com um exemplo. Suponha que tenhamos o 
+valor hexadecimal de 32 bits 12345678 e que ele seja armazenado em uma palavra de 32 bits na memória endereçável por byte no local de byte 184. O valor consiste em 4 bytes, com o byte menos signifi cativo contendo o valor 78 e o byte mais signifi cativo contendo o valor 12. Existem duas maneiras óbvias de armazenar esse valor:
+ Endereço Valor Endereço Valor
+184 12 184 78
+185 34 185 56
+186 56 186 34
+187 78 187 12
+O mapeamento à esquerda armazena o byte mais signifi cativo no endereço de byte numérico mais baixo; isso é conhecido como big-endian, 
+e é equivalente à ordem da esquerda para a direita da escrita nas linguagens de cultura ocidental. O mapeamento à direita armazena o byte menos signifi cativo no endereço de byte numérico mais baixo; isso é conhecido como little-endian, e é um remanescente da ordem da direita para a 
+esquerda das operações aritméticas em unidades aritméticas.
+4 Para determinado valor escalar em múltiplos bytes, big-endian e little-endian são 
+mapeamentos com inversão de bytes um em relação ao outro.
+O conceito de tipo de endian surge quando é necessário tratar uma entidade de múltiplos bytes como um único item de dados com um único 
+endereço, embora seja composto de unidades endereçáveis menores. Algumas máquinas, como Intel 80x86, x86, VAX e Alpha, são máquinas little-
+-endian, enquanto outras, como IBM System 370/390, Motorola 680x0, Sun SPARC e a maioria das máquinas RISC, são big-endian. Isso apresenta 
+problemas quando os dados são transferidos de uma máquina de um tipo de endian para a outra e quando um programador tenta manipular 
+bytes ou bits individuais dentro de um escalar de múltiplos bytes.
+4 Os termos big endian e little endian vêm da Parte I, Capítulo 4 de As Viagens de Gulliver, de Jonathan Swift. Eles se referem a uma guerra religiosa entre dois grupos, um que quebra 
+ovos na ponta grande (big end) e o outro que quebra ovos na ponta pequena (little end).Figura 10.17 Conversão de uma expressão da notação de infi xo para pós-fi xo
+Entrada SaídaPilha (topo 
+à direita)
+vazio
+AAA BA BA B CA B C +A B C +A B C + DA B C + DA B C + D EA B C + D E + A B C + D E + A B C + D E + FA B C + D E + FA + B C + (D + E) F
++ B C + (D + E) F
+B C + (D + E) F
+ C + (D + E) F C + (D + E) F
++ (D + E) F
+(D + E) F
+D + E) F
++ E) F
+E) F
+) F
+ F
+F
+vaziovaziovaziovazio++++++ (+ (+ ( ++ ( ++++vazio
+Book 1.indb 325 19.11.09 14:38:23
+
+326 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+A propriedade de tipo de endian não se estende além de uma unidade de dados individual. Em qualquer máquina, agregados como arquivos, 
+estruturas de dados e arrays são compostas de múltiplas unidades de dados, cada uma com um tipo de endian. Assim, a conversão de um bloco de 
+memória de um estilo de tipo de endian para outro requer conhecimento da estrutura de dados.
+A Figura 10.18 ilustra como o tipo de endian determina o endereçamento e a ordem de byte. A estrutura em C no topo contém uma série de tipos de 
+dados. O layout da memória no canto inferior esquerdo resulta da compilação da estrutura para uma máquina big-endian, e a do canto inferior esquerdo, 
+daquela para uma máquina little-endian. De qualquer forma, a memória é representada como uma série de linhas de 64 bits. Para o caso do big-endian, a memória normalmente é vista da esquerda para a direita, de cima para baixo, enquanto para o caso little-endian, a memória normalmente é vista como 
+da direita para a esquerda, de cima para baixo. Observe que esses layouts são arbitrários. Qualquer esquema poderia ser da esquerda para a direita ou da direita para a esquerda dentro de uma linha; essa é uma questão de representação, e não de atribuição de memória. De fato, examinando os manuais de programador para diversas máquinas, diversas representações podem ser encontradas, até mesmo dentro do mesmo manual.
+Podemos fazer várias observações sobre essa estrutura de dados:
+Cada item de dados tem o mesmo endereço nos dois esquemas. Por exemplo, o endereço da palavra dupla com valor hexadecimal 
+ 
+2122232425262728 é 08.Dentro de determinado valor escalar multibyte, a ordenação dos bytes na estrutura little-endian é o reverso daquela para a estrutura 
+ 
+big-endian.O tipo de 
+  endian não afeta a ordenação dos itens de dados dentro de uma estrutura. Assim, a palavra de quatro caracteres c exibe reversão de 
+byte, mas o array de bytes de sete caracteres d não. Logo, o endereço de cada elemento individual de d é o mesmo nas duas estruturas.
+O efeito do tipo de endian talvez seja demonstrado mais claramente quando vemos a memória como um array vertical de bytes, como mostra a 
+Figura 10.19.
+não existe um consenso geral sobre qual é o estilo superior de tipo de endian.5 Os pontos a seguir favorecem o estilo big-endian:
+Classificação de  string de caracteres: um processador big-endian é mais rápido em comparação com strings de caracteres alinhadas por 
+inteiros; a ALU de inteiros pode comparar múltiplos bytes em paralelo.Listagem de valores decimais IRA:
+  todos os valores podem ser impressos da esquerda para a direita sem causar confusão.
+5 O profeta reverenciado pelos dois grupos nas Endian Wars de Viagens de Gulliver disse isto: “Todos os que me acreditam verdadeiramente deverão quebrar seus ovos pela ponta mais 
+conveniente” . Isso não ajuda muito!Figura 10.18 Exemplo de estrutura de dados em C e seus mapas de endian
+struct{
+drow 4131_2111x0// ;a tni 
+ int pad; //
+ double b; //0x2122_2324_2526_2728 doubleword
+drow 4333_2313x0// ;c *rahc 
+ char d[7]; //'A'.'B','C','D','E','F','G' byte array
+drowflah 2515x0// ;e trohs 
+drow 4636_2616x0// ;f tni 
+} s;
+Mapeamento de endereço big-endian Endereço
+de byte
+00
+081018
+2010 11 12 13 14 15 16 1731 32 33 34 'A' 'B' 'C' 'D'08 09 0A 0B 0C 0D 0E 0F21 22 23 24 25 26 27 2800 01 02 03 04 05 06 0711 12 13 14
+18 19 1A 1B 1C 1D 1E 1F'E' 'F' 'G ' 51 52 
+20 21 22 2361 62 63 64Mapeamento de endereço little-endian Endereço
+de byte
+00
+081018
+2017 16 15 14 13 12 11 10'D' 'C' 'B' 'A' 31 32 33 340F 0E 0D 0C 0B 0A 09 0821 22 23 24 25 26 27 2807 06 05 04 03 02 01 00 11 12 13 14
+1F 1E 1D 1C 1B 1A 19 18 51 52 'G' 'F' 'E'
+ 23 22 21 20 61 62 63 64
+Book 1.indb 326 19.11.09 14:38:24
+
+ARquITeTu RA e o RgAnIzA ção de compuTA doR es Capítulo 10 Conjuntos de instruções: características e funções 327
+Ordem coerente:  processadores big-endian armazenam seus inteiros e strings de caracteres na mesma ordem (byte mais significativo vem 
+primeiro).
+Os seguintes pontos favorecem o estilo little-endian:
+O processador  big-endian precisa realizar adição quando converte um endereço de inteiros de 32 bits para um endereço de inteiros de 16 bits, 
+para usar os bytes menos significativos.
+É mais fácil realizar a aritmética de alta precisão com o estilo  little-endian; você não precisa encontrar o byte menos significativo e 
+recuar.
+As diferenças são menores e a escolha do estilo de endian normalmente é mais uma questão de acomodar as máquinas anteriores do que qualquer 
+outra coisa.
+O PowerPC é um processador bi-endian, que tem suporte para os modos big-endian e little-endian. A arquitetura bi-endian permite que os desen-
+volvedores de software escolham qualquer um desses modos ao migrar sistemas operacionais e aplicações de outras máquinas. O sistema operacional estabelece o modo de endian em que os processos são executados. Quando um modo é selecionado, todos os loads e stores de memória subsequentes 
+são determinados pelo modelo de endereçamento de memória desse modo. Para dar suporte a esse recurso do hardware, 2 bits são mantidos no registrador de estado de máquina (MSR, do inglês machine state register) mantido pelo sistema operacional como parte do estado do processo. Um bit 
+especifica o modo de endian em que o kernel executa; o outro especifica o modo operacional atual do processador. Assim, o modo pode ser alterado com base em cada processo.Figura 10.19 Outra visão da Figura 10.18
+11
+121314
+21
+22232425
+26
+2728
+31
+323334
+'A'
+'B'
+'C'
+'D'
+'E'
+'F'
+'G'
+51
+52
+61
+62636400
+08
+10
+18
+2004
+0C
+14
+1C14
+131211
+28
+27262524
+23
+2221
+34
+333231
+'A'
+'B'
+'C'
+'D'
+'E'
+'F'
+'G'
+52
+51
+64
+63626100
+08
+10
+18
+2004
+0C
+14
+1C
+(a) Big-endian (b) Little-endian
+Book 1.indb 327 19.11.09 14:38:25
+
+328 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Ordenação de bit
+na ordenação dos bits dentro de um byte, encaramos imediatamente duas questões:
+1. Você conta o primeiro bit como bit zero ou como bit um?
+2. Você atribui o número de bit mais baixo ao bit menos significativo do byte (little-endian) ou ao bit mais significativo do byte (big-endian)?
+Essas questões não são respondidas da mesma maneira em todas as máquinas. na realidade, em algumas máquinas, as respostas são diferentes 
+em diferentes circunstâncias. Além do mais, a escolha da ordenação de bits big-endian ou little-endian dentro de um byte nem sempre é coerente com a ordenação big ou little-endian dentro de um escalar de múltiplos bytes. O programador precisa se preocupar com essas questões ao manipular bits 
+individuais.
+Outra área de interesse é quando os dados são transmitidos por uma linha serial de bits. Quando um byte individual é transmitido, o sistema trans-
+mite primeiro o bit mais significativo ou o bit menos significativo? O projetista precisa garantir que os bits que chegam sejam tratados corretamente. Para obter uma discussão dessa questão, veja James (1983
+l).
+ Referências
+ a hAYES , J. Computer architecture and organization. n ova York: McGraw-hill, 1998.
+ b C ARTER , P . PC Assembly Language. Jul. 2006. Disponível no site deste livro. 
+ c A TKInS, M. “PC software performance tuning” . IEEE Computer, ago. 1996.
+ d P ELEG , A.; W ILKIE , S. e W EISER , U. “Intel MMX for multimedia PCs” . Communications of the ACM, jan. 1997.
+ e Intel Corp. Pentium Pro and Pentium II processors and related products. Aurora, CO. 1998. f BREY, B. The Intel microprocessors: 8086/8066, 80186/80188, 80286, 80386, 80486, Pentium, Pentium Pro Processor, Pentium II, Pentium III, Pentium 
+4 and Core2 with 64-bit extensions. Upper Saddle River, nJ: Prentice hall, 2009.
+ g S LOSS , A.; Symes, D. e Wright, C. ARM system developer’s guide. San Francisco: Morgan Kaufmann, 2004.
+ h KnAGGS , P . e Welsh, S. ARM: assembly language programming. Bournemouth University, School of Design, Engineering, and Computing, ago 2004. 
+www.freetechbooks.com/arm-assembly-language-programming-t729.html
+ i Intel Corp. Endianness white paper. nov. 2004. j D IJKSTRA , E. “Making an ALGOL translator for the X1” . In Annual Review of Automatic Programming, Volume 4. Pergamon, 1963.
+ k COhEn, D. “On holy wars and a plea for peace” . Computer, out. 1981. l J AMES , D. “Multiplexed buses: the endian wars continue” . IEEE Micro, set. 1983.
+Book 1.indb 328 19.11.09 14:38:25
+
+Conjuntos de instruções: modos e formatos 
+de endereçamento
+No Capítulo 10 focamos no que um conjunto de instruções faz. Mais 
+precisamente, examinamos os tipos de operandos e operações que 
+podem ser especifi cados pelas instruções da máquina. Este capítulo se con-
+centra na questão de como defi nir operandos e operações das instruções. Duas questões surgem. A primeira é como é especifi cado o endereço de um operando e a segunda, como são organizados os bits de uma instrução para defi nir o endereço do operando e a operação dessa instrução.
+11.1 Endereçamento
+O campo ou os campos de endereço num formato de instrução típico são relativamente pequenos. Nós gos-
+taríamos de poder referenciar um grande intervalo de posições da memória principal ou, em alguns sistemas, da memória virtual. Para alcançar esse objetivo, uma grande variedade de técnicas de endereçamento foi desenvolvi-da. Todas envolvem algum tipo de troca entre intervalo de endereços e/ou fl exibilidade de endereçamento por um lado e o número de referências de memória dentro da instrução e/ou a complexidade de cálculo de endereços por outro. Nesta seção, examinaremos as técnicas de endereçamento mais comuns:PRInCIPAIS POnTOS
+ Uma referência a um operando dentro de uma instrução contém o va-lor atual do operando (imediato) ou uma referência para o endereço do operando. Uma grande variedade de modos de endereçamento é usada em vários conjuntos de instruções. Isso inclui modo direto (endereço do operando está no campo de endereço), modo indireto (o campo de ende-reço aponta para um local que contém o endereço do operando), modo de registrador, modo de registrador indireto e várias formas de deslocamento nos quais um valor de registrador é adicionado a um valor de endereço para produzir o endereço do operando. O formato da instrução defi ne o layout dos campos dentro da instrução. A defi nição do formato da instrução é uma tarefa complexa que envolve considerações como tamanho da instrução, tamanho fi xo ou variável, nú-mero de bits atribuído para opcode e para cada referência de operando e 
+como o modo de endereçamento é defi nido.CAPÍTULO
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+11.1 Endereçamento
+  Endereçamento imediato
+  Endereçamento direto
+  Endereçamento indireto
+  Endereçamento de registradores
+  Endereçamento indireto por 
+registradores
+  Endereçamento por deslocamento
+  Endereçamento de pilha
+11.2 Modos de endereçamento x86 e ARM
+  Modos de endereçamento x86
+  Modos de endereçamento ARM
+11.3 Formatos de instruções
+  Tamanho da instrução
+  Alocação de bits
+  Instruções de tamanho variável
+11.4 Formatos de instruções x86 e ARM
+  Formatos de instruções x86
+  Formatos de instruções ARM
+11.5 Linguagem de montagem11.6 Leitura recomendada
+Book 1.indb 329 19.11.09 14:38:26
+
+330 ARquITeTu RA e o RgAnIzA ção de compuTA doR es 
+Imediato. 
+Direto. 
+Indireto. 
+Registrador. 
+Indireto por registrador. 
+Deslocamento. 
+Pilha. 
+Os modos são ilustrados na Figura 11.1. Nesta seção utilizamos a seguinte notação:
+A = conteúdos de um campo de endereço dentro da instrução.
+Figura 11.1 Modos de endereçamento
+(b) DiretoMemóriaInstrução
+A
+Operando
+(a) ImediatoInstrução
+Operando
+Registradores
+(d) RegistradorInstrução
+R
+(c) IndiretoMemóriaInstrução
+A
+Registradores
+(f) DeslocamentoMemóriaInstrução
+AR
+Registradores
+(e) Indireto de registradorMemóriaInstrução
+R
+Topo da pilha
+de registradores
+(g) PilhaImplícitoInstruçãoOperando
+OperandoOperando
+Book 1.indb 330 19.11.09 14:38:27
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 331
+R = conteúdos de um campo de endereço dentro da instrução que se refere a um registrador.
+EA = endereço real (efetivo) do local que contém o operando referenciado.(X) = conteúdos do local de memória X ou do registrador X.A Tabela 11.1 mostra o cálculo de endereço efetuado para cada modo de endereçamento.Antes de iniciar esta discussão, dois comentários precisam ser feitos. Primeiro: a princípio, todas as arquiteturas 
+de computadores oferecem mais do que um modo de endereçamento. A questão é como o processador pode determinar qual modo de endereçamento está sendo usado em uma determinada instrução. Existem diversas abordagens. Frequentemente, opcodes diferentes irão usar modos de endereçamento diferentes. Além disso, um 
+ou mais bits dentro do formato da instrução podem ser usados como um campo de modo. O valor do campo de 
+modo determina qual modo de endereçamento será usado.
+O segundo comentário diz respeito à interpretação do endereço efetivo (EA). Em um sistema sem a memória 
+virtual, o endereço efetivo será um endereço da memória principal ou um registrador. Em um sistema com memó-ria virtual, o endereço efetivo é um endereço virtual ou um registrador. O mapeamento para um endereço físico é uma função da unidade de gerenciamento de memória (MMU — memory management unit) e é transparente para 
+o programador.
+ Endereçamento imediato
+A forma mais simples de endereçamento é o endereçamento imediato, no qual o valor do operando está pre-
+sente na instrução
+Operando = A
+Este modo pode ser usado para defi nir e utilizar constantes ou defi nir valores iniciais das variáveis. Normalmente, 
+o número será armazenado em duas formas complementares; o bit à esquerda do campo do operando é usado 
+como bit de sinal. Quando o operando é carregado num registrador de dados, o bit de sinal é estendido para es-querda até o tamanho total da palavra de dados. Em alguns casos, o valor binário imediato é interpretado como um número inteiro e sem sinal.
+A vantagem do endereçamento imediato é que nenhuma referência de memória, além de obter a instrução em 
+si, é necessária para obter operando, economizando dessa forma um ciclo de memória ou cache dentro do ciclo da instrução. A desvantagem é que o tamanho do número é limitado ao tamanho do campo de endereço, o qual é, na maioria dos conjuntos de instruções, pequeno se comparado ao tamanho da palavra.
+ Endereçamento direto
+Uma forma muito simples de endereçamento é o endereçamento direto, onde o campo de endereço contém 
+o endereço efetivo do operando:
+EA = A
+Modo Algoritmo Principal vantagem Principal desvantagem
+Imediato Operando = A nenhuma referência de memória Magnitude de operando limitada
+Direto EA = A Simples Espaço de endereçamento limitado
+Indireto EA = (A) Espaço de endereçamento grande Múltiplas referências de memória
+Registrador EA = R nenhuma referência de memória Espaço de endereçamento limitado
+Indireto de registrador EA = (R) Espaço de endereçamento grande Referência extra de memória
+Deslocamento EA = A + (R) Flexibilidade Complexidade
+Pilha EA = topo da pilha nenhuma referência de memória Aplicabilidade limitadaTabela 11.1 Modos básicos de endereçamento
+Book 1.indb 331 19.11.09 14:38:27
+
+332 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+A técnica era comum nas primeiras gerações dos computadores, porém não é comum em arquiteturas atuais. 
+Ela requer apenas uma referência de memória e nenhum cálculo especial. A limitação óbvia é que ela oferece um 
+espaço de endereços limitado.
+ Endereçamento indireto
+No endereçamento direto, o tamanho do campo de endereço é normalmente menor do que o tamanho da 
+palavra, limitando dessa forma o intervalo de endereços. Uma solução é ter um campo de endereço se referindo ao endereço de uma palavra na memória, o qual, por sua vez, contém o endereço completo do operando. Esta técnica é conhecida como endereçamento indireto:
+EA = (A)
+Os parênteses devem ser interpretados como conteúdo de. A vantagem óbvia desta abordagem é que, para o 
+tamanho N de uma palavra, um espaço de endereçamento 2
+N estará disponível. A desvantagem é que a execução 
+da instrução requer duas referências de memória para obter o operando: um para obter o seu endereço e outra 
+para obter o seu valor.
+Embora o número de palavras que agora podem ser endereçadas seja igual a 2N, o número de endereços efeti-
+vos diferentes que podem ser referenciados em qualquer momento é limitado a 2K, onde K é o tamanho do campo 
+de endereço. Normalmente isso não é um incômodo e pode até ser uma vantagem. Em um ambiente de memória virtual, todos os locais de endereços efetivos podem ser colocados na página 0 de qualquer processo. Como o campo de endereço de uma instrução é pequeno, ele irá naturalmente produzir endereços diretos de números pequenos, os quais aparecem na página 0. (A única restrição é que o tamanho da página deve ser igual ou maior que 2
+K). Quando um processo está ativo, há referências repetidas na página 0, o que faz com que elas permaneçam 
+na memória real. Assim, uma referência de memória indireta irá envolver, no máximo, uma falha de página em vez de duas.
+Uma variação de endereçamento indireto raramente usada é o endereçamento indireto de vários níveis ou de 
+cascata:
+EA = (... (A)...)
+Neste caso, um bit de um endereço de palavra inteira é um fl ag indireto (I). Se o bit I é 0, então a palavra con-
+tém EA. Se o bit I é 1, então outro nível de indireção é usado. Aparentemente não há nenhuma vantagem nesta 
+abordagem e a sua desvantagem é que três ou mais referências de memória podem ser necessárias para obter um operando.
+ Endereçamento de registradores
+Endereçamento de registradores é semelhante ao endereçamento direto. A única diferença é que o campo de 
+endereço se refere a um registrador em vez de um endereço da memória principal:
+EA = R
+Para esclarecer mais, se o conteúdo de um campo de endereço de registrador dentro de uma instrução for 
+5, então o registrador R5 é o endereço pretendido e o valor do operando está contido em R5. Normalmente, um 
+campo de endereço que referencia registradores terá de 3 a 5 bits, então um total de 8 a 32 registradores de uso geral pode ser referenciado.
+As vantagens de endereçamento de registradores são: (1) apenas um pequeno campo de endereço é necessá-
+rio dentro da instrução, (2) nenhuma referência de memória que consome tempo é necessária. Conforme discutido no Capítulo 4, o tempo de acesso à de um registrador interno do processador é muito menor do que para um en-dereço da memória principal. A desvantagem do endereçamento de registradores é o espaço de endereçamento muito limitado.
+Se o endereçamento de registradores for muito usado em um conjunto de instruções, isso implicará utilização 
+pesada dos registradores do processador. Por causa do número muito limitado de registradores (se comparado ao número de endereços da memória principal), o seu uso desta maneira apenas faz sentido se forem utilizados efi cientemente. Se cada operando for trazido para um registrador a partir da memória principal, usado uma vez e depois retornado à memória principal, então um passo intermediário desnecessário será introduzido. Se, por outro lado, o operando permanecer no registrador durante várias operações, então uma economia real será obtida. Um 
+Book 1.indb 332 19.11.09 14:38:28
+
+ARquITeTuRA e oRgAnIzAção de compuTAdoRes Capítulo 11 Conjuntos de instruções: modos e formatos de endereçamento 333
+exemplo é o resultado intermediário dentro de uma operação de cálculo. Para este caso, suponha que o algoritmo 
+para multiplicar complementos de dois seja implementado via software. O local, dentro do fl uxograma, chamado A (Figura 9.12) é referenciado muitas vezes e deve ser implementado preferencialmente em um registrador do que em um local da memória principal.
+Cabe ao programador ou ao compilador decidir quais valores devem permanecer em registradores e quais 
+devem ser armazenados na memória principal. A maioria dos processadores modernos implementa vários regis-tradores de uso geral, colocando a responsabilidade de uma execução efi ciente nas mãos de um programador de linguagem de montagem (por exemplo, um projetista de compiladores).
+ Endereçamento indireto por registradores
+Assim como endereçamento de registradores é análogo ao endereçamento direto, endereçamento indireto por 
+registradores é análogo ao endereçamento indireto. Em ambos os casos, a única diferença é se o campo de endere-ço referencia um local de memória ou um registrador. Assim temos para endereçamento indireto de registradores:
+EA = (R)
+As vantagens e as limitações do endereçamento indireto por registradores são basicamente as mesmas do 
+endereçamento indireto. Em ambos os casos, a limitação do espaço de endereçamento (intervalo de endereços 
+limitado) do campo de endereço é superada fazendo com que o campo se refi ra a um local de memória do tama-nho de uma palavra contendo um endereço. Além disso, o endereçamento indireto por registradores utiliza uma referência de memória a menos do que o endereçamento indireto.
+ Endereçamento por deslocamento
+Uma forma muito poderosa de endereçamento combina as capacidades do endereçamento direto e do ende-
+reçamento indireto de registradores. Ela é conhecida por vários nomes dependendo do contexto do seu uso, mas o mecanismo básico é o mesmo. Nós iremos chamá-la de endereçamento por deslocamento:
+EA = A + (R)
+O endereçamento por deslocamento requer que a instrução tenha dois campos de endereço, dos quais ao 
+menos um é explícito. O valor contido em um campo de endereço (valor = A) é usado diretamente. O outro campo 
+de endereço, ou uma referência implícita baseada em opcode, refere-se a um registrador cujos conteúdos são adi-cionados a A para produzir um endereço efetivo.
+Iremos descrever três dos usos mais comuns do endereçamento por deslocamento:
+Endereçamento relativo.
+ 
+Endereçamento por registrador base. 
+Indexação. 
+ENDEREÇAMENTO RELATIVO Para endereçamento relativo, também chamado de endereçamento PC-relativo, o re-
+gistrador implicitamente referenciado é o contador do programa (PC). Ou seja, o endereço da próxima instrução é adicio-nado ao campo de endereço para produzir EA. Normalmente, o campo de endereço é tratado como um número com-plementar para esta operação. Dessa forma, o endereço efetivo é o deslocamento relativo ao endereço da instrução.
+Endereçamento relativo explora o conceito de localidade que foi discutido nos capítulos 4 e 8. Se a maioria das 
+referências de memória está relativamente próxima à instrução sendo executada, então o uso de endereçamento relativo economiza bits de endereço dentro da instrução.
+ENDEREÇAMENTO POR REGISTRADOR BASE Para endereçamento baseado em registradores, temos a seguinte 
+interpretação: o registrador base contém um endereço da memória principal e o campo de endereço contém um deslocamento (normalmente um número inteiro sem sinal) desse endereço. A referência registrador pode ser explícita ou implícita.
+O endereçamento por registrador base também explora a posição das referências de memória. É um meio 
+conveniente para implementar a segmentação, a qual foi discutida no Capítulo 8. Em algumas implementações, um único registrador de segmento é empregado e usado implicitamente. Em outras, o programador pode escolher um registrador para guardar o endereço base de um segmento e a instrução deve referenciá-lo explicitamente. Neste último caso, se o tamanho do campo de endereço é K e o número de possíveis registradores é N, então uma 
+instrução pode referenciar qualquer uma de N áreas de 2
+K palavras.
+Book 1.indb 333 19.11.09 14:38:29
+
+334 ARquITeTuRA e oRgAnIzAção de compuTAdoRes 
+INDEXAÇÃO Para indexação, normalmente temos a seguinte interpretação: o campo de endereço referencia 
+um endereço da memória principal e o registrador referenciado contém um deslocamento positivo desse ende-
+reço. Observe que este uso é exatamente o oposto da interpretação do endereçamento por registrador base. É claro que isto é mais do que apenas uma interpretação do usuário. Pelo fato de o campo de endereço ser con-siderado um endereço de memória na indexação, normalmente ele contém mais bits quando comparado a um campo de endereço de uma instrução com endereçamento por registrador base. Além disso, devemos observar que existem alguns refi namentos na indexação que não seriam úteis em um contexto por registrador base. Apesar disso, o método para calcular EA é o mesmo para endereçamento por registrador base e indexação e, em ambos os casos, a referência do registrador é algumas vezes explícita e algumas vezes implícita (para diferentes tipos de processadores).
+Um uso importante da indexação é permitir um mecanismo efi ciente para efetuar operações iterativas. 
+Considere, por exemplo, uma lista de números armazenada iniciando na posição A. Suponha que queiramos adicionar 1 para cada elemento da lista. Precisamos obter cada valor, adicionar 1 a ele e armazená-lo de volta. A 
+sequência de endereços efetivos que precisamos é A, A + 1, A + 2, …, até a última posição da lista. Com indexa-ção, isso é feito facilmente. O valor A é armazenado no campo de endereço da instrução e o registrador escolhi-do, chamado de registrador indexador, é inicializado com 0. Depois de cada operação, o registrador indexador é 
+incrementado por 1.
+Como os registradores indexadores são comumente usados para essas tarefas iterativas, é normal que haja 
+necessidade de incrementar e decrementar o registrador indexador depois de cada referência a ele. Por ser uma operação tão comum, alguns sistemas farão isso automaticamente como sendo parte do mesmo ciclo de instru-ção. Isso é conhecido como autoindexação. Se determinados registradores forem usados exclusivamente como 
+indexadores, então a autoindexação pode ser chamada implícita e automaticamente. Se registradores de uso geral forem usados, a operação de autoindexação pode precisar ser sinalizada por um bit dentro da instrução. A autoin-dexação com uso de incremento pode ser descrita da seguinte forma
+(R)
+;(R)+1EA=A+ (R)
+Em algumas máquinas, o endereçamento indireto e a indexação são oferecidos e é possível usar os dois dentro 
+da mesma instrução. Existem duas possibilidades: a indexação é executada antes ou depois da indireção.
+Se a indexação for executada depois da indireção, ela é chamada de pós-indexação:
+EA = (A) + (R)
+Primeiramente, os conteúdos dos campos de endereço são usados para acessar o local de memória con-
+tendo o endereço direto. Esse endereço é então indexado por um valor de registrador. Esta técnica é útil para 
+acessar um dentro de vários blocos de dados de formato fixo. Por exemplo, foi descrito no Capítulo 8 que os sistemas operacionais precisam implementar um bloco para controle de processos para cada processo. A operação executada é a mesma, independentemente de qual bloco está sendo manipulado. Assim, os en-dereços nas instruções que referenciam o bloco poderiam apontar para um local (valor = A) contendo um ponteiro para o início do bloco de controle de processos. O registrador indexador contém o deslocamento dentro do bloco. 
+Com pré-indexação, a indexação é executada antes da indireção:
+EA = (A + (R))
+Um endereço é calculado da mesma maneira como na indexação simples. Neste caso, no entanto, o endereço 
+calculado não contém o operando, mas o endereço do operando. Um exemplo do uso desta técnica é a construção 
+de uma tabela com múltiplos endereços de desvios. Em um determinado ponto do programa, pode haver uma ramifi cação para uma série de posições diferentes dependendo da condição. Uma tabela de endereços pode ser defi nida com início em A. Usando indexação nesta tabela, a localização desejada pode ser encontrada.
+Normalmente, um conjunto de instruções não irá incluir ambos os modos de pré-indexação e pós-indexação.
+ Endereçamento de pilha
+O último modo de endereçamento que iremos considerar é endereçamento de pilha. Conforme defi -
+nido no Apêndice 9A, uma pilha é um vetor linear de posições. Às vezes é chamada de lista pushdown ou lista 
+Book 1.indb 334 19.11.09 14:38:29
