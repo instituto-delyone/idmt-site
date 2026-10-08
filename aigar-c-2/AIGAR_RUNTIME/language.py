@@ -10,6 +10,15 @@ DEPTH_WORDS = {
     "profundo": "deep", "profunda": "deep", "detalhado": "deep"
 }
 
+CONCEPT_STARTERS = (
+    "o que é", "o que e", "o que foi", "o que são", "o que sao",
+    "como", "por que", "porque", "qual", "quais",
+    "qual é", "qual e", "qual foi", "quais são", "quais sao",
+    "quem", "quando", "onde",
+    "explique", "defina", "me fale", "me explica",
+    "para que serve", "pra que serve",
+)
+
 def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text.strip().lower())
 
@@ -41,13 +50,11 @@ def interpret(text: str) -> ConversationReading:
             needs_reasoning=True,
         )
 
-    if t.endswith("?") or any(t.startswith(q) for q in (
-        "o que é", "o que e", "como", "por que", "porque", "qual", "quais",
-        "explique", "defina", "me fale", "me explica"
-    )):
+    if t.endswith("?") or any(t.startswith(q) for q in CONCEPT_STARTERS):
         scoped = len(words) > 8
         return ConversationReading(
             intent="concept_scoped" if scoped else "concept_basic",
+            scope=t,
             depth=depth,
             needs_library=True,
             needs_reasoning=True,
@@ -64,5 +71,5 @@ def interpret(text: str) -> ConversationReading:
         )
 
     return ConversationReading(
-        intent="unknown", depth=depth, needs_memory=True, needs_reasoning=True
+        intent="unknown", scope=t, depth=depth, needs_memory=True, needs_reasoning=True
     )
