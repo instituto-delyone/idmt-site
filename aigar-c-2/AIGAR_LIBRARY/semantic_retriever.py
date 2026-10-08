@@ -4,6 +4,7 @@ import re
 import unicodedata
 from typing import Any
 
+
 STOPWORDS = {
     "a", "o", "e", "de", "do", "da", "dos", "das", "um", "uma", "uns", "umas",
     "em", "no", "na", "nos", "nas", "por", "para", "com", "que", "como",
@@ -11,9 +12,18 @@ STOPWORDS = {
     "mais", "sobre", "isso", "esse", "essa", "este", "esta", "ou", "um",
 }
 
-# This is deliberately small and interpretable. It is a semantic routing layer,
-# not a claim that these terms are universal synonyms.
-EXPANSIONS = {
+
+def normalize(text: str) -> str:
+    text = unicodedata.normalize("NFKD", text.lower())
+    return "".join(c for c in text if not unicodedata.combining(c))
+
+
+def semantic_tokens(text: str) -> set[str]:
+    words = re.findall(r"[a-z0-9_]{2,}", normalize(text))
+    return {w for w in words if w not in STOPWORDS}
+
+
+_EXPANSION_SOURCE = {
     "função": {"papel", "finalidade", "serve", "servir", "funcionamento"},
     "funciona": {"funcionamento", "mecanismo", "processo", "operação"},
     "explicar": {"explicação", "conceito", "definição", "entendimento"},
@@ -30,12 +40,16 @@ EXPANSIONS = {
     "arquitetura": {"organização", "computador", "processador", "memória"},
     "ética": {"moral", "princípio", "conduta", "responsabilidade"},
     "lógica": {"raciocínio", "proposição", "inferência", "dedução"},
-    "matemática": {"matemática", "cálculo", "número", "equação"},
+    "matemática": {"cálculo", "número", "equação"},
     "português": {"língua", "linguagem", "gramática", "sintaxe", "semântica"},
 }
 
-# Source routing profiles are intentionally conservative. They boost candidates;
-# they never hard-exclude a source unless the caller explicitly asks for it.
+EXPANSIONS = {
+    normalize(key): {normalize(value) for value in values}
+    for key, values in _EXPANSION_SOURCE.items()
+}
+
+
 SOURCE_PROFILES = {
     "portuguese_language_knowledge": {
         "terms": {"português", "gramática", "língua", "linguagem", "sintaxe", "semântica",
@@ -67,16 +81,6 @@ SOURCE_PROFILES = {
 }
 
 
-def normalize(text: str) -> str:
-    text = unicodedata.normalize("NFKD", text.lower())
-    return "".join(c for c in text if not unicodedata.combining(c))
-
-
-def semantic_tokens(text: str) -> set[str]:
-    words = re.findall(r"[a-z0-9_]{2,}", normalize(text))
-    return {w for w in words if w not in STOPWORDS}
-
-
 class SemanticRouter:
     """Interpretable semantic expansion and source relevance scoring."""
 
@@ -85,6 +89,7 @@ class SemanticRouter:
         expanded = set(base)
         for term in list(base):
             expanded.update(EXPANSIONS.get(term, set()))
+
         reading = reading or {}
         linguistic = reading.get("linguistic_analysis") or {}
         for value in (
@@ -105,7 +110,13 @@ class SemanticRouter:
                 scores[source] = min(1.0, len(overlap) / max(2, len(profile["terms"]) * 0.35))
         return scores
 
-    def score(self, query: str, text: str, source_key: str, reading: dict[str, Any] | None = None) -> float:
+    def score(
+        self,
+        query: str,
+        text: str,
+        source_key: str,
+        reading: dict[str, Any] | None = None,
+    ) -> float:
         q = self.expand(query, reading)
         body = semantic_tokens(text)
         if not q or not body:
