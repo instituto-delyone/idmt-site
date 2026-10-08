@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "cache_policy": "private_local",
+  "default_index_directory": "indexes",
+  "default_cache_directory": "cache",
+  "public_index_directory": "public_indexes",
+  "retrieval": {"method": "lexical", "default_limit": 5, "minimum_score": 1}
+}
