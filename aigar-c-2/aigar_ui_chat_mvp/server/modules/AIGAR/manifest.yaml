@@ -1,0 +1,6 @@
+
+module:
+  name: AIGAR
+  version: "1.1.0"
+  entry_point: "aigar_main.py"
+  description: "Núcleo ético/memória — autentica e lista memory cards carregados (MVP)."

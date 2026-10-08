@@ -1,0 +1,5 @@
+module:
+  name: Jarvis
+  version: "0.1"
+  entry_point: "jarvis_main.py"
+  description: "Interface/execução plug-and-play; orquestra tarefas (MVP)"
