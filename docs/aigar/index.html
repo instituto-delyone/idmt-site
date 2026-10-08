@@ -6,11 +6,20 @@
 <title>AIGAR Developer Console</title>
 <style>
 :root{--bg:#071018;--p:#0d1824;--p2:#101f2e;--line:#22364a;--txt:#e8f0f7;--mut:#91a5b8;--a:#61d9ff;--b:#8c7cff;--ok:#54dfa0;--err:#ff6978}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#12304455,transparent 35%),var(--bg);color:var(--txt);font:14px system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1400px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{display:flex;gap:13px;align-items:center}.logo{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));color:#061018;font-weight:900;font-size:20px}h1{margin:0;font-size:23px}.sub{color:var(--mut);font-size:12px;margin-top:3px}.status{border:1px solid var(--line);border-radius:99px;padding:8px 12px;color:var(--mut)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--err);margin-right:7px}.dot.ok{background:var(--ok);box-shadow:0 0 12px #54dfa088}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.panel{background:linear-gradient(180deg,#102030,#0b1722);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 45px #0005}.head{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.body{padding:16px}label{display:block;color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px}input,textarea{width:100%;background:#07121c;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:11px;outline:0}textarea{min-height:120px;resize:vertical}.row{display:grid;grid-template-columns:1fr auto;gap:8px}.actions{display:flex;gap:8px;margin-top:10px}button{background:#142638;color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:9px 13px;cursor:pointer;font-weight:650}button:hover{border-color:#42617c}.primary{background:linear-gradient(135deg,var(--a),var(--b));color:#061018;border:0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.metric{background:#08131e;border:1px solid var(--line);border-radius:10px;padding:9px}.metric small{display:block;color:var(--mut);font-size:9px;text-transform:uppercase}.metric b{display:block;margin-top:4px;font-size:12px;word-break:break-word}.response{margin-top:12px;min-height:130px;padding:14px;background:#06111a;border:1px solid var(--line);border-radius:10px;white-space:pre-wrap;line-height:1.5}.kv{display:grid;grid-template-columns:145px 1fr;gap:7px;font-size:12px}.kv div:nth-child(odd){color:var(--mut)}pre{margin:0;background:#06111a;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;max-height:430px;font-size:11px;line-height:1.45}.gap{margin-top:16px}.tag{color:var(--mut);font-size:10px;border:1px solid var(--line);padding:4px 7px;border-radius:99px}@media(max-width:850px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.wrap{padding:14px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#12304455,transparent 35%),var(--bg);color:var(--txt);font:14px system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1400px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{display:flex;gap:13px;align-items:center}.logo{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));color:#061018;font-weight:900;font-size:20px}h1{margin:0;font-size:23px}.sub{color:var(--mut);font-size:12px;margin-top:3px}.status{border:1px solid var(--line);border-radius:99px;padding:8px 12px;color:var(--mut)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--err);margin-right:7px}.dot.ok{background:var(--ok);box-shadow:0 0 12px #54dfa088}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.panel{background:linear-gradient(180deg,#102030,#0b1722);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 45px #0005}.head{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.body{padding:16px}label{display:block;color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px}input,textarea{width:100%;background:#07121c;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:11px;outline:0}textarea{min-height:120px;resize:vertical}.row{display:grid;grid-template-columns:1fr auto;gap:8px}.actions{display:flex;gap:8px;margin-top:10px}button{background:#142638;color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:9px 13px;cursor:pointer;font-weight:650}button:hover{border-color:#42617c}.primary{background:linear-gradient(135deg,var(--a),var(--b));color:#061018;border:0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.metric{background:#08131e;border:1px solid var(--line);border-radius:10px;padding:9px}.metric small{display:block;color:var(--mut);font-size:9px;text-transform:uppercase}.metric b{display:block;margin-top:4px;font-size:12px;word-break:break-word}.response{margin-top:12px;min-height:130px;padding:14px;background:#06111a;border:1px solid var(--line);border-radius:10px;white-space:pre-wrap;line-height:1.5}.kv{display:grid;grid-template-columns:145px 1fr;gap:7px;font-size:12px}.kv div:nth-child(odd){color:var(--mut)}pre{margin:0;background:#06111a;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;max-height:430px;font-size:11px;line-height:1.45}.gap{margin-top:16px}.tag{color:var(--mut);font-size:10px;border:1px solid var(--line);padding:4px 7px;border-radius:99px}.auth{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.auth .field{flex:1;min-width:180px}.adminok{color:var(--ok);font-weight:700}.adminhide{display:none}.danger{border-color:#6b2c38;color:#ff9aa5}@media(max-width:850px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.wrap{padding:14px}}
 </style>
 </head>
 <body>
 <div class="wrap">
+<section class="panel" style="margin-bottom:16px"><div class="head"><b>Administrador</b><span id="authState" class="tag">não autenticado</span></div><div class="body">
+<div id="loginBox" class="auth">
+<div class="field"><label>Usuário MedUnity</label><input id="adminUser" autocomplete="username" placeholder="nome de usuário"></div>
+<div class="field"><label>Senha</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="senha"></div>
+<button class="primary" onclick="adminLogin()">Entrar</button>
+</div>
+<div id="adminBox" class="adminhide"><span class="adminok">✓ Administrador autenticado via MedUnity</span><button class="danger" onclick="adminLogout()">Sair</button></div>
+<div id="authMsg" class="sub" style="margin-top:10px">A autenticação é delegada ao Worker do MedUnity; o AIGAR não armazena sua senha.</div>
+</div></section>
 <header><div class="brand"><div class="logo">A</div><div><h1>AIGAR Developer Console</h1><div class="sub">Runtime · Linguagem · Biblioteca · Reasoning · Aurora</div></div></div><div class="status"><i id="dot" class="dot"></i><span id="st">offline</span></div></header>
 <div class="grid">
 <main>
@@ -32,6 +41,37 @@
 </div>
 <script>
 const $=id=>document.getElementById(id), base=()=>$("api").value.trim().replace(/\/+$/,"");
+let adminToken=null;
+function authHeaders(){return adminToken?{"Authorization":"Bearer "+adminToken}:{}}
+function setAdmin(ok,user=""){
+  $("loginBox").classList.toggle("adminhide",ok);
+  $("adminBox").classList.toggle("adminhide",!ok);
+  $("authState").textContent=ok?("admin · "+user):"não autenticado";
+}
+async function adminLogin(){
+  const nome_usuario=$("adminUser").value.trim(), senha=$("adminPass").value;
+  if(!nome_usuario||!senha){$("authMsg").textContent="Informe usuário e senha.";return}
+  $("authMsg").textContent="Autenticando…";
+  try{
+    const r=await fetch(base()+"/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nome_usuario,senha})});
+    const d=await r.json();
+    if(!r.ok)throw Error(d.detail||"Falha na autenticação");
+    adminToken=d.access_token||null;
+    if(!adminToken)throw Error("O servidor não retornou um token.");
+    setAdmin(true,d.usuario?.nome_usuario||nome_usuario);
+    $("adminPass").value="";
+    $("authMsg").textContent="Sessão administrativa ativa. A credencial foi validada pelo MedUnity.";
+  }catch(e){adminToken=null;setAdmin(false);$("authMsg").textContent="Erro: "+e.message}
+}
+function adminLogout(){adminToken=null;setAdmin(false);$("authMsg").textContent="Sessão administrativa encerrada."}
+async function checkAdmin(){
+  if(!adminToken)return;
+  try{
+    const r=await fetch(base()+"/auth/me",{headers:authHeaders()});
+    if(!r.ok){adminLogout();return}
+    const d=await r.json();setAdmin(true,d.usuario?.nome_usuario||"admin");
+  }catch(_){adminLogout()}
+}
 const pretty=x=>JSON.stringify(x??null,null,2);
 function state(ok,t){$("dot").className="dot"+(ok?" ok":"");$("st").textContent=t}
 async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw Error("HTTP "+r.status);let d=await r.json();state(true,(d.runtime||"AIGAR")+" "+(d.version||""))}catch(e){state(false,"offline")}}
