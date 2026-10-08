@@ -4,6 +4,9 @@ import asyncio
 import base64
 import json
 import re
+import hashlib
+import time
+from urllib.parse import urlparse
 from workers import WorkerEntrypoint, Response, fetch
 
 LANGUAGE = json.loads(r'''{
@@ -796,6 +799,143 @@ async def require_admin(request):
         return None, status, data
     return data.get("usuario") or {}, 200, data
 
+MAX_UPLOAD_BYTES = 100 * 1024 * 1024
+ALLOWED_UPLOAD_TYPES = {"application/pdf"}
+R2_BINDING = "AIGAR_LIBRARY_BUCKET"
+D1_BINDING = "AIGAR_DB"
+
+def binding(env, name):
+    try:
+        return getattr(env, name)
+    except Exception:
+        return None
+
+def sanitize_filename(name):
+    name = (name or "document.pdf").strip().replace("\\", "/").split("/")[-1]
+    name = re.sub(r"[^A-Za-z0-9À-ÿ._ -]+", "_", name)
+    name = re.sub(r"\\s+", " ", name).strip()
+    if not name:
+        name = "document.pdf"
+    if not name.lower().endswith(".pdf"):
+        name += ".pdf"
+    return name[:180]
+
+async def storage_status(env):
+    bucket = binding(env, R2_BINDING)
+    db = binding(env, D1_BINDING)
+    return {
+        "r2": bool(bucket),
+        "d1": bool(db),
+        "ready": bool(bucket and db),
+        "bucket_binding": R2_BINDING,
+        "database_binding": D1_BINDING,
+    }
+
+async def admin_upload(request, env, usuario):
+    bucket = binding(env, R2_BINDING)
+    db = binding(env, D1_BINDING)
+    if not bucket or not db:
+        return 503, {
+            "ok": False,
+            "status": "storage_not_configured",
+            "message": "A persistência do AIGAR ainda não está vinculada ao Worker. Configure R2 e D1.",
+            "storage": await storage_status(env),
+        }
+
+    content_type = (request.headers.get("Content-Type") or "").split(";")[0].lower()
+    if content_type not in ALLOWED_UPLOAD_TYPES:
+        return 415, {"ok": False, "status": "invalid_file_type", "message": "Apenas arquivos PDF são aceitos nesta primeira fase."}
+
+    raw_length = request.headers.get("Content-Length")
+    try:
+        content_length = int(raw_length) if raw_length else None
+    except Exception:
+        content_length = None
+    if content_length and content_length > MAX_UPLOAD_BYTES:
+        return 413, {"ok": False, "status": "file_too_large", "message": "O limite desta primeira fase é 100 MB."}
+
+    filename = sanitize_filename(request.headers.get("X-Filename"))
+    client_sha = (request.headers.get("X-File-SHA256") or "").strip().lower()
+    if client_sha and not re.fullmatch(r"[0-9a-f]{64}", client_sha):
+        return 400, {"ok": False, "status": "invalid_checksum", "message": "X-File-SHA256 inválido."}
+
+    if client_sha:
+        duplicate = await db.prepare(
+            "SELECT id, filename, status, r2_key FROM documents WHERE sha256 = ? LIMIT 1"
+        ).bind(client_sha).first()
+        if duplicate:
+            return 200, {
+                "ok": True,
+                "status": "already_exists",
+                "document": duplicate,
+            }
+
+    seed = f"{client_sha}:{time.time_ns()}:{filename}".encode("utf-8")
+    document_id = hashlib.sha256(seed).hexdigest()[:24]
+    r2_key = f"documents/{document_id}/original.pdf"
+
+    try:
+        uploaded = await bucket.put(r2_key, request.body, {
+            "httpMetadata": {"contentType": "application/pdf"},
+            "customMetadata": {
+                "original_filename": filename,
+                "document_id": document_id,
+                "uploaded_by": str(usuario.get("nome_usuario") or usuario.get("id") or "admin"),
+            },
+        })
+    except Exception as exc:
+        return 500, {"ok": False, "status": "r2_upload_error", "message": str(exc)}
+
+    size_bytes = int(getattr(uploaded, "size", content_length or 0) or 0)
+    now = int(time.time())
+
+    try:
+        await db.prepare(
+            """INSERT INTO documents
+               (id, filename, mime_type, size_bytes, sha256, r2_key, status,
+                uploaded_at, uploaded_by, chunk_count)
+               VALUES (?, ?, ?, ?, ?, ?, 'uploaded', ?, ?, 0)"""
+        ).bind(
+            document_id, filename, "application/pdf", size_bytes,
+            client_sha or None, r2_key, now,
+            str(usuario.get("nome_usuario") or usuario.get("id") or "admin"),
+        ).run()
+    except Exception as exc:
+        try:
+            await bucket.delete(r2_key)
+        except Exception:
+            pass
+        return 500, {"ok": False, "status": "metadata_error", "message": str(exc)}
+
+    return 201, {
+        "ok": True,
+        "status": "uploaded",
+        "document": {
+            "id": document_id,
+            "filename": filename,
+            "mime_type": "application/pdf",
+            "size_bytes": size_bytes,
+            "sha256": client_sha or None,
+            "r2_key": r2_key,
+            "status": "uploaded",
+            "uploaded_at": now,
+            "uploaded_by": str(usuario.get("nome_usuario") or usuario.get("id") or "admin"),
+            "chunk_count": 0,
+        },
+        "next_step": "processing",
+    }
+
+async def admin_documents(env):
+    db = binding(env, D1_BINDING)
+    if not db:
+        return 503, {"ok": False, "status": "storage_not_configured", "storage": await storage_status(env)}
+    result = await db.prepare(
+        """SELECT id, filename, mime_type, size_bytes, sha256, r2_key,
+                  status, uploaded_at, uploaded_by, chunk_count, error_message
+           FROM documents ORDER BY uploaded_at DESC LIMIT 100"""
+    ).run()
+    return 200, {"ok": True, "documents": result}
+
 def cors_headers(origin=None):
     allowed=origin if origin in {"https://delyone.com","https://aigar-api.dr-delyone.workers.dev"} else "https://delyone.com"
     return {"Access-Control-Allow-Origin":allowed,"Access-Control-Allow-Methods":"GET,POST,OPTIONS","Access-Control-Allow-Headers":"Content-Type,Authorization","Vary":"Origin"}
@@ -863,7 +1003,7 @@ class Default(WorkerEntrypoint):
         if request.method=="OPTIONS":
             return Response("",status=204,headers=cors_headers(origin))
         if path.endswith("/health") and request.method=="GET":
-            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.4.1-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
+            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.5.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
         if path.endswith("/auth/login") and request.method=="POST":
             try:
                 body=await request.json()
@@ -871,6 +1011,32 @@ class Default(WorkerEntrypoint):
                 return make_response(data, status, origin)
             except Exception as exc:
                 return make_response({"ok":False,"status":"auth_proxy_error","message":str(exc)},502,origin)
+        if path.endswith("/admin/storage") and request.method=="GET":
+            try:
+                _, status, data = await require_admin(request)
+                if status != 200:
+                    return make_response(data, status, origin)
+                return make_response(await storage_status(self.env), 200, origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"storage_status_error","message":str(exc)},500,origin)
+        if path.endswith("/admin/upload") and request.method=="POST":
+            try:
+                usuario, status, data = await require_admin(request)
+                if status != 200:
+                    return make_response(data, status, origin)
+                status, data = await admin_upload(request, self.env, usuario)
+                return make_response(data, status, origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"upload_error","message":str(exc)},500,origin)
+        if path.endswith("/admin/documents") and request.method=="GET":
+            try:
+                _, status, data = await require_admin(request)
+                if status != 200:
+                    return make_response(data, status, origin)
+                status, data = await admin_documents(self.env)
+                return make_response(data, status, origin)
+            except Exception as exc:
+                return make_response({"ok":False,"status":"documents_error","message":str(exc)},500,origin)
         if path.endswith("/auth/me") and request.method=="GET":
             try:
                 _, status, data = await require_admin(request)
