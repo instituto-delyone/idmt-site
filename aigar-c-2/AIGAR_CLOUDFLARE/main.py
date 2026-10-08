@@ -994,7 +994,7 @@ async def admin_upload(request, env, usuario):
             return 200, {
                 "ok": True,
                 "status": "already_exists",
-                "document": duplicate,
+                "document": plain_document(duplicate),
             }
 
     seed = f"{client_sha}:{time.time_ns()}:{filename}".encode("utf-8")
@@ -1052,6 +1052,23 @@ async def admin_upload(request, env, usuario):
         "next_step": "processing",
     }
 
+def plain_document(row):
+    if not row:
+        return None
+    return {
+        "id": str(row.id or ""),
+        "filename": str(row.filename or ""),
+        "mime_type": str(row.mime_type or ""),
+        "size_bytes": int(row.size_bytes or 0),
+        "sha256": str(row.sha256) if row.sha256 else None,
+        "r2_key": str(row.r2_key or ""),
+        "status": str(row.status or ""),
+        "uploaded_at": int(row.uploaded_at or 0),
+        "uploaded_by": str(row.uploaded_by or ""),
+        "chunk_count": int(row.chunk_count or 0),
+        "error_message": str(row.error_message) if row.error_message else None,
+    }
+
 async def admin_documents(env):
     db = binding(env, D1_BINDING)
     if not db:
@@ -1061,7 +1078,8 @@ async def admin_documents(env):
                   status, uploaded_at, uploaded_by, chunk_count, error_message
            FROM documents ORDER BY uploaded_at DESC LIMIT 100"""
     ).run()
-    return 200, {"ok": True, "documents": result}
+    rows = [plain_document(row) for row in result.results]
+    return 200, {"ok": True, "documents": rows}
 
 def cors_headers(origin=None):
     allowed=origin if origin in {"https://delyone.com","https://aigar-api.dr-delyone.workers.dev"} else "https://delyone.com"
