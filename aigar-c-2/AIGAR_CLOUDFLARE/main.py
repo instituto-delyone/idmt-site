@@ -1055,18 +1055,26 @@ async def admin_upload(request, env, usuario):
 def plain_document(row):
     if not row:
         return None
+    def scalar(name, default=None):
+        try:
+            value=getattr(row,name)
+        except Exception:
+            return default
+        if value is None:
+            return default
+        return value
     return {
-        "id": str(row.id or ""),
-        "filename": str(row.filename or ""),
-        "mime_type": str(row.mime_type or ""),
-        "size_bytes": int(row.size_bytes or 0),
-        "sha256": str(row.sha256) if row.sha256 else None,
-        "r2_key": str(row.r2_key or ""),
-        "status": str(row.status or ""),
-        "uploaded_at": int(row.uploaded_at or 0),
-        "uploaded_by": str(row.uploaded_by or ""),
-        "chunk_count": int(row.chunk_count or 0),
-        "error_message": str(row.error_message) if row.error_message else None,
+        "id": str(scalar("id","")),
+        "filename": str(scalar("filename","")),
+        "mime_type": str(scalar("mime_type","")),
+        "size_bytes": int(scalar("size_bytes",0) or 0),
+        "sha256": str(scalar("sha256")) if scalar("sha256") else None,
+        "r2_key": str(scalar("r2_key","")),
+        "status": str(scalar("status","")),
+        "uploaded_at": int(scalar("uploaded_at",0) or 0),
+        "uploaded_by": str(scalar("uploaded_by","")),
+        "chunk_count": int(scalar("chunk_count",0) or 0),
+        "error_message": str(scalar("error_message")) if scalar("error_message") else None,
     }
 
 async def admin_documents(env):
@@ -1078,8 +1086,20 @@ async def admin_documents(env):
                   status, uploaded_at, uploaded_by, chunk_count, error_message
            FROM documents ORDER BY uploaded_at DESC LIMIT 100"""
     ).run()
-    rows = [plain_document(row) for row in result.results]
-    return 200, {"ok": True, "documents": rows}
+    documents=[]
+    try:
+        rows=result.results
+        for row in rows:
+            doc=plain_document(row)
+            if doc:
+                documents.append(doc)
+    except Exception as exc:
+        return 500, {
+            "ok": False,
+            "status": "documents_serialization_error",
+            "message": str(exc),
+        }
+    return 200, {"ok": True, "documents": documents}
 
 def cors_headers(origin=None):
     allowed=origin if origin in {"https://delyone.com","https://aigar-api.dr-delyone.workers.dev"} else "https://delyone.com"
