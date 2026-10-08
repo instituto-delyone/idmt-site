@@ -30,6 +30,15 @@
 <div id="answer" class="response">A resposta do runtime aparecerá aqui.</div>
 </div></section>
 <section class="panel gap"><div class="head"><b>Leitura linguística</b><span class="tag">Language Layer</span></div><div class="body"><div id="reading" class="kv"></div><div class="gap"><label>Análise linguística</label><pre id="ling">—</pre></div></div></section>
+<section id="uploadPanel" class="panel gap adminhide">
+<div class="head"><b>Biblioteca persistente</b><span class="tag">Admin · R2 + D1</span></div>
+<div class="body">
+<label>Arquivo PDF</label>
+<div class="row"><input id="fileInput" type="file" accept="application/pdf"><button onclick="checkStorage()">Storage</button></div>
+<div class="actions"><button class="primary" onclick="uploadFile()">Enviar para a biblioteca</button></div>
+<div id="uploadMsg" class="sub" style="margin-top:10px">Entre como administrador para habilitar o upload.</div>
+<div class="gap"><label>Documentos persistentes</label><pre id="documents">—</pre></div>
+</div></section>
 </main>
 <aside>
 <section class="panel"><div class="head"><b>Reasoning Plan</b><span class="tag">Execution</span></div><div class="body"><pre id="plan">—</pre></div></section>
@@ -46,7 +55,9 @@ function authHeaders(){return adminToken?{"Authorization":"Bearer "+adminToken}:
 function setAdmin(ok,user=""){
   $("loginBox").classList.toggle("adminhide",ok);
   $("adminBox").classList.toggle("adminhide",!ok);
+  $("uploadPanel").classList.toggle("adminhide",!ok);
   $("authState").textContent=ok?("admin · "+user):"não autenticado";
+  if(ok) loadDocuments();
 }
 async function adminLogin(){
   const nome_usuario=$("adminUser").value.trim(), senha=$("adminPass").value;
@@ -63,7 +74,47 @@ async function adminLogin(){
     $("authMsg").textContent="Sessão administrativa ativa. A credencial foi validada pelo MedUnity.";
   }catch(e){adminToken=null;setAdmin(false);$("authMsg").textContent="Erro: "+e.message}
 }
-function adminLogout(){adminToken=null;setAdmin(false);$("authMsg").textContent="Sessão administrativa encerrada."}
+function adminLogout(){adminToken=null;setAdmin(false);$("authMsg").textContent="Sessão administrativa encerrada."; $("documents").textContent="—"; $("uploadMsg").textContent="Entre como administrador para habilitar o upload."}
+async function checkStorage(){
+  if(!adminToken){$("uploadMsg").textContent="Autentique-se como administrador primeiro.";return}
+  try{
+    const r=await fetch(base()+"/admin/storage",{headers:authHeaders()});
+    const d=await r.json();
+    $("uploadMsg").textContent=d.ready?"✓ R2 + D1 prontos para receber arquivos.":"⚠ Storage ainda não configurado: "+pretty(d.storage||d);
+  }catch(e){$("uploadMsg").textContent="Erro ao verificar storage: "+e.message}
+}
+async function loadDocuments(){
+  if(!adminToken)return;
+  try{
+    const r=await fetch(base()+"/admin/documents",{headers:authHeaders()});
+    const d=await r.json();
+    if(!r.ok) throw Error(d.message||d.detail||"HTTP "+r.status);
+    $("documents").textContent=pretty(d.documents||[]);
+  }catch(e){$("documents").textContent="Erro: "+e.message}
+}
+async function uploadFile(){
+  const file=$("fileInput").files[0];
+  if(!adminToken){$("uploadMsg").textContent="Autentique-se como administrador primeiro.";return}
+  if(!file){$("uploadMsg").textContent="Selecione um PDF.";return}
+  if(file.type!=="application/pdf" && !file.name.toLowerCase().endsWith(".pdf")){$("uploadMsg").textContent="Apenas PDF.";return}
+  if(file.size>100*1024*1024){$("uploadMsg").textContent="Limite: 100 MB.";return}
+  $("uploadMsg").textContent="Calculando SHA-256 e enviando…";
+  try{
+    const hashBuffer=await crypto.subtle.digest("SHA-256",await file.arrayBuffer());
+    const hash=[...new Uint8Array(hashBuffer)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    const r=await fetch(base()+"/admin/upload",{
+      method:"POST",
+      headers:{...authHeaders(),"Content-Type":"application/pdf","X-Filename":file.name,"X-File-SHA256":hash},
+      body:file
+    });
+    const d=await r.json();
+    if(!r.ok) throw Error(d.message||d.detail||d.status||"HTTP "+r.status);
+    $("uploadMsg").textContent=d.status==="already_exists"?"✓ Esse arquivo já está na biblioteca.":"✓ PDF persistido no R2; metadata registrada no D1.";
+    $("fileInput").value="";
+    loadDocuments();
+  }catch(e){$("uploadMsg").textContent="Erro no upload: "+e.message}
+}
+
 async function checkAdmin(){
   if(!adminToken)return;
   try{
