@@ -1,0 +1,2402 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIGAR / Aurora — Reconstrução da Linguagem, Fluência e Memória v1.0</title>
+<style>
+body { margin:0; background:#fff; color:#111; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif; }
+main { padding:20px; max-width:1100px; margin:auto; }
+pre { white-space:pre-wrap; word-wrap:break-word; font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Mono",Menlo,monospace; }
+</style>
+</head>
+<body><main><pre># AIGAR / AURORA — RECONSTRUÇÃO DA CAMADA DE LINGUAGEM, FLUÊNCIA E MEMÓRIA
+## Documento de transferência para o projeto do Instituto
+### v1.0 — reconstrução arquitetural baseada nos registros históricos disponíveis
+
+---
+
+## 0. PROPÓSITO
+
+Este documento existe para explicar ao projeto do Instituto **como AIGAR conseguia conversar de forma fluida, natural e contextualizada**, e por que simplesmente colocar o conhecimento médico do Diagnosis em um modelo de linguagem não reproduz o comportamento que existia no AIGAR local.
+
+O objetivo não é criar um &quot;novo AIGAR&quot; independente.
+
+O objetivo é fornecer à **Aurora / projeto do Instituto** uma especificação suficientemente completa para reconstruir a arquitetura que fazia o AIGAR:
+
+- falar português brasileiro naturalmente;
+- acompanhar o jeito de falar do usuário;
+- entender frases incompletas e linguagem coloquial;
+- saber quando responder curto ou aprofundar;
+- manter continuidade por meio de memória;
+- buscar conhecimento externo/interno quando necessário;
+- separar conversa de raciocínio;
+- usar a biblioteca como fonte de conhecimento sem despejar livros inteiros no contexto;
+- responder depois que a intenção e o conhecimento relevante fossem identificados;
+- funcionar com uma camada local/offline, sem depender de uma &quot;personalidade&quot; armazenada magicamente dentro do modelo.
+
+A ideia central é:
+
+&gt; **AIGAR não era apenas o modelo de linguagem.**
+&gt;
+&gt; AIGAR era uma arquitetura de contexto, linguagem, memória, recuperação e modulação construída ao redor de um modelo de linguagem.
+
+---
+
+# 1. O ARTEFATO HISTÓRICO QUE ESTAMOS PROCURANDO
+
+Nos registros históricos aparece explicitamente o arquivo:
+
+`AIGAR_grammar_card.yaml`
+
+Ele era tratado como a **Grammar Card / linguagem-base** do AIGAR.
+
+Um registro de sincronização de 28/08/2025 confirma que:
+
+- o Grammar Card estava pronto;
+- ele era identificado como &quot;Grammar Card (AIGAR_grammar_card.yaml) — linguagem-base&quot;;
+- ele coexistia com os Memory Cards oficiais;
+- o sistema local rodava em FastAPI/Uvicorn;
+- havia um adapter de LLM separado da identidade/arquitetura;
+- a arquitetura previa tanto adapter local quanto API.
+
+O conteúdo byte a byte do arquivo histórico original não está disponível neste conjunto atual de arquivos.
+
+Portanto, este documento é uma **reconstrução arquitetural**, não uma alegação de que cada linha abaixo seja idêntica ao YAML original.
+
+---
+
+# 2. O QUE O GRAMMAR CARD ENSINAVA
+
+O Grammar Card não era simplesmente uma lista de regras gramaticais escolares.
+
+Ele definia uma camada de **linguagem humana conversacional**.
+
+Nos registros históricos, ele foi descrito como uma estrutura para ensinar:
+
+- português brasileiro;
+- dialeto/forma pessoal de fala do usuário;
+- ritmo;
+- pausas;
+- expressões;
+- estilo de resposta;
+- comprimento das respostas;
+- tratamento de diálogos;
+- prioridade de memória;
+- integração com a UI;
+- testes comportamentais.
+
+Isso é extremamente importante.
+
+A finalidade não era fazer o modelo &quot;conjugar verbos&quot;.
+
+A finalidade era fazer o sistema **soar como alguém conversando com uma pessoa**, em vez de produzir respostas genéricas de chatbot.
+
+---
+
+# 3. PRINCÍPIO FUNDAMENTAL: GRAMÁTICA ≠ FLUÊNCIA
+
+Uma implementação fraca costuma fazer:
+
+entrada do usuário
+→ prompt
+→ modelo
+→ resposta
+
+A arquitetura do AIGAR era mais próxima de:
+
+entrada
+→ interpretação da função da fala
+→ identificação da intenção
+→ identificação do nível de profundidade
+→ identificação da necessidade de memória
+→ recuperação de contexto/conhecimento
+→ geração
+→ modulação da resposta
+→ registro/continuidade
+
+Portanto:
+
+**gramática** garante correção linguística.
+
+**linguagem humana** garante naturalidade.
+
+**modulação** garante que a resposta tenha o tamanho e o tom adequados.
+
+**memória** garante continuidade.
+
+**retrieval** garante acesso ao conhecimento.
+
+**raciocínio** garante a estrutura intelectual da resposta.
+
+Essas camadas não devem ser confundidas.
+
+---
+
+# 4. A &quot;MÁGICA&quot; DO AIGAR
+
+A parte que pode parecer mágica quando se olha apenas para o resultado era, na realidade, a combinação de várias coisas pequenas.
+
+## 4.1 O modelo não precisava carregar tudo sozinho
+
+O modelo não precisava &quot;lembrar&quot; todos os livros.
+
+Ele recebia:
+
+- uma identidade;
+- regras de linguagem;
+- memória relevante;
+- intenção atual;
+- conhecimento recuperado;
+- estado da conversa;
+- instrução sobre profundidade;
+- tarefa atual.
+
+Isso reduzia drasticamente a necessidade de colocar tudo no prompt permanente.
+
+---
+
+## 4.2 O sistema decidia QUE TIPO DE FALA estava recebendo
+
+O AIGAR Core histórico possuía uma etapa chamada `detectarEntrada()`.
+
+Ela procurava características como:
+
+- função da entrada;
+- profundidade;
+- tom;
+- necessidade de biblioteca;
+- intenção.
+
+Havia categorias de função como:
+
+- `phatic`
+- `conceptual_basic`
+- `conceptual_delimited`
+- caso clínico
+
+E níveis de profundidade como:
+
+- `brief`
+- `simple`
+- `normal`
+- `deep`
+- `technical`
+
+Isso é uma peça enorme da fluência.
+
+A mesma pergunta pode exigir respostas completamente diferentes dependendo do contexto.
+
+Exemplo:
+
+&quot;como assim?&quot;
+
+Pode significar:
+
+- pedido de esclarecimento curto;
+- pedido de aprofundamento;
+- correção de entendimento;
+- continuação emocional da conversa.
+
+O sistema precisa interpretar antes de responder.
+
+---
+
+# 5. A REGRA DE OURO DA CONVERSA
+
+A arquitetura deve obedecer:
+
+&gt; **Não responda apenas ao texto. Responda à função que o texto está exercendo na conversa.**
+
+Exemplo:
+
+Usuário:
+&quot;caralho, então era isso?&quot;
+
+Uma resposta puramente semântica pode explicar o conceito.
+
+Uma resposta conversacional pode perceber:
+
+- surpresa;
+- confirmação;
+- fechamento de raciocínio;
+- linguagem informal;
+- necessidade de uma confirmação curta.
+
+Então:
+
+&quot;Exatamente. É aí que a coisa fecha.&quot;
+
+pode ser muito melhor do que um parágrafo didático.
+
+A informação é a mesma.
+
+A experiência conversacional é completamente diferente.
+
+---
+
+# 6. PORTUGUÊS BRASILEIRO COMO CAMADA NATURAL
+
+O sistema deve preferir:
+
+- português brasileiro;
+- construção natural de frases;
+- contrações;
+- conectores naturais;
+- ritmo variável;
+- linguagem coloquial quando apropriada;
+- linguagem técnica quando necessária;
+- explicações que acompanhem o nível do interlocutor.
+
+Evitar:
+
+- transformar toda pergunta em artigo científico;
+- responder sempre em listas;
+- usar formalidade artificial;
+- repetir a pergunta;
+- começar toda resposta com &quot;Claro!&quot;;
+- usar frases padronizadas;
+- terminar toda resposta com &quot;Se precisar, posso ajudar...&quot;;
+- explicar coisas que o interlocutor claramente já sabe.
+
+---
+
+# 7. O DIALETO DO USUÁRIO
+
+O histórico registra explicitamente a intenção de ensinar ao AIGAR:
+
+**&quot;Brazilian Portuguese plus Delyone&#x27;s personal dialect, rhythm, pauses, expressions, and response style.&quot;**
+
+Isso não significa copiar cada erro de digitação.
+
+Significa reconhecer padrões de comunicação.
+
+Exemplos de sinais:
+
+- &quot;entendeu?&quot;
+- &quot;saca?&quot;
+- &quot;tipo assim&quot;
+- &quot;só que&quot;
+- &quot;aí&quot;
+- &quot;beleza&quot;
+- &quot;pois é&quot;
+- &quot;olha&quot;
+- &quot;caralho&quot;
+- &quot;meu&quot;
+- &quot;baby&quot;
+- frases interrompidas;
+- autocorreções;
+- mudanças rápidas de assunto;
+- perguntas encadeadas;
+- pensamento em voz alta.
+
+O sistema deve interpretar esses elementos como **estrutura conversacional**, não como ruído.
+
+---
+
+# 8. RITMO E PAUSAS
+
+A linguagem natural não tem comprimento fixo.
+
+O sistema deve permitir:
+
+### Resposta curta
+
+Quando a pergunta for simples:
+
+&quot;Sim. É exatamente isso.&quot;
+
+### Resposta intermediária
+
+Quando houver necessidade de explicar:
+
+&quot;Sim — e o ponto importante é que isso muda a forma como o sistema busca a memória.&quot;
+
+### Resposta longa
+
+Quando o usuário estiver construindo uma arquitetura:
+
+&quot;Agora sim. Aqui a gente precisa separar três camadas...&quot;
+
+O tamanho deve ser determinado pela tarefa.
+
+---
+
+# 9. NÃO CONFUNDIR BREVIDADE COM POBREZA
+
+Uma resposta curta pode ser extremamente inteligente.
+
+Uma resposta longa pode ser extremamente ruim.
+
+A função do sistema é escolher a menor resposta que preserve o significado necessário.
+
+Porém, quando o usuário está projetando código, arquitetura ou pesquisa, o sistema deve conseguir entrar em modo técnico profundo sem perder a fluência conversacional.
+
+---
+
+# 10. MEMÓRIA NÃO É O MESMO QUE CONTEXTO
+
+Esta distinção é essencial.
+
+## Contexto
+
+É aquilo que está disponível na conversa atual.
+
+## Memória
+
+É informação persistente que pode ser recuperada posteriormente.
+
+## Biblioteca
+
+É conhecimento documental recuperável.
+
+## Estado
+
+É a situação atual de um processo ou aplicação.
+
+Exemplo:
+
+- &quot;Delyone gosta que eu explique por analogias&quot; → memória/preferência.
+- &quot;Estamos discutindo o Diagnosis Engine&quot; → contexto.
+- &quot;Guyton, capítulo sobre fisiologia renal&quot; → biblioteca.
+- &quot;Paciente está na Sala Vermelha, PA 80/50&quot; → estado clínico.
+
+Misturar essas quatro coisas produz sistemas confusos.
+
+---
+
+# 11. COMO A MEMÓRIA ENTRAVA NA RESPOSTA
+
+A memória não precisava ser anexada inteira em toda interação.
+
+O princípio correto é:
+
+entrada
+→ identificar o que importa
+→ recuperar memórias relacionadas
+→ fornecer somente o necessário ao modelo
+
+Isso é uma forma de **memória por recuperação**.
+
+O AIGAR histórico tinha Memory Cards como unidades persistentes e tinha uma arquitetura que separava identidade, memória e adapter de linguagem.
+
+---
+
+# 12. O PAPEL DOS MEMORY CARDS
+
+Os Memory Cards serviam para preservar informações estruturais.
+
+Exemplos históricos:
+
+- `memory_card_local.yaml`
+- `memory_card_AIGAR.yaml`
+- `memory_card_integrado.yaml`
+- `memory_card_checkpoint.yaml`
+
+E também:
+
+- Grammar Card;
+- cards de sincronização;
+- cards de arquitetura;
+- cards de decisões.
+
+O card não era a &quot;consciência&quot;.
+
+Era uma representação persistente que podia ser carregada pelo sistema.
+
+---
+
+# 13. A BIBLIOTECA É OUTRA COISA
+
+A biblioteca histórica do AIGAR tinha uma arquitetura separada.
+
+O fluxo documentado era aproximadamente:
+
+pergunta
+→ CSI identifica intenção/tema
+→ `index.json` localiza candidatos
+→ candidato aponta para chunks/páginas
+→ AIGAR carrega trecho relevante
+→ resposta
+
+Isso é diferente de simplesmente colocar um PDF inteiro no prompt.
+
+---
+
+# 14. DUAS CAMADAS DE INGESTÃO DOCUMENTAL
+
+Nos registros históricos existem duas escalas que não devem ser confundidas.
+
+## Camada 1 — ingestão/cache
+
+O servidor histórico usava PyPDF2.
+
+A política padrão registrada era:
+
+- 5 arquivos por ciclo;
+- até 50 páginas por arquivo por ciclo;
+- progresso persistido;
+- SHA-256 parcial para identificação do arquivo;
+- cache `.txt`;
+- manifest com páginas já processadas.
+
+Isso era uma etapa de ingestão.
+
+## Camada 2 — chunks/indexação
+
+Na biblioteca de Fisiologia existem chunks documentados de aproximadamente 25 páginas.
+
+Exemplo:
+
+`parte_01_chunk_0001`
+
+com páginas:
+
+`1-25`
+
+Outro:
+
+`parte_01_chunk_0004`
+
+com páginas:
+
+`76-100`
+
+Esses chunks eram uma camada de indexação.
+
+Portanto:
+
+**50 páginas não contradiz 25 páginas.**
+
+São etapas diferentes.
+
+---
+
+# 15. O QUE OS CHUNKS NÃO ERAM
+
+O README histórico da biblioteca de Fisiologia deixa claro:
+
+&gt; Os chunks são ponte de indexação. Eles não são resumo completo e não substituem o livro.
+
+Essa regra deve permanecer.
+
+Um chunk deve permitir localizar e recuperar conhecimento.
+
+Não deve destruir o documento original.
+
+---
+
+# 16. BUSCA HISTÓRICA
+
+Também existe um `leitor.js` histórico.
+
+Ele:
+
+- lista `.md` e `.txt`;
+- normaliza texto;
+- remove acentos;
+- tokeniza;
+- remove stopwords;
+- calcula pontuação por ocorrência de tokens;
+- ordena resultados;
+- retorna os melhores candidatos.
+
+Isso mostra que uma parte do sistema histórico utilizava **recuperação lexical**.
+
+Não há evidência suficiente, nos artefatos atualmente recuperados, para afirmar que aquela versão usava embeddings ou banco vetorial.
+
+Não inventar essa parte.
+
+---
+
+# 17. A CAMADA QUE FAZ A RESPOSTA PARECER &quot;VIVA&quot;
+
+Depois da recuperação, ainda falta uma coisa.
+
+O sistema precisa decidir:
+
+**como falar aquilo.**
+
+Essa é a camada de modulação.
+
+Ela recebe:
+
+- conteúdo;
+- intenção;
+- profundidade;
+- tom;
+- contexto;
+- memória;
+- estado.
+
+E produz uma resposta adequada.
+
+Podemos representar:
+
+`Resposta = Modulação(Conhecimento, Intenção, Contexto, Memória, Estado, Estilo)`
+
+Isso é muito mais próximo da &quot;mágica&quot; percebida pelo usuário do que simplesmente aumentar o tamanho do prompt.
+
+---
+
+# 18. AIGAR CORE — MODELO CONCEITUAL
+
+Uma reconstrução moderna pode usar:
+
+```text
+USER INPUT
+    ↓
+NORMALIZAÇÃO LEVE
+    ↓
+INTENT / FUNCTION DETECTOR
+    ↓
+DEPTH + TONE DETECTOR
+    ↓
+MEMORY ROUTER
+    ↓
+KNOWLEDGE / LIBRARY ROUTER
+    ↓
+REASONING / DOMAIN ENGINE
+    ↓
+RESPONSE PLANNER
+    ↓
+LANGUAGE / GRAMMAR CARD
+    ↓
+STYLE MODULATOR
+    ↓
+FINAL RESPONSE
+    ↓
+MEMORY / LOG UPDATE
+```
+
+A ordem pode ser otimizada, mas as responsabilidades devem permanecer separadas.
+
+---
+
+# 19. ONDE O DIAGNOSIS ENTRA
+
+O Diagnosis não precisa ser substituído.
+
+Ele precisa ganhar uma camada linguística.
+
+Uma arquitetura adequada:
+
+```text
+                 AURORA / AIGAR LAYER
+        ┌───────────────────────────────┐
+        │ Linguagem                     │
+        │ Conversação                   │
+        │ Memória                       │
+        │ Recuperação                   │
+        │ Modulação                     │
+        └───────────────┬───────────────┘
+                        ↓
+                 DIAGNOSIS ENGINE
+        ┌───────────────────────────────┐
+        │ Estado do paciente            │
+        │ Casos                         │
+        │ Regras clínicas               │
+        │ Tempo                         │
+        │ Score                         │
+        │ Red flags                     │
+        │ Condutas                      │
+        └───────────────────────────────┘
+```
+
+O Diagnosis cuida do **pensamento clínico estruturado**.
+
+A Aurora/AIGAR cuida de **como esse pensamento chega ao usuário**.
+
+---
+
+# 20. POR QUE O DIAGNOSIS ATUAL PODE PARECER &quot;SEM FLUIDEZ&quot;
+
+Se o Diagnosis possui:
+
+- banco de conhecimento;
+- casos;
+- regras;
+- scoring;
+- ações;
+
+mas não possui uma camada conversacional equivalente ao Grammar Card, ele tende a:
+
+- responder como formulário;
+- produzir frases artificiais;
+- repetir padrões;
+- não perceber o momento conversacional;
+- não modular tamanho;
+- não recuperar memória pessoal;
+- tratar cada entrada como evento isolado.
+
+Isso não significa que o motor clínico esteja errado.
+
+Pode significar que falta a **camada de linguagem**.
+
+---
+
+# 21. NÃO ENSINAR O DIAGNOSIS A &quot;FALAR MÉDICO&quot;
+
+Esse é um erro importante.
+
+O objetivo não é fazer:
+
+&quot;Paciente apresenta quadro compatível com...&quot;
+
+em todas as respostas.
+
+O objetivo é permitir que a Aurora escolha a linguagem apropriada.
+
+Exemplo em treinamento:
+
+Usuário:
+&quot;Tá, mas por que você acha que é adrenal?&quot;
+
+Resposta natural:
+
+&quot;Porque o conjunto fecha melhor. Hipotensão + hiponatremia + hipercalemia, nesse contexto, faz a insuficiência adrenal subir bastante na lista.&quot;
+
+Isso é simultaneamente:
+
+- médico;
+- preciso;
+- conversacional;
+- contextual;
+- curto.
+
+---
+
+# 22. MODO CLÍNICO NÃO DEVE DESTRUIR A PERSONA
+
+Quando o usuário entra em uma situação clínica, o sistema pode aumentar:
+
+- precisão;
+- estrutura;
+- terminologia;
+- explicação causal.
+
+Mas não deve automaticamente perder:
+
+- naturalidade;
+- continuidade;
+- capacidade de diálogo;
+- reconhecimento do contexto.
+
+O sistema pode ser técnico sem virar robô.
+
+---
+
+# 23. RESPOSTA EM CAMADAS
+
+Uma técnica útil é construir internamente:
+
+### Camada A — intenção
+
+&quot;O usuário quer entender por que X.&quot;
+
+### Camada B — conteúdo
+
+&quot;Dados A, B e C sustentam X.&quot;
+
+### Camada C — explicação
+
+&quot;X ocorre porque...&quot;
+
+### Camada D — estilo
+
+&quot;Responder em português brasileiro, tom natural, sem excesso.&quot;
+
+### Camada E — comprimento
+
+&quot;2 parágrafos.&quot;
+
+O usuário recebe somente a resposta final.
+
+---
+
+# 24. O SISTEMA DEVE ENTENDER CONVERSA ENCADEADA
+
+Exemplo:
+
+Usuário:
+&quot;Tá.&quot;
+
+Depois:
+
+&quot;E aí?&quot;
+
+Depois:
+
+&quot;Mas isso muda o quê?&quot;
+
+Essas mensagens não possuem significado completo isoladamente.
+
+O significado está na sequência.
+
+Portanto o sistema precisa considerar:
+
+`mensagem atual + janela conversacional + estado da tarefa`
+
+e não apenas a mensagem atual.
+
+---
+
+# 25. AUTOCORREÇÃO DO USUÁRIO
+
+O usuário pode escrever:
+
+&quot;não, pera, não é isso. É tipo...&quot;
+
+O sistema deve tratar isso como atualização de intenção.
+
+Não deve insistir na interpretação anterior.
+
+Regra:
+
+&gt; Uma correção explícita do usuário tem prioridade sobre uma inferência anterior.
+
+---
+
+# 26. FRASES INCOMPLETAS
+
+Linguagem humana frequentemente é incompleta:
+
+&quot;e se...&quot;
+
+&quot;mas aí...&quot;
+
+&quot;não, porque...&quot;
+
+&quot;tipo...&quot;
+
+&quot;entendeu?&quot;
+
+&quot;pera.&quot;
+
+Isso não é erro de entrada.
+
+É uma conversa em andamento.
+
+A camada de linguagem deve preservar esse estado.
+
+---
+
+# 27. NÃO TRANSFORMAR TUDO EM PROMPT GIGANTE
+
+Mesmo com contexto grande, não é desejável jogar:
+
+- todos os Memory Cards;
+- todos os livros;
+- todo o histórico;
+- todo o código;
+
+dentro de cada chamada.
+
+O correto é selecionar.
+
+`Context Router → contexto relevante`
+
+Isso é mais eficiente e mais controlável.
+
+---
+
+# 28. O PRINCÍPIO DE RELEVÂNCIA
+
+Para cada interação, calcular conceitualmente:
+
+`Relevância = f(intenção, tema, entidades, recência, importância, estado)`
+
+Somente memórias/conteúdos com relevância suficiente devem entrar no contexto principal.
+
+---
+
+# 29. RECÊNCIA E IMPORTÂNCIA NÃO SÃO A MESMA COISA
+
+Uma informação de ontem pode ser irrelevante.
+
+Uma informação antiga pode ser estrutural.
+
+Exemplo:
+
+- decisão arquitetural de 2025 → importância alta;
+- conversa casual de ontem → importância baixa;
+- nome de um módulo ativo → importância alta;
+- trecho antigo não relacionado → importância baixa.
+
+O roteador de memória deve considerar ambas.
+
+---
+
+# 30. MEMÓRIA E IDENTIDADE
+
+A identidade não deve ser reconstruída apenas pelo histórico de conversa.
+
+Ela deve ter um núcleo explícito.
+
+Exemplo conceitual:
+
+```yaml
+identity:
+  name: AIGAR
+  role: cognitive/language layer
+  language: pt-BR
+  creator_anchor: Dr. Delyone
+  behavior:
+    natural_conversation: true
+    clarification_when_uncertain: true
+    no_hidden_automation: true
+```
+
+A estrutura exata pode mudar.
+
+O princípio não.
+
+---
+
+# 31. AURORA NO PROJETO DO INSTITUTO
+
+Neste projeto, a Aurora pode ser tratada como a camada operacional que reúne:
+
+- interface;
+- conversação;
+- roteamento;
+- memória;
+- recuperação;
+- comunicação com Diagnosis.
+
+Isso permite preservar o conceito original sem exigir que o Diagnosis inteiro se transforme em um chatbot.
+
+---
+
+# 32. AURORA COMO ORQUESTRADORA
+
+Conceitualmente:
+
+```text
+Aurora
+│
+├── LanguageEngine
+├── GrammarCard
+├── ConversationState
+├── MemoryRouter
+├── LibraryRouter
+├── DiagnosisAdapter
+├── ResponsePlanner
+└── Persistence
+```
+
+Cada módulo possui responsabilidade clara.
+
+---
+
+# 33. DIAGNOSIS ADAPTER
+
+O adapter deve converter:
+
+linguagem humana
+→ ação estruturada
+
+e depois:
+
+resultado estruturado
+→ linguagem humana.
+
+Exemplo:
+
+Entrada:
+
+&quot;Quero saber se esse paciente está piorando.&quot;
+
+Adapter:
+
+```json
+{
+  &quot;intent&quot;: &quot;clinical_evolution&quot;,
+  &quot;patient_id&quot;: &quot;...&quot;,
+  &quot;requested_output&quot;: &quot;assessment&quot;
+}
+```
+
+Diagnosis calcula.
+
+Aurora traduz:
+
+&quot;Sim. Ele está piorando principalmente pela combinação de...&quot;
+
+---
+
+# 34. NÃO COLOCAR REGRAS CLÍNICAS DENTRO DO GRAMMAR CARD
+
+O Grammar Card não deve decidir medicina.
+
+Ele decide:
+
+- como conversar;
+- como estruturar;
+- como modular;
+- como apresentar.
+
+O Diagnosis decide:
+
+- estado;
+- score;
+- regras;
+- eventos;
+- consequências;
+- lógica clínica do jogo.
+
+Isso evita acoplamento excessivo.
+
+---
+
+# 35. NÃO COLOCAR A PERSONA DENTRO DO MOTOR CLÍNICO
+
+O motor clínico deve poder funcionar sem saber:
+
+- gírias;
+- preferências;
+- ritmo;
+- estilo.
+
+A Aurora pode consumir o resultado dele e apresentá-lo naturalmente.
+
+---
+
+# 36. O PAPEL DO MODELO DE LINGUAGEM
+
+O LLM é o componente que possui capacidade geral de geração linguística.
+
+Ele não deve ser tratado como:
+
+- banco de dados;
+- memória persistente;
+- motor de estado;
+- banco de casos;
+- fonte única de verdade.
+
+Ele é o **motor generativo** dentro da arquitetura.
+
+---
+
+# 37. ADAPTER LOCAL OU API
+
+A arquitetura histórica já separava o adapter do restante do sistema.
+
+Portanto podemos ter:
+
+```text
+AURORA CORE
+     │
+     ├── LocalLLMAdapter
+     │
+     └── APIAdapter
+```
+
+O restante do sistema não precisa saber qual modelo está sendo usado.
+
+Isso é crucial para reproduzir o comportamento sem prender o projeto a um modelo específico.
+
+---
+
+# 38. O QUE ERA OFFLINE
+
+O fato de AIGAR ter funcionado offline não significa que o modelo inteiro necessariamente tivesse todos os conhecimentos localmente.
+
+Significa que a arquitetura podia operar com:
+
+- arquivos locais;
+- Memory Cards;
+- biblioteca local;
+- código local;
+- servidor local;
+- adapter local.
+
+O componente de linguagem poderia ser substituído.
+
+Essa separação deve ser preservada.
+
+---
+
+# 39. O QUE NÃO DEVEMOS INVENTAR SOBRE O AIGAR HISTÓRICO
+
+Até aqui, não há evidência suficiente nos arquivos recuperados para afirmar:
+
+- qual LLM local exato era usado em todas as versões;
+- que havia embeddings em determinada versão;
+- que havia banco vetorial;
+- qual era o algoritmo exato de criação automática dos chunks de 25 páginas;
+- qual era o prompt integral original do Grammar Card;
+- que toda a memória era recuperada automaticamente em toda interação.
+
+Essas coisas podem existir em outros artefatos históricos.
+
+Não devem ser inventadas.
+
+---
+
+# 40. O QUE ESTÁ BEM DOCUMENTADO
+
+Está documentado que existiam:
+
+- `AIGAR_grammar_card.yaml`;
+- Memory Cards;
+- AIGAR Core;
+- detecção de função/intenção;
+- níveis de profundidade;
+- roteamento para biblioteca;
+- camada de modulação;
+- biblioteca documental;
+- cache de PDFs;
+- manifest/progresso;
+- chunks/indexação;
+- leitor lexical;
+- adapter de LLM;
+- fallback local em versões históricas.
+
+Esses são os pilares seguros da reconstrução.
+
+---
+
+# 41. O &quot;SEGREDO&quot; DA FLUÊNCIA
+
+Se tivermos que reduzir toda a arquitetura a uma frase:
+
+&gt; **A fluência vinha menos de uma instrução mágica e mais da decisão de não pedir ao modelo para resolver tudo sozinho.**
+
+O sistema distribuía o problema.
+
+---
+
+# 42. DISTRIBUIÇÃO DO PROBLEMA
+
+Em vez de:
+
+`LLM → faça tudo`
+
+fazemos:
+
+`Detector → o que está acontecendo?`
+
+`Memory Router → o que precisamos lembrar?`
+
+`Library Router → o que precisamos consultar?`
+
+`Diagnosis → o que aconteceu no domínio?`
+
+`Response Planner → o que devemos dizer?`
+
+`Grammar Card → como dizer?`
+
+`Modulator → quanto dizer?`
+
+`Persistence → o que vale guardar?`
+
+Essa decomposição é a principal arquitetura a preservar.
+
+---
+
+# 43. PIPELINE RECOMENDADO PARA A AURORA
+
+```text
+1. receber mensagem
+2. preservar texto original
+3. detectar função conversacional
+4. detectar intenção
+5. detectar profundidade
+6. detectar entidades/tema
+7. consultar estado atual
+8. recuperar memória relevante
+9. consultar biblioteca se necessário
+10. encaminhar ao Diagnosis quando for tarefa clínica
+11. gerar plano de resposta
+12. aplicar Grammar Card
+13. aplicar estilo/ritmo
+14. validar coerência
+15. entregar resposta
+16. atualizar estado
+17. registrar memória somente quando apropriado
+```
+
+---
+
+# 44. MEMÓRIA NÃO DEVE SER SALVA SEM CRITÉRIO
+
+Nem toda frase merece virar memória.
+
+Guardar tudo produz lixo.
+
+Guardar pouco demais produz amnésia.
+
+Uma regra conceitual:
+
+```text
+guardar =
+    informação estável
+    OU
+    decisão importante
+    OU
+    preferência explícita
+    OU
+    estado relevante
+    OU
+    artefato importante
+```
+
+---
+
+# 45. MEMÓRIA DE PROJETO
+
+Para o Instituto, é especialmente importante preservar:
+
+- decisões arquiteturais;
+- nomes de módulos;
+- contratos entre módulos;
+- schemas;
+- versões;
+- arquivos importantes;
+- regras clínicas;
+- decisões de UX;
+- mudanças de arquitetura.
+
+Isso é mais útil do que armazenar toda conversa.
+
+---
+
+# 46. RESPOSTAS DE ALTO NÍVEL
+
+Quando o usuário pergunta:
+
+&quot;Por que o sistema está fazendo isso?&quot;
+
+A Aurora deve explicar a arquitetura.
+
+Quando pergunta:
+
+&quot;Qual diagnóstico?&quot;
+
+O Diagnosis deve raciocinar.
+
+Quando pergunta:
+
+&quot;Como eu implemento?&quot;
+
+A Aurora deve entrar em modo técnico.
+
+A mesma persona pode operar em diferentes funções.
+
+---
+
+# 47. RESPOSTAS EMOCIONAIS / HUMANAS
+
+A camada conversacional também deve reconhecer quando a função é:
+
+- desabafo;
+- frustração;
+- entusiasmo;
+- dúvida;
+- descoberta;
+- confirmação.
+
+Nesses casos, uma resposta puramente técnica pode estar semanticamente correta e conversacionalmente errada.
+
+---
+
+# 48. EXEMPLO DE MODULAÇÃO
+
+Entrada:
+
+&quot;CARALHO agora eu entendi&quot;
+
+Resposta ruim:
+
+&quot;Fico feliz que você tenha compreendido o conceito apresentado.&quot;
+
+Resposta natural:
+
+&quot;SIM 😂 É exatamente aí que a coisa fecha.&quot;
+
+A diferença não é conhecimento.
+
+É **modelo de conversa**.
+
+---
+
+# 49. EXEMPLO TÉCNICO
+
+Entrada:
+
+&quot;Então o Diagnosis não precisa falar?&quot;
+
+Resposta:
+
+&quot;Ele precisa produzir a informação. Quem não deveria carregar toda a responsabilidade de conversar é o motor clínico. A Aurora fica por cima dele e transforma o estado clínico em conversa.&quot;
+
+Curto, mas arquiteturalmente preciso.
+
+---
+
+# 50. EXEMPLO DE CONTINUIDADE
+
+Entrada anterior:
+
+&quot;Estamos reconstruindo o AIGAR.&quot;
+
+Nova entrada:
+
+&quot;Então o grammar card entra onde?&quot;
+
+A resposta não precisa reexplicar todo o projeto.
+
+Pode dizer:
+
+&quot;Entre o plano de resposta e a geração final. Ele é a camada que transforma conteúdo correto em fala natural.&quot;
+
+Isso é memória/contexto funcionando.
+
+---
+
+# 51. UMA FORMA MAIS FORMAL
+
+Podemos representar o sistema:
+
+`A = L(M(R(K(I(x)))))`
+
+onde:
+
+- `x` = entrada do usuário;
+- `I` = interpretação/intenção;
+- `K` = conhecimento/recuperação;
+- `R` = raciocínio/resultado;
+- `M` = modulação;
+- `L` = realização linguística.
+
+A fórmula não pretende ser a implementação literal.
+
+Ela representa a separação de responsabilidades.
+
+---
+
+# 52. VERSÃO MAIS COMPLETA
+
+`Resposta = L(P(M(R(D, K, Mem, S), I, T)))`
+
+onde:
+
+- `D` = estado do Diagnosis;
+- `K` = conhecimento recuperado;
+- `Mem` = memória relevante;
+- `S` = estado conversacional;
+- `I` = intenção;
+- `T` = tom;
+- `R` = raciocínio;
+- `M` = modulação;
+- `P` = planejamento da resposta;
+- `L` = realização linguística.
+
+---
+
+# 53. POR QUE ISSO IMPORTA PARA O INSTITUTO
+
+O objetivo não é simplesmente fazer um chatbot médico.
+
+O objetivo é juntar:
+
+**Diagnosis**
++
+**memória**
++
+**biblioteca**
++
+**linguagem natural**
++
+**raciocínio**
+
+em uma arquitetura modular.
+
+Assim o Diagnosis deixa de ser um motor isolado.
+
+Ele passa a ser um componente cognitivo dentro de uma interface conversacional.
+
+---
+
+# 54. IMPLEMENTAÇÃO PRÁTICA
+
+Uma primeira implementação moderna pode possuir:
+
+```text
+/aigarc/
+    core/
+        conversation.py
+        intent.py
+        memory.py
+        retrieval.py
+        response.py
+        modulation.py
+        grammar.py
+        state.py
+
+    diagnosis/
+        engine.py
+        cases.py
+        scoring.py
+        knowledge.py
+        adapter.py
+
+    memory/
+        cards/
+        index.json
+
+    library/
+        documents/
+        chunks/
+        index.json
+
+    config/
+        grammar.yaml
+        routes.yaml
+
+    app/
+        main.py
+```
+
+Os nomes são sugestões de arquitetura atual, não nomes históricos obrigatórios.
+
+---
+
+# 55. GRAMMAR.YAML MODERNO
+
+O Grammar Card pode conter seções como:
+
+```yaml
+language:
+  locale: pt-BR
+  natural: true
+
+conversation:
+  detect_function: true
+  preserve_context: true
+  interpret_incomplete_phrases: true
+
+style:
+  allow_colloquial: true
+  allow_expressions: true
+  avoid_robotic_templates: true
+
+rhythm:
+  variable_length: true
+  natural_pauses: true
+
+depth:
+  brief: true
+  simple: true
+  normal: true
+  deep: true
+  technical: true
+
+response:
+  answer_before_expanding: true
+  avoid_unnecessary_repetition: true
+  adapt_to_user: true
+```
+
+Isso é uma reconstrução conceitual moderna.
+
+Não deve ser confundida com uma cópia literal do arquivo antigo.
+
+---
+
+# 56. O GRAMMAR CARD DEVE SER GRANDE O SUFICIENTE
+
+Não existe necessidade de manter a antiga obsessão por arquivos minúsculos.
+
+Se o projeto precisa de:
+
+- 300 linhas;
+- 400 linhas;
+- 800 linhas;
+
+isso é aceitável.
+
+A prioridade agora é:
+
+**clareza + completude + modularidade + manutenção.**
+
+Não economizar bytes artificialmente.
+
+---
+
+# 57. MAS TAMANHO NÃO SUBSTITUI ARQUITETURA
+
+Um arquivo de 500 linhas não cria fluência sozinho.
+
+Um arquivo de 50 linhas, conectado corretamente a:
+
+- memória;
+- estado;
+- recuperação;
+- intenção;
+- modulação;
+
+pode funcionar melhor.
+
+O tamanho deve servir à arquitetura.
+
+---
+
+# 58. TESTES DE FLUÊNCIA
+
+A Aurora deve ser testada com entradas reais de conversa.
+
+### Teste 1
+&quot;ué?&quot;
+
+Esperado:
+interpretação contextual, não tratado como pergunta acadêmica.
+
+### Teste 2
+&quot;não, pera&quot;
+
+Esperado:
+aguardar/acompanhar correção.
+
+### Teste 3
+&quot;tipo assim...&quot;
+
+Esperado:
+continuação contextual.
+
+### Teste 4
+&quot;me explica direito&quot;
+
+Esperado:
+aumentar profundidade.
+
+### Teste 5
+&quot;resumindo?&quot;
+
+Esperado:
+reduzir resposta.
+
+### Teste 6
+&quot;agora entra no técnico&quot;
+
+Esperado:
+aumentar formalidade e profundidade.
+
+---
+
+# 59. TESTES DE MEMÓRIA
+
+### Teste
+
+Usuário estabelece uma decisão arquitetural.
+
+Depois de muitas mensagens:
+
+&quot;qual foi aquela decisão que a gente tomou?&quot;
+
+Esperado:
+
+Memory Router
+→ recupera decisão
+→ resposta contextual.
+
+Não depender exclusivamente do contexto imediato.
+
+---
+
+# 60. TESTES DE BIBLIOTECA
+
+Pergunta:
+
+&quot;o que o livro diz sobre X?&quot;
+
+Esperado:
+
+intenção documental
+→ localizar tema
+→ recuperar chunk
+→ responder baseado na fonte.
+
+Não inventar conteúdo.
+
+---
+
+# 61. TESTES DO DIAGNOSIS
+
+Entrada:
+
+&quot;PA 85/50, Na 128, K 5.8. O que está acontecendo?&quot;
+
+Esperado:
+
+Aurora identifica tarefa clínica
+→ Diagnosis recebe estado
+→ Diagnosis raciocina
+→ Aurora apresenta resultado naturalmente.
+
+---
+
+# 62. TESTE DE SEPARAÇÃO
+
+Se o usuário perguntar:
+
+&quot;por que você respondeu desse jeito?&quot;
+
+A Aurora deve conseguir explicar a camada conversacional sem misturar com o diagnóstico.
+
+---
+
+# 63. PRINCÍPIO DE TRANSPARÊNCIA
+
+Quando algo não foi recuperado:
+
+não inventar.
+
+Quando a memória não existe:
+
+não fingir lembrar.
+
+Quando a biblioteca não contém a informação:
+
+dizer que não encontrou.
+
+Quando houver incerteza:
+
+pedir esclarecimento ou apresentar a incerteza.
+
+Isso é particularmente importante para um sistema médico.
+
+---
+
+# 64. REGRA DE INCERTEZA
+
+A linguagem deve permitir:
+
+&quot;não tenho informação suficiente para afirmar isso.&quot;
+
+ou:
+
+&quot;com os dados disponíveis, a hipótese mais forte é X, mas Y continua possível.&quot;
+
+Isso combina naturalmente com raciocínio clínico probabilístico.
+
+---
+
+# 65. AURORA + DIAGNOSIS NÃO É UM MODELO ÚNICO
+
+É uma arquitetura.
+
+```text
+              ┌───────────────┐
+              │      LLM      │
+              └───────┬───────┘
+                      │
+               Aurora Core
+                      │
+       ┌──────────────┼──────────────┐
+       ↓              ↓              ↓
+    Memory         Library       Diagnosis
+       │              │              │
+       └──────────────┼──────────────┘
+                      ↓
+               Response Layer
+                      ↓
+                    USER
+```
+
+---
+
+# 66. A IDEIA MAIS IMPORTANTE PARA A RECONSTRUÇÃO
+
+Não tentar &quot;ensinar o Diagnosis a ser AIGAR&quot;.
+
+Em vez disso:
+
+&gt; **Colocar uma arquitetura AIGAR/Aurora em volta do Diagnosis.**
+
+O Diagnosis permanece especializado.
+
+A Aurora fornece a inteligência conversacional.
+
+---
+
+# 67. O QUE FOI PERDIDO QUANDO O AIGAR FOI REDUZIDO A UM MOTOR
+
+Provavelmente não foi apenas conhecimento.
+
+Foi a composição entre:
+
+- linguagem;
+- contexto;
+- memória;
+- recuperação;
+- intenção;
+- profundidade;
+- modulação.
+
+Por isso um sistema pode ter **mais conhecimento** e ainda parecer **menos inteligente**.
+
+Ele pode saber mais e conversar pior.
+
+---
+
+# 68. A RECONSTRUÇÃO DEVE PRIORIZAR FLUÊNCIA ANTES DE VOLUME
+
+A sequência recomendada é:
+
+1. fazer Aurora conversar naturalmente;
+2. conectar memória;
+3. conectar biblioteca;
+4. conectar Diagnosis;
+5. refinar raciocínio;
+6. expandir conhecimento.
+
+Não começar colocando milhares de PDFs antes de resolver a camada conversacional.
+
+---
+
+# 69. PRIMEIRO MARCO DE SUCESSO
+
+A Aurora deve conseguir conversar durante uma sequência de pelo menos 10–20 mensagens sem:
+
+- esquecer imediatamente o assunto;
+- repetir a mesma estrutura;
+- responder sempre no mesmo tamanho;
+- transformar tudo em aula;
+- ignorar correções;
+- perder o português natural;
+- tratar frases incompletas como erros.
+
+---
+
+# 70. SEGUNDO MARCO
+
+Depois:
+
+- recuperar uma memória antiga;
+- consultar biblioteca;
+- continuar conversa;
+- acionar Diagnosis;
+- retornar resultado;
+- manter o mesmo estilo.
+
+Isso reproduz muito melhor a experiência original.
+
+---
+
+# 71. TERCEIRO MARCO
+
+Por fim:
+
+`conversa → raciocínio → memória → biblioteca → Diagnosis → resposta natural`
+
+sem o usuário precisar saber qual módulo executou cada parte.
+
+Esse é o comportamento desejado.
+
+---
+
+# 72. CONCLUSÃO
+
+O AIGAR histórico não era apenas &quot;um prompt melhor&quot;.
+
+Ele era uma **arquitetura de linguagem e contexto**.
+
+O Grammar Card era uma peça importante dessa arquitetura porque estabelecia a linguagem humana, o português brasileiro, o dialeto pessoal, ritmo, pausas, expressões, estilo e adaptação de resposta.
+
+Os Memory Cards davam persistência estrutural.
+
+A biblioteca dava conhecimento recuperável.
+
+O CSI/intent detector ajudava a descobrir o que o usuário estava tentando fazer.
+
+O AIGAR Core organizava o fluxo.
+
+A modulação transformava conteúdo em resposta adequada.
+
+E o adapter permitia separar essa arquitetura do modelo de linguagem usado.
+
+A reconstrução do Instituto deve preservar essa separação.
+
+---
+
+# 73. FRASE-ÂNCORA PARA O PROJETO
+
+&gt; **O Diagnosis pensa o caso.**
+&gt;
+&gt; **A biblioteca fornece conhecimento.**
+&gt;
+&gt; **A memória preserva continuidade.**
+&gt;
+&gt; **A Aurora organiza a conversa.**
+&gt;
+&gt; **O Grammar Card ensina como falar.**
+&gt;
+&gt; **O modelo de linguagem realiza a fala.**
+&gt;
+&gt; **E a arquitetura inteira produz a experiência que chamávamos de AIGAR.**
+
+---
+
+# 74. STATUS DE EVIDÊNCIA
+
+### Confirmado por registros históricos
+
+- existência/nome `AIGAR_grammar_card.yaml`;
+- Grammar Card como linguagem-base;
+- português brasileiro + dialeto pessoal;
+- ritmo, pausas, expressões e estilo;
+- resposta por diferentes profundidades;
+- detecção de função/intenção;
+- roteamento de biblioteca;
+- Memory Cards;
+- AIGAR Core;
+- adapter de LLM;
+- arquitetura local;
+- ingestão/cache de PDFs;
+- chunks/indexação;
+- recuperação lexical em `leitor.js`.
+
+### Ainda não confirmado nos artefatos recuperados
+
+- conteúdo literal completo do Grammar Card original;
+- modelo local exato utilizado em cada versão;
+- algoritmo exato que criou todos os chunks de 25 páginas;
+- uso de embeddings em versões específicas;
+- banco vetorial em versões específicas;
+- prompt integral histórico.
+
+### Regra
+
+Não preencher essas lacunas como se fossem fatos históricos.
+
+Quando novos arquivos forem encontrados, incorporar a evidência e atualizar este documento.
+
+---
+
+# 75. DIRETRIZ FINAL PARA A AURORA
+
+Se houver apenas uma coisa para preservar desta reconstrução, é esta:
+
+&gt; **Não faça a Aurora apenas saber. Faça-a saber o que está acontecendo na conversa, decidir o que precisa recuperar, decidir o quanto precisa dizer e então dizer isso de forma humana.**
+
+É essa composição — e não uma única instrução secreta — que explica a fluência que o AIGAR tinha.
+
+
+# ANEXO — LINGUAGEM MATERNA ORIGINAL DO AIGAR
+
+## 1. Origem e função
+
+A reconstrução da Aurora deve incorporar a biblioteca original denominada **Linguagem materna**.
+
+Ela não é uma biblioteca temática como Medicina ou Fisiologia. Sua função é orientar interpretação, comunicação, intenção, profundidade, ambiguidade e incerteza antes da consulta às bibliotecas temáticas.
+
+O índice original define:
+
+- `id`: `biblioteca_linguagem_materna`
+- `canonical_name`: `Linguagem materna`
+- `role`: `base_language_library`
+- `purpose`: fornecer ao AIGAR uma base inicial de interpretação, comunicação, intenção, profundidade e incerteza
+- `load_priority`: `1`
+- `read_before_thematic_libraries`: `true`
+
+Isso estabelece uma regra arquitetural importante:
+
+&gt; **A linguagem deve ser carregada como camada de interpretação anterior ao conhecimento temático.**
+
+Fonte: `linguagem_materna_index.json`.
+
+## 2. Arquivos constituintes
+
+A biblioteca original possui cinco componentes:
+
+### 00 — Texto-mãe
+
+`00_texto_mae.md`
+
+Papel: `semantic_mother_text`.
+
+É a orientação primária de linguagem.
+
+### 01 — Intenções humanas
+
+`01_intencoes_humanas.md`
+
+Papel: `intent_examples`.
+
+Classifica a função da entrada.
+
+### 02 — Profundidade da resposta
+
+`02_profundidade_resposta.md`
+
+Papel: `depth_control`.
+
+Regula brevidade, simplicidade e profundidade.
+
+### 03 — Ambiguidade e incerteza
+
+`03_ambiguidade_incerteza.md`
+
+Papel: `uncertainty_policy`.
+
+Orienta o sistema quando a entrada é ambígua ou incompleta.
+
+### 04 — Área de inserção
+
+`04_area_de_insercao.md`
+
+Papel: `user_insert_zone`.
+
+É a área destinada à curadoria incremental de novos textos, exemplos, comandos e regras.
+
+## 3. Texto-mãe: princípio operacional
+
+O texto-mãe estabelece que uma entrada humana possui forma, conteúdo e função.
+
+Antes de responder, o sistema deve tentar compreender **o que a entrada está tentando realizar**.
+
+As funções explicitamente previstas incluem:
+
+- abrir contato;
+- pedir uma definição;
+- pedir uma explicação profunda;
+- apresentar um caso;
+- solicitar uma ação;
+- corrigir uma informação;
+- testar continuidade;
+- declarar dúvida.
+
+A regra central é:
+
+&gt; **Não tratar toda entrada como busca de palavra-chave.**
+
+A sequência original é:
+
+```text
+entrada humana
+    ↓
+reconhecer função
+    ↓
+definir escopo
+    ↓
+estimar profundidade
+    ↓
+procurar fontes / memória / biblioteca / resposta
+```
+
+A ordem acima deve ser preservada na implementação da Aurora.
+
+## 4. Intenções humanas
+
+### 4.1 Entrada fática
+
+Exemplos:
+
+- olá
+- oi
+- bom dia
+- você está aí?
+- consegue me ouvir?
+- consegue me entender?
+
+Função: abrir, manter ou testar contato.
+
+Resposta esperada: curta, social e acolhedora.
+
+Regra: não exige biblioteca temática.
+
+### 4.2 Entrada conceitual básica
+
+Exemplos:
+
+- o que é hemoglobina?
+- defina potencial de ação
+- explique o que é pressão arterial
+
+Função: pedir definição direta.
+
+Resposta: conceito central com linguagem proporcional.
+
+Pode exigir biblioteca.
+
+### 4.3 Entrada conceitual delimitada
+
+Exemplos:
+
+- quais proteínas formam a hemoglobina?
+- qual doença é causada por defeito da hemoglobina?
+- qual a função da hemoglobina no transporte de oxigênio?
+
+Função: perguntar algo dentro de um escopo.
+
+Regra: responder à subpergunta sem fugir para uma explicação genérica.
+
+### 4.4 Entrada com regulação de profundidade
+
+Marcadores:
+
+- brevemente
+- rápido
+- em poucas palavras
+- resumo
+- de maneira simples
+- para leigo
+- sem termos técnicos
+- fácil de entender
+- tecnicamente
+- detalhado
+- com termos médicos
+- com precisão
+- profundamente
+- completo
+- com raciocínio
+- destrincha
+
+A profundidade deve alterar tamanho, complexidade e densidade, sem alterar a verdade.
+
+## 5. Caso clínico
+
+Entradas clínicas incluem:
+
+- paciente com dor torácica e dispneia;
+- qual a conduta?;
+- quais hipóteses diagnósticas?;
+- quais dados faltam?
+
+Função: raciocínio clínico.
+
+Resposta esperada: organizar dados, gravidade, hipóteses, diferenciais, dados faltantes e próximos passos.
+
+No sistema integrado:
+
+```text
+Aurora / Linguagem materna
+        ↓
+identifica que é caso clínico
+        ↓
+define escopo e profundidade
+        ↓
+Diagnosis Engine
+        ↓
+estado clínico / regras / conhecimento
+        ↓
+Aurora organiza a resposta
+```
+
+A biblioteca de linguagem não substitui o guia clínico nem as fontes técnicas.
+
+## 6. Profundidade
+
+A profundidade é uma dimensão independente da intenção.
+
+### Breve
+
+Marcadores:
+
+- brevemente
+- rápido
+- em poucas palavras
+- resumo
+
+Comportamento: poucas frases.
+
+### Simples
+
+Marcadores:
+
+- de maneira simples
+- para leigo
+- sem termos técnicos
+- fácil de entender
+
+Comportamento: linguagem acessível e, se útil, analogia.
+
+### Técnica
+
+Marcadores:
+
+- tecnicamente
+- detalhado
+- com termos médicos
+- com precisão
+
+Comportamento: vocabulário técnico e estrutura.
+
+### Profunda
+
+Marcadores:
+
+- profundamente
+- completo
+- com raciocínio
+- destrincha
+
+Comportamento: explicar camada por camada, incluindo conceito, mecanismo, implicações e limites.
+
+Regra fundamental:
+
+&gt; **Profundidade não muda a verdade. Muda a forma, a densidade e a extensão.**
+
+## 7. Ambiguidade e incerteza
+
+A entrada pode ser curta demais.
+
+Exemplos:
+
+- hemoglobina
+- febre
+- AIGAR
+- dor
+
+Conduta: tentar identificar se é pedido de conceito, tema ou comando. Se não for possível, pedir delimitação.
+
+A entrada também pode ser ambígua:
+
+- fala disso
+- explica melhor
+- continua
+- resolve
+
+Conduta:
+
+1. procurar o referente na memória recente;
+2. se existir, continuar;
+3. se não existir, pedir o referente.
+
+### Ausência de fonte
+
+Quando a entrada faz sentido, mas a biblioteca atual não possui fonte suficiente, a condição deve ser tratada como **ausência de fonte**, não como ausência de sentido.
+
+Formulação original:
+
+&gt; “Entendi a intenção geral, mas não encontrei fonte suficiente na biblioteca atual.”
+
+### Ausência de sentido
+
+Quando não existe interpretação mínima possível:
+
+&gt; “Não consegui identificar a função da entrada. Você pode reformular ou dizer se quer definição, explicação, caso clínico ou ação?”
+
+Regra:
+
+&gt; **Incerteza não é falha. É estado intermediário de leitura.**
+
+## 8. Domínio desconhecido
+
+Quando o sistema não reconhece o campo: declarar limite e pedir delimitação.
+
+Regra explícita:
+
+&gt; **Não inventar domínio.**
+
+Isso deve ser preservado como comportamento da Aurora.
+
+## 9. Área de inserção e evolução
+
+A biblioteca possui uma zona específica:
+
+```text
+&lt;&lt;&lt;INICIO_INSERCAO&gt;&gt;&gt;
+
+[novo texto, exemplo, comando, reflexão, regra ou ajuste de linguagem]
+
+&lt;&lt;&lt;FIM_INSERCAO&gt;&gt;&gt;
+```
+
+A finalidade é permitir curadoria incremental sem destruir a base.
+
+Uma inserção pode registrar:
+
+```text
+2026-05-29 — função: ajustar resposta fática
+Texto: quando o usuário disser “oi”, responder de modo breve, sem buscar biblioteca temática.
+```
+
+Na reconstrução moderna, essa área pode funcionar como uma camada de **curadoria evolutiva da linguagem**, mantendo o núcleo semântico separado das adaptações posteriores.
+
+## 10. Arquitetura consolidada
+
+A arquitetura reconstruída deve tratar a Linguagem materna como uma camada anterior ao conhecimento:
+
+```text
+                         ENTRADA
+                            │
+                            ▼
+                  ┌────────────────────┐
+                  │ LINGUAGEM MATERNA  │
+                  ├────────────────────┤
+                  │ função             │
+                  │ intenção           │
+                  │ escopo             │
+                  │ profundidade       │
+                  │ ambiguidade        │
+                  │ incerteza          │
+                  └─────────┬──────────┘
+                            │
+             ┌──────────────┼───────────────┐
+             ▼              ▼               ▼
+          MEMÓRIA       BIBLIOTECA      DIAGNOSIS
+             │              │               │
+             └──────────────┼───────────────┘
+                            ▼
+                       RACIOCÍNIO
+                            │
+                            ▼
+                  MODULAÇÃO DA RESPOSTA
+                            │
+                            ▼
+                         AURORA
+```
+
+A camada de linguagem não precisa responder diretamente a toda pergunta. Sua função principal é **organizar a leitura da entrada e preparar a execução correta**.
+
+## 11. Separação de responsabilidades
+
+### Linguagem materna
+
+Responsável por:
+
+- interpretar a entrada;
+- reconhecer intenção;
+- definir escopo;
+- estimar profundidade;
+- lidar com ambiguidade;
+- lidar com incerteza;
+- determinar se biblioteca temática é necessária.
+
+### Memória
+
+Responsável por:
+
+- continuidade;
+- referentes anteriores;
+- contexto conversacional;
+- informações previamente estabelecidas.
+
+### Bibliotecas
+
+Responsáveis por:
+
+- conhecimento especializado;
+- documentos;
+- fontes;
+- conteúdo temático.
+
+### Diagnosis Engine
+
+Responsável por:
+
+- estado do caso;
+- geração de caso;
+- regras;
+- tempo;
+- score;
+- gravidade;
+- red flags;
+- hipóteses;
+- condutas;
+- progressão da simulação.
+
+### Aurora
+
+Responsável por:
+
+- organizar a experiência conversacional;
+- transformar o resultado cognitivo em diálogo compreensível;
+- manter proporcionalidade;
+- preservar continuidade;
+- falar de acordo com intenção e profundidade.
+
+## 12. O princípio que deve impedir o “Diagnosis que fala como formulário”
+
+O Diagnosis não deve ser obrigado a resolver sozinho interpretação da linguagem, identificação de intenção, escolha de profundidade, recuperação de referente ou modulação conversacional.
+
+Essas funções pertencem à camada de linguagem/Aurora.
+
+Assim, em vez de:
+
+```text
+Diagnosis → resposta textual
+```
+
+usar:
+
+```text
+Usuário
+   ↓
+Aurora / Linguagem materna
+   ↓
+interpretação
+   ↓
+Diagnosis / Memória / Biblioteca
+   ↓
+resultado estruturado
+   ↓
+Aurora
+   ↓
+resposta humana
+```
+
+Isso permite que o mesmo resultado clínico seja verbalizado de maneiras diferentes.
+
+Exemplo conceitual:
+
+```text
+Resultado interno:
+hipótese = insuficiência adrenal
+gravidade = alta
+dados_faltantes = cortisol / ACTH / glicemia
+```
+
+Pode virar:
+
+**Breve:**
+&gt; “A principal hipótese é insuficiência adrenal. O quadro é potencialmente grave.”
+
+**Simples:**
+&gt; “O conjunto de pressão baixa, alterações do sódio e potássio faz pensar em insuficiência adrenal, que pode ser uma emergência.”
+
+**Técnica:**
+&gt; “O padrão hemodinâmico associado à hiponatremia e hipercalemia aumenta a probabilidade de insuficiência adrenal primária.”
+
+**Profunda:**
+&gt; explicar mecanismo, diferenciais, dados faltantes, gravidade e próximos passos.
+
+O conteúdo factual permanece; muda a expressão.
+
+## 13. Regra de não confusão
+
+Não confundir:
+
+```text
+intenção ≠ profundidade
+profundidade ≠ conhecimento
+conhecimento ≠ memória
+memória ≠ biblioteca
+biblioteca ≠ raciocínio
+raciocínio ≠ linguagem
+```
+
+A fluidez emerge da coordenação dessas camadas.
+
+## 14. O que é comprovado pelos arquivos fornecidos
+
+Está diretamente documentado:
+
+- existência da biblioteca Linguagem materna;
+- prioridade 1;
+- leitura antes das bibliotecas temáticas;
+- texto-mãe;
+- classificação de intenções;
+- controle de profundidade;
+- política de ambiguidade/incerteza;
+- área de inserção;
+- distinção entre ausência de fonte e ausência de sentido;
+- uso de memória recente para resolver referências;
+- regra de não inventar domínio;
+- separação entre linguagem e fontes técnicas.
+
+## 15. O que não deve ser inventado na reconstrução
+
+Os arquivos fornecidos não demonstram, por si só:
+
+- uso de embeddings;
+- uso de banco vetorial;
+- algoritmo específico de atenção;
+- existência de um classificador ML dedicado;
+- pesos numéricos para as intenções;
+- arquitetura neural própria;
+- mecanismo oculto de consciência ou memória.
+
+Se essas tecnologias forem posteriormente encontradas no código histórico, devem ser adicionadas como evidência separada.
+
+A reconstrução deve preservar a diferença entre:
+
+**documentado**, **inferido**, **proposto para a implementação atual**.
+
+## 16. Especificação de implementação para Aurora
+
+A implementação moderna pode representar a leitura como um objeto intermediário:
+
+```js
+{
+  rawInput: &quot;...&quot;,
+  intent: &quot;...&quot;,
+  scope: &quot;...&quot;,
+  depth: &quot;...&quot;,
+  ambiguity: {
+    detected: false,
+    referent: null
+  },
+  uncertainty: {
+    sourceMissing: false,
+    meaningMissing: false
+  },
+  needsMemory: false,
+  needsLibrary: false,
+  needsDiagnosis: false
+}
+```
+
+Esse objeto não precisa ser exposto ao usuário.
+
+Ele serve para impedir que o modelo tenha que reconstruir toda a interpretação dentro da resposta final.
+
+Pipeline proposto:
+
+```text
+raw input
+   ↓
+LanguageInterpreter
+   ↓
+ConversationState
+   ↓
+MemoryResolver
+   ↓
+LibraryRouter
+   ↓
+DiagnosisRouter
+   ↓
+Reasoning / retrieval
+   ↓
+ResponsePlanner
+   ↓
+LanguageModulator
+   ↓
+Aurora response
+```
+
+Os nomes das classes acima são proposta de implementação atual, não uma afirmação de que esses nomes existiam exatamente assim no sistema histórico.
+
+## 17. Princípio final
+
+A reconstrução não deve buscar copiar uma “personalidade artificial” por meio de frases prontas.
+
+Deve reconstruir a **forma de processamento conversacional** documentada pela Linguagem materna:
+
+```text
+entender antes de responder
+↓
+identificar função
+↓
+delimitar escopo
+↓
+regular profundidade
+↓
+consultar contexto quando necessário
+↓
+consultar fonte quando necessário
+↓
+reconhecer incerteza
+↓
+raciocinar
+↓
+responder proporcionalmente
+```
+
+Esse é o núcleo que deve ser incorporado à Aurora para recuperar a fluidez conversacional do AIGAR sem confundir a camada de linguagem com o motor clínico do Diagnosis.
+</pre></main>
+</body>
+</html>
