@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "key": "sapiens",
+  "title": "Sapiens uma Breve História da Humanidade",
+  "author": "Yuval Noah Harari",
+  "source_path": "aigar-c-2/biblioteca/Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
+  "role": "humanity_knowledge",
+  "status": "source_registered_local_build_required",
+  "chunking": {
+    "type": "pdf_pages",
+    "pages_per_chunk": 25
+  },
+  "storage": {
+    "source": "repository_source",
+    "processed_text": "private_local_cache",
+    "public_text_chunks": false
+  }
+}
