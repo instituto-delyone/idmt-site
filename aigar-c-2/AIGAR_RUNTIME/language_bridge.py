@@ -6,7 +6,6 @@ from typing import Any
 
 from .models import ConversationReading
 
-
 ROOT = Path(__file__).resolve().parents[2]
 INTERPRETER_PATH = ROOT / "AIGAR_LANGUAGE" / "interpreter.py"
 
@@ -18,7 +17,6 @@ def _load_language_class():
     )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to load AIGAR language interpreter: {INTERPRETER_PATH}")
-
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.AIGARLanguage
@@ -32,14 +30,12 @@ class ExecutableLanguageAdapter:
 
     def interpret(self, text: str) -> ConversationReading:
         result: dict[str, Any] = self.engine.interpret(text)
-
         ambiguity_map = {
             "clear": 0.0,
             "too_short": 0.45,
             "context_dependent": 0.35,
             "empty": 1.0,
         }
-
         return ConversationReading(
             intent=result["intent"],
             scope=result.get("scope"),
@@ -50,4 +46,5 @@ class ExecutableLanguageAdapter:
             needs_library=bool(result.get("needs_library", False)),
             needs_diagnosis=bool(result.get("needs_diagnosis", False)),
             needs_reasoning=bool(result.get("needs_reasoning", True)),
+            linguistic_analysis=result.get("linguistic_analysis", {}),
         )
