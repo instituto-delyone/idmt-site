@@ -20,6 +20,7 @@ class ConversationReading(BaseModel):
     needs_library: bool = False
     needs_diagnosis: bool = False
     needs_reasoning: bool = True
+    linguistic_analysis: dict[str, Any] = Field(default_factory=dict)
 
 class ConversationState(BaseModel):
     session_id: str = "default"
