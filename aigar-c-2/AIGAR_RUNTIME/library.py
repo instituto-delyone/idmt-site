@@ -12,8 +12,13 @@ class LibraryAdapter:
     def __init__(self, root: str | Path | None = None):
         self.retriever = LibraryRetriever(root)
 
-    def search(self, query: str, limit: int = 3) -> tuple[list[dict], SourceTrace]:
-        hits = self.retriever.search(query, limit=limit)
+    def search(
+        self,
+        query: str,
+        limit: int = 3,
+        reading: dict | None = None,
+    ) -> tuple[list[dict], SourceTrace]:
+        hits = self.retriever.search(query, limit=limit, reading=reading)
         if not hits:
             return [], SourceTrace(
                 kind="library",
@@ -30,6 +35,9 @@ class LibraryAdapter:
             "start_page": h.get("start_page"),
             "end_page": h.get("end_page"),
             "score": h.get("score"),
+            "lexical_score": h.get("lexical_score"),
+            "semantic_score": h.get("semantic_score"),
+            "source_relevance": h.get("source_relevance"),
             "text": h["text"],
         } for h in hits]
 
@@ -37,7 +45,7 @@ class LibraryAdapter:
             kind="library",
             id="local.library",
             status="confirmed",
-            detail=f"{len(hits)} chunk(s) recuperado(s) do cache local."
+            detail=f"{len(hits)} chunk(s) recuperado(s) por busca híbrida."
         )
 
     def load(self, chunk_id: str) -> tuple[dict | None, SourceTrace]:

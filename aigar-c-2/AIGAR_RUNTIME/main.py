@@ -11,7 +11,7 @@ from .diagnosis import DiagnosisAdapter
 from .reasoning import ReasoningEngine
 from .aurora import Aurora
 
-app = FastAPI(title="AIGAR Runtime", version="0.2.0")
+app = FastAPI(title="AIGAR Runtime", version="0.3.0")
 
 store = ConversationStore()
 language = ExecutableLanguageAdapter()
@@ -37,7 +37,10 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     library_context = []
     if reading.needs_library:
-        library_context, trace = library.search(request.input)
+        library_context, trace = library.search(
+            request.input,
+            reading=reading.model_dump(),
+        )
         sources.append(trace)
 
     diagnosis_result = {}
@@ -92,7 +95,7 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "runtime": "AIGAR", "version": "0.2.0"}
+    return {"ok": True, "runtime": "AIGAR", "version": "0.3.0"}
 
 
 @app.post("/perguntar", response_model=RuntimeResponse)

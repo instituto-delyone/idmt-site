@@ -6,6 +6,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .semantic_retriever import SemanticRouter
+
 STOPWORDS = {
     "a","o","e","de","do","da","dos","das","um","uma","uns","umas","em","no","na",
     "nos","nas","por","para","com","que","como","qual","quais","é","foi","ser","se",
@@ -25,6 +27,7 @@ class LibraryRetriever:
             Path(__file__).resolve().parent
         ))
         self.index_dir = self.root / "indexes"
+        self.semantic = SemanticRouter()
 
     def _indexes(self) -> list[Path]:
         return sorted(self.index_dir.glob("*.index.json"))
@@ -39,11 +42,19 @@ class LibraryRetriever:
                 return candidate
         return self.root / "cache" / entry["source_key"] / f'{entry["id"]}.txt'
 
-    def search(self, query: str, limit: int = 5) -> list[dict[str, Any]]:
+    def search(
+        self,
+        query: str,
+        limit: int = 5,
+        reading: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
         q = tokens(query)
-        if not q:
+        semantic_q = self.semantic.expand(query, reading)
+        if not q and not semantic_q:
             return []
+
         hits = []
+        source_scores = self.semantic.source_scores(query, reading)
         for path in self._indexes():
             index = self._load(path)
             for entry in index.get("chunks", []):
@@ -51,12 +62,39 @@ class LibraryRetriever:
                 if not cache.exists():
                     continue
                 text = cache.read_text(encoding="utf-8", errors="replace")
-                overlap = q & tokens(text)
-                if not overlap:
+                body = tokens(text)
+                semantic_body = self.semantic.expand(text)
+                lexical_overlap = q & body
+                semantic_overlap = semantic_q & semantic_body
+                lexical_score = len(lexical_overlap) / max(1, len(q))
+                semantic_score = len(semantic_overlap) / max(1, len(semantic_q))
+                source_score = source_scores.get(entry.get("source_key", ""), 0.0)
+                if not lexical_overlap and not semantic_overlap and source_score == 0:
                     continue
-                score = len(overlap) / max(1, len(q))
-                hits.append({**entry, "score": round(score, 6), "text": text})
-        hits.sort(key=lambda x: (-x["score"], x.get("source_key",""), x.get("sequence",0)))
+
+                # Hybrid ranking: literal evidence remains important, while
+                # semantic expansion and source relevance break lexical ties.
+                score = (
+                    0.45 * lexical_score
+                    + 0.40 * semantic_score
+                    + 0.15 * source_score
+                )
+                hits.append({
+                    **entry,
+                    "score": round(min(1.0, score), 6),
+                    "lexical_score": round(lexical_score, 6),
+                    "semantic_score": round(semantic_score, 6),
+                    "source_relevance": round(source_score, 6),
+                    "text": text,
+                })
+
+        hits.sort(key=lambda x: (
+            -x["score"],
+            -x.get("semantic_score", 0),
+            -x.get("lexical_score", 0),
+            x.get("source_key", ""),
+            x.get("sequence", 0),
+        ))
         return hits[:limit]
 
     def load(self, chunk_id: str) -> dict[str, Any] | None:
