@@ -1145,8 +1145,10 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     data = await obj.arrayBuffer()
     # Workers AI's toMarkdown accepts a JS Blob. Python Workers expose JS objects
     # through the FFI, so we create the Blob without copying the PDF through D1.
-    from js import Blob
-    blob = Blob.new([data], {"type": "application/pdf"})
+    from js import Blob, Array
+    parts = Array.new()
+    parts.push(data)
+    blob = Blob.new(parts, {"type": "application/pdf"})
     result = await ai.toMarkdown(
         {"name": filename, "blob": blob},
         {"conversionOptions": {"output": {"format": "markdown"}, "pdf": {"metadata": False}}},
