@@ -533,15 +533,45 @@ class LanguageEngine:
         lexicon={"é","são","foi","foram","ser","sendo","era","eram","está","estão","estava","estavam","ficou","ficaram","tem","têm","teve","tiveram","ter","faz","fazem","fez","fizeram","fazer","pode","podem","podia","podiam","poder","deve","devem","deveria","deveriam","dever","vai","vão","aconteceu","acontecer","chegou","chegaram","chegar","explica","explicar","explique","defina","define","significa","significar","funciona","funcionar","serve","servir","quer","querem","quero","precisa","precisam","crie","criar","faça","fazer","monte","montar","calcule","calcular","gere","gerar","compare","comparar","analise","analisar","responda","responder","continue","continua","entendi","entender","sabe","saber"}
         return [w for w in words if w in lexicon]
 
+    def topic_head(self,topic):
+        if not topic:
+            return None
+        clean=re.sub(r"\s+"," ",topic.lower()).strip(" ?.!") 
+        clean=re.sub(r"^(?:um|uma|o|a|os|as)\s+","",clean)
+        parts=re.split(r"\s+(?:na|no|nas|nos|em|da|do|das|dos|de)\s+",clean,maxsplit=1)
+        return parts[0].strip() or clean
+
     def question(self,text):
-        patterns=self.portuguese["question_patterns"]
-        ordered=[("definition",patterns["definition"]["forms"]),("identity",patterns["identity"]["forms"]),("time",patterns["time"]["forms"]),("place",patterns["place"]["forms"]),("cause",patterns["cause"]["forms"]),("function",patterns["function"]["forms"]),("process",patterns["process"]["forms"]),("comparison",patterns["comparison"]["forms"])]
-        for qtype,forms in ordered:
-            for form in sorted(forms,key=len,reverse=True):
-                if form in text:
-                    remainder=text.replace(form,"",1).strip(" ?")
-                    return {"type":qtype,"matched_form":form,"semantic_goal":patterns[qtype]["semantic_goal"],"topic_candidate":remainder or None}
-        return {"type":None,"matched_form":None,"semantic_goal":None,"topic_candidate":None}
+        t=self.normalize(text).strip()
+        patterns=[
+            ("definition", r"^(?:o que (?:é|são)|o que significa|qual é a definição de)\s+(.+?)[?!.]*$"),
+            ("identity", r"^(?:quem (?:é|foi)|o que é)\s+(.+?)[?!.]*$"),
+            ("time", r"^(?:quando (?:foi|é|aconteceu)|quando)\s+(.+?)[?!.]*$"),
+            ("place", r"^(?:onde (?:fica|foi|aconteceu)|onde)\s+(.+?)[?!.]*$"),
+            ("cause", r"^(?:por que|por qual motivo|qual a causa de)\s+(.+?)[?!.]*$"),
+            ("function", r"^(?:qual a função de|para que serve|o que .* faz)\s+(.+?)[?!.]*$"),
+            ("process", r"^(?:como funciona|como acontece|como fazer)\s+(.+?)[?!.]*$"),
+            ("comparison", r"^(?:qual a diferença entre|compare)\s+(.+?)[?!.]*$"),
+        ]
+        for qtype,pattern in patterns:
+            m=re.match(pattern,t,re.IGNORECASE)
+            if not m:
+                continue
+            topic=m.group(1).strip(" ?.!") or None
+            head=self.topic_head(topic)
+            goals={
+                "definition":"identificar_e_explicar_o_conceito",
+                "identity":"identificar_entidade_ou_conceito",
+                "time":"recuperar_informacao_temporal",
+                "place":"recuperar_informacao_espacial",
+                "cause":"explicar_causa_ou_motivacao",
+                "function":"explicar_funcao_ou_finalidade",
+                "process":"explicar_mecanismo_processo_ou_procedimento",
+                "comparison":"comparar_conceitos",
+            }
+            return {"type":qtype,"matched_form":m.group(0),"semantic_goal":goals[qtype],"topic_candidate":topic,"topic_head":head}
+        return {"type":None,"matched_form":None,"semantic_goal":None,"topic_candidate":None,"topic_head":None}
+
 
     def interpret(self,raw):
         text=self.normalize(raw)
@@ -623,21 +653,32 @@ async def library_search(query,reading,limit=5):
     chunks=await load_chunks()
     q=tokens(reading.get("scope") or query)
     if not q: q=tokens(query)
-    qtype=reading.get("linguistic_analysis",{}).get("question",{}).get("type")
+    qinfo=reading.get("linguistic_analysis",{}).get("question",{})
+    qtype=qinfo.get("type")
+    topic=(qinfo.get("topic_head") or reading.get("scope") or "").lower().strip()
     candidates=[]
+    noise_markers=("isbn","ficha catalográfica","sumário","referências","bibliografia","universidade federal de")
+    definition_markers=("é uma","é um","são","significa","consiste em","refere-se","define-se","definido como","definida como","constitui","constituída por")
     for chunk in chunks:
         for sentence in sentences(chunk["text"]):
-            st=tokens(sentence); overlap=len(q&st)
-            if not overlap: continue
-            score=overlap/max(1,len(q))
-            exact=1.0 if (reading.get("scope") and reading["scope"].lower() in sentence.lower()) else 0.0
-            definition=0.0
+            lower=sentence.lower()
+            st=tokens(sentence)
+            overlap=len(q&st)
+            topic_hit=1 if topic and re.search(rf"\b{re.escape(topic)}\b",lower) else 0
+            if not overlap and not topic_hit:
+                continue
+            score=(overlap/max(1,len(q)))*0.8 + topic_hit*2.2
+            if any(marker in lower for marker in noise_markers):
+                score-=2.0
+            bonus=0.0
             if qtype=="definition":
-                lower=sentence.lower()
-                topic=(reading.get("scope") or "").lower()
-                if topic and re.search(rf"\b{re.escape(topic)}\b\s+(é|são|significa|consiste|refere-se)",lower): definition=2.0
-                elif any(m in lower for m in ["é uma","é um","são","significa"]): definition=0.35
-            candidates.append((score+exact+definition,float(chunk.get("sequence",0)),sentence,chunk))
+                if topic_hit and any(marker in lower for marker in definition_markers):
+                    bonus=3.5
+                elif topic_hit:
+                    bonus=0.6
+            elif qtype=="function" and any(x in lower for x in ("função","serve","finalidade")):
+                bonus=2.0
+            candidates.append((score+bonus,float(chunk.get("sequence",0)),sentence,chunk))
     candidates.sort(key=lambda x:(-x[0],x[1],len(x[2])))
     selected=[]; seen=set()
     for score,_,sentence,chunk in candidates:
