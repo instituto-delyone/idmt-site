@@ -5,7 +5,7 @@
     "key": "sapiens",
     "name": "Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
     "path": "aigar-c-2/biblioteca/Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf",
-    "sha256": "36af6594b28c6be69007b816ee848804984b567f",
+    "git_blob_sha": "36af6594b28c6be69007b816ee848804984b567f",
     "type": "pdf"
   },
   "chunking": {
