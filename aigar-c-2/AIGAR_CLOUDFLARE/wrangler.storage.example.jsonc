@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aigar-api",
+  "main": "main.py",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["python_workers", "disable_python_external_sdk"],
+  "r2_buckets": [
+    {
+      "binding": "AIGAR_LIBRARY_BUCKET",
+      "bucket_name": "aigar-library"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "AIGAR_DB",
+      "database_name": "aigar-library",
+      "database_id": "COLOQUE-O-ID-DO-D1-AQUI"
+    }
+  ]
+}
