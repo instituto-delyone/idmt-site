@@ -33,7 +33,7 @@
 </main>
 <aside>
 <section class="panel"><div class="head"><b>Reasoning Plan</b><span class="tag">Execution</span></div><div class="body"><pre id="plan">—</pre></div></section>
-<section class="panel gap"><div class="head"><b>Evidence</b><span class="tag">Library</span></div><div class="body"><pre id="evidence">—</pre></div></section>
+<section class="panel gap"><div class="head"><b>Chunks carregados</b><span class="tag">Library Runtime</span></div><div class="body"><div id="chunkSummary" class="sub">Nenhum chunk carregado ainda.</div><pre id="chunks">—</pre></div></section><section class="panel gap"><div class="head"><b>Evidence</b><span class="tag">Library</span></div><div class="body"><pre id="evidence">—</pre></div></section>
 <section class="panel gap"><div class="head"><b>Sources / Traces</b><span class="tag">Traceability</span></div><div class="body"><pre id="sources">—</pre></div></section>
 </aside>
 </div>
@@ -76,8 +76,8 @@ const pretty=x=>JSON.stringify(x??null,null,2);
 function state(ok,t){$("dot").className="dot"+(ok?" ok":"");$("st").textContent=t}
 async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw Error("HTTP "+r.status);let d=await r.json();state(true,(d.runtime||"AIGAR")+" "+(d.version||""))}catch(e){state(false,"offline")}}
 function setReading(x={}){let f=["intent","scope","depth","ambiguity","uncertainty","needs_memory","needs_library","needs_diagnosis","needs_reasoning"];$("reading").innerHTML=f.map(k=>`<div>${k}</div><div>${x[k]??"—"}</div>`).join("");$("intent").textContent=x.intent??"—";$("scope").textContent=x.scope??"—";$("depth").textContent=x.depth??"—";$("ling").textContent=pretty(x.linguistic_analysis)}
-async function ask(){let input=$("q").value.trim();if(!input)return;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console"})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";$("raw").textContent=pretty(d);$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";setReading(d.state?.reading||{});state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
-function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";setReading({})}
+async function ask(){let input=$("q").value.trim();if(!input)return;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console"})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";$("raw").textContent=pretty(d);$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";const lib=d.library||{};$("chunkSummary").textContent=`${lib.chunks_loaded||0} chunk(s) carregado(s) pelo runtime`;$("chunks").textContent=pretty(lib.chunks||[]);setReading(d.state?.reading||{});state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
+function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";$("chunkSummary").textContent="Nenhum chunk carregado ainda.";$("chunks").textContent="—";setReading({})}
 async function copyJson(){await navigator.clipboard.writeText($("raw").textContent)}
 health();
 </script>
