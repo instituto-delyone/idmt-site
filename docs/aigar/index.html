@@ -55,7 +55,7 @@ async function adminLogin(){
   try{
     const r=await fetch(base()+"/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nome_usuario,senha})});
     const d=await r.json();
-    if(!r.ok)throw Error(d.detail||"Falha na autenticação");
+    if(!r.ok)throw Error(d.detail||d.message||d.error||d.status||"Falha na autenticação");
     adminToken=d.access_token||null;
     if(!adminToken)throw Error("O servidor não retornou um token.");
     setAdmin(true,d.usuario?.nome_usuario||nome_usuario);
