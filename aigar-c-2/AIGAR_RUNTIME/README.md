@@ -31,15 +31,15 @@ Esta versão é deliberadamente conservadora: quando um motor não está conecta
 ## Execução
 
 ```bash
-cd aigar-c-2/AIGAR_RUNTIME
-python main.py
+cd aigar-c-2
+python -m AIGAR_RUNTIME.main
 ```
 
 Ou como API:
 
 ```bash
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn AIGAR_RUNTIME.main:app --reload
 ```
 
 Endpoint:
