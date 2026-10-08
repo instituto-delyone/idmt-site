@@ -1150,7 +1150,9 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     parts.push(data)
     # Let Workers AI infer the document type from the .pdf filename.
     blob = Blob.new(parts)
-    result = await ai.toMarkdown({"name": filename, "blob": blob})
+    files = Array.new()
+    files.push({"name": filename, "blob": blob})
+    result = await ai.toMarkdown(files)
     items = result if isinstance(result, list) else list(result)
     if not items:
         raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
