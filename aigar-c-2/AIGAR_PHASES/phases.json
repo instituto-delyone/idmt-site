@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "project": "AIGAR",
+  "phases": [
+    {
+      "id": 1,
+      "key": "language",
+      "title": "Linguagem",
+      "status": "implemented",
+      "module": "AIGAR_LANGUAGE"
+    },
+    {
+      "id": 2,
+      "key": "humanity",
+      "title": "Conhecimento sobre a humanidade",
+      "status": "registered",
+      "module": "AIGAR_LIBRARY",
+      "source": "sapiens"
+    },
+    {
+      "id": 3,
+      "key": "mathematics",
+      "title": "Matemática",
+      "status": "ready_for_sources",
+      "module": "AIGAR_LIBRARY"
+    },
+    {
+      "id": 4,
+      "key": "computing",
+      "title": "Computação",
+      "status": "ready_for_sources",
+      "module": "AIGAR_LIBRARY"
+    },
+    {
+      "id": 5,
+      "key": "reasoning",
+      "title": "Raciocínio",
+      "status": "foundation",
+      "module": "AIGAR_RUNTIME"
+    },
+    {
+      "id": 6,
+      "key": "memory",
+      "title": "Memória",
+      "status": "foundation",
+      "module": "AIGAR_RUNTIME"
+    },
+    {
+      "id": 7,
+      "key": "aurora",
+      "title": "Aurora",
+      "status": "foundation",
+      "module": "AIGAR_RUNTIME"
+    }
+  ]
+}
