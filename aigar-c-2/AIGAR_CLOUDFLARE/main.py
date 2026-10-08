@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 import json
 import re
 from workers import WorkerEntrypoint, Response, fetch
@@ -576,23 +577,44 @@ class LanguageEngine:
 
 LANGUAGE_ENGINE=LanguageEngine()
 
-def chunk_url(entry):
-    # Keep the library subdirectory in the public URL.
-    # The index stores paths such as:
-    # portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-....txt
+def chunk_urls(entry):
+    # The index stores the relative cache path. Keep both a raw-file route
+    # and the GitHub Contents API as a fallback for Worker egress.
     name=entry["cache_file"].replace("\\","/").lstrip("/")
-    prefix="aigar-c-2/AIGAR_LIBRARY/cache/"
-    return "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+prefix+name
+    path="aigar-c-2/AIGAR_LIBRARY/cache/"+name
+    return [
+        "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+path,
+        "https://api.github.com/repos/instituto-delyone/idmt-site/contents/"+path+"?ref=main",
+    ]
+
+async def load_chunk_text(entry):
+    for url in chunk_urls(entry):
+        try:
+            r=await fetch(
+                url,
+                method="GET",
+                headers={"Accept":"application/vnd.github+json"},
+            )
+            if r.status>=400:
+                continue
+            if "api.github.com" in url:
+                data=await r.json()
+                encoded=(data.get("content") or "").replace("\n","")
+                if not encoded:
+                    continue
+                return base64.b64decode(encoded).decode("utf-8")
+            return await r.text()
+        except Exception:
+            continue
+    return None
 
 async def load_chunks():
     async def one(entry):
         cid=entry["id"]
         if cid not in CHUNK_CACHE:
-            try:
-                r=await fetch(chunk_url(entry))
-                if r.status>=400: return None
-                CHUNK_CACHE[cid]=await r.text()
-            except Exception: return None
+            text=await load_chunk_text(entry)
+            if text:
+                CHUNK_CACHE[cid]=text
         return {**entry,"text":CHUNK_CACHE.get(cid,"")}
     result=await asyncio.gather(*(one(e) for e in LIBRARY_INDEX.get("chunks",[])))
     return [x for x in result if x and x.get("text")]
