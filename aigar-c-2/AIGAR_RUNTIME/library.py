@@ -1,18 +1,57 @@
 from __future__ import annotations
 
+from pathlib import Path
+
+from ..AIGAR_LIBRARY.retriever import LibraryRetriever
 from .models import SourceTrace
 
-class LibraryAdapter:
-    """Document retrieval boundary.
 
-    No fake retrieval is performed. The adapter is intentionally empty until
-    the existing Biblioteca/Library Router is wired into the runtime.
-    """
+class LibraryAdapter:
+    """Runtime boundary over the local AIGAR Library cache."""
+
+    def __init__(self, root: str | Path | None = None):
+        self.retriever = LibraryRetriever(root)
 
     def search(self, query: str, limit: int = 3) -> tuple[list[dict], SourceTrace]:
-        return [], SourceTrace(
+        hits = self.retriever.search(query, limit=limit)
+        if not hits:
+            return [], SourceTrace(
+                kind="library",
+                id="local.library",
+                status="missing",
+                detail="Nenhum chunk disponível no cache local para esta consulta."
+            )
+
+        context = [{
+            "id": h["id"],
+            "source": h.get("source"),
+            "source_key": h.get("source_key"),
+            "sequence": h.get("sequence"),
+            "start_page": h.get("start_page"),
+            "end_page": h.get("end_page"),
+            "score": h.get("score"),
+            "text": h["text"],
+        } for h in hits]
+
+        return context, SourceTrace(
             kind="library",
-            id="runtime.library_adapter",
-            status="missing",
-            detail="Historical library exists; runtime adapter is not connected yet."
+            id="local.library",
+            status="confirmed",
+            detail=f"{len(hits)} chunk(s) recuperado(s) do cache local."
+        )
+
+    def load(self, chunk_id: str) -> tuple[dict | None, SourceTrace]:
+        hit = self.retriever.load(chunk_id)
+        if hit is None:
+            return None, SourceTrace(
+                kind="library",
+                id=chunk_id,
+                status="missing",
+                detail="Chunk não encontrado no cache local."
+            )
+        return hit, SourceTrace(
+            kind="library",
+            id=chunk_id,
+            status="confirmed",
+            detail="Chunk carregado sob demanda do cache local."
         )
