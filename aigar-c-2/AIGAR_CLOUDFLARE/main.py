@@ -696,7 +696,62 @@ async def load_chunk_text(entry):
             continue
     return None
 
+INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/AIGAR_LIBRARY/indexes?ref=main"
+INDEX_CACHE = None
+
+async def load_library_indexes():
+    global INDEX_CACHE
+    if INDEX_CACHE is not None:
+        return INDEX_CACHE
+
+    indexes=[]
+    try:
+        response=await fetch(
+            INDEX_DIRECTORY_URL,
+            method="GET",
+            headers={"Accept":"application/vnd.github+json"},
+        )
+        if response.status < 400:
+            entries=await response.json()
+            index_files=[
+                item for item in entries
+                if item.get("type")=="file" and item.get("name","").endswith(".index.json")
+            ]
+            async def load_index(item):
+                try:
+                    raw=await fetch(
+                        item.get("download_url") or item.get("html_url"),
+                        method="GET",
+                        headers={"Accept":"application/vnd.github+json"},
+                    )
+                    if raw.status >= 400:
+                        return None
+                    return json.loads(await raw.text())
+                except Exception:
+                    return None
+            loaded=await asyncio.gather(*(load_index(item) for item in index_files))
+            indexes=[index for index in loaded if isinstance(index,dict) and index.get("chunks")]
+    except Exception:
+        indexes=[]
+
+    # Keep the embedded Portuguese-language index as a safe fallback.
+    if not indexes:
+        indexes=[LIBRARY_INDEX]
+    INDEX_CACHE=indexes
+    return INDEX_CACHE
+
 async def load_chunks():
+    indexes=await load_library_indexes()
+    entries=[]
+    seen=set()
+    for index in indexes:
+        for entry in index.get("chunks",[]):
+            cid=entry.get("id")
+            if not cid or cid in seen:
+                continue
+            seen.add(cid)
+            entries.append(entry)
+
     async def one(entry):
         cid=entry["id"]
         if cid not in CHUNK_CACHE:
@@ -704,7 +759,8 @@ async def load_chunks():
             if text:
                 CHUNK_CACHE[cid]=text
         return {**entry,"text":CHUNK_CACHE.get(cid,"")}
-    result=await asyncio.gather(*(one(e) for e in LIBRARY_INDEX.get("chunks",[])))
+
+    result=await asyncio.gather(*(one(e) for e in entries))
     return [x for x in result if x and x.get("text")]
 
 async def library_search(query,reading,limit=5):
