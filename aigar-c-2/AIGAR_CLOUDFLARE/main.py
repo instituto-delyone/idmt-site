@@ -577,9 +577,12 @@ class LanguageEngine:
 LANGUAGE_ENGINE=LanguageEngine()
 
 def chunk_url(entry):
-    name=entry["cache_file"].replace("\\","/")
+    # Keep the library subdirectory in the public URL.
+    # The index stores paths such as:
+    # portuguese_language_knowledge\\PORTUGUESE_LANGUAGE_KNOWLEDGE-....txt
+    name=entry["cache_file"].replace("\\","/").lstrip("/")
     prefix="aigar-c-2/AIGAR_LIBRARY/cache/"
-    return "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+prefix+name.split("portuguese_language_knowledge/")[-1]
+    return "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+prefix+name
 
 async def load_chunks():
     async def one(entry):
