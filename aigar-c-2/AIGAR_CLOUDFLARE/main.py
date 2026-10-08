@@ -1261,12 +1261,19 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         # Depending on the Python Workers version this can arrive as a dict
         # or as a JSON string, so normalize both forms here.
         payload = event
-        # Python WorkflowEvent may expose the API params through attributes.
+        # Python WorkflowEvent can expose payload through attributes or
+        # JS-proxy indexing depending on the Workers runtime.
+        candidates = []
         for attr in ("params", "payload"):
             try:
-                candidate = getattr(event, attr, None)
+                candidates.append(getattr(event, attr, None))
             except Exception:
-                candidate = None
+                pass
+            try:
+                candidates.append(event[attr])
+            except Exception:
+                pass
+        for candidate in candidates:
             if candidate is not None:
                 payload = candidate
                 break
@@ -1275,13 +1282,24 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
                 payload = json.loads(payload)
             except Exception:
                 payload = {}
-        if isinstance(payload, dict) and isinstance(payload.get("payload"), dict):
-            payload = payload["payload"]
-        if isinstance(payload, dict) and isinstance(payload.get("params"), str):
-            try:
-                payload = json.loads(payload["params"])
-            except Exception:
-                pass
+        if isinstance(payload, dict):
+            if isinstance(payload.get("payload"), dict):
+                payload = payload["payload"]
+            if isinstance(payload.get("params"), str):
+                try:
+                    payload = json.loads(payload["params"])
+                except Exception:
+                    pass
+        else:
+            for key in ("payload", "params"):
+                try:
+                    nested = payload[key]
+                    if isinstance(nested, str):
+                        nested = json.loads(nested)
+                    payload = nested
+                    break
+                except Exception:
+                    pass
         if not isinstance(payload, dict):
             payload = {}
         document_id = str(payload.get("document_id") or "")
