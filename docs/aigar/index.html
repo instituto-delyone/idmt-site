@@ -27,6 +27,14 @@
   .core-progress{height:7px;border-radius:99px;background:#1b2b3a;overflow:hidden;margin:18px 0 10px}
   .core-progress>span{display:block;height:100%;width:8%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b));transition:width .3s ease}
   .core-boot-sub{color:var(--mut);font-size:13px;line-height:1.55;text-align:center}
+  .memory-meter{margin-top:12px;padding:13px;background:#08131e;border:1px solid var(--line);border-radius:12px}
+  .memory-meter-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px}
+  .memory-meter-title{font-weight:750}
+  .memory-meter-value{color:var(--a);font-variant-numeric:tabular-nums}
+  .memory-meter-track{height:10px;margin:10px 0 8px;background:#1b2b3a;border-radius:99px;overflow:hidden}
+  .memory-meter-fill{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b));transition:width .35s ease}
+  .memory-meter-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--mut);font-size:10px}
+  .memory-meter-note{color:var(--mut);font-size:10px;line-height:1.5;margin-top:8px}
 </style>
 </head>
 <body>
@@ -101,7 +109,15 @@
 <aside>
 <section class="panel"><div class="head"><b>Reasoning Plan</b><span class="tag">Execution</span></div><div class="body"><pre id="plan">—</pre></div></section>
 <section class="panel gap"><div class="head"><b>Library Boot</b><span id="libraryBootTag" class="tag">iniciando</span></div><div class="body"><div id="libraryBootSummary" class="sub">Carregando um chunk referencial de cada biblioteca…</div><div id="libraryGrid" class="library-grid" style="margin-top:10px"></div></div></section>
-<section class="panel gap"><div class="head"><b>Núcleo Cognitivo</b><span id="coreStatus" class="tag">inicializando</span></div><div class="body"><div id="coreSummary" class="sub">Preparando contexto cognitivo…</div><pre id="coreChunks">—</pre></div></section><section class="panel gap"><div class="head"><b>Chunks carregados</b><span class="tag">Library Runtime</span></div><div class="body"><div id="chunkSummary" class="sub">Nenhum chunk carregado ainda.</div><pre id="chunks">—</pre></div></section><section class="panel gap"><div class="head"><b>Evidence</b><span class="tag">Library</span></div><div class="body"><pre id="evidence">—</pre></div></section>
+<section class="panel gap"><div class="head"><b>Núcleo Cognitivo</b><span id="coreStatus" class="tag">inicializando</span></div><div class="body"><div id="coreSummary" class="sub">Preparando contexto cognitivo…</div><pre id="coreChunks">—</pre></div></section><section class="panel gap"><div class="head"><b>Memória pré-carregada</b><span id="memoryMeterTag" class="tag">aguardando</span></div><div class="body">
+<div class="memory-meter" style="margin-top:0">
+  <div class="memory-meter-top"><span class="memory-meter-title">Chunks disponíveis no contexto</span><strong id="memoryMeterValue" class="memory-meter-value">0 / —</strong></div>
+  <div class="memory-meter-track" role="progressbar" aria-label="Chunks pré-carregados" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="memoryMeterProgress"><span id="memoryMeterFill" class="memory-meter-fill"></span></div>
+  <div class="memory-meter-meta"><span id="memoryMeterPercent">Aguardando carregamento</span><span id="memoryMeterBytes">Payload: —</span></div>
+  <div class="memory-meter-note">Indicador de chunks pré-carregados e tamanho aproximado do pacote de contexto. Não representa RAM exata do navegador. O uso de armazenamento do site será exibido quando o navegador disponibilizar essa medição.</div>
+  <div class="memory-meter-meta" style="margin-top:7px"><span>Armazenamento deste site</span><strong id="browserStorageUsage">Verificando…</strong></div>
+</div>
+</div></section><section class="panel gap"><div class="head"><b>Chunks carregados</b><span class="tag">Library Runtime</span></div><div class="body"><div id="chunkSummary" class="sub">Nenhum chunk carregado ainda.</div><pre id="chunks">—</pre></div></section><section class="panel gap"><div class="head"><b>Evidence</b><span class="tag">Library</span></div><div class="body"><pre id="evidence">—</pre></div></section>
 <section class="panel gap"><div class="head"><b>Sources / Traces</b><span class="tag">Traceability</span></div><div class="body"><pre id="sources">—</pre></div></section>
 </aside>
 </div>
@@ -202,6 +218,42 @@ function finishCoreBoot(ready,message){
   $("coreSummary").textContent=message;
 }
 function libraryLabel(x){return x.source_key||x.source||"biblioteca"}
+function formatBytes(bytes){
+  if(!Number.isFinite(bytes)||bytes<0)return "—";
+  if(bytes<1024)return bytes+" B";
+  const units=["KB","MB","GB"];let value=bytes/1024,index=0;
+  while(value>=1024&&index<units.length-1){value/=1024;index++}
+  return value.toFixed(value>=10?1:2)+" "+units[index];
+}
+function updateMemoryMeter(lib,origin="runtime"){
+  const chunks=Number(lib?.loaded_chunks||0);
+  const total=Number(lib?.total_chunks||0);
+  const known=total>0;
+  const pct=known?Math.max(0,Math.min(100,Math.round(chunks/total*100))):0;
+  const bytes=new Blob([JSON.stringify(lib||{})]).size;
+  $("memoryMeterValue").textContent=chunks+" / "+(known?total:"—");
+  $("memoryMeterPercent").textContent=known?pct+"% do conjunto de chunks informado":"Total de chunks não informado";
+  $("memoryMeterBytes").textContent="Payload: ~"+formatBytes(bytes);
+  $("memoryMeterFill").style.width=pct+"%";
+  $("memoryMeterProgress").setAttribute("aria-valuenow",String(pct));
+  $("memoryMeterTag").textContent=chunks?(known?pct+"% carregado":"parcial"):"vazio";
+  $("memoryMeterTag").title="Origem: "+origin;
+}
+async function updateBrowserStorageUsage(){
+  const el=$("browserStorageUsage");
+  try{
+    if(navigator.storage&&navigator.storage.estimate){
+      const estimate=await navigator.storage.estimate();
+      const usage=Number(estimate.usage),quota=Number(estimate.quota);
+      el.textContent=Number.isFinite(usage)
+        ?formatBytes(usage)+(Number.isFinite(quota)?" / "+formatBytes(quota):"")
+        :"Não informado";
+      el.title="Estimativa de armazenamento do site/origem fornecida pelo navegador; não é medição de RAM.";
+    }else{
+      el.textContent="Não suportado neste navegador";
+    }
+  }catch(e){el.textContent="Indisponível"}
+}
 const LIBRARY_BROWSER_CACHE_NAME="aigar-library-cache-v1";
 const LIBRARY_BROWSER_CACHE_KEY=()=>new URL("/__aigar_cache__/library-boot-v1.json",location.origin).href;
 async function readBrowserLibraryCache(){
@@ -231,7 +283,8 @@ async function writeBrowserLibraryCache(lib){
   }catch(e){}
   try{sessionStorage.setItem("aigar-library-boot-v1",payload);return true}catch(e){return false}
 }
-function renderLibraryBoot(lib){
+function renderLibraryBoot(lib,origin="runtime"){
+  updateMemoryMeter(lib,origin);
   const items=lib?.libraries||[];
   const loaded=items.filter(x=>Number(x.chunks_loaded||0)>0).length;
   const total=items.length;
@@ -264,7 +317,7 @@ async function bootLibrary(){
       cognitiveCoreCache=cached;
       window.AIGAR_COGNITIVE_CACHE=cached;
       setCoreBootStatus("Cache local encontrado: "+cached.chunks.length+" chunks. Atualizando o núcleo…",48);
-      renderLibraryBoot(cached);
+      renderLibraryBoot(cached,"cache local do navegador");
       $("libraryBootTag").textContent="CACHE";
       $("libraryBootSummary").textContent="Cache local: "+cached.chunks.length+" chunks · atualizando bibliotecas…";
       shownCache=true;
@@ -278,7 +331,7 @@ async function bootLibrary(){
     cognitiveCoreCache=lib;
     window.AIGAR_COGNITIVE_CACHE=lib;
     setCoreBootStatus("Organizando "+Number(lib.loaded_chunks||0)+" chunks para uso contextual…",78);
-    renderLibraryBoot(lib);
+    renderLibraryBoot(lib,"runtime Cloudflare");
     const saved=await writeBrowserLibraryCache(lib);
     libraryBootReady=Number(lib.loaded||0)>0;
     state(!!lib.ready,"AIGAR "+(lib.ready?"READY":"parcial"));
@@ -318,6 +371,7 @@ async function sendFeedback(){if(!lastInteractionId||!feedbackEnabled||feedbackS
 function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";$("chunkSummary").textContent="Nenhum chunk carregado ainda.";$("chunks").textContent="—";$("feedbackPanel").hidden=true;$("feedbackStatus").textContent="";lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;setReading({})}
 async function copyJson(){await navigator.clipboard.writeText($("raw").textContent)}
 health();
+updateBrowserStorageUsage();
 bootLibrary();
 </script>
 </body>
