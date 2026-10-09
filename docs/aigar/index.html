@@ -150,7 +150,7 @@ async function bootLibrary(){
     if(!r.ok)throw Error(d.message||"HTTP "+r.status);
     const lib=d.library||{};
     renderLibraryBoot(lib);
-    libraryBootReady=!!lib.libraries?.length;
+    libraryBootReady=Number(lib.loaded||0)>0;
     state(!!lib.ready,"AIGAR "+(lib.ready?"READY":"parcial"));
   }catch(e){
     libraryBootReady=false;
