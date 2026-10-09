@@ -1,6 +1,6 @@
 """AIGAR Memory Lab: isolated three-layer repository-backed retrieval."""
 from __future__ import annotations
-import re, time
+import json, re, time
 from urllib.parse import quote
 MEMORY_LAYERS = {"imediata":"memoria_imediata","curto_prazo":"memoria_curto_prazo","longo_prazo":"memoria_longo_prazo"}
 DEFAULT_CONFIG = {"enabled":True,"repository":"instituto-delyone/idmt-site","ref":"main","root":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab","refresh_seconds":60,"short_term_top_k":3,"long_term_top_k":4,"max_document_chars":120000}
@@ -20,8 +20,20 @@ class MemoryLab:
             self.status.update({"enabled":False,"ready":False,"mode":"disabled"}); return self.get_status()
         now=time.time()
         if not force and self.status.get("ready") and now-self._last_scan<int(self.config["refresh_seconds"]): return self.get_status()
-        repo,ref=self.config["repository"],quote(str(self.config["ref"]),safe=""); root=self.config["root"].strip("/")
+        repo,ref=self.config["repository"],quote(str(self.config["ref"]),safe="")
         try:
+            config_path=self.config["root"].strip("/") + "/config.json"
+            encoded_config="/".join(quote(part,safe="") for part in config_path.split("/"))
+            try:
+                remote_config=await self._request(f"https://raw.githubusercontent.com/{repo}/{ref}/{encoded_config}")
+                parsed_config=json.loads(remote_config)
+                allowed={"enabled","repository","ref","root","refresh_seconds","short_term_top_k","long_term_top_k","max_document_chars"}
+                self.config.update({k:v for k,v in parsed_config.items() if k in allowed})
+                repo,ref=self.config["repository"],quote(str(self.config["ref"]),safe="")
+            except Exception:
+                # A broken config must not take down AIGAR; continue with safe defaults.
+                pass
+            root=self.config["root"].strip("/")
             tree=await self._request(f"https://api.github.com/repos/{repo}/git/trees/{ref}?recursive=1",True)
             if tree.get("truncated"): raise RuntimeError("GitHub tree truncated; cannot guarantee complete discovery")
             paths=[x.get("path","") for x in tree.get("tree",[]) if x.get("type")=="blob"]
