@@ -2345,6 +2345,7 @@ async def handle_ask(body, env=None):
         "confidence": round(confidence, 4),
         "plan": plan,
         "library": library_payload,
+        "memory_lab": {"ok": bool(memory_lab_result.get("ok")), "selected_layer": memory_lab_result.get("selected_layer", []), "documents_used": [{"path": d.get("path"), "layer": d.get("layer"), "score": d.get("score")} for d in memory_lab_result.get("documents", [])], "status": memory_lab_result.get("status"), "error": memory_lab_result.get("error")},
     }
 
 
