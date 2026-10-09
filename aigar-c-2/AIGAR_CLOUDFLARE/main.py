@@ -729,7 +729,14 @@ LIBRARY_BOOT_STATUS = None
 LIBRARY_BOOT_AT = 0
 LIBRARY_CACHE_TTL_SECONDS = 300
 COGNITIVE_CORE = CognitiveContextCore()
-MEMORY_LAB = MemoryLab(fetch)
+
+async def memory_lab_fetch(url, options=None):
+    # Cloudflare Workers Python fetch aceita um único argumento Request/URL;
+    # o Memory Lab usa a convenção fetch(url, options) de fetchers HTTP comuns.
+    # Para estes endpoints públicos do GitHub, a URL já define o método GET.
+    return await fetch(url)
+
+MEMORY_LAB = MemoryLab(memory_lab_fetch)
 
 # Índices incorporados como catálogo de segurança: o boot não depende da descoberta remota
 # de arquivos de índice. O texto dos chunks continua sendo carregado sob demanda do GitHub.
