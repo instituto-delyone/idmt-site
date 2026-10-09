@@ -836,7 +836,7 @@ async def boot_text_matrix():
 
 
 async def boot_library():
-    """Pré-carrega até cinco chunks por biblioteca para aquecer o cache do Worker e do navegador."""
+    """Pré-carrega até três chunks por biblioteca para aquecer o cache do Worker e do navegador."""
     global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS, LIBRARY_BOOT_AT
 
     def make_payload(cache):
@@ -877,7 +877,7 @@ async def boot_library():
     targets = []
     loaded = {}
 
-    # Até cinco chunks por biblioteca. Bibliotecas com menos de cinco chunks
+    # Até três chunks por biblioteca. Bibliotecas com menos de três chunks
     # carregam todos os que existem, sem duplicar nem inventar conteúdo.
     for index in indexes:
         source = index.get("source", {}) or {}
@@ -886,7 +886,7 @@ async def boot_library():
             index.get("chunks", []) or [],
             key=lambda c: int(c.get("sequence", 0) or 0)
         )
-        candidates = [chunk for chunk in chunks if chunk.get("id")][:1]
+        candidates = [chunk for chunk in chunks if chunk.get("id")][:3]
         targets.append({
             "source_key": source_key,
             "source": source.get("name"),
