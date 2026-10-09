@@ -8,6 +8,7 @@
     "python_workflows",
     "disable_python_external_sdk"
   ],
+  "ai": { "binding": "AI" },
   "workflows": [
     {
       "name": "aigar-library-builder",
