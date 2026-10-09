@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "repository": "instituto-delyone/idmt-site",
+  "ref": "main",
+  "root": "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab",
+  "immediate_boot_required": true,
+  "short_term_top_k": 3,
+  "long_term_top_k": 4,
+  "fallback_min_score": 1,
+  "refresh_seconds": 60,
+  "max_document_chars": 120000
+}
