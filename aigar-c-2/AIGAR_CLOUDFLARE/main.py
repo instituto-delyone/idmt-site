@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlparse
 from workers import WorkerEntrypoint, WorkflowEntrypoint, Response, fetch
 from cognitive_core import CognitiveContextCore
+from memory_lab import MemoryLab
 
 LANGUAGE = json.loads(r'''{
   "id": "aigar_language_runtime_v1",
@@ -728,6 +729,7 @@ LIBRARY_BOOT_STATUS = None
 LIBRARY_BOOT_AT = 0
 LIBRARY_CACHE_TTL_SECONDS = 300
 COGNITIVE_CORE = CognitiveContextCore()
+MEMORY_LAB = MemoryLab(fetch)
 
 # Índices incorporados como catálogo de segurança: o boot não depende da descoberta remota
 # de arquivos de índice. O texto dos chunks continua sendo carregado sob demanda do GitHub.
@@ -2098,6 +2100,25 @@ async def handle_ask(body, env=None):
                 "detail": "Falha na consulta da biblioteca: " + str(exc)[:400],
             }
 
+    # Optional Memory Lab: isolated retrieval. Failures never break the core API.
+    memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": None}
+    try:
+        memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
+        if not evidence_items and memory_lab_result.get("documents"):
+            for doc in memory_lab_result["documents"][:3]:
+                content = str(doc.get("content") or "").strip()
+                if content:
+                    evidence_items.append({
+                        "text": content[:4000],
+                        "source": doc.get("name"),
+                        "source_key": "memory_lab",
+                        "memory_layer": doc.get("layer"),
+                        "memory_path": doc.get("path"),
+                        "score": doc.get("score"),
+                    })
+    except Exception as exc:
+        memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": str(exc)[:300]}
+
     plan = revise_adaptive_plan(
         plan,
         evidence_items=evidence_items,
@@ -2130,7 +2151,7 @@ async def handle_ask(body, env=None):
     plan["topic"] = topic
     plan["evidence"] = evidence_texts
     plan["evidence_details"] = evidence_items
-    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "gather_evidence", "revise_plan", "select_response_strategy", "render_natural_language"]
+    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "gather_evidence", "memory_lab_optional_retrieval", "revise_plan", "select_response_strategy", "render_natural_language"]
     plan["context_resolution"] = {
         "selected_turn_ids": context_resolution.get("context_dependencies", []),
         "unresolved_references": context_resolution.get("unresolved_references", []),
@@ -2410,9 +2431,17 @@ class Default(WorkerEntrypoint):
                     "cognitive_core_preloaded": True,
                     "speaker_addressee_context_cache": True,
                     "feedback_api": True,
+                    "memory_lab_module": True,
                     "admin_useful_logs": True,
                 },
             }, origin=origin)
+
+        if method == "GET" and path == "/memory/status":
+            try:
+                status = await MEMORY_LAB.initialize()
+                return make_response({"ok": True, "memory_lab": status}, status=200, origin=origin)
+            except Exception as exc:
+                return make_response({"ok": False, "memory_lab": {"ready": False, "mode": "error", "error": str(exc)[:500]}}, status=200, origin=origin)
 
         if method == "GET" and path == "/library/boot":
             try:
