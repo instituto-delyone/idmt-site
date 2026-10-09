@@ -7,7 +7,7 @@ from typing import Any
 from .models import ConversationReading
 
 ROOT = Path(__file__).resolve().parents[2]
-INTERPRETER_PATH = ROOT / "AIGAR_LANGUAGE" / "interpreter.py"
+INTERPRETER_PATH = ROOT / "aigar-c-2" / "AIGAR_LANGUAGE" / "interpreter.py"
 
 
 def _load_language_class():
