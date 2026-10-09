@@ -112,14 +112,44 @@ class CognitiveContextCore:
     version = CORE_VERSION
     principles = tuple(CORE_PRINCIPLES)
 
+    def __init__(self):
+        # Índice lexical compilado uma vez no boot; não tokenizar 1,4 milhão
+        # de caracteres a cada pergunta.
+        self._prepared_chunks = {}
+
+    def prime(self, chunks: list[dict] | None) -> int:
+        prepared = {}
+        for item in (chunks or []):
+            if not isinstance(item, dict) or not item.get("text"):
+                continue
+            cid = str(item.get("id") or item.get("chunk_id") or "")
+            if not cid:
+                continue
+            text = str(item.get("text") or "")
+            signature = (len(text), text[:64], text[-64:])
+            previous = self._prepared_chunks.get(cid)
+            if previous and previous.get("signature") == signature:
+                prepared[cid] = previous
+            else:
+                prepared[cid] = {
+                    "item": item,
+                    "signature": signature,
+                    "tokens": _tokens(text),
+                }
+        self._prepared_chunks = prepared
+        return len(prepared)
+
     def prepare(self, question: str, chunks: list[dict] | None, limit: int = 3) -> dict:
         query_tokens = _tokens(question)
-        ranked = []
         valid_chunks = [item for item in (chunks or []) if isinstance(item, dict) and item.get("text")]
+        self.prime(valid_chunks)
+        ranked = []
         for item in valid_chunks:
             source_key = str(item.get("source_key") or "")
             text = str(item.get("text") or "")
-            chunk_tokens = _tokens(text)
+            cid = str(item.get("id") or item.get("chunk_id") or "")
+            cached = self._prepared_chunks.get(cid) or {}
+            chunk_tokens = cached.get("tokens") or _tokens(text)
             overlap = query_tokens & chunk_tokens
             source_overlap = query_tokens & SOURCE_TERMS.get(source_key, set())
             # A pequena ponderação por origem favorece conceitos compatíveis com
