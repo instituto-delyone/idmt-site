@@ -584,7 +584,7 @@ class LanguageEngine:
         return {"type":None,"matched_form":None,"semantic_goal":None,"topic_candidate":None,"topic_head":None}
 
 
-    def interpret(self,raw):
+    def interpret(self,raw,cognitive_context=None):
         text=self.normalize(raw)
         if not text:
             return {"intent":"unknown","scope":None,"depth":"normal","ambiguity":1.0,"uncertainty":1.0,"needs_memory":False,"needs_library":False,"needs_diagnosis":False,"needs_reasoning":False,"confidence":0.0,"linguistic_analysis":{"analysis_status":"empty_input"}}
@@ -597,7 +597,10 @@ class LanguageEngine:
         if not subject and articles:
             i=words.index(articles[0])
             if i+1<len(words): subject=" ".join(words[i:i+2])
-        analysis={"tokens":words,"verbs":verbs,"possible_subject":subject,"question":q,"has_question_mark":text.endswith("?"),"sentence_count":max(1,len(re.findall(r"[.!?]+",text))),"analysis_status":"heuristic_structural_reading"}
+        analysis={"tokens":words,"verbs":verbs,"possible_subject":subject,"question":q,"has_question_mark":text.endswith("?"),"sentence_count":max(1,len(re.findall(r"[.!?]+",text))),"analysis_status":"heuristic_structural_reading",
+                  "cognitive_context_available":bool((cognitive_context or {}).get("ready")),
+                  "cognitive_context_sources":[item.get("source_key") for item in (cognitive_context or {}).get("selected_chunks",[])],
+                  "cognitive_context_terms":(cognitive_context or {}).get("query_terms",[])}
         rules=self.language["intent"]
         if q["type"] in {"definition","identity","time","place","cause","function","process","comparison"}: intent,confidence=("concept_basic",0.93) if q["type"] in {"definition","identity","time","place"} else ("concept_scoped",0.84)
         elif self.has_phrase(text,rules["phatic"]["examples"]): intent,confidence="phatic",0.98
@@ -779,6 +782,7 @@ async def boot_library():
 
     if (LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None
             and time.time() - LIBRARY_BOOT_AT < LIBRARY_CACHE_TTL_SECONDS):
+        COGNITIVE_CORE.prime(make_payload(LIBRARY_BOOT_CACHE))
         loaded_libraries = sum(1 for item in LIBRARY_BOOT_STATUS if item.get("chunks_loaded", 0) > 0)
         loaded_chunks = sum(int(item.get("chunks_loaded", 0) or 0) for item in LIBRARY_BOOT_STATUS)
         target_chunks = sum(int(item.get("chunks_target", 0) or 0) for item in LIBRARY_BOOT_STATUS)
@@ -883,6 +887,7 @@ async def boot_library():
         })
 
     LIBRARY_BOOT_CACHE = loaded
+    COGNITIVE_CORE.prime(make_payload(loaded))
     LIBRARY_BOOT_STATUS = statuses
     LIBRARY_BOOT_AT = time.time()
     loaded_libraries = sum(1 for item in statuses if item.get("chunks_loaded", 0) > 0)
@@ -2045,7 +2050,7 @@ async def handle_ask(body, env=None):
     except Exception:
         cognitive_context = COGNITIVE_CORE.prepare(text, [])
 
-    reading = LANGUAGE_ENGINE.interpret(text)
+    reading = LANGUAGE_ENGINE.interpret(text, cognitive_context=cognitive_context)
     reading = COGNITIVE_CORE.annotate_reading(reading, cognitive_context)
     profile = classify_interaction(text, reading)
     prior_turns = session.get("turns", [])
