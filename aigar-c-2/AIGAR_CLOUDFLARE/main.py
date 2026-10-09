@@ -1750,12 +1750,22 @@ class Default(WorkerEntrypoint):
         method = str(request.method or "GET").upper()
         parsed = urlparse(str(request.url))
         path = parsed.path.rstrip("/") or "/"
-        origin = _request_origin(request)
+
+# Normaliza o prefixo da rota do domínio oficial.
+if path == "/aigar/api":
+    path = "/"
+elif path.startswith("/aigar/api/"):
+    path = path[len("/aigar/api"):]
+
+origin = _request_origin(request)
 
         if method == "OPTIONS":
             return Response(None, status=204, headers=cors_headers(origin))
 
-        if method == "GET" and path == "/health":
+                if method == "GET" and path == "/health":
+            r2_ready = binding(self.env, R2_BINDING) is not None
+            d1_ready = binding(self.env, D1_BINDING) is not None
+            storage_ready = r2_ready and d1_ready
             return make_response({
                 "ok": True,
                 "service": "aigar-api",
@@ -1763,14 +1773,18 @@ class Default(WorkerEntrypoint):
                 "version": "0.7.0-cloudflare",
                 "status": "online",
                 "backend": "python_workers",
+                "checks": {
+                    "api": "ok",
+                    "r2_binding": r2_ready,
+                    "d1_binding": d1_ready,
+                    "persistent_storage_configured": storage_ready,
+                },
                 "features": {
                     "language": True,
                     "hybrid_library_search": True,
                     "session_memory": True,
                     "persistent_library_upload": True,
-                    "persistent_storage_ready": bool(
-                        binding(self.env, R2_BINDING) and binding(self.env, D1_BINDING)
-                    ),
+                    "persistent_storage_ready": storage_ready,
                 },
             }, origin=origin)
 
