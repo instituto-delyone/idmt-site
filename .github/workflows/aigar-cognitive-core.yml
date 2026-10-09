@@ -1,0 +1,42 @@
+name: AIGAR Cognitive Core validation
+
+on:
+  pull_request:
+    paths:
+      - "aigar-c-2/AIGAR_CLOUDFLARE/**"
+      - "docs/aigar/index.html"
+  push:
+    branches:
+      - "feature/aigar-cognitive-core-v1"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile Python files
+        working-directory: aigar-c-2/AIGAR_CLOUDFLARE
+        run: python -m py_compile main.py cognitive_core.py test_cognitive_core.py
+      - name: Test cognitive core
+        working-directory: aigar-c-2/AIGAR_CLOUDFLARE
+        run: python -m unittest -v test_cognitive_core.py
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check inline JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("docs/aigar/index.html").read_text(encoding="utf-8")
+          if "<script>" not in html or "</script>" not in html:
+              raise SystemExit("Inline script not found in docs/aigar/index.html")
+          script = html.rsplit("<script>", 1)[1].split("</script>", 1)[0]
+          Path("/tmp/aigar-inline.js").write_text(script, encoding="utf-8")
+          PY
+          node --check /tmp/aigar-inline.js
