@@ -702,6 +702,18 @@ async def load_chunk_text(entry):
             continue
     return None
 
+# Catálogo explícito dos índices públicos/versionados. Evita depender do
+# endpoint Contents API do GitHub no boot do Worker, que pode falhar e acionar
+# silenciosamente o fallback de uma única biblioteca (Português).
+INDEX_URLS = [
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/arquitetura_organizacao_computadores.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/etica.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/interacoes_aigar.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/matematica_computacional.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/portuguese_language_knowledge.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/raciocinio_logico_matematica.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/sapiens.index.json",
+]
 INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/AIGAR_LIBRARY/indexes?ref=main"
 INDEX_CACHE = None
 INDEX_CACHE_AT = 0
@@ -714,6 +726,57 @@ async def load_library_indexes():
     global INDEX_CACHE, INDEX_CACHE_AT
     if INDEX_CACHE is not None and time.time() - INDEX_CACHE_AT < LIBRARY_CACHE_TTL_SECONDS:
         return INDEX_CACHE
+
+    indexes = []
+    # Caminho primário: URLs raw diretas, sem depender da listagem da API GitHub.
+    for url in INDEX_URLS:
+        try:
+            response = await fetch(url, method="GET")
+            if response.status >= 400:
+                continue
+            index = json.loads(await response.text())
+            if isinstance(index, dict) and index.get("chunks"):
+                indexes.append(index)
+        except Exception:
+            continue
+
+    # Fallback dinâmico para índices futuros que não estejam no catálogo explícito.
+    if not indexes:
+        try:
+            response = await fetch(
+                INDEX_DIRECTORY_URL,
+                method="GET",
+                headers={"Accept": "application/vnd.github+json"},
+            )
+            if response.status < 400:
+                entries = await response.json()
+                for item in entries:
+                    if item.get("type") != "file" or not item.get("name", "").endswith(".index.json"):
+                        continue
+                    try:
+                        raw = await fetch(item.get("download_url"), method="GET")
+                        if raw.status >= 400:
+                            continue
+                        index = json.loads(await raw.text())
+                        if isinstance(index, dict) and index.get("chunks"):
+                            indexes.append(index)
+                    except Exception:
+                        continue
+        except Exception:
+            pass
+
+    # O fallback embutido só é usado se nenhuma fonte de índice estiver acessível.
+    if not indexes:
+        indexes = [LIBRARY_INDEX]
+    # Deduplicação defensiva por chave de fonte.
+    unique = {}
+    for index in indexes:
+        key = (index.get("source", {}) or {}).get("key")
+        if key:
+            unique[key] = index
+    INDEX_CACHE = list(unique.values()) if unique else indexes
+    INDEX_CACHE_AT = time.time()
+    return INDEX_CACHE
 
     indexes=[]
     try:
@@ -1498,137 +1561,3 @@ def make_response(data,status=200,origin=None):
 async def handle_ask(body):
     text=body.get("input")
     session_id=body.get("session_id") or "default"
-    if not isinstance(text,str) or not text.strip():
-        return {"error":"input obrigatório"}
-    state=SESSIONS.setdefault(session_id,{"session_id":session_id,"turns":[],"last_user_input":None,"last_response":None,"reading":{}})
-    reading=LANGUAGE_ENGINE.interpret(text)
-    state["reading"]=reading
-    memory=state["turns"][-8:] if (reading["needs_memory"] or reading["intent"]=="continuity") else []
-    sources=[]
-    if memory:
-        sources.append({"kind":"memory","id":"runtime.recent_context","status":"inferred","detail":"Session-local continuity."})
-    library_boot=await boot_library()
-    evidence=await library_search(text,reading) if reading["needs_library"] else []
-    loaded_chunks=[{
-        "id":c["id"],
-        "sequence":c.get("sequence"),
-        "source":c.get("source"),
-        "start_page":c.get("start_page"),
-        "end_page":c.get("end_page"),
-        "text_length":len(c.get("text","")),
-        "boot_reference":True
-    } for c in (LIBRARY_BOOT_CACHE.values() if LIBRARY_BOOT_CACHE else [])]
-    if reading["needs_library"]:
-        sources.append({"kind":"library","id":"github.versioned.library","status":"confirmed" if evidence else "missing","detail":f"{len(evidence)} evidência(s) recuperada(s) da biblioteca versionada."})
-    qinfo=reading["linguistic_analysis"].get("question",{})
-    qtype=qinfo.get("type")
-    topic_head=qinfo.get("topic_head") or reading.get("scope") or "esse assunto"
-    topic_scope=(reading.get("scope") or topic_head).strip(" ?")
-    mode="social" if reading["intent"]=="phatic" else ("source_grounded" if evidence else ("source_unavailable" if reading["needs_library"] else "reasoned_without_library"))
-    if mode=="social":
-        answer="Oi! Aurora aqui. Manda o que você quer construir que a gente organiza."
-    elif mode=="source_grounded":
-        if qtype=="definition":
-            answer=compose_book_grounded_answer(topic_head,qtype,reading["depth"],evidence)
-            if answer is None:
-                answer=f"Encontrei conteúdo relevante sobre {topic_scope}:\n\n"+" ".join(e["text"] for e in evidence[:3])
-            sources.append({
-                "kind":"language_knowledge",
-                "id":"aigar_portuguese_language_knowledge_v1",
-                "status":"confirmed",
-                "detail":"Definição estruturada pelo conhecimento linguístico explícito e complementada por evidência do livro."
-            })
-        else:
-            prefix=f"Encontrei conteúdo relevante sobre {topic_scope}:"
-            answer=prefix+"\n\n"+" ".join(e["text"] for e in evidence[:3])
-    elif mode=="source_unavailable":
-        answer=f"Entendi a pergunta sobre {topic}. A biblioteca está conectada, mas não encontrei evidência local suficiente para responder com segurança."
-    elif mode=="reasoned_without_library":
-        answer="Entendi a solicitação e organizei a intenção, mas não vou inventar conteúdo que não foi fundamentado."
-    else:
-        last=memory[-1]["content"] if memory else None
-        answer="Vou continuar a partir do contexto recente."+ (f" O ponto anterior foi: {last}" if last else "")
-    plan={"understand_before_answer":True,"intent":reading["intent"],"depth":reading["depth"],"use_memory":bool(memory),"use_library":reading["needs_library"],"use_diagnosis":False,"answer_mode":mode,"question_type":reading["linguistic_analysis"].get("question",{}).get("type"),"semantic_goal":reading["linguistic_analysis"].get("question",{}).get("semantic_goal"),"topic":topic_head,"evidence":[e["text"] for e in evidence],"steps":["interpret","gather_available_context","select_relevant_evidence","reason","plan_response"]}
-    sources += [{"kind":"reasoning","id":"runtime.reasoning","status":"confirmed" if evidence else "inferred","detail":f"Resposta planejada em modo {mode}."},{"kind":"aurora","id":"runtime.aurora","status":"confirmed","detail":"Apresentação final no Runtime Cloudflare."}]
-    state["last_user_input"]=text; state["last_response"]=answer
-    state["turns"] += [{"role":"user","content":text},{"role":"assistant","content":answer}]
-    if len(state["turns"])>40: state["turns"]=state["turns"][-40:]
-    confidence=min(0.75,0.35+0.1*sum(1 for s in sources if s["status"] in {"confirmed","inferred"}))
-    return {"text":answer,"state":state,"sources":sources,"confidence":confidence,"plan":plan,"library":{"ready":library_boot.get("ready",False),"libraries":library_boot.get("libraries",[]),"chunks_loaded":len(loaded_chunks),"chunks":loaded_chunks}}
-
-class Default(WorkerEntrypoint):
-    async def fetch(self, request):
-        origin=request.headers.get("Origin")
-        path=request.url.split("?",1)[0].rstrip("/")
-        if request.method=="OPTIONS":
-            return Response("",status=204,headers=cors_headers(origin))
-        if path.endswith("/health") and request.method=="GET":
-            return make_response({"ok":True,"service":"aigar-api","runtime":"AIGAR","version":"0.6.0-cloudflare","status":"production_runtime","backend":"python_workers","admin_auth":"medunity_delegated"},origin=origin)
-        if path.endswith("/auth/login") and request.method=="POST":
-            try:
-                body=await request.json()
-                status, data = await medunity_admin_login(body)
-                return make_response(data, status, origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"auth_proxy_error","message":str(exc)},502,origin)
-        if path.endswith("/admin/storage") and request.method=="GET":
-            try:
-                _, status, data = await require_admin(request)
-                if status != 200:
-                    return make_response(data, status, origin)
-                return make_response(await storage_status(self.env), 200, origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"storage_status_error","message":str(exc)},500,origin)
-        if path.endswith("/admin/upload") and request.method=="POST":
-            try:
-                usuario, status, data = await require_admin(request)
-                if status != 200:
-                    return make_response(data, status, origin)
-                status, data = await admin_upload(request, self.env, usuario)
-                return make_response(data, status, origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"upload_error","message":str(exc)},500,origin)
-        if path.endswith("/admin/process") and request.method=="POST":
-            try:
-                _, status, data = await require_admin(request)
-                if status != 200:
-                    return make_response(data, status, origin)
-                body = await request.json()
-                document_id = str(body.get("document_id") or "")
-                workflow = binding(self.env, "AIGAR_LIBRARY_BUILDER")
-                if not document_id or not workflow:
-                    return make_response({"ok":False,"status":"processing_not_configured"},503,origin)
-                instance = await workflow.create(params={"document_id": document_id})
-                return make_response({"ok":True,"status":"started","workflow_id":str(instance.id),"document_id":document_id},202,origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"processing_error","message":str(exc)},500,origin)
-        if path.endswith("/admin/documents") and request.method=="GET":
-            try:
-                _, status, data = await require_admin(request)
-                if status != 200:
-                    return make_response(data, status, origin)
-                status, data = await admin_documents(self.env)
-                return make_response(data, status, origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"documents_error","message":str(exc)},500,origin)
-        if path.endswith("/auth/me") and request.method=="GET":
-            try:
-                _, status, data = await require_admin(request)
-                return make_response(data, status, origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"auth_validation_error","message":str(exc)},502,origin)
-        if path.endswith("/library/boot") and request.method=="GET":
-            try:
-                result=await boot_library()
-                return make_response({"ok":True,"library":result},200,origin)
-            except Exception as exc:
-                return make_response({"ok":False,"status":"library_boot_error","message":str(exc)},500,origin)
-        if path.endswith("/perguntar") and request.method=="POST":
-            try:
-                body=await request.json()
-                result=await handle_ask(body)
-                if "error" in result: return make_response(result,400,origin)
-                return make_response(result,200,origin)
-            except Exception as exc:
-                return make_response({"ok":False,"service":"aigar-api","status":"runtime_error","message":str(exc)},500,origin)
-        return make_response({"ok":False,"service":"aigar-api","status":"not_found"},404,origin)
