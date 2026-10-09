@@ -8,7 +8,7 @@ import hashlib
 import time
 import uuid
 from datetime import datetime, timezone
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 from workers import WorkerEntrypoint, WorkflowEntrypoint, Response, fetch
 from cognitive_core import CognitiveContextCore
 from memory_lab import MemoryLab
@@ -800,7 +800,7 @@ async def boot_text_matrix():
     semaphore = asyncio.Semaphore(4)
     async def load_document(doc):
         doc_id, filename = doc
-        url = TEXT_MATRIX_ROOT + filename.replace(" ", "%20")
+        url = TEXT_MATRIX_ROOT + quote(filename, safe="._-")
         try:
             response = await fetch(url, method="GET")
             if response.status >= 400:
