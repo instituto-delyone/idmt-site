@@ -822,7 +822,7 @@ async def boot_text_matrix():
     results = await asyncio.gather(*(limited(doc) for doc in TEXT_MATRIX_FILES))
     loaded = [item for item in results if item.get("status") == "ready" and item.get("text")]
     # Não declarar pronto se algum capítulo obrigatório falhou.
-    TEXT_MATRIX_CACHE = loaded
+    TEXT_MATRIX_CACHE = loaded if len(loaded) == len(TEXT_MATRIX_FILES) else None
     TEXT_MATRIX_AT = time.time()
     return {
         "ready": len(loaded) == len(TEXT_MATRIX_FILES),
