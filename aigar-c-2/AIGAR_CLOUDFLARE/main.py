@@ -2152,7 +2152,7 @@ async def handle_ask(body, env=None):
         "status": "confirmed" if renderer_status.get("used") else "inferred",
         "detail": renderer_status.get("reason"),
     })
-    confirmed = sum(1 for source in sources if source.get("status") == "confirmed")
+    confirmed = sum(1 for source in sources if source.get("status") == "confirmed" and source.get("kind") != "renderer")
     confidence = min(0.85, max(0.15, float(reading.get("confidence", 0.45)) * 0.5 + confirmed * 0.07))
     if (reading.get("needs_library") or profile.get("research_required")) and not evidence_items:
         confidence = min(confidence, 0.35)
