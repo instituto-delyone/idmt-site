@@ -2402,6 +2402,7 @@ class Default(WorkerEntrypoint):
                     "persistent_storage_ready": storage_ready,
                     "adaptive_interaction_profiles": True,
                     "adaptive_plan_revision": True,
+                    "cognitive_core_preloaded": True,
                     "speaker_addressee_context_cache": True,
                     "feedback_api": True,
                     "admin_useful_logs": True,
