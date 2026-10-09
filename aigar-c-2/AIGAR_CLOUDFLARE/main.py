@@ -886,7 +886,7 @@ async def boot_library():
             index.get("chunks", []) or [],
             key=lambda c: int(c.get("sequence", 0) or 0)
         )
-        candidates = [chunk for chunk in chunks if chunk.get("id")][:5]
+        candidates = [chunk for chunk in chunks if chunk.get("id")][:1]
         targets.append({
             "source_key": source_key,
             "source": source.get("name"),
@@ -894,7 +894,7 @@ async def boot_library():
             "candidates": candidates,
         })
 
-    semaphore = asyncio.Semaphore(5)
+    semaphore = asyncio.Semaphore(2)
 
     async def load_one(library, chunk):
         cid = chunk.get("id")
