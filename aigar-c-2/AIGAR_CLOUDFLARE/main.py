@@ -532,6 +532,11 @@ class LanguageEngine:
     def has_any(text, values):
         return any(value in text for value in values)
 
+    @staticmethod
+    def has_phrase(text, values):
+        # Evita falsos positivos por substring: "oi" dentro de "foi".
+        return any(re.search(r"(?<!\\w)" + re.escape(value) + r"(?!\\w)", text) for value in values)
+
     def verbs(self, words):
         lexicon={"é","são","foi","foram","ser","sendo","era","eram","está","estão","estava","estavam","ficou","ficaram","tem","têm","teve","tiveram","ter","faz","fazem","fez","fizeram","fazer","pode","podem","podia","podiam","poder","deve","devem","deveria","deveriam","dever","vai","vão","aconteceu","acontecer","chegou","chegaram","chegar","explica","explicar","explique","defina","define","significa","significar","funciona","funcionar","serve","servir","quer","querem","quero","precisa","precisam","crie","criar","faça","fazer","monte","montar","calcule","calcular","gere","gerar","compare","comparar","analise","analisar","responda","responder","continue","continua","entendi","entender","sabe","saber"}
         return [w for w in words if w in lexicon]
@@ -591,7 +596,8 @@ class LanguageEngine:
             if i+1<len(words): subject=" ".join(words[i:i+2])
         analysis={"tokens":words,"verbs":verbs,"possible_subject":subject,"question":q,"has_question_mark":text.endswith("?"),"sentence_count":max(1,len(re.findall(r"[.!?]+",text))),"analysis_status":"heuristic_structural_reading"}
         rules=self.language["intent"]
-        if self.has_any(text,rules["phatic"]["examples"]): intent,confidence="phatic",0.98
+        if q["type"] in {"definition","identity","time","place","cause","function","process","comparison"}: intent,confidence=("concept_basic",0.93) if q["type"] in {"definition","identity","time","place"} else ("concept_scoped",0.84)
+        elif self.has_phrase(text,rules["phatic"]["examples"]): intent,confidence="phatic",0.98
         elif self.has_any(text,rules["clinical_case"]["examples"]): intent,confidence="clinical_case",0.92
         elif self.has_any(text,rules["continuity"]["examples"]): intent,confidence="continuity",0.90
         elif self.has_any(text,rules["correction"]["examples"]): intent,confidence="correction",0.90
@@ -698,12 +704,15 @@ async def load_chunk_text(entry):
 
 INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/AIGAR_LIBRARY/indexes?ref=main"
 INDEX_CACHE = None
+INDEX_CACHE_AT = 0
 LIBRARY_BOOT_CACHE = None
 LIBRARY_BOOT_STATUS = None
+LIBRARY_BOOT_AT = 0
+LIBRARY_CACHE_TTL_SECONDS = 300
 
 async def load_library_indexes():
-    global INDEX_CACHE
-    if INDEX_CACHE is not None:
+    global INDEX_CACHE, INDEX_CACHE_AT
+    if INDEX_CACHE is not None and time.time() - INDEX_CACHE_AT < LIBRARY_CACHE_TTL_SECONDS:
         return INDEX_CACHE
 
     indexes=[]
@@ -743,13 +752,15 @@ async def load_library_indexes():
     if not indexes:
         indexes=[LIBRARY_INDEX]
     INDEX_CACHE=indexes
+    INDEX_CACHE_AT=time.time()
     return INDEX_CACHE
 
 
 async def boot_library():
     """Pre-carrega um chunk referencial de cada biblioteca disponível."""
-    global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS
-    if LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None:
+    global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS, LIBRARY_BOOT_AT
+    if (LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None
+            and time.time() - LIBRARY_BOOT_AT < LIBRARY_CACHE_TTL_SECONDS):
         return {
             "ready": True,
             "libraries": LIBRARY_BOOT_STATUS,
@@ -822,6 +833,7 @@ async def boot_library():
 
     LIBRARY_BOOT_CACHE = loaded
     LIBRARY_BOOT_STATUS = statuses
+    LIBRARY_BOOT_AT = time.time()
     ready = bool(statuses) and all(x.get("status") == "ready" for x in statuses)
     return {
         "ready": ready,
