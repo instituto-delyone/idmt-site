@@ -757,91 +757,144 @@ async def load_library_indexes():
     return INDEX_CACHE
 
 async def boot_library():
-    """Pre-carrega um chunk referencial de cada biblioteca disponível."""
+    """Pré-carrega até cinco chunks por biblioteca para aquecer o cache do Worker e do navegador."""
     global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS, LIBRARY_BOOT_AT
+
+    def make_payload(cache):
+        return [
+            {
+                "id": cid,
+                "source_key": item.get("source_key"),
+                "source": item.get("source"),
+                "sequence": item.get("sequence"),
+                "start_page": item.get("start_page"),
+                "end_page": item.get("end_page"),
+                "text": item.get("text", ""),
+            }
+            for cid, item in cache.items()
+            if item.get("text")
+        ]
+
     if (LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None
             and time.time() - LIBRARY_BOOT_AT < LIBRARY_CACHE_TTL_SECONDS):
-        loaded_count = sum(1 for item in LIBRARY_BOOT_STATUS if item.get("status") == "ready")
-        ready = bool(LIBRARY_BOOT_STATUS) and loaded_count == len(LIBRARY_BOOT_STATUS)
+        loaded_libraries = sum(1 for item in LIBRARY_BOOT_STATUS if item.get("chunks_loaded", 0) > 0)
+        loaded_chunks = sum(int(item.get("chunks_loaded", 0) or 0) for item in LIBRARY_BOOT_STATUS)
+        target_chunks = sum(int(item.get("chunks_target", 0) or 0) for item in LIBRARY_BOOT_STATUS)
+        ready = bool(LIBRARY_BOOT_STATUS) and all(item.get("status") == "ready" for item in LIBRARY_BOOT_STATUS)
         return {
             "ready": ready,
             "libraries": LIBRARY_BOOT_STATUS,
-            "loaded": loaded_count,
+            "loaded": loaded_libraries,
             "total": len(LIBRARY_BOOT_STATUS),
+            "loaded_chunks": loaded_chunks,
+            "total_chunks": target_chunks,
+            "chunks": make_payload(LIBRARY_BOOT_CACHE),
             "mode": "warm_runtime_cache",
         }
 
     indexes = await load_library_indexes()
     statuses = []
+    targets = []
     loaded = {}
 
-    # Um chunk referencial por biblioteca: pequeno o suficiente para o boot,
-    # mas suficiente para provar que a biblioteca está realmente acessível.
+    # Até cinco chunks por biblioteca. Bibliotecas com menos de cinco chunks
+    # carregam todos os que existem, sem duplicar nem inventar conteúdo.
     for index in indexes:
         source = index.get("source", {}) or {}
         source_key = source.get("key") or "unknown"
-        chunks = index.get("chunks", []) or []
-        if not chunks:
-            statuses.append({
-                "source_key": source_key,
-                "source": source.get("name"),
-                "status": "error",
-                "detail": "Índice encontrado, mas sem chunks.",
-            })
-            continue
-
-        reference = sorted(
-            chunks,
+        chunks = sorted(
+            index.get("chunks", []) or [],
             key=lambda c: int(c.get("sequence", 0) or 0)
-        )[0]
+        )
+        candidates = [chunk for chunk in chunks if chunk.get("id")][:5]
+        targets.append({
+            "source_key": source_key,
+            "source": source.get("name"),
+            "available": len([chunk for chunk in chunks if chunk.get("id")]),
+            "candidates": candidates,
+        })
 
-        cid = reference.get("id")
-        text = CHUNK_CACHE.get(cid) if cid else None
-        cache_origin = "runtime_cache" if text else None
+    semaphore = asyncio.Semaphore(5)
 
-        if not text and cid:
-            text = await load_chunk_text(reference)
+    async def load_one(library, chunk):
+        cid = chunk.get("id")
+        if not cid:
+            return None
+        text = CHUNK_CACHE.get(cid)
+        cache_origin = "runtime_cache" if text else "remote_loaded"
+        if not text:
+            async with semaphore:
+                text = await load_chunk_text(chunk)
             if text:
                 CHUNK_CACHE[cid] = text
-                cache_origin = "remote_loaded"
+        if not text:
+            return None
+        return {
+            **chunk,
+            "id": cid,
+            "source_key": library["source_key"],
+            "source": chunk.get("source") or library.get("source"),
+            "text": text,
+            "cache_origin": cache_origin,
+        }
 
-        if text:
-            loaded[cid] = {
-                **reference,
-                "text": text,
-            }
-            statuses.append({
-                "source_key": source_key,
-                "source": reference.get("source") or source.get("name"),
-                "status": "ready",
-                "reference_chunk": cid,
-                "sequence": reference.get("sequence"),
-                "start_page": reference.get("start_page"),
-                "end_page": reference.get("end_page"),
-                "text_length": len(text),
-                "cache_origin": cache_origin,
-            })
+    jobs = [
+        load_one(library, chunk)
+        for library in targets
+        for chunk in library["candidates"]
+    ]
+    results = await asyncio.gather(*jobs, return_exceptions=True) if jobs else []
+    for result in results:
+        if isinstance(result, dict) and result.get("id") and result.get("text"):
+            loaded[result["id"]] = result
+
+    for library in targets:
+        key = library["source_key"]
+        library_chunks = [
+            item for item in loaded.values()
+            if item.get("source_key") == key
+        ]
+        target_count = len(library["candidates"])
+        loaded_count = len(library_chunks)
+        if loaded_count == target_count and target_count > 0:
+            status = "ready"
+        elif loaded_count > 0:
+            status = "partial"
         else:
-            statuses.append({
-                "source_key": source_key,
-                "source": reference.get("source") or source.get("name"),
-                "status": "error",
-                "reference_chunk": cid,
-                "sequence": reference.get("sequence"),
-                "start_page": reference.get("start_page"),
-                "end_page": reference.get("end_page"),
-                "detail": "Chunk referencial não pôde ser carregado.",
-            })
+            status = "error"
+        statuses.append({
+            "source_key": key,
+            "source": library.get("source"),
+            "status": status,
+            "chunks_loaded": loaded_count,
+            "chunks_target": target_count,
+            "chunks_available": library["available"],
+            "chunk_sequences": [item.get("sequence") for item in sorted(
+                library_chunks, key=lambda item: int(item.get("sequence", 0) or 0)
+            )],
+            "detail": (
+                "Cache aquecido."
+                if status == "ready"
+                else ("Alguns chunks não puderam ser carregados." if status == "partial"
+                      else "Nenhum chunk desta biblioteca pôde ser carregado.")
+            ),
+        })
 
     LIBRARY_BOOT_CACHE = loaded
     LIBRARY_BOOT_STATUS = statuses
     LIBRARY_BOOT_AT = time.time()
-    ready = bool(statuses) and all(x.get("status") == "ready" for x in statuses)
+    loaded_libraries = sum(1 for item in statuses if item.get("chunks_loaded", 0) > 0)
+    loaded_chunks = len(loaded)
+    target_chunks = sum(int(item.get("chunks_target", 0) or 0) for item in statuses)
+    ready = bool(statuses) and all(item.get("status") == "ready" for item in statuses)
     return {
         "ready": ready,
         "libraries": statuses,
-        "loaded": sum(1 for x in statuses if x.get("status") == "ready"),
+        "loaded": loaded_libraries,
         "total": len(statuses),
+        "loaded_chunks": loaded_chunks,
+        "total_chunks": target_chunks,
+        "chunks": make_payload(loaded),
         "mode": "cold_boot",
     }
 
