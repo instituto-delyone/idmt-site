@@ -535,7 +535,7 @@ class LanguageEngine:
     @staticmethod
     def has_phrase(text, values):
         # Evita falsos positivos por substring: "oi" dentro de "foi".
-        return any(re.search(r"(?<!\\w)" + re.escape(value) + r"(?!\\w)", text) for value in values)
+        return any(re.search(r"(?<!\w)" + re.escape(value) + r"(?!\w)", text) for value in values)
 
     def verbs(self, words):
         lexicon={"é","são","foi","foram","ser","sendo","era","eram","está","estão","estava","estavam","ficou","ficaram","tem","têm","teve","tiveram","ter","faz","fazem","fez","fizeram","fazer","pode","podem","podia","podiam","poder","deve","devem","deveria","deveriam","dever","vai","vão","aconteceu","acontecer","chegou","chegaram","chegar","explica","explicar","explique","defina","define","significa","significar","funciona","funcionar","serve","servir","quer","querem","quero","precisa","precisam","crie","criar","faça","fazer","monte","montar","calcule","calcular","gere","gerar","compare","comparar","analise","analisar","responda","responder","continue","continua","entendi","entender","sabe","saber"}
@@ -552,7 +552,7 @@ class LanguageEngine:
     def question(self,text):
         t=self.normalize(text).strip()
         patterns=[
-            ("definition", r"^(?:o que (?:é|são)|o que significa|qual é a definição de)\s+(.+?)[?!.]*$"),
+            ("definition", r"^(?:o que (?:é|são|foi|era|eram|foram)|o que significa|qual é a definição de)\s+(.+?)[?!.]*$"),
             ("identity", r"^(?:quem (?:é|foi)|o que é)\s+(.+?)[?!.]*$"),
             ("time", r"^(?:quando (?:foi|é|aconteceu)|quando)\s+(.+?)[?!.]*$"),
             ("place", r"^(?:onde (?:fica|foi|aconteceu)|onde)\s+(.+?)[?!.]*$"),
@@ -759,10 +759,12 @@ async def boot_library():
     global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS, LIBRARY_BOOT_AT
     if (LIBRARY_BOOT_CACHE is not None and LIBRARY_BOOT_STATUS is not None
             and time.time() - LIBRARY_BOOT_AT < LIBRARY_CACHE_TTL_SECONDS):
+        loaded_count = sum(1 for item in LIBRARY_BOOT_STATUS if item.get("status") == "ready")
+        ready = bool(LIBRARY_BOOT_STATUS) and loaded_count == len(LIBRARY_BOOT_STATUS)
         return {
-            "ready": True,
+            "ready": ready,
             "libraries": LIBRARY_BOOT_STATUS,
-            "loaded": len(LIBRARY_BOOT_CACHE),
+            "loaded": loaded_count,
             "total": len(LIBRARY_BOOT_STATUS),
             "mode": "warm_runtime_cache",
         }
