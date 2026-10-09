@@ -205,6 +205,7 @@ async function checkAdmin(){
 const pretty=x=>JSON.stringify(x??null,null,2);
 function state(ok,t){$("dot").className="dot"+(ok?" ok":"");$("st").textContent=t}
 let libraryBootReady=false;
+let textMatrixReady=false;
 let cognitiveCoreCache=null;
 function setCoreBootStatus(message,progress){
   const label=$("coreBootMessage"),bar=$("coreBootProgress");
@@ -329,13 +330,29 @@ async function bootLibrary(){
     const d=await r.json();
     if(!r.ok)throw Error(d.message||"HTTP "+r.status);
     const lib=d.library||{};
+    setCoreBootStatus("Primeira leva concluída. Carregando a segunda leva: Texto-Matriz AIGAR…",84);
+    $("libraryBootSummary").textContent="Bibliotecas-base carregadas. Lendo os capítulos conceituais antes de liberar a conversa…";
+    const matrixResponse=await fetch(base()+"/texto-matriz/boot",{cache:"no-store"});
+    const matrixPayload=await matrixResponse.json();
+    const matrix=matrixPayload.text_matrix||{};
+    textMatrixReady=!!matrix.ready&&Number(matrix.loaded||0)===Number(matrix.total||8);
+    if(!textMatrixReady){
+      libraryBootReady=false;
+      $("libraryBootTag").textContent="MATRIZ INCOMPLETA";
+      $("libraryBootSummary").textContent="Texto-Matriz: "+Number(matrix.loaded||0)+"/"+Number(matrix.total||8)+" capítulos. Interação bloqueada até carregar todos.";
+      $("coreChunks").textContent=pretty(matrix);
+      finishCoreBoot(false,"A segunda leva do boot não terminou. Atualize a página para tentar novamente; a conversa ficará bloqueada para evitar interação sem os capítulos.");
+      state(false,"boot incompleto");
+      return;
+    }
+    lib.text_matrix=matrix;
     cognitiveCoreCache=lib;
     window.AIGAR_COGNITIVE_CACHE=lib;
     setCoreBootStatus("Organizando "+Number(lib.loaded_chunks||0)+" chunks para uso contextual…",78);
     renderLibraryBoot(lib,"runtime Cloudflare");
     const saved=await writeBrowserLibraryCache(lib);
-    libraryBootReady=Number(lib.loaded||0)>0;
-    state(!!lib.ready,"AIGAR "+(lib.ready?"READY":"parcial"));
+    libraryBootReady=Number(lib.loaded||0)>0&&textMatrixReady;
+    state(libraryBootReady,"AIGAR "+(libraryBootReady?"READY":"parcial"));
     const browserCache=saved?"cache do navegador atualizado":"cache local indisponível";
     $("libraryBootSummary").textContent=
       Number(lib.loaded_chunks||0)+"/"+Number(lib.total_chunks||0)+" chunks carregados de "+
@@ -343,7 +360,7 @@ async function bootLibrary(){
     $("coreStatus").textContent=lib.loaded_chunks?"PRONTO":"PARCIAL";
     $("coreSummary").textContent="Contexto pré-carregado: "+Number(lib.loaded_chunks||0)+" chunks disponíveis. O núcleo selecionará trechos pertinentes antes de cada interpretação.";
     $("coreChunks").textContent=pretty((lib.chunks||[]).map(c=>({id:c.id,source_key:c.source_key,sequence:c.sequence})));
-    finishCoreBoot(Number(lib.loaded_chunks||0)>0,"Núcleo cognitivo inicializado com "+Number(lib.loaded_chunks||0)+" chunks disponíveis. AIGAR pronto para conversar.");
+    finishCoreBoot(libraryBootReady,"Boot concluído: "+Number(lib.loaded_chunks||0)+" chunks das bibliotecas-base + "+Number(matrix.loaded||0)+" capítulos do Texto-Matriz carregados. AIGAR pronto para conversar.");
   }catch(e){
     if(!shownCache){
       libraryBootReady=false;
@@ -368,7 +385,7 @@ async function bootLibrary(){
 async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw Error("HTTP "+r.status);let d=await r.json();state(true,(d.runtime||"AIGAR")+" "+(d.version||""))}catch(e){state(false,"offline")}}
 async function refreshMemoryLab(){try{const r=await fetch(base()+"/memory/status",{cache:"no-store"});const d=await r.json();const m=d.memory_lab||{};$("memoryLabTag").textContent=m.mode||"indisponível";$("memoryLabSummary").textContent="Imediata: "+(m.document_counts?.imediata??0)+" · Curto prazo: "+(m.document_counts?.curto_prazo??0)+" · Longo prazo: "+(m.document_counts?.longo_prazo??0)+" documentos";$("memoryLabDetails").textContent=pretty(m)}catch(e){$("memoryLabTag").textContent="erro";$("memoryLabSummary").textContent="Memory Lab indisponível: "+e.message}}
 function setReading(x={}){let f=["intent","scope","depth","ambiguity","uncertainty","needs_memory","needs_library","needs_diagnosis","needs_reasoning"];$("reading").innerHTML=f.map(k=>`<div>${k}</div><div>${x[k]??"—"}</div>`).join("");$("intent").textContent=x.intent??"—";$("scope").textContent=x.scope??"—";$("depth").textContent=x.depth??"—";$("ling").textContent=pretty(x.linguistic_analysis)}
-async function ask(){let input=$("q").value.trim();if(!input)return;/* A conversa pode funcionar mesmo quando a biblioteca está indisponível. */$("feedbackPanel").hidden=true;lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;$("feedbackStatus").textContent="";$("feedbackSubmit").disabled=false;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console",answer_depth:$("answerDepth").value,source_fidelity:$("sourceFidelity").value})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";const core=d.cognitive_core||{};$("coreStatus").textContent=core.ready?"ATIVO":"REDUZIDO";$("coreSummary").textContent=core.ready?"Núcleo ativo antes da interpretação · "+(core.available_chunks||0)+" chunks disponíveis · "+(core.selected_count||0)+" selecionados para esta pergunta.":"Núcleo indisponível nesta requisição; resposta segue em modo reduzido."; $("coreChunks").textContent=pretty(core.selected_chunks||[]);$("raw").textContent=pretty(d);const ml=d.memory_lab||{};if(ml.status){$("memoryLabTag").textContent=ml.status.mode||"ativo";$("memoryLabSummary").textContent="Camadas usadas: "+((ml.selected_layer||[]).join(", ")||"nenhuma")+(ml.documents_used?.length?" · documentos recuperados: "+ml.documents_used.length:"");$("memoryLabDetails").textContent=pretty(ml)}$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";const lib=d.library||{};$("chunkSummary").textContent=`${lib.chunks_loaded||0} chunk(s) carregado(s) pelo runtime`;$("chunks").textContent=pretty(lib.chunks||[]);setReading(d.state?.reading||{});lastInteractionId=d.interaction_id||d.feedback?.interaction_id||null;feedbackEnabled=!!(d.feedback?.enabled&&lastInteractionId);if(lastInteractionId){$("feedbackPanel").hidden=false;$("feedbackStatus").className="feedback-status"+(feedbackEnabled?"":" err");$("feedbackStatus").textContent=feedbackEnabled?"Você pode avaliar esta resposta.":"Feedback temporariamente indisponível: a interação ainda não foi persistida no D1.";$("feedbackSubmit").disabled=!feedbackEnabled;}state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
+async function ask(){if(!libraryBootReady||!textMatrixReady){$("answer").textContent="Aguarde: o boot do AIGAR ainda não confirmou o carregamento completo das bibliotecas e dos capítulos Texto-Matriz.";return;}let input=$("q").value.trim();if(!input)return;/* A conversa pode funcionar mesmo quando a biblioteca está indisponível. */$("feedbackPanel").hidden=true;lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;$("feedbackStatus").textContent="";$("feedbackSubmit").disabled=false;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console",answer_depth:$("answerDepth").value,source_fidelity:$("sourceFidelity").value})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";const core=d.cognitive_core||{};$("coreStatus").textContent=core.ready?"ATIVO":"REDUZIDO";$("coreSummary").textContent=core.ready?"Núcleo ativo antes da interpretação · "+(core.available_chunks||0)+" chunks disponíveis · "+(core.selected_count||0)+" selecionados para esta pergunta.":"Núcleo indisponível nesta requisição; resposta segue em modo reduzido."; $("coreChunks").textContent=pretty(core.selected_chunks||[]);$("raw").textContent=pretty(d);const ml=d.memory_lab||{};if(ml.status){$("memoryLabTag").textContent=ml.status.mode||"ativo";$("memoryLabSummary").textContent="Camadas usadas: "+((ml.selected_layer||[]).join(", ")||"nenhuma")+(ml.documents_used?.length?" · documentos recuperados: "+ml.documents_used.length:"");$("memoryLabDetails").textContent=pretty(ml)}$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";const lib=d.library||{};$("chunkSummary").textContent=`${lib.chunks_loaded||0} chunk(s) carregado(s) pelo runtime`;$("chunks").textContent=pretty(lib.chunks||[]);setReading(d.state?.reading||{});lastInteractionId=d.interaction_id||d.feedback?.interaction_id||null;feedbackEnabled=!!(d.feedback?.enabled&&lastInteractionId);if(lastInteractionId){$("feedbackPanel").hidden=false;$("feedbackStatus").className="feedback-status"+(feedbackEnabled?"":" err");$("feedbackStatus").textContent=feedbackEnabled?"Você pode avaliar esta resposta.":"Feedback temporariamente indisponível: a interação ainda não foi persistida no D1.";$("feedbackSubmit").disabled=!feedbackEnabled;}state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
 async function sendFeedback(){if(!lastInteractionId||!feedbackEnabled||feedbackSent)return;const button=$("feedbackSubmit"),status=$("feedbackStatus");button.disabled=true;status.className="feedback-status";status.textContent="Enviando feedback…";try{const r=await fetch(base()+"/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({interaction_id:lastInteractionId,category:$("feedbackCategory").value,rating:$("feedbackRating").value,comment:$("feedbackComment").value.trim()})});const d=await r.json();if(!r.ok)throw Error(d.message||d.detail||d.status||("HTTP "+r.status));feedbackSent=true;status.className="feedback-status ok";status.textContent="Feedback registrado. Obrigado por ajudar a melhorar o AIGAR!";button.textContent="Feedback enviado";}catch(e){status.className="feedback-status err";status.textContent="Não foi possível registrar: "+e.message;button.disabled=false;}}
 function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";$("chunkSummary").textContent="Nenhum chunk carregado ainda.";$("chunks").textContent="—";$("feedbackPanel").hidden=true;$("feedbackStatus").textContent="";lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;setReading({})}
 async function copyJson(){await navigator.clipboard.writeText($("raw").textContent)}
