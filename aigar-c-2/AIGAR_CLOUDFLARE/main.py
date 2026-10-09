@@ -770,6 +770,71 @@ async def load_library_indexes():
     INDEX_CACHE_AT = time.time()
     return INDEX_CACHE
 
+TEXT_MATRIX_FILES = [
+    ("AIGAR-TM-01", "01_conhecimento.md"),
+    ("AIGAR-TM-02", "02_linguagem.md"),
+    ("AIGAR-TM-03", "03_linguagem_computador_humanos.md"),
+    ("AIGAR-TM-04", "04_existencia_seres.md"),
+    ("AIGAR-TM-05", "05_surgimento _evolucao_raciocínio.md"),
+    ("AIGAR-TM-06", "06_raciocinio_funcionamento.md"),
+    ("AIGAR-TM-07", "07_analogias_raciocinio_sistemas.md"),
+    ("AIGAR-TM-08", "08_linguagem_eu_maquina.md"),
+]
+TEXT_MATRIX_CACHE = None
+TEXT_MATRIX_AT = 0
+TEXT_MATRIX_TTL_SECONDS = 300
+TEXT_MATRIX_ROOT = "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_CLOUDFLARE/texto_matriz/"
+
+async def boot_text_matrix():
+    """Segunda leva do boot: carrega os capítulos Markdown antes da interação."""
+    global TEXT_MATRIX_CACHE, TEXT_MATRIX_AT
+    if TEXT_MATRIX_CACHE is not None and time.time() - TEXT_MATRIX_AT < TEXT_MATRIX_TTL_SECONDS:
+        return {
+            "ready": len(TEXT_MATRIX_CACHE) == len(TEXT_MATRIX_FILES),
+            "loaded": len(TEXT_MATRIX_CACHE),
+            "total": len(TEXT_MATRIX_FILES),
+            "chunks": list(TEXT_MATRIX_CACHE),
+            "mode": "warm_runtime_cache",
+        }
+
+    semaphore = asyncio.Semaphore(4)
+    async def load_document(doc):
+        doc_id, filename = doc
+        url = TEXT_MATRIX_ROOT + filename.replace(" ", "%20")
+        try:
+            response = await fetch(url, method="GET")
+            if response.status >= 400:
+                return {"id": doc_id, "source_key": "texto_matriz_aigar", "source": filename,
+                        "status": "error", "error": "HTTP " + str(response.status), "text": ""}
+            text = (await response.text()).strip()
+            if not text or len(text) < 20:
+                return {"id": doc_id, "source_key": "texto_matriz_aigar", "source": filename,
+                        "status": "error", "error": "Documento vazio ou incompleto", "text": ""}
+            return {"id": doc_id, "source_key": "texto_matriz_aigar", "source": filename,
+                    "sequence": int(doc_id[-2:]), "status": "ready", "text": text}
+        except Exception as exc:
+            return {"id": doc_id, "source_key": "texto_matriz_aigar", "source": filename,
+                    "status": "error", "error": str(exc)[:200], "text": ""}
+
+    async def limited(doc):
+        async with semaphore:
+            return await load_document(doc)
+    results = await asyncio.gather(*(limited(doc) for doc in TEXT_MATRIX_FILES))
+    loaded = [item for item in results if item.get("status") == "ready" and item.get("text")]
+    # Não declarar pronto se algum capítulo obrigatório falhou.
+    TEXT_MATRIX_CACHE = loaded
+    TEXT_MATRIX_AT = time.time()
+    return {
+        "ready": len(loaded) == len(TEXT_MATRIX_FILES),
+        "loaded": len(loaded),
+        "total": len(TEXT_MATRIX_FILES),
+        "chunks": loaded,
+        "documents": [{"id": x["id"], "source": x["source"], "chars": len(x["text"])} for x in loaded],
+        "errors": [{"id": x["id"], "source": x["source"], "error": x.get("error")} for x in results if x.get("status") != "ready"],
+        "mode": "cold_boot",
+    }
+
+
 async def boot_library():
     """Pré-carrega até cinco chunks por biblioteca para aquecer o cache do Worker e do navegador."""
     global LIBRARY_BOOT_CACHE, LIBRARY_BOOT_STATUS, LIBRARY_BOOT_AT
@@ -2055,7 +2120,15 @@ async def handle_ask(body, env=None):
     # em um isolate frio, recarrega os chunks iniciais das sete bibliotecas.
     try:
         core_boot = await boot_library()
-        cognitive_context = COGNITIVE_CORE.prepare(text, core_boot.get("chunks", []))
+        text_matrix_boot = await boot_text_matrix()
+        core_chunks = list(core_boot.get("chunks", []) or []) + list(text_matrix_boot.get("chunks", []) or [])
+        cognitive_context = COGNITIVE_CORE.prepare(text, core_chunks)
+        cognitive_context["text_matrix"] = {
+            "ready": bool(text_matrix_boot.get("ready")),
+            "loaded": int(text_matrix_boot.get("loaded", 0)),
+            "total": int(text_matrix_boot.get("total", len(TEXT_MATRIX_FILES))),
+            "documents": text_matrix_boot.get("documents", []),
+        }
     except Exception:
         cognitive_context = COGNITIVE_CORE.prepare(text, [])
 
@@ -2450,6 +2523,13 @@ class Default(WorkerEntrypoint):
                 return make_response({"ok": True, "memory_lab": status}, status=200, origin=origin)
             except Exception as exc:
                 return make_response({"ok": False, "memory_lab": {"ready": False, "mode": "error", "error": str(exc)[:500]}}, status=200, origin=origin)
+
+        if method == "GET" and path == "/texto-matriz/boot":
+            try:
+                matrix = await boot_text_matrix()
+                return make_response({"ok": True, "text_matrix": matrix}, status=200, origin=origin)
+            except Exception as exc:
+                return make_response({"ok": False, "text_matrix": {"ready": False, "loaded": 0, "total": len(TEXT_MATRIX_FILES), "error": str(exc)[:500]}}, status=200, origin=origin)
 
         if method == "GET" and path == "/library/boot":
             try:
