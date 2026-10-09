@@ -172,35 +172,92 @@ const pretty=x=>JSON.stringify(x??null,null,2);
 function state(ok,t){$("dot").className="dot"+(ok?" ok":"");$("st").textContent=t}
 let libraryBootReady=false;
 function libraryLabel(x){return x.source_key||x.source||"biblioteca"}
+const LIBRARY_BROWSER_CACHE_NAME="aigar-library-cache-v1";
+const LIBRARY_BROWSER_CACHE_KEY=()=>new URL("/__aigar_cache__/library-boot-v1.json",location.origin).href;
+async function readBrowserLibraryCache(){
+  try{
+    if("caches" in window){
+      const cache=await caches.open(LIBRARY_BROWSER_CACHE_NAME);
+      const response=await cache.match(LIBRARY_BROWSER_CACHE_KEY());
+      if(response)return await response.json();
+    }
+  }catch(e){}
+  try{
+    const raw=sessionStorage.getItem("aigar-library-boot-v1");
+    return raw?JSON.parse(raw):null;
+  }catch(e){return null}
+}
+async function writeBrowserLibraryCache(lib){
+  const payload=JSON.stringify(lib);
+  try{
+    if("caches" in window){
+      const cache=await caches.open(LIBRARY_BROWSER_CACHE_NAME);
+      await cache.put(
+        LIBRARY_BROWSER_CACHE_KEY(),
+        new Response(payload,{headers:{"Content-Type":"application/json","Cache-Control":"max-age=86400"}})
+      );
+      return true;
+    }
+  }catch(e){}
+  try{sessionStorage.setItem("aigar-library-boot-v1",payload);return true}catch(e){return false}
+}
 function renderLibraryBoot(lib){
   const items=lib?.libraries||[];
-  const loaded=items.filter(x=>x.status==="ready").length;
+  const loaded=items.filter(x=>Number(x.chunks_loaded||0)>0).length;
   const total=items.length;
-  $("libraryBootSummary").textContent=total?(loaded+"/"+total+" bibliotecas com chunk referencial carregado"):"Nenhuma biblioteca encontrada";
-  $("libraryBootTag").textContent=total&&loaded===total?"READY":(loaded?"PARCIAL":"ERRO");
+  const chunks=Number(lib?.loaded_chunks||0);
+  const targets=Number(lib?.total_chunks||0);
+  $("libraryBootSummary").textContent=total
+    ? loaded+"/"+total+" bibliotecas · "+chunks+"/"+targets+" chunks no cache"
+    : "Nenhuma biblioteca encontrada";
+  $("libraryBootTag").textContent=lib?.ready?"READY":(chunks?"PARCIAL":"ERRO");
   $("libraryGrid").innerHTML=items.map(x=>{
     const cls=x.status==="ready"?"ok":(x.status==="error"?"err":"warn");
-    const detail=x.status==="ready"?("chunk "+(x.sequence??"?")+" · págs. "+(x.start_page??"?")+"–"+(x.end_page??"?")):(x.detail||"não carregada");
-    const title=(x.source||x.source_key||"").replace(/"/g,"&quot;");
-    return '<div class="lib-card" title="'+title+'"><span class="lib-light '+cls+'"></span><div><div class="lib-name">'+libraryLabel(x)+'</div><div class="lib-meta">'+detail+'</div></div></div>';
+    const seq=(x.chunk_sequences||[]).join(", ");
+    const detail=(x.chunks_loaded||0)+"/"+(x.chunks_target||0)+" chunks carregados"
+      +(seq?" · seq. "+seq:"")
+      +(x.chunks_available!=null?" · "+x.chunks_available+" disponíveis":"");
+    const title=String(x.source||x.source_key||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+    const label=String(libraryLabel(x)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    return '<div class="lib-card" title="'+title+'"><span class="lib-light '+cls+'"></span><div><div class="lib-name">'+label+'</div><div class="lib-meta">'+detail+'</div></div></div>';
   }).join("");
 }
 async function bootLibrary(){
-  $("libraryBootSummary").textContent="Carregando chunks referenciais…";
+  $("libraryBootSummary").textContent="Preparando cache local e carregando até 35 chunks…";
   $("libraryBootTag").textContent="carregando";
+  let shownCache=false;
   try{
-    const r=await fetch(base()+"/library/boot",{cache:"no-cache"});
+    const cached=await readBrowserLibraryCache();
+    if(cached&&Array.isArray(cached.chunks)&&cached.chunks.length){
+      renderLibraryBoot(cached);
+      $("libraryBootTag").textContent="CACHE";
+      $("libraryBootSummary").textContent="Cache local: "+cached.chunks.length+" chunks · atualizando bibliotecas…";
+      shownCache=true;
+    }
+  }catch(e){}
+  try{
+    const r=await fetch(base()+"/library/boot",{cache:"no-store"});
     const d=await r.json();
     if(!r.ok)throw Error(d.message||"HTTP "+r.status);
     const lib=d.library||{};
     renderLibraryBoot(lib);
+    const saved=await writeBrowserLibraryCache(lib);
     libraryBootReady=Number(lib.loaded||0)>0;
     state(!!lib.ready,"AIGAR "+(lib.ready?"READY":"parcial"));
+    const browserCache=saved?"cache do navegador atualizado":"cache local indisponível";
+    $("libraryBootSummary").textContent=
+      Number(lib.loaded_chunks||0)+"/"+Number(lib.total_chunks||0)+" chunks carregados de "+
+      Number(lib.total||0)+" bibliotecas · "+browserCache;
   }catch(e){
-    libraryBootReady=false;
-    $("libraryBootTag").textContent="ERRO";
-    $("libraryBootSummary").textContent="Falha no boot da biblioteca: "+e.message;
-    $("libraryGrid").innerHTML="";
+    if(!shownCache){
+      libraryBootReady=false;
+      $("libraryBootTag").textContent="ERRO";
+      $("libraryBootSummary").textContent="Falha no carregamento da biblioteca: "+e.message;
+      $("libraryGrid").innerHTML="";
+    }else{
+      $("libraryBootTag").textContent="CACHE";
+      $("libraryBootSummary").textContent="Usando cache local; atualização indisponível: "+e.message;
+    }
   }
 }
 async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw Error("HTTP "+r.status);let d=await r.json();state(true,(d.runtime||"AIGAR")+" "+(d.version||""))}catch(e){state(false,"offline")}}
