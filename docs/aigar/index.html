@@ -296,6 +296,8 @@ async function bootLibrary(){
       $("libraryBootTag").textContent="ERRO";
       $("libraryBootSummary").textContent="Falha no carregamento da biblioteca: "+e.message;
       $("libraryGrid").innerHTML="";
+      $("coreChunks").textContent="—";
+      finishCoreBoot(false,"Não foi possível carregar as bibliotecas. O AIGAR continuará em modo reduzido e ainda poderá responder.");
     }else{
       $("libraryBootTag").textContent="CACHE";
       $("libraryBootSummary").textContent="Usando cache local; atualização indisponível: "+e.message;
