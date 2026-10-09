@@ -7,7 +7,6 @@ para orientar interpretação, planejamento e geração de respostas.
 from __future__ import annotations
 
 import re
-from collections import Counter
 
 CORE_VERSION = "1.0.0"
 
