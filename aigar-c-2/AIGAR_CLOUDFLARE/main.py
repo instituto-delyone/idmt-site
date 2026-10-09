@@ -1751,18 +1751,18 @@ class Default(WorkerEntrypoint):
         parsed = urlparse(str(request.url))
         path = parsed.path.rstrip("/") or "/"
 
-# Normaliza o prefixo da rota do domínio oficial.
-if path == "/aigar/api":
-    path = "/"
-elif path.startswith("/aigar/api/"):
-    path = path[len("/aigar/api"):]
+        # Normaliza o prefixo da rota do domínio oficial.
+        if path == "/aigar/api":
+            path = "/"
+        elif path.startswith("/aigar/api/"):
+            path = path[len("/aigar/api"):]
 
-origin = _request_origin(request)
+        origin = _request_origin(request)
 
         if method == "OPTIONS":
             return Response(None, status=204, headers=cors_headers(origin))
 
-                if method == "GET" and path == "/health":
+        if method == "GET" and path == "/health":
             r2_ready = binding(self.env, R2_BINDING) is not None
             d1_ready = binding(self.env, D1_BINDING) is not None
             storage_ready = r2_ready and d1_ready
