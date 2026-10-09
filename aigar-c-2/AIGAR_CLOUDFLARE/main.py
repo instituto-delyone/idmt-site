@@ -1496,3 +1496,352 @@ def make_response(data,status=200,origin=None):
 async def handle_ask(body):
     text=body.get("input")
     session_id=body.get("session_id") or "default"
+    if not isinstance(text, str) or not text.strip():
+        return 400, {"ok": False, "status": "invalid_input", "message": "O campo 'input' deve conter texto."}
+    text = text.strip()
+    if len(text) > 20000:
+        return 413, {"ok": False, "status": "input_too_large", "message": "A entrada excede o limite de 20.000 caracteres."}
+    session_id = str(session_id)[:128]
+    session = SESSIONS.setdefault(session_id, {
+        "session_id": session_id,
+        "turns": [],
+        "last_user_input": None,
+        "last_response": None,
+        "reading": None,
+    })
+
+    reading = LANGUAGE_ENGINE.interpret(text)
+    prior_turns = session.get("turns", [])[-8:]
+    memory_context = [
+        {"role": turn.get("role"), "content": turn.get("content")}
+        for turn in prior_turns
+        if turn.get("content")
+    ]
+    if reading.get("needs_memory") and memory_context:
+        reading["linguistic_analysis"]["recent_context_available"] = True
+        reading["linguistic_analysis"]["recent_context_turns"] = len(memory_context)
+
+    evidence_items = []
+    library_trace = {
+        "kind": "library",
+        "id": "aigar.library",
+        "status": "missing",
+        "detail": "A biblioteca não foi consultada para esta intenção.",
+    }
+    if reading.get("needs_library"):
+        try:
+            evidence_items = await library_search(text, reading, limit=5)
+            library_trace = {
+                "kind": "library",
+                "id": "aigar.library.hybrid",
+                "status": "confirmed" if evidence_items else "missing",
+                "detail": (
+                    f"{len(evidence_items)} evidência(s) recuperada(s) no catálogo híbrido."
+                    if evidence_items else
+                    "Nenhuma evidência suficientemente relevante foi recuperada."
+                ),
+            }
+        except Exception as exc:
+            library_trace = {
+                "kind": "library",
+                "id": "aigar.library.hybrid",
+                "status": "missing",
+                "detail": "Falha na consulta da biblioteca: " + str(exc)[:400],
+            }
+
+    question = (reading.get("linguistic_analysis") or {}).get("question") or {}
+    qtype = question.get("type")
+    topic = question.get("topic_head") or question.get("topic_candidate") or reading.get("scope") or "esse assunto"
+    evidence_texts = []
+    for item in evidence_items:
+        sentence = str(item.get("text") or "").strip()
+        if sentence and sentence not in evidence_texts:
+            evidence_texts.append(sentence)
+        if len(evidence_texts) >= 3:
+            break
+
+    plan = {
+        "understand_before_answer": True,
+        "intent": reading.get("intent"),
+        "depth": reading.get("depth"),
+        "use_memory": bool(reading.get("needs_memory") and memory_context),
+        "use_library": bool(reading.get("needs_library")),
+        "use_diagnosis": bool(reading.get("needs_diagnosis")),
+        "answer_mode": (
+            "social" if reading.get("intent") == "phatic"
+            else "source_grounded" if evidence_texts
+            else "source_unavailable" if reading.get("needs_library")
+            else "context_grounded" if memory_context and reading.get("needs_memory")
+            else "reasoned_without_library"
+        ),
+        "question_type": qtype,
+        "semantic_goal": question.get("semantic_goal"),
+        "topic": topic,
+        "evidence": evidence_texts,
+        "evidence_details": evidence_items,
+        "steps": [
+            "interpret",
+            "gather_available_context",
+            "select_relevant_evidence",
+            "reason",
+            "plan_response",
+        ],
+    }
+
+    mode = plan["answer_mode"]
+    if mode == "social":
+        answer = "Oi! Aurora aqui. Manda o que você quer construir que a gente organiza."
+        aurora_detail = "Resposta social breve; consulta temática não necessária."
+    elif mode == "source_grounded":
+        book_answer = compose_book_grounded_answer(topic, qtype, reading.get("depth", "normal"), evidence_items)
+        if book_answer:
+            answer = book_answer
+        else:
+            prefix = {
+                "definition": f"{str(topic).capitalize()} — pelo material recuperado na biblioteca:",
+                "function": f"A função de {topic} — pelo material recuperado na biblioteca:",
+                "cause": f"Sobre a causa de {topic} — pelo material recuperado na biblioteca:",
+            }.get(qtype, f"Encontrei conteúdo relevante sobre {topic}:")
+            answer = prefix + "\n\n" + " ".join(evidence_texts)
+            answer += "\n\nEsta resposta apresenta os trechos mais relevantes recuperados; a síntese pode ser refinada em uma camada posterior."
+        aurora_detail = "Resposta apresentada a partir de evidências selecionadas pelo mecanismo de busca."
+    elif mode == "context_grounded":
+        previous = session.get("last_user_input")
+        previous_response = session.get("last_response")
+        answer = "Vou continuar a partir do contexto recente."
+        if previous:
+            answer += f"\n\nSua mensagem anterior foi: {previous}"
+        if previous_response:
+            answer += f"\n\nMinha resposta anterior foi: {previous_response}"
+        aurora_detail = "Resposta contextual baseada no histórico recente desta sessão."
+    elif mode == "source_unavailable":
+        answer = (
+            f"Entendi a pergunta sobre {topic} e identifiquei que preciso consultar a biblioteca, "
+            "mas não consegui recuperar evidência suficiente para responder com segurança. "
+            "Isso não significa que a pergunta não tenha sentido; significa que a busca atual não encontrou suporte adequado."
+        )
+        aurora_detail = "A busca não encontrou evidência documental suficiente."
+    else:
+        answer = (
+            "Entendi a solicitação e organizei sua intenção, mas não encontrei contexto ou evidência suficiente "
+            "para dar uma resposta factual confiável. Se você delimitar o tema ou fornecer uma fonte, continuo a partir daí."
+        )
+        aurora_detail = "Resposta sem afirmações factuais não sustentadas por fonte ou contexto."
+
+    sources = [
+        {
+            "kind": "language",
+            "id": "aigar.language.mother",
+            "status": "confirmed",
+            "detail": "Entrada interpretada pela camada de Linguagem Materna executável.",
+        },
+        library_trace,
+        {
+            "kind": "memory",
+            "id": "aigar.session_memory",
+            "status": "confirmed" if memory_context and reading.get("needs_memory") else "missing",
+            "detail": f"{len(memory_context)} turno(s) anterior(es) disponíveis nesta sessão."
+            if memory_context and reading.get("needs_memory")
+            else "Memória conversacional persistente entre instâncias não está configurada; contexto limitado à sessão do Worker.",
+        },
+        {
+            "kind": "reasoning",
+            "id": "aigar.reasoning",
+            "status": "confirmed" if evidence_texts else "inferred",
+            "detail": f"Plano organizado com {len(evidence_texts)} evidência(s).",
+        },
+        {
+            "kind": "aurora",
+            "id": "aigar.aurora",
+            "status": "confirmed",
+            "detail": aurora_detail,
+        },
+    ]
+
+    confirmed = sum(1 for source in sources if source.get("status") == "confirmed")
+    confidence = min(0.85, max(0.15, float(reading.get("confidence", 0.45)) * 0.5 + confirmed * 0.07))
+    if reading.get("needs_library") and not evidence_items:
+        confidence = min(confidence, 0.35)
+
+    turn = {"role": "user", "content": text}
+    session["turns"].append(turn)
+    session["turns"].append({"role": "assistant", "content": answer})
+    session["turns"] = session["turns"][-20:]
+    session["last_user_input"] = text
+    session["last_response"] = answer
+    session["reading"] = reading
+
+    library_payload = {
+        "chunks_loaded": len(evidence_items),
+        "chunks": [
+            {
+                "id": item.get("chunk_id"),
+                "source": item.get("source"),
+                "source_key": item.get("source_key"),
+                "start_page": item.get("start_page"),
+                "end_page": item.get("end_page"),
+                "score": item.get("score"),
+                "semantic_score": item.get("semantic_score"),
+                "lexical_score": item.get("lexical_score"),
+                "source_relevance": item.get("source_relevance"),
+            }
+            for item in evidence_items
+        ],
+    }
+    return 200, {
+        "ok": True,
+        "text": answer,
+        "state": {
+            "session_id": session_id,
+            "turns": session["turns"],
+            "last_user_input": session["last_user_input"],
+            "last_response": session["last_response"],
+            "reading": reading,
+        },
+        "sources": sources,
+        "confidence": round(confidence, 4),
+        "plan": plan,
+        "library": library_payload,
+    }
+
+
+# --- HTTP entry point: keeps the deployed Worker and frontend contract aligned. ---
+
+def cors_headers(origin=None):
+    allowed_origins = {
+        "https://delyone.com",
+        "https://www.delyone.com",
+        "https://aigar-api.dr-delyone.workers.dev",
+    }
+    allowed = origin if origin in allowed_origins else "https://delyone.com"
+    return {
+        "Access-Control-Allow-Origin": allowed,
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization,X-Filename,X-File-SHA256",
+        "Access-Control-Max-Age": "86400",
+        "Vary": "Origin",
+    }
+
+
+def make_response(data, status=200, origin=None):
+    headers = {"Content-Type": "application/json; charset=utf-8", **cors_headers(origin)}
+    return Response(json.dumps(data, ensure_ascii=False), status=status, headers=headers)
+
+
+def _request_origin(request):
+    try:
+        return request.headers.get("Origin")
+    except Exception:
+        return None
+
+
+async def _json_body(request):
+    try:
+        body = await request.json()
+        return body if isinstance(body, dict) else {}
+    except Exception:
+        return {}
+
+
+class Default(WorkerEntrypoint):
+    async def fetch(self, request):
+        method = str(request.method or "GET").upper()
+        parsed = urlparse(str(request.url))
+        path = parsed.path.rstrip("/") or "/"
+        origin = _request_origin(request)
+
+        if method == "OPTIONS":
+            return Response(None, status=204, headers=cors_headers(origin))
+
+        if method == "GET" and path == "/health":
+            return make_response({
+                "ok": True,
+                "service": "aigar-api",
+                "runtime": "AIGAR",
+                "version": "0.7.0-cloudflare",
+                "status": "online",
+                "backend": "python_workers",
+                "features": {
+                    "language": True,
+                    "hybrid_library_search": True,
+                    "session_memory": True,
+                    "persistent_library_upload": True,
+                    "persistent_storage_ready": bool(
+                        binding(self.env, R2_BINDING) and binding(self.env, D1_BINDING)
+                    ),
+                },
+            }, origin=origin)
+
+        if method == "GET" and path == "/library/boot":
+            try:
+                boot = await boot_library()
+                return make_response({
+                    "ok": True,
+                    "library": boot,
+                }, status=200 if boot.get("loaded", 0) > 0 else 503, origin=origin)
+            except Exception as exc:
+                return make_response({
+                    "ok": False,
+                    "library": {
+                        "ready": False,
+                        "libraries": [],
+                        "loaded": 0,
+                        "total": 0,
+                        "mode": "error",
+                    },
+                    "message": str(exc)[:1000],
+                }, status=500, origin=origin)
+
+        if method == "POST" and path == "/perguntar":
+            body = await _json_body(request)
+            status, data = await handle_ask(body)
+            return make_response(data, status=status, origin=origin)
+
+        if method == "POST" and path == "/auth/login":
+            body = await _json_body(request)
+            try:
+                status, data = await medunity_admin_login(body)
+                return make_response(data, status=status, origin=origin)
+            except Exception as exc:
+                return make_response({
+                    "detail": "Não foi possível validar as credenciais no MedUnity.",
+                    "error": str(exc)[:500],
+                }, status=502, origin=origin)
+
+        if path == "/auth/me" and method == "GET":
+            status, data = await medunity_me(request)
+            return make_response(data, status=status, origin=origin)
+
+        if path.startswith("/admin/"):
+            usuario, auth_status, auth_data = await require_admin(request)
+            if not usuario:
+                return make_response(auth_data, status=auth_status, origin=origin)
+
+            if path == "/admin/storage" and method == "GET":
+                storage = await storage_status(self.env)
+                return make_response({
+                    "ok": True,
+                    "ready": storage["ready"],
+                    "storage": storage,
+                }, status=200, origin=origin)
+
+            if path == "/admin/documents" and method == "GET":
+                status, data = await admin_documents(self.env)
+                return make_response(data, status=status, origin=origin)
+
+            if path == "/admin/upload" and method == "POST":
+                status, data = await admin_upload(request, self.env, usuario)
+                return make_response(data, status=status, origin=origin)
+
+            return make_response({
+                "ok": False,
+                "status": "not_found",
+                "message": "Endpoint administrativo não encontrado.",
+            }, status=404, origin=origin)
+
+        return make_response({
+            "ok": False,
+            "status": "not_found",
+            "message": "Endpoint não encontrado.",
+            "path": path,
+        }, status=404, origin=origin)
