@@ -44,7 +44,7 @@ class AIGARLanguage:
             if " " in cue:
                 if cue in text:
                     return True
-            elif re.search(rf"(?<!\\w){re.escape(cue)}(?!\\w)", text, flags=re.UNICODE):
+            elif re.search(rf"(?<!\w){re.escape(cue)}(?!\w)", text, flags=re.UNICODE):
                 return True
         return False
 
