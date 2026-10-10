@@ -144,3 +144,26 @@ Os diretórios já existentes em `CORTEX/` continuam sendo a arquitetura-alvo; o
 - MIG-007 destino: `c52a588710191c65ffc9f01c383d73228d87d04d`; remoção da origem: `a4c2bd996bd127f84036c1498a806e39ecd7faf3`.
 
 **Próxima etapa:** continuar a migração dos arquivos confirmados no mapa. Depois de concluir movimentações/renomeações, traduzir imports e caminhos de dados em um lote dedicado. O Cloudflare Worker permanece totalmente fora do escopo.
+
+
+## Registro de migração executada — lote 2 (decisão anatômica v2)
+
+**Estado:** os cinco arquivos abaixo foram copiados para os destinos aprovados e suas origens foram removidas após a criação dos destinos. O conteúdo dos arquivos foi preservado byte a byte no nível do texto UTF-8 conforme SHA de blob original e SHA de destino idênticos. Imports e referências ainda não foram traduzidos. Nenhum teste foi executado.
+
+| ID | Origem | Destino | Decisão/estado |
+|---|---|---|---|
+| MIG-008 | `aigar-c-2/AIGAR_RUNTIME/models.py` | `aigar-c-2/CORTEX/thalamus/models.py` | Contratos compartilhados; migrado, imports pendentes |
+| MIG-009 | `aigar-c-2/AIGAR_RUNTIME/aurora.py` | `aigar-c-2/CORTEX/prefrontal/aurora.py` | Apresentação da resposta; migrado, imports pendentes |
+| MIG-010 | `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py` | `aigar-c-2/CORTEX/engram/knowledge_retrieval.py` | Adaptador de recuperação; migrado, dependência externa preservada |
+| MIG-011 | `aigar-c-2/AIGAR_RUNTIME/linguistic_interpreter.py` | `aigar-c-2/CORTEX/thalamus/linguistic_interpreter.py` | Interpretação/classificação inicial; migrado, imports pendentes |
+| MIG-012 | `aigar-c-2/AIGAR_RUNTIME/diagnosis.py` | `aigar-c-2/Diagnosis/diagnosis.py` | Adaptador clínico mantido fora de CORTEX para integração posterior |
+
+### Commits efetivos do lote 2
+
+- MIG-008 destino: `ef085c38f830d0ff41d015bd10ab59266454008e`; remoção da origem: `2a3cdf194709c99f7d06b25f6871905f8611672a`. Blob preservado: `826ae4f2b96a11f94d938e2f3c32f4de60ccb175`.
+- MIG-009 destino: `5496836375806c97055be1e95ff0378ee11c3b81`; remoção da origem: `458ed2b83b326719010f0b58b9b792603981337d`. Blob preservado: `a7a4555dabb5a25be02b2675df6f5d9c0c061452`.
+- MIG-010 destino: `35928d54858f0e7ae41312312f4bea819b794e24`; remoção da origem: `71fbd16e3e201670d872088dd02d47631e6e5db2`. Blob preservado: `f5c4562e0d8d9a4713ce8baf202ef1a1dba10cbd`.
+- MIG-011 destino: `ebb4bb8575f8b21e345d7ec265246fad8519b405`; remoção da origem: `6bce2443bb83afa1e766b8203ad39af17b01cfac`. Blob preservado: `5eaebbccf6ec80904780a1cfeec24f9ae2839a88`.
+- MIG-012 destino: `7507d8769f47dceff570fd3a5557a103ef8351f7`; remoção da origem: `ea9655ca498b08cdf8621eb5868db9c2e03988a0`. Blob preservado: `4039ddfa274086e9af621a7b9e762c59208f075b`.
+
+**Próxima etapa:** concluir o mapa dos demais arquivos e, em lote separado, atualizar imports e caminhos de dados. O Cloudflare Worker permanece fora do escopo.
