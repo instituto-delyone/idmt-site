@@ -166,3 +166,13 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `CORTEX/reasoning_engine/`, `default_mode_network/` e `worker_bridge/` permanecem placeholders, não funcionalidades implementadas. `CORTEX/occipital/` contém documentação, enquanto a relação com `aigar_ui_chat_mvp/` segue em aberto.
 - O inventário atualizado foi registrado no commit `691f447a30987381977aa81cac2e514f6a61e97f`.
 - Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Auditoria de contratos e dependências diretas — 2026-10-10
+
+- Lidos diretamente na branch `neurocognitive-migration`: entry point, contratos canônicos, ingresso sensorial, roteador, adapter de linguagem, estado de trabalho, adapter de memória, adapter de biblioteca, controlador pré-frontal, Aurora, status de runtime e adapter Diagnosis.
+- Confirmada a cadeia de contratos tipados para memória (`MemoryRecallRequest/Result`) e biblioteca (`LibraryQuery/LibrarySearchResult`) já presente no estado atual da branch. Não foi necessário recriar esses modelos.
+- Identificada uma pendência de política: `RoutingDecision.use_reasoning` existe, mas `AIGAR_RUNTIME/main.py` ainda executa o planejamento sempre. Mantida como pendência, sem mudança de comportamento nesta etapa.
+- Registradas explicitamente as limitações atuais: memória apenas de sessão, motor Diagnosis real ainda não conectado, health como estado de processo e não prova de conectividade.
+- A busca global do GitHub não foi tratada como evidência completa da branch. Os achados foram limitados a arquivos obtidos diretamente pela referência `neurocognitive-migration`.
+- Inventário ampliado com o grafo estático e pendências; nenhum teste executado, sem merge/deploy e Cloudflare Worker intocado.
