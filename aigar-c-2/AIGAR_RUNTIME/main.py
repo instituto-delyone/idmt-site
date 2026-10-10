@@ -59,9 +59,10 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     # The reasoning stage remains in the pipeline for now; its policy will be
     # refined after all subsystem contracts and references have been completed.
-    plan, trace = reasoning.plan(
+    plan_contract, trace = reasoning.plan(
         signal.raw_text, reading.model_dump(), memory_context, library_context, diagnosis_result
     )
+    plan = plan_contract.model_dump()
     sources.append(trace)
 
     text, trace = aurora.respond(
