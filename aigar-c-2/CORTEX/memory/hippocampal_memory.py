@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Any
-from .models import ConversationState, SourceTrace
+from ..thalamus.models import ConversationState, SourceTrace
 
 class HippocampalMemoryAdapter:
     """Functional hippocampal-memory analogy for the historical memory layer.
