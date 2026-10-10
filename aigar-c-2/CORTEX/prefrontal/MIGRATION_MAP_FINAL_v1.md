@@ -89,3 +89,9 @@ O lote 2 foi registrado como MIG-008–MIG-012 em `MIGRATION_INVENTORY_v1.md`. A
 - `aigar-c-2/Diagnosis/`: adaptador do Diagnosis independente até a integração posterior.
 
 **Estado global:** movimentações dos lotes 1 e 2 registradas; atualização de referências pendente; testes ainda não autorizados nesta fase; sem merge/deploy; Cloudflare Worker excluído.
+
+## Fechamento do levantamento — dependências e fronteiras
+
+A árvore do repositório e os contratos centrais foram revisados para concluir o inventário antes da codificação. O ponto de entrada antigo `AIGAR_RUNTIME/main.py` importa vários módulos que foram movidos; sua inconsistência temporária é conhecida e será resolvida na fase de tradução. O pacote `knowledge_retrieval/` e o pipeline `knowledge_encoding/` continuam independentes. A UI `aigar_ui_chat_mvp/` permanece uma aplicação separada. Os documentos de `association_network/`, `AIGAR_PHASES/`, `AIGAR_RECONSTRUCTION/` e `conversational-engine/` são fontes de reconstrução e contratos a comparar, não código a mover automaticamente.
+
+O inventário ampliado e suas pendências estão em `MIGRATION_INVENTORY_v1.md`. Próxima etapa autorizada: começar a codificar a tradução de referências em lote controlado, preservando os contratos atuais e registrando cada alteração. Não executar testes antes da conclusão da tradução; não fazer merge/deploy; não alterar o Cloudflare Worker.
