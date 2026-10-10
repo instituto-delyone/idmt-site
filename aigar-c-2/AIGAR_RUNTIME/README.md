@@ -1,4 +1,4 @@
-# AIGAR Runtime — foundation v0.1
+# AIGAR Neurocognitive Runtime — foundation v0.1
 
 Runtime conversacional mínimo e modular para reconstrução funcional do AIGAR.
 
@@ -55,3 +55,12 @@ Body:
 ## Próxima etapa
 
 Conectar os adaptadores aos componentes reais existentes no repositório e, depois, criar o JSON mestre de mapeamento do ecossistema. Nenhum arquivo de `docs/` é necessário para isso.
+
+
+## Migração neurocognitiva — primeira etapa
+
+- `reasoning.py` → `prefrontal_controller.py`
+- `ReasoningEngine` → `PrefrontalController`
+- Importação do runtime atualizada em `main.py`.
+- O trace de origem `reasoning` é mantido para não quebrar o contrato de resposta.
+- Esta mudança foi isolada na branch `neurocognitive-migration`; não altera a produção.
