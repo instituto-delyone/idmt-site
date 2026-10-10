@@ -319,3 +319,13 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Implementação histórica preservada: `CORTEX/thalamus/linguistic_interpreter.py`; recebeu apenas docstring indicando sua função legada/comparativa. Commit: `ae418ec23b712ddc913973fe4b1c882dbe631d58`.
 - Registro no changelog: `c099401d4179d851ee4c77789a34b7eb0ce37875`.
 - A comparação funcional completa ainda não foi feita. Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
+
+
+### Aurora — contrato tipado de apresentação (2026-10-10)
+
+- Contratos: `AuroraRequest`/`AuroraResult` em `CORTEX/thalamus/models.py`; commit `7fa83e0c58a510af6366a5de944eed7426e36cc6`.
+- Adaptador: `Aurora.respond()` recebe a requisição tipada e devolve resultado com `SourceTrace`; as ramificações anteriores permanecem no método interno `_respond_legacy()` para preservar o texto e a lógica existentes. Commit `9d0143a8ce6f842ea15ef42a9b2de2f175c1ae6a`.
+- Orquestrador: `AIGAR_RUNTIME/main.py` constrói `AuroraRequest` e consome `AuroraResult`. Commit `9b8fa2d43ed07d5a1cbeb40886dfd54392bf7e57`.
+- Registro do changelog: commit `717cc8e5fde6b8e546e97a227efcf20ff853f8f3`.
+
+**Estado:** contrato integrado estaticamente; testes não executados por instrução de fase. Sem merge/deploy; Cloudflare Worker intocado.
