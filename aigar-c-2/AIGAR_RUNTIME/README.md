@@ -66,3 +66,5 @@ Conectar os adaptadores aos componentes reais existentes no repositório e, depo
 - Esta mudança foi isolada na branch `neurocognitive-migration`; não altera a produção.
 
 - `memory.py` → `hippocampal_memory.py`; `MemoryAdapter` → `HippocampalMemoryAdapter` (the current implementation still only provides session-local continuity; persistent recall remains unwired).
+
+- `language_bridge.py` → `language_network_bridge.py`; `ExecutableLanguageAdapter` → `LanguageNetworkAdapter`. A pasta histórica `AIGAR_LANGUAGE/` ainda será migrada em etapa própria, após mapear todos os consumidores.
