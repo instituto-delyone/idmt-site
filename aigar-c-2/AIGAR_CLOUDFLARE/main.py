@@ -1,46 +1,16 @@
 from __future__ import annotations
 
-import asyncio
-import base64
 import json
 import re
 import hashlib
-import time
 import uuid
-from datetime import datetime, timezone
-from urllib.parse import urlparse, quote
-from workers import WorkerEntrypoint, WorkflowEntrypoint, fetch
-from association_core import CognitiveContextCore
-from memory_lab import MemoryLab
+from urllib.parse import urlparse
+from workers import WorkerEntrypoint
 
-from language_runtime import (
-    BOOK_LEARNING,
-    CHUNK_CACHE,
-    SESSIONS,
-    LANGUAGE,
-    LANGUAGE_ENGINE,
-    LIBRARY_INDEX,
-    PORTUGUESE,
-    STOPWORDS,
-    LanguageEngine,
-    compose_book_grounded_answer,
-    find_linguistic_concept,
-    sentences,
-    tokens,
-)
 import library_runtime
-from library_runtime import (
-    COGNITIVE_CORE,
-    MEMORY_LAB,
-    boot_library,
-    boot_text_matrix,
-    library_search,
-    source_relevance,
-)
-from context_runtime import AsymmetricContextManager, build_adaptive_plan, revise_adaptive_plan
-from http_runtime import _json_body, _request_origin, cors_headers, make_response
+from library_runtime import MEMORY_LAB, boot_library, boot_text_matrix
+from http_runtime import _json_body, _request_origin, make_response
 from cloudflare_bindings import binding
-from answer_runtime import render_adaptive_answer
 from storage_runtime import (
     ALLOWED_UPLOAD_TYPES,
     CHUNK_PAGES,
