@@ -5,6 +5,7 @@ from fastapi import FastAPI
 # AIGAR_RUNTIME/main.py remains the operational entry point during migration.
 # CORTEX is the provisional canonical home for runtime components and contracts.
 from CORTEX.thalamus.models import RuntimeRequest, RuntimeResponse
+from CORTEX.thalamus.context_router import route_reading
 from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
 from CORTEX.memory.working_memory import WorkingStateStore
 from CORTEX.memory.hippocampal_memory import HippocampalMemoryAdapter
@@ -29,21 +30,22 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     reading = language.interpret(request.input)
     state.reading = reading
+    routing = route_reading(reading)
 
     memory_context = []
     sources = []
 
-    if reading.needs_memory or reading.intent == "continuity":
+    if routing.use_memory:
         memory_context, trace = memory.recall(state)
         sources.append(trace)
 
     library_context = []
-    if reading.needs_library:
+    if routing.use_library:
         library_context, trace = library.search(request.input, reading=reading.model_dump())
         sources.append(trace)
 
     diagnosis_result = {}
-    if reading.needs_diagnosis:
+    if routing.use_diagnosis:
         diagnosis_result, trace = diagnosis.evaluate({
             "input": request.input,
             "reading": reading.model_dump(),
@@ -52,6 +54,8 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
         })
         sources.append(trace)
 
+    # The reasoning stage remains in the pipeline for now; its policy will be
+    # refined after all subsystem contracts and references have been completed.
     plan, trace = reasoning.plan(
         request.input, reading.model_dump(), memory_context, library_context, diagnosis_result
     )
@@ -74,6 +78,7 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     return RuntimeResponse(
         text=text, state=state, sources=sources, confidence=confidence, plan=plan
     )
+
 
 @app.get("/health")
 def health() -> dict:
