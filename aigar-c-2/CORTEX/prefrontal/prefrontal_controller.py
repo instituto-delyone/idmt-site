@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from ..thalamus.models import SourceTrace
+from ..thalamus.models import ReasoningPlan, SourceTrace
 
 
 def _sentences(text: str) -> list[str]:
@@ -46,7 +46,7 @@ class PrefrontalController:
         memory: list,
         library: list,
         diagnosis: dict,
-    ) -> tuple[dict, SourceTrace]:
+    ) -> tuple[ReasoningPlan, SourceTrace]:
         evidence = self._select_evidence(input_text, library)
         linguistic = reading.get("linguistic_analysis", {})
         question = linguistic.get("question", {})
@@ -62,26 +62,26 @@ class PrefrontalController:
         else:
             answer_mode = "reasoned_without_library"
 
-        plan = {
-            "understand_before_answer": True,
-            "intent": reading.get("intent"),
-            "depth": reading.get("depth"),
-            "use_memory": reading.get("needs_memory", False),
-            "use_library": bool(library) or reading.get("needs_library", False),
-            "use_diagnosis": bool(diagnosis) or reading.get("needs_diagnosis", False),
-            "answer_mode": answer_mode,
-            "question_type": question.get("type"),
-            "semantic_goal": question.get("semantic_goal"),
-            "topic": question.get("topic_candidate") or reading.get("scope"),
-            "evidence": evidence,
-            "steps": [
+        plan = ReasoningPlan(
+            understand_before_answer=True,
+            intent=reading.get("intent"),
+            depth=reading.get("depth"),
+            use_memory=reading.get("needs_memory", False),
+            use_library=bool(library) or reading.get("needs_library", False),
+            use_diagnosis=bool(diagnosis) or reading.get("needs_diagnosis", False),
+            answer_mode=answer_mode,
+            question_type=question.get("type"),
+            semantic_goal=question.get("semantic_goal"),
+            topic=question.get("topic_candidate") or reading.get("scope"),
+            evidence=evidence,
+            steps=[
                 "interpret",
                 "gather_available_context",
                 "select_relevant_evidence",
                 "reason",
                 "plan_response",
             ],
-        }
+        )
 
         detail = (
             f"Raciocínio estruturou a resposta com {len(evidence)} evidência(s) "
