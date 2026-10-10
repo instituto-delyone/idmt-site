@@ -30,15 +30,22 @@ Essa imutabilidade é uma regra de trabalho para reduzir deriva arquitetural; n�
 
 ## Contratos compartilhados
 
-O contrato canônico está em **thalamus/models.py**:
+A fonte canônica é **CORTEX/thalamus/models.py**. Os contratos existentes atualmente incluem:
 
 - **ConversationReading**: leitura estruturada da entrada.
+- **RoutingDecision**: seleção explícita dos subsistemas opcionais.
+- **ReasoningPlan**: plano estruturado para orientar a apresentação.
 - **ConversationState**: estado conversacional de uma sessão.
 - **SourceTrace**: rastreabilidade da origem e do estado de evidência.
-- **RuntimeRequest** e **RuntimeResponse**: fronteira de entrada/saída do runtime.
+- **RuntimeRequest** e **RuntimeResponse**: fronteira externa do runtime.
+- **SensoryInput**: envelope de entrada sensorial textual.
+- **MemoryRecallRequest** e **MemoryRecallResult**: fronteira de recuperação de contexto.
+- **LibraryQuery** e **LibrarySearchResult**: fronteira de busca documental.
+- **DiagnosisRequest** e **DiagnosisResult**: fronteira do adaptador clínico.
+- **AuroraRequest** e **AuroraResult**: fronteira de apresentação da resposta.
 - **Intent**, **Depth** e **SourceStatus**: aliases compartilhados para valores controlados.
 
-Consumidores devem importar os modelos deste módulo; não devem redefinir esses contratos em cada região.
+Consumidores devem importar os modelos deste módulo; não devem redefinir esses contratos em cada região. A existência de um contrato não significa que a implementação especializada correspondente esteja conectada: em particular, a recuperação persistente do Memory Card e o motor especializado Diagnosis continuam pendentes de integração.
 
 ## Entrada operacional
 
