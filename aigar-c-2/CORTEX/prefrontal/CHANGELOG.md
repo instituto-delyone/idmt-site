@@ -118,3 +118,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `AIGAR_RUNTIME/main.py`: constrói os envelopes de entrada e extrai `items`/`source` dos resultados. Commit: `ef96fcfafe7fe749b8767ce5ce83327122385415`.
 
 **Estado:** alterações registradas no branch; ainda sem execução de testes, merge ou deploy. Cloudflare Worker intocado.
+
+## Interpretadores — fronteira canônica documentada sem exclusão (2026-10-10)
+
+- `CORTEX/language/interpreter.py` permanece o interpretador ativo, carregado por `LanguageNetworkAdapter` e convertido para `ConversationReading`.
+- `CORTEX/thalamus/linguistic_interpreter.py` foi preservado e recebeu apenas documentação explícita de que é uma heurística legada mantida para comparação; nenhuma lógica foi removida ou alterada. Commit: `ae418ec23b712ddc913973fe4b1c882dbe631d58`.
+- A busca de referências não encontrou correspondências para o nome `linguistic_interpreter` no índice de busca do GitHub; isso não substitui a revisão global de imports e caminhos.
+
+**Estado:** decisão arquitetural documentada; comparação semântica e reconciliação futura continuam pendentes. Sem testes, merge ou deploy; Cloudflare Worker intocado.
