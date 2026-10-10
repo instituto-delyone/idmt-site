@@ -304,3 +304,11 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Commit do contrato: `18623acd4b800f986c1efb4c713ec5668ca199de`; registro no changelog: `c0ecf2193303f50a03f019edbbe6752c5284dc70`.
 - Ainda falta adaptar `HippocampalMemoryAdapter` e `KnowledgeRetrievalAdapter` para consumir/produzir esses envelopes. A memória persistente Memory Card segue não conectada; o pacote independente `knowledge_retrieval` permanece fora da migração estrutural.
 - Nenhum teste foi executado; sem merge/deploy; Cloudflare Worker intocado.
+
+## Integração dos contratos de memória e biblioteca (2026-10-10)
+
+- `HippocampalMemoryAdapter.recall()` agora recebe `MemoryRecallRequest` e devolve `MemoryRecallResult`; continua usando apenas turnos da sessão. Commit: `247c31fd41ba04350b8086dfd533db10b0c8d2fd`.
+- `KnowledgeRetrievalAdapter.search()` agora recebe `LibraryQuery` e devolve `LibrarySearchResult`; a busca híbrida permanece no pacote independente. Commit: `49fa92c28d59e3694bc1a0e6c8970b474c5cc5b3`.
+- `AIGAR_RUNTIME/main.py` usa ambos os contratos tipados e preserva os itens e rastros de proveniência consumidos pelas etapas seguintes. Commit: `ef96fcfafe7fe749b8767ce5ce83327122385415`.
+- Registro no changelog: `c4c29e94ecb9978119fb9e04ca4da2d40c66e278`.
+- Sem testes, merge ou deploy. Cloudflare Worker intocado.
