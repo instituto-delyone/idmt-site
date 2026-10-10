@@ -374,3 +374,25 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 - Recodificação/contratos: os registros anteriores documentam alterações em `models.py`, adaptadores, `main.py`, documentação e imports. Esses arquivos não devem ser contados como “apenas movidos”.
 - Percentual global: **não calculado** até congelar a lista total de arquivos-alvo imaginados e classificar cada artefato da árvore. O inventário por arquivo acima passa a ser a base para esse denominador.
 - Nenhum teste foi executado; não houve merge/deploy; Cloudflare Worker permanece fora do escopo.
+
+
+### Auditoria de contratos e grafo estático — 2026-10-10
+
+| Fronteira | Referência verificada | Estado observado | Próxima ação, sem tocar no Worker |
+|---|---|---|---|
+| Entrada sensorial | `AIGAR_RUNTIME/main.py` → `CORTEX/sensory/ingress.py` → `SensoryInput` | O texto e o ID de sessão são preservados no envelope; nenhuma normalização ocorre no ingresso | Preservar esse limite ao completar referências |
+| Linguagem | `main.py` → `LanguageNetworkAdapter` → `AIGARLanguage` → JSONs em `CORTEX/language/` | Adapter converte o resultado do interpretador em `ConversationReading`; os dados linguísticos usam caminhos relativos ao módulo | Manter JSONs co-localizados; PDF e teste históricos em `language_network/` continuam pendentes |
+| Roteamento | `main.py` → `route_reading` → `RoutingDecision` | Seleção de memória/biblioteca/Diagnosis é usada; o runtime ainda chama planejamento independentemente de `use_reasoning` | Registrar como decisão de política pendente; não alterar comportamento nesta etapa estrutural |
+| Memória | `main.py` → `MemoryRecallRequest` → `HippocampalMemoryAdapter` → `MemoryRecallResult` | Recupera somente turnos da sessão; persistência Memory Card explicitamente não conectada | Mapear a implementação real de Memory Card e seu contrato antes da integração |
+| Biblioteca | `main.py` → `LibraryQuery` → `KnowledgeRetrievalAdapter` → pacote independente `knowledge_retrieval/` | Retorna itens e `SourceTrace`; retriever depende de índices/cache sob sua raiz | Manter pacote independente e rastrear resolução de raiz/cache sem mover dados |
+| Diagnosis | `main.py` → `DiagnosisRequest` → `DiagnosisAdapter` → `DiagnosisResult` | Adaptador declara `missing` e não produz achados clínicos | Identificar a interface do motor especializado antes de ligar; não simular achados |
+| Planejamento e resposta | `PrefrontalController.plan` → `ReasoningPlan`; `Aurora.respond` → `AuroraResult` | Aurora preserva os ramos legados via contrato tipado; evidência é selecionada pelo controlador | Comparar com implementações históricas antes de qualquer mudança semântica |
+| Estado/saúde | `WorkingStateStore`; `current_runtime_status` | Estado é local ao processo; health reporta inicialização, não conectividade real dos subsistemas | Documentar a diferença entre inicialização e prontidão efetiva |
+
+#### Pendências identificadas nesta auditoria
+
+- A política `RoutingDecision.use_reasoning` está modelada, mas não governa ainda a chamada ao controlador pré-frontal em `main.py`.
+- A recuperação persistente Memory Card e a conexão com o motor real Diagnosis permanecem ausentes por declaração explícita dos adaptadores.
+- `language_network/portuguese_language_knowledge.pdf` e `language_network/test_interpreter.py` continuam sem destino final decidido; não apagar nem mover por inferência.
+- A varredura de busca do GitHub não foi usada como prova global porque o índice de busca pode não corresponder à branch em trabalho. As conclusões acima são limitadas aos arquivos lidos diretamente na branch `neurocognitive-migration`.
+- Nenhum teste executado. Nenhum arquivo, configuração, binding, workflow ou contrato do Cloudflare Worker foi alterado.
