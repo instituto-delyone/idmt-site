@@ -1,0 +1,387 @@
+{
+  "id": "aigar_portuguese_language_knowledge_v1",
+  "version": "1.0",
+  "language": "pt-BR",
+  "purpose": "Fornecer ao AIGAR uma base explícita de conceitos linguísticos para compreender como palavras se combinam, qual função exercem e como o contexto altera ou completa o sentido.",
+  "scope": {
+    "level": "fundamental_com_interpretacao_semantica_e_pragmatica",
+    "principle": "A classificação gramatical descreve a função de uma forma na língua; a interpretação depende também das relações sintáticas, do significado e do contexto.",
+    "do_not_assume": [
+      "uma palavra possui sempre a mesma função gramatical em qualquer frase",
+      "a ordem das palavras determina sozinha o sujeito",
+      "a ausência de uma palavra significa ausência de um referente",
+      "uma busca por palavras-chave equivale à compreensão da pergunta"
+    ]
+  },
+  "core_concepts": {
+    "palavra": {
+      "definition": "Unidade lexical que pode exercer determinada função em um enunciado.",
+      "runtime_use": "Analisar a palavra em conjunto com as palavras vizinhas e com a função que desempenha no enunciado."
+    },
+    "enunciado": {
+      "definition": "Produção linguística situada em uma situação de comunicação.",
+      "runtime_use": "Interpretar não apenas a forma escrita, mas quem fala, para quem, sobre o quê e com qual finalidade quando essas informações estiverem disponíveis."
+    },
+    "frase": {
+      "definition": "Unidade de comunicação com sentido completo; pode ser formada por uma ou várias palavras e pode ocorrer sem verbo.",
+      "examples": ["Silêncio!", "Que dia bonito!", "O médico chegou."],
+      "runtime_use": "Não exigir verbo para reconhecer uma unidade comunicativa."
+    },
+    "oração": {
+      "definition": "Unidade sintática organizada em torno de um verbo ou locução verbal.",
+      "runtime_use": "Localizar os verbos para identificar possíveis orações e suas relações."
+    },
+    "periodo": {
+      "definition": "Unidade formada por uma ou mais orações; na terminologia escolar brasileira, pode ser simples ou composto.",
+      "runtime_use": "Usar a quantidade e a relação entre orações para compreender estrutura mais ampla."
+    },
+    "contexto": {
+      "definition": "Conjunto de elementos linguísticos e não linguísticos que rodeiam um enunciado e ajudam a determinar sua interpretação.",
+      "types": {
+        "verbal": "Palavras, frases e texto que precedem ou seguem uma expressão e ajudam a esclarecer seu significado.",
+        "extraverbal": "Circunstâncias externas à língua, como situação, ambiente, tempo, fatores históricos, sociais e culturais."
+      },
+      "runtime_use": [
+        "consultar o texto anterior e posterior quando houver",
+        "consultar memória conversacional quando houver referência dependente de conversa anterior",
+        "considerar a situação comunicativa quando conhecida",
+        "não resolver ambiguidade apenas por frequência lexical"
+      ],
+      "example": {
+        "input": "Ele chegou.",
+        "problem": "A palavra 'ele' exige um referente.",
+        "resolution": "Procurar o referente no contexto anterior antes de inventar uma identidade."
+      }
+    },
+    "referente": {
+      "definition": "Pessoa, objeto, evento, conceito ou entidade a que uma expressão linguística se refere em determinado contexto.",
+      "runtime_use": "Resolver pronomes, expressões anafóricas e referências implícitas antes de concluir o significado."
+    },
+    "sentido": {
+      "definition": "Conteúdo interpretável associado a uma expressão ou enunciado em determinado uso.",
+      "runtime_use": "Distinguir a forma linguística do significado que ela produz no contexto."
+    },
+    "semantica": {
+      "definition": "Área que trata da significação das palavras, expressões e relações de sentido entre elas.",
+      "runtime_use": "Comparar sentidos, relações semânticas e significado composicional sem reduzir tudo a correspondência literal de palavras."
+    },
+    "pragmatica": {
+      "definition": "Estudo de como o uso da língua em uma situação comunicativa contribui para a interpretação do que foi dito.",
+      "runtime_use": "Considerar intenção, interlocutores, situação, pressupostos e contexto quando o sentido literal não for suficiente."
+    },
+    "definicao": {
+      "definition": "Explicação que identifica o que uma palavra, conceito ou entidade significa ou representa, delimitando suas características essenciais.",
+      "runtime_use": "Quando o usuário pergunta 'o que é', responder primeiro com identificação direta do conceito antes de expandir.",
+      "example": "Pergunta: 'O que é um verbo?' Resposta inicial: 'Verbo é uma classe de palavras que expressa, entre outros valores, ação, acontecimento, estado ou fenômeno.'"
+    },
+    "tema": {
+      "definition": "Aquilo de que o enunciado trata ou o assunto central em determinado contexto.",
+      "runtime_use": "Separar o tema geral da intenção específica da pergunta."
+    },
+    "intencao": {
+      "definition": "Finalidade comunicativa que orienta um enunciado, como informar, perguntar, corrigir, pedir, ordenar, explicar ou continuar uma conversa.",
+      "runtime_use": "Inferir a intenção antes de escolher busca, memória, raciocínio ou resposta."
+    }
+  },
+  "word_classes": {
+    "substantivo": {
+      "definition": "Classe de palavras usada para nomear seres, entidades, lugares, objetos, fenômenos, qualidades, ações ou conceitos.",
+      "examples": ["médico", "casa", "Brasil", "beleza", "revolução", "conhecimento"],
+      "runtime_role": "Frequentemente funciona como núcleo de sintagmas nominais e pode ocupar a função de sujeito ou complemento."
+    },
+    "artigo": {
+      "definition": "Classe de palavras que acompanha o substantivo e contribui para sua determinação, além de marcar gênero e número.",
+      "types": {
+        "definido": ["o", "a", "os", "as"],
+        "indefinido": ["um", "uma", "uns", "umas"]
+      },
+      "examples": [
+        {"text": "o médico", "interpretation": "referência determinada"},
+        {"text": "um médico", "interpretation": "referência não determinada ou apresentada como membro de uma classe"}
+      ],
+      "runtime_role": "Ajudar a interpretar determinação, referência e estrutura nominal; não tratar artigo isoladamente como o significado completo do sintagma."
+    },
+    "adjetivo": {
+      "definition": "Classe de palavras que caracteriza ou qualifica um substantivo ou expressão nominal.",
+      "examples": ["médico experiente", "casa silenciosa", "resposta correta"],
+      "runtime_role": "Extrair características atribuídas a entidades."
+    },
+    "pronome": {
+      "definition": "Classe de palavras que pode representar, acompanhar ou retomar entidades e relações discursivas, conforme o tipo.",
+      "examples": ["eu", "ele", "isso", "meu", "aquele", "quem", "ninguém"],
+      "runtime_role": "Priorizar resolução de referência e contexto; pronomes como 'ele', 'isso', 'aquilo' frequentemente dependem do discurso."
+    },
+    "verbo": {
+      "definition": "Classe de palavras que pode expressar ação, acontecimento, estado ou fenômeno e que se flexiona em pessoa, número, tempo, modo e voz.",
+      "examples": ["correr", "chegou", "é", "estava", "choveu", "explicaremos"],
+      "runtime_role": "Identificar predicação, eventos, estados, temporalidade e relações sintáticas."
+    },
+    "numeral": {
+      "definition": "Classe de palavras relacionada a quantidade, ordem, multiplicação ou fração.",
+      "examples": ["dois", "primeiro", "dobro", "metade"],
+      "runtime_role": "Extrair quantidades, ordens e relações numéricas expressas linguisticamente."
+    },
+    "adverbio": {
+      "definition": "Classe de palavras que modifica principalmente verbos, adjetivos ou outros advérbios, expressando circunstâncias ou intensidade.",
+      "examples": ["ontem", "aqui", "rapidamente", "muito", "talvez"],
+      "runtime_role": "Ajudar a identificar tempo, lugar, modo, intensidade, possibilidade e outras circunstâncias."
+    },
+    "preposicao": {
+      "definition": "Classe de palavras invariável que estabelece relações entre termos.",
+      "examples": ["de", "em", "para", "com", "por", "sobre"],
+      "runtime_role": "Ajudar a interpretar relações como origem, posse, localização, direção, instrumento e tema."
+    },
+    "conjuncao": {
+      "definition": "Classe de palavras que estabelece relações entre palavras, termos ou orações.",
+      "examples": ["e", "mas", "porque", "embora", "ou", "portanto"],
+      "runtime_role": "Detectar relações discursivas e lógico-semânticas como adição, contraste, causa, condição, alternativa e consequência."
+    },
+    "interjeicao": {
+      "definition": "Classe de palavras ou expressão usada para manifestar emoção, reação ou atitude comunicativa.",
+      "examples": ["ah!", "oh!", "ufa!", "ei!"],
+      "runtime_role": "Não interpretar automaticamente como conteúdo proposicional; pode sinalizar estado emocional, reação ou chamada."
+    }
+  },
+  "syntax": {
+    "subject": {
+      "definition": "Termo sobre o qual se faz uma declaração ou que participa da predicação; frequentemente estabelece concordância com o verbo.",
+      "common_realizations": ["substantivo", "pronome", "numeral", "expressão substantivada", "oração"],
+      "types": {
+        "simple": "Possui um núcleo.",
+        "compound": "Possui mais de um núcleo.",
+        "hidden": "Não aparece explicitamente, mas pode ser recuperado pela forma verbal e pelo contexto.",
+        "indeterminate": "Não é possível determinar o referente do sujeito pela construção disponível.",
+        "without_subject": "Certas construções com verbos impessoais não apresentam sujeito."
+      },
+      "important_rule": "Não identificar o sujeito apenas pela primeira posição da frase. Usar concordância, estrutura sintática e contexto.",
+      "example": {
+        "sentence": "Na base da descoberta está um artigo.",
+        "subject": "um artigo",
+        "reason": "A posição inicial não determina o sujeito; a estrutura sintática e a concordância precisam ser consideradas."
+      }
+    },
+    "predicate": {
+      "definition": "Aquilo que se declara sobre o sujeito; normalmente organizado a partir do verbo.",
+      "runtime_role": "Depois de identificar sujeito e verbo, analisar o que é afirmado, feito ou atribuído ao sujeito."
+    },
+    "complement": {
+      "definition": "Elemento que completa o sentido de uma palavra ou estrutura que exige ou seleciona determinada relação.",
+      "runtime_role": "Não confundir complemento com sujeito ou mero modificador; analisar a relação exigida pelo verbo ou nome."
+    },
+    "direct_object": {
+      "definition": "Complemento verbal ligado diretamente ao verbo, em construções transitivas diretas.",
+      "example": "O médico analisou o exame."
+    },
+    "indirect_object": {
+      "definition": "Complemento verbal introduzido por preposição exigida pela construção verbal.",
+      "example": "O médico respondeu ao paciente."
+    },
+    "subject_predicate_relation": {
+      "definition": "Relação estrutural em que se estabelece uma predicação sobre determinado sujeito.",
+      "runtime_use": "Serve como uma das estruturas básicas para transformar sequência de palavras em representação de significado."
+    }
+  },
+  "morphology_and_agreement": {
+    "gender": "Marcação gramatical de gênero quando aplicável.",
+    "number": "Singular ou plural.",
+    "person": "Primeira, segunda ou terceira pessoa.",
+    "tense": "Localização temporal da situação expressa pelo verbo.",
+    "mood": ["indicativo", "subjuntivo", "imperativo"],
+    "agreement": {
+      "verbal": "Relação de concordância do verbo com o sujeito quando a construção exige.",
+      "nominal": "Relação de concordância entre elementos nominais, como substantivo, artigo e adjetivo."
+    },
+    "runtime_use": "Usar flexão e concordância como pistas de estrutura e referência, mas não como única fonte de interpretação."
+  },
+  "semantic_relations": {
+    "synonymy": "Relação aproximada de semelhança de sentido entre expressões; não pressupor equivalência perfeita em todos os contextos.",
+    "antonymy": "Relação de oposição de sentido.",
+    "hypernymy": "Relação em que um conceito é mais geral que outro.",
+    "hyponymy": "Relação em que um conceito é mais específico dentro de outro.",
+    "polysemy": "Uma mesma forma lexical pode apresentar sentidos relacionados.",
+    "homonymy": "Formas iguais ou semelhantes podem corresponder a unidades lexicais com sentidos distintos.",
+    "ambiguity": "Uma expressão pode permitir mais de uma interpretação plausível.",
+    "runtime_rule": "Resolver ambiguidade usando sintaxe, semântica, contexto e memória disponível antes de escolher uma interpretação."
+  },
+  "discourse_and_context": {
+    "anaphora": {
+      "definition": "Relação em que uma expressão depende de um elemento anteriormente apresentado para ser interpretada.",
+      "example": "Delyone abriu o livro. Ele começou a ler.",
+      "runtime_action": "Resolver 'Ele' pelo antecedente mais plausível, respeitando concordância e contexto."
+    },
+    "cataphora": {
+      "definition": "Relação em que uma expressão antecipa um referente que aparece posteriormente.",
+      "example": "Quando ele chegou, Delyone abriu a porta.",
+      "runtime_action": "Não descartar uma referência apenas porque o antecedente ainda não apareceu."
+    },
+    "ellipsis": {
+      "definition": "Omissão de um elemento que pode ser recuperado pelo contexto ou pela estrutura.",
+      "example": "Eu fui ao hospital; ele, à farmácia.",
+      "runtime_action": "Considerar que partes omitidas podem ser recuperadas contextualmente."
+    },
+    "topic": {
+      "definition": "Elemento ou assunto sobre o qual o discurso se organiza.",
+      "runtime_action": "Separar tópico discursivo de sujeito sintático; podem coincidir, mas não são necessariamente a mesma coisa."
+    },
+    "speech_act": {
+      "types": ["informar", "perguntar", "pedir", "ordenar", "prometer", "corrigir", "agradecer", "saudar", "expressar_emocao"],
+      "runtime_action": "Classificar a finalidade comunicativa antes de decidir o formato da resposta."
+    }
+  },
+  "question_patterns": {
+    "definition": {
+      "forms": ["o que é X", "o que são X", "defina X", "o que significa X", "qual é a definição de X"],
+      "semantic_goal": "identificar_e_explicar_o_conceito"
+    },
+    "identity": {
+      "forms": ["quem é X", "quem foi X", "o que é X"],
+      "semantic_goal": "identificar_entidade_ou_conceito"
+    },
+    "time": {
+      "forms": ["quando X", "quando foi X", "quando aconteceu X"],
+      "semantic_goal": "recuperar_informacao_temporal"
+    },
+    "place": {
+      "forms": ["onde X", "onde aconteceu X", "onde fica X"],
+      "semantic_goal": "recuperar_informacao_espacial"
+    },
+    "cause": {
+      "forms": ["por que X", "por qual motivo X", "qual a causa de X"],
+      "semantic_goal": "explicar_causa_ou_motivacao"
+    },
+    "function": {
+      "forms": ["qual a função de X", "para que serve X", "o que X faz"],
+      "semantic_goal": "explicar_funcao_ou_finalidade"
+    },
+    "process": {
+      "forms": ["como funciona X", "como X acontece", "como fazer X"],
+      "semantic_goal": "explicar_mecanismo_processo_ou_procedimento"
+    },
+    "comparison": {
+      "forms": ["qual a diferença entre X e Y", "X é igual a Y", "compare X e Y"],
+      "semantic_goal": "comparar_conceitos"
+    }
+  },
+  "interpretation_pipeline": [
+    "segmentar_entrada",
+    "identificar_palavras_e_expressões",
+    "identificar_verbos_e_possíveis_oracoes",
+    "identificar_relacoes_sintaticas",
+    "identificar_tema_e_referentes",
+    "inferir_intencao_comunicativa",
+    "usar_contexto_e_memoria_para_resolver_referencias",
+    "determinar_tipo_de_resposta",
+    "buscar_conhecimento_quando_necessario",
+    "raciocinar_sobre_o_conteudo",
+    "formular_resposta_proporcional"
+  ],
+  "important_distinctions": [
+    {
+      "concept_a": "classe_gramatical",
+      "concept_b": "funcao_sintatica",
+      "rule": "A classe diz o que uma palavra é; a função sintática diz o papel que ela exerce naquele enunciado.",
+      "example": "Em 'Ele chegou', 'ele' é pronome e exerce função de sujeito."
+    },
+    {
+      "concept_a": "tema",
+      "concept_b": "intencao",
+      "rule": "O tema é sobre o que se fala; a intenção é o que o interlocutor pretende fazer ao falar."
+    },
+    {
+      "concept_a": "sentido_literal",
+      "concept_b": "sentido_contextual",
+      "rule": "A interpretação final pode depender do contexto e da situação comunicativa, não apenas do significado lexical isolado."
+    },
+    {
+      "concept_a": "falta_de_fonte",
+      "concept_b": "falta_de_sentido",
+      "rule": "Não encontrar informação na biblioteca não significa que a pergunta seja sem sentido."
+    },
+    {
+      "concept_a": "palavra_chave",
+      "concept_b": "conceito",
+      "rule": "Duas expressões diferentes podem apontar para o mesmo conceito; uma mesma palavra pode ter sentidos diferentes."
+    }
+  ],
+  "runtime_rules": [
+    "compreender_a_estrutura_antes_de_buscar",
+    "buscar_referentes_para_pronomes_e_expressões_dependentes",
+    "usar_concordancia_como_pista_estrutural",
+    "não_confundir_sujeito_com_primeira_palavra_da_frase",
+    "não_confundir_classe_gramatical_com_funcao_sintatica",
+    "não_confundir_tema_com_intencao",
+    "não_confundir_ausencia_de_fonte_com_ausencia_de_significado",
+    "quando_houver_mais_de_uma_interpretacao_manter_hipoteses_ate_que_contexto_resolva",
+    "se_a_ambiguidade_impedir_resposta_confiavel_pedir_esclarecimento",
+    "depois_de_compreender_buscar_o_conhecimento_necessario",
+    "responder_na_profundidade_solicitada"
+  ],
+  "training_examples": [
+    {
+      "input": "O médico chegou.",
+      "analysis": {
+        "o": "artigo definido",
+        "médico": "substantivo; núcleo do sujeito",
+        "chegou": "verbo; núcleo do predicado",
+        "subject": "O médico",
+        "predicate": "chegou"
+      }
+    },
+    {
+      "input": "Ele chegou.",
+      "analysis": {
+        "ele": "pronome pessoal; sujeito",
+        "chegou": "verbo",
+        "reference_requirement": "identificar quem 'ele' representa pelo contexto quando necessário"
+      }
+    },
+    {
+      "input": "A casa azul fica aqui.",
+      "analysis": {
+        "a": "artigo definido",
+        "casa": "substantivo; núcleo do sujeito",
+        "azul": "adjetivo",
+        "fica": "verbo",
+        "aqui": "advérbio de lugar"
+      }
+    },
+    {
+      "input": "Eu fui ao hospital porque estava doente.",
+      "analysis": {
+        "orations": 2,
+        "relation": "a segunda oração apresenta relação causal",
+        "important": "o sujeito da segunda oração pode ser recuperado pelo contexto e pela estrutura verbal"
+      }
+    },
+    {
+      "input": "O que foi a Revolução Agrícola?",
+      "analysis": {
+        "question_type": "definition_or_identification",
+        "theme": "Revolução Agrícola",
+        "goal": "consultar conhecimento e produzir explicação",
+        "note": "A presença de 'o que foi' deve ser reconhecida como pergunta sobre identidade/definição de um conceito no passado, não como uma busca literal pela sequência de palavras."
+      }
+    }
+  ],
+  "source_basis": {
+    "note": "Conceitos estruturais foram organizados a partir de referências públicas de gramática e linguística consultadas durante a construção deste arquivo.",
+    "references": [
+      {
+        "source": "Brasil Escola",
+        "topics": ["classes de palavras", "sujeito", "termos essenciais da oração", "verbo", "gramática"]
+      },
+      {
+        "source": "Ciberdúvidas da Língua Portuguesa",
+        "topics": ["sujeito", "frase", "oração", "período", "estrutura sintática", "contexto"]
+      },
+      {
+        "source": "Portal da Língua Portuguesa",
+        "topics": ["terminologia linguística", "sujeito"]
+      },
+      {
+        "source": "Infopédia",
+        "topics": ["semântica", "contexto"]
+      }
+    ]
+  }
+}
