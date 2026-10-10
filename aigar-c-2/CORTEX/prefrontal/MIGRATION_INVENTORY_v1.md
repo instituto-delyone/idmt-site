@@ -239,3 +239,16 @@ Os diretórios já existentes em `CORTEX/` continuam sendo a arquitetura-alvo; o
 10. Somente depois de concluir itens anteriores, autorizar testes de validação comportamental.
 
 **Conclusão do inventário:** a fase de levantamento está concluída para os principais módulos do runtime, linguagem, memória, recuperação documental, Diagnosis, UI, contratos históricos e recursos auxiliares listados acima. Isto não significa que todas as migrações do repositório estejam concluídas: os itens nas seções B–D são explicitamente preservados ou candidatos a revisão posterior. Imports/caminhos não foram traduzidos e testes não foram executados.
+
+## Atualização de estado — tradução inicial de referências (2026-10-10)
+
+Esta seção supersede os estados históricos que diziam que todos os imports estavam pendentes. Os parágrafos anteriores são registros do estado à época em que foram escritos; não devem ser interpretados como estado atual.
+
+- `AIGAR_RUNTIME/main.py` mantém-se como entry point operacional e importa contratos de `CORTEX.thalamus.models`, adaptadores de `CORTEX.language`, `CORTEX.memory`, `CORTEX.engram`, `CORTEX.prefrontal` e `Diagnosis.diagnosis`. Commit: `88380ee4102bcfe409a151734fff91ac9f850848`.
+- `CORTEX/language/language_network_adapter.py` usa o contrato canônico e importa `AIGARLanguage` diretamente de `CORTEX.language.interpreter`; caminho legado corrigido. Commit: `286dfdb96b56cf019e2ca4d37474321117f0f6b0`.
+- `AIGAR_RUNTIME/test_runtime.py` importa `RuntimeRequest` do contrato canônico. O arquivo foi atualizado, mas seus testes não foram executados. Commit: `59af9877cf6abe60877ed03c10b859d3a9d354c8`.
+- `AIGAR_RUNTIME/README.md` e `CORTEX/README.md` documentam a entrada e o mapa provisório. Commits: `df98d3653714cc6991c2430909ff92890440f17d` e `695620e49784e2b69fe89ec38cdeb27dbfe5ac52`.
+
+## Estado de conclusão desta etapa
+
+Contratos compartilhados e as referências conhecidas do entry point foram traduzidos estaticamente. Ainda não se declara concluída a revisão de todas as referências no repositório. A comparação entre os dois interpretadores, integração real de Diagnosis, dependências/manifestos e eventuais referências em outros pacotes permanecem pendentes de inspeção. Nenhum teste foi executado; não houve merge/deploy; Cloudflare Worker permanece intocado.
