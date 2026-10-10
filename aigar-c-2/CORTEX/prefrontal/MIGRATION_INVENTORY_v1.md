@@ -329,3 +329,13 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Registro do changelog: commit `717cc8e5fde6b8e546e97a227efcf20ff853f8f3`.
 
 **Estado:** contrato integrado estaticamente; testes não executados por instrução de fase. Sem merge/deploy; Cloudflare Worker intocado.
+
+
+### Interpretadores — diferenças preservadas (2026-10-10)
+
+- Ativo: `CORTEX/language/interpreter.py` lê os dois JSONs adjacentes ao arquivo e retorna análise detalhada em dicionário; `CORTEX/language/language_network_adapter.py` traduz esse resultado para `ConversationReading`.
+- Histórico: `CORTEX/thalamus/linguistic_interpreter.py` aplica heurísticas menores embutidas e retorna o contrato diretamente. Seu import `from .models import ConversationReading` resolve corretamente dentro do pacote `CORTEX.thalamus`.
+- Não equivalentes: diferenças nas regras de intenção, no detalhamento estrutural e na semântica de confiança. Preservar ambos até comparação arquitetural deliberada; não inferir substituibilidade.
+- Registro no changelog: commit `8a88e84b1fdceee7592d0bc59cf652d95c6c10e3`.
+
+**Estado:** revisão estática concluída; testes ainda adiados. Sem merge/deploy; Cloudflare Worker intocado.
