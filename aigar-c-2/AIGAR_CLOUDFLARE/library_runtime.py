@@ -218,21 +218,50 @@ async def boot_library():
     targets = []
     loaded = {}
 
-    # Até três chunks por biblioteca. Bibliotecas com menos de três chunks
-    # carregam todos os que existem, sem duplicar nem inventar conteúdo.
+    # Política de boot solicitada:
+    # - Sapiens, Português e Ética: todos os chunks disponíveis.
+    # - Computação: até 3 chunks.
+    # - Raciocínio lógico: até 5 chunks.
+    # - Outras bibliotecas: preencher um orçamento conservador de caracteres.
+    # O orçamento se aplica somente às bibliotecas restantes; nunca corta os
+    # três grupos obrigatórios, que podem exceder o orçamento por si só.
+    REQUIRED_ALL = {"sapiens", "portuguese_language_knowledge", "etica"}
+    FIXED_LIMITS = {
+        "arquitetura_organizacao_computadores": 3,
+        "raciocinio_logico_matematica": 5,
+    }
+    OTHER_BOOT_CHAR_BUDGET = 1_200_000
+    other_budget_used = 0
+
     for index in indexes:
         source = index.get("source", {}) or {}
         source_key = source.get("key") or "unknown"
         chunks = sorted(
-            index.get("chunks", []) or [],
+            [c for c in (index.get("chunks", []) or []) if c.get("id")],
             key=lambda c: int(c.get("sequence", 0) or 0)
         )
-        candidates = [chunk for chunk in chunks if chunk.get("id")][:3]
+        if source_key in REQUIRED_ALL:
+            candidates = chunks
+        elif source_key in FIXED_LIMITS:
+            candidates = chunks[:FIXED_LIMITS[source_key]]
+        else:
+            candidates = []
+            for chunk in chunks:
+                estimated = int(chunk.get("text_length", 0) or 0)
+                if other_budget_used + estimated > OTHER_BOOT_CHAR_BUDGET:
+                    continue
+                candidates.append(chunk)
+                other_budget_used += estimated
         targets.append({
             "source_key": source_key,
             "source": source.get("name"),
-            "available": len([chunk for chunk in chunks if chunk.get("id")]),
+            "available": len(chunks),
             "candidates": candidates,
+            "policy": (
+                "all" if source_key in REQUIRED_ALL else
+                "fixed_limit" if source_key in FIXED_LIMITS else
+                "browser_budget"
+            ),
         })
 
     semaphore = asyncio.Semaphore(2)
@@ -290,6 +319,7 @@ async def boot_library():
             "chunks_loaded": loaded_count,
             "chunks_target": target_count,
             "chunks_available": library["available"],
+            "boot_policy": library.get("policy", "browser_budget"),
             "chunk_sequences": [item.get("sequence") for item in sorted(
                 library_chunks, key=lambda item: int(item.get("sequence", 0) or 0)
             )],
