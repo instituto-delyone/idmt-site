@@ -312,3 +312,10 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - `AIGAR_RUNTIME/main.py` usa ambos os contratos tipados e preserva os itens e rastros de proveniência consumidos pelas etapas seguintes. Commit: `ef96fcfafe7fe749b8767ce5ce83327122385415`.
 - Registro no changelog: `c4c29e94ecb9978119fb9e04ca4da2d40c66e278`.
 - Sem testes, merge ou deploy. Cloudflare Worker intocado.
+
+## Interpretadores — papéis preservados (2026-10-10)
+
+- Interpretador ativo: `CORTEX/language/interpreter.py` (`AIGARLanguage`), utilizado por `CORTEX/language/language_network_adapter.py` e normalizado em `ConversationReading`.
+- Implementação histórica preservada: `CORTEX/thalamus/linguistic_interpreter.py`; recebeu apenas docstring indicando sua função legada/comparativa. Commit: `ae418ec23b712ddc913973fe4b1c882dbe631d58`.
+- Registro no changelog: `c099401d4179d851ee4c77789a34b7eb0ce37875`.
+- A comparação funcional completa ainda não foi feita. Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
