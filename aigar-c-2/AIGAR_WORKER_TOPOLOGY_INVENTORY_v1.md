@@ -25,9 +25,11 @@ O inventário foi feito por leitura estática dos arquivos desta branch. Não fo
 
 | Arquivo / componente | Responsabilidade observada | Classificação arquitetural |
 |---|---|---|
-| `AIGAR_CLOUDFLARE/main.py` | Entry point, roteador HTTP, orquestração de pergunta, memória, busca, IA, administração, persistência e workflow | Gateway + orquestração + várias responsabilidades concentradas |
-| `AIGAR_CLOUDFLARE/cognitive_core.py` | `CognitiveContextCore`: prepara/ranqueia chunks e monta contexto compacto para a pergunta | Recuperação contextual/seleção de evidências; candidato a extração futura |
-| `AIGAR_CLOUDFLARE/memory_lab.py` | Importado como `MemoryLab`; exposto por status e recuperação com fallback | Subsistema de memória a mapear internamente; arquivo esperado não foi encontrado no caminho inicialmente tentado e exige confirmação de localização |
+| `AIGAR_CLOUDFLARE/main.py` | Entry point, roteador HTTP, orquestração adaptativa, binding de IA, autenticação, administração, persistência e Workflow | Gateway + orquestração; ainda concentra várias responsabilidades |
+| `AIGAR_CLOUDFLARE/language_runtime.py` | Implementação linguística atual do Worker, regras de intenção, profundidade, conceitos e composição de resposta fundamentada | Módulo de linguagem extraído do entrypoint; mantém a lógica anterior |
+| `AIGAR_CLOUDFLARE/library_runtime.py` | Boot da biblioteca e Texto-Matriz, catálogo/índices, carregamento de chunks, cache e busca de evidências | Módulo de recuperação extraído; o catálogo embutido permanece em `main.py` e é injetado no módulo |
+| `AIGAR_CLOUDFLARE/association_core.py` | `CognitiveContextCore`: prepara/ranqueia chunks e monta contexto compacto para a pergunta | Núcleo de seleção contextual importado pelo `library_runtime.py` |
+| `AIGAR_CLOUDFLARE/memory_lab/engine.py` | `MemoryLab`: recuperação de memória imediata, curto prazo e longo prazo | Subsistema de memória importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/wrangler.jsonc` | Declara Worker `aigar-api`, entrypoint `main.py`, binding `AI` e Workflow `AIGAR_LIBRARY_BUILDER` | Configuração de deploy |
 | `AIGAR_RUNTIME/main.py` | FastAPI local: interpretação, memória, biblioteca, diagnóstico, controle e Aurora | Runtime separado; não confundir com o Worker Cloudflare |
 | `AIGAR_RUNTIME/language_network_bridge.py` | Adapta interpretador linguístico para o runtime | Adaptador de linguagem |
@@ -77,7 +79,7 @@ As rotas administrativas passam por `require_admin()`. O inventário não substi
 
 1. `Default.fetch` recebe e normaliza a rota.
 2. `POST /perguntar` lê o JSON e chama `handle_ask(body, self.env)`.
-3. `handle_ask` chama boot da biblioteca e Texto-Matriz, prepara contexto com `COGNITIVE_CORE.prepare(...)`, consulta `MEMORY_LAB.retrieve_with_fallback(...)` e usa o binding `AI` para produzir a resposta.
+3. `handle_ask` chama `boot_library()` e `boot_text_matrix()` importados de `library_runtime.py`, prepara contexto com `COGNITIVE_CORE.prepare(...)`, consulta `MEMORY_LAB.retrieve_with_fallback(...)` e usa o binding `AI` para produzir a resposta.
 4. A resposta é serializada em JSON por `make_response`.
 
 Esse fluxo ocorre dentro do mesmo Worker; `CognitiveContextCore` e `MemoryLab` são componentes importados, não Workers separados nesta configuração.
@@ -98,6 +100,8 @@ Esse fluxo ocorre dentro do mesmo Worker; `CognitiveContextCore` e `MemoryLab` s
 - Ter mais Workers só ajuda se reduzir acoplamento ou isolar carga/falhas; chamadas síncronas em cadeia podem aumentar latência e pontos de falha.
 
 ## 8. Topologia-alvo proposta — ainda não implementada
+
+A extração de `language_runtime.py` e `library_runtime.py` apenas separa código existente dentro do mesmo Worker. Não cria novos Workers nem conecta automaticamente os módulos do runtime local em `CORTEX/`. Esses módulos têm contratos e dependências diferentes e exigem um adaptador compatível antes de substituir a implementação Cloudflare.
 
 | Worker proposto | Responsabilidade | Dependências/canais propostos | Critério para extrair |
 |---|---|---|---|
