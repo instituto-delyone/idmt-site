@@ -15,9 +15,9 @@ O módulo ativo do interpretador e os dois JSONs usados diretamente por ele fora
 - `CORTEX/language/language.json`
 - `CORTEX/language/portuguese_language_knowledge.json`
 - `CORTEX/language/language_network_adapter.py`
-- `CORTEX/language/test_interpreter.py`
+- `language_network/test_interpreter.py` (permanece neste diretório histórico; não foi movido nesta fase).
 
-O teste do interpretador foi movido para junto do módulo e importa o novo caminho canônico. Ele ainda não foi executado nesta fase.
+O teste continua no caminho original e não foi executado. Sua migração depende de revisar os imports e referências junto com o restante da tradução, sem alterar seu comportamento.
 
 O PDF histórico `portuguese_language_knowledge.pdf` permanece nesta pasta. Seu destino definitivo ainda não foi decidido porque a relação entre esse arquivo de referência e os dados compilados precisa ser rastreada; ele foi preservado deliberadamente.
 
