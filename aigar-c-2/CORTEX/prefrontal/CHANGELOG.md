@@ -50,3 +50,19 @@
 - `AIGAR_RUNTIME/main.py`: delega as decisões de seleção opcional ao roteador canônico. A sequência de raciocínio e resposta foi mantida; a política `use_reasoning` ainda não desliga o estágio de raciocínio, para evitar mudança de comportamento antes da revisão completa do pipeline. Commit: `ef3f02cc723792d32ef71bb669e52fd037e45250`.
 
 **Limites:** nenhuma execução de testes; nenhuma validação funcional; nenhum merge/deploy. Cloudflare Worker não foi consultado nem alterado. A etapa seguinte continua sendo revisar referências e caminhos restantes, depois completar contratos/implementações dos módulos CORTEX conforme os artefatos arquiteturais históricos.
+
+## Fronteiras explícitas de pacote Python — 2026-10-10
+
+Foram adicionados marcadores `__init__.py` aos pacotes ativos, sem mover módulos nem alterar a lógica dos adaptadores:
+
+- `CORTEX/__init__.py` — `9743b59081b93b7dbaee8a8af9df822d021a780c`.
+- `CORTEX/thalamus/__init__.py` — `f5ba53994475bc0d396313b0d19deb56ee121e6a`.
+- `CORTEX/language/__init__.py` — `4f5c1928d409d63477389bf369ee425b3f4186ed`.
+- `CORTEX/memory/__init__.py` — `beffe89eb7c41fa3ab1bcf34bc6fe49bf03afa68`.
+- `CORTEX/engram/__init__.py` — `f8f788ec87485c2a0e0c31df206ca67a258fb544`.
+- `CORTEX/prefrontal/__init__.py` — `1a59652565934c6d5f60252b5665a91db28b13c9`.
+- `Diagnosis/__init__.py` — `d4b2ccf20c046a7219c913b03c62625d05945f3f`.
+
+Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports canônicos. Isto não valida a execução nem garante que todos os caminhos de dependências estejam corretos.
+
+**Estado:** testes não executados; sem merge/deploy; Cloudflare Worker intocado.
