@@ -121,3 +121,12 @@ Objetivo: substituir o Worker monolítico por responsabilidades delimitadas, sem
 - Commit de CI: `ef34be600fba42edbba708d106adb5abd129a6b4`.
 - No momento deste registro, GitHub ainda não retornou status nem execução de workflow para o commit de CI; os testes permanecem **PENDENTES**, não aprovados.
 - PR #13 continua draft e não mesclado. Nenhum deploy de produção foi executado ou confirmado.
+
+
+### Registro posterior de CI — 2026-10-10
+- Execução inicial do workflow: [run 38041918996](https://github.com/instituto-delyone/idmt-site/actions/runs/38041918996), conclusão **failure**.
+- A compilação (compileall) passou; instalação de dependências passou. A coleta de testes falhou porque AIGAR_LANGUAGE/test_interpreter.py importa `interpreter` sem que o diretório da linguagem estivesse no PYTHONPATH.
+- Correção aplicada em .github/workflows/aigar-runtime-validation.yml: PYTHONPATH: AIGAR_RUNTIME:AIGAR_LANGUAGE:AIGAR_LIBRARY no passo de testes.
+- Commit da correção: cb1955223c41133774ebd8e09abae3ef3bb33dd0.
+- Estado após a correção: aguardando uma nova execução de CI para confirmar se a coleta e os testes passam. Não declarar migração validada até haver resultado verde.
+- Nenhuma renomeação adicional executada neste passo. Nenhum merge ou deploy de produção executado.
