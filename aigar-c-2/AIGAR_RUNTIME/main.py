@@ -6,6 +6,7 @@ from fastapi import FastAPI
 # CORTEX is the provisional canonical home for runtime components and contracts.
 from CORTEX.thalamus.models import RuntimeRequest, RuntimeResponse
 from CORTEX.thalamus.context_router import route_reading
+from CORTEX.sara.runtime_status import current_runtime_status
 from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
 from CORTEX.memory.working_memory import WorkingStateStore
 from CORTEX.memory.hippocampal_memory import HippocampalMemoryAdapter
@@ -82,7 +83,7 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "runtime": "AIGAR", "version": "0.3.0"}
+    return current_runtime_status().model_dump()
 
 
 @app.post("/perguntar", response_model=RuntimeResponse)
