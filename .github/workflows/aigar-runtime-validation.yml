@@ -6,7 +6,7 @@ on:
       - "aigar-c-2/AIGAR_RUNTIME/**"
       - "aigar-c-2/language_network/**"
       - "aigar-c-2/knowledge_retrieval/**"
-      - "aigar-c-2/knowledge_consolidation/**"
+      - "aigar-c-2/knowledge_encoding/**"
       - ".github/workflows/aigar-runtime-validation.yml"
 
 permissions:
@@ -33,7 +33,7 @@ jobs:
       - name: Compile runtime and language modules
         working-directory: aigar-c-2
         run: |
-          python -m compileall -q AIGAR_RUNTIME language_network knowledge_retrieval
+          python -m compileall -q AIGAR_RUNTIME language_network knowledge_retrieval knowledge_encoding
 
       - name: Run runtime regression tests
         working-directory: aigar-c-2
