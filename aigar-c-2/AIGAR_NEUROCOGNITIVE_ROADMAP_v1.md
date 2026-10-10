@@ -31,9 +31,9 @@ O cérebro não é uma sequência de módulos independentes nem há uma única r
 - A saída pode ser textual hoje; o modelo conceitual também pode acomodar entrada auditiva e visual no futuro.
 
 **Arquivos relacionados já identificados:**
-- `aigar-c-2/AIGAR_LANGUAGE/interpreter.py`: interpretador existente.
-- `aigar-c-2/AIGAR_RUNTIME/language_network_bridge.py`: adaptador entre interpretador e runtime.
-- `aigar-c-2/AIGAR_RUNTIME/aurora.py`: camada de resposta/persona a inspecionar em maior profundidade.
+- `aigar-c-2/CORTEX/language/interpreter.py`: interpretador existente.
+- `aigar-c-2/CORTEX/language/language_network_adapter.py`: adaptador entre interpretador e runtime.
+- `aigar-c-2/CORTEX/prefrontal/aurora.py`: camada de resposta/persona a inspecionar em maior profundidade.
 - `aigar-c-2/AIGAR_RUNTIME/main.py`: coordenação do runtime; evitar mudanças de nome sem mapa de imports e testes.
 
 **Lacuna:** a ponte atual transforma o resultado do interpretador em `ConversationReading`; isso é uma boa fronteira de integração, mas não comprova módulos separados de semântica, planejamento de fala ou monitoramento.
@@ -48,9 +48,9 @@ O cérebro não é uma sequência de módulos independentes nem há uma única r
 - A recuperação deve ser sensível à tarefa, ao contexto e à origem do conteúdo.
 
 **Arquivos relacionados:**
-- `aigar-c-2/AIGAR_RUNTIME/working_state.py`: mantém o estado da sessão em memória do processo.
-- `aigar-c-2/AIGAR_RUNTIME/hippocampal_memory.py`: hoje retorna turnos recentes; a memória persistente não está ligada a este adaptador.
-- `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py`: recupera trechos documentais com metadados de fonte.
+- `aigar-c-2/CORTEX/memory/working_memory.py`: mantém o estado da sessão em memória do processo.
+- `aigar-c-2/CORTEX/memory/hippocampal_memory.py`: hoje retorna turnos recentes; a memória persistente não está ligada a este adaptador.
+- `aigar-c-2/CORTEX/engram/knowledge_retrieval.py`: recupera trechos documentais com metadados de fonte.
 - `aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/`: existe como diretório; sua disponibilidade e seus contratos precisam ser testados antes de assumir que está operacional.
 - D1/R2 e Memory Cards: infraestrutura e artefatos potenciais a mapear; armazenamento não equivale a mecanismo biológico de memória.
 
@@ -123,17 +123,17 @@ O diagrama é uma visão lógica. Não implica que cada caixa deva ser um Worker
 
 | Artefato atual na branch | Função observada nesta revisão | Guia neurocognitivo | Próxima evolução |
 |---|---|---|---|
-| `AIGAR_RUNTIME/language_network_bridge.py` | Carrega `AIGAR_LANGUAGE/interpreter.py` e produz `ConversationReading` | Rede de linguagem / integração | Contrato estável para intenção, ambiguidade, incerteza, referências e modalidade |
-| `AIGAR_LANGUAGE/interpreter.py` | Interpretador que fornece intenção e análise estruturada | Entrada e compreensão da linguagem | Inspecionar a implementação interna; separar semanticamente parsing, referências e intenção se isso trouxer benefício mensurável |
-| `AIGAR_RUNTIME/working_state.py` | Guarda sessões no dicionário em memória do processo; limita histórico a 40 entradas | Memória de trabalho/contexto ativo | Objetivos, referentes, perguntas pendentes, limites de sessão, expiração e isolamento |
-| `AIGAR_RUNTIME/hippocampal_memory.py` | Retorna os últimos turnos do estado | Memória episódica contextual | Adaptador de persistência/episódios separado; política de seleção, recall, atualização e esquecimento |
-| `AIGAR_RUNTIME/knowledge_retrieval.py` | Usa `LibraryRetriever`; retorna chunks e metadados de fonte/página/score | Recuperação de conhecimento, não hipocampo literal | Manter proveniência; calibrar ranking; distinguir score de similaridade de probabilidade de verdade |
-| `AIGAR_RUNTIME/prefrontal_controller.py` | Seleciona até três sentenças por sobreposição lexical e constrói um plano | Controle executivo | Planejamento por objetivos/restrições, critérios de parada, revisão, conflito entre fontes e pedido de nova evidência |
-| `AIGAR_RUNTIME/aurora.py` | Camada existente de resposta/persona (inspeção aprofundada pendente) | Formulação/expressão da resposta | Separar conteúdo decidido de realização textual; manter tom, naturalidade, incerteza e coerência |
-| `AIGAR_RUNTIME/diagnosis.py` | Adaptador de domínio pequeno no runtime | Motor especializado, não região cerebral | Definir contrato de chamada e resultado; não acoplar a todas as conversas |
-| `AIGAR_CLOUDFLARE/cognitive_core.py` | Núcleo de preparação de contexto/seleção de chunks segundo o mapa existente | Integração/associação funcional | Inspecionar chamadas e dependências antes de escolher novo nome ou dividi-lo |
-| `AIGAR_CLOUDFLARE/main.py` | Entrada de produção grande (~168 KB no inventário consultado) | Gateway e múltiplas responsabilidades a decompor | Manter entrypoint; extrair funções gradualmente, preservando rotas e bindings |
-| `AIGAR_CLOUDFLARE/memory_lab/` | Diretório presente; saúde operacional não confirmada | Futuro subsistema de memória | Testar endpoint/contrato e autenticação; não presumir ativo |
+| `CORTEX/language/language_network_adapter.py` | Chama `AIGARLanguage` e converte análise para `ConversationReading` | Rede de linguagem / integração | Refinar semântica, incerteza e referências com testes após a migração |
+| `CORTEX/language/interpreter.py` | Interpretador determinístico que lê os dois JSONs adjacentes e produz intenção/análise estruturada | Entrada e compreensão da linguagem | Separar parsing, referências e intenção somente se houver benefício mensurável |
+| `CORTEX/memory/working_memory.py` | `WorkingStateStore` guarda sessões no processo e limita histórico a 40 entradas | Memória de trabalho/contexto ativo | Persistência, expiração e isolamento de sessão |
+| `CORTEX/memory/hippocampal_memory.py` | `HippocampalMemoryAdapter` retorna turnos recentes por contratos tipados | Memória episódica contextual | Conectar Memory Card persistente, recall e políticas de seleção/atualização/esquecimento |
+| `CORTEX/engram/knowledge_retrieval.py` | Adaptador que chama `knowledge_retrieval.retriever.KnowledgeRetriever`; índices/cache e busca híbrida permanecem no pacote independente | Recuperação documental, não hipocampo literal | Manter proveniência; calibrar ranking; distinguir score de similaridade de probabilidade de verdade |
+| `CORTEX/prefrontal/prefrontal_controller.py` | Seleciona até três sentenças por sobreposição lexical e constrói `ReasoningPlan` | Controle executivo inicial | Planejamento por objetivos/restrições, critérios de parada, revisão, conflitos entre fontes e suficiência de evidência |
+| `CORTEX/prefrontal/aurora.py` | `Aurora.respond()` apresenta resposta a partir de leitura, contexto e plano tipado | Formulação/expressão da resposta | Melhorar síntese semântica, tom, incerteza e coerência sem ocultar limites de evidência |
+| `Diagnosis/diagnosis.py` | Adaptador que aceita `DiagnosisRequest` e retorna `DiagnosisResult`; hoje reporta integração ausente | Fronteira para motor clínico especializado | Conectar interface real sem inventar achados nem acoplar a todas as conversas |
+| `AIGAR_CLOUDFLARE/association_core.py` | Componente atual no repositório do Worker, segundo o mapa versionado | Integração/associação funcional | Nenhuma mudança nesta fase; mapear rotas, dependências, bindings e comportamento antes de qualquer alteração futura |
+| `AIGAR_CLOUDFLARE/main.py` | Entry point do Worker existente | Gateway e múltiplas responsabilidades a mapear | Nenhuma alteração nesta fase; registrar a topologia e preservar rotas, bindings e rollback |
+| `AIGAR_CLOUDFLARE/memory_lab/` | Diretório presente; a prontidão operacional não foi validada nesta migração | Subsistema candidato de memória | Mapear contrato e autenticação no estudo do Worker, fora desta etapa |
 | D1/R2 / Memory Cards | Persistência e artefatos a validar por schema/fluxos reais | Suporte físico à memória de software | Mapear tabelas, leitura/escrita, identidade, retenção e vínculo com recall |
 
 **Importante:** os cinco nomes atuais — `PrefrontalController`, `HippocampalMemoryAdapter`, `LanguageNetworkAdapter`, `KnowledgeRetrievalAdapter` e `WorkingStateStore` — permanecem como guias evolutivos. Não é necessário renomeá-los novamente só porque suas capacidades ainda são parciais.
@@ -242,3 +242,24 @@ Um score de busca não é probabilidade de verdade. Conclusões que dependam de 
 - As descrições acima são sínteses de tópicos e trechos consultados do livro, não uma revisão exaustiva de todos os capítulos.
 - A topologia de Workers, os nomes de módulos e as funções futuras são inferências/propostas de engenharia, não afirmações do livro.
 - Estado nesta versão: documentação proposta na branch de migração. Nenhum novo Worker, rename adicional, merge ou deploy de produção é executado por este documento.
+
+
+## Estado da árvore atual — auditoria CORTEX (2026-10-10)
+
+Os caminhos citados nas seções introdutórias/tabelas de versões anteriores foram reconciliados para os destinos atuais do runtime. Esta lista descreve código e contratos realmente presentes na branch, sem afirmar validação funcional:
+
+- Entrada operacional: `AIGAR_RUNTIME/main.py`.
+- Contratos e roteamento: `CORTEX/thalamus/models.py`, `CORTEX/thalamus/context_router.py`.
+- Entrada textual: `CORTEX/sensory/ingress.py`.
+- Linguagem: `CORTEX/language/interpreter.py`, `CORTEX/language/language_network_adapter.py`, `CORTEX/language/language.json`, `CORTEX/language/portuguese_language_knowledge.json` e `CORTEX/language/test_interpreter.py`.
+- Estado/memória de sessão: `CORTEX/memory/working_memory.py` e `CORTEX/memory/hippocampal_memory.py`; a memória persistente segue pendente.
+- Recuperação documental: adaptador `CORTEX/engram/knowledge_retrieval.py`, que integra o pacote independente `knowledge_retrieval/`; o pipeline de ingestão `knowledge_encoding/` também permanece independente.
+- Planejamento/apresentação: `CORTEX/prefrontal/prefrontal_controller.py` e `CORTEX/prefrontal/aurora.py`.
+- Diagnosis: `Diagnosis/diagnosis.py`, fronteira tipada sem motor especializado conectado.
+- Catálogo de fases: `AIGAR_PHASES/phases.json`, atualizado para os caminhos CORTEX correspondentes.
+
+### Fronteira do Worker
+
+O inventário do Worker é um artefato de documentação separado. Nenhum arquivo ou configuração em `AIGAR_CLOUDFLARE/` foi alterado pela auditoria deste documento; também não foram alterados nomes de símbolos, bindings, chaves JSON ou workflows do Worker nesta fase. A decisão sobre eventual reconstrução/alteração fica para depois da conclusão e revisão do mapa da arquitetura remontada.
+
+**Estado:** mapa de runtime atualizado estaticamente; verificação integral e testes ainda não concluídos. Sem merge/deploy.
