@@ -5,6 +5,7 @@ from fastapi import FastAPI
 # AIGAR_RUNTIME/main.py remains the operational entry point during migration.
 # CORTEX is the provisional canonical home for runtime components and contracts.
 from CORTEX.thalamus.models import RuntimeRequest, RuntimeResponse
+from CORTEX.sensory.ingress import capture_request
 from CORTEX.thalamus.context_router import route_reading
 from CORTEX.sara.runtime_status import current_runtime_status
 from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
@@ -27,9 +28,10 @@ aurora = Aurora()
 
 
 def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
-    state = store.get(request.session_id)
+    signal = capture_request(request)
+    state = store.get(signal.session_id)
 
-    reading = language.interpret(request.input)
+    reading = language.interpret(signal.raw_text)
     state.reading = reading
     routing = route_reading(reading)
 
@@ -42,13 +44,13 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     library_context = []
     if routing.use_library:
-        library_context, trace = library.search(request.input, reading=reading.model_dump())
+        library_context, trace = library.search(signal.raw_text, reading=reading.model_dump())
         sources.append(trace)
 
     diagnosis_result = {}
     if routing.use_diagnosis:
         diagnosis_result, trace = diagnosis.evaluate({
-            "input": request.input,
+            "input": signal.raw_text,
             "reading": reading.model_dump(),
             "memory": memory_context,
             "library": library_context,
@@ -58,16 +60,16 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     # The reasoning stage remains in the pipeline for now; its policy will be
     # refined after all subsystem contracts and references have been completed.
     plan, trace = reasoning.plan(
-        request.input, reading.model_dump(), memory_context, library_context, diagnosis_result
+        signal.raw_text, reading.model_dump(), memory_context, library_context, diagnosis_result
     )
     sources.append(trace)
 
     text, trace = aurora.respond(
-        request.input, reading, memory_context, library_context, diagnosis_result, plan
+        signal.raw_text, reading, memory_context, library_context, diagnosis_result, plan
     )
     sources.append(trace)
 
-    store.update(state, request.input, text)
+    store.update(state, signal.raw_text, text)
 
     confirmed_or_connected = [
         source for source in sources if source.status in {"confirmed", "inferred"}
