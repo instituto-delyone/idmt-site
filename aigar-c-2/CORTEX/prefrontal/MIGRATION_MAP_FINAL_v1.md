@@ -139,3 +139,13 @@ Esta seção registra o estado posterior ao levantamento inicial e complementa o
 - Imports, caminhos de assets, manifests e workflows ainda não foram revisados neste lote; essa revisão fica para a etapa seguinte.
 
 **Estado após MIG-014/MIG-015:** movimentação estrutural registrada; nenhuma validação/teste executado; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Auditoria de referências — lote MIG-016 (2026-10-10)
+
+- A inspeção de `aigar_ui_chat_mvp/server/main.py` encontrou `WEB = ROOT / "web"`, referência quebrada após MIG-015. Atualizada para `WEB = ROOT / "CORTEX" / "occipital"`, preservando o backend, as rotas e o ponto de entrada existentes.
+- A interface usa `/static/style.css` e `/static/app.js`; esses URLs são servidos pelo mount `/static` do FastAPI e permanecem compatíveis com a nova pasta-base. As chamadas `/health`, `/api/modules`, `/api/memory-cards` e `/api/chat` continuam no backend original.
+- O README do MVP foi atualizado para representar a separação entre interface e backend. O README de linguagem agora reflete a localização do PDF após MIG-014.
+- O workflow `.github/workflows/aigar-runtime-validation.yml` ainda referencia `language_network/test_interpreter.py` e não inclui `CORTEX/**` no filtro/compilação. **Não alterado neste lote**, pois atualizar o workflow de PR poderia disparar a execução automática dos testes, que seguem bloqueados até a autorização da fase de validação.
+
+**Estado:** referências de execução da UI corrigidas estaticamente; workflow de validação continua pendente por gate de testes. Nenhum teste executado; sem merge/deploy; Worker intocado.

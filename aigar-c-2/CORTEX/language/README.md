@@ -12,7 +12,7 @@
 
 Os arquivos JSON foram migrados de `language_network/` para esta pasta, e o interpretador resolve seus caminhos a partir de `Path(__file__).parent`. Isso mantém os dados compilados juntos do código que os consome.
 
-O documento `language_network/README.md` foi preservado no caminho histórico. Ele identifica a biblioteca Linguagem-materna em `Engines/Aurora/Bibliotecas/Linguagem-materna/` como fonte canônica do conhecimento original. O PDF histórico continua em `language_network/`; seu destino definitivo permanece pendente até que seus consumidores sejam rastreados.
+O documento `language_network/README.md` foi preservado no caminho histórico. Ele identifica a biblioteca Linguagem-materna em `Engines/Aurora/Bibliotecas/Linguagem-materna/` como fonte canônica do conhecimento original. O PDF foi movido para `CORTEX/language/portuguese_language_knowledge.pdf` no lote MIG-014; a cópia de fonte em `knowledge_retrieval/sources/` permanece preservada.
 
 ## Limites conhecidos
 

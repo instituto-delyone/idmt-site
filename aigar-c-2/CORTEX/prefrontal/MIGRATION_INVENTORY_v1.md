@@ -462,3 +462,15 @@ O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos
 - A cópia de fonte PDF em `knowledge_retrieval/sources/` permanece preservada.
 - Nenhuma indexação, import, manifesto ou workflow foi alterado aqui. Isso será auditado no lote de referências.
 - Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Atualização de auditoria de referências — MIG-016 (2026-10-10)
+
+| ID | Arquivo | Referência antiga | Referência atual | Estado |
+|---|---|---|---|---|
+| MIG-016a | `aigar-c-2/aigar_ui_chat_mvp/server/main.py` | `ROOT / "web"` | `ROOT / "CORTEX" / "occipital"` | Atualização estática registrada; não executada |
+| MIG-016b | `aigar-c-2/aigar_ui_chat_mvp/README.md` | Interface documentada como subpasta `web/` local | Interface documentada em `CORTEX/occipital/`, backend mantido em `aigar_ui_chat_mvp/server/` | Documentação reconciliada |
+| MIG-016c | `aigar-c-2/CORTEX/language/README.md` | PDF descrito como ainda em `language_network/` | PDF descrito em `CORTEX/language/`, com cópia de fonte preservada em retrieval | Documentação reconciliada |
+
+### Pendência operacional preservada
+`.github/workflows/aigar-runtime-validation.yml` ainda precisa de revisão dos filtros `paths`, do `compileall`, do `PYTHONPATH` e do caminho do teste do interpretador. Não alterado neste lote para não acionar automaticamente o workflow de testes enquanto a fase de validação estiver bloqueada. Nenhum teste executado; sem merge/deploy; Worker intocado.

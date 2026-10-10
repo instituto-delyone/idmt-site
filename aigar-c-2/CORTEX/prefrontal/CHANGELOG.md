@@ -217,3 +217,19 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 
 ### Estado desta etapa
 A revisão estática encontrou e corrigiu a referência obsoleta do teste de linguagem. O entry point segue em `AIGAR_RUNTIME/main.py`; os pacotes independentes `knowledge_retrieval/` e `knowledge_encoding/` foram preservados. Destinos de corpus/PDFs e aplicações históricas continuam explicitamente pendentes de classificação. Nenhum teste foi executado, não houve merge/deploy e nenhum arquivo/configuração/binding/workflow do Cloudflare Worker foi alterado.
+
+
+## MIG-014/MIG-015 — PDF e interface visual (2026-10-10)
+
+- MIG-014: `language_network/portuguese_language_knowledge.pdf` → `CORTEX/language/portuguese_language_knowledge.pdf`; o blob binário foi preservado. A cópia em `knowledge_retrieval/sources/` permanece intacta. Commit: `eb8197cbe1083e2cde4d5003ce9bd638263d8eee`.
+- MIG-015: `aigar_ui_chat_mvp/web/{index.html,app.js,style.css}` → `CORTEX/occipital/{index.html,app.js,style.css}`; apenas os três arquivos da UI foram movidos. O backend e os memory cards ficaram na aplicação original. Commit: `eb8197cbe1083e2cde4d5003ce9bd638263d8eee`.
+
+## MIG-016 — referências da interface (2026-10-10)
+
+- Corrigido `aigar_ui_chat_mvp/server/main.py`: `WEB` agora aponta para `ROOT / "CORTEX" / "occipital"`, para que o backend sirva o HTML/CSS/JS após MIG-015.
+- Atualizado o README do MVP para documentar a separação interface/backend.
+- Atualizado `CORTEX/language/README.md` para registrar a localização do PDF após MIG-014.
+- Os caminhos `/static/style.css` e `/static/app.js` continuam resolvidos pelo mount `/static`; as rotas API não foram renomeadas.
+- O workflow `.github/workflows/aigar-runtime-validation.yml` permanece como pendência operacional. Não alterado para evitar disparo automático de testes durante o gate atual.
+
+**Estado:** correção estática registrada; nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
