@@ -132,3 +132,31 @@ Esta seção amplia o mapa; **não executa renomeações**. Os nomes abaixo fora
 - O símbolo `LibraryRetriever` só será alterado depois da etapa de renomeação de caminhos, na etapa separada de atualização de referências.
 - Não renomear nem editar qualquer arquivo, símbolo, binding, chave JSON, configuração ou workflow em `aigar-c-2/AIGAR_CLOUDFLARE/`; o Worker permanece expressamente excluído.
 - `thalamus.py` não será criado durante a fase de nomes; sua implementação será uma decisão funcional posterior, mantendo `AIGAR_RUNTIME/main.py` como entrypoint.
+
+
+## Histórico complementar — renomeações de nomes residuais — 2026-10-10
+
+Commit de renomeação: `9e5269eb9ddc63a55665ef3b9b9ea66ff9d2b42d`
+
+Os caminhos abaixo foram renomeados preservando os blobs/conteúdos. Nesta etapa, **não foram atualizados imports, referências, comandos, workflows ou configurações**.
+
+| ID | Caminho anterior | Caminho novo | Conteúdo |
+|---|---|---|---|
+| N02 | `aigar-c-2/AIGAR_RUNTIME/working_state.py` | `aigar-c-2/AIGAR_RUNTIME/working_memory.py` | Blob preservado |
+| N03 | `aigar-c-2/AIGAR_RUNTIME/language_network_bridge.py` | `aigar-c-2/AIGAR_RUNTIME/language_network_adapter.py` | Blob preservado |
+| N04 | `aigar-c-2/AIGAR_RUNTIME/language.py` | `aigar-c-2/AIGAR_RUNTIME/linguistic_interpreter.py` | Blob preservado |
+| N05 | `aigar-c-2/knowledge_consolidation/` | `aigar-c-2/knowledge_encoding/` | 5 arquivos movidos; conteúdo preservado |
+| N06 | `aigar-c-2/knowledge_encoding/build.py` | `aigar-c-2/knowledge_encoding/encode_knowledge.py` | Blob preservado |
+| N07 | `aigar-c-2/knowledge_encoding/index_existing.py` | `aigar-c-2/knowledge_encoding/encode_existing_chunks.py` | Blob preservado |
+
+### Estado da migração após este commit
+
+- [x] Mapa complementar registrado.
+- [x] Renomeações de caminhos N02–N07 realizadas.
+- [x] Histórico das renomeações residuais registrado.
+- [ ] Atualização de referências internas, imports, comandos e configurações — próxima etapa; não executada neste commit.
+- [ ] Testes — adiados conforme instrução.
+- [ ] Implementação do módulo futuro `thalamus.py) — fora desta etapa.
+- [ ] Cloudflare Worker — permanece expressamente intocado nesta rodada.
+
+**Nota operacional:** o repositório pode ficar temporariamente com referências antigas até a etapa separada de atualização de referências. Nenhum teste, merge ou deploy foi executado.
