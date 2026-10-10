@@ -6,6 +6,7 @@ from cortex_compat import (
     CORTEX_COMPATIBILITY,
     build_routing_decision,
     normalize_reading,
+    WORKER_CORTEX_BRIDGE,
 )
 
 
@@ -60,6 +61,30 @@ class CortexCompatibilityTests(unittest.TestCase):
         self.assertTrue(route["use_reasoning"])
         self.assertEqual(route["diagnosis_execution"], "not_connected")
         self.assertFalse(CORTEX_COMPATIBILITY["local_cortex_imported"])
+
+    def test_worker_bridge_returns_canonical_reading_and_explicit_routing(self):
+        result = WORKER_CORTEX_BRIDGE.interpret_contract(
+            {
+                "intent": "continuity",
+                "scope": "decisão anterior",
+                "ambiguity": 0.35,
+                "confidence": 0.7,
+                "needs_library": True,
+                "linguistic_analysis": {"reference": "previous_decision"},
+            },
+            {"context_required": True, "research_required": False},
+        )
+
+        self.assertEqual(result["reading"]["scope"], "decisão anterior")
+        self.assertAlmostEqual(result["reading"]["ambiguity"], 0.35)
+        self.assertAlmostEqual(result["reading"]["uncertainty"], 0.3)
+        self.assertTrue(result["routing_decision"]["use_memory"])
+        self.assertTrue(result["routing_decision"]["use_library"])
+        self.assertEqual(
+            result["compatibility"]["routing_decision"],
+            result["routing_decision"],
+        )
+        self.assertFalse(result["compatibility"]["local_cortex_imported"])
 
 
 if __name__ == "__main__":
