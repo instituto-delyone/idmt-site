@@ -23,7 +23,7 @@ def tokens(text: str) -> set[str]:
 class LibraryRetriever:
     def __init__(self, root: str | Path | None = None):
         self.root = Path(root or os.getenv(
-            "AIGAR_LIBRARY_ROOT",
+            "AIGAR_KNOWLEDGE_RETRIEVAL_ROOT",
             Path(__file__).resolve().parent
         ))
         self.index_dir = self.root / "indexes"
