@@ -28,6 +28,7 @@ O inventário foi feito por leitura estática dos arquivos desta branch. Não fo
 | `AIGAR_CLOUDFLARE/main.py` | Entry point, roteador HTTP, orquestração adaptativa, binding de IA, autenticação, administração, persistência e Workflow | Gateway + orquestração; ainda concentra várias responsabilidades |
 | `AIGAR_CLOUDFLARE/language_runtime.py` | Implementação linguística atual do Worker, regras de intenção, profundidade, conceitos e composição de resposta fundamentada | Módulo de linguagem extraído do entrypoint; mantém a lógica anterior |
 | `AIGAR_CLOUDFLARE/library_runtime.py` | Boot da biblioteca e Texto-Matriz, catálogo/índices, carregamento de chunks, cache e busca de evidências | Módulo de recuperação extraído; o catálogo embutido permanece em `main.py` e é injetado no módulo |
+| `AIGAR_CLOUDFLARE/context_runtime.py` | Seleção assimétrica de contexto e construção/revisão do plano adaptativo | Módulo de contexto e planejamento extraído; sem alterar as regras existentes |
 | `AIGAR_CLOUDFLARE/association_core.py` | `CognitiveContextCore`: prepara/ranqueia chunks e monta contexto compacto para a pergunta | Núcleo de seleção contextual importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/memory_lab/engine.py` | `MemoryLab`: recuperação de memória imediata, curto prazo e longo prazo | Subsistema de memória importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/wrangler.jsonc` | Declara Worker `aigar-api`, entrypoint `main.py`, binding `AI` e Workflow `AIGAR_LIBRARY_BUILDER` | Configuração de deploy |
