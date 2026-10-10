@@ -108,6 +108,24 @@ class SensoryInput(BaseModel):
     source: str = "api"
 
 
+
+
+class DiagnosisRequest(BaseModel):
+    """Typed input envelope for the separate clinical Diagnosis subsystem."""
+
+    input_text: str
+    reading: ConversationReading
+    memory_context: list[dict[str, Any]] = Field(default_factory=list)
+    library_context: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class DiagnosisResult(BaseModel):
+    """Typed result envelope; empty findings do not imply a completed diagnosis."""
+
+    findings: dict[str, Any] = Field(default_factory=dict)
+    source: SourceTrace
+
+
 class RuntimeResponse(BaseModel):
     """External response contract, including state, provenance and plan."""
 
