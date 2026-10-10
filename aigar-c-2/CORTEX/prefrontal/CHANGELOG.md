@@ -176,3 +176,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - Registradas explicitamente as limitações atuais: memória apenas de sessão, motor Diagnosis real ainda não conectado, health como estado de processo e não prova de conectividade.
 - A busca global do GitHub não foi tratada como evidência completa da branch. Os achados foram limitados a arquivos obtidos diretamente pela referência `neurocognitive-migration`.
 - Inventário ampliado com o grafo estático e pendências; nenhum teste executado, sem merge/deploy e Cloudflare Worker intocado.
+
+
+## Correção de documentação de subsistemas — 2026-10-10
+
+- Corrigido `CORTEX/language/PLACEHOLDER.md`: o texto anterior dizia que `test_interpreter.py` estava junto do módulo e remetia a um `CORTEX/language/README.md`, mas a árvore atual confirma que o teste e o README permanecem em `language_network/`; o PDF também continua lá.
+- Atualizado `CORTEX/reasoning_engine/PLACEHOLDER.md` para registrar que planejamento e seleção de evidências já existem em `CORTEX/prefrontal/prefrontal_controller.py`, sem declarar o subsistema consolidado nem duplicar/mover o controlador.
+- Commits de documentação: `d03810d5f290ca2840424f97d1b38fb1d26da464` e `2e5f8f2ef3831a1b22f707fdccca2777d0c207b1`.
+- Apenas documentação foi alterada; nenhum teste executado, sem merge/deploy e Cloudflare Worker intocado.
