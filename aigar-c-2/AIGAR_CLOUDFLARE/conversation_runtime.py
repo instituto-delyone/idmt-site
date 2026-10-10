@@ -246,8 +246,15 @@ async def handle_ask(body, env=None):
     turn_id = str(uuid.uuid4())
     interaction_id = str(uuid.uuid4())
 
-    # Preparar o núcleo antes da interpretação. O boot é cacheado no Worker;
-    # em um isolate frio, recarrega os chunks iniciais das sete bibliotecas.
+    # Ordem de boot: memória pessoal primeiro; conhecimento geral depois.
+    # A falha da memória é isolada e não bloqueia a conversa.
+    memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": None}
+    try:
+        memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
+    except Exception as exc:
+        memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": str(exc)[:300]}
+
+    # Em seguida, preparar bibliotecas e matriz textual antes da interpretação.
     try:
         core_boot = await boot_library()
         text_matrix_boot = await boot_text_matrix()
@@ -256,11 +263,23 @@ async def handle_ask(body, env=None):
         cognitive_context["text_matrix"] = {
             "ready": bool(text_matrix_boot.get("ready")),
             "loaded": int(text_matrix_boot.get("loaded", 0)),
-            "total": int(text_matrix_boot.get("total", len(TEXT_MATRIX_FILES))),
+            "total": int(text_matrix_boot.get("total", 0)),
             "documents": text_matrix_boot.get("documents", []),
+        }
+        cognitive_context["memory_lab"] = {
+            "ok": bool(memory_lab_result.get("ok")),
+            "selected_layer": memory_lab_result.get("selected_layer", []),
+            "documents": len(memory_lab_result.get("documents", []) or []),
+            "error": memory_lab_result.get("error"),
         }
     except Exception:
         cognitive_context = COGNITIVE_CORE.prepare(text, [])
+        cognitive_context["memory_lab"] = {
+            "ok": bool(memory_lab_result.get("ok")),
+            "selected_layer": memory_lab_result.get("selected_layer", []),
+            "documents": len(memory_lab_result.get("documents", []) or []),
+            "error": memory_lab_result.get("error"),
+        }
 
     reading = LANGUAGE_ENGINE.interpret(text, cognitive_context=cognitive_context)
     reading = COGNITIVE_CORE.annotate_reading(reading, cognitive_context)
@@ -317,24 +336,20 @@ async def handle_ask(body, env=None):
                 "detail": "Falha na consulta da biblioteca: " + str(exc)[:400],
             }
 
-    # Optional Memory Lab: isolated retrieval. Failures never break the core API.
-    memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": None}
-    try:
-        memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
-        if not evidence_items and memory_lab_result.get("documents"):
-            for doc in memory_lab_result["documents"][:3]:
-                content = str(doc.get("content") or "").strip()
-                if content:
-                    evidence_items.append({
-                        "text": content[:4000],
-                        "source": doc.get("name"),
-                        "source_key": "memory_lab",
-                        "memory_layer": doc.get("layer"),
-                        "memory_path": doc.get("path"),
-                        "score": doc.get("score"),
-                    })
-    except Exception as exc:
-        memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": str(exc)[:300]}
+    # Usar a memória já recuperada no início, antes da busca de conhecimento.
+    # Ela serve como evidência de fallback quando a biblioteca não encontrou itens.
+    if not evidence_items and memory_lab_result.get("documents"):
+        for doc in memory_lab_result["documents"][:3]:
+            content = str(doc.get("content") or "").strip()
+            if content:
+                evidence_items.append({
+                    "text": content[:4000],
+                    "source": doc.get("name"),
+                    "source_key": "memory_lab",
+                    "memory_layer": doc.get("layer"),
+                    "memory_path": doc.get("path"),
+                    "score": doc.get("score"),
+                })
 
     plan = revise_adaptive_plan(
         plan,
