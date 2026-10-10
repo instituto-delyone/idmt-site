@@ -494,3 +494,11 @@ O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos
 | `association_network/AIGAR_EVIDENCE_MAP_v1.md` e auditoria associada | Referências históricas ao Diagnosis misturadas ao escopo AIGAR-C | Clarificadas sem editar o projeto externo |
 
 Nenhum arquivo foi movido ou renomeado. Nenhum teste executado, sem merge/deploy, Cloudflare Worker intocado.
+
+
+## Lote de estabilização funcional — 2026-10-10
+
+- MIG-016: corrigir falso positivo de intenção fática por substring e extrair temas de padrões linguísticos parametrizados (X). Inclui reconhecimento de “continue” e “o que foi/foram”.
+- Escopo: `CORTEX/language/interpreter.py`, `CORTEX/language/language.json`, `CORTEX/language/portuguese_language_knowledge.json`.
+- Preserva arquitetura de diretórios e contratos públicos; não modifica Worker nem configurações de deploy.
+- Estado: correção proposta nesta branch; aguardando CI para confirmação.

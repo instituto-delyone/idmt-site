@@ -253,3 +253,12 @@ A revisão estática encontrou e corrigiu a referência obsoleta do teste de lin
 - Registrado explicitamente que o motor clínico e a Knowledge Base do Diagnosis pertencem a outro repositório e não são dependências locais do AIGAR-C.
 - Reinspecionados estaticamente os caminhos ativos do runtime, linguagem, recuperação documental, memória e interface. Os caminhos observados apontam para os módulos e diretórios atuais; não foi identificado outro caminho de arquivo antigo que exigisse alteração nesses arquivos de execução.
 - Nenhum arquivo movido, renomeado ou reorganizado. Nenhum teste executado; sem merge/deploy; Worker intocado.
+
+
+## MIG-016 — correção de interpretação linguística e regressões — 2026-10-10
+
+- Corrigida a correspondência lexical por substring que classificava perguntas com “foi” como saudação por conter “oi”; pistas de uma palavra agora exigem limite de palavra.
+- O extrator de perguntas passa a interpretar padrões com marcador de tema (X), respeitando prefixos e priorizando tipos específicos antes dos genéricos.
+- Incluídas formas de continuidade “continue/continuem” e padrões de definição no passado (“o que foi/foram”).
+- Objetivo: corrigir regressões observadas no CI para intenção conceitual, pergunta funcional e continuidade de sessão, sem mudar a arquitetura nem o Worker.
+- Validação anterior (commit `2be9ab3`): compilação passou; testes reportaram 4 falhas e 4 sucessos. A validação após esta correção ainda precisa ser confirmada pelo CI.

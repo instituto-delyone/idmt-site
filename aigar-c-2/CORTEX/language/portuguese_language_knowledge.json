@@ -230,7 +230,7 @@
   },
   "question_patterns": {
     "definition": {
-      "forms": ["o que é X", "o que são X", "defina X", "o que significa X", "qual é a definição de X"],
+      "forms": ["o que é X", "o que são X", "o que foi", "o que foram", "o que significa X", "defina X", "qual é a definição de X"],
       "semantic_goal": "identificar_e_explicar_o_conceito"
     },
     "identity": {

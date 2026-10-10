@@ -36,7 +36,17 @@ class AIGARLanguage:
 
     @staticmethod
     def _has_any(text: str, values: list[str]) -> bool:
-        return any(value in text for value in values)
+        """Match whole words for single-token cues; avoid 'oi' matching inside 'foi'."""
+        for value in values:
+            cue = value.strip().lower()
+            if not cue:
+                continue
+            if " " in cue:
+                if cue in text:
+                    return True
+            elif re.search(rf"(?<!\\w){re.escape(cue)}(?!\\w)", text, flags=re.UNICODE):
+                return True
+        return False
 
     @staticmethod
     def _has_word(text: str, value: str) -> bool:
@@ -100,27 +110,49 @@ class AIGARLanguage:
     def _extract_question(self, text: str) -> dict[str, Any]:
         patterns = self.portuguese["question_patterns"]
 
+        # Tipos mais específicos vêm antes dos genéricos para preservar a intenção.
         ordered = [
             ("definition", patterns["definition"]["forms"]),
-            ("identity", patterns["identity"]["forms"]),
-            ("time", patterns["time"]["forms"]),
-            ("place", patterns["place"]["forms"]),
-            ("cause", patterns["cause"]["forms"]),
             ("function", patterns["function"]["forms"]),
+            ("cause", patterns["cause"]["forms"]),
             ("process", patterns["process"]["forms"]),
             ("comparison", patterns["comparison"]["forms"]),
+            ("time", patterns["time"]["forms"]),
+            ("place", patterns["place"]["forms"]),
+            ("identity", patterns["identity"]["forms"]),
         ]
 
         for question_type, forms in ordered:
-            for form in sorted(forms, key=len, reverse=True):
-                if form in text:
-                    remainder = text.replace(form, "", 1).strip(" ?")
-                    return {
-                        "type": question_type,
-                        "matched_form": form,
-                        "semantic_goal": patterns[question_type]["semantic_goal"],
-                        "topic_candidate": remainder or None,
-                    }
+            candidates = []
+            for form in forms:
+                form = form.lower().strip()
+                if "X" in form:
+                    prefix, suffix = form.split("X", 1)
+                    candidates.append((prefix.strip(), suffix.strip(), form))
+                    # Português contrai frequentemente "de + o/a" em "do/da".
+                    if prefix.endswith(" de "):
+                        for contraction in ("do ", "da ", "dos ", "das "):
+                            candidates.append((prefix[:-4].rstrip() + " " + contraction, suffix.strip(), form))
+                else:
+                    candidates.append((form, "", form))
+
+            for prefix, suffix, original_form in sorted(candidates, key=lambda item: len(item[0]), reverse=True):
+                if not text.startswith(prefix):
+                    continue
+                remainder = text[len(prefix):].strip()
+                if suffix:
+                    if not remainder.endswith(suffix):
+                        continue
+                    remainder = remainder[:-len(suffix)].strip()
+                remainder = remainder.strip(" ?.!,:;")
+                if not remainder:
+                    continue
+                return {
+                    "type": question_type,
+                    "matched_form": original_form,
+                    "semantic_goal": patterns[question_type]["semantic_goal"],
+                    "topic_candidate": remainder,
+                }
 
         return {
             "type": None,

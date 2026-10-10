@@ -11,7 +11,7 @@
     "concept_basic": {"examples":["o que é","defina","explique o que é"],"response":"definicao_direta","needs_thematic_library":true},
     "concept_scoped": {"examples":["qual a função","quais","como funciona","por que"],"response":"responder_dentro_do_escopo","needs_thematic_library":true},
     "clinical_case": {"examples":["paciente com","qual a conduta","hipóteses diagnósticas","quais dados faltam"],"response":"organizar_dados_gravidade_hipoteses_dados_faltantes_proximos_passos","needs_thematic_library":true},
-    "continuity": {"examples":["continua","fala disso","explica melhor","e depois?"],"response":"usar_contexto_recente","needs_memory":true},
+    "continuity": {"examples":["continua","continue","continuem","fala disso","explica melhor","e depois?"],"response":"usar_contexto_recente","needs_memory":true},
     "correction": {"examples":["está errado","não é isso","quis dizer","corrigindo"],"response":"reavaliar_interpretacao_e_atualizar_contexto"},
     "doubt": {"examples":["não entendi","estou confuso","tenho dúvida"],"response":"esclarecer_e_reformular"},
     "action": {"examples":["faça","crie","monte","calcule","gere"],"response":"executar_ou_planejar_acao"}
