@@ -76,6 +76,18 @@ class RuntimeRequest(BaseModel):
     session_id: str = "default"
 
 
+class SensoryInput(BaseModel):
+    """Canonical envelope passed from external ingress to sensory processing.
+
+    The raw text is preserved exactly; normalization belongs to later layers.
+    """
+
+    raw_text: str
+    session_id: str = "default"
+    modality: Literal["text"] = "text"
+    source: str = "api"
+
+
 class RuntimeResponse(BaseModel):
     """External response contract, including state, provenance and plan."""
 
