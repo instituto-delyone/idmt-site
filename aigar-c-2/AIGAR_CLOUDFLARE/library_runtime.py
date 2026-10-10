@@ -111,11 +111,12 @@ async def load_library_indexes():
     return INDEX_CACHE
 
 TEXT_MATRIX_FILES = [
+    ("AIGAR-TM-00", "00_INDICE.md"),
     ("AIGAR-TM-01", "01_conhecimento.md"),
     ("AIGAR-TM-02", "02_linguagem.md"),
     ("AIGAR-TM-03", "03_linguagem_computador_humanos.md"),
     ("AIGAR-TM-04", "04_existencia_seres.md"),
-    ("AIGAR-TM-05", "05_surgimento _evolucao_raciocínio.md"),
+    ("AIGAR-TM-05", "05_surgimento_evolucao_raciocínio.md"),
     ("AIGAR-TM-06", "06_raciocinio_funcionamento.md"),
     ("AIGAR-TM-07", "07_analogias_raciocinio_sistemas.md"),
     ("AIGAR-TM-08", "08_linguagem_eu_maquina.md"),
@@ -123,7 +124,7 @@ TEXT_MATRIX_FILES = [
 TEXT_MATRIX_CACHE = None
 TEXT_MATRIX_AT = 0
 TEXT_MATRIX_TTL_SECONDS = 300
-TEXT_MATRIX_ROOT = "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_CLOUDFLARE/texto_matriz/"
+TEXT_MATRIX_ROOT = "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/CORTEX/NeoCortex/"
 
 async def boot_text_matrix():
     """Segunda leva do boot: carrega os capítulos Markdown antes da interação."""
