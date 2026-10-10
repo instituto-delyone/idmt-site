@@ -6,6 +6,9 @@ MEMORY_LAYERS = {"imediata":"memoria_imediata","curto_prazo":"memoria_curto_praz
 DEFAULT_CONFIG = {"enabled":True,"repository":"instituto-delyone/idmt-site","ref":"main","root":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab","refresh_seconds":60,"short_term_top_k":3,"long_term_top_k":4,"max_document_chars":120000,"immediate_boot_required":True,"fallback_min_score":1}
 def _terms(text): return set(re.findall(r"[a-zA-ZÀ-ÿ0-9_+-]{2,}", (text or "").lower()))
 def _score(query, content, name=""): return len(_terms(query) & _terms((name or "")+" "+(content or "")))
+def _is_memory_document(path):
+    filename = str(path or "").rsplit("/", 1)[-1].casefold()
+    return filename.endswith(".txt") and filename != "readme.txt"
 class MemoryLab:
     def __init__(self, fetcher, config=None):
         self.fetcher=fetcher; self.config={**DEFAULT_CONFIG,**(config or {})}
@@ -39,7 +42,7 @@ class MemoryLab:
             paths=[x.get("path","") for x in tree.get("tree",[]) if x.get("type")=="blob"]
             docs={k:[] for k in MEMORY_LAYERS}; stats={k:{"files_found":0,"files_loaded":0,"errors":[]} for k in MEMORY_LAYERS}
             for layer,folder in MEMORY_LAYERS.items():
-                candidates=[p for p in paths if p.startswith(root+"/"+folder+"/") and p.lower().endswith(".txt") and p.rsplit("/",1)[-1].casefold() != "readme.txt"]
+                candidates=[p for p in paths if p.startswith(root+"/"+folder+"/") and _is_memory_document(p)]
                 stats[layer]["files_found"]=len(candidates)
                 for path in candidates:
                     try:
