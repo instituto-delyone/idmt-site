@@ -1,40 +1,23 @@
 from __future__ import annotations
 
-import importlib.util
-from pathlib import Path
 from typing import Any
 
-from .models import ConversationReading
-
-ROOT = Path(__file__).resolve().parents[2]
-INTERPRETER_PATH = ROOT / "aigar-c-2" / "language_network" / "interpreter.py"
-
-
-def _load_language_class():
-    spec = importlib.util.spec_from_file_location(
-        "aigar_language_interpreter",
-        INTERPRETER_PATH,
-    )
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Unable to load AIGAR language interpreter: {INTERPRETER_PATH}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.AIGARLanguage
+from ..thalamus.models import ConversationReading
+from .interpreter import AIGARLanguage
 
 
 class LanguageNetworkAdapter:
     """Ponte entre a rede computacional de linguagem e o Runtime; analogia funcional, não equivalência com áreas cerebrais específicas."""
 
-    def __init__(self):
-        self.engine = _load_language_class()()
+    def __init__(self) -> None:
+        self.engine = AIGARLanguage()
+
 
     def interpret(self, text: str) -> ConversationReading:
         result: dict[str, Any] = self.engine.interpret(text)
         ambiguity_map = {
-            "clear": 0.0,
-            "too_short": 0.45,
-            "context_dependent": 0.35,
-            "empty": 1.0,
+            "clear": 0.0, "too_short": 0.45,
+            "context_dependent": 0.35, "empty": 1.0,
         }
         return ConversationReading(
             intent=result["intent"],
