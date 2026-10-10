@@ -167,3 +167,75 @@ Os diretórios já existentes em `CORTEX/` continuam sendo a arquitetura-alvo; o
 - MIG-012 destino: `7507d8769f47dceff570fd3a5557a103ef8351f7`; remoção da origem: `ea9655ca498b08cdf8621eb5868db9c2e03988a0`. Blob preservado: `4039ddfa274086e9af621a7b9e762c59208f075b`.
 
 **Próxima etapa:** concluir o mapa dos demais arquivos e, em lote separado, atualizar imports e caminhos de dados. O Cloudflare Worker permanece fora do escopo.
+
+
+## Inventário ampliado — fechamento da etapa de levantamento
+
+**Base inspecionada:** árvore Git da branch `neurocognitive-migration`, SHA de referência `80687cc4b2911be41444b87261656d4421db0447`, mais leitura dos pontos de entrada e READMEs citados abaixo. Foram excluídos da avaliação de migração os diretórios `.venv/`, `__pycache__/` e caches/índices gerados, que não devem ser tratados como código-fonte comum. O Worker permanece expressamente excluído.
+
+### A. Runtime legado ainda existente — manter como referência até traduzir dependências
+
+| Arquivo | Papel/decisão |
+|---|---|
+| `AIGAR_RUNTIME/main.py` | Entry point FastAPI; orquestra linguagem, memória, biblioteca, Diagnosis, pré-frontal e Aurora. Não mover até planejar os imports de forma coordenada. |
+| `AIGAR_RUNTIME/__init__.py` | Inicialização do pacote legado; revisar ao traduzir a entrada. |
+| `AIGAR_RUNTIME/requirements.txt` | Dependências do runtime legado; decidir instalação comum/novo manifesto depois de mapear os pacotes. |
+| `AIGAR_RUNTIME/test_runtime.py` | Testes existentes; preservados, não executados nesta fase. |
+| `AIGAR_RUNTIME/README.md` | Documentação operacional e histórica; atualizar após definir novo entry point. |
+
+**Dependência crítica confirmada:** `main.py` ainda importa `.models`, `.language_network_adapter`, `.working_memory`, `.hippocampal_memory`, `.knowledge_retrieval`, `.diagnosis`, `.prefrontal_controller` e `.aurora` do pacote antigo. Como cinco desses módulos foram movidos nos lotes anteriores, o entry point legado está temporariamente inconsistente por desenho. Isso será tratado na fase de tradução; não rodar testes antes dela.
+
+### B. Pacotes funcionais externos ao CORTEX — preservar e mapear interfaces
+
+| Área | Conteúdo identificado | Decisão |
+|---|---|---|
+| `knowledge_retrieval/` | `retriever.py`, `semantic_retriever.py`, bootstrap/config/README, fontes, testes, índices e cache | Manter pacote independente. `CORTEX/engram/knowledge_retrieval.py` é adaptador, não substituto desse pacote. Não mover cache/índices em lote de código. |
+| `knowledge_encoding/` | `encode_knowledge.py`, `encode_existing_chunks.py`, `requirements.txt`, README e inicializador | Manter como pipeline de ingestão/encoding; documentar seu vínculo com a biblioteca. |
+| `language_network/` | README, `__init__.py`, teste do interpretador e PDF de referência | O código principal e JSONs foram migrados no lote 1; preservar o teste e a fonte documental até revisar dependências e licença/origem. |
+| `Diagnosis/` | `diagnosis.py` (adaptador) | Mantido separado do CORTEX para integração futura com o motor clínico especializado. |
+| `aigar_ui_chat_mvp/` | backend FastAPI, módulos AIGAR/Jarvis, manifests, UI web, memory cards e READMEs | Aplicação separada. Não misturar backend/UI com o runtime cognitivo sem confirmar consumidores e contrato. A pasta `.venv/` é artefato local, não candidata a migração de fonte. |
+
+### C. Arquitetura e contratos históricos — fontes de reconstrução, não módulos automaticamente migráveis
+
+- `association_network/AIGAR_ARCHITECTURE_v1.yaml`
+- `association_network/AIGAR_RUNTIME_CONTRACT_v1.json`
+- `association_network/AIGAR_SOURCE_MANIFEST_v1.json`
+- `association_network/AIGAR_EVIDENCE_MAP_v1.md`
+- `association_network/AIGAR_MIGRATION_PLAN.md` e README
+- `AIGAR_PHASES/phases.json`
+- `AIGAR_RECONSTRUCTION/FASE_1_BIBLIOTECA_E_CACHE.md`
+- `conversational-engine/AIGAR_AURORA_RECONSTRUCAO_LINGUAGEM_MEMORIA_v1_0.html`
+- Documentos de raiz: `AIGAR_NEUROCOGNITIVE_DICTIONARY_v1.txt`, `AIGAR_NEUROCOGNITIVE_MIGRATION_MAP_v1.md`, `AIGAR_NEUROCOGNITIVE_ROADMAP_v1.md`, `AIGAR_RENAME_PLAN_v1.md`, `AIGAR_WORKER_TOPOLOGY_INVENTORY_v1.md` e `AIGAR_PACOTE_COMPLEMENTAR_RECONSTRUCAO_v1_0.txt`.
+
+**Decisão:** comparar esses contratos entre si antes de traduzir imports ou transformar proposta histórica em comportamento implementado. Preservar conflitos/diferenças como questões abertas, sem escolher silenciosamente uma fonte canônica.
+
+### D. Interface, sincronização e dados auxiliares — revisão posterior
+
+- `aigar_ui_chat_mvp/web/index.html`, `app.js`, `style.css`: candidatos à camada visual (`CORTEX/occipital/`) após confirmar integração.
+- `aigar-jarvis-sync/` e `drive-do-aigar/`: ferramentas de sincronização/integração; mapear credenciais, caminhos e consumidores antes de qualquer mudança.
+- `fragments-history/`: histórico de fragmentos; preservar como arquivo histórico.
+- `biblioteca/`: corpus de documentos; manter separado de código e confirmar direitos de redistribuição antes de copiar documentos.
+- PDFs na raiz de `aigar-c-2/`: fontes de conhecimento, não módulos de runtime. Não mover automaticamente.
+- `main.backup.py`, `requirements-math.txt`: backup e dependências especializadas; manter até identificar consumidores.
+- Diretórios de cache, índices gerados, `.venv/` e `__pycache__/`: não são parte da migração estrutural de código-fonte; preservar seus dados existentes e não copiar ambientes virtuais para a arquitetura nova.
+
+### E. Arquitetura CORTEX — estado atual observado
+
+- Funcionais migrados: `thalamus/models.py`, `thalamus/linguistic_interpreter.py`, `engram/knowledge_retrieval.py`, `memory/working_memory.py`, `memory/hippocampal_memory.py`, `language/language_network_adapter.py`, `language/interpreter.py`, os dois JSONs linguísticos, `prefrontal/prefrontal_controller.py` e `prefrontal/aurora.py`.
+- Placeholders/documentação existentes: `sara/`, `sensory/`, `default_mode_network/`, `reasoning_engine/`, `worker_bridge/`, `language/`, `memory/`, `thalamus/`, `occipital/`, além dos documentos pré-frontais.
+- `CORTEX/README.md` ainda descreve a fase original de placeholders; atualizar sua descrição depois de encerrar a movimentação e antes de codificar a nova arquitetura.
+
+### F. Pendências objetivas para a etapa de tradução
+
+1. Definir como `main.py` será mantido como referência ou substituído por novo ponto de entrada do CORTEX.
+2. Traduzir imports de modelos para `CORTEX.thalamus.models` (ou contrato compartilhado que vier a ser aprovado).
+3. Atualizar a localização do interpretador referenciada por `language_network_adapter.py`.
+4. Corrigir resolução dos dois JSONs no interpretador linguístico.
+5. Traduzir os imports dos módulos de memória e do controlador, inclusive dependências de `models.py`.
+6. Preservar o import do pacote externo `knowledge_retrieval.retriever` enquanto o pacote não for migrado.
+7. Comparar `AIGAR_RUNTIME/linguistic_interpreter.py` migrado com `CORTEX/language/interpreter.py`; documentar diferença de contratos sem eliminar nenhum.
+8. Definir interface de integração do adaptador em `Diagnosis/diagnosis.py` sem incorporar o motor clínico ao CORTEX.
+9. Revisar entry points, requirements e instruções nos READMEs após a tradução.
+10. Somente depois de concluir itens anteriores, autorizar testes de validação comportamental.
+
+**Conclusão do inventário:** a fase de levantamento está concluída para os principais módulos do runtime, linguagem, memória, recuperação documental, Diagnosis, UI, contratos históricos e recursos auxiliares listados acima. Isto não significa que todas as migrações do repositório estejam concluídas: os itens nas seções B–D são explicitamente preservados ou candidatos a revisão posterior. Imports/caminhos não foram traduzidos e testes não foram executados.
