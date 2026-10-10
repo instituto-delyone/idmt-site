@@ -15,6 +15,8 @@ from memory_lab import MemoryLab
 
 from language_runtime import (
     BOOK_LEARNING,
+    CHUNK_CACHE,
+    SESSIONS,
     LANGUAGE,
     LANGUAGE_ENGINE,
     LIBRARY_INDEX,

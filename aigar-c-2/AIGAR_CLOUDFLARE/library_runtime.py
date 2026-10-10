@@ -15,7 +15,7 @@ from urllib.parse import quote
 from workers import fetch
 from association_core import CognitiveContextCore
 from memory_lab import MemoryLab
-from language_runtime import LIBRARY_INDEX, LANGUAGE, PORTUGUESE, STOPWORDS, find_linguistic_concept, sentences, tokens
+from language_runtime import CHUNK_CACHE, LIBRARY_INDEX, LANGUAGE, PORTUGUESE, STOPWORDS, find_linguistic_concept, sentences, tokens
 
 EMBEDDED_LIBRARY_INDEXES = []  # Injected by main.py from the existing embedded catalogue.
 
