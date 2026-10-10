@@ -4,7 +4,13 @@ from fastapi import FastAPI
 
 # AIGAR_RUNTIME/main.py remains the operational entry point during migration.
 # CORTEX is the provisional canonical home for runtime components and contracts.
-from CORTEX.thalamus.models import DiagnosisRequest, RuntimeRequest, RuntimeResponse
+from CORTEX.thalamus.models import (
+    DiagnosisRequest,
+    LibraryQuery,
+    MemoryRecallRequest,
+    RuntimeRequest,
+    RuntimeResponse,
+)
 from CORTEX.sensory.ingress import capture_request
 from CORTEX.thalamus.context_router import route_reading
 from CORTEX.sara.runtime_status import current_runtime_status
@@ -39,13 +45,17 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     sources = []
 
     if routing.use_memory:
-        memory_context, trace = memory.recall(state)
-        sources.append(trace)
+        memory_result = memory.recall(MemoryRecallRequest(state=state))
+        memory_context = memory_result.items
+        sources.append(memory_result.source)
 
     library_context = []
     if routing.use_library:
-        library_context, trace = library.search(signal.raw_text, reading=reading.model_dump())
-        sources.append(trace)
+        library_result = library.search(
+            LibraryQuery(query=signal.raw_text, reading=reading.model_dump())
+        )
+        library_context = library_result.items
+        sources.append(library_result.source)
 
     diagnosis_result = {}
     if routing.use_diagnosis:
