@@ -11,7 +11,7 @@ from cloudflare_bindings import binding
 from language_runtime import LANGUAGE, LANGUAGE_ENGINE, SESSIONS, compose_book_grounded_answer
 from library_runtime import COGNITIVE_CORE, MEMORY_LAB, boot_library, boot_text_matrix, library_search, source_relevance
 from context_runtime import AsymmetricContextManager, build_adaptive_plan, revise_adaptive_plan
-from cortex_compat import normalize_reading, build_routing_decision, CORTEX_COMPATIBILITY
+from cortex_compat import WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING
 
@@ -266,9 +266,10 @@ async def handle_ask(body, env=None):
     reading = COGNITIVE_CORE.annotate_reading(reading, cognitive_context)
     # Compatibility boundary: normalize Worker-native dictionaries to the
     # shared CORTEX contract without importing local-only CORTEX packages.
-    reading = normalize_reading(reading)
     profile = classify_interaction(text, reading)
-    routing_decision = build_routing_decision(reading, profile)
+    contract = WORKER_CORTEX_BRIDGE.interpret_contract(reading, profile)
+    reading = contract["reading"]
+    routing_decision = contract["routing_decision"]
     prior_turns = session.get("turns", [])
     context_resolution = AsymmetricContextManager().resolve(
         text, prior_turns[-40:], needs_context=bool(routing_decision["use_memory"])
@@ -532,10 +533,7 @@ async def handle_ask(body, env=None):
         "interaction_id": interaction_id,
         "turn_id": turn_id,
         "interaction_profile": profile,
-        "cortex_compatibility": {
-            **CORTEX_COMPATIBILITY,
-            "routing_decision": dict(routing_decision),
-        },
+        "cortex_compatibility": contract["compatibility"],
         "adaptive_plan": {key: value for key, value in plan.items() if key != "evidence_details"},
         "feedback": {
             "endpoint": "/feedback", "interaction_id": interaction_id,
