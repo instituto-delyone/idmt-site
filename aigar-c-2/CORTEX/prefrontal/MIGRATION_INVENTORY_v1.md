@@ -297,3 +297,10 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Commits: `248d87194ecf25c8c278cd304a20dd678bb8d6d2`, `9929f873ff27e8d65ff8c866b5c4646d561dbf9c`, `120fd7a2e4bd653aa058885ca30b5dba2e5c0f11`, changelog `6548a2f86ed5d31d631bf66685878edda0af027d`.
 
 **Estado:** contrato estático criado; conexão funcional ao motor Diagnosis e validação permanecem pendentes. Testes não executados. Sem merge/deploy; Cloudflare Worker intocado.
+
+## Memória e biblioteca — contratos de recuperação tipados (2026-10-10)
+
+- `CORTEX/thalamus/models.py` define `MemoryRecallRequest`/`MemoryRecallResult` e `LibraryQuery`/`LibrarySearchResult` para padronizar as fronteiras de entrada/saída e registrar a proveniência.
+- Commit do contrato: `18623acd4b800f986c1efb4c713ec5668ca199de`; registro no changelog: `c0ecf2193303f50a03f019edbbe6752c5284dc70`.
+- Ainda falta adaptar `HippocampalMemoryAdapter` e `KnowledgeRetrievalAdapter` para consumir/produzir esses envelopes. A memória persistente Memory Card segue não conectada; o pacote independente `knowledge_retrieval` permanece fora da migração estrutural.
+- Nenhum teste foi executado; sem merge/deploy; Cloudflare Worker intocado.
