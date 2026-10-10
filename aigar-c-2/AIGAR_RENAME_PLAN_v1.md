@@ -160,3 +160,28 @@ Os caminhos abaixo foram renomeados preservando os blobs/conteúdos. Nesta etapa
 - [ ] Cloudflare Worker — permanece expressamente intocado nesta rodada.
 
 **Nota operacional:** o repositório pode ficar temporariamente com referências antigas até a etapa separada de atualização de referências. Nenhum teste, merge ou deploy foi executado.
+
+
+## Histórico complementar — atualização de referências — 2026-10-10
+
+Após os renomes N02–N07, foram atualizadas as referências atuais fora do Cloudflare Worker:
+
+- `AIGAR_RUNTIME/main.py`: imports para `language_network_adapter` e `working_memory`.
+- `knowledge_retrieval/bootstrap_sapiens.py`: chamada do módulo de codificação para `knowledge_encoding.encode_knowledge`.
+- `knowledge_retrieval/BOOTSTRAP_LOCAL.md`: caminho de dependências atualizado para `knowledge_encoding/requirements.txt`.
+- `.github/workflows/aigar-runtime-validation.yml`: gatilhos e compilação incluem `knowledge_encoding`.
+- `knowledge_encoding/README.md`: comando de execução atualizado para `knowledge_encoding.encode_knowledge`.
+
+Não foram alterados arquivos, símbolos, bindings, chaves JSON, configurações ou workflows dentro de `aigar-c-2/AIGAR_CLOUDFLARE/`. Referências antigas mantidas em seções históricas do plano/README são registros do histórico, não instruções de execução atuais.
+
+### Situação da rodada
+
+- [x] Mapear e registrar nomes residuais.
+- [x] Renomear caminhos aprovados N02–N07.
+- [x] Registrar as renomeações efetivamente realizadas.
+- [x] Atualizar referências operacionais identificadas fora do Worker.
+- [ ] Fazer auditoria final e executar testes — pendente conforme a sequência acordada.
+- [ ] Implementar `thalamus.py` — fora desta etapa; `AIGAR_RUNTIME/main.py` continua sendo o entrypoint.
+- [ ] Merge e deploy — não realizados.
+
+**Importante:** os testes continuam sem execução nesta etapa, conforme a instrução anterior. A migração de nomes e referências deve ser auditada antes de qualquer validação funcional.
