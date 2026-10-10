@@ -1,37 +1,37 @@
-# AIGAR Cloudflare Runtime
+# AIGAR Cloudflare Worker — migration package
 
-Production adapter for AIGAR Runtime using Cloudflare Python Workers + FastAPI.
+This directory is the **self-contained Cloudflare Worker implementation** being aligned with the current AIGAR-C/CORTEX architecture. It is intentionally maintained as a migration candidate in the repository; editing this package does not publish or change the live Cloudflare Worker.
 
-- Worker: aigar-api
-- Public endpoint: https://aigar-api.dr-delyone.workers.dev
-- Production site API path target: /aigar/api
-- Local Python Runtime remains under aigar-c-2/AIGAR_RUNTIME.
-- Library chunks are retrieved from the versioned GitHub repository and cached per Worker isolate.
-- Session memory is isolate-local for this first production cut; persistent Memory Cards are not replaced by this layer.
+## Runtime boundary
 
-The Cloudflare implementation deliberately keeps the existing local Runtime intact while providing a production-compatible deployment surface. The Worker is packaged from this directory, so it does not import sibling CORTEX/ modules directly. Instead, cortex_compat.py maps the Worker-native language result and routing decision to the shared CORTEX contract shape while preserving existing Worker implementations and fallback behavior.
+- Worker entrypoint: `main.py` (`WorkerEntrypoint`).
+- Worker packaging/configuration: `wrangler.jsonc`.
+- Canonical local runtime: `../AIGAR_RUNTIME`.
+- Shared CORTEX contracts: `../CORTEX/thalamus/models.py`.
+- Worker-side contract bridge: `cortex_compat.py`.
+- Worker language interpretation: `language_runtime.py`.
+- Context selection and adaptive planning: `context_runtime.py`.
+- Cognitive-context retrieval: `association_core.py`.
+- Repository-backed three-layer memory prototype: `memory_lab/`.
 
-## Current Worker module map
+The Worker package remains independently bundleable. It does **not** import sibling `CORTEX/` Python modules at runtime, because those modules and their local retrieval dependencies are not packaged inside this Worker directory. Instead, `WorkerCortexBridge` normalizes the Worker-native interpretation to the canonical `ConversationReading` vocabulary and emits an explicit resource-routing contract. This boundary is tested in `test_cortex_compat.py`.
 
-The Cloudflare Worker keeps its existing public routes and behavior. The language runtime was extracted to `language_runtime.py` so the entrypoint can import the language functions instead of defining them inline. This is a behavior-preserving extraction of the current Worker implementation; it is **not yet** a direct import of the local `CORTEX/language/*` modules, whose contracts and runtime packaging need a compatible bridge before substitution.
+## Request flow
 
-| Responsibility | Current implementation | Status |
-|---|---|---|
-| HTTP entrypoint, routes, orchestration, adaptive response, admin, storage and Workflow | `main.py` | Existing entrypoint; remaining concentrated responsibilities |
-| Worker language interpretation and language concepts | `language_runtime.py` | Extracted from the prior inline implementation |
-| Context ranking and evidence selection | `association_core.py` | Separate module already imported by `main.py` |
-| Three-layer repository-backed memory | `memory_lab/engine.py` via `memory_lab` package | Separate module already imported by `main.py` |
-| Local-runtime language implementation | `../CORTEX/language/interpreter.py` and `language_network_adapter.py` | Not wired into Cloudflare Worker yet; preserve behavior until compatibility is verified |
-| Local-runtime memory, retrieval, controller and Aurora | `../CORTEX/memory/*`, `../CORTEX/engram/*`, `../CORTEX/prefrontal/*` | Local-runtime modules; not assumed interchangeable with Worker services |
+1. `language_runtime.py` interprets the input and attaches linguistic analysis.
+2. `WorkerCortexBridge` validates shared fields, preserves extra annotations, and normalizes confidence/uncertainty.
+3. `classify_interaction` identifies the interaction profile.
+4. `context_runtime.py` selects eligible context and builds/revises the adaptive plan.
+5. The existing library, memory, and answer-rendering services execute only when available.
+6. The response reports routing, evidence, and availability metadata instead of implying an unconnected subsystem executed.
 
-Future Workers are architectural ideas only. No new Worker, Service Binding, route, or deployment is introduced by this refactor.
+## Explicit capability boundary
 
+- Session context is Worker-isolate-local; it is not persistent Memory Card recall.
+- A diagnosis route flag is a selection decision only. The separate Diagnosis engine is **not connected** to this Worker.
+- Audio/visual input, additional Workers/Service Bindings, and a default-mode/reflection subsystem are not implemented here.
+- No production route, binding, secret, Cloudflare setting, or live script is changed by repository edits.
 
-## CORTEX compatibility boundary
+## Validation
 
-- cortex_compat.py normalizes the Worker-native reading to the shared contract vocabulary and produces an explicit routing decision.
-- conversation_runtime.py consumes that decision for context selection, library retrieval, and the response plan.
-- The adapter is intentionally self-contained: it does not import sibling ../CORTEX/ modules, because those modules and their local knowledge-retrieval dependencies are not part of this Worker package.
-- Neuroscience-inspired ideas already represented in the Worker are task-sensitive context selection, exclusion of revoked/superseded turns, source-aware retrieval, evidence-grounded rendering, uncertainty/fallback behavior, and plan revision with reasons.
-- Ideas still deferred are persistent Memory Card recall, execution of the separate Diagnosis engine, new Cloudflare Workers/Service Bindings, audio/visual input, and a default-mode/reflection subsystem. They are reported as unavailable rather than simulated.
-- The adapter is additive and keeps the existing HTTP routes. This commit does not deploy the Worker or claim runtime validation.
+The migration workflow compiles the Worker package and runs the cognitive-core and CORTEX-compatibility unit tests. A passing repository test run validates these checks only; it does not mean the candidate has been deployed to Cloudflare.
