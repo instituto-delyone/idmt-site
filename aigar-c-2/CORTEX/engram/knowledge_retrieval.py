@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from knowledge_retrieval.retriever import KnowledgeRetriever
-from .models import SourceTrace
+from ..thalamus.models import SourceTrace
 
 
 class KnowledgeRetrievalAdapter:
