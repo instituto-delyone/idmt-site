@@ -184,3 +184,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - Atualizado `CORTEX/reasoning_engine/PLACEHOLDER.md` para registrar que planejamento e seleção de evidências já existem em `CORTEX/prefrontal/prefrontal_controller.py`, sem declarar o subsistema consolidado nem duplicar/mover o controlador.
 - Commits de documentação: `d03810d5f290ca2840424f97d1b38fb1d26da464` e `2e5f8f2ef3831a1b22f707fdccca2777d0c207b1`.
 - Apenas documentação foi alterada; nenhum teste executado, sem merge/deploy e Cloudflare Worker intocado.
+
+
+## Reconciliação da documentação histórica de linguagem — 2026-10-10
+
+- Corrigido `language_network/README.md`, que afirmava incorretamente que `test_interpreter.py` havia sido movido para `CORTEX/language/`. A árvore da branch confirma que o teste permanece em `language_network/`, ainda sem execução.
+- Commit da correção: `4efcde12f6c42c36e920861b3315036af1331159`.
+- A documentação de estado em `CORTEX/language/PLACEHOLDER.md` foi alinhada ao mesmo fato; nenhum arquivo de teste foi movido ou executado.
+- Sem merge/deploy; Cloudflare Worker intocado.
