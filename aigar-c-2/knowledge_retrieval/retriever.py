@@ -20,7 +20,7 @@ def tokens(text: str) -> set[str]:
     return {w for w in words if w not in STOPWORDS}
 
 
-class LibraryRetriever:
+class KnowledgeRetriever:
     def __init__(self, root: str | Path | None = None):
         self.root = Path(root or os.getenv(
             "AIGAR_KNOWLEDGE_RETRIEVAL_ROOT",
