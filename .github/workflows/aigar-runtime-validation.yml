@@ -4,9 +4,9 @@ on:
   pull_request:
     paths:
       - "aigar-c-2/AIGAR_RUNTIME/**"
-      - "aigar-c-2/AIGAR_LANGUAGE/**"
-      - "aigar-c-2/AIGAR_LIBRARY/**"
-      - "aigar-c-2/AIGAR_LIBRARY_BUILDER/**"
+      - "aigar-c-2/language_network/**"
+      - "aigar-c-2/knowledge_retrieval/**"
+      - "aigar-c-2/knowledge_consolidation/**"
       - ".github/workflows/aigar-runtime-validation.yml"
 
 permissions:
@@ -33,10 +33,10 @@ jobs:
       - name: Compile runtime and language modules
         working-directory: aigar-c-2
         run: |
-          python -m compileall -q AIGAR_RUNTIME AIGAR_LANGUAGE AIGAR_LIBRARY
+          python -m compileall -q AIGAR_RUNTIME language_network knowledge_retrieval
 
       - name: Run runtime regression tests
         working-directory: aigar-c-2
         env:
-          PYTHONPATH: AIGAR_RUNTIME:AIGAR_LANGUAGE:AIGAR_LIBRARY
-        run: python -m pytest -q AIGAR_RUNTIME/test_runtime.py AIGAR_LANGUAGE/test_interpreter.py AIGAR_LIBRARY/tests/test_retriever.py
+          PYTHONPATH: AIGAR_RUNTIME:language_network:knowledge_retrieval
+        run: python -m pytest -q AIGAR_RUNTIME/test_runtime.py language_network/test_interpreter.py knowledge_retrieval/tests/test_retriever.py
