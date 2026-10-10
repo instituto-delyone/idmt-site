@@ -53,12 +53,29 @@ Estes pares já foram executados antes deste plano; não devem ser repetidos.
 - Se algum destino já existir ou houver colisão de nomes, interromper aquele par e registrar a colisão, sem sobrescrever conteúdo.
 - Preservar este plano e registrar cada alteração realizada no histórico após a etapa de renomeação.
 
-## Estado
+
+## Histórico de renomeações executadas — 2026-10-10
+
+Commit de renomeação: `332b26ad372001cb329485e40b1ec235188b8cfa`
+
+As renomeações abaixo foram aplicadas à árvore da branch preservando os blobs/conteúdos existentes. Nenhuma referência interna, import, configuração ou lógica foi alterada nesta etapa.
+
+| ID | Caminho anterior | Caminho novo | Arquivos movidos |
+|---|---|---|---:|
+| R01 | `aigar-c-2/AIGAR_CORE/` | `aigar-c-2/association_network/` | 6 |
+| R02 | `aigar-c-2/AIGAR_LANGUAGE/` | `aigar-c-2/language_network/` | 7 |
+| R03 | `aigar-c-2/AIGAR_LIBRARY/` | `aigar-c-2/knowledge_retrieval/` | 108 |
+| R04 | `aigar-c-2/AIGAR_LIBRARY_BUILDER/` | `aigar-c-2/knowledge_consolidation/` | 5 |
+| R05 | `aigar-c-2/AIGAR_CLOUDFLARE/cognitive_core.py` | `aigar-c-2/AIGAR_CLOUDFLARE/association_core.py` | 1 |
+
+### Estado após a etapa de renomeação
 
 - [x] Mapa de nomes registrado.
-- [ ] Renomeações planejadas executadas.
-- [ ] Histórico atualizado com os pares realmente renomeados.
-- [ ] Referências antigas atualizadas para os nomes novos.
+- [x] Renomeações planejadas executadas.
+- [x] Histórico atualizado com os pares efetivamente renomeados.
+- [ ] Referências antigas atualizadas para os nomes novos — próxima etapa.
 - [ ] Etapa de alteração funcional — ainda não autorizada nesta fase.
 
-Última atualização: 2026-10-10.
+**Próxima ação autorizada:** atualizar referências aos caminhos e módulos antigos no código e nas configurações para os caminhos novos, sem alterar lógica, contratos, endpoints, bindings ou comportamento.
+
+**Testes:** não executados por instrução nesta fase.
