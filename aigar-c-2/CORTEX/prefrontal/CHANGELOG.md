@@ -85,3 +85,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `AIGAR_RUNTIME/main.py`: o pipeline agora recebe o envelope sensorial e usa `signal.raw_text` e `signal.session_id` nos mesmos pontos onde antes usava a requisição diretamente. Commit: `7b8d9e69706d5f1036b37d5b101b7e8895dcdd9e`.
 
 **Limites:** nenhuma execução de testes nem validação funcional; sem merge/deploy. Cloudflare Worker intocado. A camada sensorial formaliza a fronteira de entrada, mas não implementa ainda classificação multimodal ou sensores adicionais.
+
+## Reasoning Engine — contrato estruturado de plano (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: adicionado `ReasoningPlan`, mantendo o formato de saída existente por serialização explícita. Commit: `a3e5f271b935b10c2b91ed7193064756c681a46c`.
+- `CORTEX/prefrontal/prefrontal_controller.py`: o controlador constrói e retorna o contrato `ReasoningPlan`, em vez de montar um dicionário sem validação de esquema. Commit: `e33c1925c69720f39c1e4f17dbf9785849162ad7`.
+- `AIGAR_RUNTIME/main.py`: converte o plano para dicionário na fronteira do runtime, preservando o formato usado por Aurora e RuntimeResponse. Commit: `78abf66938d7bc156ad8fd1a7707ab863fd6b728`.
+
+**Limites:** alteração estática sem execução de testes ou validação funcional; sem merge/deploy. Cloudflare Worker intocado. A validação do contrato e sua compatibilidade em execução permanece pendente até a fase de testes autorizada.
