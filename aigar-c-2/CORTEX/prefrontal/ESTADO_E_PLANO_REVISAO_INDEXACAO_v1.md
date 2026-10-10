@@ -221,3 +221,7 @@ Em cada lote:
 4. Não houve movimentação/renomeação de arquivos, merge ou deploy.
 
 **Status das oito fases:** revisão estática concluída para os caminhos operacionais inspecionados; validação de execução continua pendente.
+
+### Correção adicional de raiz relativa da interface
+
+A inspeção estática detalhada confirmou que `aigar_ui_chat_mvp/server/main.py` calcula `ROOT` como a raiz da aplicação (`aigar_ui_chat_mvp/`). Portanto, `WEB` precisa subir um nível antes de apontar para `CORTEX/occipital/`. A referência foi corrigida para `ROOT.parent / "CORTEX" / "occipital"`; os caminhos de `MODULES` e `memory_cards` continuam relativos à aplicação. Nenhum teste foi executado.

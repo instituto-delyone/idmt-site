@@ -242,3 +242,5 @@ A revisão estática encontrou e corrigiu a referência obsoleta do teste de lin
 - Atualizados os READMEs e a auditoria de manifesto para refletir o local real do adaptador Diagnosis, sem declarar o motor clínico especializado como conectado.
 - Nenhum arquivo movido, renomeado ou reorganizado; Worker intocado; sem merge/deploy e sem execução manual de testes.
 - Pendência preservada: a origem operacional histórica docs/Js/engine.js e docs/knowledge_base/ não foi localizada; não foi feita equivalência automática.
+
+- Correção estática adicional da interface: `aigar_ui_chat_mvp/server/main.py` usa `ROOT.parent / "CORTEX" / "occipital"`, pois `ROOT` é a raiz da aplicação MVP, não a raiz de `aigar-c-2/`.
