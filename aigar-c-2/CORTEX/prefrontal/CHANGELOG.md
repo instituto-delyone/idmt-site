@@ -33,3 +33,17 @@ Conteúdo preservado; origens removidas após criar os destinos. Os commits e SH
 Inspecionada a árvore recursiva da branch e revisados `AIGAR_RUNTIME/main.py`, READMEs do runtime/CORTEX/UI/biblioteca/encoding/linguagem e contratos centrais de `association_network/`. O inventário foi ampliado para documentar runtime legado, pacotes externos, contratos históricos, UI, sincronização, corpus, PDFs e artefatos gerados, além das pendências de tradução de referências.
 
 O inventário foi registrado em commit `79b975cfbdd96e5616fa370df950946ff01c6871`. Esta atualização não moveu outros arquivos, não alterou imports, não executou testes, não fez merge/deploy e não tocou no Cloudflare Worker.
+
+## Contratos — primeiro lote de codificação
+
+- Contrato canônico atualizado em `CORTEX/thalamus/models.py`: documenta `Intent`, `Depth`, `SourceStatus`, `ConversationReading`, `ConversationState`, `SourceTrace`, `RuntimeRequest` e `RuntimeResponse`. Campos, nomes e defaults de runtime foram preservados; a mudança foi de documentação/organização do contrato, não uma alteração intencional de semântica.
+- Commit do contrato: `327be124ff163e39f20e7db8304de287c550ba58`.
+- Imports de contratos compartilhados agora apontam para `CORTEX.thalamus.models` em:
+  - `CORTEX/memory/working_memory.py` — `2f0d56d9887f1550795bf1bda25bd66e994d18d8`
+  - `CORTEX/memory/hippocampal_memory.py` — `fddc5b1ecd68612f80d36713a6b2aa215c985f00`
+  - `CORTEX/prefrontal/prefrontal_controller.py` — `627c615dbb659b5924ed0292545ed9e9f60d2b22`
+  - `CORTEX/prefrontal/aurora.py` — `2f75be4937f8f4bf105ed4de74b726b01505d17f`
+  - `CORTEX/engram/knowledge_retrieval.py` — `388538db9c535545be6948fad3c0b7b6feaf6344`
+  - `Diagnosis/diagnosis.py` — `a5c063c7a4e960755a04cc588c28139a61826faf`
+
+**Limite desta etapa:** o entry point `AIGAR_RUNTIME/main.py` e demais imports legados ainda não foram traduzidos. Nenhum teste executado; não houve merge/deploy; Worker não alterado.
