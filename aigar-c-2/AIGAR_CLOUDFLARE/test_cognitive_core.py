@@ -1,6 +1,6 @@
 import unittest
 
-from cognitive_core import CognitiveContextCore
+from association_core import CognitiveContextCore
 
 
 class CognitiveContextCoreTests(unittest.TestCase):

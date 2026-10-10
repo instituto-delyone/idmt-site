@@ -7,14 +7,14 @@
       "key": "language",
       "title": "Linguagem",
       "status": "implemented",
-      "module": "AIGAR_LANGUAGE"
+      "module": "CORTEX.language.interpreter"
     },
     {
       "id": 2,
       "key": "humanity",
       "title": "Conhecimento sobre a humanidade",
       "status": "registered",
-      "module": "AIGAR_LIBRARY",
+      "module": "knowledge_retrieval",
       "source": "sapiens"
     },
     {
@@ -22,35 +22,35 @@
       "key": "mathematics",
       "title": "Matemática",
       "status": "ready_for_sources",
-      "module": "AIGAR_LIBRARY"
+      "module": "knowledge_retrieval"
     },
     {
       "id": 4,
       "key": "computing",
       "title": "Computação",
       "status": "ready_for_sources",
-      "module": "AIGAR_LIBRARY"
+      "module": "knowledge_retrieval"
     },
     {
       "id": 5,
       "key": "reasoning",
       "title": "Raciocínio",
       "status": "foundation",
-      "module": "AIGAR_RUNTIME"
+      "module": "CORTEX.prefrontal.prefrontal_controller"
     },
     {
       "id": 6,
       "key": "memory",
       "title": "Memória",
       "status": "foundation",
-      "module": "AIGAR_RUNTIME"
+      "module": "CORTEX.memory"
     },
     {
       "id": 7,
       "key": "aurora",
       "title": "Aurora",
       "status": "foundation",
-      "module": "AIGAR_RUNTIME"
+      "module": "CORTEX.prefrontal.aurora"
     }
   ]
 }

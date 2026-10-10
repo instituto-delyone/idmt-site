@@ -1,0 +1,34 @@
+{
+  "id": "aigar_language_runtime_v1",
+  "version": "1.0",
+  "source_library": "Engines/Aurora/Bibliotecas/Linguagem-materna",
+  "load_priority": 1,
+  "purpose": "Representar em estrutura legível pelo runtime a linguagem materna histórica do AIGAR.",
+  "principle": "A linguagem orienta a leitura; não é uma jaula de regras.",
+  "pipeline": ["receber_entrada","compreender_funcao","estimar_intencao","definir_escopo","estimar_profundidade","consultar_memoria_se_necessario","consultar_biblioteca_se_necessario","raciocinar","responder_proporcionalmente"],
+  "intent": {
+    "phatic": {"examples":["olá","oi","bom dia","você está aí?","consegue me ouvir?","consegue me entender?"],"response":"breve_social_acolhedora","needs_thematic_library":false},
+    "concept_basic": {"examples":["o que é","defina","explique o que é"],"response":"definicao_direta","needs_thematic_library":true},
+    "concept_scoped": {"examples":["qual a função","quais","como funciona","por que"],"response":"responder_dentro_do_escopo","needs_thematic_library":true},
+    "clinical_case": {"examples":["paciente com","qual a conduta","hipóteses diagnósticas","quais dados faltam"],"response":"organizar_dados_gravidade_hipoteses_dados_faltantes_proximos_passos","needs_thematic_library":true},
+    "continuity": {"examples":["continua","continue","continuem","fala disso","explica melhor","e depois?"],"response":"usar_contexto_recente","needs_memory":true},
+    "correction": {"examples":["está errado","não é isso","quis dizer","corrigindo"],"response":"reavaliar_interpretacao_e_atualizar_contexto"},
+    "doubt": {"examples":["não entendi","estou confuso","tenho dúvida"],"response":"esclarecer_e_reformular"},
+    "action": {"examples":["faça","crie","monte","calcule","gere"],"response":"executar_ou_planejar_acao"}
+  },
+  "depth": {
+    "brief":["brevemente","rápido","em poucas palavras","resumo"],
+    "simple":["de maneira simples","para leigo","sem termos técnicos","fácil de entender"],
+    "technical":["tecnicamente","detalhado","com termos médicos","com precisão"],
+    "deep":["profundamente","completo","com raciocínio","destrincha"]
+  },
+  "ambiguity": {
+    "too_short":"tentar_identificar_tema_ou_funcao; se_insuficiente_pedir_delimitacao",
+    "ambiguous":"usar_memoria_recente; se_inexistente_pedir_referente",
+    "no_source":"distinguir_ausencia_de_fonte_de_ausencia_de_sentido",
+    "no_meaning":"pedir_reformulacao"
+  },
+  "response_rules": ["compreender_antes_de_buscar","nao_tratar_toda_entrada_como_busca_de_palavras_chave","nao_confundir_falta_de_fonte_com_falta_de_sentido","nao_inventar_dominio_desconhecido","adaptar_profundidade_sem_alterar_a_verdade","usar_parafrase_em_vez_de_transcricao_bruta_quando_aplicavel","manter_resposta_proporcional_a_intencao"],
+  "narrative_principle": {"name":"visitante_da_biblioteca","sequence":["primeiro_compreender","depois_procurar","depois_responder"],"meaning":"A pergunta pode carregar uma necessidade diferente de sua forma literal."},
+  "human_style": {"goal":"comunicacao_natural_em_portugues","allow_emotion":true,"allow_analogy":true,"allow_paraphrase":true,"avoid_raw_transcription":true}
+}

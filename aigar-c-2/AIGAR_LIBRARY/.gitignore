@@ -1,9 +1,0 @@
-﻿# Python
-_pycache_/
-*.py[cod]
-
-# Temporary cache artifacts
-*.cache
-*.chunk
-
-# Keep AIGAR_LIBRARY/cache and AIGAR_LIBRARY/indexes versioned

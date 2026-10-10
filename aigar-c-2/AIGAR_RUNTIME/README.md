@@ -1,57 +1,46 @@
-# AIGAR Runtime — foundation v0.1
+# AIGAR Neurocognitive Runtime — foundation v0.3
 
-Runtime conversacional mínimo e modular para reconstrução funcional do AIGAR.
+Runtime conversacional modular para reconstrução funcional do AIGAR-C. O entry point operacional permanece em AIGAR_RUNTIME/main.py; os módulos compartilhados e seus contratos canônicos estão organizados em CORTEX/.
 
 ## Princípio
 
-O runtime não substitui os motores históricos. Ele os orquestra:
+ENTRADA → LINGUAGEM → ESTADO → MEMÓRIA / BIBLIOTECA / DIAGNOSIS → PLANEJAMENTO → AURORA → SAÍDA
 
-`ENTRADA → LINGUAGEM → ESTADO → MEMÓRIA/CSI/BIBLIOTECA/DIAGNOSIS → RACIOCÍNIO → AURORA → SAÍDA`
+O runtime orquestra os componentes especializados; não absorve a lógica interna de motores separados.
 
-O runtime foi desenhado para ficar fora de `docs/`, porque `docs/` é área de deploy do site.
+## Contratos
 
-## Objetivos desta primeira versão
+- Contratos compartilhados: CORTEX/thalamus/models.py.
+- Interpretador e dados linguísticos: CORTEX/language/.
+- Estado e continuidade de sessão: CORTEX/memory/.
+- Adapter de recuperação: CORTEX/engram/knowledge_retrieval.py; pacote knowledge_retrieval/ permanece separado.
+- Planejamento e apresentação: CORTEX/prefrontal/.
+- Adapter clínico: CORTEX/reasoning_engine/diagnosis.py; o motor especializado ainda precisa de integração explícita.
 
-- transformar a Linguagem Materna em um contrato executável;
-- manter estado explícito da conversa;
-- oferecer adaptadores seguros para memória, biblioteca e Diagnosis;
-- manter raciocínio separado da geração textual;
-- permitir que Aurora module a resposta sem assumir o papel dos motores especializados;
-- funcionar mesmo quando um componente ainda não estiver conectado.
+## Execução prevista
 
-## Regra de evidência
+A partir do diretório aigar-c-2/:
 
-O runtime distingue:
-- **confirmed** — comportamento/estrutura sustentados pelo repositório;
-- **inferred** — interpretação de integração;
-- **proposed** — implementação nova.
-
-Esta versão é deliberadamente conservadora: quando um motor não está conectado, o runtime não finge que está.
-
-## Execução
-
-```bash
-cd aigar-c-2
-python -m AIGAR_RUNTIME.main
-```
+    python -m AIGAR_RUNTIME.main
 
 Ou como API:
 
-```bash
-pip install -r requirements.txt
-uvicorn AIGAR_RUNTIME.main:app --reload
-```
+    pip install -r AIGAR_RUNTIME/requirements.txt
+    uvicorn AIGAR_RUNTIME.main:app --host 127.0.0.1 --port 8000
 
-Endpoint:
+Endpoint: POST /perguntar
 
-`POST /perguntar`
+Exemplo de corpo JSON:
 
-Body:
+    {"input":"O que é insuficiência adrenal?","session_id":"demo"}
 
-```json
-{"input":"O que é insuficiência adrenal?","session_id":"demo"}
-```
+## Regra de evidência
 
-## Próxima etapa
+O runtime usa SourceTrace para diferenciar estados confirmed, inferred, proposed e missing. Quando um componente especializado ainda não está conectado, o adaptador deve declarar essa limitação em vez de simular integração.
 
-Conectar os adaptadores aos componentes reais existentes no repositório e, depois, criar o JSON mestre de mapeamento do ecossistema. Nenhum arquivo de `docs/` é necessário para isso.
+## Regra de migração
+
+- CORTEX/thalamus/models.py é a fonte canônica dos contratos compartilhados.
+- Os diretórios e responsabilidades documentados em CORTEX/README.md são provisoriamente imutáveis; mudanças futuras exigem decisão explícita e registro.
+- Os testes importam RuntimeRequest do contrato canônico. Permanecem sem execução manual nesta fase.
+- Não fazer merge/deploy durante esta fase e não alterar o Cloudflare Worker.

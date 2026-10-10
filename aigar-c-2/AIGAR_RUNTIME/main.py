@@ -2,100 +2,113 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-from .models import RuntimeRequest, RuntimeResponse
-from .language_bridge import ExecutableLanguageAdapter
-from .conversation import ConversationStore
-from .memory import MemoryAdapter
-from .library import LibraryAdapter
-from .diagnosis import DiagnosisAdapter
-from .reasoning import ReasoningEngine
-from .aurora import Aurora
+# AIGAR_RUNTIME/main.py remains the operational entry point during migration.
+# CORTEX is the provisional canonical home for runtime components and contracts.
+from CORTEX.thalamus.models import (
+    AuroraRequest,
+    DiagnosisRequest,
+    LibraryQuery,
+    MemoryRecallRequest,
+    RuntimeRequest,
+    RuntimeResponse,
+)
+from CORTEX.sensory.ingress import capture_request
+from CORTEX.thalamus.context_router import route_reading
+from CORTEX.sara.runtime_status import current_runtime_status
+from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
+from CORTEX.memory.working_memory import WorkingStateStore
+from CORTEX.memory.hippocampal_memory import HippocampalMemoryAdapter
+from CORTEX.engram.knowledge_retrieval import KnowledgeRetrievalAdapter
+from CORTEX.reasoning_engine.diagnosis import DiagnosisAdapter
+from CORTEX.prefrontal.prefrontal_controller import PrefrontalController
+from CORTEX.prefrontal.aurora import Aurora
 
-app = FastAPI(title="AIGAR Runtime", version="0.3.0")
+app = FastAPI(title="AIGAR Neurocognitive Runtime", version="0.3.0")
 
-store = ConversationStore()
-language = ExecutableLanguageAdapter()
-memory = MemoryAdapter()
-library = LibraryAdapter()
+store = WorkingStateStore()
+language = LanguageNetworkAdapter()
+memory = HippocampalMemoryAdapter()
+library = KnowledgeRetrievalAdapter()
 diagnosis = DiagnosisAdapter()
-reasoning = ReasoningEngine()
+reasoning = PrefrontalController()
 aurora = Aurora()
 
 
 def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
-    state = store.get(request.session_id)
+    signal = capture_request(request)
+    state = store.get(signal.session_id)
 
-    reading = language.interpret(request.input)
+    reading = language.interpret(signal.raw_text)
     state.reading = reading
+    routing = route_reading(reading)
 
     memory_context = []
     sources = []
 
-    if reading.needs_memory or reading.intent == "continuity":
-        memory_context, trace = memory.recall(state)
-        sources.append(trace)
+    if routing.use_memory:
+        memory_result = memory.recall(MemoryRecallRequest(state=state))
+        memory_context = memory_result.items
+        sources.append(memory_result.source)
 
     library_context = []
-    if reading.needs_library:
-        library_context, trace = library.search(
-            request.input,
-            reading=reading.model_dump(),
+    if routing.use_library:
+        library_result = library.search(
+            LibraryQuery(query=signal.raw_text, reading=reading.model_dump())
         )
-        sources.append(trace)
+        library_context = library_result.items
+        sources.append(library_result.source)
 
     diagnosis_result = {}
-    if reading.needs_diagnosis:
-        diagnosis_result, trace = diagnosis.evaluate({
-            "input": request.input,
-            "reading": reading.model_dump(),
-            "memory": memory_context,
-            "library": library_context,
-        })
-        sources.append(trace)
+    if routing.use_diagnosis:
+        diagnosis_contract = diagnosis.evaluate(
+            DiagnosisRequest(
+                input_text=signal.raw_text,
+                reading=reading,
+                memory_context=memory_context,
+                library_context=library_context,
+            )
+        )
+        diagnosis_result = diagnosis_contract.findings
+        sources.append(diagnosis_contract.source)
 
-    plan, trace = reasoning.plan(
-        request.input,
-        reading.model_dump(),
-        memory_context,
-        library_context,
-        diagnosis_result,
+    # The reasoning stage remains in the pipeline for now; its policy will be
+    # refined after all subsystem contracts and references have been completed.
+    plan_contract, trace = reasoning.plan(
+        signal.raw_text, reading.model_dump(), memory_context, library_context, diagnosis_result
     )
+    plan = plan_contract.model_dump()
     sources.append(trace)
 
-    text, trace = aurora.respond(
-        request.input,
-        reading,
-        memory_context,
-        library_context,
-        diagnosis_result,
-        plan,
+    aurora_result = aurora.respond(
+        AuroraRequest(
+            input_text=signal.raw_text,
+            reading=reading,
+            memory=memory_context,
+            library=library_context,
+            diagnosis=diagnosis_result,
+            plan=plan_contract,
+        )
     )
-    sources.append(trace)
+    text = aurora_result.text
+    sources.append(aurora_result.source)
 
-    store.update(state, request.input, text)
+    store.update(state, signal.raw_text, text)
 
     confirmed_or_connected = [
-        source for source in sources
-        if source.status in {"confirmed", "inferred"}
+        source for source in sources if source.status in {"confirmed", "inferred"}
     ]
-    confidence = 0.15 if any(
-        source.status == "missing" for source in sources
-    ) else 0.35
+    confidence = 0.15 if any(source.status == "missing" for source in sources) else 0.35
     if confirmed_or_connected:
         confidence = min(0.75, confidence + 0.1 * len(confirmed_or_connected))
 
     return RuntimeResponse(
-        text=text,
-        state=state,
-        sources=sources,
-        confidence=confidence,
-        plan=plan,
+        text=text, state=state, sources=sources, confidence=confidence, plan=plan
     )
 
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "runtime": "AIGAR", "version": "0.3.0"}
+    return current_runtime_status().model_dump()
 
 
 @app.post("/perguntar", response_model=RuntimeResponse)
@@ -105,5 +118,4 @@ def perguntar(request: RuntimeRequest) -> RuntimeResponse:
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("AIGAR_RUNTIME.main:app", host="127.0.0.1", port=8000, reload=False)
