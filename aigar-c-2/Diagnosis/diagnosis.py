@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .models import SourceTrace
+from CORTEX.thalamus.models import SourceTrace
 
 class DiagnosisAdapter:
     """Boundary for the specialized Diagnosis Engine.
