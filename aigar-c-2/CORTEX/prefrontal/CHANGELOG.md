@@ -135,3 +135,12 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `AIGAR_RUNTIME/main.py`: runtime envia `AuroraRequest` e consome `AuroraResult`. Commit: `9b8fa2d43ed07d5a1cbeb40886dfd54392bf7e57`.
 
 **Limites:** esta é uma adaptação estática de contrato, não validação funcional. As ramificações de texto de Aurora foram preservadas. Testes não executados; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Comparação estática dos interpretadores (2026-10-10)
+
+- `CORTEX/language/interpreter.py` é o caminho ativo: `AIGARLanguage` carrega `language.json` e `portuguese_language_knowledge.json` por caminhos relativos ao próprio arquivo, retorna um dicionário com análise lexical/estrutural, intenção, ambiguidade textual e confiança; `LanguageNetworkAdapter` converte esse resultado em `ConversationReading`.
+- `CORTEX/thalamus/linguistic_interpreter.py` é heurística histórica mais simples: usa marcadores embutidos e retorna `ConversationReading` diretamente. O import relativo `.models` resolve para o contrato canônico `CORTEX.thalamus.models`; não exigiu correção.
+- As regras de classificação, a granularidade da análise e o cálculo de confiança não são equivalentes. Nenhuma implementação foi apagada ou substituída; a diferença fica explicitamente aberta para decisão arquitetural posterior.
+
+**Estado:** revisão estática dos três arquivos concluída; nenhum teste executado. Sem merge/deploy; Cloudflare Worker intocado.
