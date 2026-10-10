@@ -4,7 +4,7 @@ from fastapi import FastAPI
 
 # AIGAR_RUNTIME/main.py remains the operational entry point during migration.
 # CORTEX is the provisional canonical home for runtime components and contracts.
-from CORTEX.thalamus.models import RuntimeRequest, RuntimeResponse
+from CORTEX.thalamus.models import DiagnosisRequest, RuntimeRequest, RuntimeResponse
 from CORTEX.sensory.ingress import capture_request
 from CORTEX.thalamus.context_router import route_reading
 from CORTEX.sara.runtime_status import current_runtime_status
@@ -49,13 +49,16 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     diagnosis_result = {}
     if routing.use_diagnosis:
-        diagnosis_result, trace = diagnosis.evaluate({
-            "input": signal.raw_text,
-            "reading": reading.model_dump(),
-            "memory": memory_context,
-            "library": library_context,
-        })
-        sources.append(trace)
+        diagnosis_contract = diagnosis.evaluate(
+            DiagnosisRequest(
+                input_text=signal.raw_text,
+                reading=reading,
+                memory_context=memory_context,
+                library_context=library_context,
+            )
+        )
+        diagnosis_result = diagnosis_contract.findings
+        sources.append(diagnosis_contract.source)
 
     # The reasoning stage remains in the pipeline for now; its policy will be
     # refined after all subsystem contracts and references have been completed.
