@@ -18,9 +18,9 @@ Este documento registra decisões sustentadas pela árvore e pelos contratos pre
 **Decisão:** manter `knowledge_retrieval/` e `knowledge_encoding/` como pacotes independentes; CORTEX usa adaptadores.  
 **Justificativa:** preserva índices, cache, fontes e pipeline de ingestão sem renomeação anatômica indevida.
 
-## D-005 — Diagnosis como fronteira separada
-**Decisão:** manter `Diagnosis/diagnosis.py` separado e utilizar `DiagnosisRequest`/`DiagnosisResult`.  
-**Justificativa:** o adaptador atual ainda não conecta o motor clínico e deve declarar `missing`, em vez de fabricar achados.
+## D-005 — Diagnosis como integração externa
+**Decisão:** manter o adaptador local em `CORTEX/reasoning_engine/diagnosis.py`, usando `DiagnosisRequest`/`DiagnosisResult`; o motor clínico especializado pertence a outro repositório.  
+**Justificativa:** AIGAR-C não deve apontar para pastas históricas do Diagnosis como se fossem dependências locais. O adaptador declara `missing` até existir uma integração explícita, em vez de fabricar achados.
 
 ## D-006 — Persistência não presumida
 **Decisão:** não descrever o recall atual como memória de longo prazo.  

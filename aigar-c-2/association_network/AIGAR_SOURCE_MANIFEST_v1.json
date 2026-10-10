@@ -46,20 +46,13 @@
     {
       "role": "conversation_reconstruction",
       "path": "aigar-c-2/conversational-engine/AIGAR_AURORA_RECONSTRUCAO_LINGUAGEM_MEMORIA_v1_0.html"
-    },
-    {
-      "role": "diagnosis_runtime",
-      "path": "docs/Js/engine.js"
-    },
-    {
-      "role": "diagnosis_knowledge",
-      "path": "docs/knowledge_base/"
     }
   ],
   "rules": [
     "Do not duplicate canonical sources unless a versioned snapshot is explicitly intended.",
     "Do not overwrite historical artifacts during reconstruction.",
     "Every new adapter must declare whether it is historical, inferred, or proposed.",
-    "The AIGAR_CORE layer orchestrates contracts; it does not replace specialized engines."
+    "The AIGAR_CORE layer orchestrates contracts; it does not replace specialized engines.",
+    "The specialized Diagnosis engine and its clinical knowledge base belong to a separate repository and are not AIGAR-C canonical sources or local runtime paths."
   ]
 }

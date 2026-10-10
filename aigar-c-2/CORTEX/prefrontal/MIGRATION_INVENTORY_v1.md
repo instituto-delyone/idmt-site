@@ -483,3 +483,14 @@ O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos
 - Workflow de runtime alinhado ao diretório CORTEX e ao teste de linguagem na nova localização.
 - Não houve mudanças de localização de arquivos. O registro histórico MIG-012 continua preservado; a árvore atual não contém a antiga pasta Diagnosis/.
 - A existência do adaptador CORTEX/reasoning_engine/diagnosis.py não significa que o motor clínico especializado esteja conectado. Os caminhos históricos docs/Js/engine.js e docs/knowledge_base/ seguem pendentes de proveniência.
+
+## MIG-017 — revisão de referências residuais (2026-10-10)
+
+| Arquivo | Referência anterior | Tratamento |
+|---|---|---|
+| `CORTEX/prefrontal/ARCHITECTURE.md` | `Diagnosis.DiagnosisAdapter` e `Diagnosis/diagnosis.py` | Alinhado ao adaptador existente em `CORTEX/reasoning_engine/diagnosis.py`; motor especializado identificado como externo |
+| `CORTEX/prefrontal/DECISIONS.md` | `Diagnosis/diagnosis.py` tratado como caminho local | Corrigido para distinguir adaptador local e motor em outro repositório |
+| `association_network/AIGAR_SOURCE_MANIFEST_v1.json` | Entradas de fonte canônica do motor/base do Diagnosis | Removidas do manifesto ativo; fontes do projeto separado não são dependências locais do AIGAR-C |
+| `association_network/AIGAR_EVIDENCE_MAP_v1.md` e auditoria associada | Referências históricas ao Diagnosis misturadas ao escopo AIGAR-C | Clarificadas sem editar o projeto externo |
+
+Nenhum arquivo foi movido ou renomeado. Nenhum teste executado, sem merge/deploy, Cloudflare Worker intocado.

@@ -225,3 +225,8 @@ Em cada lote:
 ### Correção adicional de raiz relativa da interface
 
 A inspeção estática detalhada confirmou que `aigar_ui_chat_mvp/server/main.py` calcula `ROOT` como a raiz da aplicação (`aigar_ui_chat_mvp/`). Portanto, `WEB` precisa subir um nível antes de apontar para `CORTEX/occipital/`. A referência foi corrigida para `ROOT.parent / "CORTEX" / "occipital"`; os caminhos de `MODULES` e `memory_cards` continuam relativos à aplicação. Nenhum teste foi executado.
+
+
+## Esclarecimento de escopo — 2026-10-10
+
+A revisão de referências limita-se à árvore `aigar-c-2/`. O motor e a base de conhecimento clínico do Diagnosis são mantidos em outro repositório. Não alterar suas pastas, não tratá-los como dependências locais e não substituir caminhos históricos por candidatos não comprovados. O único elemento local relacionado é o adaptador `CORTEX/reasoning_engine/diagnosis.py`, cuja integração permanece explicitamente ausente.

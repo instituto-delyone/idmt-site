@@ -11,7 +11,7 @@ HTTP RuntimeRequest
 CORTEX.sensory.ingress.capture_request
        |
        v
-CORTEX.language.LanguageNetworkAdapter
+CORTEX.language.language_network_adapter.LanguageNetworkAdapter
        |
        v
 CORTEX.thalamus.models.ConversationReading
@@ -25,7 +25,7 @@ CORTEX.thalamus.context_router.route_reading
        |             |
        |             +--> pacote independente knowledge_retrieval
        |
-       +----> Diagnosis.DiagnosisAdapter (se selecionado; motor especializado desconectado)
+       +----> CORTEX.reasoning_engine.diagnosis.DiagnosisAdapter (se selecionado; motor especializado pertence a outro repositório e está desconectado)
        |
        v
 CORTEX.prefrontal.PrefrontalController
@@ -54,14 +54,14 @@ O entry point permanece `AIGAR_RUNTIME/main.py`. O desenho mostra a sequência o
 | Planejamento | `CORTEX/prefrontal/prefrontal_controller.py` | Seleciona até três sentenças e constrói `ReasoningPlan` | Seleção inicial por sobreposição lexical |
 | Apresentação | `CORTEX/prefrontal/aurora.py` | Produz `AuroraResult` com rastreio | Síntese e políticas executivas limitadas |
 | Status | `CORTEX/sara/runtime_status.py` | Informa inicialização do processo em `/health` | Não verifica prontidão integral |
-| Diagnosis | `Diagnosis/diagnosis.py` | Fronteira tipada que declara estado ausente | Motor clínico real ainda desconectado |
+| Adaptador clínico | `CORTEX/reasoning_engine/diagnosis.py` | Fronteira tipada que declara estado ausente | Motor clínico especializado pertence a outro repositório e não está conectado |
 
 ## Pacotes mantidos independentes
 
 - `knowledge_retrieval/`: implementação de busca híbrida, fontes, índices e cache.
 - `knowledge_encoding/`: pipeline de ingestão/encoding e dependência de PyPDF2.
-- `Diagnosis/`: adaptador do motor clínico especializado.
-- `aigar_ui_chat_mvp/`: aplicação independente; sua relação com `CORTEX/occipital/` continua pendente.
+- Motor clínico Diagnosis: projeto/repositório separado; não faz parte da árvore AIGAR-C nem é dependência ativa deste runtime.
+- `aigar_ui_chat_mvp/`: backend e cartões de memória da aplicação; o backend serve a interface estática que está em `CORTEX/occipital/`.
 
 ## Limites estruturais
 

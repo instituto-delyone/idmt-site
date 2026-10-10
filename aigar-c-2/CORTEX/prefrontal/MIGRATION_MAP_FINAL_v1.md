@@ -156,3 +156,10 @@ Esta seção registra o estado posterior ao levantamento inicial e complementa o
 - O pacote knowledge_retrieval/ permanece independente e seu resolvedor de cache agora aceita os caminhos relativos registrados nos índices históricos.
 - O workflow de validação foi atualizado para apontar para CORTEX e para CORTEX/language/test_interpreter.py.
 - A pasta estrutural permanece congelada. Nenhum arquivo foi movido ou renomeado nesta etapa.
+
+## Correção de escopo e crosswalk atual — 2026-10-10
+
+- O mapa histórico MIG-012 registra uma decisão antiga sobre `aigar-c-2/Diagnosis/diagnosis.py`; esse caminho não faz parte da árvore atual e não deve ser tratado como destino vigente.
+- O adaptador local atualmente existente é `aigar-c-2/CORTEX/reasoning_engine/diagnosis.py`. Ele declara a integração clínica como ausente; não contém o motor clínico especializado.
+- O motor e a base de conhecimento do Diagnosis pertencem a outro repositório. As referências históricas do Diagnosis não são dependências do AIGAR-C e ficam fora do escopo desta revisão.
+- A estrutura permanece congelada: nenhuma movimentação ou renomeação foi feita nesta correção.

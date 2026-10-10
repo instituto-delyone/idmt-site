@@ -36,3 +36,8 @@ Existe a aplicação/página em `docs/pesquisas/Diagnosis/Index.html` e sua cont
 4. Manter esse resultado no inventário e no changelog.
 
 Esta é uma auditoria de caminhos, não validação da aplicação clínica. Não foram executados testes, não houve merge ou deploy e nenhum arquivo do Cloudflare Worker foi alterado.
+
+
+## Esclarecimento de escopo — 2026-10-10
+
+As referências históricas ao motor e à base clínica do Diagnosis pertencem a um projeto mantido em repositório separado. Elas não são dependências locais do AIGAR-C. Este relatório preserva o registro histórico; nenhuma pasta ou arquivo do Diagnosis foi alterado. O manifesto ativo de fontes canônicas não deve tratar esses caminhos externos como fontes do AIGAR-C.
