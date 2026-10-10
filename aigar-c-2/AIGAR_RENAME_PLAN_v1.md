@@ -73,9 +73,18 @@ As renomeações abaixo foram aplicadas à árvore da branch preservando os blob
 - [x] Mapa de nomes registrado.
 - [x] Renomeações planejadas executadas.
 - [x] Histórico atualizado com os pares efetivamente renomeados.
-- [ ] Referências antigas atualizadas para os nomes novos — próxima etapa.
+- [x] Referências de código e configuração atualizadas para os nomes novos.
 - [ ] Etapa de alteração funcional — ainda não autorizada nesta fase.
 
-**Próxima ação autorizada:** atualizar referências aos caminhos e módulos antigos no código e nas configurações para os caminhos novos, sem alterar lógica, contratos, endpoints, bindings ou comportamento.
+### Referências atualizadas nesta etapa
 
-**Testes:** não executados por instrução nesta fase.
+- Runtime: caminho do interpretador para `language_network/` e import do retriever para `knowledge_retrieval.retriever`.
+- Recuperação e indexação: módulo do builder, caminho padrão de saída e variável de raiz atualizados para os novos nomes.
+- Cloudflare Worker: caminhos de índices/cache e import do módulo `association_core.py` atualizados.
+- Teste existente do core: import atualizado para `association_core`; o arquivo de teste manteve o próprio nome.
+- Workflows: caminhos de gatilho, compilação e referências de arquivos atualizados para os novos diretórios e módulo.
+- Manifesto de fontes e catálogo de fases: caminhos/módulos atualizados.
+
+Identificadores de bindings de runtime como `AIGAR_LIBRARY_BUCKET`, `AIGAR_LIBRARY_BUILDER` e `AIGAR_DB` foram mantidos deliberadamente: são nomes de recursos/contratos já existentes, não caminhos de arquivos, e alterá-los poderia mudar o funcionamento.
+
+**Testes:** não executados por instrução nesta fase. Nenhuma alteração funcional, merge ou deploy foi realizado.
