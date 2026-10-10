@@ -7,14 +7,14 @@
       "key": "language",
       "title": "Linguagem",
       "status": "implemented",
-      "module": "AIGAR_LANGUAGE"
+      "module": "language_network"
     },
     {
       "id": 2,
       "key": "humanity",
       "title": "Conhecimento sobre a humanidade",
       "status": "registered",
-      "module": "AIGAR_LIBRARY",
+      "module": "knowledge_retrieval",
       "source": "sapiens"
     },
     {
@@ -22,14 +22,14 @@
       "key": "mathematics",
       "title": "Matemática",
       "status": "ready_for_sources",
-      "module": "AIGAR_LIBRARY"
+      "module": "knowledge_retrieval"
     },
     {
       "id": 4,
       "key": "computing",
       "title": "Computação",
       "status": "ready_for_sources",
-      "module": "AIGAR_LIBRARY"
+      "module": "knowledge_retrieval"
     },
     {
       "id": 5,
