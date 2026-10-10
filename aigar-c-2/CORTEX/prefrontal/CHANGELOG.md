@@ -43,3 +43,10 @@
 - `Diagnosis/` permanece separado; seu adapter ainda retorna status `missing` até a integração com o motor especializado ser implementada.
 - Os módulos placeholder em `sara/`, `sensory/`, `default_mode_network/`, `reasoning_engine/`, `worker_bridge/` e `occipital/` não são considerados funcionalidades implementadas.
 - Não foram executados testes, validação funcional, merge ou deploy. Não alterar o Cloudflare Worker.
+## Roteamento explícito do tálamo — 2026-10-10
+
+- `CORTEX/thalamus/models.py`: contrato aditivo `RoutingDecision`, sem remover nem renomear campos dos contratos existentes. Commit: `c12408e33c10e71afd231271b44b9c5679acf49a`.
+- `CORTEX/thalamus/context_router.py`: novo roteador que converte `ConversationReading` em seleção explícita de memória, biblioteca, Diagnosis e raciocínio. O roteador decide seleção; não executa subsistemas nem afirma disponibilidade. Commit: `301395d41fe6e3475af541b1112e5f2f7718583f`.
+- `AIGAR_RUNTIME/main.py`: delega as decisões de seleção opcional ao roteador canônico. A sequência de raciocínio e resposta foi mantida; a política `use_reasoning` ainda não desliga o estágio de raciocínio, para evitar mudança de comportamento antes da revisão completa do pipeline. Commit: `ef3f02cc723792d32ef71bb669e52fd037e45250`.
+
+**Limites:** nenhuma execução de testes; nenhuma validação funcional; nenhum merge/deploy. Cloudflare Worker não foi consultado nem alterado. A etapa seguinte continua sendo revisar referências e caminhos restantes, depois completar contratos/implementações dos módulos CORTEX conforme os artefatos arquiteturais históricos.
