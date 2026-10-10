@@ -34,4 +34,4 @@ The Worker package remains independently bundleable. It does **not** import sibl
 
 ## Validation
 
-The migration workflow compiles the Worker package and runs the cognitive-core and CORTEX-compatibility unit tests. A passing repository test run validates these checks only; it does not mean the candidate has been deployed to Cloudflare.
+The migration workflow compiles the Worker package and runs the cognitive-core, Memory Lab, and CORTEX-compatibility unit tests. A passing repository test run validates these checks only; it does not mean the candidate has been deployed to Cloudflare.
