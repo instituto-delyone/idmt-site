@@ -1,3 +1,11 @@
+"""Legacy lightweight intent heuristic retained for migration comparison.
+
+The active runtime interpretation path is ``CORTEX.language.interpreter.AIGARLanguage``
+through ``LanguageNetworkAdapter``. This module is intentionally preserved as a
+separate historical implementation; it is not currently the canonical runtime path.
+No behavior is changed here.
+"""
+
 from __future__ import annotations
 
 import re
