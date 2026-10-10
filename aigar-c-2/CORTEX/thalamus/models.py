@@ -162,3 +162,21 @@ class LibrarySearchResult(BaseModel):
 
     items: list[dict[str, Any]] = Field(default_factory=list)
     source: SourceTrace
+
+
+class AuroraRequest(BaseModel):
+    """Typed input envelope for final response presentation."""
+
+    input_text: str
+    reading: ConversationReading
+    memory: list[dict[str, Any]] = Field(default_factory=list)
+    library: list[dict[str, Any]] = Field(default_factory=list)
+    diagnosis: dict[str, Any] = Field(default_factory=dict)
+    plan: ReasoningPlan
+
+
+class AuroraResult(BaseModel):
+    """Presented response and explicit provenance from Aurora."""
+
+    text: str
+    source: SourceTrace
