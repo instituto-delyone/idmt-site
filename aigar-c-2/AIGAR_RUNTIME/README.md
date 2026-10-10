@@ -15,7 +15,7 @@ O runtime orquestra os componentes especializados; não absorve a lógica intern
 - Estado e continuidade de sessão: CORTEX/memory/.
 - Adapter de recuperação: CORTEX/engram/knowledge_retrieval.py; pacote knowledge_retrieval/ permanece separado.
 - Planejamento e apresentação: CORTEX/prefrontal/.
-- Adapter clínico: Diagnosis/diagnosis.py; o motor especializado ainda precisa de integração explícita.
+- Adapter clínico: CORTEX/reasoning_engine/diagnosis.py; o motor especializado ainda precisa de integração explícita.
 
 ## Execução prevista
 
@@ -42,5 +42,5 @@ O runtime usa SourceTrace para diferenciar estados confirmed, inferred, proposed
 
 - CORTEX/thalamus/models.py é a fonte canônica dos contratos compartilhados.
 - Os diretórios e responsabilidades documentados em CORTEX/README.md são provisoriamente imutáveis; mudanças futuras exigem decisão explícita e registro.
-- Os testes foram atualizados para importar RuntimeRequest do contrato canônico, mas não foram executados.
+- Os testes importam RuntimeRequest do contrato canônico. Permanecem sem execução manual nesta fase.
 - Não fazer merge/deploy durante esta fase e não alterar o Cloudflare Worker.

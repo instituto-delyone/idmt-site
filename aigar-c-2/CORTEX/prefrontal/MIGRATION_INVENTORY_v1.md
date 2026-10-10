@@ -474,3 +474,12 @@ O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos
 
 ### Pendência operacional preservada
 `.github/workflows/aigar-runtime-validation.yml` ainda precisa de revisão dos filtros `paths`, do `compileall`, do `PYTHONPATH` e do caminho do teste do interpretador. Não alterado neste lote para não acionar automaticamente o workflow de testes enquanto a fase de validação estiver bloqueada. Nenhum teste executado; sem merge/deploy; Worker intocado.
+
+## Atualização estática após congelamento estrutural
+
+- Snapshot estrutural congelado: bb0d51d5fd00e20601edf3b3a587fb5004069998.
+- Referência ativa corrigida em AIGAR_RUNTIME/main.py: Diagnosis.diagnosis → CORTEX.reasoning_engine.diagnosis.
+- Referência de cache corrigida no resolvedor do KnowledgeRetriever para índices com cache_file relativo a cache/ ou com separadores Windows.
+- Workflow de runtime alinhado ao diretório CORTEX e ao teste de linguagem na nova localização.
+- Não houve mudanças de localização de arquivos. O registro histórico MIG-012 continua preservado; a árvore atual não contém a antiga pasta Diagnosis/.
+- A existência do adaptador CORTEX/reasoning_engine/diagnosis.py não significa que o motor clínico especializado esteja conectado. Os caminhos históricos docs/Js/engine.js e docs/knowledge_base/ seguem pendentes de proveniência.

@@ -36,10 +36,20 @@ class KnowledgeRetriever:
         return json.loads(path.read_text(encoding="utf-8"))
 
     def _cache_path(self, entry: dict[str, Any]) -> Path:
-        if entry.get("cache_file"):
-            candidate = self.root / entry["cache_file"]
+        # Historical indexes store cache_file relative to cache/ and some use
+        # Windows separators. Normalize both forms without rebuilding indexes.
+        cache_file = entry.get("cache_file")
+        if cache_file:
+            relative = Path(str(cache_file).replace("\\", "/"))
+            candidate = (
+                self.root / relative
+                if relative.parts and relative.parts[0] == "cache"
+                else self.root / "cache" / relative
+            )
             if candidate.exists():
                 return candidate
+
+        # Older index entries may omit cache_file; IDs remain the stable fallback.
         return self.root / "cache" / entry["source_key"] / f'{entry["id"]}.txt'
 
     def search(

@@ -9,7 +9,7 @@ Essa imutabilidade é uma regra de trabalho para reduzir deriva arquitetural; n�
 - Preservar o ponto de entrada operacional **AIGAR_RUNTIME/main.py** enquanto ele consome os contratos e módulos canônicos do CORTEX.
 - **CORTEX/thalamus/models.py** é a fonte canônica dos contratos compartilhados do runtime.
 - Atualizar imports e caminhos para os destinos já definidos; não recriar cópias locais dos contratos.
-- Preservar os pacotes independentes **knowledge_retrieval/**, **knowledge_encoding/** e **Diagnosis/**; o CORTEX integra-os por adaptadores.
+- Preservar os pacotes independentes **knowledge_retrieval/** e **knowledge_encoding/**. O adaptador de Diagnosis existente está em CORTEX/reasoning_engine/diagnosis.py; o motor clínico especializado real ainda não foi localizado/conectado.
 - Placeholders documentam intenção; não representam código funcional até que sejam implementados.
 - Não alterar o Cloudflare Worker nem seus arquivos, nomes, símbolos, configurações, bindings, chaves JSON ou workflows.
 - Nesta fase, não executar testes, não fazer merge e não fazer deploy. A validação só vem depois de completar a movimentação e a tradução das referências.
@@ -22,7 +22,7 @@ Essa imutabilidade é uma regra de trabalho para reduzir deriva arquitetural; n�
 - **language/**: processamento linguístico e adapter para o runtime.
 - **memory/**: estado de trabalho e recuperação de contexto.
 - **engram/**: adapter de recuperação de conhecimento documental; o pacote **knowledge_retrieval/** continua independente.
-- **reasoning_engine/**: planejamento, avaliação de evidências e suficiência; componentes executivos existentes permanecem nos caminhos já definidos até uma decisão explícita.
+- **reasoning_engine/**: adaptador de Diagnosis presente e fronteira de planejamento/avaliação de evidências; não representa o motor clínico especializado completo.
 - **prefrontal/**: controlador de planejamento e apresentação da resposta por Aurora, além de documentação arquitetural.
 - **default_mode_network/**: estado interno, autorrepresentação e reflexão; ainda não implementado.
 - **worker_bridge/**: contratos e comunicação entre componentes, sem alterar Workers existentes.

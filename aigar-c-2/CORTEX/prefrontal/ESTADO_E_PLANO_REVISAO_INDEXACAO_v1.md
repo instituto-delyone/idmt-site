@@ -1,7 +1,7 @@
 # AIGAR-C — Estado congelado e fila de revisão de indexações
 
 **Status da etapa 1 — MOVIMENTAÇÃO ESTRUTURAL: CONCLUÍDA.**  
-**Status da etapa 2 — REVISÃO DE REFERÊNCIAS/INDEXAÇÕES: PRÓXIMA ETAPA.**  
+**Status da etapa 2 — REVISÃO ESTÁTICA DAS OITO FASES: CONCLUÍDA; validação de execução pendente.**  
 **Regra de congelamento:** a partir deste registro, não mover, renomear, redistribuir nem reorganizar arquivos. A estrutura atual é a referência fixa para todo o trabalho seguinte.
 
 ## 1. Snapshot de referência
@@ -198,3 +198,26 @@ Em cada lote:
 - [ ] P8: documentação histórica e subsistemas secundários.
 
 **Critério para considerar a etapa 2 concluída:** todas as referências operacionais relevantes foram reconciliadas com a árvore congelada, e as pendências protegidas/históricas estão explicitamente registradas. Testes e validação de execução ficam para uma autorização posterior.
+
+## Execução sequencial da etapa 2 — registro estático
+
+**Autorização do responsável:** executar as oito fases em sequência sem pausas para aprovação entre lotes. A estrutura permanece congelada; nenhuma movimentação, renomeação ou reorganização de arquivos é permitida.
+
+- P0 — Entrada/imports: corrigida a importação de DiagnosisAdapter para o caminho existente CORTEX.reasoning_engine.diagnosis; demais imports do entrypoint apontam para os módulos presentes na árvore atual.
+- P1 — Linguagem: interpretador resolve language.json e portuguese_language_knowledge.json relativos ao próprio módulo; o adaptador importa o contrato canônico de CORTEX.thalamus.models. O workflow agora referencia o teste no caminho novo CORTEX/language/test_interpreter.py.
+- P2 — Recuperação/indexação: normalizada a resolução de cache_file no retriever para aceitar separadores Windows e caminhos relativos a cache/, preservando fallback por source_key e id; índices existentes não foram regenerados.
+- P3 — Memória: os adaptadores importam os contratos canônicos; o backend da UI mantém os cartões em aigar_ui_chat_mvp/memory_cards/, caminho existente.
+- P4 — Integração: os módulos de runtime importam os caminhos CORTEX atuais; o adaptador de Diagnosis continua declarando missing até existir conexão com o motor clínico real.
+- P5 — Interface: o backend serve CORTEX/occipital/ e mantém os endpoints da API sem alteração.
+- P6 — Configurações/manifests: AIGAR_PHASES/phases.json já aponta para os módulos CORTEX existentes; não foram reescritos contratos históricos que não têm equivalência operacional comprovada.
+- P7 — Workflows: o workflow de validação foi atualizado para incluir CORTEX/**, compilar o diretório novo e apontar para o teste linguístico em seu caminho atual. Nenhum teste foi executado manualmente nesta tarefa.
+- P8 — Documentação/fechamento: README e auditoria do manifesto foram corrigidos para não apontar o adaptador atual para o diretório inexistente Diagnosis/.
+
+### Limites e pendências que permanecem explícitos
+
+1. O motor clínico especializado indicado historicamente por docs/Js/engine.js e a base docs/knowledge_base/ não foram encontrados no snapshot; não foram substituídos por candidatos apenas pelo nome.
+2. O workflow de validação continua configurado para executar testes automaticamente em eventos de PR que correspondam aos caminhos; a execução manual de testes não foi solicitada nem realizada aqui.
+3. O Cloudflare Worker e seu workflow próprio permaneceram intocados.
+4. Não houve movimentação/renomeação de arquivos, merge ou deploy.
+
+**Status das oito fases:** revisão estática concluída para os caminhos operacionais inspecionados; validação de execução continua pendente.

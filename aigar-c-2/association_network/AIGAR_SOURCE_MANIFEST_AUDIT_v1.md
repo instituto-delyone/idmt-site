@@ -26,7 +26,7 @@
 
 Na árvore consultada também não existem caminhos sob `docs/Js/` nem sob `docs/knowledge_base/`, e não foi encontrado um arquivo chamado `engine.js` ou uma pasta chamada `knowledge_base` no snapshot consultado.
 
-Existe a aplicação/página em `docs/pesquisas/Diagnosis/Index.html` e sua contraparte em `docs/pesquisas/Diagnosis/index.html`; também há cópias sob `pesquisas/Diagnosis/`. Esses itens **não foram automaticamente declarados equivalentes** ao antigo `docs/Js/engine.js` ou à base clínica ausente. A ligação exige comparação do conteúdo e dos consumidores. O adaptador `aigar-c-2/Diagnosis/diagnosis.py` atualmente retorna estado `missing` e não simula achados clínicos.
+Existe a aplicação/página em `docs/pesquisas/Diagnosis/Index.html` e sua contraparte em `docs/pesquisas/Diagnosis/index.html`; também há cópias sob `pesquisas/Diagnosis/`. Esses itens **não foram automaticamente declarados equivalentes** ao antigo `docs/Js/engine.js` ou à base clínica ausente. A ligação exige comparação do conteúdo e dos consumidores. O adaptador `aigar-c-2/CORTEX/reasoning_engine/diagnosis.py` é o adaptador atualmente presente; retorna estado `missing` e não simula achados clínicos. A referência anterior `aigar-c-2/Diagnosis/diagnosis.py` não existe na árvore atual.
 
 ## Decisão segura
 

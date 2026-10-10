@@ -233,3 +233,12 @@ A revisão estática encontrou e corrigiu a referência obsoleta do teste de lin
 - O workflow `.github/workflows/aigar-runtime-validation.yml` permanece como pendência operacional. Não alterado para evitar disparo automático de testes durante o gate atual.
 
 **Estado:** correção estática registrada; nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
+
+## Etapa 2 — revisão de indexações (execução estática)
+
+- Corrigido o import do adaptador clínico no entrypoint: agora usa CORTEX.reasoning_engine.diagnosis, o caminho presente na árvore atual.
+- Corrigida a resolução de cache_file para interpretar os índices históricos relativos a cache/ e normalizar separadores Windows; nenhum índice/cache foi regenerado.
+- Atualizado .github/workflows/aigar-runtime-validation.yml para reconhecer CORTEX/** e o teste linguístico no caminho atual CORTEX/language/test_interpreter.py.
+- Atualizados os READMEs e a auditoria de manifesto para refletir o local real do adaptador Diagnosis, sem declarar o motor clínico especializado como conectado.
+- Nenhum arquivo movido, renomeado ou reorganizado; Worker intocado; sem merge/deploy e sem execução manual de testes.
+- Pendência preservada: a origem operacional histórica docs/Js/engine.js e docs/knowledge_base/ não foi localizada; não foi feita equivalência automática.

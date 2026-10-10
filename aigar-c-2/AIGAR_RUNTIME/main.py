@@ -19,7 +19,7 @@ from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
 from CORTEX.memory.working_memory import WorkingStateStore
 from CORTEX.memory.hippocampal_memory import HippocampalMemoryAdapter
 from CORTEX.engram.knowledge_retrieval import KnowledgeRetrievalAdapter
-from Diagnosis.diagnosis import DiagnosisAdapter
+from CORTEX.reasoning_engine.diagnosis import DiagnosisAdapter
 from CORTEX.prefrontal.prefrontal_controller import PrefrontalController
 from CORTEX.prefrontal.aurora import Aurora
 

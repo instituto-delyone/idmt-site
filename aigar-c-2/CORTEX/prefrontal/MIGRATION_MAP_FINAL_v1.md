@@ -149,3 +149,10 @@ Esta seção registra o estado posterior ao levantamento inicial e complementa o
 - O workflow `.github/workflows/aigar-runtime-validation.yml` ainda referencia `language_network/test_interpreter.py` e não inclui `CORTEX/**` no filtro/compilação. **Não alterado neste lote**, pois atualizar o workflow de PR poderia disparar a execução automática dos testes, que seguem bloqueados até a autorização da fase de validação.
 
 **Estado:** referências de execução da UI corrigidas estaticamente; workflow de validação continua pendente por gate de testes. Nenhum teste executado; sem merge/deploy; Worker intocado.
+
+## Adendo — tradução de referências após congelamento estrutural
+
+- O entrypoint AIGAR_RUNTIME/main.py agora importa DiagnosisAdapter de CORTEX.reasoning_engine.diagnosis, único adaptador presente na árvore atual. O registro histórico MIG-012 continua preservado sem apagar sua origem; o destino citado historicamente não existe no snapshot atual.
+- O pacote knowledge_retrieval/ permanece independente e seu resolvedor de cache agora aceita os caminhos relativos registrados nos índices históricos.
+- O workflow de validação foi atualizado para apontar para CORTEX e para CORTEX/language/test_interpreter.py.
+- A pasta estrutural permanece congelada. Nenhum arquivo foi movido ou renomeado nesta etapa.
