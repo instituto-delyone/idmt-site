@@ -1,11 +1,10 @@
 """Shared data contracts for the AIGAR-C neurocognitive runtime.
 
 This module is the canonical home for request/response, conversation-state,
-linguistic-reading and source-trace models. Other CORTEX modules should import
-these contracts from CORTEX.thalamus.models rather than defining parallel versions.
+linguistic-reading, routing and source-trace models. Other CORTEX modules should
+import these contracts from CORTEX.thalamus.models rather than defining parallel versions.
 
-The schemas intentionally preserve the field names and defaults of the migrated
-runtime contract. Structural migration is not the place to silently change semantics.
+Existing field names and defaults are preserved; new contracts are additive.
 """
 from __future__ import annotations
 
@@ -36,6 +35,19 @@ class ConversationReading(BaseModel):
     needs_diagnosis: bool = False
     needs_reasoning: bool = True
     linguistic_analysis: dict[str, Any] = Field(default_factory=dict)
+
+
+class RoutingDecision(BaseModel):
+    """Normalized dispatch decision derived from a ConversationReading.
+
+    This contract describes which optional resources should be called. It does not
+    claim that a selected subsystem is available or that its operation succeeded.
+    """
+
+    use_memory: bool = False
+    use_library: bool = False
+    use_diagnosis: bool = False
+    use_reasoning: bool = True
 
 
 class ConversationState(BaseModel):
