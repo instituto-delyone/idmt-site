@@ -130,3 +130,30 @@ Objetivo: substituir o Worker monolítico por responsabilidades delimitadas, sem
 - Commit da correção: cb1955223c41133774ebd8e09abae3ef3bb33dd0.
 - Estado após a correção: aguardando uma nova execução de CI para confirmar se a coleta e os testes passam. Não declarar migração validada até haver resultado verde.
 - Nenhuma renomeação adicional executada neste passo. Nenhum merge ou deploy de produção executado.
+
+
+## Adendo atual — overlay CORTEX (2026-10-10)
+
+Este mapa mantém as cinco renomeações históricas documentadas no início. As seções antigas registram o estado daquela etapa; para o estado atual do runtime, usar o seguinte crosswalk, que é posterior às renomeações históricas:
+
+| Responsabilidade histórica | Caminho atual na branch |
+|---|---|
+| Entry point conversacional | `AIGAR_RUNTIME/main.py` — mantido como entry point |
+| Contratos e roteamento | `CORTEX/thalamus/models.py`, `CORTEX/thalamus/context_router.py` |
+| Ingress textual | `CORTEX/sensory/ingress.py` |
+| Interpretador e adaptador de linguagem | `CORTEX/language/interpreter.py`, `CORTEX/language/language_network_adapter.py` |
+| Dados compilados da linguagem | `CORTEX/language/language.json`, `CORTEX/language/portuguese_language_knowledge.json` |
+| Teste do interpretador | `CORTEX/language/test_interpreter.py` (movido como MIG-013; import atualizado) |
+| Memória de trabalho/continuidade | `CORTEX/memory/working_memory.py`, `CORTEX/memory/hippocampal_memory.py` |
+| Recuperação documental via adapter | `CORTEX/engram/knowledge_retrieval.py` |
+| Planejamento e apresentação | `CORTEX/prefrontal/prefrontal_controller.py`, `CORTEX/prefrontal/aurora.py` |
+| Estado do runtime | `CORTEX/sara/runtime_status.py` |
+| Fronteira clínica | `Diagnosis/diagnosis.py` |
+| Busca/ingestão documental independentes | `knowledge_retrieval/`, `knowledge_encoding/` — não substituídos pelos adapters CORTEX |
+
+### Limites e segurança
+- O interpretador alternativo `CORTEX/thalamus/linguistic_interpreter.py` permanece preservado; não é equivalente ao interpretador ativo e não foi removido.
+- O PDF de referência em `language_network/` e demais fontes históricas continuam preservados até que seus consumidores/origem sejam rastreados.
+- A fronteira `AIGAR_CLOUDFLARE/` não foi modificada por este adendo. Nenhum Worker, binding, símbolo, arquivo de configuração, chave JSON ou workflow do Worker foi alterado; a etapa dedicada do Worker permanece para depois do fechamento do mapa da arquitetura remontada.
+- O workflow de validação `.github/workflows/aigar-runtime-validation.yml` ainda contém referências de teste/compilação aos caminhos linguísticos anteriores. Atualizá-lo somente no gate final da fase de referências, sem disparar validação antes da conclusão da migração.
+- Este overlay é documentação de caminhos observados na árvore da branch, não uma declaração de que o runtime está validado em execução. Sem merge/deploy.
