@@ -121,3 +121,21 @@ Esta seção registra o estado posterior ao levantamento inicial e complementa o
 - Manter o Cloudflare Worker e seus arquivos/configurações/bindings/workflows fora desta fase. A revisão do Worker fica adiada até existir um mapa completo da reconstrução, em trabalho separado.
 
 **Estado:** tradução estática avançada; auditoria de referências ainda em fechamento. Nenhum teste executado; sem merge/deploy; Cloudflare Worker não alterado nesta rodada.
+
+
+## Registro de migração executada — lote MIG-014/MIG-015 (2026-10-10)
+
+### MIG-014 — fonte histórica de conhecimento linguístico
+- Origem: `aigar-c-2/language_network/portuguese_language_knowledge.pdf`
+- Destino: `aigar-c-2/CORTEX/language/portuguese_language_knowledge.pdf`
+- A movimentação reutiliza o mesmo blob Git; não altera o conteúdo do PDF.
+- A cópia/artefato de fonte em `knowledge_retrieval/sources/portuguese_language_knowledge.pdf` foi preservada.
+
+### MIG-015 — interface web visual
+- `aigar-c-2/aigar_ui_chat_mvp/web/index.html` → `aigar-c-2/CORTEX/occipital/index.html`
+- `aigar-c-2/aigar_ui_chat_mvp/web/app.js` → `aigar-c-2/CORTEX/occipital/app.js`
+- `aigar-c-2/aigar_ui_chat_mvp/web/style.css` → `aigar-c-2/CORTEX/occipital/style.css`
+- Foram movidos somente os três arquivos da interface web. O backend, os cartões de memória, o ambiente virtual e o restante de `aigar_ui_chat_mvp/` foram preservados no local original como aplicação separada.
+- Imports, caminhos de assets, manifests e workflows ainda não foram revisados neste lote; essa revisão fica para a etapa seguinte.
+
+**Estado após MIG-014/MIG-015:** movimentação estrutural registrada; nenhuma validação/teste executado; sem merge/deploy; Cloudflare Worker intocado.

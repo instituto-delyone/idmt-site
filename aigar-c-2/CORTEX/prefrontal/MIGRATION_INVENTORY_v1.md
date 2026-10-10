@@ -446,3 +446,19 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos caminhos `language_network/test_interpreter.py` e `language_network/` para a compilação/teste e o seu filtro de paths não inclui de forma explícita a árvore CORTEX. A correção será feita no lote final de referências operacionais, depois de concluir a auditoria estática e antes da etapa de validação. Esse arquivo é o workflow do runtime Python, não o workflow de Worker; o workflow `.github/workflows/aigar-cognitive-core.yml` e todo o diretório `AIGAR_CLOUDFLARE/` ficam fora de alterações nesta fase.
 
 **Estado:** a auditoria documental avançou; a fase de referências não está fechada enquanto o workflow do runtime e os demais manifests operacionais não estiverem reconciliados. Sem testes executados manualmente, sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Atualização de migração — MIG-014/MIG-015 (2026-10-10)
+
+| ID | Origem | Destino | Mudança de referência | Estado |
+|---|---|---|---|---|
+| MIG-014 | `aigar-c-2/language_network/portuguese_language_knowledge.pdf` | `aigar-c-2/CORTEX/language/portuguese_language_knowledge.pdf` | Conteúdo binário preservado pelo mesmo blob Git; referências/caminhos não alterados nesta etapa | Movimentação estrutural |
+| MIG-015a | `aigar-c-2/aigar_ui_chat_mvp/web/index.html` | `aigar-c-2/CORTEX/occipital/index.html` | Revisão posterior de assets e referências | Movimentação estrutural |
+| MIG-015b | `aigar-c-2/aigar_ui_chat_mvp/web/app.js` | `aigar-c-2/CORTEX/occipital/app.js` | Revisão posterior de imports e caminhos | Movimentação estrutural |
+| MIG-015c | `aigar-c-2/aigar_ui_chat_mvp/web/style.css` | `aigar-c-2/CORTEX/occipital/style.css` | Revisão posterior de referências CSS/HTML | Movimentação estrutural |
+
+### Limites do lote
+- Somente os três arquivos da interface foram movidos; backend, memory cards, `.venv` e demais artefatos da aplicação permanecem em `aigar_ui_chat_mvp/`.
+- A cópia de fonte PDF em `knowledge_retrieval/sources/` permanece preservada.
+- Nenhuma indexação, import, manifesto ou workflow foi alterado aqui. Isso será auditado no lote de referências.
+- Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
