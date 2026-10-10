@@ -22,10 +22,10 @@ Builder
 O padrão é 25 páginas por chunk, alinhado à organização histórica observada na biblioteca de Fisiologia:
 
 ```bash
-python -m AIGAR_LIBRARY_BUILDER.build "biblioteca/Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf" --key sapiens
+python -m knowledge_consolidation.build "biblioteca/Sapiens uma Breve História da Humanidade - Yuval Noah Harari.pdf" --key sapiens
 ```
 
-O texto processado vai para `AIGAR_LIBRARY/cache/`, que está no `.gitignore`. O índice pode ser versionado sem publicar o texto.
+O texto processado vai para `knowledge_retrieval/cache/`, que está no `.gitignore`. O índice pode ser versionado sem publicar o texto.
 
 ## IDs
 
