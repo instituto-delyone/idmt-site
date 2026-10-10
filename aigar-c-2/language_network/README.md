@@ -1,19 +1,24 @@
-# AIGAR Language Runtime
+# AIGAR Language Runtime — documentação histórica da fonte
 
-Transforma a biblioteca histórica Linguagem-materna em uma representação JSON consumível pelo runtime.
+Este README documenta a organização histórica do runtime de linguagem e a origem da representação JSON consumida pelo interpretador.
 
-A fonte canônica continua sendo:
-Engines/Aurora/Bibliotecas/Linguagem-materna/
+A fonte canônica do conhecimento linguístico continua sendo:
+`Engines/Aurora/Bibliotecas/Linguagem-materna/`
 
-language.json é uma camada compilada para execução; não substitui os textos-fonte.
+`language.json` é uma camada compilada para execução; não substitui os textos-fonte.
 
-Ordem:
-1. carregar linguagem
-2. interpretar entrada
-3. estimar intenção
-4. definir escopo
-5. estimar profundidade
-6. decidir memória/biblioteca
-7. entregar estado ao restante do AIGAR
+## Estado após a migração
 
-A geração da resposta permanece separada do interpretador.
+O módulo ativo do interpretador e os dois JSONs usados diretamente por ele foram migrados para `CORTEX/language/`:
+
+- `CORTEX/language/interpreter.py`
+- `CORTEX/language/language.json`
+- `CORTEX/language/portuguese_language_knowledge.json`
+- `CORTEX/language/language_network_adapter.py`
+- `CORTEX/language/test_interpreter.py`
+
+O teste do interpretador foi movido para junto do módulo e importa o novo caminho canônico. Ele ainda não foi executado nesta fase.
+
+O PDF histórico `portuguese_language_knowledge.pdf` permanece nesta pasta. Seu destino definitivo ainda não foi decidido porque a relação entre esse arquivo de referência e os dados compilados precisa ser rastreada; ele foi preservado deliberadamente.
+
+A sequência funcional documentada permanece: carregar linguagem, interpretar entrada, estimar intenção, definir escopo e profundidade, decidir sobre memória/biblioteca e entregar estado ao runtime. A geração da resposta permanece separada do interpretador.
