@@ -12,7 +12,7 @@ except Exception:
     yaml = None
 
 ROOT = Path(__file__).resolve().parents[1]
-WEB = ROOT / "web"
+WEB = ROOT.parent / "CORTEX" / "occipital"
 MODULES = Path(__file__).resolve().parent / "modules"
 MCARDS = ROOT / "memory_cards"
 

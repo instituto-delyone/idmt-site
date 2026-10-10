@@ -1,0 +1,58 @@
+{
+  "id": "AIGAR-SOURCE-MANIFEST-v1",
+  "status": "foundation",
+  "root": "aigar-c-2/association_network",
+  "canonical_sources": [
+    {
+      "role": "language_mother",
+      "path": "Engines/Aurora/Bibliotecas/Linguagem-materna/00_texto_mae.md"
+    },
+    {
+      "role": "human_intents",
+      "path": "Engines/Aurora/Bibliotecas/Linguagem-materna/01_intencoes_humanas.md"
+    },
+    {
+      "role": "response_depth",
+      "path": "Engines/Aurora/Bibliotecas/Linguagem-materna/02_profundidade_resposta.md"
+    },
+    {
+      "role": "ambiguity_uncertainty",
+      "path": "Engines/Aurora/Bibliotecas/Linguagem-materna/03_ambiguidade_incerteza.md"
+    },
+    {
+      "role": "insertion_zone",
+      "path": "Engines/Aurora/Bibliotecas/Linguagem-materna/04_area_de_insercao.md"
+    },
+    {
+      "role": "aigar_base_memory",
+      "path": "Engines/Aurora/AIGAR-engine/MC_BASE_AIGAR_v1.1.yaml"
+    },
+    {
+      "role": "aurora_principles",
+      "path": "Engines/Aurora/AIGAR-engine/MC_PRINCIPIOS_AURORA.yaml"
+    },
+    {
+      "role": "reasoning",
+      "path": "Engines/Aurora/AIGAR-engine/raciocinio_rapido_hibrido.txt"
+    },
+    {
+      "role": "aigar_manifest",
+      "path": "Engines/Aurora/Aigar_manifest.json"
+    },
+    {
+      "role": "historical_memory_fragments",
+      "path": "aigar-c-2/fragments-history/"
+    },
+    {
+      "role": "conversation_reconstruction",
+      "path": "aigar-c-2/conversational-engine/AIGAR_AURORA_RECONSTRUCAO_LINGUAGEM_MEMORIA_v1_0.html"
+    }
+  ],
+  "rules": [
+    "Do not duplicate canonical sources unless a versioned snapshot is explicitly intended.",
+    "Do not overwrite historical artifacts during reconstruction.",
+    "Every new adapter must declare whether it is historical, inferred, or proposed.",
+    "The association_network layer records architecture and contracts; it does not replace specialized engines.",
+    "The specialized Diagnosis engine and its clinical knowledge base belong to a separate repository and are not AIGAR-C canonical sources or local runtime paths."
+  ]
+}

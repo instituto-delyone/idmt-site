@@ -1,5 +1,5 @@
 from AIGAR_RUNTIME.main import run_runtime
-from AIGAR_RUNTIME.models import RuntimeRequest
+from CORTEX.thalamus.models import RuntimeRequest
 
 
 def test_phatic():

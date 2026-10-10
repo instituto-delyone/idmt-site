@@ -1,6 +1,6 @@
 AIGAR C-2 — DICIONÁRIO NEUROCOGNITIVO
-Versão: 1.0
-Status: documento de coordenação para futura migração de nomes
+Versão: 1.2
+Status: documento vivo de coordenação neurocognitiva; nomes também funcionam como guias de evolução futura
 Repositório: instituto-delyone/idmt-site
 Local: aigar-c-2/AIGAR_NEUROCOGNITIVE_DICTIONARY_v1.txt
 
@@ -181,6 +181,98 @@ Função neuroanatômica: sistemas de ativação modulam vigília e responsivida
 Função no AIGAR: possível coordenador de ciclo e prioridade. Não o chamar de “formação reticular artificial” como se houvesse equivalência direta.
 Status: proposta; verificar se TIME-engine já cobre parte da necessidade.
 
+
+
+22. Modelo de Correspondência Neurocomputacional — princípio geral
+Nome computacional: Neuroarchitecture Map / AIGAR Neurocognitive Dictionary
+Nome neuroanatômico: Arquitetura funcional distribuída do cérebro humano
+Função computacional: manter um mapa evolutivo entre estruturas/redes biológicas, responsabilidades de software, módulos existentes, infraestrutura e vias de comunicação.
+Função neuroanatômica: funções complexas emergem de circuitos interconectados; estruturas participam de múltiplas funções e uma função pode depender de várias regiões.
+Função no AIGAR: usar nomes neurocognitivos como GUIAS DE PROJETO. Um componente pode receber um nome aspiracional antes de implementar todas as capacidades associadas; a lacuna deve ser documentada como oportunidade de engenharia, não tratada como defeito de nomenclatura.
+Status: PRINCÍPIO DE ARQUITETURA aprovado para orientar o desenvolvimento. A analogia não implica equivalência biológica literal.
+Regra especial: não exigir que o arquivo implemente hoje a totalidade da função cerebral que inspira seu nome. Registrar implementação atual, capacidade desejada, lacunas, dependências e testes futuros.
+
+23. Entrada auditiva / Text Input Pathway
+Nome computacional: AuditoryInputPathway (nome conceitual); entrada textual principal do AIGAR
+Nome neuroanatômico: Sistema auditivo e redes de processamento da linguagem, com participação de regiões temporais e conexões frontotemporais
+Função computacional: representar a entrada textual como analogia funcional da entrada auditiva linguística. Deve ser o caminho prioritário para relacionar mensagem, contexto, significado e histórico conversacional, mesmo quando a interface não recebe áudio físico.
+Função neuroanatômica: a audição fornece sinais acústicos que são processados por vias auditivas e integrados com sistemas de linguagem; compreender fala não é função exclusiva de uma única área.
+Função no AIGAR: tratar texto digitado como entrada simbólica no caminho de linguagem com prioridade de contexto. Se áudio real for adicionado, incluir transcrição/percepção acústica como etapas específicas, sem confundir áudio bruto com texto já transcrito.
+Status: DIRETRIZ DE ARQUITETURA. A correspondência texto↔audição é uma escolha de modelagem do projeto, não uma identidade biológica.
+
+24. Entrada visual / Visual Input Pathway
+Nome computacional: VisualInputPathway (nome conceitual); adaptadores de imagem e conteúdo visual
+Nome neuroanatômico: Sistema visual, córtex visual e vias de processamento visual distribuído
+Função computacional: receber imagens, capturas de tela, diagramas e outras entradas visuais e convertê-las em representações utilizáveis pelo restante da arquitetura.
+Função neuroanatômica: o sistema visual processa atributos e relações em vias parcialmente paralelas; reconhecimento e interpretação envolvem redes distribuídas.
+Função no AIGAR: fornecer uma segunda modalidade de entrada que possa ser associada ao contexto linguístico. O caminho visual complementa a entrada textual/auditiva e não deve ser confundido com ela.
+Status: PROPOSTA/DIRETRIZ; mapear os adaptadores visuais efetivamente existentes antes de atribuir implementação.
+
+25. Rede de compreensão da linguagem / Temporal Language Network
+Nome computacional: LanguageComprehensionNetwork; funções existentes em Linguagem Materna, interpreter, CSI e recuperação contextual
+Nome neuroanatômico: Rede distribuída de linguagem, incluindo regiões temporais posteriores e conexões frontotemporais; Wernicke como referência histórica parcial
+Função computacional: relacionar palavras, referências, relações semânticas, intenção, contexto e informação previamente mencionada.
+Função neuroanatômica: compreensão depende de processos distribuídos de percepção, acesso lexical, semântica, sintaxe e integração contextual; não é adequadamente reduzida a uma única “área de Wernicke”.
+Função no AIGAR: orientar a evolução da interpretação lexical para compreensão contextual e semântica mais fluida. Deve consultar estado de trabalho e memória relevante, quando necessário, e preservar ambiguidades em vez de inventar certeza.
+Status: PARCIAL/PROPOSTA; há interpretador e Linguagem Materna, mas a cobertura exata deve ser testada no código.
+
+26. Planejamento e expressão da fala / Speech Production Network
+Nome computacional: SpeechProductionPlanner (nome conceitual); futuro componente de formulação de resposta
+Nome neuroanatômico: Rede de produção da linguagem, incluindo regiões frontais inferiores associadas historicamente à área de Broca, regiões motoras e conexões temporofrontais
+Função computacional: transformar uma intenção comunicativa e um conteúdo já selecionado em uma resposta ordenada, natural, coerente e adequada ao interlocutor.
+Função neuroanatômica: a produção da fala envolve planejamento linguístico e motor em redes distribuídas; Broca participa de aspectos da produção, mas não gera a fala isoladamente.
+Função no AIGAR: desenvolver a fluidez da resposta separando: (a) decidir o que dizer, (b) organizar a mensagem, (c) realizar a saída textual/voz e (d) verificar se a resposta preserva sentido e incerteza. Aurora pode atuar na camada de expressão, conforme implementação.
+Status: PROPOSTA EVOLUTIVA; não presumir que já exista um planejador independente.
+
+27. Memória de trabalho e controle pré-frontal
+Nome computacional: WorkingStateStore + PrefrontalController; futuras interfaces de estado/objetivo
+Nome neuroanatômico: Redes pré-frontais e frontoparietais relacionadas a memória de trabalho, controle e comportamento orientado a objetivos
+Função computacional: manter temporariamente objetivo, restrições, tópico, referentes e passos em andamento; priorizar o que precisa permanecer ativo para a tarefa.
+Função neuroanatômica: memória de trabalho e controle executivo são funções distribuídas, com contribuições de circuitos pré-frontais e outras redes; não são equivalentes a um único arquivo.
+Função no AIGAR: orientar a separação entre contexto ativo de curta duração e memória persistente. O controlador deve evoluir além da seleção lexical de evidências para incluir planejamento, verificação de restrições e revisão do resultado.
+Status: PARCIAL; o estado de trabalho e o controlador existem na branch de migração, mas suas capacidades atuais são limitadas.
+
+28. Vias de comunicação / Neural Pathway Analogy
+Nome computacional: Cloudflare Workers, chamadas HTTP, Service Bindings, contratos JSON, imports e interfaces entre módulos
+Nome neuroanatômico: Vias e conexões entre circuitos neurais (analogia de conectividade)
+Função computacional: transportar entradas, resultados e sinais de controle entre componentes independentes, preservando contratos, identidade de sessão, permissões, proveniência e tratamento de erros.
+Função neuroanatômica: vias neurais conectam populações e regiões; as propriedades das conexões influenciam o fluxo e a coordenação da atividade.
+Função no AIGAR: usar “vias” como metáfora para os canais de comunicação. Um Worker não é um axônio nem uma via biológica literal; é um serviço computacional que pode mediar comunicação entre módulos.
+Status: DIRETRIZ DE ARQUITETURA; mapear cada Worker e binding existente, sem criar serviços adicionais sem necessidade demonstrada.
+
+29. Neurônios / Unidades computacionais e substrato de execução
+Nome computacional: funções, classes, processos, módulos, Workers e recursos de hardware, conforme o nível analisado
+Nome neuroanatômico: Neurônios e circuitos neurais
+Função computacional: metáfora em múltiplas escalas para unidades que executam operações e para o substrato físico que executa o software.
+Função neuroanatômica: neurônios são células vivas com propriedades eletroquímicas e conectividade complexa; não equivalem literalmente a linhas de código, funções, CPUs ou servidores.
+Função no AIGAR: permitir que o projeto pense em níveis: hardware como substrato físico; código como operações executáveis; módulos como agrupamentos funcionais; serviços e bindings como conectividade entre componentes. A correspondência exata depende do nível arquitetural e não deve ser forçada.
+Status: METÁFORA DE ENGENHARIA adotada para raciocínio arquitetural, com ressalva explícita de não equivalência biológica.
+
+30. D1 e armazenamento dentro do subsistema de memória
+Nome computacional: D1 Database / tabelas e bindings persistentes associados ao AIGAR
+Nome neuroanatômico: Nenhuma estrutura cerebral direta; infraestrutura que apoia o subsistema computacional de memória
+Função computacional: armazenar registros estruturados e possibilitar leitura/escrita autorizadas por componentes da aplicação.
+Função neuroanatômica: memórias duradouras dependem de alterações distribuídas em redes neurais, não de uma base de dados central.
+Função no AIGAR: D1 pode ser tratado como uma PARTE INFRAESTRUTURAL do subsistema de memória do AIGAR, caso o schema e os fluxos reais confirmem esse uso. Não chamar D1 literalmente de hipocampo: o hipocampo inspira funções de codificação/associação/recuperação; D1 é um mecanismo de persistência.
+Status: ANALOGIA ARQUITETURAL CONDICIONAL; confirmar tabelas, bindings, fluxos de leitura/escrita e relação com Memory Cards antes de declarar integração funcional.
+
+31. Consolidação de conhecimento e memória
+Nome computacional: KnowledgeConsolidation (nome conceitual); pipelines de ingestão, normalização, indexação e atualização de memória
+Nome neuroanatômico: Processos de consolidação de memória envolvendo hipocampo e redes corticais, de acordo com o tipo de memória e a escala temporal
+Função computacional: transformar material recebido em representações persistentes, pesquisáveis, versionadas e vinculadas às fontes; separar ingestão, indexação, retenção e recuperação.
+Função neuroanatômica: consolidação biológica não é simplesmente gravar um arquivo; envolve processos dependentes do tempo e interações entre sistemas de memória e redes corticais.
+Função no AIGAR: usar a literatura como guia para investigar como conteúdo e experiências podem passar de contexto transitório para memória recuperável. Não declarar “consolidação” funcional até que exista mecanismo demonstrável, política de retenção e testes de recuperação.
+Status: PROPOSTA; pipelines de biblioteca existem, mas não provam por si só uma memória episódica com consolidação.
+
+32. Fluidez conversacional como objetivo de sistema
+Nome computacional: ConversationalFluencyLoop (nome conceitual); integração de compreensão, memória, planejamento e formulação de resposta
+Nome neuroanatômico: Redes distribuídas de linguagem, memória, controle executivo e integração contextual
+Função computacional: manter coerência entre turnos, recuperar referências relevantes, escolher informação pertinente, construir transições naturais, calibrar detalhe e incerteza e revisar a resposta antes de apresentá-la.
+Função neuroanatômica: fala natural emerge de processos interativos e distribuídos; não é explicada isoladamente por Broca, Wernicke ou hipocampo.
+Função no AIGAR: usar o livro como fonte de hipóteses de projeto para linguagem mais natural: contexto → intenção → recuperação → organização da mensagem → formulação → monitoramento/feedback.
+Status: OBJETIVO DE ENGENHARIA; decomposição e avaliação ainda precisam ser especificadas.
+
+
 REGRAS DE NOMENCLATURA E MIGRAÇÃO
 1. O nome computacional novo não apaga o nome histórico: registrar sempre aliases e caminho antigo.
 2. Não renomear classe, arquivo, endpoint, binding ou banco apenas por semelhança metafórica.
@@ -192,6 +284,9 @@ REGRAS DE NOMENCLATURA E MIGRAÇÃO
 8. O controlador executivo e o gatekeeper de segurança devem permanecer conceitos distintos.
 9. Não declarar que o AIGAR aprende, consolida memórias ou altera pesos sem um mecanismo demonstrável.
 10. O dicionário é a fonte inicial para futura interface HTML e para a migração coordenada.
+11. Os nomes neurocognitivos podem ser aspiracionais e orientar capacidades futuras; registrar a implementação atual e as lacunas sem exigir equivalência imediata.
+12. Usar a organização do cérebro inteiro como mapa de referência, priorizando os circuitos de linguagem, entradas auditiva/textual e visual, memória, controle pré-frontal e vias de comunicação relevantes; não é necessário modelar indiscriminadamente sistemas motores periféricos como braço ou olho.
+13. Tratar Workers e Service Bindings como analogia de vias de comunicação entre componentes; tratar D1 como infraestrutura de armazenamento quando confirmado pelo código, nunca como uma região cerebral literal.
 
 FLUXO CONCEITUAL DE REFERÊNCIA
 Entrada → Interpretação da linguagem → Estado de conversa → Recuperação de memória e/ou evidência → CSI/roteamento → Motor especializado ou raciocínio → Controle executivo → Gatekeeper de ações → Interface de saída → Feedback e registro.
@@ -204,3 +299,68 @@ PRÓXIMOS PASSOS
 3. Criar um mapa de aliases antigo → novo e uma tabela de dependências.
 4. Implementar testes antes de renomear símbolos.
 5. Criar uma visualização HTML a partir deste documento, mantendo o dicionário textual como fonte de verdade.
+
+33. Rede auditiva-linguística / Auditory-Language Input
+Nome computacional: TextInputAdapter (nome conceitual); entrada textual e futura entrada de áudio/transcrição
+Nome neuroanatômico: Vias auditivas e redes temporais de processamento da fala, conectadas às redes distribuídas de linguagem
+Função computacional: receber texto como entrada principal hoje e, se houver áudio no futuro, separar captura/transcrição de interpretação semântica; preservar segmentação, ordem, marcadores temporais e sinais de incerteza.
+Função neuroanatômica: sinais auditivos são processados por vias auditivas e áreas corticais que participam do reconhecimento da fala; a compreensão linguística depende de redes temporais, frontais e de associação, não de uma única área.
+Função no AIGAR: a entrada textual será tratada como análogo funcional do conteúdo linguístico que pode chegar por audição. Áudio e texto podem convergir para um contrato comum de entrada, sem fingir que texto já percorreu uma via auditiva biológica.
+Status: DIRETRIZ DE PROJETO; entrada textual existe; cadeia de áudio completa não confirmada nesta análise.
+
+34. Rede visual / Visual Input Adapter
+Nome computacional: VisualInputAdapter (nome conceitual); futuro adaptador para imagem, captura de tela, diagramas e documentos visuais
+Nome neuroanatômico: Vias visuais e áreas visuais/associativas, integradas com linguagem, memória e atenção
+Função computacional: extrair conteúdo visual por OCR, descrição ou análise multimodal; ligar elementos visuais ao contexto textual da sessão.
+Função neuroanatômica: processamento visual percorre vias especializadas e se integra a outras redes para reconhecimento e interpretação; não é simplesmente “ver pixels”.
+Função no AIGAR: admitir imagem como modalidade complementar de entrada e permitir que texto extraído e observações visuais sejam enviados à mesma etapa de integração contextual.
+Status: PROPOSTA; criar somente quando existir caso de uso e contrato de entrada verificável.
+
+35. Rede de integração temporofrontal da linguagem / Language Integration
+Nome computacional: LanguageIntegrationLayer (nome conceitual); evolução do AIGAR_LANGUAGE/interpreter.py e LanguageNetworkAdapter
+Nome neuroanatômico: Rede distribuída de linguagem envolvendo regiões temporais, frontais, parietais e suas conexões; Broca e Wernicke são referências históricas parciais, não centros isolados
+Função computacional: combinar forma linguística, significado, estrutura de frases, contexto discursivo, intenção, referentes e conhecimento relevante.
+Função neuroanatômica: compreensão e produção dependem de múltiplas regiões e vias de conexão; lesões em diferentes partes da rede podem gerar perfis linguísticos distintos.
+Função no AIGAR: organizar a futura separação entre parsing, interpretação semântica, resolução de referências e planejamento da formulação. O primeiro passo pode ser uma decomposição lógica interna, não necessariamente um Worker novo.
+Status: PROPOSTA EVOLUTIVA; o interpreter existente já fornece análise estruturada, mas ainda não corresponde a uma rede de linguagem completa.
+
+36. Rede de monitoramento e revisão / Response Monitoring
+Nome computacional: ResponseMonitor (nome conceitual); futura etapa do ConversationalFluencyLoop
+Nome neuroanatômico: Redes frontais e outras redes envolvidas em monitoramento, seleção e correção de ações/respostas
+Função computacional: verificar se a resposta atende à pergunta, mantém o tópico, respeita restrições, diferencia evidência de inferência e declara incerteza quando necessário.
+Função neuroanatômica: monitoramento e controle resultam da interação de sistemas distribuídos; não devem ser atribuídos a uma única área cerebral.
+Função no AIGAR: criar uma etapa explícita de verificação antes da saída, inicialmente por regras e testes determinísticos; usar modelos externos apenas quando necessário.
+Status: PROPOSTA; não identificado como etapa independente nos cinco adaptadores atuais.
+
+37. Vias de comunicação e topologia distribuída / Worker Pathways
+Nome computacional: Cloudflare Workers, Service Bindings, chamadas HTTP, filas/eventos quando adotados, interfaces entre módulos
+Nome neuroanatômico: Vias de conexão entre populações neurais, usadas como analogia de conectividade e distribuição de processamento
+Função computacional: dividir responsabilidades e transportar mensagens estruturadas entre serviços; controlar concorrência, timeouts, limites, retry, idempotência, observabilidade e isolamento de falhas.
+Função neuroanatômica: redes neurais distribuem processamento por populações interconectadas; a analogia não implica que cada Worker seja um neurônio ou axônio.
+Função no AIGAR: evitar concentração desnecessária de trabalho num único Worker, preservando um gateway público estável e delegando tarefas delimitadas a serviços auxiliares quando medição e contratos justificarem. Mais Workers não garantem automaticamente mais robustez: chamadas em cascata, dependências síncronas e falhas comuns também podem aumentar o risco.
+Status: DIRETRIZ ARQUITETURAL; topologia atual deve ser confirmada por bindings, rotas, limites e telemetria antes de divisão.
+
+38. Orquestração de tarefas e fluxo de informação / Cognitive Orchestration
+Nome computacional: CognitiveOrchestrator (nome conceitual); coordenação entre entrada, estado, memória, recuperação, raciocínio e saída
+Nome neuroanatômico: Interação entre redes de linguagem, memória, controle executivo e sistemas associativos
+Função computacional: decidir quais componentes são necessários, em que ordem, com qual contexto e com qual orçamento de tempo/recursos; permitir caminhos curtos para tarefas simples e caminhos completos para tarefas complexas.
+Função neuroanatômica: comportamento dirigido a objetivos depende de coordenação dinâmica entre redes; não há um “orquestrador central” anatômico único.
+Função no AIGAR: evoluir de um fluxo linear rígido para uma arquitetura com roteamento explícito, limites por etapa, cancelamento, fallback e rastreabilidade. Pode inicialmente ser uma função no runtime e só depois virar Worker separado.
+Status: PROPOSTA; revisar AIGAR_RUNTIME/main.py, AIGAR_CORE e AIGAR_CLOUDFLARE/main.py antes de definir localização definitiva.
+
+39. Diagnóstico de falhas computacionais / Pathway Health and Fault Isolation
+Nome computacional: PathwayHealthMonitor (nome conceitual); métricas, health checks e rastreamento distribuído
+Nome neuroanatômico: Sem equivalente biológico direto; a metáfora das vias inspira observação de conectividade, não diagnóstico neurológico literal
+Função computacional: localizar timeout, saturação, retry em cascata, falha de binding, excesso de latência, limite de CPU/subrequest e dependência indisponível por etapa.
+Função neuroanatômica: falhas em circuitos biológicos podem afetar funções; o sistema de monitoramento proposto é uma ferramenta de engenharia, não um equivalente de processo fisiológico.
+Função no AIGAR: correlacionar cada requisição com spans por serviço, duração, volume de dados, erros e chamadas downstream. A hipótese “um Worker sobrecarregado contribui para quedas” precisa ser testada com logs, métricas e reprodução, não deduzida apenas da metáfora.
+Status: PROPOSTA PRIORITÁRIA; definir instrumentação antes de dividir o tráfego real.
+
+40. Síntese neurocognitiva e fluidez natural / Conversational Fluency Architecture
+Nome computacional: ConversationalFluencyLoop; integração de LanguageNetworkAdapter, WorkingStateStore, HippocampalMemoryAdapter, KnowledgeRetrievalAdapter, PrefrontalController, Aurora e futuro ResponseMonitor
+Nome neuroanatômico: Redes distribuídas de linguagem, memória explícita/implícita, memória de trabalho, controle executivo e integração contextual
+Função computacional: interpretar → manter contexto ativo → recuperar episódios/conhecimento → selecionar plano → formular resposta → verificar coerência e incerteza → atualizar estado e registrar proveniência.
+Função neuroanatômica: a linguagem natural depende de interação entre sistemas, experiência e contexto; os capítulos 60, 65, 66 e 67 apresentam peças distintas do quadro, sem oferecer uma fórmula computacional única para pensamento ou fala.
+Função no AIGAR: usar o livro como fonte para formular hipóteses testáveis sobre continuidade de diálogo, resolução de referências, recuperação relevante, organização sintática/discursiva e correção da resposta.
+Status: VISÃO FUTURA; o loop deve ser implementado por etapas e validado com conjuntos de conversas e métricas explícitas.
+

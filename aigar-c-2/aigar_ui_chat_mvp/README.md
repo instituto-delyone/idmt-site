@@ -1,7 +1,7 @@
 # AIGAR UI — Chat MVP
 
 Interface minimalista estilo ChatGPT + backend FastAPI local com endpoint /api/chat.
-Módulos plugáveis (AIGAR/Jarvis) e pasta separada para memory cards.
+Módulos plugáveis (AIGAR/Jarvis) e pasta separada para memory cards. A interface está centralizada em `CORTEX/occipital/`; o backend permanece nesta aplicação.
 
 ## Instalação
 1) Python 3.10+
@@ -23,11 +23,11 @@ aigar_ui_chat_mvp/
 │     └─ Jarvis/
 │        ├─ manifest.yaml
 │        └─ jarvis_main.py
-├─ web/
-│  ├─ index.html
-│  ├─ style.css
-│  └─ app.js
-└─ memory_cards/   # coloque seus memory_card_*.yaml aqui
+├─ server/
+│  └─ main.py      # serve a interface de CORTEX/occipital
+└─ memory_cards/  # coloque seus memory_card_*.yaml aqui
+
+Interface compartilhada: `../CORTEX/occipital/{index.html,style.css,app.js}`.
 
 ## Atalhos de mensagem
 !comando  -> ordem direta

@@ -87,3 +87,17 @@ FASE 4 — Computação
 ```
 
 O HTML não precisa conhecer o conteúdo dos livros. Ele apenas aciona módulos e consulta seus estados.
+
+
+## Adendo de localização atual na branch de migração (2026-10-10)
+
+Este documento registra a reconstrução histórica de builder, cache e retriever; seus caminhos iniciais não foram apagados do texto para preservar o contexto da época. Na árvore atual de `neurocognitive-migration`, o crosswalk observado é:
+
+- Builder/pipeline de ingestão: `knowledge_encoding/encode_knowledge.py` e `knowledge_encoding/encode_existing_chunks.py`.
+- Busca híbrida, semântica, índices e cache: pacote independente `knowledge_retrieval/`, em particular `knowledge_retrieval/retriever.py` e `knowledge_retrieval/semantic_retriever.py`.
+- Adapter de integração no runtime: `CORTEX/engram/knowledge_retrieval.py`, usando contratos de `CORTEX/thalamus/models.py`.
+- A entrada operacional do runtime permanece `AIGAR_RUNTIME/main.py`.
+
+O pacote externo `knowledge_retrieval/` não foi movido nem substituído por `CORTEX/engram`; o adapter chama o pacote independente. O cache local/indexes devem permanecer no pacote e não devem ser renomeados junto com o código sem mapear cada caminho.
+
+**Limites:** o registro histórico de que uma integração funcionava numa etapa anterior não substitui uma validação atual. Testes do pacote e runtime permanecem sujeitos ao gate geral: concluir a auditoria estática de caminhos/configurações antes de executar. Sem merge/deploy e sem qualquer alteração ao Cloudflare Worker.
