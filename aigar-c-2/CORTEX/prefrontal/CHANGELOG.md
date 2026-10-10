@@ -110,3 +110,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - Os contratos descrevem envelopes e proveniência; não conectam automaticamente o Memory Card persistente nem alteram o pacote independente `knowledge_retrieval`.
 
 **Estado:** escrita confirmada pelo GitHub. Sem testes, merge ou deploy; Cloudflare Worker intocado.
+
+## Adaptadores de memória e biblioteca — envelopes tipados (2026-10-10)
+
+- `CORTEX/memory/hippocampal_memory.py`: `recall()` recebe `MemoryRecallRequest` e retorna `MemoryRecallResult`. Continua limitado ao contexto da sessão; Memory Card persistente não foi conectado. Commit: `247c31fd41ba04350b8086dfd533db10b0c8d2fd`.
+- `CORTEX/engram/knowledge_retrieval.py`: `search()` recebe `LibraryQuery` e retorna `LibrarySearchResult`, preservando a busca híbrida e o pacote `knowledge_retrieval` independente. Commit: `49fa92c28d59e3694bc1a0e6c8970b474c5cc5b3`.
+- `AIGAR_RUNTIME/main.py`: constrói os envelopes de entrada e extrai `items`/`source` dos resultados. Commit: `ef96fcfafe7fe749b8767ce5ce83327122385415`.
+
+**Estado:** alterações registradas no branch; ainda sem execução de testes, merge ou deploy. Cloudflare Worker intocado.
