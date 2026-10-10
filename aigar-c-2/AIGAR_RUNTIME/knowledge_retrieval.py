@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from knowledge_retrieval.retriever import LibraryRetriever
+from knowledge_retrieval.retriever import KnowledgeRetriever
 from .models import SourceTrace
 
 
@@ -10,7 +10,7 @@ class KnowledgeRetrievalAdapter:
     """Runtime boundary for knowledge retrieval from the local AIGAR library cache."""
 
     def __init__(self, root: str | Path | None = None):
-        self.retriever = LibraryRetriever(root)
+        self.retriever = KnowledgeRetriever(root)
 
     def search(
         self,
