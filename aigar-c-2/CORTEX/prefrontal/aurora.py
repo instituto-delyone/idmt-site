@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .models import ConversationReading, SourceTrace
+from ..thalamus.models import ConversationReading, SourceTrace
 
 
 class Aurora:
