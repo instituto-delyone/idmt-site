@@ -134,3 +134,31 @@ class RuntimeResponse(BaseModel):
     sources: list[SourceTrace] = Field(default_factory=list)
     confidence: float = 0.0
     plan: dict[str, Any] = Field(default_factory=dict)
+
+class MemoryRecallRequest(BaseModel):
+    """Typed request for session or persistent-memory retrieval."""
+
+    state: ConversationState
+    limit: int = 8
+
+
+class MemoryRecallResult(BaseModel):
+    """Memory items plus explicit provenance/status."""
+
+    items: list[dict[str, Any]] = Field(default_factory=list)
+    source: SourceTrace
+
+
+class LibraryQuery(BaseModel):
+    """Typed query envelope for the independent knowledge-retrieval package."""
+
+    query: str
+    limit: int = 3
+    reading: dict[str, Any] = Field(default_factory=dict)
+
+
+class LibrarySearchResult(BaseModel):
+    """Retrieved library items plus explicit provenance/status."""
+
+    items: list[dict[str, Any]] = Field(default_factory=list)
+    source: SourceTrace
