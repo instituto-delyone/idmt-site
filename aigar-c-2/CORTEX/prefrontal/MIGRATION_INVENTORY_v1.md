@@ -1,0 +1,119 @@
+# AIGAR-C — Inventário de migração neurocognitiva v1
+
+- Repositório: `instituto-delyone/idmt-site`
+- Branch auditada: `neurocognitive-migration`
+- Commit-base auditado: `6cee97808ad62c7fe5203b753d82e9fdde25f933`
+- Escopo: inventário estático de caminhos e dependências; nenhum arquivo funcional foi movido ou alterado nesta etapa.
+- Estado: **inventário inicial — aguarda revisão antes da migração**.
+
+## Regras obrigatórias
+
+1. Preservar a lógica existente durante a migração estrutural.
+2. Registrar cada movimentação real como par caminho antigo → caminho novo, com commit e atualização de referências associadas.
+3. Não apagar arquivos por parecerem redundantes; confirmar consumidores e dependências primeiro.
+4. Não executar testes antes de terminar a fase de renomeação/movimentação e atualização das referências.
+5. Não fazer merge nem deploy nesta etapa.
+6. **Cloudflare Worker está fora do escopo e não deve ser alterado**: arquivos, nomes, símbolos, configurações, bindings e chaves JSON ficam intocados.
+7. Placeholders representam ideias ainda não implementadas; não devem fingir que já existe funcionalidade.
+
+## 1. Runtime conversacional ativo — inventário por import direto
+
+O ponto de entrada atual é `aigar-c-2/AIGAR_RUNTIME/main.py`. Ele importa diretamente os módulos abaixo. Estes são os primeiros candidatos à migração porque fazem parte do caminho de execução do runtime.
+
+| Caminho atual | Função observada no código | Destino arquitetural proposto | Decisão inicial |
+|---|---|---|---|
+| `AIGAR_RUNTIME/main.py` | API FastAPI, endpoints `/health` e `/perguntar`, orquestração de todos os adaptadores | Manter como entrypoint durante a migração; destino final a decidir sem quebrar comando de inicialização | MANTER por enquanto |
+| `AIGAR_RUNTIME/models.py` | Contratos Pydantic: leitura, estado, rastros de fonte, request e response | Contratos compartilhados de runtime; destino exato precisa ser decidido antes de mover | REVISAR |
+| `AIGAR_RUNTIME/language_network_adapter.py` | Carrega `language_network/interpreter.py` e converte resultado em `ConversationReading` | `CORTEX/language/` | MOVER candidato |
+| `language_network/interpreter.py` | Interpretador determinístico da linguagem; lê `language.json` e `portuguese_language_knowledge.json` | `CORTEX/language/` ou manter como motor externo com adaptador | MOVER candidato; preservar os JSONs associados |
+| `language_network/language.json` | Dados/regras usados pelo interpretador | Junto ao interpretador ou caminho de dados equivalente | MOVER junto somente após mapear caminhos |
+| `language_network/portuguese_language_knowledge.json` | Base de conhecimento linguístico carregada pelo interpretador | Junto ao interpretador ou caminho de dados equivalente | MOVER junto somente após mapear caminhos |
+| `AIGAR_RUNTIME/working_memory.py` | Armazena estado de sessão em memória do processo; mantém até 40 entradas | `CORTEX/memory/` | MOVER candidato |
+| `AIGAR_RUNTIME/hippocampal_memory.py` | Adaptador de continuidade; usa os turnos da sessão, sem recall persistente conectado | `CORTEX/memory/` | MOVER candidato |
+| `AIGAR_RUNTIME/knowledge_retrieval.py` | Adaptador do runtime para `KnowledgeRetriever` | Adaptador de recuperação em `CORTEX/memory/` ou camada de integração a decidir | REVISAR antes de mover |
+| `knowledge_retrieval/retriever.py` | Busca híbrida sobre índices e chunks de cache local | `knowledge_retrieval/` permanece como pacote de dados/recuperação até mapear dependências | MANTER por enquanto |
+| `knowledge_retrieval/semantic_retriever.py` | Expansão semântica determinística e pontuação de fontes | `knowledge_retrieval/` junto ao retriever | MANTER por enquanto |
+| `AIGAR_RUNTIME/prefrontal_controller.py` | Seleciona até três sentenças por sobreposição lexical e monta plano de resposta | `CORTEX/prefrontal/` | MOVER candidato |
+| `AIGAR_RUNTIME/aurora.py` | Apresenta resposta com base no plano e nas evidências/contexto disponíveis | `CORTEX/language/` (formulação) ou camada de saída a decidir | REVISAR |
+| `AIGAR_RUNTIME/diagnosis.py` | Adaptador de fronteira; motor Diagnosis separado ainda não conectado | Adaptador de integração/worker bridge, conforme contrato existente | MOVER candidato após mapear integração |
+| `AIGAR_RUNTIME/requirements.txt` | Dependências Python do runtime (FastAPI, Uvicorn, Pydantic) | Manter junto ao entrypoint ou consolidar depois de verificar instruções de instalação | MANTER por enquanto |
+| `AIGAR_RUNTIME/test_runtime.py` | Testes existentes do runtime | Permanecer associados ao runtime até o fim da migração; não executar ainda | MANTER por enquanto |
+| `AIGAR_RUNTIME/README.md` | Documenta execução, arquitetura e renomeações históricas | Atualizar depois da migração de caminhos | ATUALIZAR após migração |
+
+## 2. Arquivos com função ainda não confirmada no caminho ativo
+
+| Caminho atual | Observação estática | Decisão |
+|---|---|---|
+| `AIGAR_RUNTIME/linguistic_interpreter.py` | Implementa outro interpretador simples, mas `main.py` não o importa diretamente; o adapter carrega `language_network/interpreter.py` | REVISAR consumidores e referências antes de classificar como legado |
+| `AIGAR_RUNTIME/__init__.py` | Arquivo de pacote Python | Manter até a reorganização de imports ficar definida |
+| `AIGAR_RUNTIME/README.md` | Descreve nomes históricos que divergem de alguns caminhos atuais; deve ser reconciliado usando a árvore real, sem presumir que texto antigo prova que um arquivo ainda existe | Atualizar após o inventário completo |
+
+## 3. Subsistemas existentes fora do runtime direto
+
+| Caminho atual | Conteúdo/função observada | Destino inicial |
+|---|---|---|
+| `association_network/` | README, YAML de arquitetura, contratos e manifestos de integração | Avaliar como arquitetura/contratos; não duplicar dentro de CORTEX sem necessidade |
+| `knowledge_encoding/` | Codificador de PDF/TXT/MD em chunks, IDs, índices e cache | Manter como pipeline de ingestão/encoding; integração com a nova árvore será registrada |
+| `knowledge_retrieval/` | Retriever, router semântico, config, índices, cache e documentação | Manter pacote de recuperação e dados até o mapa de dependências ficar completo |
+| `language_network/` | Interpretador, dados linguísticos, documentação e teste próprio | Integrar ao domínio `CORTEX/language/` somente após mapear os caminhos dos dados |
+| `AIGAR_PHASES/` | Configuração de fases | Revisar consumidores antes de mover |
+| `AIGAR_RECONSTRUCTION/` | Documentação de reconstrução | Documentação de projeto; considerar `CORTEX/prefrontal/` somente após revisar conteúdo e referências |
+| `AIGAR_NEUROCOGNITIVE_*.md/.txt` e `AIGAR_RENAME_PLAN_v1.md` | Dicionário, mapa, roadmap e plano de renomeações existentes | Preservar; reconciliar documentação sem apagar histórico |
+| `aigar_ui_chat_mvp/` | Aplicação separada com servidor FastAPI, UI HTML/CSS/JS, módulos AIGAR/Jarvis e memory cards | Tratar como aplicação separada; não presumir que faz parte do runtime neurocognitivo sem mapear sua relação |
+| `biblioteca/` | Fontes documentais (PDF/TXT e outros arquivos) | Manter como corpus-fonte; não mover junto com código |
+| `aigar-jarvis-sync/`, `drive-do-aigar/`, `fragments-history/`, `conversational-engine/` | Pacotes/artefatos históricos e de sincronização | Revisar separadamente; não misturar com o runtime sem evidência de dependência |
+| PDFs e materiais de referência na raiz de `aigar-c-2/` | Documentos de estudo | Fora da migração de código |
+
+## 4. Destino dos placeholders em CORTEX
+
+Os diretórios já existentes em `CORTEX/` continuam sendo a arquitetura-alvo; os placeholders não equivalem a implementações funcionais.
+
+| Pasta-alvo | Módulos existentes candidatos | Ideias ainda não implementadas |
+|---|---|---|
+| `CORTEX/sara/` | Nenhum módulo dedicado identificado no runtime atual | Boot, health check, status do runtime |
+| `CORTEX/thalamus/` | Parte do roteamento atualmente distribuída entre adapter, flags `needs_*` e controlador | Context router, Pattern Reasoner, seleção de recursos |
+| `CORTEX/sensory/` | Entrada HTTP atualmente recebida por `AIGAR_RUNTIME/main.py`; interpretação fica no adapter de linguagem | Adapters sensoriais dedicados |
+| `CORTEX/default_mode_network/` | Nenhum ciclo de autorreflexão dedicado identificado | Estado interno, self-model, reflection cycle |
+| `CORTEX/language/` | Adapter e interpretador de linguagem; Aurora é candidata para formulação/saída | Separação futura Wernicke, giro angular, Broca, gramática e léxico |
+| `CORTEX/reasoning_engine/` | `prefrontal_controller.py` atualmente seleciona evidências e monta plano; não é um motor geral completo | Planner, evidence evaluator e sufficiency checker dedicados |
+| `CORTEX/memory/` | `working_memory.py`, `hippocampal_memory.py` e integração com recuperação a mapear | Recall persistente e integração futura de Memory Cards |
+| `CORTEX/worker_bridge/` | `diagnosis.py` é um adaptador não conectado; nenhum bridge geral confirmado | Worker client, contratos de mensagem e registry |
+| `CORTEX/prefrontal/` | `prefrontal_controller.py` é candidato funcional; documentação de evolução já está nesta pasta | Planejamento de complexidade executável e módulos executivos futuros |
+| `CORTEX/occipital/` | A UI `aigar_ui_chat_mvp/web/` é candidata, mas pertence a aplicação separada e precisa de análise de dependência | Consolidar `index.html`, assets e components após decidir a relação entre as interfaces |
+
+## 5. Dependências e pontos de atenção antes de mover
+
+1. `AIGAR_RUNTIME/main.py` importa os adaptadores via imports relativos e inicia Uvicorn com `AIGAR_RUNTIME.main:app`. O caminho de entrada precisa continuar válido durante a transição.
+2. `language_network_adapter.py` calcula `INTERPRETER_PATH` com base na raiz do repositório e aponta para `aigar-c-2/language_network/interpreter.py`. Mover o interpretador exige atualizar esse caminho e mover/atualizar os JSONs carregados relativamente a ele.
+3. `AIGAR_RUNTIME/knowledge_retrieval.py` importa `knowledge_retrieval.retriever.KnowledgeRetriever`. O pacote de recuperação não pode ser movido isoladamente sem corrigir e mapear esse import.
+4. `knowledge_retrieval/retriever.py` usa `indexes/`, `cache/` e metadados de cache relativos ao diretório-raiz do pacote. Os dados e caminhos de cache devem permanecer coerentes.
+5. `knowledge_retrieval/bootstrap_sapiens.py` chama `python -m knowledge_encoding.encode_knowledge`; o pacote de encoding é uma dependência real do fluxo de ingestão.
+6. `AIGAR_RUNTIME/linguistic_interpreter.py` é candidato a duplicação, mas não deve ser removido sem pesquisa de referências em todo o repositório.
+7. `aigar_ui_chat_mvp/` tem sua própria API e frontend. Não mover seus arquivos para `CORTEX/occipital/` até confirmar se o runtime principal deve consumi-los ou se continuarão sendo uma aplicação independente.
+8. O plano antigo de renomeações contém referências históricas à pasta Cloudflare. Isso não autoriza alterações: o Worker permanece completamente excluído do escopo desta migração.
+
+## 6. Sequência proposta para a migração
+
+1. Revisar este inventário e confirmar o limite entre o runtime principal e aplicações/pacotes separados.
+2. Registrar uma tabela final por arquivo: origem, destino, tipo de mudança, dependências, referências a atualizar e critério de conclusão.
+3. Mover/renomear somente os arquivos confirmados, preservando conteúdo e registrando cada par efetivamente realizado.
+4. Atualizar imports, caminhos de dados, comandos de execução, documentação e workflows relevantes — exceto quaisquer artefatos do Cloudflare Worker.
+5. Consolidar o registro real de migração em `CORTEX/prefrontal/CHANGELOG.md` e atualizar este inventário com status por arquivo.
+6. Somente após concluir a fase de nomes e referências, combinar a validação funcional. Nenhum teste, merge ou deploy nesta etapa.
+
+## 7. Modelo obrigatório para o registro de cada migração
+
+| Campo | Valor a registrar |
+|---|---|
+| ID | MIG-001, MIG-002, ... |
+| Origem | Caminho completo antes da mudança |
+| Destino | Caminho completo após a mudança |
+| Tipo | MOVER, RENOMEAR, MANTER ou PLACEHOLDER |
+| Motivo | Responsabilidade arquitetural |
+| Dependências | Imports, dados, configs e workflows afetados |
+| Referências atualizadas | Lista real dos arquivos alterados |
+| Integridade | Se o conteúdo foi preservado ou se houve mudança de código separada |
+| Commit | SHA real do commit que registrou a mudança |
+| Estado | Planejado, executado, referências atualizadas ou bloqueado |
+
+**Nota de precisão:** este documento é um inventário estático baseado na árvore e nos arquivos inspecionados. Não declara que o runtime está funcionando nem substitui a futura validação. Nenhum teste foi executado.
