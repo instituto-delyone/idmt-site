@@ -1,16 +1,28 @@
 from __future__ import annotations
 
-from ..thalamus.models import ConversationReading, SourceTrace
+from ..thalamus.models import AuroraRequest, AuroraResult, ConversationReading, SourceTrace
 
 
 class Aurora:
+    def respond(self, request: AuroraRequest) -> AuroraResult:
+        """Typed boundary; legacy presentation branches remain behavior-preserving."""
+        text, source = self._respond_legacy(
+            request.input_text,
+            request.reading,
+            request.memory,
+            request.library,
+            request.diagnosis,
+            request.plan.model_dump(),
+        )
+        return AuroraResult(text=text, source=source)
+
     """Modula a apresentação final a partir de conteúdo já fundamentado."""
 
     @staticmethod
     def _topic(plan: dict) -> str:
         return (plan.get("topic") or "").strip(" ?") or "esse assunto"
 
-    def respond(
+    def _respond_legacy(
         self,
         input_text: str,
         reading: ConversationReading,
