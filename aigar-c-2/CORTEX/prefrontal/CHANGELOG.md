@@ -144,3 +144,14 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - As regras de classificação, a granularidade da análise e o cálculo de confiança não são equivalentes. Nenhuma implementação foi apagada ou substituída; a diferença fica explicitamente aberta para decisão arquitetural posterior.
 
 **Estado:** revisão estática dos três arquivos concluída; nenhum teste executado. Sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Reconciliação documental dos contratos canônicos — 2026-10-10
+
+- `CORTEX/README.md` foi atualizado para listar os contratos efetivamente presentes em `CORTEX/thalamus/models.py`: `RoutingDecision`, `ReasoningPlan`, `SensoryInput`, envelopes de memória/biblioteca, Diagnosis e Aurora, além dos contratos básicos.
+- A documentação explicita que a existência de um contrato não significa que a integração especializada esteja concluída; Memory Card persistente e motor clínico Diagnosis continuam pendentes.
+- Commit do README: `4434dfbce498e61fa5c9ef088a2d8ec6e7be5282`.
+- Revisão estática dos manifestos: `AIGAR_RUNTIME/requirements.txt` declara FastAPI, Uvicorn e Pydantic; `knowledge_encoding/requirements.txt` declara PyPDF2. O caminho `knowledge_retrieval/requirements.txt` não existe na branch consultada (404), portanto não foi tratado como dependência confirmada. Não alterei manifestos nesta rodada.
+- A busca global do GitHub consultada opera sobre a branch padrão, não sobre a branch de migração; seus resultados não foram usados para declarar a revisão global de referências concluída.
+
+**Estado:** documentação reconciliada; revisão de dependências e referências ainda incompleta. Nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
