@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from .models import SourceTrace
+from ..thalamus.models import SourceTrace
 
 
 def _sentences(text: str) -> list[str]:
