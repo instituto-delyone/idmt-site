@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime, timezone
 from urllib.parse import urlparse, quote
 from workers import WorkerEntrypoint, WorkflowEntrypoint, Response, fetch
-from cognitive_core import CognitiveContextCore
+from association_core import CognitiveContextCore
 from memory_lab import MemoryLab
 
 LANGUAGE = json.loads(r'''{
@@ -682,7 +682,7 @@ def chunk_urls(entry):
     # The index stores the relative cache path. Keep both a raw-file route
     # and the GitHub Contents API as a fallback for Worker egress.
     name=entry["cache_file"].replace("\\","/").lstrip("/")
-    path="aigar-c-2/AIGAR_LIBRARY/cache/"+name
+    path="aigar-c-2/knowledge_retrieval/cache/"+name
     return [
         "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/"+path,
         "https://api.github.com/repos/instituto-delyone/idmt-site/contents/"+path+"?ref=main",
@@ -713,15 +713,15 @@ async def load_chunk_text(entry):
 # endpoint Contents API do GitHub no boot do Worker, que pode falhar e acionar
 # silenciosamente o fallback de uma única biblioteca (Português).
 INDEX_URLS = [
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/arquitetura_organizacao_computadores.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/etica.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/interacoes_aigar.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/matematica_computacional.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/portuguese_language_knowledge.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/raciocinio_logico_matematica.index.json",
-    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/AIGAR_LIBRARY/indexes/sapiens.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/arquitetura_organizacao_computadores.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/etica.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/interacoes_aigar.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/matematica_computacional.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/portuguese_language_knowledge.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/raciocinio_logico_matematica.index.json",
+    "https://raw.githubusercontent.com/instituto-delyone/idmt-site/main/aigar-c-2/knowledge_retrieval/indexes/sapiens.index.json",
 ]
-INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/AIGAR_LIBRARY/indexes?ref=main"
+INDEX_DIRECTORY_URL = "https://api.github.com/repos/instituto-delyone/idmt-site/contents/aigar-c-2/knowledge_retrieval/indexes?ref=main"
 INDEX_CACHE = None
 INDEX_CACHE_AT = 0
 LIBRARY_BOOT_CACHE = None
