@@ -268,3 +268,13 @@ Marcadores `__init__.py` criados nos pacotes ativos `CORTEX/`, `CORTEX/thalamus/
 ## SARA — estado explícito do runtime (2026-10-10)
 
 Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` em `AIGAR_RUNTIME/main.py`. O status reporta inicialização do processo, não prontidão verificada de dependências. Commits listados no `CHANGELOG.md`. Nenhum teste executado.
+
+
+## Atualização — fronteira sensorial implementada (2026-10-10)
+
+- `CORTEX/thalamus/models.py` agora contém `SensoryInput`, contrato aditivo de entrada textual.
+- `CORTEX/sensory/__init__.py` e `CORTEX/sensory/ingress.py` existem; `capture_request()` encapsula `RuntimeRequest` em `SensoryInput` preservando conteúdo e sessão.
+- `AIGAR_RUNTIME/main.py` consome a fronteira sensorial antes de chamar a camada linguística.
+- Commits: `9d877ba0adf20cad957527e89c452a1a720bc516` (contrato), `69ed53f4e3bc7dea500f369e5b5cf0fb7c8f02d6` (pacote), `fd3b9c5d97cc5d089c0a674e298398fb6c2bd41d` (ingress), `7b8d9e69706d5f1036b37d5b101b7e8895dcdd9e` (runtime).
+
+**Não implica validação funcional:** testes não executados; imports e demais caminhos ainda precisam de revisão estática global antes da fase de testes. Sem merge/deploy; Cloudflare Worker permanece intocado.
