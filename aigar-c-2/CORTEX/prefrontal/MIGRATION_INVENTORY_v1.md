@@ -260,3 +260,7 @@ Contratos compartilhados e as referências conhecidas do entry point foram tradu
 - Registro correspondente: `CORTEX/prefrontal/CHANGELOG.md`, commit `b5f5e40600b2663086d53786798bc27c8f1def14`.
 
 **Estado real:** roteamento extraído para módulo canônico; ainda não validado em execução. A revisão de referências do repositório, comparação dos dois interpretadores, conexão real do adaptador Diagnosis, contratos dos módulos restantes e manifestos de dependência continua pendente. Testes não executados.
+
+## Fronteiras explícitas de pacote Python — 2026-10-10
+
+Marcadores `__init__.py` criados nos pacotes ativos `CORTEX/`, `CORTEX/thalamus/`, `CORTEX/language/`, `CORTEX/memory/`, `CORTEX/engram/`, `CORTEX/prefrontal/` e `Diagnosis/`. As criações estão registradas no `CHANGELOG.md` com seus SHAs de commit. Nenhuma lógica de runtime foi alterada neste lote; não houve execução de testes.
