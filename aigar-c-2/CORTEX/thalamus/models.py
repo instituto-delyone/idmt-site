@@ -50,6 +50,26 @@ class RoutingDecision(BaseModel):
     use_reasoning: bool = True
 
 
+class ReasoningPlan(BaseModel):
+    """Structured plan produced before response presentation."""
+
+    understand_before_answer: bool = True
+    intent: Intent | None = None
+    depth: Depth | None = None
+    use_memory: bool = False
+    use_library: bool = False
+    use_diagnosis: bool = False
+    answer_mode: Literal[
+        "social", "source_grounded", "source_unavailable",
+        "context_grounded", "reasoned_without_library"
+    ] = "reasoned_without_library"
+    question_type: str | None = None
+    semantic_goal: str | None = None
+    topic: str | None = None
+    evidence: list[str] = Field(default_factory=list)
+    steps: list[str] = Field(default_factory=list)
+
+
 class ConversationState(BaseModel):
     """Session-local state shared by runtime modules."""
 
