@@ -348,7 +348,7 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 | Pasta-alvo | Arquivos migrados presentes na árvore | Recodificados / referências atualizadas | Arquivos sem destino final definido |
 |---|---|---|---|
 | `CORTEX/thalamus/` | `models.py`, `context_router.py`, `linguistic_interpreter.py` | `models.py`: contratos aditivos; `context_router.py`: seleção explícita de recursos; `main.py` atualizado para usar contratos/roteador | Nenhum dos três está sem destino inicial; política de execução de `use_reasoning` ainda pendente |
-| `CORTEX/language/` | `interpreter.py`, `language_network_adapter.py`, `language.json`, `portuguese_language_knowledge.json` | Adaptador importa o interpretador local e converte para `ConversationReading`; caminhos dos JSONs são adjacentes ao interpretador | Nenhum destino imediato pendente; equivalência com o interpretador histórico não definida |
+| `CORTEX/language/` | `interpreter.py`, `language_network_adapter.py`, `language.json`, `portuguese_language_knowledge.json`, `test_interpreter.py`, `README.md`, `PLACEHOLDER.md`, `__init__.py` | Adaptador importa o interpretador local; JSONs adjacentes; teste movido e import corrigido; README e placeholder reconciliados | Destino do PDF histórico em `language_network/` pendente; equivalência semântica entre os dois interpretadores não definida |
 | `CORTEX/memory/` | `working_memory.py`, `hippocampal_memory.py` | Adaptadores usam contratos canônicos; runtime consome `MemoryRecallRequest/Result` | Integração persistente de Memory Card não implementada |
 | `CORTEX/engram/` | `knowledge_retrieval.py` | Adaptador usa `LibraryQuery/LibrarySearchResult` | Nenhum destino para o pacote externo: `knowledge_retrieval/` permanece independente intencionalmente |
 | `CORTEX/prefrontal/` | `prefrontal_controller.py`, `aurora.py` | Controlador retorna `ReasoningPlan`; Aurora usa `AuroraRequest/AuroraResult`; runtime consome ambos | Critérios de suficiência de evidência e política executável de planejamento permanecem pendentes |
@@ -362,14 +362,14 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 | `AIGAR_RUNTIME/` | `main.py`, `requirements.txt`, `README.md`, `test_runtime.py`, `__init__.py` | Entry point atualizado para imports canônicos e contratos; teste apenas teve import atualizado | Destino final de entry point, manifesto e testes não fechado |
 | `knowledge_retrieval/` | Retriever, retriever semântico, índices, cache, manifestos, fontes e teste próprios | Não movido; preservado como pacote independente consumido pelo adaptador Engram | Sem destino pendente: manter independente até decisão baseada em dependências |
 | `knowledge_encoding/` | Encoders, README, `requirements.txt` | Nenhuma recodificação arquitetural confirmada nesta fase | Integração operacional com cache/índices de retrieval precisa ser documentada |
-| `language_network/` | `README.md`, `__init__.py`, PDF de conhecimento e teste | Interpretador e dois JSONs migrados para `CORTEX/language/` conforme MIG-005 a MIG-007 | Destino do PDF e teste próprio não foi definido; preservar até rastrear consumidores |
+| `language_network/` | `README.md`, `__init__.py`, PDF de conhecimento | Interpretador, dois JSONs e teste migrados para `CORTEX/language/`; README da pasta antiga atualizado para apontar para a localização ativa | Destino do PDF histórico segue pendente; preservar até rastrear consumidores/origem |
 | `AIGAR_PHASES/`, `AIGAR_RECONSTRUCTION/`, `association_network/` | Artefatos históricos conforme árvore Git | Nenhuma movimentação nova confirmada nesta auditoria | Revisar consumidores e definir destino por arquivo |
 | `aigar_ui_chat_mvp/` | Aplicação separada e seus artefatos | Nenhuma migração para CORTEX confirmada | Manter separada até mapear a relação com `CORTEX/occipital/` |
 | `biblioteca/`, PDFs e artefatos históricos/sync | Corpus e arquivos históricos existentes | Nenhuma movimentação nova confirmada | Fora da migração ativa de código salvo dependência concreta documentada |
 
 ### Estado quantitativo verificável
 
-- Movimentos estruturais MIG registrados: **12**.
+- Movimentos de código MIG-001 a MIG-012: **12**; adicionado MIG-013 para mover o teste de linguagem e atualizar sua referência de importação.
 - Arquivos-alvo funcionais atualmente listados em `CORTEX/`: há módulos em sete domínios e placeholders em cinco domínios; presença na árvore não significa implementação completa.
 - Recodificação/contratos: os registros anteriores documentam alterações em `models.py`, adaptadores, `main.py`, documentação e imports. Esses arquivos não devem ser contados como “apenas movidos”.
 - Percentual global: **não calculado** até congelar a lista total de arquivos-alvo imaginados e classificar cada artefato da árvore. O inventário por arquivo acima passa a ser a base para esse denominador.
@@ -396,3 +396,29 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 - `language_network/portuguese_language_knowledge.pdf` e `language_network/test_interpreter.py` continuam sem destino final decidido; não apagar nem mover por inferência.
 - A varredura de busca do GitHub não foi usada como prova global porque o índice de busca pode não corresponder à branch em trabalho. As conclusões acima são limitadas aos arquivos lidos diretamente na branch `neurocognitive-migration`.
 - Nenhum teste executado. Nenhum arquivo, configuração, binding, workflow ou contrato do Cloudflare Worker foi alterado.
+
+
+## Atualização de migração e referências — MIG-013 (2026-10-10)
+
+### Movimento e import
+
+| ID | Origem | Destino | Mudança de referência | Estado/commits |
+|---|---|---|---|---|
+| MIG-013 | `aigar-c-2/language_network/test_interpreter.py` | `aigar-c-2/CORTEX/language/test_interpreter.py` | Import alterado de `from interpreter import AIGARLanguage` para `from CORTEX.language.interpreter import AIGARLanguage`; conteúdo dos três casos de teste preservado | Destino criado e conferido no commit `767d5fa032cf898dd04fb08bfa447598fe2cdf47`; origem removida após confirmação em `e3385371e5cd5ba986c8b4c05a1143f9f6f6cedc` |
+
+### Referências de configuração e documentação atualizadas
+
+- `AIGAR_PHASES/phases.json`: valores `module` atualizados para apontar ao interpretador ativo, controlador pré-frontal, pacote de memória e Aurora nos destinos canônicos. Estados das fases foram preservados. Commit `f2df6379f33ec59e13fa415f4273fc83aa783036`.
+- `CORTEX/language/README.md` criado para documentar módulos ativos, dados adjacentes e limites; commit `dbafa7fb9211d81445a477302f441f6ec81c9b61`.
+- `language_network/README.md` preservado no caminho histórico e atualizado para documentar a migração e o PDF ainda pendente; commit `630f21b211afe7a3435c8726b48912817b52ff7b`.
+- Estados anteriormente incorretos de placeholders de linguagem, memória, tálamo, sensory e SARA foram reconciliados com os módulos realmente existentes: commits `8811ea3110589b8fcc2a59fbf6b1b72556523c45`, `691154b2556f640c174a1ae57674600de4e69a17`, `071795d8952200921d961a0d93ee1e1f40bd3c96`, `e15b23144ea1c40786806110760d46c8fdfae319`, `e4391d92370737883414637df5791a5a24082b6e`.
+- `CORTEX/prefrontal/README.md` corrigido para refletir que a pasta contém módulos ativos além de documentação; commit `17a683af1b4c69a288cc2533794f31ad07266d54`.
+
+### Estado atual da tradução estática
+
+- O entry point continua em `AIGAR_RUNTIME/main.py` e importa os adaptadores/contratos dos destinos presentes na árvore CORTEX.
+- O adaptador de linguagem importa `AIGARLanguage` pelo caminho relativo local; o interpretador carrega os dois JSONs a partir de `Path(__file__).parent`.
+- O teste de linguagem agora acompanha o módulo e não depende mais de um `interpreter.py` inexistente em `language_network/`.
+- `AIGAR_PHASES/phases.json` foi alinhado à estrutura CORTEX sem alterar o estado descritivo das fases.
+- O PDF antigo de conhecimento de português e documentos de reconstrução continuam preservados como artefatos históricos, sem destino de código presumido.
+- Esta é uma verificação estática; os testes não foram executados até o encerramento da fase de referências. Nenhum merge/deploy; Cloudflare Worker permanece intocado.
