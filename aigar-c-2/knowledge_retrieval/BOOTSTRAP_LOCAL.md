@@ -3,11 +3,11 @@
 A fonte Sapiens já está registrada no repositório. Para transformar o PDF em chunks, execute localmente a partir de `aigar-c-2/`:
 
 ```bash
-pip install -r knowledge_consolidation/requirements.txt
+pip install -r knowledge_encoding/requirements.txt
 python knowledge_retrieval/bootstrap_sapiens.py
 ```
 
-O Builder:
+O Codificador de Conhecimento: 
 1. lê o PDF;
 2. divide em blocos de 25 páginas;
 3. cria IDs determinísticos;
