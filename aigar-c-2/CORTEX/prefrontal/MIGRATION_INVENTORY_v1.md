@@ -264,3 +264,7 @@ Contratos compartilhados e as referências conhecidas do entry point foram tradu
 ## Fronteiras explícitas de pacote Python — 2026-10-10
 
 Marcadores `__init__.py` criados nos pacotes ativos `CORTEX/`, `CORTEX/thalamus/`, `CORTEX/language/`, `CORTEX/memory/`, `CORTEX/engram/`, `CORTEX/prefrontal/` e `Diagnosis/`. As criações estão registradas no `CHANGELOG.md` com seus SHAs de commit. Nenhuma lógica de runtime foi alterada neste lote; não houve execução de testes.
+
+## SARA — estado explícito do runtime (2026-10-10)
+
+Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` em `AIGAR_RUNTIME/main.py`. O status reporta inicialização do processo, não prontidão verificada de dependências. Commits listados no `CHANGELOG.md`. Nenhum teste executado.
