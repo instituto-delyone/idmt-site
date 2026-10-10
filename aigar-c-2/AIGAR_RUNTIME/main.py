@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from .models import RuntimeRequest, RuntimeResponse
 from .language_bridge import ExecutableLanguageAdapter
 from .conversation import ConversationStore
-from .memory import MemoryAdapter
+from .hippocampal_memory import HippocampalMemoryAdapter
 from .library import LibraryAdapter
 from .diagnosis import DiagnosisAdapter
 from .prefrontal_controller import PrefrontalController
@@ -15,7 +15,7 @@ app = FastAPI(title="AIGAR Neurocognitive Runtime", version="0.3.0")
 
 store = ConversationStore()
 language = ExecutableLanguageAdapter()
-memory = MemoryAdapter()
+memory = HippocampalMemoryAdapter()
 library = LibraryAdapter()
 diagnosis = DiagnosisAdapter()
 reasoning = PrefrontalController()
