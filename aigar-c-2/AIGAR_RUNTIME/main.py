@@ -2,14 +2,16 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-from .models import RuntimeRequest, RuntimeResponse
-from .language_network_adapter import LanguageNetworkAdapter
-from .working_memory import WorkingStateStore
-from .hippocampal_memory import HippocampalMemoryAdapter
-from .knowledge_retrieval import KnowledgeRetrievalAdapter
-from .diagnosis import DiagnosisAdapter
-from .prefrontal_controller import PrefrontalController
-from .aurora import Aurora
+# AIGAR_RUNTIME/main.py remains the operational entry point during migration.
+# CORTEX is the provisional canonical home for runtime components and contracts.
+from CORTEX.thalamus.models import RuntimeRequest, RuntimeResponse
+from CORTEX.language.language_network_adapter import LanguageNetworkAdapter
+from CORTEX.memory.working_memory import WorkingStateStore
+from CORTEX.memory.hippocampal_memory import HippocampalMemoryAdapter
+from CORTEX.engram.knowledge_retrieval import KnowledgeRetrievalAdapter
+from Diagnosis.diagnosis import DiagnosisAdapter
+from CORTEX.prefrontal.prefrontal_controller import PrefrontalController
+from CORTEX.prefrontal.aurora import Aurora
 
 app = FastAPI(title="AIGAR Neurocognitive Runtime", version="0.3.0")
 
@@ -37,10 +39,7 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
 
     library_context = []
     if reading.needs_library:
-        library_context, trace = library.search(
-            request.input,
-            reading=reading.model_dump(),
-        )
+        library_context, trace = library.search(request.input, reading=reading.model_dump())
         sources.append(trace)
 
     diagnosis_result = {}
@@ -54,44 +53,27 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
         sources.append(trace)
 
     plan, trace = reasoning.plan(
-        request.input,
-        reading.model_dump(),
-        memory_context,
-        library_context,
-        diagnosis_result,
+        request.input, reading.model_dump(), memory_context, library_context, diagnosis_result
     )
     sources.append(trace)
 
     text, trace = aurora.respond(
-        request.input,
-        reading,
-        memory_context,
-        library_context,
-        diagnosis_result,
-        plan,
+        request.input, reading, memory_context, library_context, diagnosis_result, plan
     )
     sources.append(trace)
 
     store.update(state, request.input, text)
 
     confirmed_or_connected = [
-        source for source in sources
-        if source.status in {"confirmed", "inferred"}
+        source for source in sources if source.status in {"confirmed", "inferred"}
     ]
-    confidence = 0.15 if any(
-        source.status == "missing" for source in sources
-    ) else 0.35
+    confidence = 0.15 if any(source.status == "missing" for source in sources) else 0.35
     if confirmed_or_connected:
         confidence = min(0.75, confidence + 0.1 * len(confirmed_or_connected))
 
     return RuntimeResponse(
-        text=text,
-        state=state,
-        sources=sources,
-        confidence=confidence,
-        plan=plan,
+        text=text, state=state, sources=sources, confidence=confidence, plan=plan
     )
-
 
 @app.get("/health")
 def health() -> dict:
@@ -105,5 +87,4 @@ def perguntar(request: RuntimeRequest) -> RuntimeResponse:
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("AIGAR_RUNTIME.main:app", host="127.0.0.1", port=8000, reload=False)
