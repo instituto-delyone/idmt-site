@@ -155,3 +155,14 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - A busca global do GitHub consultada opera sobre a branch padrão, não sobre a branch de migração; seus resultados não foram usados para declarar a revisão global de referências concluída.
 
 **Estado:** documentação reconciliada; revisão de dependências e referências ainda incompleta. Nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Auditoria consolidada da árvore — 2026-10-10
+
+- Foi comparada a árvore Git recursiva da branch com o inventário existente, cobrindo `CORTEX/`, `Diagnosis/`, `AIGAR_RUNTIME/`, `language_network/`, `knowledge_encoding/` e `knowledge_retrieval/`.
+- O inventário agora separa presença no destino, recodificação/imports, pendências de implementação e destinos finais ainda não definidos. Não foi atribuído percentual global porque a lista total de arquivos “imaginados” ainda não está congelada; declarar percentual sem denominador produziria falsa precisão.
+- Confirmada a preservação de `knowledge_retrieval/` como pacote independente, com índices, cache, fontes e teste próprio. Não existe `knowledge_retrieval/requirements.txt` nesta branch; nenhum manifesto foi inventado.
+- `language_network/interpreter.py` e os dois JSONs linguísticos estão em `CORTEX/language/`; o PDF e o teste que permanecem em `language_network/` continuam sem destino final definido e devem ser preservados até rastrear consumidores.
+- `CORTEX/reasoning_engine/`, `default_mode_network/` e `worker_bridge/` permanecem placeholders, não funcionalidades implementadas. `CORTEX/occipital/` contém documentação, enquanto a relação com `aigar_ui_chat_mvp/` segue em aberto.
+- O inventário atualizado foi registrado no commit `691f447a30987381977aa81cac2e514f6a61e97f`.
+- Nenhum teste executado; sem merge/deploy; Cloudflare Worker intocado.
