@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from AIGAR_LIBRARY.retriever import LibraryRetriever
+from knowledge_retrieval.retriever import LibraryRetriever
 
 
 def test_search_load_and_reconstruct(tmp_path):
