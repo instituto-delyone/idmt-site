@@ -41,6 +41,25 @@ Status: migração inicial em andamento; não mesclada em produção.
 - **Caminho de integração preservado por enquanto:** `aigar-c-2/AIGAR_LANGUAGE/interpreter.py`.
 - **Limite importante:** a ponte executa o interpretador de linguagem existente; não implementa separadamente as áreas de Broca e Wernicke.
 
+
+
+### Par 04 — recuperação de conhecimento
+- **Arquivo antigo:** `aigar-c-2/AIGAR_RUNTIME/library.py`
+- **Arquivo novo:** `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py`
+- **Símbolo antigo:** `LibraryAdapter`
+- **Símbolo novo:** `KnowledgeRetrievalAdapter`
+- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py); documentação do runtime.
+- **Contrato preservado:** `SourceTrace.kind="library"`.
+- **Interpretação:** recuperação de conhecimento é função de busca/indexação; não deve ser renomeada como hipocampo, que tem funções biológicas mais amplas.
+
+### Par 05 — estado de trabalho
+- **Arquivo antigo:** `aigar-c-2/AIGAR_RUNTIME/conversation.py`
+- **Arquivo novo:** `aigar-c-2/AIGAR_RUNTIME/working_state.py`
+- **Símbolo antigo:** `ConversationStore`
+- **Símbolo novo:** `WorkingStateStore`
+- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py); documentação do runtime.
+- **Limite importante:** o estado fica em memória do processo e mantém até 40 entradas; não é memória persistente de longo prazo.
+
 ## Próximos pares candidatos — ainda NÃO executados
 
 | Origem | Destino proposto | Motivo | Dependências a mapear antes de renomear |
