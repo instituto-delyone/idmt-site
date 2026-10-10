@@ -252,3 +252,11 @@ Esta seção supersede os estados históricos que diziam que todos os imports es
 ## Estado de conclusão desta etapa
 
 Contratos compartilhados e as referências conhecidas do entry point foram traduzidos estaticamente. Ainda não se declara concluída a revisão de todas as referências no repositório. A comparação entre os dois interpretadores, integração real de Diagnosis, dependências/manifestos e eventuais referências em outros pacotes permanecem pendentes de inspeção. Nenhum teste foi executado; não houve merge/deploy; Cloudflare Worker permanece intocado.
+## Atualização da arquitetura executável — roteamento (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: contrato compartilhado `RoutingDecision` adicionado de forma aditiva; os contratos anteriores permanecem.
+- `CORTEX/thalamus/context_router.py`: implementa a tradução de `ConversationReading` para seleção explícita dos subsistemas opcionais.
+- `AIGAR_RUNTIME/main.py`: consome `route_reading()` para selecionar memória, biblioteca e Diagnosis. A etapa de raciocínio permanece ativa para preservar o comportamento anterior enquanto os contratos são completados.
+- Registro correspondente: `CORTEX/prefrontal/CHANGELOG.md`, commit `b5f5e40600b2663086d53786798bc27c8f1def14`.
+
+**Estado real:** roteamento extraído para módulo canônico; ainda não validado em execução. A revisão de referências do repositório, comparação dos dois interpretadores, conexão real do adaptador Diagnosis, contratos dos módulos restantes e manifestos de dependência continua pendente. Testes não executados.
