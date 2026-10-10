@@ -192,3 +192,28 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - Commit da correção: `4efcde12f6c42c36e920861b3315036af1331159`.
 - A documentação de estado em `CORTEX/language/PLACEHOLDER.md` foi alinhada ao mesmo fato; nenhum arquivo de teste foi movido ou executado.
 - Sem merge/deploy; Cloudflare Worker intocado.
+
+
+## MIG-013 — linguagem, configuração e reconciliação documental (2026-10-10)
+
+### Migração do teste do interpretador
+- Criado `CORTEX/language/test_interpreter.py` e confirmado no GitHub antes de remover a origem.
+- Atualizado o import para `from CORTEX.language.interpreter import AIGARLanguage`; os três casos de teste foram preservados.
+- Criação: `767d5fa032cf898dd04fb08bfa447598fe2cdf47`; remoção da origem: `e3385371e5cd5ba986c8b4c05a1143f9f6f6cedc`.
+- Os testes **não foram executados**; esta alteração apenas remove um caminho de import obsoleto.
+
+### Referências e documentação
+- `AIGAR_PHASES/phases.json` atualizado para os módulos ativos/destinos canônicos `CORTEX`, preservando os estados das fases. Commit `f2df6379f33ec59e13fa415f4273fc83aa783036`.
+- Novo `CORTEX/language/README.md`: commit `dbafa7fb9211d81445a477302f441f6ec81c9b61`.
+- `language_network/README.md` preservado como documento histórico e atualizado com os novos caminhos; o PDF permaneceu onde estava. Commit `630f21b211afe7a3435c8726b48912817b52ff7b`.
+- Atualizados os estados de implementação nos documentos de `language`, `memory`, `thalamus`, `sensory` e `sara`, evitando que módulos já presentes sejam descritos como inteiramente não implementados:
+  - language: `8811ea3110589b8fcc2a59fbf6b1b72556523c45`
+  - memory: `691154b2556f640c174a1ae57674600de4e69a17`
+  - thalamus: `071795d8952200921d961a0d93ee1e1f40bd3c96`
+  - sensory: `e15b23144ea1c40786806110760d46c8fdfae319`
+  - SARA: `e4391d92370737883414637df5791a5a24082b6e`
+- Corrigida a descrição de `CORTEX/prefrontal/README.md`, que ainda dizia que a pasta era apenas documental apesar de já conter `prefrontal_controller.py` e `aurora.py`. Commit `17a683af1b4c69a288cc2533794f31ad07266d54`.
+- Inventário MIG-013 e referências correspondentes registrados em `MIGRATION_INVENTORY_v1.md`. Commit `1bfbbdbddc82955c7644365889c5abe78b69d365`.
+
+### Estado desta etapa
+A revisão estática encontrou e corrigiu a referência obsoleta do teste de linguagem. O entry point segue em `AIGAR_RUNTIME/main.py`; os pacotes independentes `knowledge_retrieval/` e `knowledge_encoding/` foram preservados. Destinos de corpus/PDFs e aplicações históricas continuam explicitamente pendentes de classificação. Nenhum teste foi executado, não houve merge/deploy e nenhum arquivo/configuração/binding/workflow do Cloudflare Worker foi alterado.
