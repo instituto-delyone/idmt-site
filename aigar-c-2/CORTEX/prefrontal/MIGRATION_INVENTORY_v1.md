@@ -422,3 +422,27 @@ Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration
 - `AIGAR_PHASES/phases.json` foi alinhado à estrutura CORTEX sem alterar o estado descritivo das fases.
 - O PDF antigo de conhecimento de português e documentos de reconstrução continuam preservados como artefatos históricos, sem destino de código presumido.
 - Esta é uma verificação estática; os testes não foram executados até o encerramento da fase de referências. Nenhum merge/deploy; Cloudflare Worker permanece intocado.
+
+
+## Atualização de fontes arquiteturais e pendências operacionais (2026-10-10)
+
+### Documentos históricos reconciliados com a árvore atual
+- `AIGAR_NEUROCOGNITIVE_MIGRATION_MAP_v1.md`: adicionado overlay de caminhos canônicos CORTEX e nota de que seus pares antigos são registros históricos; commit `5db1d0fbed55e1cb8a44633132607a3b4aa61dd7`.
+- `AIGAR_RENAME_PLAN_v1.md`: adicionado crosswalk pós-CORTEX e lista de itens ainda por mapear; commit `c54b7a31de1f0af3ce59161857270298c25f0d03`.
+- `AIGAR_RECONSTRUCTION/FASE_1_BIBLIOTECA_E_CACHE.md`: adicionado crosswalk atual para `knowledge_encoding/`, `knowledge_retrieval/` e `CORTEX/engram/`, preservando a documentação histórica; commit `273b255a6bd033a7dbe7f5705d14ec6b1f3bea4c`.
+- `association_network/AIGAR_MIGRATION_PLAN.md`: adicionado overlay atual para os subsistemas ativos, mantendo o plano histórico; commit `74bdc5c07edd7e207bafe67bb5944d6b1634c59d`.
+- `AIGAR_NEUROCOGNITIVE_ROADMAP_v1.md`: os caminhos operacionais citados foram atualizados para os destinos CORTEX e a fronteira protegida do Worker foi reiterada; commit `d3f759687e61fba6144deb64209ab2f2b69c7d6d`.
+- `MIGRATION_MAP_FINAL_v1.md`: seção de auditoria atual adicionada, preservando os estados históricos como registros datados; commit `29af38d96ff3979ac595169eb8858888c14391e7`.
+
+### Documentação CORTEX reconciliada
+- `ARCHITECTURE.md`: fluxos e limites estáticos dos componentes ativos; commit `a8136c9764041401322b2e08c9df2e3f68a5d113`.
+- `DECISIONS.md`: decisões de branch isolada, contratos, persistência, gate de testes e Worker; commit `231c95f0b3a82c907ef0d8aa15467c8b2c385aeb`.
+- `EVOLUTION.md`: marcos verificados e limites atuais; commit `443a4d3a56df52dd0e3123ef6597e8477af2712b`.
+- `ROADMAP.md`: fases de migração, fechamento do mapa e validação; commit `d15a2db0297d523bc8efd9598bd9ac29c1357276`.
+- `AIGAR_PHASES/phases.json`: referências a módulos ativos alinhadas com os caminhos atuais; commit `f2df6379f33ec59e13fa415f4273fc83aa783036`.
+- Teste de linguagem movido e import atualizado (MIG-013), commit de criação `767d5fa032cf898dd04fb08bfa447598fe2cdf47`, remoção da origem `e3385371e5cd5ba986c8b4c05a1143f9f6f6cedc`.
+
+### Pendência operacional identificada
+O workflow `.github/workflows/aigar-runtime-validation.yml` ainda usa os antigos caminhos `language_network/test_interpreter.py` e `language_network/` para a compilação/teste e o seu filtro de paths não inclui de forma explícita a árvore CORTEX. A correção será feita no lote final de referências operacionais, depois de concluir a auditoria estática e antes da etapa de validação. Esse arquivo é o workflow do runtime Python, não o workflow de Worker; o workflow `.github/workflows/aigar-cognitive-core.yml` e todo o diretório `AIGAR_CLOUDFLARE/` ficam fora de alterações nesta fase.
+
+**Estado:** a auditoria documental avançou; a fase de referências não está fechada enquanto o workflow do runtime e os demais manifests operacionais não estiverem reconciliados. Sem testes executados manualmente, sem merge/deploy; Cloudflare Worker intocado.
