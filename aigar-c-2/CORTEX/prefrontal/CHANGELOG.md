@@ -1,10 +1,45 @@
+# Registro de mudanças
 
-### Commits confirmados — tradução de referências
+**Estado atual:** migração estrutural realizada para os módulos listados; tradução inicial dos imports e caminhos em andamento. Nenhum teste executado, nenhum merge/deploy realizado. Cloudflare Worker intocado.
 
-- `AIGAR_RUNTIME/main.py` — `88380ee4102bcfe409a151734fff91ac9f850848`.
-- `CORTEX/language/language_network_adapter.py` — `286dfdb96b56cf019e2ca4d37474321117f0f6b0`.
-- `CORTEX/README.md` — `695620e49784e2b69fe89ec38cdeb27dbfe5ac52`.
-- `AIGAR_RUNTIME/test_runtime.py` — pendente de gravação nesta atualização.
-- `AIGAR_RUNTIME/README.md` — pendente de gravação nesta atualização.
+## Migrações estruturais MIG-001 a MIG-012
 
-**Validação:** deliberadamente não executada. As alterações acima são atualizações estáticas de contratos, imports e documentação, não uma declaração de que a aplicação foi testada.
+- MIG-001 `AIGAR_RUNTIME/working_memory.py` → `CORTEX/memory/working_memory.py`; destino `8696e405dc243185c6ec7466ccbf11399273b2ca`, remoção `e8f93d45be923b7408b1fbbf233f077d386953d1`.
+- MIG-002 `AIGAR_RUNTIME/hippocampal_memory.py` → `CORTEX/memory/hippocampal_memory.py`; destino `e621392c9cf788fa2c33c3a38ce7fe39431d3511`, remoção `0f045161f72132370b5d7b5e6da636ace9ab80e6`.
+- MIG-003 `AIGAR_RUNTIME/prefrontal_controller.py` → `CORTEX/prefrontal/prefrontal_controller.py`; destino `e5a774ae146ea683c656e23ba5ed887588068050`, remoção `5b3a189e50a5020721fa8ca407b22b678ec6f019`.
+- MIG-004 `AIGAR_RUNTIME/language_network_adapter.py` → `CORTEX/language/language_network_adapter.py`; destino `edc3ac9588df0cc7bc43357e6bc5f053f492fbc8`, remoção `e64ff61e0fd2627339b68b6390083f35189723ed`.
+- MIG-005 `language_network/interpreter.py` → `CORTEX/language/interpreter.py`; destino `e09a9e405d9b944afd127b36a4114e0727d0121a`, remoção `62f406a5bab8268efafb3a846fe5848334af378a`.
+- MIG-006 `language_network/language.json` → `CORTEX/language/language.json`; destino `eb481a022f22b1917699709867fa37937e9a951a`, remoção `4ab15fb011bb9dfac984341bba6daaec4cd11488`.
+- MIG-007 `language_network/portuguese_language_knowledge.json` → `CORTEX/language/portuguese_language_knowledge.json`; destino `c52a588710191c65ffc9f01c383d73228d87d04d`, remoção `a4c2bd996bd127f84036c1498a806e39ecd7faf3`.
+- MIG-008 `AIGAR_RUNTIME/models.py` → `CORTEX/thalamus/models.py`; destino `ef085c38f830d0ff41d015bd10ab59266454008e`, remoção `2a3cdf194709c99f7d06b25f6871905f8611672a`.
+- MIG-009 `AIGAR_RUNTIME/aurora.py` → `CORTEX/prefrontal/aurora.py`; destino `5496836375806c97055be1e95ff0378ee11c3b81`, remoção `458ed2b83b326719010f0b58b9b792603981337d`.
+- MIG-010 `AIGAR_RUNTIME/knowledge_retrieval.py` → `CORTEX/engram/knowledge_retrieval.py`; destino `35928d54858f0e7ae41312312f4bea819b794e24`, remoção `71fbd16e3e201670d872088dd02d47631e6e5db2`.
+- MIG-011 `AIGAR_RUNTIME/linguistic_interpreter.py` → `CORTEX/thalamus/linguistic_interpreter.py`; destino `ebb4bb8575f8b21e345d7ec265246fad8519b405`, remoção `6bce2443bb83afa1e766b8203ad39af17b01cfac`.
+- MIG-012 `AIGAR_RUNTIME/diagnosis.py` → `Diagnosis/diagnosis.py`; destino `7507d8769f47dceff570fd3a5557a103ef8351f7`, remoção `ea9655ca498b08cdf8621eb5868db9c2e03988a0`.
+
+## Contratos e imports canônicos
+
+- `CORTEX/thalamus/models.py` define `Intent`, `Depth`, `SourceStatus`, `ConversationReading`, `ConversationState`, `SourceTrace`, `RuntimeRequest` e `RuntimeResponse`; commit `327be124ff163e39f20e7db8304de287c550ba58`.
+- `CORTEX/memory/working_memory.py`: `2f0d56d9887f1550795bf1bda25bd66e994d18d8`.
+- `CORTEX/memory/hippocampal_memory.py`: `fddc5b1ecd68612f80d36713a6b2aa215c985f00`.
+- `CORTEX/prefrontal/prefrontal_controller.py`: `627c615dbb659b5924ed0292545ed9e9f60d2b22`.
+- `CORTEX/prefrontal/aurora.py`: `2f75be4937f8f4bf105ed4de74b726b01505d17f`.
+- `CORTEX/engram/knowledge_retrieval.py`: `388538db9c535545be6948fad3c0b7b6feaf6344`.
+- `Diagnosis/diagnosis.py`: `a5c063c7a4e960755a04cc588c28139a61826faf`.
+
+## Tradução de referências e documentação
+
+- `AIGAR_RUNTIME/main.py`: imports agora apontam aos módulos canônicos de `CORTEX` e `Diagnosis`; entry point mantido como `AIGAR_RUNTIME.main:app`. Commit `88380ee4102bcfe409a151734fff91ac9f850848`.
+- `CORTEX/language/language_network_adapter.py`: importa `ConversationReading` do contrato canônico e `AIGARLanguage` de `.interpreter`, eliminando o caminho antigo inexistente. Commit `286dfdb96b56cf019e2ca4d37474321117f0f6b0`.
+- `CORTEX/README.md`: documenta mapa provisoriamente imutável, contratos e entry point. Commit `695620e49784e2b69fe89ec38cdeb27dbfe5ac52`.
+- `AIGAR_RUNTIME/test_runtime.py`: import de `RuntimeRequest` atualizado para `CORTEX.thalamus.models`; testes não executados. Commit `59af9877cf6abe60877ed03c10b859d3a9d354c8`.
+- `AIGAR_RUNTIME/README.md`: instruções e caminhos alinhados à migração; commit `df98d3653714cc6991c2430909ff92890440f17d`.
+- `CORTEX/prefrontal/CHANGELOG.md`: este registro consolidado; commit atual será registrado no histórico Git.
+
+## Limites e pendências
+
+- O mapa CORTEX é provisoriamente imutável: não mover diretórios ou redefinir responsabilidades sem decisão explícita registrada.
+- `knowledge_retrieval/` e `knowledge_encoding/` permanecem pacotes independentes; o adapter de Engram consome o primeiro.
+- `Diagnosis/` permanece separado; seu adapter ainda retorna status `missing` até a integração com o motor especializado ser implementada.
+- Os módulos placeholder em `sara/`, `sensory/`, `default_mode_network/`, `reasoning_engine/`, `worker_bridge/` e `occipital/` não são considerados funcionalidades implementadas.
+- Não foram executados testes, validação funcional, merge ou deploy. Não alterar o Cloudflare Worker.
