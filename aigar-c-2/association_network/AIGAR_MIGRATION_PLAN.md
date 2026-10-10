@@ -89,3 +89,20 @@ O fluxo desejado é:
 
 `conversa → linguagem → memória/biblioteca/Diagnosis → raciocínio → Aurora → resposta`
 
+
+
+## Overlay de arquitetura atual — branch neurocognitive-migration (2026-10-10)
+
+O conteúdo acima é o plano de reconstrução do projeto, preservado como fonte histórica. A implementação conversacional atualmente mapeada usa a seguinte divisão:
+
+- Linguagem: `CORTEX/language/interpreter.py` + `CORTEX/language/language_network_adapter.py`.
+- Contratos/seleção de recursos: `CORTEX/thalamus/models.py` + `CORTEX/thalamus/context_router.py`.
+- Estado/recall de sessão: `CORTEX/memory/working_memory.py` + `CORTEX/memory/hippocampal_memory.py`.
+- Biblioteca documental: `CORTEX/engram/knowledge_retrieval.py` como adapter; `knowledge_retrieval/` fica independente.
+- Raciocínio inicial e apresentação: `CORTEX/prefrontal/prefrontal_controller.py` + `CORTEX/prefrontal/aurora.py`.
+- Diagnosis: `Diagnosis/diagnosis.py` é uma fronteira tipada ainda sem ligação com o motor especializado real.
+- Ingestão da biblioteca: `knowledge_encoding/` permanece independente.
+
+Essa tabela descreve fronteiras encontradas no código; não declara que memória persistente, raciocínio avançado ou o motor clínico estejam prontos. Os Memory Cards históricos continuam como fontes a integrar numa fase posterior, sem acesso presumido.
+
+**Fronteira Worker:** a arquitetura do Worker será avaliada somente após consolidar/revisar o mapa atual. Este plano não autoriza mudanças em `AIGAR_CLOUDFLARE/`, seus arquivos, símbolos, configurações, bindings, chaves JSON ou workflows durante a presente fase.
