@@ -10,7 +10,7 @@ from pathlib import Path
 def main() -> None:
     parser = argparse.ArgumentParser(description="Index existing TXT/MD chunks into a private cache")
     parser.add_argument("directory", type=Path)
-    parser.add_argument("--output", type=Path, default=Path("AIGAR_LIBRARY"))
+    parser.add_argument("--output", type=Path, default=Path("knowledge_retrieval"))
     parser.add_argument("--key", default=None)
     args = parser.parse_args()
 
