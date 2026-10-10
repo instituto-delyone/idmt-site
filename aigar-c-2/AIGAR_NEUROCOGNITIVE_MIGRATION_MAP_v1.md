@@ -157,3 +157,13 @@ Este mapa mantém as cinco renomeações históricas documentadas no início. As
 - A fronteira `AIGAR_CLOUDFLARE/` não foi modificada por este adendo. Nenhum Worker, binding, símbolo, arquivo de configuração, chave JSON ou workflow do Worker foi alterado; a etapa dedicada do Worker permanece para depois do fechamento do mapa da arquitetura remontada.
 - O workflow de validação `.github/workflows/aigar-runtime-validation.yml` ainda contém referências de teste/compilação aos caminhos linguísticos anteriores. Atualizá-lo somente no gate final da fase de referências, sem disparar validação antes da conclusão da migração.
 - Este overlay é documentação de caminhos observados na árvore da branch, não uma declaração de que o runtime está validado em execução. Sem merge/deploy.
+
+## Correção de estado após congelamento estrutural — 2026-10-10
+
+Este adendo substitui somente as descrições de estado atual que ficaram desatualizadas nos registros históricos acima; as decisões históricas são preservadas.
+
+- A fronteira clínica atualmente presente é `CORTEX/reasoning_engine/diagnosis.py`. A antiga referência `Diagnosis/diagnosis.py` não existe na árvore desta branch; o adaptador existente ainda informa que o motor especializado não está conectado.
+- O PDF `portuguese_language_knowledge.pdf` está em `CORTEX/language/`, com cópia de fonte preservada em `knowledge_retrieval/sources/`; a pasta `language_network/` conserva documentação histórica, não o interpretador ativo nem o PDF.
+- O teste linguístico atual está em `CORTEX/language/test_interpreter.py`.
+- O workflow `.github/workflows/aigar-runtime-validation.yml` foi atualizado para reconhecer `CORTEX/**` e os caminhos atuais. Nenhum teste foi executado manualmente como parte da revisão.
+- A estrutura está congelada: não houve movimentação ou renomeação nesta etapa. Cloudflare Worker, merge e deploy permaneceram intocados.

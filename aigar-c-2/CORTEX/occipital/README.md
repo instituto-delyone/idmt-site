@@ -1,12 +1,10 @@
-# Occipital — Placeholder da interface visual
+# Occipital — interface visual do AIGAR-C
 
-**Estado:** estrutura reservada; arquivos ainda não migrados.
+**Estado atual:** interface estática presente nesta pasta; estrutura congelada. Não mover nem renomear arquivos durante a revisão de indexações.
 
-**Conteúdo previsto:** ponto de entrada visual (por exemplo, index), assets, components e outros recursos de apresentação que forem confirmados no inventário.
+**Arquivos atuais:** `index.html`, `app.js` e `style.css`. O backend permanece separado em `aigar_ui_chat_mvp/server/main.py` e serve esta pasta como conteúdo estático.
 
 A analogia com o córtex occipital é organizacional: esta pasta representa a camada visual do software, não uma equivalência literal com a função biológica do cérebro.
-
-**Próxima etapa:** inventariar os arquivos de interface existentes e planejar a migração sem duplicar nem apagar arquivos.
 
 
 ## Interface migrada — MIG-015

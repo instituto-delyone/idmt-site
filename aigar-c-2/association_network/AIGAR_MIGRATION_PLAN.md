@@ -100,7 +100,7 @@ O conteúdo acima é o plano de reconstrução do projeto, preservado como fonte
 - Estado/recall de sessão: `CORTEX/memory/working_memory.py` + `CORTEX/memory/hippocampal_memory.py`.
 - Biblioteca documental: `CORTEX/engram/knowledge_retrieval.py` como adapter; `knowledge_retrieval/` fica independente.
 - Raciocínio inicial e apresentação: `CORTEX/prefrontal/prefrontal_controller.py` + `CORTEX/prefrontal/aurora.py`.
-- Diagnosis: `Diagnosis/diagnosis.py` é uma fronteira tipada ainda sem ligação com o motor especializado real.
+- Diagnosis: `CORTEX/reasoning_engine/diagnosis.py` é a fronteira tipada atualmente presente, ainda sem ligação com o motor especializado real.
 - Ingestão da biblioteca: `knowledge_encoding/` permanece independente.
 
 Essa tabela descreve fronteiras encontradas no código; não declara que memória persistente, raciocínio avançado ou o motor clínico estejam prontos. Os Memory Cards históricos continuam como fontes a integrar numa fase posterior, sem acesso presumido.

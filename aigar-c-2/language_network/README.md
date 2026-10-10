@@ -15,10 +15,10 @@ O módulo ativo do interpretador e os dois JSONs usados diretamente por ele fora
 - `CORTEX/language/language.json`
 - `CORTEX/language/portuguese_language_knowledge.json`
 - `CORTEX/language/language_network_adapter.py`
-- `language_network/test_interpreter.py` (permanece neste diretório histórico; não foi movido nesta fase).
+- `CORTEX/language/test_interpreter.py` (localização atual do teste; import atualizado para o caminho canônico).
 
-O teste continua no caminho original e não foi executado. Sua migração depende de revisar os imports e referências junto com o restante da tradução, sem alterar seu comportamento.
+O teste permanece sem execução manual nesta fase. O workflow de validação agora aponta para seu caminho atual em `CORTEX/language/`.
 
-O PDF histórico `portuguese_language_knowledge.pdf` permanece nesta pasta. Seu destino definitivo ainda não foi decidido porque a relação entre esse arquivo de referência e os dados compilados precisa ser rastreada; ele foi preservado deliberadamente.
+O PDF `portuguese_language_knowledge.pdf` está em `CORTEX/language/`; uma cópia de fonte preservada está em `knowledge_retrieval/sources/`. Não existe cópia operacional do PDF em `language_network/` na árvore atual.
 
 A sequência funcional documentada permanece: carregar linguagem, interpretar entrada, estimar intenção, definir escopo e profundidade, decidir sobre memória/biblioteca e entregar estado ao runtime. A geração da resposta permanece separada do interpretador.
