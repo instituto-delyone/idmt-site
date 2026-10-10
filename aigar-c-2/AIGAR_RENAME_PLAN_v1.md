@@ -201,3 +201,26 @@ Não foram alterados arquivos, símbolos, bindings, chaves JSON, configurações
 - Escopo: renomeação de símbolo e referências diretas; algoritmo, parâmetros, pontuação, retorno e comportamento foram preservados.
 - Testes: não executados, conforme a ordem acordada.
 - Auditoria global de referências: ainda pendente; esta alteração não declara a migração completa.
+
+
+## Overlay atual após a reconstrução CORTEX (2026-10-10)
+
+Este documento preserva os registros de renomeação e sua cronologia. As tabelas antigas descrevem o plano/etapa em que foram escritas e não devem ser usadas isoladamente para identificar o local operacional atual dos módulos do runtime.
+
+| Unidade atual | Caminho canônico observado |
+|---|---|
+| Entrypoint | `AIGAR_RUNTIME/main.py` |
+| Contratos e router | `CORTEX/thalamus/models.py`, `CORTEX/thalamus/context_router.py` |
+| Entrada textual | `CORTEX/sensory/ingress.py` |
+| Interpretador / adapter / JSONs | `CORTEX/language/interpreter.py`, `CORTEX/language/language_network_adapter.py`, `CORTEX/language/language.json`, `CORTEX/language/portuguese_language_knowledge.json` |
+| Teste do interpretador | `CORTEX/language/test_interpreter.py`; origem antiga removida somente após confirmar destino |
+| Memória | `CORTEX/memory/working_memory.py`, `CORTEX/memory/hippocampal_memory.py` |
+| Recuperação | Adapter `CORTEX/engram/knowledge_retrieval.py`; pacote `knowledge_retrieval/` continua independente |
+| Planejamento / resposta | `CORTEX/prefrontal/prefrontal_controller.py`, `CORTEX/prefrontal/aurora.py` |
+| Diagnóstico clínico | `Diagnosis/diagnosis.py` como fronteira tipada; motor real ainda desconectado |
+
+Os diretórios `CORTEX/reasoning_engine/`, `CORTEX/default_mode_network/`, `CORTEX/worker_bridge/` e `CORTEX/occipital/` permanecem placeholders/documentação parcial, não subsistemas completos. Os pacotes `knowledge_retrieval/`, `knowledge_encoding/` e a aplicação `aigar_ui_chat_mvp/` permanecem separados até que o inventário de dependências justifique integração adicional.
+
+**Gate de referência:** foi encontrado o antigo workflow `.github/workflows/aigar-runtime-validation.yml` ainda apontando para `language_network/test_interpreter.py` e compilando os diretórios antigos. A atualização desse workflow é uma tarefa de referência operacional pendente para o fechamento da fase, mas não foi feita agora para preservar o gate de testes enquanto a auditoria está em curso.
+
+**Cloudflare Worker:** não fazer alterações em `AIGAR_CLOUDFLARE/`, símbolos, configurações, bindings, chaves JSON ou workflows nesta fase. O Worker só entra em fase própria após concluir e revisar o mapa da arquitetura remontada.
