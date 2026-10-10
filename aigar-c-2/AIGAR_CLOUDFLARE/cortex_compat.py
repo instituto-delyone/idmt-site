@@ -1,9 +1,8 @@
-"""Compatibility boundary between the Cloudflare Worker and CORTEX contracts.
+"""Compatibility boundary between the Cloudflare Worker and canonical CORTEX contracts.
 
-This module intentionally has no imports from the sibling local CORTEX package.
-Cloudflare packages this Worker from its own directory, and local CORTEX modules
-have separate runtime/resource dependencies. The adapter keeps the Worker
-operational while making shared intent/routing semantics explicit.
+The Worker package is deployed independently from the local Python runtime, so it
+must not import sibling CORTEX modules at runtime. This bridge mirrors the shared
+contract at the boundary and keeps the Worker-native implementation executable.
 """
 from __future__ import annotations
 
@@ -32,11 +31,18 @@ CORTEX_COMPATIBILITY = {
 }
 
 
-def normalize_reading(reading: Any) -> dict[str, Any]:
-    """Normalize a Worker-native reading to the shared CORTEX field vocabulary.
+def _bounded_number(value: Any, default: float) -> float:
+    try:
+        return max(0.0, min(1.0, float(value)))
+    except (TypeError, ValueError):
+        return default
 
-    Unknown enum values degrade to safe defaults; additional Worker fields are
-    preserved so this boundary does not discard cognitive-core annotations.
+
+def normalize_reading(reading: Any) -> dict[str, Any]:
+    """Normalize Worker interpretation to the shared ConversationReading vocabulary.
+
+    Known fields are validated, while extra annotations are preserved so the
+    compatibility boundary does not discard cognitive-core or language details.
     """
     result = dict(reading) if isinstance(reading, dict) else {}
 
@@ -46,6 +52,10 @@ def normalize_reading(reading: Any) -> dict[str, Any]:
     depth = str(result.get("depth") or "normal").strip()
     result["depth"] = depth if depth in ALLOWED_DEPTHS else "normal"
 
+    # These fields exist in the canonical CORTEX contract. Keep them explicit
+    # even when an older Worker language rule does not emit them.
+    result["scope"] = result.get("scope")
+    result["ambiguity"] = _bounded_number(result.get("ambiguity"), 0.0)
     result["needs_memory"] = bool(result.get("needs_memory")) or result["intent"] == "continuity"
     result["needs_library"] = bool(result.get("needs_library"))
     result["needs_diagnosis"] = bool(result.get("needs_diagnosis"))
@@ -54,29 +64,18 @@ def normalize_reading(reading: Any) -> dict[str, Any]:
     analysis = result.get("linguistic_analysis")
     result["linguistic_analysis"] = analysis if isinstance(analysis, dict) else {}
 
-    if "uncertainty" not in result:
-        try:
-            confidence = float(result.get("confidence", 0.45))
-            result["uncertainty"] = max(0.0, min(1.0, 1.0 - confidence))
-        except (TypeError, ValueError):
-            result["uncertainty"] = 0.55
-    else:
-        try:
-            result["uncertainty"] = max(0.0, min(1.0, float(result["uncertainty"])))
-        except (TypeError, ValueError):
-            result["uncertainty"] = 0.55
-
+    confidence = _bounded_number(result.get("confidence"), 0.45)
+    result["confidence"] = confidence
+    result["uncertainty"] = _bounded_number(
+        result.get("uncertainty", 1.0 - confidence), 1.0 - confidence
+    )
     return result
 
 
 def build_routing_decision(
     reading: dict[str, Any], profile: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Return the CORTEX-style resource-selection contract.
-
-    Selection is not execution: a true use_diagnosis flag does not mean the
-    separate Diagnosis engine is connected to this Worker.
-    """
+    """Select optional resources; selection is not proof of subsystem execution."""
     profile = profile if isinstance(profile, dict) else {}
     use_diagnosis = bool(reading.get("needs_diagnosis"))
     return {
@@ -93,3 +92,23 @@ def build_routing_decision(
         "diagnosis_execution": "not_connected" if use_diagnosis else "not_requested",
     }
 
+
+class WorkerCortexBridge:
+    """Single entry point for Worker -> shared CORTEX reading/routing contracts."""
+
+    def interpret_contract(
+        self, worker_reading: Any, profile: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        reading = normalize_reading(worker_reading)
+        routing = build_routing_decision(reading, profile)
+        return {
+            "reading": reading,
+            "routing_decision": routing,
+            "compatibility": {
+                **CORTEX_COMPATIBILITY,
+                "routing_decision": dict(routing),
+            },
+        }
+
+
+WORKER_CORTEX_BRIDGE = WorkerCortexBridge()
