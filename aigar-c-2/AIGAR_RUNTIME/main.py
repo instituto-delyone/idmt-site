@@ -8,17 +8,17 @@ from .conversation import ConversationStore
 from .memory import MemoryAdapter
 from .library import LibraryAdapter
 from .diagnosis import DiagnosisAdapter
-from .reasoning import ReasoningEngine
+from .prefrontal_controller import PrefrontalController
 from .aurora import Aurora
 
-app = FastAPI(title="AIGAR Runtime", version="0.3.0")
+app = FastAPI(title="AIGAR Neurocognitive Runtime", version="0.3.0")
 
 store = ConversationStore()
 language = ExecutableLanguageAdapter()
 memory = MemoryAdapter()
 library = LibraryAdapter()
 diagnosis = DiagnosisAdapter()
-reasoning = ReasoningEngine()
+reasoning = PrefrontalController()
 aurora = Aurora()
 
 
