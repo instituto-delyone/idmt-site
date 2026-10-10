@@ -30,6 +30,8 @@ O inventário foi feito por leitura estática dos arquivos desta branch. Não fo
 | `AIGAR_CLOUDFLARE/library_runtime.py` | Boot da biblioteca e Texto-Matriz, catálogo/índices, carregamento de chunks, cache e busca de evidências | Módulo de recuperação extraído; o catálogo embutido permanece em `main.py` e é injetado no módulo |
 | `AIGAR_CLOUDFLARE/context_runtime.py` | Seleção assimétrica de contexto e construção/revisão do plano adaptativo | Módulo de contexto e planejamento extraído; sem alterar as regras existentes |
 | `AIGAR_CLOUDFLARE/http_runtime.py` | Respostas JSON, CORS, extração da origem e leitura segura do corpo JSON | Utilitários HTTP extraídos; rotas continuam em `main.py` |
+| `AIGAR_CLOUDFLARE/answer_runtime.py` | Renderização de resposta por Workers AI usando os chunks e o contexto fornecidos | Renderer extraído; mantém o mesmo prompt e parâmetros de geração |
+| `AIGAR_CLOUDFLARE/cloudflare_bindings.py` | Resolução de bindings do ambiente Cloudflare | Helper compartilhado extraído sem alterar nomes de bindings |
 | `AIGAR_CLOUDFLARE/association_core.py` | `CognitiveContextCore`: prepara/ranqueia chunks e monta contexto compacto para a pergunta | Núcleo de seleção contextual importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/memory_lab/engine.py` | `MemoryLab`: recuperação de memória imediata, curto prazo e longo prazo | Subsistema de memória importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/wrangler.jsonc` | Declara Worker `aigar-api`, entrypoint `main.py`, binding `AI` e Workflow `AIGAR_LIBRARY_BUILDER` | Configuração de deploy |
