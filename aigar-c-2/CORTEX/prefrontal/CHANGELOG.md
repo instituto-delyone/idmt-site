@@ -75,3 +75,13 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - O payload declara apenas inicialização do processo e avisa que a conectividade dos subsistemas não foi validada; não apresenta prontidão integral como fato.
 
 **Limites:** testes e validação funcional não executados; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Sensory — contrato de entrada do runtime (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: adicionado o contrato `SensoryInput` como envelope canônico de entrada textual, sem alterar campos existentes. Commit: `9d877ba0adf20cad957527e89c452a1a720bc516`.
+- `CORTEX/sensory/__init__.py`: pacote sensory declarado e exporta `capture_request`. Commit: `69ed53f4e3bc7dea500f369e5b5cf0fb7c8f02d6`.
+- `CORTEX/sensory/ingress.py`: `capture_request()` converte `RuntimeRequest` em `SensoryInput` preservando exatamente o texto e o identificador da sessão. Não normaliza, classifica nem aciona subsistemas. Commit: `fd3b9c5d97cc5d089c0a674e298398fb6c2bd41d`.
+- `AIGAR_RUNTIME/main.py`: o pipeline agora recebe o envelope sensorial e usa `signal.raw_text` e `signal.session_id` nos mesmos pontos onde antes usava a requisição diretamente. Commit: `7b8d9e69706d5f1036b37d5b101b7e8895dcdd9e`.
+
+**Limites:** nenhuma execução de testes nem validação funcional; sem merge/deploy. Cloudflare Worker intocado. A camada sensorial formaliza a fronteira de entrada, mas não implementa ainda classificação multimodal ou sensores adicionais.
