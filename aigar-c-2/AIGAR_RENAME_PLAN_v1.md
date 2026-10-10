@@ -185,3 +185,19 @@ Não foram alterados arquivos, símbolos, bindings, chaves JSON, configurações
 - [ ] Merge e deploy — não realizados.
 
 **Importante:** os testes continuam sem execução nesta etapa, conforme a instrução anterior. A migração de nomes e referências deve ser auditada antes de qualquer validação funcional.
+
+
+## Revisão arquivo a arquivo — primeiro resíduo corrigido — 2026-10-10
+
+### Símbolo de recuperação de conhecimento
+
+- Nome anterior: `LibraryRetriever`
+- Nome atual: `KnowledgeRetriever`
+- Motivo: o componente consulta índices e cache de conhecimento; o nome antigo preservava a nomenclatura de “Library” depois da migração do pacote para `knowledge_retrieval/`.
+- Arquivos atualizados na branch `neurocognitive-migration`:
+  - `aigar-c-2/knowledge_retrieval/retriever.py` — declaração da classe.
+  - `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py` — import e instanciação do adaptador.
+  - `aigar-c-2/knowledge_retrieval/tests/test_retriever.py` — import e instanciação no teste.
+- Escopo: renomeação de símbolo e referências diretas; algoritmo, parâmetros, pontuação, retorno e comportamento foram preservados.
+- Testes: não executados, conforme a ordem acordada.
+- Auditoria global de referências: ainda pendente; esta alteração não declara a migração completa.
