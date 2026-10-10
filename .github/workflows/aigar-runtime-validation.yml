@@ -37,4 +37,6 @@ jobs:
 
       - name: Run runtime regression tests
         working-directory: aigar-c-2
+        env:
+          PYTHONPATH: AIGAR_RUNTIME:AIGAR_LANGUAGE:AIGAR_LIBRARY
         run: python -m pytest -q AIGAR_RUNTIME/test_runtime.py AIGAR_LANGUAGE/test_interpreter.py AIGAR_LIBRARY/tests/test_retriever.py
