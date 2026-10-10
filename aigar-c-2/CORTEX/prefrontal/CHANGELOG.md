@@ -102,3 +102,11 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `AIGAR_RUNTIME/main.py`: o runtime passa o envelope tipado e extrai achados e rastreabilidade do resultado; commit `120fd7a2e4bd653aa058885ca30b5dba2e5c0f11`.
 
 **Estado:** contrato e chamada traduzidos estaticamente; integração real com Diagnosis ainda pendente. Nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
+
+## Memória e biblioteca — contratos de recuperação tipados (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: adicionados `MemoryRecallRequest`, `MemoryRecallResult`, `LibraryQuery` e `LibrarySearchResult` como contratos aditivos para as fronteiras de memória e recuperação documental.
+- Commit do contrato: `18623acd4b800f986c1efb4c713ec5668ca199de`.
+- Os contratos descrevem envelopes e proveniência; não conectam automaticamente o Memory Card persistente nem alteram o pacote independente `knowledge_retrieval`.
+
+**Estado:** escrita confirmada pelo GitHub. Sem testes, merge ou deploy; Cloudflare Worker intocado.
