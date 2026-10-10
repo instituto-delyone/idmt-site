@@ -287,3 +287,13 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Commits de raciocínio: `a3e5f271b935b10c2b91ed7193064756c681a46c`, `e33c1925c69720f39c1e4f17dbf9785849162ad7`, `78abf66938d7bc156ad8fd1a7707ab863fd6b728`.
 
 **Estado:** implementações registradas, ainda sem validação em execução. Testes adiados até a conclusão da revisão global de referências; sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Atualização de contratos — Diagnosis (2026-10-10)
+
+- Contratos adicionados: `DiagnosisRequest` e `DiagnosisResult` em `CORTEX/thalamus/models.py`.
+- Consumidor atualizado: `Diagnosis/diagnosis.py` usa os contratos tipados, mas permanece um adaptador não conectado ao motor especializado.
+- Orquestrador atualizado: `AIGAR_RUNTIME/main.py` constrói `DiagnosisRequest` e consome `DiagnosisResult`.
+- Commits: `248d87194ecf25c8c278cd304a20dd678bb8d6d2`, `9929f873ff27e8d65ff8c866b5c4646d561dbf9c`, `120fd7a2e4bd653aa058885ca30b5dba2e5c0f11`, changelog `6548a2f86ed5d31d631bf66685878edda0af027d`.
+
+**Estado:** contrato estático criado; conexão funcional ao motor Diagnosis e validação permanecem pendentes. Testes não executados. Sem merge/deploy; Cloudflare Worker intocado.
