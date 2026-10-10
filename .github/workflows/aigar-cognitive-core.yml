@@ -21,7 +21,7 @@ jobs:
           python-version: "3.12"
       - name: Compile Python files
         working-directory: aigar-c-2/AIGAR_CLOUDFLARE
-        run: python -m py_compile main.py cognitive_core.py test_cognitive_core.py
+        run: python -m py_compile main.py association_core.py test_cognitive_core.py
       - name: Test cognitive core
         working-directory: aigar-c-2/AIGAR_CLOUDFLARE
         run: python -m unittest -v test_cognitive_core.py
