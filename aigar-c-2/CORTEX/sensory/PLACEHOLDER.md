@@ -1,7 +1,13 @@
-# Sensory — Placeholder
+# Sensory — estado de implementação
 
-**Estado:** planejado; ainda não implementado nesta estrutura.
+**Estado:** implementado parcialmente como fronteira de entrada textual.
 
-**Responsabilidade prevista:** receber entradas e classificar sinais antes do processamento linguístico e contextual.
+## Componente existente
+- `ingress.py`: `capture_request()` converte `RuntimeRequest` em `SensoryInput`, preservando texto e identificador de sessão. Não normaliza nem classifica a entrada.
 
-**Próxima etapa:** identificar adaptadores existentes antes de qualquer movimentação.
+## Ainda não implementado
+- Classificação sensorial multimodal.
+- Adaptadores dedicados para imagem, áudio ou outras modalidades.
+- Processamento sensorial além do envelope de entrada textual.
+
+A presença de `SensoryInput` não deve ser interpretada como suporte multimodal já funcional.
