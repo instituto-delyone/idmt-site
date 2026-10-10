@@ -48,7 +48,7 @@ Status: migração inicial em andamento; não mesclada em produção.
 - **Arquivo novo:** `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py`
 - **Símbolo antigo:** `LibraryAdapter`
 - **Símbolo novo:** `KnowledgeRetrievalAdapter`
-- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py); documentação do runtime.
+- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py`; documentação do runtime.
 - **Contrato preservado:** `SourceTrace.kind="library"`.
 - **Interpretação:** recuperação de conhecimento é função de busca/indexação; não deve ser renomeada como hipocampo, que tem funções biológicas mais amplas.
 
@@ -57,7 +57,7 @@ Status: migração inicial em andamento; não mesclada em produção.
 - **Arquivo novo:** `aigar-c-2/AIGAR_RUNTIME/working_state.py`
 - **Símbolo antigo:** `ConversationStore`
 - **Símbolo novo:** `WorkingStateStore`
-- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py); documentação do runtime.
+- **Referências atualizadas:** import e instanciação em `AIGAR_RUNTIME/main.py`; documentação do runtime.
 - **Limite importante:** o estado fica em memória do processo e mantém até 40 entradas; não é memória persistente de longo prazo.
 
 ## Próximos pares candidatos — ainda NÃO executados
@@ -112,9 +112,12 @@ Objetivo: substituir o Worker monolítico por responsabilidades delimitadas, sem
 - [ ] A branch de migração não foi mesclada nem publicada em produção sem validação.
 - [ ] Atualizar este mapa com SHA de commit e resultado real de cada teste.
 
-## Histórico da branch
-- Branch criada a partir de `main`.
-- Par 01: arquivos e import atualizados.
-- Par 02: arquivos e import atualizados.
-- Par 03: arquivos e import atualizados.
-- Testes automatizados ainda precisam ser executados num ambiente com as dependências do runtime.
+## Validação e histórico atualizado
+- Árvore recursiva da branch consultada no GitHub: HEAD `106ee9bd4e391667778453955d339699ae3c1803`; árvore completa retornada (2.729 caminhos, `truncated=false`).
+- Pares 01–05: os cinco caminhos antigos não existem na árvore atual e os cinco destinos existem.
+- `AIGAR_RUNTIME/main.py` foi lido: os imports usam os cinco módulos novos.
+- `aigar-c-2/AIGAR_CLOUDFLARE/wrangler.jsonc` mantém `main.py` como entrypoint de produção; nenhum Worker foi dividido nem deployado por esta migração.
+- O workflow anterior `aigar-cognitive-core.yml` não cobre `AIGAR_RUNTIME/**`; por isso foi adicionado `.github/workflows/aigar-runtime-validation.yml` para compilar e testar runtime, linguagem e biblioteca em PR.
+- Commit de CI: `ef34be600fba42edbba708d106adb5abd129a6b4`.
+- No momento deste registro, GitHub ainda não retornou status nem execução de workflow para o commit de CI; os testes permanecem **PENDENTES**, não aprovados.
+- PR #13 continua draft e não mesclado. Nenhum deploy de produção foi executado ou confirmado.
