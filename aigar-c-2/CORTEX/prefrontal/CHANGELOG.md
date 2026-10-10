@@ -66,3 +66,12 @@ Foram adicionados marcadores `__init__.py` aos pacotes ativos, sem mover módulo
 Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports canônicos. Isto não valida a execução nem garante que todos os caminhos de dependências estejam corretos.
 
 **Estado:** testes não executados; sem merge/deploy; Cloudflare Worker intocado.
+
+## SARA — estado explícito do runtime (2026-10-10)
+
+- Criado `CORTEX/sara/runtime_status.py` com `RuntimeStatus` e `current_runtime_status()`. Commit inicial `74bbde6b972bf828e9bff64c3d77df136bbea556`; ajuste de import de dependências `473efd66da37215ea4dbe468248594eabc4a62ce`.
+- Criado `CORTEX/sara/__init__.py` para declarar o pacote. Commit `cb5bedb5dab5c01bdff0ec7bdd73c1d76923b1af`.
+- `AIGAR_RUNTIME/main.py`: `/health` agora delega a resposta a `current_runtime_status().model_dump()`, commit `cf7d716dce4054a4dcd7010f072b00167649b95d`.
+- O payload declara apenas inicialização do processo e avisa que a conectividade dos subsistemas não foi validada; não apresenta prontidão integral como fato.
+
+**Limites:** testes e validação funcional não executados; sem merge/deploy; Cloudflare Worker intocado.
