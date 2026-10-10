@@ -27,3 +27,9 @@ Os conteúdos foram preservados durante a movimentação; as referências antiga
 - `AIGAR_RUNTIME/diagnosis.py` → `Diagnosis/diagnosis.py` (adaptador separado para integração posterior)
 
 Conteúdo preservado; origens removidas após criar os destinos. Os commits e SHAs de blob estão registrados em `MIGRATION_INVENTORY_v1.md`. Referências/imports ainda não traduzidos. Nenhum teste, merge ou deploy. Cloudflare Worker intocado.
+
+## Fechamento do inventário — sem movimentação adicional
+
+Inspecionada a árvore recursiva da branch e revisados `AIGAR_RUNTIME/main.py`, READMEs do runtime/CORTEX/UI/biblioteca/encoding/linguagem e contratos centrais de `association_network/`. O inventário foi ampliado para documentar runtime legado, pacotes externos, contratos históricos, UI, sincronização, corpus, PDFs e artefatos gerados, além das pendências de tradução de referências.
+
+O inventário foi registrado em commit `79b975cfbdd96e5616fa370df950946ff01c6871`. Esta atualização não moveu outros arquivos, não alterou imports, não executou testes, não fez merge/deploy e não tocou no Cloudflare Worker.
