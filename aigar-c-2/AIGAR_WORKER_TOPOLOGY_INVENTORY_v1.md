@@ -33,6 +33,7 @@ O inventário foi feito por leitura estática dos arquivos desta branch. Não fo
 | `AIGAR_CLOUDFLARE/answer_runtime.py` | Renderização de resposta por Workers AI usando os chunks e o contexto fornecidos | Renderer extraído; mantém o mesmo prompt e parâmetros de geração |
 | `AIGAR_CLOUDFLARE/cloudflare_bindings.py` | Resolução de bindings do ambiente Cloudflare | Helper compartilhado extraído sem alterar nomes de bindings |
 | `AIGAR_CLOUDFLARE/storage_runtime.py` | Autenticação MedUnity, acesso R2/D1, upload e processamento de documentos, Workflow da biblioteca e listagem de documentos | Serviços administrativos/armazenamento extraídos; rotas continuam no entrypoint |
+| `AIGAR_CLOUDFLARE/conversation_runtime.py` | Fluxo principal de pergunta, seleção contextual, plano adaptativo, logging de interações, contratos de feedback e auditoria D1 | Orquestração conversacional extraída; entrypoint delega para `handle_ask` |
 | `AIGAR_CLOUDFLARE/association_core.py` | `CognitiveContextCore`: prepara/ranqueia chunks e monta contexto compacto para a pergunta | Núcleo de seleção contextual importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/memory_lab/engine.py` | `MemoryLab`: recuperação de memória imediata, curto prazo e longo prazo | Subsistema de memória importado pelo `library_runtime.py` |
 | `AIGAR_CLOUDFLARE/wrangler.jsonc` | Declara Worker `aigar-api`, entrypoint `main.py`, binding `AI` e Workflow `AIGAR_LIBRARY_BUILDER` | Configuração de deploy |
