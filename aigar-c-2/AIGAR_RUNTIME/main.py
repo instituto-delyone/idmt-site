@@ -3,8 +3,8 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from .models import RuntimeRequest, RuntimeResponse
-from .language_network_bridge import LanguageNetworkAdapter
-from .working_state import WorkingStateStore
+from .language_network_adapter import LanguageNetworkAdapter
+from .working_memory import WorkingStateStore
 from .hippocampal_memory import HippocampalMemoryAdapter
 from .knowledge_retrieval import KnowledgeRetrievalAdapter
 from .diagnosis import DiagnosisAdapter
