@@ -12,7 +12,7 @@ def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Fonte não encontrada: {SOURCE}")
     subprocess.run([
-        sys.executable, "-m", "knowledge_consolidation.build",
+        sys.executable, "-m", "knowledge_encoding.encode_knowledge",
         str(SOURCE), "--key", "sapiens", "--pages-per-chunk", "25"
     ], cwd=ROOT, check=True)
 
