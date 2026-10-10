@@ -5,6 +5,7 @@ from fastapi import FastAPI
 # AIGAR_RUNTIME/main.py remains the operational entry point during migration.
 # CORTEX is the provisional canonical home for runtime components and contracts.
 from CORTEX.thalamus.models import (
+    AuroraRequest,
     DiagnosisRequest,
     LibraryQuery,
     MemoryRecallRequest,
@@ -78,10 +79,18 @@ def run_runtime(request: RuntimeRequest) -> RuntimeResponse:
     plan = plan_contract.model_dump()
     sources.append(trace)
 
-    text, trace = aurora.respond(
-        signal.raw_text, reading, memory_context, library_context, diagnosis_result, plan
+    aurora_result = aurora.respond(
+        AuroraRequest(
+            input_text=signal.raw_text,
+            reading=reading,
+            memory=memory_context,
+            library=library_context,
+            diagnosis=diagnosis_result,
+            plan=plan_contract,
+        )
     )
-    sources.append(trace)
+    text = aurora_result.text
+    sources.append(aurora_result.source)
 
     store.update(state, signal.raw_text, text)
 
