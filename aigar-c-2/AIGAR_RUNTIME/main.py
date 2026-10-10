@@ -4,19 +4,19 @@ from fastapi import FastAPI
 
 from .models import RuntimeRequest, RuntimeResponse
 from .language_network_bridge import LanguageNetworkAdapter
-from .conversation import ConversationStore
+from .working_state import WorkingStateStore
 from .hippocampal_memory import HippocampalMemoryAdapter
-from .library import LibraryAdapter
+from .knowledge_retrieval import KnowledgeRetrievalAdapter
 from .diagnosis import DiagnosisAdapter
 from .prefrontal_controller import PrefrontalController
 from .aurora import Aurora
 
 app = FastAPI(title="AIGAR Neurocognitive Runtime", version="0.3.0")
 
-store = ConversationStore()
+store = WorkingStateStore()
 language = LanguageNetworkAdapter()
 memory = HippocampalMemoryAdapter()
-library = LibraryAdapter()
+library = KnowledgeRetrievalAdapter()
 diagnosis = DiagnosisAdapter()
 reasoning = PrefrontalController()
 aurora = Aurora()
