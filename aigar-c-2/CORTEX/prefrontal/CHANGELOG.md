@@ -93,3 +93,12 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - `AIGAR_RUNTIME/main.py`: converte o plano para dicionário na fronteira do runtime, preservando o formato usado por Aurora e RuntimeResponse. Commit: `78abf66938d7bc156ad8fd1a7707ab863fd6b728`.
 
 **Limites:** alteração estática sem execução de testes ou validação funcional; sem merge/deploy. Cloudflare Worker intocado. A validação do contrato e sua compatibilidade em execução permanece pendente até a fase de testes autorizada.
+
+
+## Diagnosis — contratos tipados da fronteira clínica (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: adicionados `DiagnosisRequest` e `DiagnosisResult` como contratos aditivos para entrada e saída do subsistema clínico. Commit: `248d87194ecf25c8c278cd304a20dd678bb8d6d2`.
+- `Diagnosis/diagnosis.py`: `DiagnosisAdapter.evaluate()` agora recebe `DiagnosisRequest` e retorna `DiagnosisResult`. O adaptador continua explicitamente não conectado ao motor especializado; não fabrica achados clínicos. Commit: `9929f873ff27e8d65ff8c866b5c4646d561dbf9c`.
+- `AIGAR_RUNTIME/main.py`: o runtime passa o envelope tipado e extrai achados e rastreabilidade do resultado; commit `120fd7a2e4bd653aa058885ca30b5dba2e5c0f11`.
+
+**Estado:** contrato e chamada traduzidos estaticamente; integração real com Diagnosis ainda pendente. Nenhum teste executado, sem merge/deploy; Cloudflare Worker intocado.
