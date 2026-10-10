@@ -6,4 +6,4 @@ _pycache_/
 *.cache
 *.chunk
 
-# Keep AIGAR_LIBRARY/cache and AIGAR_LIBRARY/indexes versioned
+# Existing cache/index artifacts are historical repository content; preserve them during migration.
