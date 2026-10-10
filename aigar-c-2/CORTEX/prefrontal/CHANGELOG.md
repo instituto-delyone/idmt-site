@@ -16,3 +16,14 @@ Registrar somente mudanças realmente efetuadas, com caminho anterior, caminho n
 - `language_network/portuguese_language_knowledge.json` → `CORTEX/language/portuguese_language_knowledge.json`
 
 Os conteúdos foram preservados durante a movimentação; as referências antigas ainda não foram atualizadas. Os SHAs individuais de criação e remoção estão registrados em `MIGRATION_INVENTORY_v1.md`. Não houve teste, merge ou deploy. O Cloudflare Worker não foi alterado.
+
+
+## Lote 2 — migrações MIG-008 a MIG-012
+
+- `AIGAR_RUNTIME/models.py` → `CORTEX/thalamus/models.py`
+- `AIGAR_RUNTIME/aurora.py` → `CORTEX/prefrontal/aurora.py`
+- `AIGAR_RUNTIME/knowledge_retrieval.py` → `CORTEX/engram/knowledge_retrieval.py`
+- `AIGAR_RUNTIME/linguistic_interpreter.py` → `CORTEX/thalamus/linguistic_interpreter.py`
+- `AIGAR_RUNTIME/diagnosis.py` → `Diagnosis/diagnosis.py` (adaptador separado para integração posterior)
+
+Conteúdo preservado; origens removidas após criar os destinos. Os commits e SHAs de blob estão registrados em `MIGRATION_INVENTORY_v1.md`. Referências/imports ainda não traduzidos. Nenhum teste, merge ou deploy. Cloudflare Worker intocado.
