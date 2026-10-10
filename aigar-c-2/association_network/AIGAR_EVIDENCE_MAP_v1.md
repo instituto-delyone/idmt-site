@@ -63,3 +63,17 @@ Toda implementação nova deve ser marcada como **proposta** até que exista evi
 4. localizar mecanismos de recall;
 5. comparar versões temporais;
 6. só então especificar a unidade mínima e a recombinação.
+
+
+## Adendo de auditoria da árvore atual — 2026-10-10
+
+Os itens acima registram evidências de reconstrução histórica e devem continuar preservados. A árvore e os contratos executáveis atuais acrescentam os seguintes limites:
+
+- O runtime conversacional da branch agora usa os módulos de `CORTEX/` com entry point em `AIGAR_RUNTIME/main.py`; consulte `CORTEX/prefrontal/MIGRATION_MAP_FINAL_v1.md` para o crosswalk.
+- O campo “Diagnosis” está evidenciado historicamente como motor especializado, mas o adaptador executável `aigar-c-2/Diagnosis/diagnosis.py` permanece desconectado e retorna `SourceTrace.status="missing"` sem inventar achados.
+- As duas entradas do manifesto para `docs/Js/engine.js` e `docs/knowledge_base/` não existem com esses caminhos na árvore consultada. A existência de páginas em `docs/pesquisas/Diagnosis/` não prova que sejam equivalentes ao motor ou à base ausente. A auditoria está em `AIGAR_SOURCE_MANIFEST_AUDIT_v1.md`.
+- O contrato documental `AIGAR_RUNTIME_CONTRACT_v1.json` e os modelos Pydantic de `CORTEX/thalamus/models.py` têm diferenças de schema para ambiguidade, incerteza e resultado estruturado. Não converter o contrato v1 silenciosamente; consulte `AIGAR_RUNTIME_CONTRACT_RECONCILIATION_v1.md`.
+- A comparação de código confirmou a existência de um interpretador linguístico executável, de memória de sessão, de recuperação híbrida de documentos e de um controlador de planejamento inicial. Isso não prova recuperação persistente, raciocínio avançado ou integração clínica.
+- A auditoria desta fase não modifica `AIGAR_CLOUDFLARE/`. O mapa dedicado do Worker é uma etapa posterior, depois do fechamento do mapa da arquitetura remontada.
+
+Essa atualização separa a evidência do histórico daquilo que a árvore atual demonstra. Nenhum teste foi executado nesta etapa.
