@@ -1,5 +1,5 @@
 AIGAR C-2 — DICIONÁRIO NEUROCOGNITIVO
-Versão: 1.1
+Versão: 1.2
 Status: documento vivo de coordenação neurocognitiva; nomes também funcionam como guias de evolução futura
 Repositório: instituto-delyone/idmt-site
 Local: aigar-c-2/AIGAR_NEUROCOGNITIVE_DICTIONARY_v1.txt
