@@ -1,7 +1,7 @@
 {
   "id": "AIGAR-SOURCE-MANIFEST-v1",
   "status": "foundation",
-  "root": "aigar-c-2/AIGAR_CORE",
+  "root": "aigar-c-2/association_network",
   "canonical_sources": [
     {
       "role": "language_mother",
