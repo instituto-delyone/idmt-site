@@ -339,3 +339,38 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Registro no changelog: commit `8a88e84b1fdceee7592d0bc59cf652d95c6c10e3`.
 
 **Estado:** revisão estática concluída; testes ainda adiados. Sem merge/deploy; Cloudflare Worker intocado.
+
+
+## Auditoria da árvore e quadro de migração — 2026-10-10
+
+Este quadro é uma fotografia da árvore Git da branch `neurocognitive-migration` no commit `5cb6ac31e0f9040af93eabb98435b973505c3356`. “Migrado” significa que o arquivo está no destino arquitetural atual; “recodificado” significa que houve mudança deliberada de contrato, imports ou integração, não apenas movimentação. A porcentagem do “total imaginado” não é calculada sem um universo fechado de arquivos-alvo: inventar esse denominador produziria progresso fictício. O denominador verificável inicial é o conjunto de 12 movimentos MIG-001 a MIG-012 já registrados acima.
+
+| Pasta-alvo | Arquivos migrados presentes na árvore | Recodificados / referências atualizadas | Arquivos sem destino final definido |
+|---|---|---|---|
+| `CORTEX/thalamus/` | `models.py`, `context_router.py`, `linguistic_interpreter.py` | `models.py`: contratos aditivos; `context_router.py`: seleção explícita de recursos; `main.py` atualizado para usar contratos/roteador | Nenhum dos três está sem destino inicial; política de execução de `use_reasoning` ainda pendente |
+| `CORTEX/language/` | `interpreter.py`, `language_network_adapter.py`, `language.json`, `portuguese_language_knowledge.json` | Adaptador importa o interpretador local e converte para `ConversationReading`; caminhos dos JSONs são adjacentes ao interpretador | Nenhum destino imediato pendente; equivalência com o interpretador histórico não definida |
+| `CORTEX/memory/` | `working_memory.py`, `hippocampal_memory.py` | Adaptadores usam contratos canônicos; runtime consome `MemoryRecallRequest/Result` | Integração persistente de Memory Card não implementada |
+| `CORTEX/engram/` | `knowledge_retrieval.py` | Adaptador usa `LibraryQuery/LibrarySearchResult` | Nenhum destino para o pacote externo: `knowledge_retrieval/` permanece independente intencionalmente |
+| `CORTEX/prefrontal/` | `prefrontal_controller.py`, `aurora.py` | Controlador retorna `ReasoningPlan`; Aurora usa `AuroraRequest/AuroraResult`; runtime consome ambos | Critérios de suficiência de evidência e política executável de planejamento permanecem pendentes |
+| `CORTEX/sensory/` | `ingress.py` | Converte `RuntimeRequest` em `SensoryInput` preservando texto e sessão | Sensores/modalidades além de texto são ideias futuras, não implementações |
+| `CORTEX/sara/` | `runtime_status.py` | Endpoint `/health` usa status explícito do runtime | Estado de prontidão integral não implementado nem declarado |
+| `CORTEX/reasoning_engine/` | Apenas `PLACEHOLDER.md` | Nenhum motor geral separado confirmado | Planner, avaliação de evidências e verificador de suficiência |
+| `CORTEX/default_mode_network/` | Apenas `PLACEHOLDER.md` | Nenhum módulo funcional confirmado | Estado interno, self-model e ciclo reflexivo |
+| `CORTEX/worker_bridge/` | Apenas `PLACEHOLDER.md` | Nenhum bridge geral confirmado | Cliente de Worker, contrato de mensagens e registry; não alterar o Worker real |
+| `CORTEX/occipital/` | `README.md` | Nenhuma migração de interface confirmada | Relação/destino da UI separada `aigar_ui_chat_mvp/` permanece por decidir |
+| `Diagnosis/` | `diagnosis.py`, `__init__.py` | Adaptador recebe `DiagnosisRequest` e retorna `DiagnosisResult` | Motor clínico especializado real ainda não conectado |
+| `AIGAR_RUNTIME/` | `main.py`, `requirements.txt`, `README.md`, `test_runtime.py`, `__init__.py` | Entry point atualizado para imports canônicos e contratos; teste apenas teve import atualizado | Destino final de entry point, manifesto e testes não fechado |
+| `knowledge_retrieval/` | Retriever, retriever semântico, índices, cache, manifestos, fontes e teste próprios | Não movido; preservado como pacote independente consumido pelo adaptador Engram | Sem destino pendente: manter independente até decisão baseada em dependências |
+| `knowledge_encoding/` | Encoders, README, `requirements.txt` | Nenhuma recodificação arquitetural confirmada nesta fase | Integração operacional com cache/índices de retrieval precisa ser documentada |
+| `language_network/` | `README.md`, `__init__.py`, PDF de conhecimento e teste | Interpretador e dois JSONs migrados para `CORTEX/language/` conforme MIG-005 a MIG-007 | Destino do PDF e teste próprio não foi definido; preservar até rastrear consumidores |
+| `AIGAR_PHASES/`, `AIGAR_RECONSTRUCTION/`, `association_network/` | Artefatos históricos conforme árvore Git | Nenhuma movimentação nova confirmada nesta auditoria | Revisar consumidores e definir destino por arquivo |
+| `aigar_ui_chat_mvp/` | Aplicação separada e seus artefatos | Nenhuma migração para CORTEX confirmada | Manter separada até mapear a relação com `CORTEX/occipital/` |
+| `biblioteca/`, PDFs e artefatos históricos/sync | Corpus e arquivos históricos existentes | Nenhuma movimentação nova confirmada | Fora da migração ativa de código salvo dependência concreta documentada |
+
+### Estado quantitativo verificável
+
+- Movimentos estruturais MIG registrados: **12**.
+- Arquivos-alvo funcionais atualmente listados em `CORTEX/`: há módulos em sete domínios e placeholders em cinco domínios; presença na árvore não significa implementação completa.
+- Recodificação/contratos: os registros anteriores documentam alterações em `models.py`, adaptadores, `main.py`, documentação e imports. Esses arquivos não devem ser contados como “apenas movidos”.
+- Percentual global: **não calculado** até congelar a lista total de arquivos-alvo imaginados e classificar cada artefato da árvore. O inventário por arquivo acima passa a ser a base para esse denominador.
+- Nenhum teste foi executado; não houve merge/deploy; Cloudflare Worker permanece fora do escopo.
