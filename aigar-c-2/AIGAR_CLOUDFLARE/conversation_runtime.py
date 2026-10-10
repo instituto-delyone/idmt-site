@@ -11,6 +11,7 @@ from cloudflare_bindings import binding
 from language_runtime import LANGUAGE, LANGUAGE_ENGINE, SESSIONS, compose_book_grounded_answer
 from library_runtime import COGNITIVE_CORE, MEMORY_LAB, boot_library, boot_text_matrix, library_search, source_relevance
 from context_runtime import AsymmetricContextManager, build_adaptive_plan, revise_adaptive_plan
+from cortex_compat import normalize_reading, build_routing_decision, CORTEX_COMPATIBILITY
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING
 
@@ -263,10 +264,14 @@ async def handle_ask(body, env=None):
 
     reading = LANGUAGE_ENGINE.interpret(text, cognitive_context=cognitive_context)
     reading = COGNITIVE_CORE.annotate_reading(reading, cognitive_context)
+    # Compatibility boundary: normalize Worker-native dictionaries to the
+    # shared CORTEX contract without importing local-only CORTEX packages.
+    reading = normalize_reading(reading)
     profile = classify_interaction(text, reading)
+    routing_decision = build_routing_decision(reading, profile)
     prior_turns = session.get("turns", [])
     context_resolution = AsymmetricContextManager().resolve(
-        text, prior_turns[-40:], needs_context=bool(profile.get("context_required"))
+        text, prior_turns[-40:], needs_context=bool(routing_decision["use_memory"])
     )
     memory_context = [
         {"role": turn.get("role"), "content": turn.get("content"),
@@ -275,12 +280,14 @@ async def handle_ask(body, env=None):
         for turn in context_resolution.get("selected_context", [])
         if turn.get("content")
     ]
-    if profile.get("context_required") and memory_context:
+    if routing_decision["use_memory"] and memory_context:
         reading.setdefault("linguistic_analysis", {})["recent_context_available"] = True
         reading["linguistic_analysis"]["recent_context_turns"] = len(memory_context)
         reading["linguistic_analysis"]["context_dependencies"] = context_resolution.get("context_dependencies", [])
 
     plan = build_adaptive_plan(reading, profile, context_resolution)
+    plan["cortex_routing"] = dict(routing_decision)
+    plan["cortex_compatibility"] = dict(CORTEX_COMPATIBILITY)
     plan["cognitive_core"] = {
         "version": cognitive_context.get("version"),
         "ready": bool(cognitive_context.get("ready")),
@@ -293,7 +300,7 @@ async def handle_ask(body, env=None):
         "kind": "library", "id": "aigar.library", "status": "missing",
         "detail": "A biblioteca não foi consultada para esta intenção.",
     }
-    if reading.get("needs_library") or profile.get("research_required"):
+    if routing_decision["use_library"]:
         try:
             evidence_items = await library_search(text, reading, limit=5)
             library_trace = {
@@ -352,9 +359,10 @@ async def handle_ask(body, env=None):
     plan["depth"] = reading.get("depth")
     plan["answer_depth"] = answer_depth
     plan["source_fidelity"] = source_fidelity
-    plan["use_memory"] = bool(profile.get("context_required") and memory_context)
-    plan["use_library"] = bool(reading.get("needs_library") or profile.get("research_required"))
-    plan["use_diagnosis"] = bool(reading.get("needs_diagnosis"))
+    plan["use_memory"] = bool(routing_decision["use_memory"] and memory_context)
+    plan["use_library"] = bool(routing_decision["use_library"])
+    plan["use_diagnosis"] = bool(routing_decision["use_diagnosis"])
+    plan["use_reasoning"] = bool(routing_decision["use_reasoning"])
     plan["question_type"] = qtype
     plan["semantic_goal"] = question.get("semantic_goal")
     plan["topic"] = topic
@@ -524,6 +532,10 @@ async def handle_ask(body, env=None):
         "interaction_id": interaction_id,
         "turn_id": turn_id,
         "interaction_profile": profile,
+        "cortex_compatibility": {
+            **CORTEX_COMPATIBILITY,
+            "routing_decision": dict(routing_decision),
+        },
         "adaptive_plan": {key: value for key, value in plan.items() if key != "evidence_details"},
         "feedback": {
             "endpoint": "/feedback", "interaction_id": interaction_id,

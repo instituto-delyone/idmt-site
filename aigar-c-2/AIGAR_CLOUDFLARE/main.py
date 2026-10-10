@@ -86,6 +86,18 @@ class Default(WorkerEntrypoint):
                     "d1_binding": d1_ready,
                     "persistent_storage_configured": storage_ready,
                 },
+                "cortex_compatibility": {
+                    "contract": "CORTEX.thalamus.models",
+                    "mode": "worker_native_adapter",
+                    "local_cortex_imported": False,
+                    "deferred_capabilities": [
+                        "persistent_memory_cards",
+                        "diagnosis_engine_execution",
+                        "additional_workers",
+                        "audio_visual_input",
+                        "default_mode_network",
+                    ],
+                },
                 "features": {
                     "language": True,
                     "hybrid_library_search": True,
