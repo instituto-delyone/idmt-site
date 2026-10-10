@@ -126,3 +126,12 @@ Objetivo: tornar explícitas as fronteiras dos pacotes Python para os imports ca
 - A busca de referências não encontrou correspondências para o nome `linguistic_interpreter` no índice de busca do GitHub; isso não substitui a revisão global de imports e caminhos.
 
 **Estado:** decisão arquitetural documentada; comparação semântica e reconciliação futura continuam pendentes. Sem testes, merge ou deploy; Cloudflare Worker intocado.
+
+
+## Fronteira tipada de apresentação — Aurora (2026-10-10)
+
+- `CORTEX/thalamus/models.py`: contratos aditivos `AuroraRequest` e `AuroraResult` definem entrada estruturada e saída com proveniência. Commit: `7fa83e0c58a510af6366a5de944eed7426e36cc6`.
+- `CORTEX/prefrontal/aurora.py`: novo método público `respond(request: AuroraRequest) -> AuroraResult` envolve as ramificações de apresentação existentes, preservando-as no método interno legado. Commit: `9d0143a8ce6f842ea15ef42a9b2de2f175c1ae6a`.
+- `AIGAR_RUNTIME/main.py`: runtime envia `AuroraRequest` e consome `AuroraResult`. Commit: `9b8fa2d43ed07d5a1cbeb40886dfd54392bf7e57`.
+
+**Limites:** esta é uma adaptação estática de contrato, não validação funcional. As ramificações de texto de Aurora foram preservadas. Testes não executados; sem merge/deploy; Cloudflare Worker intocado.
