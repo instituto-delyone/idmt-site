@@ -103,3 +103,32 @@ Identificadores de bindings de runtime como `AIGAR_LIBRARY_BUCKET`, `AIGAR_LIBRA
 - Não mover funções nem atualizar imports nesta etapa de mapeamento.
 - A futura implementação do Tálamo deve ser planejada separadamente para preservar endpoints e o comando de inicialização do runtime.
 - Testes, alterações funcionais, merge e deploy continuam fora desta etapa.
+
+
+## Mapa complementar dos nomes residuais — 2026-10-10
+
+Esta seção amplia o mapa; **não executa renomeações**. Os nomes abaixo foram avaliados pela função que o código atual realmente exerce, evitando atribuir capacidades ainda não implementadas. O Worker continua fora do escopo.
+
+| ID | Caminho atual | Nome proposto | Decisão/justificativa | Estado |
+|---|---|---|---|---|
+| N02 | `aigar-c-2/AIGAR_RUNTIME/working_state.py` | `aigar-c-2/AIGAR_RUNTIME/working_memory.py` | O módulo mantém estado temporário por sessão e limita o histórico recente; “memória de trabalho” é uma analogia mais clara que “estado”. | Proposto |
+| N03 | `aigar-c-2/AIGAR_RUNTIME/language_network_bridge.py` | `aigar-c-2/AIGAR_RUNTIME/language_network_adapter.py` | A classe já se chama `LanguageNetworkAdapter`; o arquivo adapta a rede de linguagem ao contrato do Runtime. | Proposto |
+| N04 | `aigar-c-2/AIGAR_RUNTIME/language.py` | `aigar-c-2/AIGAR_RUNTIME/linguistic_interpreter.py` | Interpreta a entrada por regras heurísticas simples e produz intenção/profundidade; o nome explicita a função sem alegar compreensão semântica avançada. | Proposto |
+| N05 | `aigar-c-2/knowledge_consolidation/` | `aigar-c-2/knowledge_encoding/` | Os scripts normalizam, dividem, identificam e indexam conteúdo. “Codificação do conhecimento” é mais preciso que “consolidação” biológica, que sugeriria processos adicionais não demonstrados. | Proposto |
+| N06 | `aigar-c-2/knowledge_consolidation/build.py` | `aigar-c-2/knowledge_consolidation/encode_knowledge.py` | O script constrói chunks/cache/índices a partir de fontes; o nome atual é genérico. O destino final deve acompanhar N05 se N05 for aprovado. | Proposto |
+| N07 | `aigar-c-2/knowledge_consolidation/index_existing.py` | `aigar-c-2/knowledge_consolidation/encode_existing_chunks.py` | Indexa chunks TXT/MD existentes e os grava no cache/índices; o destino final deve acompanhar N05 se N05 for aprovado. | Proposto |
+| N08 | `aigar-c-2/knowledge_retrieval/retriever.py` / classe `LibraryRetriever` | manter arquivo `retriever.py`; avaliar classe `KnowledgeRetriever` | O nome do arquivo é convencional e curto dentro do pacote de recuperação. A classe `LibraryRetriever` é o resíduo mais evidente; renomear símbolo exige atualizar referências na etapa 4, não agora. | Proposto |
+| N09 | `aigar-c-2/AIGAR_RUNTIME/hippocampal_memory.py` | manter | O código declara explicitamente que é uma analogia hipocampal limitada a contexto recente; renomear para “episodic memory” poderia exagerar a persistência/recuperação realmente conectada. | Manter |
+| N10 | `aigar-c-2/AIGAR_RUNTIME/prefrontal_controller.py` | manter | O nome já é neurocognitivo e corresponde à função heurística atual de selecionar evidências e organizar a resposta, sem presumir controle executivo completo. | Manter |
+| N11 | `aigar-c-2/AIGAR_RUNTIME/knowledge_retrieval.py` | manter | É o adaptador do Runtime para recuperação documental; nome funcional claro e coerente com a classe `KnowledgeRetrievalAdapter`. | Manter |
+| N12 | `aigar-c-2/AIGAR_RUNTIME/main.py` | manter | É o entrypoint técnico do Runtime. Não deve ser renomeado para Tálamo: a proposta `thalamus.py` representa um módulo futuro de integração/encaminhamento e requer implementação funcional separada. | Manter |
+| N13 | `aigar-c-2/AIGAR_RUNTIME/models.py`, `diagnosis.py`, `aurora.py`, `requirements.txt`, `test_runtime.py` | manter | São nomes de contratos, adaptador de domínio, camada de saída, dependências e testes; não há ganho claro em forçar nomes anatômicos. | Manter |
+| N14 | `aigar-c-2/AIGAR_NEUROCOGNITIVE_DICTIONARY_v1.txt`, `aigar-c-2/AIGAR_RENAME_PLAN_v1.md` | manter | São documentos de governança/histórico; preservar nomes estáveis facilita rastreabilidade e links. | Manter |
+
+### Regras específicas para os próximos passos
+
+- Nenhum par N02–N14 foi renomeado nesta atualização; são decisões propostas para fechar o mapa.
+- O diretório e os scripts de codificação (N05–N07) devem ser tratados como um único conjunto na etapa de renomeação, para evitar destinos inconsistentes.
+- O símbolo `LibraryRetriever` só será alterado depois da etapa de renomeação de caminhos, na etapa separada de atualização de referências.
+- Não renomear nem editar qualquer arquivo, símbolo, binding, chave JSON, configuração ou workflow em `aigar-c-2/AIGAR_CLOUDFLARE/`; o Worker permanece expressamente excluído.
+- `thalamus.py` não será criado durante a fase de nomes; sua implementação será uma decisão funcional posterior, mantendo `AIGAR_RUNTIME/main.py` como entrypoint.
