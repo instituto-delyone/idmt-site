@@ -88,3 +88,18 @@ As renomeações abaixo foram aplicadas à árvore da branch preservando os blob
 Identificadores de bindings de runtime como `AIGAR_LIBRARY_BUCKET`, `AIGAR_LIBRARY_BUILDER` e `AIGAR_DB` foram mantidos deliberadamente: são nomes de recursos/contratos já existentes, não caminhos de arquivos, e alterá-los poderia mudar o funcionamento.
 
 **Testes:** não executados por instrução nesta fase. Nenhuma alteração funcional, merge ou deploy foi realizado.
+
+
+## Proposta aprovada para o mapa neurocognitivo — 2026-10-10
+
+| ID | Caminho/função atual | Nome proposto | Estado | Observação |
+|---|---|---|---|---|
+| N01 | `aigar-c-2/AIGAR_RUNTIME/main.py` — entrada HTTP e coordenação do fluxo | `aigar-c-2/AIGAR_RUNTIME/thalamus.py` — módulo de integração e encaminhamento cognitivo | Mapeado; implementação pendente | `main.py` permanece como entrypoint técnico. A extração da lógica para o Tálamo exige etapa de implementação separada; não é um simples renome de arquivo. Nenhum código foi alterado nesta etapa. |
+
+### Limites desta decisão
+
+- O `main.py` do Cloudflare Worker permanece totalmente intocado.
+- Não criar um `thalamus.py` vazio nem duplicar a lógica existente.
+- Não mover funções nem atualizar imports nesta etapa de mapeamento.
+- A futura implementação do Tálamo deve ser planejada separadamente para preservar endpoints e o comando de inicialização do runtime.
+- Testes, alterações funcionais, merge e deploy continuam fora desta etapa.
