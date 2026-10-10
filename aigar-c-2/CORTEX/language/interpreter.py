@@ -126,8 +126,8 @@ class AIGARLanguage:
             candidates = []
             for form in forms:
                 form = form.lower().strip()
-                if "X" in form:
-                    prefix, suffix = form.split("X", 1)
+                if "x" in form:
+                    prefix, suffix = form.split("x", 1)
                     candidates.append((prefix.strip(), suffix.strip(), form))
                     # Português contrai frequentemente "de + o/a" em "do/da".
                     if prefix.endswith(" de "):
