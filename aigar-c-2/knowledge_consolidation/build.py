@@ -104,7 +104,7 @@ def build_text(source: Path, cache_dir: Path, source_key: str,
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build AIGAR private library cache")
     parser.add_argument("source", type=Path)
-    parser.add_argument("--output", type=Path, default=Path("AIGAR_LIBRARY"))
+    parser.add_argument("--output", type=Path, default=Path("knowledge_retrieval"))
     parser.add_argument("--key", default=None)
     parser.add_argument("--pages-per-chunk", type=int, default=25)
     parser.add_argument("--chars-per-chunk", type=int, default=24000)
