@@ -3,8 +3,8 @@
 - Repositório: `instituto-delyone/idmt-site`
 - Branch auditada: `neurocognitive-migration`
 - Commit-base auditado: `6cee97808ad62c7fe5203b753d82e9fdde25f933`
-- Escopo: inventário estático de caminhos e dependências; nenhum arquivo funcional foi movido ou alterado nesta etapa.
-- Estado: **inventário inicial — aguarda revisão antes da migração**.
+- Escopo: inventário estático de caminhos e dependências; o inventário foi criado antes da migração; consulte a seção 'Registro de migração executada' abaixo para os movimentos efetivamente realizados.
+- Estado: **migração estrutural iniciada — referências ainda não traduzidas; não executar testes**.
 
 ## Regras obrigatórias
 
@@ -117,3 +117,30 @@ Os diretórios já existentes em `CORTEX/` continuam sendo a arquitetura-alvo; o
 | Estado | Planejado, executado, referências atualizadas ou bloqueado |
 
 **Nota de precisão:** este documento é um inventário estático baseado na árvore e nos arquivos inspecionados. Não declara que o runtime está funcionando nem substitui a futura validação. Nenhum teste foi executado.
+
+
+## Registro de migração executada — lote 1
+
+**Estado:** arquivos movidos preservando o conteúdo; referências e imports ainda não atualizados. A quebra temporária do runtime é esperada nesta fase. Nenhum teste foi executado.
+
+| ID | Origem | Destino | Tratamento | Estado |
+|---|---|---|---|---|
+| MIG-001 | `aigar-c-2/AIGAR_RUNTIME/working_memory.py` | `aigar-c-2/CORTEX/memory/working_memory.py` | Conteúdo copiado sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-002 | `aigar-c-2/AIGAR_RUNTIME/hippocampal_memory.py` | `aigar-c-2/CORTEX/memory/hippocampal_memory.py` | Conteúdo copiado sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-003 | `aigar-c-2/AIGAR_RUNTIME/prefrontal_controller.py` | `aigar-c-2/CORTEX/prefrontal/prefrontal_controller.py` | Conteúdo copiado sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-004 | `aigar-c-2/AIGAR_RUNTIME/language_network_adapter.py` | `aigar-c-2/CORTEX/language/language_network_adapter.py` | Conteúdo copiado sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-005 | `aigar-c-2/language_network/interpreter.py` | `aigar-c-2/CORTEX/language/interpreter.py` | Conteúdo copiado sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-006 | `aigar-c-2/language_network/language.json` | `aigar-c-2/CORTEX/language/language.json` | Dados copiados sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+| MIG-007 | `aigar-c-2/language_network/portuguese_language_knowledge.json` | `aigar-c-2/CORTEX/language/portuguese_language_knowledge.json` | Dados copiados sem alteração; origem removida após confirmar destino | Migrado; referências pendentes |
+
+### Commits efetivos do lote 1
+
+- MIG-001 destino: `8696e405dc243185c6ec7466ccbf11399273b2ca`; remoção da origem: `e8f93d45be923b7408b1fbbf233f077d386953d1`.
+- MIG-002 destino: `e621392c9cf788fa2c33c3a38ce7fe39431d3511`; remoção da origem: `0f045161f72132370b5d7b5e6da636ace9ab80e6`.
+- MIG-003 destino: `e5a774ae146ea683c656e23ba5ed887588068050`; remoção da origem: `5b3a189e50a5020721fa8ca407b22b678ec6f019`.
+- MIG-004 destino: `edc3ac9588df0cc7bc43357e6bc5f053f492fbc8`; remoção da origem: `e64ff61e0fd2627339b68b6390083f35189723ed`.
+- MIG-005 destino: `e09a9e405d9b944afd127b36a4114e0727d0121a`; remoção da origem: `62f406a5bab8268efafb3a846fe5848334af378a`.
+- MIG-006 destino: `eb481a022f22b1917699709867fa37937e9a951a`; remoção da origem: `4ab15fb011bb9dfac984341bba6daaec4cd11488`.
+- MIG-007 destino: `c52a588710191c65ffc9f01c383d73228d87d04d`; remoção da origem: `a4c2bd996bd127f84036c1498a806e39ecd7faf3`.
+
+**Próxima etapa:** continuar a migração dos arquivos confirmados no mapa. Depois de concluir movimentações/renomeações, traduzir imports e caminhos de dados em um lote dedicado. O Cloudflare Worker permanece totalmente fora do escopo.
