@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from ..thalamus.models import BaseModel, Field
+from pydantic import BaseModel, Field
 
 
 RuntimeLifecycle = Literal["initialized", "degraded", "unavailable"]
