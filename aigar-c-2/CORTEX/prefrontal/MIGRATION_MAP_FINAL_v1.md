@@ -65,3 +65,27 @@ Para cada mudança real: ID sequencial, origem, destino, função preservada, de
 
 ## Critério de encerramento
 A migração termina quando os arquivos selecionados estão nos destinos aprovados e cada mudança está registrada. Em seguida, reconstruir os códigos traduzindo referências antigas para novos caminhos e nomes. Validar apenas após a conclusão dessa fase.
+
+
+## Adendo v2 — decisões aprovadas e lote 2 executado
+
+| Origem anterior | Destino atual | Papel/observação |
+|---|---|---|
+| `AIGAR_RUNTIME/models.py` | `CORTEX/thalamus/models.py` | Contratos de leitura e estado compartilhados; imports relativos precisam de tradução posterior |
+| `AIGAR_RUNTIME/aurora.py` | `CORTEX/prefrontal/aurora.py` | Apresentação da resposta subordinada ao planejamento |
+| `AIGAR_RUNTIME/knowledge_retrieval.py` | `CORTEX/engram/knowledge_retrieval.py` | Adaptador de recuperação; pacote externo `knowledge_retrieval/` continua independente |
+| `AIGAR_RUNTIME/linguistic_interpreter.py` | `CORTEX/thalamus/linguistic_interpreter.py` | Interpretação/classificação inicial; comparar contratos com `CORTEX/language/interpreter.py` |
+| `AIGAR_RUNTIME/diagnosis.py` | `aigar-c-2/Diagnosis/diagnosis.py` | Mantido fora do CORTEX para integração posterior |
+
+O lote 2 foi registrado como MIG-008–MIG-012 em `MIGRATION_INVENTORY_v1.md`. A alteração de caminho não incluiu tradução de imports nem testes. O conteúdo de origem foi preservado nos destinos, e cada remoção da origem ocorreu após a criação do destino.
+
+### Arquitetura aprovada para este estágio
+
+- `CORTEX/thalamus/`: `models.py` e `linguistic_interpreter.py`.
+- `CORTEX/engram/`: adaptador `knowledge_retrieval.py`.
+- `CORTEX/memory/`: `working_memory.py` e `hippocampal_memory.py`.
+- `CORTEX/language/`: adaptador de rede, interpretador linguístico e JSONs.
+- `CORTEX/prefrontal/`: controlador executivo e `aurora.py`.
+- `aigar-c-2/Diagnosis/`: adaptador do Diagnosis independente até a integração posterior.
+
+**Estado global:** movimentações dos lotes 1 e 2 registradas; atualização de referências pendente; testes ainda não autorizados nesta fase; sem merge/deploy; Cloudflare Worker excluído.
