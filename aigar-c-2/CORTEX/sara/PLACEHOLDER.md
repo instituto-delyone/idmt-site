@@ -1,7 +1,9 @@
-# SARA — Placeholder
+# SARA — estado de implementação
 
-**Estado:** planejado; ainda não implementado nesta estrutura.
+**Estado:** implementado parcialmente para status do processo.
 
-**Responsabilidade prevista:** inicialização, prontidão, verificações de saúde e registro do estado do runtime.
+## Componente existente
+- `runtime_status.py`: define `RuntimeStatus` e `current_runtime_status()`; o endpoint `/health` o expõe.
 
-**Próxima etapa:** inventariar os mecanismos existentes antes de decidir se algum arquivo será migrado para cá.
+## Limites conhecidos
+O payload declara apenas que o processo foi inicializado. Não realiza probes dos subsistemas externos e não certifica prontidão integral de memória, biblioteca, Diagnosis ou outros componentes. Portanto, `/health` não equivale a um health check completo de dependências.
