@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from knowledge_retrieval.retriever import KnowledgeRetriever
-from ..thalamus.models import SourceTrace
+
+from ..thalamus.models import LibraryQuery, LibrarySearchResult, SourceTrace
 
 
 class KnowledgeRetrievalAdapter:
@@ -12,19 +13,21 @@ class KnowledgeRetrievalAdapter:
     def __init__(self, root: str | Path | None = None):
         self.retriever = KnowledgeRetriever(root)
 
-    def search(
-        self,
-        query: str,
-        limit: int = 3,
-        reading: dict | None = None,
-    ) -> tuple[list[dict], SourceTrace]:
-        hits = self.retriever.search(query, limit=limit, reading=reading)
+    def search(self, request: LibraryQuery) -> LibrarySearchResult:
+        hits = self.retriever.search(
+            request.query,
+            limit=request.limit,
+            reading=request.reading or None,
+        )
         if not hits:
-            return [], SourceTrace(
-                kind="library",
-                id="local.library",
-                status="missing",
-                detail="Nenhum chunk disponível no cache local para esta consulta."
+            return LibrarySearchResult(
+                items=[],
+                source=SourceTrace(
+                    kind="library",
+                    id="local.library",
+                    status="missing",
+                    detail="Nenhum chunk disponível no cache local para esta consulta.",
+                ),
             )
 
         context = [{
@@ -41,11 +44,14 @@ class KnowledgeRetrievalAdapter:
             "text": h["text"],
         } for h in hits]
 
-        return context, SourceTrace(
-            kind="library",
-            id="local.library",
-            status="confirmed",
-            detail=f"{len(hits)} chunk(s) recuperado(s) por busca híbrida."
+        return LibrarySearchResult(
+            items=context,
+            source=SourceTrace(
+                kind="library",
+                id="local.library",
+                status="confirmed",
+                detail=f"{len(hits)} chunk(s) recuperado(s) por busca híbrida.",
+            ),
         )
 
     def load(self, chunk_id: str) -> tuple[dict | None, SourceTrace]:
@@ -55,11 +61,11 @@ class KnowledgeRetrievalAdapter:
                 kind="library",
                 id=chunk_id,
                 status="missing",
-                detail="Chunk não encontrado no cache local."
+                detail="Chunk não encontrado no cache local.",
             )
         return hit, SourceTrace(
             kind="library",
             id=chunk_id,
             status="confirmed",
-            detail="Chunk carregado sob demanda do cache local."
+            detail="Chunk carregado sob demanda do cache local.",
         )
