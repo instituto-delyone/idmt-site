@@ -25,11 +25,11 @@ class MemoryLabTests(unittest.TestCase):
         lab = MemoryLab(fetcher=None, config={"fallback_min_score": 2})
         lab.documents["curto_prazo"] = [
             {"path": "weak.txt", "name": "weak.txt", "content": "memoria contexto"},
-            {"path": "strong.txt", "name": "strong.txt", "content": "memoria contexto AIGAR contexto"},
+            {"path": "strong.txt", "name": "strong.txt", "content": "memoria contexto AIGAR"},
         ]
-        results = lab.retrieve("memoria", "curto_prazo")
+        results = lab.retrieve("memoria contexto AIGAR", "curto_prazo")
         self.assertTrue(results)
-        self.assertTrue(all(item["score"] >= 2 for item in results))
+        self.assertTrue(all(item["score"] >= 3 for item in results))
 
     def test_required_immediate_boot_default_is_enabled(self):
         self.assertTrue(DEFAULT_CONFIG["immediate_boot_required"])
