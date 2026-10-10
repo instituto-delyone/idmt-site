@@ -278,3 +278,12 @@ Implementado `CORTEX/sara/runtime_status.py` e integrado ao endpoint `/health` e
 - Commits: `9d877ba0adf20cad957527e89c452a1a720bc516` (contrato), `69ed53f4e3bc7dea500f369e5b5cf0fb7c8f02d6` (pacote), `fd3b9c5d97cc5d089c0a674e298398fb6c2bd41d` (ingress), `7b8d9e69706d5f1036b37d5b101b7e8895dcdd9e` (runtime).
 
 **Não implica validação funcional:** testes não executados; imports e demais caminhos ainda precisam de revisão estática global antes da fase de testes. Sem merge/deploy; Cloudflare Worker permanece intocado.
+
+## Atualização — contratos sensorial e de raciocínio (2026-10-10)
+
+- Fronteira sensorial criada: `CORTEX/sensory/ingress.py` recebe `RuntimeRequest` e gera `SensoryInput`, preservando texto e sessão. O runtime utiliza esse envelope.
+- Plano de raciocínio estruturado: `ReasoningPlan` definido no contrato canônico; o controlador pré-frontal o constrói e o runtime serializa na fronteira de saída do controlador.
+- Commits sensoriais: `9d877ba0adf20cad957527e89c452a1a720bc516`, `69ed53f4e3bc7dea500f369e5b5cf0fb7c8f02d6`, `fd3b9c5d97cc5d089c0a674e298398fb6c2bd41d`, `7b8d9e69706d5f1036b37d5b101b7e8895dcdd9e`.
+- Commits de raciocínio: `a3e5f271b935b10c2b91ed7193064756c681a46c`, `e33c1925c69720f39c1e4f17dbf9785849162ad7`, `78abf66938d7bc156ad8fd1a7707ab863fd6b728`.
+
+**Estado:** implementações registradas, ainda sem validação em execução. Testes adiados até a conclusão da revisão global de referências; sem merge/deploy; Cloudflare Worker intocado.
