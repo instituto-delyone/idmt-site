@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .models import ConversationState
+from ..thalamus.models import ConversationState
 
 class WorkingStateStore:
     """In-memory working state for the first runtime.
