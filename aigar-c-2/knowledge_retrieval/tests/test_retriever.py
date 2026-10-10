@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from knowledge_retrieval.retriever import LibraryRetriever
+from knowledge_retrieval.retriever import KnowledgeRetriever
 
 
 def test_search_load_and_reconstruct(tmp_path):
@@ -22,7 +22,7 @@ def test_search_load_and_reconstruct(tmp_path):
     ]}
     (root / "indexes" / "demo.index.json").write_text(json.dumps(index), encoding="utf-8")
 
-    retriever = LibraryRetriever(root)
+    retriever = KnowledgeRetriever(root)
     hits = retriever.search("história humanidade")
     assert hits[0]["id"] == "DEMO-A"
     assert "cooperação" in retriever.load("DEMO-A")["text"]
