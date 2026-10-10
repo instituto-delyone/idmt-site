@@ -9,6 +9,19 @@
     "disable_python_external_sdk"
   ],
   "ai": { "binding": "AI" },
+  "d1_databases": [
+    {
+      "binding": "AIGAR_DB",
+      "database_name": "AIGAR",
+      "database_id": "8e73d3a8-09cd-4b82-b59e-cc5705afa922"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "AIGAR_LIBRARY_BUCKET",
+      "bucket_name": "aigar-library"
+    }
+  ],
   "workflows": [
     {
       "name": "aigar-library-builder",
