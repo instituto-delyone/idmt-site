@@ -68,3 +68,6 @@ Conectar os adaptadores aos componentes reais existentes no repositório e, depo
 - `memory.py` → `hippocampal_memory.py`; `MemoryAdapter` → `HippocampalMemoryAdapter` (the current implementation still only provides session-local continuity; persistent recall remains unwired).
 
 - `language_bridge.py` → `language_network_bridge.py`; `ExecutableLanguageAdapter` → `LanguageNetworkAdapter`. A pasta histórica `AIGAR_LANGUAGE/` ainda será migrada em etapa própria, após mapear todos os consumidores.
+
+- `library.py` → `knowledge_retrieval.py`; `LibraryAdapter` → `KnowledgeRetrievalAdapter`.
+- `conversation.py` → `working_state.py`; `ConversationStore` → `WorkingStateStore`. This module stores only in-memory session state; it is not long-term memory.
