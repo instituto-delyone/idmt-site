@@ -22,7 +22,7 @@ class MemoryLabTests(unittest.TestCase):
         self.assertIn("fallback_min_score", DEFAULT_CONFIG)
 
     def test_fallback_min_score_filters_weak_matches(self):
-        lab = MemoryLab(fetcher=None, config={"fallback_min_score": 2})
+        lab = MemoryLab(fetcher=None, config={"fallback_min_score": 3})
         lab.documents["curto_prazo"] = [
             {"path": "weak.txt", "name": "weak.txt", "content": "memoria contexto"},
             {"path": "strong.txt", "name": "strong.txt", "content": "memoria contexto AIGAR"},
