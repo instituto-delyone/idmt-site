@@ -3,7 +3,7 @@ from __future__ import annotations
 import json, re, time
 from urllib.parse import quote
 MEMORY_LAYERS = {"imediata":"memoria_imediata","curto_prazo":"memoria_curto_prazo","longo_prazo":"memoria_longo_prazo"}
-DEFAULT_CONFIG = {"enabled":True,"repository":"instituto-delyone/idmt-site","ref":"main","root":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab","refresh_seconds":60,"short_term_top_k":3,"long_term_top_k":4,"max_document_chars":120000}
+DEFAULT_CONFIG = {"enabled":True,"repository":"instituto-delyone/idmt-site","ref":"main","root":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab","refresh_seconds":60,"short_term_top_k":3,"long_term_top_k":4,"max_document_chars":120000,"immediate_boot_required":True,"fallback_min_score":1}
 def _terms(text): return set(re.findall(r"[a-zA-ZÀ-ÿ0-9_+-]{2,}", (text or "").lower()))
 def _score(query, content, name=""): return len(_terms(query) & _terms((name or "")+" "+(content or "")))
 class MemoryLab:
@@ -27,7 +27,7 @@ class MemoryLab:
             try:
                 remote_config=await self._request(f"https://raw.githubusercontent.com/{repo}/{ref}/{encoded_config}")
                 parsed_config=json.loads(remote_config)
-                allowed={"enabled","repository","ref","root","refresh_seconds","short_term_top_k","long_term_top_k","max_document_chars"}
+                allowed={"enabled","repository","ref","root","refresh_seconds","short_term_top_k","long_term_top_k","max_document_chars","immediate_boot_required","fallback_min_score"}
                 self.config.update({k:v for k,v in parsed_config.items() if k in allowed})
                 repo,ref=self.config["repository"],quote(str(self.config["ref"]),safe="")
             except Exception:
@@ -39,7 +39,7 @@ class MemoryLab:
             paths=[x.get("path","") for x in tree.get("tree",[]) if x.get("type")=="blob"]
             docs={k:[] for k in MEMORY_LAYERS}; stats={k:{"files_found":0,"files_loaded":0,"errors":[]} for k in MEMORY_LAYERS}
             for layer,folder in MEMORY_LAYERS.items():
-                candidates=[p for p in paths if p.startswith(root+"/"+folder+"/") and p.lower().endswith(".txt")]
+                candidates=[p for p in paths if p.startswith(root+"/"+folder+"/") and p.lower().endswith(".txt") and p.rsplit("/",1)[-1].casefold() != "readme.txt"]
                 stats[layer]["files_found"]=len(candidates)
                 for path in candidates:
                     try:
@@ -50,8 +50,18 @@ class MemoryLab:
                         docs[layer].append({"path":path,"name":path.rsplit("/",1)[-1],"content":content,"chars":len(content)})
                         stats[layer]["files_loaded"]+=1
                     except Exception as exc: stats[layer]["errors"].append({"path":path,"error":str(exc)[:250]})
-            self.documents=docs; im=stats["imediata"]; ready=im["files_found"]==im["files_loaded"]
-            self.status={"enabled":True,"ready":ready,"mode":"ready" if ready else "partial","layers":stats,"last_scan":int(now),"error":None if ready else "One or more immediate-memory TXT files failed to load."}
+            self.documents=docs; im=stats["imediata"]
+            immediate_loaded_all = im["files_found"] == im["files_loaded"]
+            immediate_has_content = im["files_loaded"] > 0
+            required = bool(self.config.get("immediate_boot_required", True))
+            ready = immediate_loaded_all and (immediate_has_content or not required)
+            if ready:
+                error = None
+            elif required and not immediate_has_content and immediate_loaded_all:
+                error = "Immediate-memory boot is required, but no substantive TXT documents were found (README.txt is ignored)."
+            else:
+                error = "One or more required immediate-memory TXT files failed to load."
+            self.status={"enabled":True,"ready":ready,"mode":"ready" if ready else "partial","layers":stats,"last_scan":int(now),"error":error}
             self._last_scan=now
         except Exception as exc: self.status.update({"ready":False,"mode":"error","error":str(exc)[:500]})
         return self.get_status()
@@ -59,7 +69,8 @@ class MemoryLab:
         ranked=[]
         for doc in self.documents.get(layer,[]):
             score=_score(query,doc["content"],doc["name"])
-            if score: ranked.append((score,doc))
+            minimum_score = max(0, int(self.config.get("fallback_min_score", 1)))
+            if score >= minimum_score and score > 0: ranked.append((score,doc))
         ranked.sort(key=lambda x:x[0],reverse=True)
         default=self.config["short_term_top_k"] if layer=="curto_prazo" else self.config["long_term_top_k"]
         return [{"layer":layer,"path":d["path"],"name":d["name"],"score":s,"content":d["content"]} for s,d in ranked[:int(limit or default)]]
