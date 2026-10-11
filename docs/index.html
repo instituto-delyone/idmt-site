@@ -27,22 +27,181 @@
     <section class="cards" aria-label="Escolha seu perfil">
       <a class="card primary" href="../teleconsulta/"><div class="icon" aria-hidden="true">🩺</div><h2>Sou paciente</h2><p>Quero me consultar e conhecer as opções de atendimento e telemedicina.</p><span class="cta">Ir para consultas <span aria-hidden="true">→</span></span></a>
       <a class="card" href="../profissionais/"><div class="icon" aria-hidden="true">👨‍⚕️</div><h2>Sou médico ou profissional da saúde</h2><p>Quero acessar recursos, ferramentas, educação médica, fórum e projetos do Instituto.</p><span class="cta">Acessar área profissional <span aria-hidden="true">→</span></span></a>
+      
+<style>
+/* Credenciais institucionais — IDMT */
+.idmt-credentials {
+  box-sizing: border-box;
+  width: min(100% - 32px, 760px);
+  margin: 36px auto 58px;
+  padding: 38px 24px;
+  text-align: center;
+  color: #f7fbff;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(54, 135, 190, 0.22),
+      transparent 65%
+    ),
+    linear-gradient(155deg, #0b2b47, #06172b);
+  border: 1px solid #315c7b;
+  border-radius: 28px;
+  box-shadow: 0 22px 55px rgba(0, 15, 35, 0.24);
+}
+
+.idmt-credentials,
+.idmt-credentials * {
+  box-sizing: border-box;
+}
+
+.idmt-credentials__icon {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 12px;
+  color: #8edbfa;
+}
+
+.idmt-credentials h2 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.idmt-credentials__subtitle {
+  max-width: 440px;
+  margin: 0 auto;
+  color: #b7d8ea;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  letter-spacing: 0.09em;
+}
+
+.idmt-credentials__rule {
+  width: 100%;
+  height: 1px;
+  margin: 28px auto;
+  background: #47718b;
+  opacity: 0.75;
+}
+
+.idmt-credentials__list {
+  display: grid;
+  gap: 24px;
+}
+
+.idmt-credentials__item {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.idmt-credentials__label {
+  color: #8edbfa;
+  font-size: 0.82rem;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: 0.055em;
+}
+
+.idmt-credentials__number {
+  color: #ffffff;
+  font-size: clamp(1.2rem, 3.8vw, 1.65rem);
+  font-weight: 850;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.idmt-credentials__separator {
+  width: 56px;
+  height: 1px;
+  margin: 0 auto;
+  background: #315c7b;
+}
+
+@media (max-width: 480px) {
+  .idmt-credentials {
+    padding: 30px 18px;
+    border-radius: 24px;
+  }
+
+  .idmt-credentials__list {
+    gap: 20px;
+  }
+}
+</style>
+
+<section class="idmt-credentials"
+         aria-labelledby="idmt-credentials-title">
+
+  <svg class="idmt-credentials__icon"
+       viewBox="0 0 24 24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="1.8"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       aria-hidden="true">
+    <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/>
+    <path d="m9 12 2 2 4-4"/>
+  </svg>
+
+  <h2 id="idmt-credentials-title">
+    Credenciais do Instituto
+  </h2>
+
+  <p class="idmt-credentials__subtitle">
+    INSTITUTO DELYONE DE MEDICINA E TECNOLOGIA
+  </p>
+
+  <div class="idmt-credentials__rule"></div>
+
+  <div class="idmt-credentials__list">
+
+    <div class="idmt-credentials__item">
+      <span class="idmt-credentials__label">NCAGE</span>
+      <span class="idmt-credentials__number">06M2K</span>
+    </div>
+
+    <div class="idmt-credentials__separator"></div>
+
+    <div class="idmt-credentials__item">
+      <span class="idmt-credentials__label">
+        UEI · SAM.gov
+      </span>
+      <span class="idmt-credentials__number">
+        TVDBA31ZKM55
+      </span>
+    </div>
+
+    <div class="idmt-credentials__separator"></div>
+
+    <div class="idmt-credentials__item">
+      <span class="idmt-credentials__label">CNPJ</span>
+      <span class="idmt-credentials__number">
+        66.686.266/0001-48
+      </span>
+    </div>
+
+    <div class="idmt-credentials__separator"></div>
+
+    <div class="idmt-credentials__item">
+      <span class="idmt-credentials__label">
+        Inscrição de Pessoa Jurídica · CREMEGO
+      </span>
+      <span class="idmt-credentials__number">
+        12.735
+      </span>
+    </div>
+
+  </div>
+</section>
+
       <a class="card" href="../instituto/"><div class="icon" aria-hidden="true">🏛️</div><h2>Quero conhecer o Instituto</h2><p>Quero conhecer a experiência completa, os projetos, a estrutura, a pesquisa e a atuação do IDMT.</p><span class="cta">Conhecer o Instituto <span aria-hidden="true">→</span></span></a>
       <a class="card proposal-card" href="../propostas-saude/"><span class="proposal-badge">Proposta · Saúde pública</span><div class="icon" aria-hidden="true">🏥</div><div class="proposal-copy"><h2>Conheça nossa proposta para a melhoria da saúde pública</h2><p>Uma proposta de desenvolvimento tecnológico para estruturação, gestão e interoperabilidade de dados clínicos, com perspectiva de contribuição para a organização e utilização das informações de saúde no âmbito do SUS.</p><span class="cta">Conhecer a proposta <span aria-hidden="true">→</span></span></div></a>
       <a class="card" href="../research-network/"><div class="icon" aria-hidden="true">🌎</div><h2>Research Network</h2><p>Encontre oportunidades internacionais de pesquisa, financiamento e colaboração. Descubra uma oportunidade e conecte as competências necessárias.</p><span class="cta">Explorar oportunidades <span aria-hidden="true">→</span></span></a>
-    </section>
-    <section class="credentials" aria-labelledby="credentials-title">
-      <h2 class="credentials-heading" id="credentials-title">Credenciais e registros</h2>
-      <p class="credentials-intro">Identificadores institucionais e registros de desenvolvimento do ecossistema Instituto Delyone.</p>
-      <div class="credential-grid">
-        <article class="credential"><span class="credential-label">Pessoa jurídica</span><strong>CNPJ 66.686.266/0001-48</strong><small>Instituto Delyone de Medicina e Tecnologia LTDA</small></article>
-        <article class="credential"><span class="credential-label">Registro profissional institucional</span><strong>CREMEGO nº 12735</strong><small>Registro informado pelo Instituto</small></article>
-        <article class="credential"><span class="credential-label">Registro de software</span><strong>BR512026006823-1</strong><small>Registro de programa de computador</small></article>
-        <article class="credential"><span class="credential-label">Pedido de patente</span><strong>BR 10 2026 001743-4</strong><small>Pedido depositado; não significa patente concedida</small></article>
-        <article class="credential"><span class="credential-label">Pedido de patente</span><strong>BR 10 2026 019277-5</strong><small>Pedido depositado; não significa patente concedida</small></article>
-        <article class="credential"><span class="credential-label">Presença institucional</span><strong>CNPq · SAM.gov · NATO NCAGE</strong><small>Cadastros e identificadores institucionais</small></article>
-      </div>
-      <p class="credential-note">Os registros têm naturezas diferentes. A menção a cadastros, pedidos ou identificadores não implica endosso, parceria ou concessão de patente por terceiros.</p>
     </section>
     <footer><strong>Instituto Delyone de Medicina, Tecnologia, Desenvolvimento e Pesquisa</strong><br>Uma porta de entrada para diferentes formas de interação com o ecossistema IDMT.</footer>
   </main>
