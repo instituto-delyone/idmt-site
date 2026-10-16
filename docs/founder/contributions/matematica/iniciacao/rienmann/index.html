@@ -346,6 +346,49 @@
       <div class="notice"><strong>Interpretação.</strong><br>Nos testes documentados para o sétimo, oitavo e nono zeros, os valores conhecidos ficaram dentro das faixas previstas. Isso é um resultado exploratório de cobertura em uma amostra pequena, não uma garantia de desempenho futuro. A faixa original foi estimada com apenas cinco diferenças e deve ser mantida fixa para os próximos testes, sem reajustá-la depois de conhecer os resultados.</div>
     </section>
 
+
+    <section class="section" id="caderno-preditivo">
+      <div class="section-label">07 · Caderno de previsão</div>
+      <h2>Da reconstrução à previsão por intervalos</h2>
+      <div class="card">
+        <p><strong>Etapa 1 — Modelo com o zero conhecido.</strong> Inicialmente, calcula-se T<sub>n</sub> a partir de D<sub>n</sub> conhecido e depois Δ<sub>n</sub> = D<sub>n</sub> − T<sub>n</sub>. Isso descreve e reconstrói um dado já conhecido; isoladamente, não prevê o próximo zero.</p>
+        <p><strong>Etapa 2 — Observar as variações.</strong> Calcula-se δ<sub>n</sub> = Δ<sub>n</sub> − Δ<sub>n−1</sub>. Nos cinco intervalos iniciais usados no estudo, observou-se aproximadamente:</p>
+        <div class="equations">
+          <div class="equation">2,998732 ≤ δ<sub>n</sub> ≤ 6,097928</div>
+          <small>Faixa empírica inicial, extraída de cinco observações</small>
+        </div>
+        <p><strong>Etapa 3 — Prever sem consultar o próximo zero.</strong> Partindo da última correção conhecida, projeta-se Δ<sub>n+1</sub> somando o limite inferior e o superior. Depois, resolve-se numericamente Δ = D + 20 cos(ln D) para converter os limites em uma faixa para D<sub>n+1</sub>.</p>
+        <p><strong>Etapa 4 — Congelar a previsão.</strong> Antes de consultar o valor real, registrar limites, centro, regra utilizada e data/versão do cálculo. Só depois comparar com o zero conhecido e calcular erro e cobertura.</p>
+        <p><strong>Etapa 5 — Refinar sem viciar o teste.</strong> Uma nova transformação ou novos limites devem ser desenvolvidos com um conjunto de dados e testados em zeros posteriores que não participaram do ajuste.</p>
+      </div>
+      <div class="notice"><strong>Como ler este caderno.</strong><br>O intervalo é uma faixa de previsão empírica, não uma garantia matemática. Os zeros D7, D8 e D9 ficaram dentro das faixas documentadas até aqui, mas a amostra ainda é pequena. A identidade Δ = D + 20 cos(ln D) é usada para inverter a transformação; ela não demonstra que exista um zero fora da linha crítica.</div>
+    </section>
+
+    <section class="section" id="pontos-na-faixa">
+      <div class="section-label">08 · Conferência dentro da faixa</div>
+      <h2>O que acontece entre os limites previstos?</h2>
+      <div class="card">
+        <p>Para a faixa prevista para D<sub>9</sub>, 45,682157 ≤ t ≤ 48,109610, podemos avaliar ζ(½ + it) em pontos de teste. O módulo |ζ(½ + it)| indica a distância do valor da função a zero: se o módulo é positivo, aquele ponto específico não é um zero. Os valores abaixo são avaliações numéricas aproximadas, não uma prova de que não existam outros zeros entre os pontos amostrados.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:.92rem">
+            <thead><tr style="text-align:left;border-bottom:1px solid var(--line)"><th style="padding:10px">t testado</th><th style="padding:10px">|ζ(½ + it)| aprox.</th><th style="padding:10px">Leitura</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">45,682157</td><td style="padding:10px">3,662628</td><td style="padding:10px">Não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">46,000000</td><td style="padding:10px">3,528271</td><td style="padding:10px">Não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">46,500000</td><td style="padding:10px">2,931592</td><td style="padding:10px">Não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">46,895884</td><td style="padding:10px">2,207722</td><td style="padding:10px">Centro da faixa; não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">47,000000</td><td style="padding:10px">1,994562</td><td style="padding:10px">Não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">47,500000</td><td style="padding:10px">0,937247</td><td style="padding:10px">Não é zero</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">48,000000</td><td style="padding:10px">0,008095</td><td style="padding:10px">Valor próximo de zero; não é exatamente zero nessa avaliação</td></tr>
+              <tr><td style="padding:10px">48,109610</td><td style="padding:10px">0,155836</td><td style="padding:10px">Não é zero</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">O nono zero conhecido está em D<sub>9</sub> ≈ 48,005151, dentro da faixa. A amostragem mostra que muitos pontos da faixa não são zeros — como é esperado — e não significa que todos os números da faixa sejam zeros. Para identificar todos os zeros dentro de um intervalo, seria necessário um procedimento de localização e verificação de zeros, não apenas avaliar alguns pontos.</p>
+      </div>
+      <div class="notice"><strong>Distinção importante.</strong><br>A faixa de previsão refere-se à coordenada t de um possível zero na linha crítica, s = ½ + it. Avaliar ζ(½ + it) em pontos da faixa testa se esses pontos específicos são zeros nessa linha; isso não pesquisa zeros com parte real diferente de ½ e, portanto, não testa por si só a Hipótese de Riemann.</div>
+    </section>
+
     <section class="section" id="plano">
       <div class="section-label">05 · Plano de investigação</div>
       <h2>Etapas de desenvolvimento</h2>
@@ -370,9 +413,11 @@
         <a href="#teste-d8"><b>06</b><span><strong>Teste preditivo do D8</strong><small>Limites empíricos e conferência</small></span></a>
         <a href="#teste-d9"><b>07</b><span><strong>Teste preditivo do D9</strong><small>Faixa visual, erro e variação</small></span></a>
         <a href="#interpretacao-computacional"><b>08</b><span><strong>Interpretação computacional</strong><small>Transformação real e margem de erro</small></span></a>
-        <a href="#plano"><b>09</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>10</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
-        <a href="#referencias"><b>11</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+        <a href="#caderno-preditivo"><b>09</b><span><strong>Caderno de previsão</strong><small>Da reconstrução à previsão por intervalos</small></span></a>
+        <a href="#pontos-na-faixa"><b>10</b><span><strong>Pontos dentro da faixa</strong><small>Avaliações de ζ em pontos que não são zeros</small></span></a>
+        <a href="#plano"><b>11</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>12</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>13</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
 
