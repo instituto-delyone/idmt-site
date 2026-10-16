@@ -278,6 +278,74 @@
       <div class="notice"><strong>Nota de rigor científico.</strong><br>A transformação real não elimina a parte imaginária do zero original da zeta nem cria, por si só, um novo zero. Ela transforma a coordenada D<sub>n</sub> em T<sub>n</sub> e permite estudar uma sequência auxiliar de diferenças. Os resultados atuais não demonstram a Hipótese de Riemann; investigam apenas uma possível regularidade numérica e sua capacidade preditiva.</div>
     </section>
 
+    <section class="section" id="teste-d9">
+      <div class="section-label">06 · Terceiro teste consecutivo</div>
+      <h2>Previsão do nono zero: faixa e conferência</h2>
+      <div class="card">
+        <p><strong>Regra mantida.</strong> Usamos a correção conhecida do oitavo zero, Δ<sub>8</sub> ≈ 27,133419, e a faixa empírica de variações observada nos cinco intervalos iniciais. O valor real do nono zero não foi usado para construir a previsão.</p>
+        <div class="equations">
+          <div class="equation">2,998732 ≤ δ<sub>n</sub> ≤ 6,097928</div>
+          <div class="equation">30,132150 ≤ Δ<sub>9</sub> ≤ 33,231346</div>
+          <small>Faixa para a correção do nono zero</small>
+          <div class="equation">Δ̂<sub>9</sub> ≈ 31,808838</div>
+          <small>Estimativa central pela média inicial, 4,675420</small>
+        </div>
+        <p>Convertendo os limites e a estimativa central pela relação Δ = D + 20 cos(ln D), obtemos:</p>
+        <div class="equations">
+          <div class="equation">45,682157 ≤ D<sub>9</sub> ≤ 48,109610</div>
+          <div class="equation">D̂<sub>9</sub> ≈ 46,996005</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Faixa visual de previsão</h3>
+        <p class="muted">A barra representa o intervalo previsto. O marcador vertical indica o valor real conhecido, usado apenas depois de fixar a previsão.</p>
+        <div style="margin:24px 4px 10px;position:relative;padding-top:28px">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;gap:10px">
+            <span>45,682157</span><span>48,109610</span>
+          </div>
+          <div style="height:18px;background:#e4edf5;border-radius:999px;position:relative;margin-top:10px;overflow:visible">
+            <div style="height:18px;width:95.7%;background:#41998d;border-radius:999px"></div>
+            <div style="position:absolute;left:95.7%;top:-8px;height:34px;width:3px;background:#b45309;border-radius:2px" aria-label="Valor real do nono zero"></div>
+            <div style="position:absolute;left:54.1%;top:-7px;height:32px;width:3px;background:#246b9c;border-radius:2px" aria-label="Estimativa central"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.82rem;margin-top:14px">
+            <span><strong style="color:#246b9c">│</strong> Estimativa: 46,996005</span>
+            <span><strong style="color:#b45309">│</strong> Real: 48,005151</span>
+          </div>
+        </div>
+        <p>O valor real do nono zero, D<sub>9</sub> ≈ 48,005151, ficou dentro da faixa prevista e próximo do limite superior.</p>
+        <div class="equations">
+          <div class="equation">45,682157 ≤ 48,005151 ≤ 48,109610</div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="number">ESTIMATIVA CENTRAL</div>
+          <h3>46,996005</h3>
+          <p class="muted">Previsão antes da conferência.</p>
+        </div>
+        <div class="card">
+          <div class="number">VALOR REAL</div>
+          <h3>48,005151</h3>
+          <p class="muted">Coordenada imaginária positiva conhecida.</p>
+        </div>
+        <div class="card">
+          <div class="number">ERRO CENTRAL</div>
+          <h3>≈ 2,10%</h3>
+          <p class="muted">Erro absoluto aproximado: 1,009146.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>A variação observada também ficou na faixa?</h3>
+        <p>Com o valor real conhecido, calculamos Δ<sub>9</sub> ≈ 33,097871 e, portanto, δ<sub>9</sub> = Δ<sub>9</sub> − Δ<sub>8</sub> ≈ 5,964453.</p>
+        <div class="equations">
+          <div class="equation">2,998732 ≤ 5,964453 ≤ 6,097928</div>
+        </div>
+        <p class="muted">A variação real ficou dentro da faixa empírica inicial. Essa conferência é posterior à previsão e não foi usada para construir os limites do teste.</p>
+      </div>
+      <div class="notice"><strong>Interpretação.</strong><br>Nos testes documentados para o sétimo, oitavo e nono zeros, os valores conhecidos ficaram dentro das faixas previstas. Isso é um resultado exploratório de cobertura em uma amostra pequena, não uma garantia de desempenho futuro. A faixa original foi estimada com apenas cinco diferenças e deve ser mantida fixa para os próximos testes, sem reajustá-la depois de conhecer os resultados.</div>
+    </section>
+
     <section class="section" id="plano">
       <div class="section-label">05 · Plano de investigação</div>
       <h2>Etapas de desenvolvimento</h2>
@@ -300,10 +368,11 @@
         <a href="#metodo"><b>04</b><span><strong>Transformação e diferenças</strong><small>Definições e sequência de diferenças</small></span></a>
         <a href="#teste-d7"><b>05</b><span><strong>Teste preditivo do D7</strong><small>Faixa prevista, estimativa e erro</small></span></a>
         <a href="#teste-d8"><b>06</b><span><strong>Teste preditivo do D8</strong><small>Limites empíricos e conferência</small></span></a>
-        <a href="#interpretacao-computacional"><b>07</b><span><strong>Interpretação computacional</strong><small>Transformação real e margem de erro</small></span></a>
-        <a href="#plano"><b>08</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>09</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
-        <a href="#referencias"><b>10</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+        <a href="#teste-d9"><b>07</b><span><strong>Teste preditivo do D9</strong><small>Faixa visual, erro e variação</small></span></a>
+        <a href="#interpretacao-computacional"><b>08</b><span><strong>Interpretação computacional</strong><small>Transformação real e margem de erro</small></span></a>
+        <a href="#plano"><b>09</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>10</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>11</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
 
