@@ -162,8 +162,55 @@
       <div class="notice"><strong>Nota de rigor científico</strong><br>Esta é uma investigação exploratória. A transformação, por si só, não demonstra a Hipótese de Riemann nem gera novos zeros da função zeta. Qualquer capacidade preditiva precisa ser validada com dados não usados na construção do método.</div>
     </section>
 
+
+    <section class="section" id="teste-d7">
+      <div class="section-label">04 · Teste preditivo preliminar</div>
+      <h2>Previsão do sétimo zero: faixa, estimativa central e conferência</h2>
+      <div class="card">
+        <p><strong>Protocolo.</strong> Para simular uma previsão sem conhecer o sétimo termo, usamos apenas os seis primeiros valores de Δ<sub>n</sub> e suas cinco diferenças consecutivas. Mantivemos a transformação original, com coeficiente 20:</p>
+        <div class="equations">
+          <div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div>
+          <div class="equation">Δ<sub>n</sub> = D<sub>n</sub> + 20 cos(ln D<sub>n</sub>)</div>
+          <div class="equation">δ<sub>n</sub> = Δ<sub>n</sub> − Δ<sub>n−1</sub></div>
+        </div>
+        <p>Nas cinco diferenças observadas até n = 6, o mínimo foi aproximadamente 2,9987 e o máximo, 6,0979. A média foi 4,6754. Esses valores definem uma faixa empírica inicial, não um limite matemático garantido.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Faixa prevista para Δ<sub>7</sub></h3>
+          <div class="equations"><div class="equation">22,8918 ≤ Δ<sub>7</sub> ≤ 25,9910</div></div>
+          <p class="muted">Calculada somando o mínimo e o máximo das cinco diferenças anteriores a Δ<sub>6</sub> ≈ 19,8931.</p>
+        </div>
+        <div class="card">
+          <h3>Estimativa central</h3>
+          <div class="equations"><div class="equation">Δ̂<sub>7</sub> = Δ<sub>6</sub> + média(δ<sub>2</sub>, …, δ<sub>6</sub>)</div><div class="equation">Δ̂<sub>7</sub> ≈ 24,5685</div></div>
+          <p class="muted">A estimativa central usa a média das cinco diferenças observadas, sem recalibrar o modelo com o sétimo termo.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Conversão da faixa para uma previsão de D<sub>7</sub></h3>
+        <p>Como Δ<sub>7</sub> = D<sub>7</sub> + 20 cos(ln D<sub>7</sub>), resolvemos numericamente essa relação para converter a faixa de correções em uma faixa para a coordenada imaginária do zero:</p>
+        <div class="equations">
+          <div class="equation">Faixa prevista: D<sub>7</sub> ≈ 39,9767 a 42,4274</div>
+          <div class="equation">Estimativa central: D̂<sub>7</sub> ≈ 41,3046</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Conferência com o valor conhecido</h3>
+        <p>O valor tabulado para a sétima parte imaginária positiva de um zero não trivial é D<sub>7</sub> ≈ 40,918719. Ele está dentro da faixa prevista.</p>
+        <div class="grid">
+          <div class="stat"><span class="muted">Estimativa central</span><strong>41,3046</strong></div>
+          <div class="stat"><span class="muted">Valor conhecido</span><strong>40,9187</strong></div>
+          <div class="stat"><span class="muted">Erro absoluto</span><strong>0,3858</strong></div>
+          <div class="stat"><span class="muted">Erro relativo</span><strong>≈ 0,94%</strong></div>
+        </div>
+        <p>Com o valor conhecido, obtém-se Δ<sub>7</sub> ≈ 24,0806 e δ<sub>7</sub> ≈ 4,1876. Essa diferença também está dentro da faixa anterior, de aproximadamente 2,9987 a 6,0979.</p>
+      </div>
+      <div class="notice"><strong>Interpretação e limite do teste</strong><br>O sétimo termo ficou dentro da faixa empírica e a estimativa central apresentou erro relativo de cerca de 0,94%. É um resultado preliminar promissor, mas um único teste não demonstra uma lei oscilatória nem garante desempenho futuro. A faixa foi inferida de apenas cinco diferenças; a próxima etapa é manter o procedimento fixo e testar previsões sucessivas em termos que não participem do ajuste.</div>
+    </section>
+
     <section class="section" id="plano">
-      <div class="section-label">04 · Plano de investigação</div>
+      <div class="section-label">05 · Plano de investigação</div>
       <h2>Etapas de desenvolvimento</h2>
       <div class="steps">
         <div class="step"><strong>1. Formalizar</strong><span>Definir notação, hipóteses e procedimentos de cálculo.</span></div>
@@ -181,14 +228,15 @@
         <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
         <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
         <a href="#metodo"><b>03</b><span><strong>Transformação proposta</strong><small>Definições e sequência de diferenças</small></span></a>
-        <a href="#plano"><b>04</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>05</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
-        <a href="#referencias"><b>06</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+        <a href="#teste-d7"><b>04</b><span><strong>Teste preditivo do D7</strong><small>Faixa prevista, estimativa e erro</small></span></a>
+        <a href="#plano"><b>05</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>06</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>07</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
 
     <section class="section" id="resultados">
-      <div class="section-label">05 · Estado atual</div>
+      <div class="section-label">06 · Estado atual</div>
       <h2>Resultados preliminares</h2>
       <div class="card">
         <p>Os cálculos iniciais são exploratórios e servem para formular perguntas sobre o comportamento de T<sub>n</sub> e Δ<sub>n</sub>. Ainda é necessário estabelecer um procedimento de previsão independente e avaliar seu desempenho em dados de teste.</p>
@@ -197,7 +245,7 @@
     </section>
 
     <section class="section" id="referencias">
-      <div class="section-label">06 · Continuidade</div>
+      <div class="section-label">07 · Continuidade</div>
       <h2>Referências e caderno técnico</h2>
       <div class="card">
         <p>Esta área poderá reunir referências bibliográficas verificadas, tabelas de cálculo, definições completas, métodos de estimação e o histórico de versões da investigação.</p>
