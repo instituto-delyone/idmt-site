@@ -389,6 +389,40 @@
       <div class="notice"><strong>Distinção importante.</strong><br>A faixa de previsão refere-se à coordenada t de um possível zero na linha crítica, s = ½ + it. Avaliar ζ(½ + it) em pontos da faixa testa se esses pontos específicos são zeros nessa linha; isso não pesquisa zeros com parte real diferente de ½ e, portanto, não testa por si só a Hipótese de Riemann.</div>
     </section>
 
+
+    <section class="section" id="graficos">
+      <div class="section-label">06 · Registro visual</div>
+      <h2>Gráficos e dados da investigação</h2>
+      <p class="muted">Painel visual para acompanhar a transformação, as faixas de previsão e o comportamento numérico observado. Os gráficos esquemáticos estão identificados como tais; para cálculos exatos, consulte os valores tabulados.</p>
+      <div class="grid">
+        <article class="card" style="grid-column:1/-1">
+          <h3>1. Variações consecutivas da correção</h3>
+          <p class="muted">Limites empíricos iniciais: aproximadamente 2,998732 a 6,097928.</p>
+          <img src="assets/grafico-1-variacoes.svg" alt="Gráfico das variações consecutivas da correção" style="display:block;width:100%;height:auto">
+        </article>
+        <article class="card" style="grid-column:1/-1">
+          <h3>2. Faixas previstas para D7, D8 e D9</h3>
+          <img src="assets/grafico-2-faixas.svg" alt="Faixas previstas comparadas aos zeros conhecidos" style="display:block;width:100%;height:auto">
+        </article>
+        <article class="card" style="grid-column:1/-1">
+          <h3>3. Transformação e correção</h3>
+          <p class="muted">Esquema visual ilustrativo; não utilizar para extrair valores numéricos.</p>
+          <img src="assets/grafico-3-transformacao.svg" alt="Esquema ilustrativo de D, T e Delta" style="display:block;width:100%;height:auto">
+        </article>
+        <article class="card" style="grid-column:1/-1">
+          <h3>4. Módulo da função zeta nas faixas</h3>
+          <p class="muted">Esquema ilustrativo. A curva não representa amostragem numérica validada; consulte as avaliações pontuais registradas na seção de pontos dentro da faixa.</p>
+          <img src="assets/grafico-4-zeta.svg" alt="Esquema ilustrativo do módulo da função zeta" style="display:block;width:100%;height:auto">
+        </article>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Dados tabulados</h3>
+        <p>Arquivo CSV com as coordenadas Dₙ e os valores transformados Tₙ e Δₙ:</p>
+        <p><a class="back" href="dados-zeros.csv" download>Baixar tabela numérica (CSV) ↓</a></p>
+      </div>
+      <div class="notice"><strong>Nota metodológica.</strong><br>As faixas D7–D9 são resultados exploratórios. Os gráficos não provam um limite universal para as variações nem a Hipótese de Riemann. Os valores numéricos devem ser conferidos contra uma fonte confiável e um procedimento de cálculo reproduzível.</div>
+    </section>
+
     <section class="section" id="plano">
       <div class="section-label">05 · Plano de investigação</div>
       <h2>Etapas de desenvolvimento</h2>
@@ -404,7 +438,7 @@
       <div class="section-label">Navegação</div>
       <h2>Índice da pesquisa</h2>
       <p class="muted">Estrutura inicial para organizar o desenvolvimento do estudo.</p>
-      <nav class="index" aria-label="Índice da pesquisa">
+      <nav class="index" aria-label="Índice da pesquisa">\n        <a href="#graficos"><b>14</b><span><strong>Gráficos e dados</strong><small>Faixas, transformação e arquivo CSV</small></span></a>
         <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
         <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
         <a href="#transformacao-algebrica"><b>03</b><span><strong>Interpretação algébrica</strong><small>Da potência complexa à parte real</small></span></a>
