@@ -149,6 +149,30 @@
       </div>
     </section>
 
+    <section class="section" id="transformacao-algebrica">
+      <div class="section-label">03 · Interpretação algébrica</div>
+      <h2>De uma potência complexa a uma transformação real</h2>
+      <div class="card">
+        <p>A expressão trigonométrica usada no estudo pode ser entendida como uma forma de aproveitar a parte real de uma potência complexa sem precisar carregar essa expressão complexa nos cálculos seguintes.</p>
+        <p>Como D<sub>n</sub> &gt; 0, usando a potência complexa no ramo principal:</p>
+        <div class="equations">
+          <div class="equation">D<sub>n</sub><sup>i</sup> = e<sup>i ln D<sub>n</sub></sup></div>
+          <div class="equation">= cos(ln D<sub>n</sub>) + i sin(ln D<sub>n</sub>)</div>
+        </div>
+        <p>Portanto, a parte real dessa potência é:</p>
+        <div class="equations">
+          <div class="equation">Re(D<sub>n</sub><sup>i</sup>) = cos(ln D<sub>n</sub>)</div>
+        </div>
+        <p>Assim, a transformação proposta pode ser escrita de maneira equivalente, diretamente em números reais:</p>
+        <div class="equations">
+          <div class="equation">T<sub>n</sub> = −20 Re(D<sub>n</sub><sup>i</sup>)</div>
+          <div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div>
+        </div>
+        <p class="muted">Em outras palavras, não estamos “eliminando” a parte imaginária por uma identidade que a torne nula: estamos tomando explicitamente a parte real da potência complexa. A fórmula final permite calcular T<sub>n</sub> sem manipular números complexos em cada etapa.</p>
+      </div>
+      <div class="notice"><strong>Nota de interpretação.</strong><br>Esta equivalência explica a origem algébrica da transformação, mas não implica, por si só, que T<sub>n</sub> seja um zero da função zeta nem que a sequência resultante tenha poder preditivo.</div>
+    </section>
+
     <section class="section" id="metodo">
       <div class="section-label">03 · Método proposto</div>
       <h2>Transformação e sequência de diferenças</h2>
@@ -227,11 +251,12 @@
       <nav class="index" aria-label="Índice da pesquisa">
         <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
         <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
-        <a href="#metodo"><b>03</b><span><strong>Transformação proposta</strong><small>Definições e sequência de diferenças</small></span></a>
-        <a href="#teste-d7"><b>04</b><span><strong>Teste preditivo do D7</strong><small>Faixa prevista, estimativa e erro</small></span></a>
-        <a href="#plano"><b>05</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>06</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
-        <a href="#referencias"><b>07</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+        <a href="#transformacao-algebrica"><b>03</b><span><strong>Interpretação algébrica</strong><small>Da potência complexa à parte real</small></span></a>
+        <a href="#metodo"><b>04</b><span><strong>Transformação e diferenças</strong><small>Definições e sequência de diferenças</small></span></a>
+        <a href="#teste-d7"><b>05</b><span><strong>Teste preditivo do D7</strong><small>Faixa prevista, estimativa e erro</small></span></a>
+        <a href="#plano"><b>06</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>07</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>08</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
 
