@@ -448,11 +448,61 @@
         <a href="#teste-d9"><b>07</b><span><strong>Teste preditivo do D9</strong><small>Faixa visual, erro e variação</small></span></a>
         <a href="#interpretacao-computacional"><b>08</b><span><strong>Interpretação computacional</strong><small>Transformação real e margem de erro</small></span></a>
         <a href="#caderno-preditivo"><b>09</b><span><strong>Caderno de previsão</strong><small>Da reconstrução à previsão por intervalos</small></span></a>
-        <a href="#pontos-na-faixa"><b>10</b><span><strong>Pontos dentro da faixa</strong><small>Avaliações de ζ em pontos que não são zeros</small></span></a>
+        <a href="#teste-pendulo"><b>11</b><span><strong>Hipótese do pêndulo</strong><small>Decomposição de δ e validação dos limites</small></span></a>\n        <a href="#pontos-na-faixa"><b>10</b><span><strong>Pontos dentro da faixa</strong><small>Avaliações de ζ em pontos que não são zeros</small></span></a>
         <a href="#plano"><b>11</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
         <a href="#resultados"><b>12</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
         <a href="#referencias"><b>13</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
+    </section>
+
+
+    <section class="section" id="teste-pendulo">
+      <div class="section-label">11 · Decomposição e teste dos limites</div>
+      <h2>A hipótese do “pêndulo”: separar crescimento e oscilação</h2>
+      <div class="card">
+        <p><strong>Objetivo desta rodada.</strong> Investigar se a variação da correção pode ser compreendida como a combinação entre o espaçamento dos zeros conhecidos e a contribuição oscilatória do cosseno.</p>
+        <div class="equations">
+          <div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div>
+          <div class="equation">Δ<sub>n</sub> = D<sub>n</sub> − T<sub>n</sub> = D<sub>n</sub> + 20 cos(ln D<sub>n</sub>)</div>
+          <div class="equation">δ<sub>n</sub> = Δ<sub>n</sub> − Δ<sub>n−1</sub></div>
+          <div class="equation">δ<sub>n</sub> = (D<sub>n</sub> − D<sub>n−1</sub>) + 20[cos(ln D<sub>n</sub>) − cos(ln D<sub>n−1</sub>)]</div>
+        </div>
+        <p>A última igualdade é uma identidade algébrica: decompõe δ<sub>n</sub> em (1) o espaçamento entre coordenadas imaginárias consecutivas e (2) a contribuição incremental do termo cossenoidal. A oscilação do cosseno é garantida; a permanência de δ<sub>n</sub> dentro de limites fixos não decorre automaticamente dessa identidade e continua sendo uma hipótese empírica.</p>
+      </div>
+      <div class="card">
+        <h3>Protocolo de validação inicial</h3>
+        <p>Os limites foram definidos usando apenas as cinco primeiras variações, δ₂ a δ₆, calculadas a partir de D₁ a D₆. Depois foram congelados para conferir δ₇, δ₈ e δ₉.</p>
+        <div class="equations">
+          <div class="equation">2,998732 ≤ δ<sub>n</sub> ≤ 6,097928</div>
+          <small>Intervalo empírico fixado no conjunto inicial; não é um limite matemático universal demonstrado.</small>
+        </div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:.92rem">
+            <thead><tr style="text-align:left;border-bottom:1px solid var(--line)"><th style="padding:10px">Variação</th><th style="padding:10px">D<sub>n</sub> − D<sub>n−1</sub></th><th style="padding:10px">Incremento cossenoidal</th><th style="padding:10px">δ<sub>n</sub></th><th style="padding:10px">Dentro dos limites?</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₂</td><td style="padding:10px">6,887314</td><td style="padding:10px">−2,289133</td><td style="padding:10px">4,598181</td><td style="padding:10px">Sim · treino</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₃</td><td style="padding:10px">3,988818</td><td style="padding:10px">−0,031760</td><td style="padding:10px">3,957057</td><td style="padding:10px">Sim · treino</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₄</td><td style="padding:10px">5,414019</td><td style="padding:10px">0,683909</td><td style="padding:10px">6,097928</td><td style="padding:10px">Sim · treino</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₅</td><td style="padding:10px">2,510185</td><td style="padding:10px">0,488546</td><td style="padding:10px">2,998732</td><td style="padding:10px">Sim · treino</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₆</td><td style="padding:10px">4,651117</td><td style="padding:10px">1,074084</td><td style="padding:10px">5,725201</td><td style="padding:10px">Sim · treino</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₇</td><td style="padding:10px">3,332541</td><td style="padding:10px">0,855018</td><td style="padding:10px">4,187558</td><td style="padding:10px">Sim · validação</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px">δ₈</td><td style="padding:10px">2,408354</td><td style="padding:10px">0,644419</td><td style="padding:10px">3,052773</td><td style="padding:10px">Sim · validação</td></tr>
+              <tr><td style="padding:10px">δ₉</td><td style="padding:10px">4,678078</td><td style="padding:10px">1,286375</td><td style="padding:10px">5,964452</td><td style="padding:10px">Sim · validação</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Resultado descritivo desta rodada: as três variações reservadas, δ₇–δ₉, ficaram dentro da faixa inicial. Isso é compatível com a hipótese, mas três casos de validação são insuficientes para estabelecer confiabilidade geral.</p>
+      </div>
+      <div class="card">
+        <h3>Leitura e próximos testes</h3>
+        <ol>
+          <li>Manter os limites congelados e testar novas variações sem reajustá-los após conhecer o resultado.</li>
+          <li>Registrar cada falha, além de cada acerto, e medir cobertura e largura das faixas preditivas.</li>
+          <li>Comparar a transformação com outros coeficientes em protocolo separado, usando o mesmo conjunto de treino e validação.</li>
+          <li>Não interpretar a decomposição como prova sobre a Hipótese de Riemann: ela trata das coordenadas dos zeros já identificados na linha crítica.</li>
+        </ol>
+      </div>
+      <div class="notice"><strong>Estado científico:</strong> identidade algébrica exata + observação empírica inicial + três variações reservadas dentro dos limites. Não foi demonstrado um limite universal nem uma prova da Hipótese de Riemann.</div>
     </section>
 
     <section class="section" id="resultados">
