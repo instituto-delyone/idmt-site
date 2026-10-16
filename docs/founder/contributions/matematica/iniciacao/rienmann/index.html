@@ -189,48 +189,93 @@
 
     <section class="section" id="teste-d7">
       <div class="section-label">04 · Teste preditivo preliminar</div>
-      <h2>Previsão do sétimo zero: faixa, estimativa central e conferência</h2>
+      <h2>Teste do sétimo zero: faixa observada e previsão</h2>
       <div class="card">
-        <p><strong>Protocolo.</strong> Para simular uma previsão sem conhecer o sétimo termo, usamos apenas os seis primeiros valores de Δ<sub>n</sub> e suas cinco diferenças consecutivas. Mantivemos a transformação original, com coeficiente 20:</p>
+        <p><strong>Protocolo do primeiro teste.</strong> Usamos os seis primeiros valores conhecidos para calcular cinco diferenças consecutivas e construir uma faixa empírica. Com a transformação original, T<sub>n</sub> = −20 cos(ln D<sub>n</sub>), definimos Δ<sub>n</sub> = D<sub>n</sub> − T<sub>n</sub> e δ<sub>n</sub> = Δ<sub>n</sub> − Δ<sub>n−1</sub>.</p>
+        <p>As cinco diferenças observadas foram aproximadamente 4,5982; 3,9571; 6,0979; 2,9987; e 5,7252. Portanto:</p>
         <div class="equations">
-          <div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div>
-          <div class="equation">Δ<sub>n</sub> = D<sub>n</sub> + 20 cos(ln D<sub>n</sub>)</div>
-          <div class="equation">δ<sub>n</sub> = Δ<sub>n</sub> − Δ<sub>n−1</sub></div>
+          <div class="equation">2,9987 ≤ δ<sub>n</sub> ≤ 6,0979</div>
+          <small>Faixa observada, não limite matemático garantido</small>
+          <div class="equation">Amplitude ≈ 3,0992</div>
+          <div class="equation">Média ≈ 4,6754</div>
         </div>
-        <p>Nas cinco diferenças observadas até n = 6, o mínimo foi aproximadamente 2,9987 e o máximo, 6,0979. A média foi 4,6754. Esses valores definem uma faixa empírica inicial, não um limite matemático garantido.</p>
       </div>
       <div class="grid">
         <div class="card">
           <h3>Faixa prevista para Δ<sub>7</sub></h3>
           <div class="equations"><div class="equation">22,8918 ≤ Δ<sub>7</sub> ≤ 25,9910</div></div>
-          <p class="muted">Calculada somando o mínimo e o máximo das cinco diferenças anteriores a Δ<sub>6</sub> ≈ 19,8931.</p>
+          <p class="muted">Somamos os limites observados à correção Δ<sub>6</sub> ≈ 19,8931.</p>
         </div>
         <div class="card">
-          <h3>Estimativa central</h3>
-          <div class="equations"><div class="equation">Δ̂<sub>7</sub> = Δ<sub>6</sub> + média(δ<sub>2</sub>, …, δ<sub>6</sub>)</div><div class="equation">Δ̂<sub>7</sub> ≈ 24,5685</div></div>
-          <p class="muted">A estimativa central usa a média das cinco diferenças observadas, sem recalibrar o modelo com o sétimo termo.</p>
+          <h3>Estimativa central para Δ<sub>7</sub></h3>
+          <div class="equations"><div class="equation">Δ̂<sub>7</sub> = Δ<sub>6</sub> + média(δ)</div><div class="equation">Δ̂<sub>7</sub> ≈ 24,5685</div></div>
+          <p class="muted">A média das cinco diferenças foi usada sem consultar o sétimo valor durante a previsão.</p>
         </div>
       </div>
       <div class="card">
-        <h3>Conversão da faixa para uma previsão de D<sub>7</sub></h3>
-        <p>Como Δ<sub>7</sub> = D<sub>7</sub> + 20 cos(ln D<sub>7</sub>), resolvemos numericamente essa relação para converter a faixa de correções em uma faixa para a coordenada imaginária do zero:</p>
+        <h3>Resultado do primeiro teste</h3>
+        <p>A conversão numérica da faixa de Δ<sub>7</sub> produziu a faixa aproximada para D<sub>7</sub> entre 39,9767 e 42,4274, com estimativa central D̂<sub>7</sub> ≈ 41,3046. O valor conhecido, D<sub>7</sub> ≈ 40,918719, ficou dentro da faixa; o erro absoluto da estimativa central foi aproximadamente 0,3858, ou 0,94%.</p>
+      </div>
+    </section>
+
+    <section class="section" id="teste-d8">
+      <div class="section-label">05 · Teste seguinte</div>
+      <h2>Previsão do oitavo zero com a faixa empírica</h2>
+      <div class="card">
+        <p><strong>Regra mantida.</strong> Para o teste seguinte, usamos a correção conhecida do sétimo zero, Δ<sub>7</sub> ≈ 24,080645, e a mesma faixa de variações registrada anteriormente. Não usamos o valor real de D<sub>8</sub> para construir os limites.</p>
         <div class="equations">
-          <div class="equation">Faixa prevista: D<sub>7</sub> ≈ 39,9767 a 42,4274</div>
-          <div class="equation">Estimativa central: D̂<sub>7</sub> ≈ 41,3046</div>
+          <div class="equation">Δ<sub>8</sub><sup>mín</sup> = Δ<sub>7</sub> + 2,998732</div>
+          <div class="equation">Δ<sub>8</sub><sup>máx</sup> = Δ<sub>7</sub> + 6,097928</div>
+          <div class="equation">27,079377 ≤ Δ<sub>8</sub> ≤ 30,178573</div>
+        </div>
+        <p>Convertendo os limites pela relação Δ = D + 20 cos(ln D), obtemos a seguinte faixa para a coordenada imaginária positiva do oitavo zero:</p>
+        <div class="equations">
+          <div class="equation">43,284549 ≤ D<sub>8</sub> ≤ 45,718557</div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="number">LIMITE INFERIOR</div>
+          <h3>43,284549</h3>
+          <p class="muted">Conversão do limite inferior da correção.</p>
+        </div>
+        <div class="card">
+          <div class="number">ESTIMATIVA CENTRAL</div>
+          <h3>44,602442</h3>
+          <p class="muted">Δ̂<sub>8</sub> ≈ Δ<sub>7</sub> + média das cinco diferenças ≈ 28,7560; depois, resolução numérica para D.</p>
+        </div>
+        <div class="card">
+          <div class="number">LIMITE SUPERIOR</div>
+          <h3>45,718557</h3>
+          <p class="muted">Conversão do limite superior da correção.</p>
         </div>
       </div>
       <div class="card">
         <h3>Conferência com o valor conhecido</h3>
-        <p>O valor tabulado para a sétima parte imaginária positiva de um zero não trivial é D<sub>7</sub> ≈ 40,918719. Ele está dentro da faixa prevista.</p>
-        <div class="grid">
-          <div class="card"><p class="muted">Estimativa central</p><h3>41,3046</h3></div>
-          <div class="card"><p class="muted">Valor conhecido</p><h3>40,9187</h3></div>
-          <div class="card"><p class="muted">Erro absoluto</p><h3>0,3858</h3></div>
-          <div class="card"><p class="muted">Erro relativo</p><h3>≈ 0,94%</h3></div>
+        <p>O valor conhecido da oitava parte imaginária positiva é D<sub>8</sub> ≈ 43,327073, que fica dentro da faixa prevista.</p>
+        <div class="equations">
+          <div class="equation">43,284549 ≤ 43,327073 ≤ 45,718557</div>
         </div>
-        <p>Com o valor conhecido, obtém-se Δ<sub>7</sub> ≈ 24,0806 e δ<sub>7</sub> ≈ 4,1876. Essa diferença também está dentro da faixa anterior, de aproximadamente 2,9987 a 6,0979.</p>
+        <p>A correção calculada a partir do valor conhecido é Δ<sub>8</sub> ≈ 27,133419. Assim, a variação seguinte é:</p>
+        <div class="equations">
+          <div class="equation">δ<sub>8</sub> = Δ<sub>8</sub> − Δ<sub>7</sub></div>
+          <div class="equation">δ<sub>8</sub> ≈ 3,052773</div>
+          <div class="equation">2,998732 ≤ 3,052773 ≤ 6,097928</div>
+        </div>
+        <p class="muted">Portanto, tanto o oitavo zero quanto a variação observada após sua conferência ficaram dentro das respectivas faixas empíricas definidas anteriormente.</p>
       </div>
-      <div class="notice"><strong>Interpretação e limite do teste</strong><br>O sétimo termo ficou dentro da faixa empírica e a estimativa central apresentou erro relativo de cerca de 0,94%. É um resultado preliminar promissor, mas um único teste não demonstra uma lei oscilatória nem garante desempenho futuro. A faixa foi inferida de apenas cinco diferenças; a próxima etapa é manter o procedimento fixo e testar previsões sucessivas em termos que não participem do ajuste.</div>
+      <div class="notice"><strong>Interpretação e limites.</strong><br>O teste do oitavo zero é compatível com a faixa empírica construída a partir das cinco diferenças anteriores. Isso é uma observação exploratória, não uma garantia de que zeros futuros ficarão dentro da faixa. Para uma avaliação mais forte, a regra precisa permanecer fixa e ser testada em uma sequência maior de zeros não usados para definir ou ajustar os limites.</div>
+    </section>
+
+    <section class="section" id="interpretacao-computacional">
+      <div class="section-label">06 · Interpretação computacional</div>
+      <h2>Por que trabalhar com números reais?</h2>
+      <div class="card">
+        <p>A potência complexa auxiliar pode ser escrita como D<sub>n</sub><sup>i</sup> = cos(ln D<sub>n</sub>) + i sin(ln D<sub>n</sub>). Ao selecionar sua parte real, a transformação usa apenas cos(ln D<sub>n</sub>) para calcular T<sub>n</sub>. A etapa de transformação, portanto, pode ser implementada com operações reais: logaritmo, cosseno, multiplicação e subtração.</p>
+        <p>Isso pode deixar o algoritmo e a apresentação dos cálculos mais simples, além de facilitar o uso de tabelas, intervalos e rotinas de previsão com números reais. Porém, não significa que computadores tenham dificuldade inerente com números complexos — eles também os calculam normalmente.</p>
+        <p><strong>O papel da faixa de erro:</strong> em vez de afirmar um único próximo valor exato, o método produz limites inferior e superior derivados das diferenças observadas. A estimativa central é uma referência dentro desse intervalo. A utilidade do procedimento depende de sua capacidade de manter boa cobertura e erros controlados em testes futuros.</p>
+      </div>
+      <div class="notice"><strong>Nota de rigor científico.</strong><br>A transformação real não elimina a parte imaginária do zero original da zeta nem cria, por si só, um novo zero. Ela transforma a coordenada D<sub>n</sub> em T<sub>n</sub> e permite estudar uma sequência auxiliar de diferenças. Os resultados atuais não demonstram a Hipótese de Riemann; investigam apenas uma possível regularidade numérica e sua capacidade preditiva.</div>
     </section>
 
     <section class="section" id="plano">
@@ -254,9 +299,11 @@
         <a href="#transformacao-algebrica"><b>03</b><span><strong>Interpretação algébrica</strong><small>Da potência complexa à parte real</small></span></a>
         <a href="#metodo"><b>04</b><span><strong>Transformação e diferenças</strong><small>Definições e sequência de diferenças</small></span></a>
         <a href="#teste-d7"><b>05</b><span><strong>Teste preditivo do D7</strong><small>Faixa prevista, estimativa e erro</small></span></a>
-        <a href="#plano"><b>06</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>07</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
-        <a href="#referencias"><b>08</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+        <a href="#teste-d8"><b>06</b><span><strong>Teste preditivo do D8</strong><small>Limites empíricos e conferência</small></span></a>
+        <a href="#interpretacao-computacional"><b>07</b><span><strong>Interpretação computacional</strong><small>Transformação real e margem de erro</small></span></a>
+        <a href="#plano"><b>08</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>09</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>10</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
 
