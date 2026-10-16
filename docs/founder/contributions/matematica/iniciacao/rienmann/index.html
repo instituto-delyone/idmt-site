@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f7fd">
+  <title>Iniciação em Matemática | Instituto Delyone</title>
+  <meta name="description" content="Pesquisa exploratória sobre transformações matemáticas e regularidades nos zeros da função zeta de Riemann.">
+  <style>
+    :root {
+      --page: #f3f7fd;
+      --card: #ffffff;
+      --ink: #13243d;
+      --muted: #718096;
+      --blue: #246b9c;
+      --blue-soft: #eaf4fc;
+      --line: #dce6f1;
+      --shadow: 0 14px 36px rgba(31, 63, 99, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+    .container { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+    .top { padding: 48px 0 28px; }
+    .eyebrow {
+      color: var(--blue); font-size: .76rem; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase;
+    }
+    h1 { font-size: clamp(2.1rem, 5vw, 3.55rem); line-height: 1.08; letter-spacing: -.045em; margin: 13px 0 15px; }
+    .intro { max-width: 760px; font-size: 1.1rem; color: var(--muted); margin: 0; }
+    .meta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 9px; }
+    .pill { display: inline-block; background: var(--blue-soft); color: #245d86; border: 1px solid #d5e9f8; padding: 6px 11px; border-radius: 999px; font-size: .82rem; font-weight: 650; }
+    .hero-card {
+      margin: 22px 0 32px; padding: clamp(22px, 4vw, 36px);
+      background: linear-gradient(135deg, #fff 0%, #f9fcff 100%);
+      border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow);
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center;
+    }
+    h2 { font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.2; letter-spacing: -.03em; margin: 8px 0 12px; }
+    h3 { font-size: 1.05rem; line-height: 1.3; margin: 0 0 8px; }
+    p { margin: 0 0 13px; }
+    .muted { color: var(--muted); }
+    .equations { border-radius: 18px; background: #f1f7fc; border: 1px solid #dceaf6; padding: 22px 14px; text-align: center; overflow-x: auto; }
+    .equation { font: clamp(1.15rem, 2.8vw, 1.6rem) Georgia, "Times New Roman", serif; white-space: nowrap; }
+    .equation + .equation { margin-top: 18px; }
+    .equations small { display: block; font: .8rem system-ui, sans-serif; color: var(--muted); margin-top: 6px; white-space: normal; }
+    .section { padding: 23px 0; }
+    .section-label { color: var(--blue); font-size: .75rem; letter-spacing: .16em; font-weight: 800; text-transform: uppercase; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: 0 5px 18px rgba(31, 63, 99, .035); }
+    .number { color: var(--blue); font-size: .77rem; font-weight: 850; letter-spacing: .12em; margin-bottom: 12px; }
+    .index { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; margin-top: 19px; }
+    .index a { display: flex; gap: 13px; align-items: flex-start; padding: 15px 16px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; background: #fff; transition: border-color .2s, transform .2s; }
+    .index a:hover { border-color: #9fc7e7; transform: translateY(-2px); }
+    .index b { color: var(--blue); font-size: .82rem; }
+    .index strong { display: block; font-size: .93rem; }
+    .index small { display: block; color: var(--muted); margin-top: 3px; font-size: .81rem; }
+    .notice { padding: 18px 20px; border-left: 3px solid #d4a84e; border-radius: 0 13px 13px 0; background: #fff9ec; color: #66552f; margin-top: 18px; }
+    .notice strong { color: #8b681e; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-top: 20px; }
+    .step { padding-top: 13px; border-top: 2px solid #a8cde9; }
+    .step strong { display: block; margin-bottom: 5px; }
+    .step span { color: var(--muted); font-size: .88rem; }
+    .footer { border-top: 1px solid var(--line); margin-top: 35px; padding: 25px 0 36px; color: var(--muted); font-size: .84rem; }
+    .back { color: var(--blue); text-decoration: none; font-weight: 700; }
+    @media (max-width: 760px) {
+      .container { width: calc(100% - 30px); }
+      .hero-card { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .top { padding-top: 35px; }
+    }
+    @media (max-width: 480px) {
+      .index { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body id="inicio">
+  <header class="top">
+    <div class="container">
+      <div class="eyebrow">Instituto Delyone · Produção científica</div>
+      <h1>Iniciação em <span style="color:var(--blue)">Matemática</span></h1>
+      <p class="intro">Investigação exploratória de uma transformação matemática aplicada às coordenadas imaginárias dos zeros não triviais da função zeta de Riemann, com foco na busca por regularidades e métodos de estimativa.</p>
+      <div class="meta">
+        <span class="pill">Teoria dos números</span>
+        <span class="pill">Análise complexa</span>
+        <span class="pill">Pesquisa em desenvolvimento</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="hero-card">
+      <div>
+        <div class="section-label">Sobre a investigação</div>
+        <h2>Uma pergunta matemática, uma abordagem própria</h2>
+        <p>O estudo parte dos zeros não triviais da função zeta de Riemann e explora uma transformação trigonométrica das suas coordenadas imaginárias. A partir dela, é construída uma sequência de diferenças para investigar possíveis regularidades numéricas.</p>
+        <p class="muted">O objetivo atual é avaliar se essas relações podem ajudar a estimar termos subsequentes, por meio de testes reproduzíveis e comparação com valores conhecidos.</p>
+      </div>
+      <div class="equations" aria-label="Fórmulas principais da investigação">
+        <div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div>
+        <small>Transformação proposta</small>
+        <div class="equation">Δ<sub>n</sub> = D<sub>n</sub> − T<sub>n</sub></div>
+        <small>Sequência de diferenças</small>
+      </div>
+    </article>
+
+    <section class="section" id="problema">
+      <div class="section-label">01 · Problema</div>
+      <h2>O que está sendo investigado?</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="number">01 / CONTEXTO</div>
+          <h3>Os zeros da função zeta</h3>
+          <p class="muted">A localização e a distribuição dos zeros não triviais da função zeta de Riemann são temas centrais da teoria analítica dos números.</p>
+        </article>
+        <article class="card">
+          <div class="number">02 / TRANSFORMAÇÃO</div>
+          <h3>Uma sequência transformada</h3>
+          <p class="muted">Cada coordenada imaginária positiva D<sub>n</sub> é usada para calcular um valor real T<sub>n</sub> por meio de uma expressão trigonométrica.</p>
+        </article>
+        <article class="card">
+          <div class="number">03 / PERGUNTA</div>
+          <h3>É possível estimar o próximo termo?</h3>
+          <p class="muted">A questão é saber se as diferenças Δ<sub>n</sub> seguem alguma regularidade que possa ser formulada e testada sem conhecer antecipadamente o próximo zero.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="fundamentos">
+      <div class="section-label">02 · Fundamentos</div>
+      <h2>Conceitos essenciais</h2>
+      <div class="card">
+        <p><strong>Função zeta de Riemann, ζ(s):</strong> função de variável complexa relacionada a resultados importantes sobre a distribuição dos números primos.</p>
+        <p><strong>Zeros não triviais:</strong> zeros de ζ(s) situados na faixa crítica 0 &lt; Re(s) &lt; 1.</p>
+        <p><strong>Linha crítica:</strong> reta Re(s) = ½. Para os zeros considerados nesta investigação, escreve-se s<sub>n</sub> = ½ + iD<sub>n</sub>.</p>
+        <p><strong>Hipótese de Riemann:</strong> conjectura que afirma que todos os zeros não triviais têm parte real igual a ½.</p>
+      </div>
+    </section>
+
+    <section class="section" id="metodo">
+      <div class="section-label">03 · Método proposto</div>
+      <h2>Transformação e sequência de diferenças</h2>
+      <div class="card">
+        <p>A transformação proposta é:</p>
+        <div class="equations"><div class="equation">T<sub>n</sub> = −20 cos(ln D<sub>n</sub>)</div></div>
+        <p>Em seguida, define-se a diferença:</p>
+        <div class="equations"><div class="equation">Δ<sub>n</sub> = D<sub>n</sub> − T<sub>n</sub></div></div>
+        <p class="muted">A identidade D<sub>n</sub> = T<sub>n</sub> + Δ<sub>n</sub> recupera o valor original por definição. O problema de pesquisa é encontrar uma regra independente que permita estimar Δ<sub>n+1</sub> usando dados anteriores.</p>
+      </div>
+      <div class="notice"><strong>Nota de rigor científico</strong><br>Esta é uma investigação exploratória. A transformação, por si só, não demonstra a Hipótese de Riemann nem gera novos zeros da função zeta. Qualquer capacidade preditiva precisa ser validada com dados não usados na construção do método.</div>
+    </section>
+
+    <section class="section" id="plano">
+      <div class="section-label">04 · Plano de investigação</div>
+      <h2>Etapas de desenvolvimento</h2>
+      <div class="steps">
+        <div class="step"><strong>1. Formalizar</strong><span>Definir notação, hipóteses e procedimentos de cálculo.</span></div>
+        <div class="step"><strong>2. Calcular</strong><span>Reproduzir os valores transformados para zeros conhecidos.</span></div>
+        <div class="step"><strong>3. Testar</strong><span>Avaliar possíveis regras em dados separados do ajuste.</span></div>
+        <div class="step"><strong>4. Comparar</strong><span>Medir erros e comparar com referências matemáticas.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="indice">
+      <div class="section-label">Navegação</div>
+      <h2>Índice da pesquisa</h2>
+      <p class="muted">Estrutura inicial para organizar o desenvolvimento do estudo.</p>
+      <nav class="index" aria-label="Índice da pesquisa">
+        <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
+        <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
+        <a href="#metodo"><b>03</b><span><strong>Transformação proposta</strong><small>Definições e sequência de diferenças</small></span></a>
+        <a href="#plano"><b>04</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
+        <a href="#resultados"><b>05</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#referencias"><b>06</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
+      </nav>
+    </section>
+
+    <section class="section" id="resultados">
+      <div class="section-label">05 · Estado atual</div>
+      <h2>Resultados preliminares</h2>
+      <div class="card">
+        <p>Os cálculos iniciais são exploratórios e servem para formular perguntas sobre o comportamento de T<sub>n</sub> e Δ<sub>n</sub>. Ainda é necessário estabelecer um procedimento de previsão independente e avaliar seu desempenho em dados de teste.</p>
+        <p class="muted">Nenhuma conclusão sobre a Hipótese de Riemann é reivindicada nesta etapa.</p>
+      </div>
+    </section>
+
+    <section class="section" id="referencias">
+      <div class="section-label">06 · Continuidade</div>
+      <h2>Referências e caderno técnico</h2>
+      <div class="card">
+        <p>Esta área poderá reunir referências bibliográficas verificadas, tabelas de cálculo, definições completas, métodos de estimação e o histórico de versões da investigação.</p>
+        <p class="muted">O conteúdo poderá ser expandido à medida que os cálculos forem revisados e os testes forem documentados.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap">
+      <span>Instituto Delyone · Iniciação em Matemática</span>
+      <a class="back" href="#inicio">Voltar ao início ↑</a>
+    </div>
+    <div class="container" style="margin-top:9px">Página demonstrativa · Pesquisa exploratória em desenvolvimento.</div>
+  </footer>
+</body>
+</html>
