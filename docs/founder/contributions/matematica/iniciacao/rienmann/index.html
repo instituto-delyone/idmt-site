@@ -101,6 +101,58 @@
   </header>
 
   <main class="container">
+
+    <section class="section" id="fundamentos-iniciais">
+      <div class="section-label">01 · Ponto de partida</div>
+      <h2>Como o problema é escrito</h2>
+      <div class="card">
+        <p><strong>Função zeta.</strong> Na região em que a série converge diretamente, a função é representada por:</p>
+        <div class="equations"><div class="equation">ζ(s) = ∑<sub>n=1</sub><sup>∞</sup> 1/n<sup>s</sup></div></div>
+        <p>Escrita por extenso, a série é 1/1<sup>s</sup> + 1/2<sup>s</sup> + 1/3<sup>s</sup> + ···. Essa série converge diretamente quando Re(s) &gt; 1. Os zeros fora dessa região são estudados pela continuação analítica da função zeta; não se deve confundir a continuação analítica com a soma usual da série divergente.</p>
+        <p><strong>Condição de zero.</strong> Procuramos valores de s para os quais:</p>
+        <div class="equations"><div class="equation">ζ(s) = 0</div></div>
+        <p><strong>Argumento complexo geral.</strong></p>
+        <div class="equations"><div class="equation">s = σ + iT</div></div>
+        <p>σ é a parte real e T é um parâmetro real quando percorremos uma linha vertical do plano complexo. Na linha crítica, σ = 1/2 e, portanto, s = 1/2 + iT.</p>
+        <div class="equations">
+          <div class="equation">ζ(σ + iT) = 0</div>
+          <small>Forma geral da condição de zero</small>
+          <div class="equation">ζ(1/2 + iT) = 0</div>
+          <small>Condição restrita à linha crítica</small>
+        </div>
+        <p><strong>Hipótese de Riemann.</strong> Afirma que todos os zeros não triviais têm parte real igual a 1/2. Isso continua sendo uma conjectura não demonstrada. A forma s = 1/2 + iT descreve pontos da linha crítica; ela não prova que todos os zeros não triviais estejam nessa linha.</p>
+      </div>
+    </section>
+
+    <section class="section" id="registro-substituicoes">
+      <div class="section-label">02 · Registro preliminar</div>
+      <h2>Substituições algébricas no argumento</h2>
+      <div class="card">
+        <p>Antes de avançar na transformação proposta para as coordenadas imaginárias dos zeros, registramos dois exemplos algébricos discutidos durante a exploração. Eles servem para distinguir a variável t, o argumento s e o valor da função zeta; não constituem exemplos de zeros não triviais.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:560px">
+            <thead><tr>
+              <th style="text-align:left;padding:11px;border-bottom:1px solid var(--line)">Valor escolhido para t</th>
+              <th style="text-align:left;padding:11px;border-bottom:1px solid var(--line)">Argumento s = 1/2 + it</th>
+              <th style="text-align:left;padding:11px;border-bottom:1px solid var(--line)">Conclusão</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">t = −1/(2i) = i/2</td>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">s = 1/2 + i(i/2) = 0</td>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">ζ(0) = −1/2, pela continuação analítica; não é zero.</td>
+              </tr>
+              <tr>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">t = −1/(i²) = 1</td>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">s = 1/2 + i</td>
+                <td style="padding:11px;border-bottom:1px solid var(--line)">ζ(1/2 + i) ≠ 0; o argumento permanece complexo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice"><strong>Interpretação.</strong><br>Esses exemplos permitem que t seja complexo, mas então s = 1/2 + it já não percorre necessariamente a linha crítica. Para parametrizar a linha crítica, t deve ser real. Além disso, em s = 0 a série ∑ 1/n<sup>0</sup> = 1 + 1 + 1 + ··· diverge; o valor ζ(0) = −1/2 vem da continuação analítica, não da soma usual.</div>
+      </div>
+    </section>
     <article class="hero-card">
       <div>
         <div class="section-label">Sobre a investigação</div>
