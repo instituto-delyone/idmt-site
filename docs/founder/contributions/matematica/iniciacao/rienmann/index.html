@@ -490,7 +490,8 @@
       <div class="section-label">Navegação</div>
       <h2>Índice da pesquisa</h2>
       <p class="muted">Estrutura inicial para organizar o desenvolvimento do estudo.</p>
-      <nav class="index" aria-label="Índice da pesquisa">\n        <a href="#graficos"><b>14</b><span><strong>Gráficos e dados</strong><small>Faixas, transformação e arquivo CSV</small></span></a>
+      <nav class="index" aria-label="Índice da pesquisa">\n        <a href="#convergencia-continuacao"><b>02A</b><span><strong>Convergência e continuação analítica</strong><small>Por que 1 + 1 + 1 + ··· diverge e o que significa ζ(0)</small></span></a>
+        <a href="#graficos"><b>14</b><span><strong>Gráficos e dados</strong><small>Faixas, transformação e arquivo CSV</small></span></a>
         <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
         <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
         <a href="#transformacao-algebrica"><b>03</b><span><strong>Interpretação algébrica</strong><small>Da potência complexa à parte real</small></span></a>
@@ -575,6 +576,33 @@
       </div>
     </section>
   </main>
+
+
+    <section class="section" id="convergencia-continuacao">
+      <div class="section-label">Registro 02 · Conceitos fundamentais</div>
+      <h2>Convergência, divergência e continuação analítica</h2>
+      <div class="card">
+        <h3>1. O que significa uma série convergir?</h3>
+        <p>Uma série infinita é estudada por meio de suas somas parciais. Para uma série com termos a<sub>n</sub>, definimos S<sub>N</sub> = a<sub>1</sub> + ··· + a<sub>N</sub>. A série converge se a sequência S<sub>N</sub> tende a um limite finito quando N cresce sem limite. Se não existe esse limite finito, a série diverge.</p>
+        <div class="equations">
+          <div class="equation">1 + 1/2 + 1/4 + 1/8 + ··· = 2</div>
+          <small>Exemplo convergente: as somas parciais aproximam-se de 2.</small>
+          <div class="equation">1 + 1 + 1 + 1 + ···</div>
+          <small>Exemplo divergente: a soma parcial após N termos é S<sub>N</sub> = N, que cresce sem limite.</small>
+        </div>
+        <h3>2. O que acontece em s = 0?</h3>
+        <p>Substituindo s = 0 na série que define inicialmente a função zeta, cada termo fica 1/n<sup>0</sup> = 1. Assim, a série torna-se 1 + 1 + 1 + ···, cujas somas parciais são S<sub>N</sub> = N. Portanto, a série original diverge em s = 0; ela não produz ali uma soma finita.</p>
+        <h3>3. O que é continuação analítica?</h3>
+        <p>A série ∑ 1/n<sup>s</sup> converge diretamente quando Re(s) &gt; 1. A função zeta, porém, pode ser estendida a outros valores de s por um procedimento matemático chamado <strong>continuação analítica</strong>. Essa extensão coincide com a série onde a série converge, mas também define valores em regiões onde a soma original não converge (exceto no polo s = 1).</p>
+        <div class="equations">
+          <div class="equation">ζ(0) = −1/2</div>
+          <small>Valor da função zeta por continuação analítica, não soma usual de 1 + 1 + 1 + ···.</small>
+        </div>
+        <div class="notice"><strong>Distinção central.</strong><br>Em s = 0, a série original diverge, enquanto a função zeta estendida tem o valor ζ(0) = −1/2. Não há contradição: a continuação analítica não afirma que a soma divergente de uns seja −1/2; ela estende a função definida pela série na região em que esta converge.</div>
+        <h3>4. Por que isso importa para esta investigação?</h3>
+        <p>O exemplo foi obtido ao escolher t = −1/(2i) = i/2 na expressão s = 1/2 + it, resultando em s = 0. Como esse t é complexo, o ponto não está sendo parametrizado pela linha crítica (na qual t é real). Além disso, ζ(0) = −1/2, portanto esse exemplo não é um zero da função zeta.</p>
+      </div>
+    </section>
 
   <footer class="footer">
     <div class="container" style="display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap">
