@@ -102,6 +102,28 @@
 
   <main class="container">
 
+    <section class="section" id="escopo-estudo">
+      <div class="section-label">Enquadramento · Iniciação em Matemática</div>
+      <h2>Natureza e propósito deste estudo</h2>
+      <div class="card">
+        <p>Este trabalho é um <strong>estudo exploratório sobre a função zeta de Riemann, algumas de suas propriedades e questões relacionadas à Hipótese de Riemann</strong>. Está apresentado como iniciação em matemática: um espaço para aprender, formular perguntas, experimentar transformações, conferir cálculos e documentar o que se observa.</p>
+        <p><strong>Não se pretende, nesta etapa, provar nem refutar a Hipótese de Riemann.</strong> O objetivo é investigar relações numéricas que parecem interessantes, compreender suas propriedades algébricas e verificar com cuidado até onde os dados disponíveis permitem chegar.</p>
+        <h3>Motivações</h3>
+        <ul>
+          <li>Compreender a função zeta, seus zeros não triviais, a linha crítica e a diferença entre a série inicial e sua continuação analítica.</li>
+          <li>Explorar uma transformação real aplicada às coordenadas imaginárias positivas conhecidas dos zeros.</li>
+          <li>Observar a sequência transformada e suas diferenças, perguntando se há regularidades úteis para estimativas numéricas.</li>
+          <li>Registrar tanto os resultados compatíveis com a hipótese explorada quanto os casos que não se ajustam a ela.</li>
+          <li>Praticar um processo reprodutível: definir o método, separar dados de exploração e validação, comparar previsões com valores conhecidos e descrever as limitações.</li>
+        </ul>
+        <h3>Pergunta exploratória</h3>
+        <p>Para as ordenadas positivas conhecidas Dₙ dos zeros não triviais considerados na linha crítica, o que se observa ao definir Tₙ = −20 cos(ln Dₙ), Δₙ = Dₙ − Tₙ e δₙ = Δₙ − Δₙ₋₁? A sequência δₙ parece apresentar um comportamento que possa ser descrito e testado em dados ainda não usados?</p>
+        <h3>Como interpretar os resultados</h3>
+        <p>Uma identidade algébrica pode ser exata sem revelar, por si só, uma nova propriedade da função zeta. Uma regularidade observada em poucos valores é uma observação empírica, não uma lei universal. Uma previsão que acerta alguns casos é um resultado preliminar; para avaliar sua utilidade, é preciso manter regras fixas, testar mais valores e registrar também as falhas.</p>
+        <div class="notice"><strong>Limite do escopo.</strong><br>As ordenadas usadas aqui correspondem a zeros já conhecidos e tratados na linha crítica. Estudar transformações dessas ordenadas não demonstra que todos os zeros não triviais estejam nessa linha. Portanto, os testes descritos nesta página não constituem, por si, uma prova ou uma refutação da Hipótese de Riemann.</div>
+      </div>
+    </section>
+
     <section class="section" id="fundamentos-iniciais">
       <div class="section-label">Fundamentos · Ponto de partida</div>
       <h2>Como o problema é escrito</h2>
@@ -490,7 +512,8 @@
       <div class="section-label">Navegação</div>
       <h2>Índice da pesquisa</h2>
       <p class="muted">Estrutura inicial para organizar o desenvolvimento do estudo.</p>
-      <nav class="index" aria-label="Índice da pesquisa">\n        <a href="#convergencia-continuacao"><b>02A</b><span><strong>Convergência e continuação analítica</strong><small>Por que 1 + 1 + 1 + ··· diverge e o que significa ζ(0)</small></span></a>
+      <nav class="index" aria-label="Índice da pesquisa">
+        <a href="#escopo-estudo"><b>00</b><span><strong>Propósito e motivações</strong><small>Escopo, pergunta exploratória e limites do estudo</small></span></a>\n        <a href="#convergencia-continuacao"><b>02A</b><span><strong>Convergência e continuação analítica</strong><small>Por que 1 + 1 + 1 + ··· diverge e o que significa ζ(0)</small></span></a>
         <a href="#graficos"><b>14</b><span><strong>Gráficos e dados</strong><small>Faixas, transformação e arquivo CSV</small></span></a>
         <a href="#problema"><b>01</b><span><strong>Apresentação do problema</strong><small>Contexto, pergunta e objetivos</small></span></a>
         <a href="#fundamentos"><b>02</b><span><strong>Fundamentação matemática</strong><small>Zeta, zeros e linha crítica</small></span></a>
