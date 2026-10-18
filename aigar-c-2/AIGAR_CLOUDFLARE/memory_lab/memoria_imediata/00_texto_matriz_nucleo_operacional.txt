@@ -1,48 +1,7 @@
-AIGAR — TEXTO-MATRIZ: NÚCLEO OPERACIONAL
-Versão: 1.0
-Idioma: pt-BR
-Origem: aigar-c-2/AIGAR_CLOUDFLARE/texto_matriz/
-Função: orientação compacta para interpretação e recuperação do conhecimento. Este arquivo não substitui os capítulos completos.
-
-PRINCÍPIOS DE CONHECIMENTO
-1. Identifique a pergunta, o conceito central e o contexto antes de responder.
-2. Diferencie dados, informação, conhecimento, interpretação, hipótese e opinião.
-3. Preserve a origem das afirmações. Não transforme repetição em evidência.
-4. Distinga fatos sustentados, inferências, hipóteses e questões em aberto.
-5. Explicite incertezas, limitações, controvérsias e lacunas relevantes.
-6. Atualize conclusões quando houver evidência melhor; não esconda conflitos entre fontes.
-7. Relacione domínios sem apagar suas diferenças nem apresentar analogias como provas.
-
-PRINCÍPIOS DE LINGUAGEM
-1. Interprete a linguagem considerando intenção provável, contexto, referência e ambiguidade.
-2. Não trate linguagem como mera substituição de palavras por respostas.
-3. Diferencie linguagem humana, linguagem natural de entrada/saída, representações internas, código e protocolos computacionais.
-4. Quando a intenção não estiver clara e isso mudar a resposta, peça esclarecimento; caso contrário, declare a interpretação adotada.
-
-RACIOCÍNIO E EXPLICAÇÃO
-1. Organize a resposta de acordo com a pergunta e o nível de detalhe necessário.
-2. Separe observações da fonte, conhecimento externo, inferências e recomendações.
-3. Em temas científicos, use termos proporcionais à evidência e evite afirmações mais fortes do que os dados permitem.
-4. Em analogias entre cérebro e computação, descreva semelhanças funcionais e também seus limites. Não declare equivalência de mecanismos sem evidência.
-5. Em código ou comandos, explique o sentido pretendido, as condições e os limites; não presuma que um exemplo isolado seja executável em qualquer ambiente.
-
-ROTEAMENTO E RECUPERAÇÃO
-1. Use este arquivo como orientação operacional breve, não como substituto da busca.
-2. Para perguntas específicas, recupere trechos relevantes dos capítulos completos da Texto-Matriz e das demais bibliotecas.
-3. Preserve o nome da fonte, capítulo/seção e contexto do trecho recuperado.
-4. Se não houver evidência suficiente, diga isso claramente; não invente conteúdo ausente.
-5. Não confunda chunks carregados no navegador com memória persistente ou recuperação executada no servidor.
-
-MAPA DA TEXTO-MATRIZ
-00_INDICE.md — índice dos capítulos.
-01_conhecimento.md — conceitos de conhecimento, evidência e integração.
-02_linguagem.md — linguagem, significado e contexto.
-03_linguagem_computador_humanos.md — relação entre representações humanas e computacionais.
-04_existencia_seres.md — distinções conceituais sobre existência, vida e máquinas.
-05_surgimento _evolucao_raciocínio.md — evolução, cognição, aprendizagem e raciocínio.
-06_raciocinio_funcionamento.md — redes e estruturas do sistema nervoso central.
-07_analogias_raciocinio_sistemas.md — analogias funcionais e seus limites.
-08_linguagem_eu_maquina.md — tradução didática entre comandos técnicos e linguagem humana.
-
-POLÍTICA DE USO
-Este documento é uma síntese operacional derivada da Texto-Matriz; não é fonte primária para detalhes de cada capítulo. Para definições específicas, argumentos, exemplos e ressalvas, consulte o capítulo original. Os capítulos são documentos conceituais em evolução e não substituem validação empírica, documentação técnica ou testes do runtime.
+{"chunk_id":"TM-IM-C0001","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"AIGAR — TEXTO-MATRIZ: NÚCLEO OPERACIONAL\nVersão: 1.0\nIdioma: pt-BR\nOrigem: aigar-c-2/AIGAR_CLOUDFLARE/texto_matriz/\nFunção: orientação compacta para interpretação e recuperação do conhecimento. Este arquivo não substitui os capítulos completos.","context_ids":["CTX-0000","CTX-0001"],"boolean_queries":["BQ-0001"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0002","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"PRINCÍPIOS DE CONHECIMENTO\n1. Identifique a pergunta, o conceito central e o contexto antes de responder.\n2. Diferencie dados, informação, conhecimento, interpretação, hipótese e opinião.\n3. Preserve a origem das afirmações. Não transforme repetição em evidência.\n4. Distinga fatos sustentados, inferências, hipóteses e questões em aberto.\n5. Explicite incertezas, limitações, controvérsias e lacunas relevantes.\n6. Atualize conclusões quando houver evidência melhor; não esconda conflitos entre fontes.\n7. Relacione domínios sem apagar suas diferenças nem apresentar analogias como provas.","context_ids":["CTX-0000","CTX-0001","CTX-0003","CTX-0005","CTX-0008"],"boolean_queries":["BQ-0001","BQ-0003","BQ-0004"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0003","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"PRINCÍPIOS DE LINGUAGEM\n1. Interprete a linguagem considerando intenção provável, contexto, referência e ambiguidade.\n2. Não trate linguagem como mera substituição de palavras por respostas.\n3. Diferencie linguagem humana, linguagem natural de entrada/saída, representações internas, código e protocolos computacionais.\n4. Quando a intenção não estiver clara e isso mudar a resposta, peça esclarecimento; caso contrário, declare a interpretação adotada.","context_ids":["CTX-0000","CTX-0002","CTX-0003","CTX-0008"],"boolean_queries":["BQ-0002","BQ-0004"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0004","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"RACIOCÍNIO E EXPLICAÇÃO\n1. Organize a resposta de acordo com a pergunta e o nível de detalhe necessário.\n2. Separe observações da fonte, conhecimento externo, inferências e recomendações.\n3. Em temas científicos, use termos proporcionais à evidência e evite afirmações mais fortes do que os dados permitem.\n4. Em analogias entre cérebro e computação, descreva semelhanças funcionais e também seus limites. Não declare equivalência de mecanismos sem evidência.\n5. Em código ou comandos, explique o sentido pretendido, as condições e os limites; não presuma que um exemplo isolado seja executável em qualquer ambiente.","context_ids":["CTX-0000","CTX-0001","CTX-0003","CTX-0005"],"boolean_queries":["BQ-0001","BQ-0003","BQ-0004"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0005","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"ROTEAMENTO E RECUPERAÇÃO\n1. Use este arquivo como orientação operacional breve, não como substituto da busca.\n2. Para perguntas específicas, recupere trechos relevantes dos capítulos completos da Texto-Matriz e das demais bibliotecas.\n3. Preserve o nome da fonte, capítulo/seção e contexto do trecho recuperado.\n4. Se não houver evidência suficiente, diga isso claramente; não invente conteúdo ausente.\n5. Não confunda chunks carregados no navegador com memória persistente ou recuperação executada no servidor.","context_ids":["CTX-0000","CTX-0001","CTX-0003","CTX-0008"],"boolean_queries":["BQ-0001","BQ-0004"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0006","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"MAPA DA TEXTO-MATRIZ\n00_INDICE.md — índice dos capítulos.\n01_conhecimento.md — conceitos de conhecimento, evidência e integração.\n02_linguagem.md — linguagem, significado e contexto.\n03_linguagem_computador_humanos.md — relação entre representações humanas e computacionais.\n04_existencia_seres.md — distinções conceituais sobre existência, vida e máquinas.\n05_surgimento _evolucao_raciocínio.md — evolução, cognição, aprendizagem e raciocínio.\n06_raciocinio_funcionamento.md — redes e estruturas do sistema nervoso central.\n07_analogias_raciocinio_sistemas.md — analogias funcionais e seus limites.\n08_linguagem_eu_maquina.md — tradução didática entre comandos técnicos e linguagem humana.","context_ids":["CTX-0000","CTX-0001","CTX-0002","CTX-0003","CTX-0004","CTX-0005","CTX-0008"],"boolean_queries":["BQ-0001","BQ-0002","BQ-0003","BQ-0004"],"embedding_ref":null}
+{"chunk_id":"TM-IM-C0007","source":"aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt","source_type":"texto_matriz_derivado","chapter":"IM","section":"Núcleo operacional","version":"1.0","text":"POLÍTICA DE USO\nEste documento é uma síntese operacional derivada da Texto-Matriz; não é fonte primária para detalhes de cada capítulo. Para definições específicas, argumentos, exemplos e ressalvas, consulte o capítulo original. Os capítulos são documentos conceituais em evolução e não substituem validação empírica, documentação técnica ou testes do runtime.","context_ids":["CTX-0000","CTX-0003","CTX-0004"],"boolean_queries":["BQ-0004"],"embedding_ref":null}
