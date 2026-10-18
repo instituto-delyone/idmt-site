@@ -605,8 +605,8 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         async def finalize():
             return await finalize_document_library(self.env, document_id, total_chunks)
         await finalize()
-        # Return a plain serializable payload, not the Workflow SDK proxy object.
-        return {"document_id": document_id, "chunk_count": total_chunks, "status": "ready"}
+        # The durable document status/counts are stored in D1; return no SDK proxy.
+        return None
 async def admin_documents(env):
     db = binding(env, D1_BINDING)
     if not db:
