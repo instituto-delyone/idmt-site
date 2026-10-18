@@ -15,8 +15,13 @@ class MemoryLab:
         self.documents={k:[] for k in MEMORY_LAYERS}; self._last_scan=0
         self.status={"enabled":self.config["enabled"],"ready":False,"mode":"not_initialized","layers":{},"last_scan":None,"error":None}
     async def _request(self,url,json_response=False):
-        response=await self.fetcher(url,{"headers":{"User-Agent":"AIGAR-Memory-Lab/1.0","Accept":"application/vnd.github+json"}})
-        if not getattr(response,"ok",False): raise RuntimeError("HTTP "+str(getattr(response,"status","?"))+" fetching "+url)
+        options={"method":"GET","headers":{"User-Agent":"AIGAR-Memory-Lab/1.0","Accept":"application/vnd.github+json"}}
+        response=await self.fetcher(url,options)
+        status=getattr(response,"status",None)
+        if status is not None and int(status)>=400:
+            raise RuntimeError("HTTP "+str(status)+" fetching "+url)
+        if status is None and not getattr(response,"ok",False):
+            raise RuntimeError("HTTP request failed fetching "+url)
         return await response.json() if json_response else await response.text()
     async def initialize(self,force=False):
         if not self.config.get("enabled"):
