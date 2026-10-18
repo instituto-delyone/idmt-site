@@ -593,8 +593,9 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         total_chunks = int(prepared["chunk_count"])
         for start_index in range(0, total_chunks, batch_size):
             batch_number = start_index // batch_size + 1
-            async def write_batch(start=start_index):
-                return await write_document_chunk_batch(self.env, document_id, start, batch_size)
+            batch_start = start_index
+            async def write_batch():
+                return await write_document_chunk_batch(self.env, document_id, batch_start, batch_size)
             step_name = f"write-chunks-{batch_number:03d}"
             do_step = step.do(step_name, config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
             wrapped_step = do_step(write_batch)
