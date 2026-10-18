@@ -7,8 +7,9 @@ DEFAULT_CONFIG = {"enabled":True,"repository":"instituto-delyone/idmt-site","ref
 def _terms(text): return set(re.findall(r"[a-zA-ZÀ-ÿ0-9_+-]{2,}", (text or "").lower()))
 def _score(query, content, name=""): return len(_terms(query) & _terms((name or "")+" "+(content or "")))
 def _is_memory_document(path):
+    """Accept plain-text and Markdown memory cards, excluding documentation indexes."""
     filename = str(path or "").rsplit("/", 1)[-1].casefold()
-    return filename.endswith(".txt") and filename != "readme.txt"
+    return filename.endswith((".txt", ".md")) and filename not in {"readme.txt", "readme.md"}
 class MemoryLab:
     def __init__(self, fetcher, config=None):
         self.fetcher=fetcher; self.config={**DEFAULT_CONFIG,**(config or {})}
@@ -113,9 +114,9 @@ class MemoryLab:
             if ready:
                 error = None
             elif required and not immediate_has_content and immediate_loaded_all:
-                error = "Immediate-memory boot is required, but no substantive TXT documents were found (README.txt is ignored)."
+                error = "Immediate-memory boot is required, but no substantive TXT/Markdown documents were found (README files are ignored)."
             else:
-                error = "One or more required immediate-memory TXT files failed to load."
+                error = "One or more required immediate-memory TXT/Markdown files failed to load."
             self.status={"enabled":True,"ready":ready,"mode":"ready" if ready else "partial","layers":stats,"last_scan":int(now),"error":error}
             self._last_scan=now
         except Exception as exc: self.status.update({"ready":False,"mode":"error","error":str(exc)[:500]})
