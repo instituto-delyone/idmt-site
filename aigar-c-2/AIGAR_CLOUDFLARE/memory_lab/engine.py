@@ -19,7 +19,28 @@ class MemoryLab:
         response=await self.fetcher(url,options)
         status=getattr(response,"status",None)
         if status is not None and int(status)>=400:
-            raise RuntimeError("HTTP "+str(status)+" fetching "+url)
+            # Preserve GitHub's diagnostic message and rate-limit metadata without
+            # exposing response bodies beyond a short, bounded excerpt.
+            try:
+                detail = (await response.text())[:300].replace("\\n", " ").strip()
+            except Exception:
+                detail = ""
+            headers = getattr(response, "headers", None)
+            rate_limit = {}
+            if headers is not None:
+                for name in ("x-ratelimit-limit", "x-ratelimit-remaining", "x-ratelimit-reset", "retry-after"):
+                    try:
+                        value = headers.get(name)
+                        if value is not None:
+                            rate_limit[name] = str(value)[:80]
+                    except Exception:
+                        pass
+            message = "HTTP "+str(status)+" fetching "+url
+            if detail:
+                message += " | response: "+detail
+            if rate_limit:
+                message += " | rate_limit: "+json.dumps(rate_limit, sort_keys=True)
+            raise RuntimeError(message)
         if status is None and not getattr(response,"ok",False):
             raise RuntimeError("HTTP request failed fetching "+url)
         return await response.json() if json_response else await response.text()
