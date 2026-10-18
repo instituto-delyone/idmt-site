@@ -406,7 +406,7 @@ async def build_document_library(env, document_id):
             payload = (header + chunk_text + "\n").encode("utf-8")
             await bucket.put(
                 r2_chunk_key,
-                payload,
+                payload.decode("utf-8"),
                 {
                     "httpMetadata": {"contentType": "text/markdown; charset=utf-8"},
                     "customMetadata": {
