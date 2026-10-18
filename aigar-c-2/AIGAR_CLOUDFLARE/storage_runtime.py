@@ -209,7 +209,8 @@ def plain_document(row):
 
 
 
-CHUNK_PAGES = 25
+CHUNK_PAGES = 25  # Compatibilidade com imports antigos; o chunking agora é orientado por conteúdo.
+MAX_CHUNK_CHARS = 20000
 LIBRARY_R2_PREFIX = "libraries"
 
 def normalize_library_text(text):
@@ -233,20 +234,44 @@ def markdown_pages(markdown):
             pages.append((int(m.group(1)), body))
     return pages
 
-def make_page_chunks(pages, pages_per_chunk=CHUNK_PAGES):
+def make_page_chunks(pages, max_chars=MAX_CHUNK_CHARS):
+    """Split by content volume while preserving page boundaries whenever possible.
+
+    Chunk count is determined by the document's actual extracted text, not a fixed
+    target count. A single unusually long page is split into smaller pieces.
+    """
     if not pages:
         return []
-    if pages[0][0] is None:
-        text = pages[0][1]
-        # TXT/Markdown-style fallback: preserve the document and split by ~24k chars.
-        out = []
-        for start in range(0, len(text), 24000):
-            out.append((None, None, text[start:start + 24000]))
-        return out
     out = []
-    for i in range(0, len(pages), pages_per_chunk):
-        group = pages[i:i + pages_per_chunk]
-        out.append((group[0][0], group[-1][0], "\n\n".join(x[1] for x in group)))
+    current_texts = []
+    current_start = None
+    current_end = None
+    current_len = 0
+
+    def flush():
+        nonlocal current_texts, current_start, current_end, current_len
+        if current_texts:
+            out.append((current_start, current_end, "\n\n".join(current_texts)))
+        current_texts = []
+        current_start = None
+        current_end = None
+        current_len = 0
+
+    for page_number, page_text in pages:
+        text = normalize_library_text(page_text)
+        if not text:
+            continue
+        # Pages with no detected page marker are handled identically, but without page metadata.
+        pieces = [text[i:i + max_chars] for i in range(0, len(text), max_chars)]
+        for piece in pieces:
+            if current_texts and current_len + len(piece) + 2 > max_chars:
+                flush()
+            if current_start is None:
+                current_start = page_number
+            current_end = page_number
+            current_texts.append(piece)
+            current_len += len(piece) + (2 if len(current_texts) > 1 else 0)
+    flush()
     return out
 
 async def convert_r2_pdf_to_markdown(env, r2_key, filename):
@@ -267,7 +292,7 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     parts = Array.new()
     parts.push(view)
     # Let Workers AI infer the document type from the .pdf filename.
-    blob = Blob.new(parts)
+    blob = Blob.new(parts, {"type": "application/pdf"})
     if int(getattr(blob, "size", 0) or 0) <= 0:
         raise RuntimeError("PDF recuperado do R2 resultou em Blob vazio.")
     from pyodide.ffi import create_proxy
