@@ -63,12 +63,38 @@ class MemoryLab:
                 # A broken config must not take down AIGAR; continue with safe defaults.
                 pass
             root=self.config["root"].strip("/")
-            tree=await self._request(f"https://api.github.com/repos/{repo}/git/trees/{ref}?recursive=1",True)
-            if tree.get("truncated"): raise RuntimeError("GitHub tree truncated; cannot guarantee complete discovery")
-            paths=[x.get("path","") for x in tree.get("tree",[]) if x.get("type")=="blob"]
+            # Prefer a small explicit manifest hosted as a raw file. This avoids
+            # depending on the recursive Git Trees API for every cold start.
+            manifest_paths=None
+            manifest_url="https://raw.githubusercontent.com/"+repo+"/"+ref+"/"+"/".join(quote(part,safe="") for part in (root+"/manifest.json").split("/"))
+            try:
+                manifest=json.loads(await self._request(manifest_url))
+                declared=manifest.get("layers",{})
+                if not isinstance(declared,dict):
+                    raise RuntimeError("Memory manifest has no valid layers object")
+                manifest_paths={}
+                for layer,folder in MEMORY_LAYERS.items():
+                    entries=declared.get(layer,[])
+                    if not isinstance(entries,list):
+                        raise RuntimeError("Memory manifest layer is not a list: "+layer)
+                    valid=[]
+                    for item in entries:
+                        path=str(item or "")
+                        if (path.startswith(root+"/"+folder+"/")
+                            and _is_memory_document(path)
+                            and ".." not in path.split("/")):
+                            valid.append(path)
+                    manifest_paths[layer]=sorted(set(valid))
+            except Exception:
+                # Compatibility fallback for older repositories without a manifest.
+                tree=await self._request("https://api.github.com/repos/"+repo+"/git/trees/"+ref+"?recursive=1",True)
+                if tree.get("truncated"):
+                    raise RuntimeError("GitHub tree truncated; cannot guarantee complete discovery")
+                paths=[x.get("path","") for x in tree.get("tree",[]) if x.get("type")=="blob"]
+                manifest_paths={layer:[p for p in paths if p.startswith(root+"/"+folder+"/") and _is_memory_document(p)] for layer,folder in MEMORY_LAYERS.items()}
             docs={k:[] for k in MEMORY_LAYERS}; stats={k:{"files_found":0,"files_loaded":0,"errors":[]} for k in MEMORY_LAYERS}
             for layer,folder in MEMORY_LAYERS.items():
-                candidates=[p for p in paths if p.startswith(root+"/"+folder+"/") and _is_memory_document(p)]
+                candidates=manifest_paths.get(layer,[])
                 stats[layer]["files_found"]=len(candidates)
                 for path in candidates:
                     try:
