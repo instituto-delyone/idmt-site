@@ -15,7 +15,9 @@ class MemoryLabTests(unittest.TestCase):
     def test_real_txt_documents_are_discovered(self):
         self.assertTrue(_is_memory_document("memory_lab/memoria_imediata/nota.txt"))
         self.assertTrue(_is_memory_document("memory_lab/memoria_longo_prazo/referencia.TXT"))
-        self.assertFalse(_is_memory_document("memory_lab/memoria_imediata/nota.md"))
+        self.assertTrue(_is_memory_document("memory_lab/memoria_imediata/nota.md"))
+        self.assertTrue(_is_memory_document("memory_lab/memoria_longo_prazo/cartao.MD"))
+        self.assertFalse(_is_memory_document("memory_lab/memoria_imediata/README.md"))
 
     def test_boot_and_fallback_settings_are_supported(self):
         self.assertIn("immediate_boot_required", DEFAULT_CONFIG)
