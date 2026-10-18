@@ -72,10 +72,13 @@ LIBRARY_CACHE_TTL_SECONDS = 300
 COGNITIVE_CORE = CognitiveContextCore()
 
 async def memory_lab_fetch(url, options=None):
-    # Cloudflare Workers Python fetch aceita um único argumento Request/URL;
-    # o Memory Lab usa a convenção fetch(url, options) de fetchers HTTP comuns.
-    # Para estes endpoints públicos do GitHub, a URL já define o método GET.
-    return await fetch(url)
+    # Preserve as opções HTTP solicitadas pelo Memory Lab (método e cabeçalhos).
+    # O fetch do Workers Python é usado com os mesmos argumentos nomeados abaixo
+    # em load_chunk_text(), load_library_indexes() e boot_text_matrix().
+    options = options or {}
+    headers = options.get("headers") or {}
+    method = options.get("method") or "GET"
+    return await fetch(url, method=method, headers=headers)
 
 MEMORY_LAB = MemoryLab(memory_lab_fetch)
 
