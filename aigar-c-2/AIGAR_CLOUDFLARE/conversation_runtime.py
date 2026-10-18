@@ -11,7 +11,7 @@ from cloudflare_bindings import binding
 from language_runtime import LANGUAGE, LANGUAGE_ENGINE, SESSIONS, compose_book_grounded_answer
 from library_runtime import COGNITIVE_CORE, MEMORY_LAB, boot_library, boot_text_matrix, library_search, source_relevance
 from context_runtime import AsymmetricContextManager, build_adaptive_plan, revise_adaptive_plan
-from cortex_compat import WORKER_CORTEX_BRIDGE
+from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING
 
