@@ -302,11 +302,6 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     files = Array.new()
     files.push(file_item)
     result = await ai.toMarkdown(files)
-    items = result if isinstance(result, list) else list(result)
-    if not items:
-        raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
-    item = items[0]
-
     def result_field(obj, key, default=None):
         # Workers AI may return a Python mapping or a JavaScript proxy object.
         try:
@@ -325,10 +320,31 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
         except Exception:
             return default
 
+    if isinstance(result, list):
+        items = result
+    else:
+        items = []
+        # Some Python Workers builds expose a single JS result object, not an array.
+        if result_field(result, "format") is not None or result_field(result, "data") is not None:
+            items = [result]
+        if not items:
+            try:
+                items = [result[i] for i in range(int(result.length))]
+            except Exception:
+                try:
+                    items = list(result)
+                except Exception:
+                    items = []
+    if not items:
+        raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
+    item = items[0]
     fmt = str(result_field(item, "format", "") or "")
     if fmt == "error":
         raise RuntimeError(str(result_field(item, "error", "Falha na conversão do PDF.") or "Falha na conversão do PDF."))
-    return str(result_field(item, "data", "") or "")
+    data = result_field(item, "data", "")
+    if not data:
+        raise RuntimeError("Workers AI retornou item sem campo data.")
+    return str(data)
 
 async def build_document_library(env, document_id):
     db = binding(env, D1_BINDING)
