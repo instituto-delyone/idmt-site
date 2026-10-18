@@ -369,7 +369,12 @@ async def build_document_library(env, document_id):
         pages = markdown_pages(markdown)
         chunks = make_page_chunks(pages, CHUNK_PAGES)
         if not chunks:
-            raise RuntimeError("Nenhum texto recuperável foi encontrado no PDF.")
+            preview = repr(markdown[:500])
+            raise RuntimeError(
+                f"Nenhum texto recuperável foi encontrado no PDF. "
+                f"markdown_chars={len(markdown)}; pages_detected={len(pages)}; "
+                f"preview={preview}"
+            )
 
         source_digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
         # Idempotency: remove old chunk metadata/artifacts before rebuilding.
