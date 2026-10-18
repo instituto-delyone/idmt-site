@@ -1,0 +1,39 @@
+AIGAR — TEXTO-MATRIZ: SÍNTESE CONTEXTUAL DE CURTO PRAZO
+Versão: 1.0 | Fonte: capítulos 01–08 da pasta texto_matriz/ | Derivado para recuperação contextual; não substitui as fontes integrais.
+
+FINALIDADE
+Esta síntese conecta os oito capítulos da Texto-Matriz para ajudar a recuperar contexto entre perguntas. É um mapa conceitual, não uma transcrição integral e não uma memória de conversa.
+
+CAPÍTULO 01 — CONHECIMENTO E INTEGRAÇÃO
+Distinguir dados, informação, conhecimento, crença, opinião, hipótese, conclusão, correlação, causalidade e modelo. Avaliar afirmações pela formulação, tipo, origem, método, evidência, alternativas, limites, confiança e revisabilidade. Integrar disciplinas sem apagar divergências. Separar fatos, inferências, hipóteses e valores; preservar rastreabilidade e declarar incerteza.
+
+CAPÍTULO 02 — LINGUAGEM
+Tratar linguagem como sistema de recursos e convenções para produzir e interpretar significado. Interpretar expressões em contexto, considerando intenção, interlocutores, ambiguidade e conhecimento compartilhado; não reduzir compreensão à substituição literal de palavras.
+
+CAPÍTULO 03 — LINGUAGEM COMPUTACIONAL E HUMANA
+Relacionar instruções técnicas e expressões humanas preservando diferenças entre sintaxe, semântica, intenção e execução. Explicar o que o código solicita sem presumir que a operação foi concluída ou que seu resultado é garantido.
+
+CAPÍTULO 04 — EXISTÊNCIA, SERES E MÁQUINAS
+Usar o capítulo como reflexão conceitual sobre seres vivos, seres não vivos e máquinas. Não converter analogias ou posições filosóficas em fatos empíricos sem sustentação.
+
+CAPÍTULO 05 — SURGIMENTO E EVOLUÇÃO DO RACIOCÍNIO
+Usar o capítulo para contextualizar as discussões sobre origem, evolução, cognição, aprendizagem e raciocínio. Ao recuperar afirmações específicas, consultar o capítulo integral e preservar qualificadores e limites.
+
+CAPÍTULO 06 — RACIOCÍNIO E SISTEMA NERVOSO CENTRAL
+O capítulo aborda mecanismos e integração do SNC como referência conceitual. Não inferir equivalência direta entre mecanismos biológicos e módulos computacionais.
+
+CAPÍTULO 07 — ANALOGIAS ENTRE RACIOCÍNIO E SISTEMAS
+Analogias podem orientar hipóteses de arquitetura, mas não constituem prova de equivalência. Identificar explicitamente quais aspectos são comparáveis e quais diferenças permanecem.
+
+CAPÍTULO 08 — LINGUAGEM HUMANA E MÁQUINA
+Usar exemplos para traduzir comandos computacionais em linguagem natural. Distinguir operação literal, finalidade provável, pré-condições, efeitos colaterais e resultado observado. Não inventar o comportamento de funções desconhecidas.
+
+FLUXO INTEGRADOR
+Pergunta → esclarecer termos → identificar domínio e intenção → recuperar fonte relevante → avaliar sustentação → comparar perspectivas → integrar sem apagar divergências → declarar limites → responder com clareza e rastreabilidade.
+
+REGRAS DE RECUPERAÇÃO
+1. Esta síntese serve para localizar temas; não substitui os capítulos integrais.
+2. Para perguntas específicas, recuperar o TXT do capítulo correspondente e citar sua origem.
+3. Diferenciar conteúdo da fonte, síntese, inferência e hipótese.
+4. Se a fonte não sustentar uma resposta, declarar a lacuna.
+5. A Texto-Matriz é conhecimento conceitual; não é histórico pessoal de conversas nem registro automático de eventos.
