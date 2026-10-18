@@ -306,10 +306,29 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     if not items:
         raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
     item = items[0]
-    fmt = str(item.get("format") or "")
+
+    def result_field(obj, key, default=None):
+        # Workers AI may return a Python mapping or a JavaScript proxy object.
+        try:
+            value = obj.get(key, default)
+            return default if value is None else value
+        except Exception:
+            pass
+        try:
+            value = obj[key]
+            return default if value is None else value
+        except Exception:
+            pass
+        try:
+            value = getattr(obj, key)
+            return default if value is None else value
+        except Exception:
+            return default
+
+    fmt = str(result_field(item, "format", "") or "")
     if fmt == "error":
-        raise RuntimeError(str(item.get("error") or "Falha na conversão do PDF."))
-    return str(item.get("data") or "")
+        raise RuntimeError(str(result_field(item, "error", "Falha na conversão do PDF.") or "Falha na conversão do PDF."))
+    return str(result_field(item, "data", "") or "")
 
 async def build_document_library(env, document_id):
     db = binding(env, D1_BINDING)
