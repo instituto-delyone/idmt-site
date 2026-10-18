@@ -388,7 +388,7 @@ async def prepare_document_library(env, document_id):
             )
         # Refuse metadata-only conversions; they are not valid memory content.
         meaningful = sum(len(normalize_library_text(text)) for _, _, text in chunks)
-        if meaningful < 200 or ("## Metadata" in markdown and not re.search(r"(?m)^###\\s+Page\\s+\\d+", markdown)):
+        if meaningful < 200 or ("## Metadata" in markdown and not re.search(r"(?m)^###\s+Page\s+\d+", markdown)):
             raise RuntimeError(
                 "A conversão retornou metadados do PDF, mas não conteúdo das páginas. "
                 "É necessário OCR ou outra rota de extração."
@@ -472,13 +472,13 @@ async def write_document_chunk_batch(env, document_id, start_index, batch_size=2
         chunk_id = f"{document_id}_chunk_{offset:04d}"
         r2_chunk_key = f"{LIBRARY_R2_PREFIX}/{document_id}/chunks/chunk_{offset:04d}.md"
         header = (
-            f"# {chunk_id}\\n\\n"
-            f"**Biblioteca:** {filename}\\n"
-            f"**Fonte:** {filename}\\n"
-            + (f"**Páginas:** {start_page}-{end_page}\\n" if start_page is not None else "")
-            + f"**Checksum fonte:** {source_digest[:16]}\\n\\n---\\n\\n"
+            f"# {chunk_id}\n\n"
+            f"**Biblioteca:** {filename}\n"
+            f"**Fonte:** {filename}\n"
+            + (f"**Páginas:** {start_page}-{end_page}\n" if start_page is not None else "")
+            + f"**Checksum fonte:** {source_digest[:16]}\n\n---\n\n"
         )
-        payload = header + chunk_text + "\\n"
+        payload = header + chunk_text + "\n"
         await bucket.put(
             r2_chunk_key,
             payload,
