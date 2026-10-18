@@ -338,123 +338,199 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
                     items = []
     if not items:
         raise RuntimeError("Workers AI não retornou conteúdo para o PDF.")
-    item = items[0]
-    fmt = str(result_field(item, "format", "") or "")
-    if fmt == "error":
-        raise RuntimeError(str(result_field(item, "error", "Falha na conversão do PDF.") or "Falha na conversão do PDF."))
-    data = result_field(item, "data", "")
-    if not data:
-        raise RuntimeError("Workers AI retornou item sem campo data.")
-    return str(data)
+    extracted = []
+    errors = []
+    for item in items:
+        fmt = str(result_field(item, "format", "") or "")
+        if fmt == "error":
+            errors.append(str(result_field(item, "error", "Falha na conversão do PDF.") or "Falha na conversão do PDF."))
+            continue
+        data = result_field(item, "data", "")
+        if data:
+            extracted.append(str(data))
+    if not extracted:
+        detail = "; ".join(errors[:3]) or "Nenhum item continha o campo data."
+        raise RuntimeError("Workers AI não retornou texto extraído do PDF. " + detail)
+    # toMarkdown may return one item per page; do not silently discard every page after the first.
+    return "\n\n".join(extracted)
 
-async def build_document_library(env, document_id):
+async def _document_row(env, document_id):
     db = binding(env, D1_BINDING)
-    bucket = binding(env, R2_BINDING)
-    if not db or not bucket:
-        raise RuntimeError("Persistência do AIGAR não está configurada.")
-
     row = await db.prepare(
         "SELECT id, filename, r2_key, sha256, status FROM documents WHERE id = ? LIMIT 1"
     ).bind(document_id).first()
     if not row:
         raise RuntimeError("Documento não encontrado.")
+    return row
 
+
+async def prepare_document_library(env, document_id):
+    """Extract a PDF once and persist the full Markdown outside the Workflow step output."""
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    if not db or not bucket:
+        raise RuntimeError("Persistência do AIGAR não está configurada.")
+    row = await _document_row(env, document_id)
     filename = str(row.filename or "document.pdf")
     r2_key = str(row.r2_key or "")
     await db.prepare(
         "UPDATE documents SET status = 'processing', error_message = NULL WHERE id = ?"
     ).bind(document_id).run()
-
     try:
         markdown = await convert_r2_pdf_to_markdown(env, r2_key, filename)
         pages = markdown_pages(markdown)
-        chunks = make_page_chunks(pages, CHUNK_PAGES)
+        chunks = make_page_chunks(pages, MAX_CHUNK_CHARS)
         if not chunks:
             preview = repr(markdown[:500])
             raise RuntimeError(
-                f"Nenhum texto recuperável foi encontrado no PDF. "
-                f"markdown_chars={len(markdown)}; pages_detected={len(pages)}; "
-                f"preview={preview}"
+                "Nenhum texto recuperável foi encontrado no PDF. "
+                f"markdown_chars={len(markdown)}; pages_detected={len(pages)}; preview={preview}"
             )
-
-        source_digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
-        # Idempotency: remove old chunk metadata/artifacts before rebuilding.
-        old = await db.prepare(
-            "SELECT r2_key FROM document_chunks WHERE document_id = ?"
-        ).bind(document_id).all()
-        for old_row in old.results:
-            try:
-                await bucket.delete(str(old_row.r2_key))
-            except Exception:
-                pass
-        await db.prepare("DELETE FROM document_chunks WHERE document_id = ?").bind(document_id).run()
-
-        created = []
-        for seq, (start_page, end_page, text) in enumerate(chunks, start=1):
-            chunk_text = normalize_library_text(text)
-            if not chunk_text:
-                continue
-            chunk_id = f"{document_id}_chunk_{seq:04d}"
-            r2_chunk_key = f"{LIBRARY_R2_PREFIX}/{document_id}/chunks/chunk_{seq:04d}.md"
-            header = (
-                f"# {chunk_id}\n\n"
-                f"**Biblioteca:** {filename}\n"
-                f"**Fonte:** {filename}\n"
-                + (f"**Páginas:** {start_page}-{end_page}\n" if start_page is not None else "")
-                + f"**Checksum fonte:** {source_digest[:16]}\n\n---\n\n"
+        # Refuse metadata-only conversions; they are not valid memory content.
+        meaningful = sum(len(normalize_library_text(text)) for _, _, text in chunks)
+        if meaningful < 200 or ("## Metadata" in markdown and not re.search(r"(?m)^###\\s+Page\\s+\\d+", markdown)):
+            raise RuntimeError(
+                "A conversão retornou metadados do PDF, mas não conteúdo das páginas. "
+                "É necessário OCR ou outra rota de extração."
             )
-            payload = (header + chunk_text + "\n").encode("utf-8")
-            await bucket.put(
-                r2_chunk_key,
-                payload.decode("utf-8"),
-                {
-                    "httpMetadata": {"contentType": "text/markdown; charset=utf-8"},
-                    "customMetadata": {
-                        "document_id": document_id,
-                        "chunk_id": chunk_id,
-                        "sequence": str(seq),
-                        "source": filename,
-                        "start_page": str(start_page or ""),
-                        "end_page": str(end_page or ""),
-                    },
+        digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
+        extracted_key = f"{LIBRARY_R2_PREFIX}/{document_id}/processing/extracted.md"
+        await bucket.put(
+            extracted_key,
+            markdown,
+            {
+                "httpMetadata": {"contentType": "text/markdown; charset=utf-8"},
+                "customMetadata": {
+                    "document_id": document_id,
+                    "source": filename,
+                    "source_digest": digest,
+                    "page_count": str(len(pages)),
+                    "chunk_count": str(len(chunks)),
                 },
-            )
-            await db.prepare(
-                """INSERT INTO document_chunks
-                   (id, document_id, sequence, source, start_page, end_page,
-                    r2_key, text_length, checksum, created_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
-            ).bind(
-                chunk_id, document_id, seq, filename, start_page, end_page,
-                r2_chunk_key, len(chunk_text), source_digest, int(time.time())
-            ).run()
-            created.append({
-                "id": chunk_id,
-                "sequence": seq,
-                "start_page": start_page,
-                "end_page": end_page,
-                "r2_key": r2_chunk_key,
-                "text_length": len(chunk_text),
-            })
-
-        await db.prepare(
-            "UPDATE documents SET status = 'ready', chunk_count = ?, error_message = NULL WHERE id = ?"
-        ).bind(len(created), document_id).run()
-        return {"document_id": document_id, "filename": filename, "chunk_count": len(created), "chunks": created}
+            },
+        )
+        return {
+            "document_id": document_id,
+            "filename": filename,
+            "source_digest": digest,
+            "extracted_key": extracted_key,
+            "page_count": len(pages),
+            "chunk_count": len(chunks),
+            "text_chars": len(markdown),
+        }
     except Exception as exc:
-        await db.prepare(
-            "UPDATE documents SET status = 'error', error_message = ? WHERE id = ?"
-        ).bind(str(exc)[:2000], document_id).run()
+        try:
+            await db.prepare(
+                "UPDATE documents SET status = 'error', error_message = ? WHERE id = ?"
+            ).bind(str(exc)[:2000], document_id).run()
+        except Exception:
+            pass
         raise
+
+
+async def cleanup_document_chunks(env, document_id):
+    """Remove indexed chunks from prior attempts before rebuilding a document."""
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    old = await db.prepare(
+        "SELECT r2_key FROM document_chunks WHERE document_id = ?"
+    ).bind(document_id).all()
+    deleted = 0
+    for old_row in old.results:
+        key = str(old_row.r2_key or "")
+        if key:
+            try:
+                await bucket.delete(key)
+                deleted += 1
+            except Exception:
+                # The metadata is removed below; a missing stale object must not block rebuilding.
+                pass
+    await db.prepare("DELETE FROM document_chunks WHERE document_id = ?").bind(document_id).run()
+    return {"document_id": document_id, "old_chunk_rows": len(old.results), "objects_deleted": deleted}
+
+
+async def write_document_chunk_batch(env, document_id, start_index, batch_size=20):
+    """Write a bounded, idempotent batch so each Workflow step stays below Worker API limits."""
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    row = await _document_row(env, document_id)
+    filename = str(row.filename or "document.pdf")
+    extracted_key = f"{LIBRARY_R2_PREFIX}/{document_id}/processing/extracted.md"
+    obj = await bucket.get(extracted_key)
+    if not obj:
+        raise RuntimeError("Texto extraído não encontrado no R2; a etapa de extração precisa ser repetida.")
+    markdown = await obj.text()
+    pages = markdown_pages(markdown)
+    chunks = make_page_chunks(pages, MAX_CHUNK_CHARS)
+    source_digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
+    selected = chunks[start_index:start_index + batch_size]
+    created = []
+    for offset, (start_page, end_page, text) in enumerate(selected, start=start_index + 1):
+        chunk_text = normalize_library_text(text)
+        if not chunk_text:
+            continue
+        chunk_id = f"{document_id}_chunk_{offset:04d}"
+        r2_chunk_key = f"{LIBRARY_R2_PREFIX}/{document_id}/chunks/chunk_{offset:04d}.md"
+        header = (
+            f"# {chunk_id}\\n\\n"
+            f"**Biblioteca:** {filename}\\n"
+            f"**Fonte:** {filename}\\n"
+            + (f"**Páginas:** {start_page}-{end_page}\\n" if start_page is not None else "")
+            + f"**Checksum fonte:** {source_digest[:16]}\\n\\n---\\n\\n"
+        )
+        payload = header + chunk_text + "\\n"
+        await bucket.put(
+            r2_chunk_key,
+            payload,
+            {
+                "httpMetadata": {"contentType": "text/markdown; charset=utf-8"},
+                "customMetadata": {
+                    "document_id": document_id,
+                    "chunk_id": chunk_id,
+                    "sequence": str(offset),
+                    "source": filename,
+                    "start_page": str(start_page or ""),
+                    "end_page": str(end_page or ""),
+                },
+            },
+        )
+        await db.prepare(
+            """INSERT OR REPLACE INTO document_chunks
+               (id, document_id, sequence, source, start_page, end_page,
+                r2_key, text_length, checksum, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+        ).bind(
+            chunk_id, document_id, offset, filename, start_page, end_page,
+            r2_chunk_key, len(chunk_text), source_digest, int(time.time())
+        ).run()
+        created.append({"id": chunk_id, "sequence": offset, "start_page": start_page,
+                        "end_page": end_page, "r2_key": r2_chunk_key, "text_length": len(chunk_text)})
+    return {"document_id": document_id, "start": start_index + 1, "written": len(created),
+            "total_chunks": len(chunks)}
+
+
+async def finalize_document_library(env, document_id, chunk_count):
+    db = binding(env, D1_BINDING)
+    await db.prepare(
+        "UPDATE documents SET status = 'ready', chunk_count = ?, error_message = NULL WHERE id = ?"
+    ).bind(chunk_count, document_id).run()
+    return {"document_id": document_id, "chunk_count": chunk_count, "status": "ready"}
+
+
+async def build_document_library(env, document_id):
+    """Compatibility helper for small documents; large work is coordinated by Workflow steps."""
+    prepared = await prepare_document_library(env, document_id)
+    await cleanup_document_chunks(env, document_id)
+    written = 0
+    for start_index in range(0, prepared["chunk_count"], 20):
+        batch = await write_document_chunk_batch(env, document_id, start_index, 20)
+        written += batch["written"]
+    return await finalize_document_library(env, document_id, written)
+
 
 class LibraryBuilderWorkflow(WorkflowEntrypoint):
     async def run(self, event, step):
-        # Workflow REST/API instances deliver params as the event payload.
-        # Depending on the Python Workers version this can arrive as a dict
-        # or as a JSON string, so normalize both forms here.
         payload = event
-        # Python WorkflowEvent can expose payload through attributes or
-        # JS-proxy indexing depending on the Workers runtime.
         candidates = []
         for attr in ("params", "payload"):
             try:
@@ -497,16 +573,31 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         document_id = str(payload.get("document_id") or "")
         if not document_id:
             raise RuntimeError("document_id ausente no Workflow.")
-        @step.do("build-library", config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
-        async def build():
-            result = await build_document_library(self.env, document_id)
-            return {
-                "document_id": result["document_id"],
-                "filename": result["filename"],
-                "chunk_count": result["chunk_count"],
-            }
-        return await build()
 
+        @step.do("prepare-extraction", config={"retries": {"limit": 2, "delay": "10 seconds", "backoff": "exponential"}})
+        async def prepare():
+            return await prepare_document_library(self.env, document_id)
+        prepared = await prepare()
+
+        @step.do("cleanup-old-chunks", config={"retries": {"limit": 2, "delay": "10 seconds", "backoff": "exponential"}})
+        async def cleanup():
+            return await cleanup_document_chunks(self.env, document_id)
+        await cleanup()
+
+        batch_size = 20
+        total_chunks = int(prepared["chunk_count"])
+        for start_index in range(0, total_chunks, batch_size):
+            batch_number = start_index // batch_size + 1
+            async def write_batch(start=start_index):
+                return await write_document_chunk_batch(self.env, document_id, start, batch_size)
+            step_name = f"write-chunks-{batch_number:03d}"
+            do_step = step.do(step_name, config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
+            result = await do_step(write_batch)
+
+        @step.do("finalize-library", config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
+        async def finalize():
+            return await finalize_document_library(self.env, document_id, total_chunks)
+        return await finalize()
 async def admin_documents(env):
     db = binding(env, D1_BINDING)
     if not db:
