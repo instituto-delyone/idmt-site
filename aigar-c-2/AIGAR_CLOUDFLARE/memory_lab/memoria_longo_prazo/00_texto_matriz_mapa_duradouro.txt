@@ -1,0 +1,29 @@
+AIGAR — REGISTRO DURADOURO DA TEXTO-MATRIZ
+Versão: 1.0
+Natureza: metadados e relações estáveis do conjunto de documentos, não substitui as fontes.
+
+Coleção: Texto-Matriz AIGAR.
+Local de origem: aigar-c-2/AIGAR_CLOUDFLARE/texto_matriz/
+Idioma predominante: pt-BR.
+Fontes: capítulos 01 a 08 em Markdown; cópias TXT derivadas ficam nesta camada para recuperação pelo Memory Lab.
+Princípio de preservação: os arquivos Markdown são as fontes editoriais originais; os TXT são derivados para ingestão e não devem ser editados independentemente.
+
+Mapa:
+01_conhecimento.txt — epistemologia operacional, avaliação de afirmações, integração, rastreabilidade e incerteza.
+02_linguagem.txt — linguagem, significado, interpretação e contexto.
+03_linguagem_computador_humanos.txt — relações entre linguagem computacional e linguagem humana.
+04_existencia_seres.txt — existência, seres vivos, seres não vivos e máquinas.
+05_surgimento_evolucao_raciocinio.txt — surgimento/evolução do raciocínio e temas relacionados descritos no capítulo original.
+06_raciocinio_funcionamento.txt — raciocínio humano e integração do sistema nervoso central.
+07_analogias_raciocinio_sistemas.txt — analogias funcionais entre cognição e sistemas não orgânicos, sem presumir equivalência literal.
+08_linguagem_eu_maquina.txt — exemplos de tradução entre comandos computacionais e linguagem humana.
+
+Relações entre capítulos:
+- 01 fornece método para avaliar e integrar o conteúdo dos demais.
+- 02 e 03 tratam significado, contexto e relação entre expressão humana e instruções técnicas.
+- 04 delimita discussões conceituais sobre seres e máquinas.
+- 05 e 06 abordam raciocínio e cognição em perspectiva evolutiva/biológica, conforme os textos originais.
+- 07 usa analogias funcionais e exige ressalvas contra equivalência indevida.
+- 08 operacionaliza a tradução de comandos e enfatiza a diferença entre instrução solicitada e resultado real.
+
+Uso correto: recuperar o capítulo integral relevante para afirmações específicas. Este registro orienta navegação e continuidade; não é evidência independente nem substitui o conteúdo-fonte.
