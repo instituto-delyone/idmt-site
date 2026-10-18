@@ -604,7 +604,9 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
         @step.do("finalize-library", config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
         async def finalize():
             return await finalize_document_library(self.env, document_id, total_chunks)
-        return await finalize()
+        await finalize()
+        # Return a plain serializable payload, not the Workflow SDK proxy object.
+        return {"document_id": document_id, "chunk_count": total_chunks, "status": "ready"}
 async def admin_documents(env):
     db = binding(env, D1_BINDING)
     if not db:
