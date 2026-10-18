@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Explicit Memory Lab document manifest; avoids recursive GitHub tree API dependency during normal initialization.",
+  "repository": "instituto-delyone/idmt-site",
+  "ref": "main",
+  "root": "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab",
+  "layers": {
+    "imediata": [
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_imediata/00_texto_matriz_nucleo_operacional.txt"
+    ],
+    "curto_prazo": [
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_curto_prazo/00_texto_matriz_sintese_contextual.txt"
+    ],
+    "longo_prazo": [
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/00_INDICE.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/00_texto_matriz_mapa_duradouro.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/01_conhecimento.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/02_linguagem.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/03_linguagem_computador_humanos.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/04_existencia_seres.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/05_surgimento_evolucao_raciocinio.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/06_raciocinio_funcionamento.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/07_analogias_raciocinio_sistemas.txt",
+      "aigar-c-2/AIGAR_CLOUDFLARE/memory_lab/memoria_longo_prazo/08_linguagem_eu_maquina.txt"
+    ]
+  },
+  "generated_from_commit": "67b774d8309b55f48d92113bd91d531e95917686"
+}
