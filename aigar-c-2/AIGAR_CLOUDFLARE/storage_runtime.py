@@ -377,7 +377,12 @@ async def prepare_document_library(env, document_id):
         "UPDATE documents SET status = 'processing', error_message = NULL WHERE id = ?"
     ).bind(document_id).run()
     try:
-        markdown = await convert_r2_pdf_to_markdown(env, r2_key, filename)
+        extracted_key = f"{LIBRARY_R2_PREFIX}/{document_id}/processing/extracted.md"
+        existing_extraction = await bucket.get(extracted_key)
+        if existing_extraction:
+            markdown = await existing_extraction.text()
+        else:
+            markdown = await convert_r2_pdf_to_markdown(env, r2_key, filename)
         pages = markdown_pages(markdown)
         chunks = make_page_chunks(pages, MAX_CHUNK_CHARS)
         if not chunks:
@@ -592,7 +597,8 @@ class LibraryBuilderWorkflow(WorkflowEntrypoint):
                 return await write_document_chunk_batch(self.env, document_id, start, batch_size)
             step_name = f"write-chunks-{batch_number:03d}"
             do_step = step.do(step_name, config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
-            result = await do_step(write_batch)
+            wrapped_step = do_step(write_batch)
+            result = await wrapped_step()
 
         @step.do("finalize-library", config={"retries": {"limit": 3, "delay": "10 seconds", "backoff": "exponential"}})
         async def finalize():
