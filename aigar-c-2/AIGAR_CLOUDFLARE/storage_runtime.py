@@ -297,8 +297,9 @@ async def convert_r2_pdf_to_markdown(env, r2_key, filename):
     blob = Blob.new(parts, blob_options)
     if int(getattr(blob, "size", 0) or 0) <= 0:
         raise RuntimeError("PDF recuperado do R2 resultou em Blob vazio.")
-    from pyodide.ffi import create_proxy
-    file_item = create_proxy({"name": filename, "blob": blob})
+    file_item = Object.new()
+    file_item.name = filename
+    file_item.blob = blob
     files = Array.new()
     files.push(file_item)
     result = await ai.toMarkdown(files)
