@@ -26,13 +26,113 @@
     .ethics-emblem{width:50px;height:50px;flex:0 0 50px;display:grid;place-items:center;border-radius:14px;border:1px solid rgba(103,217,255,.35);background:linear-gradient(145deg,rgba(20,117,163,.28),rgba(57,74,151,.18));font-size:25px}
     .ethics-card-copy{min-width:0}.ethics-card-kicker{display:block;color:#82dcff;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;margin-bottom:4px}.ethics-card strong{display:block;font-size:14px;color:#f1f8ff}.ethics-card span{display:block;margin-top:3px;color:#b3c8d9;font-size:10px;line-height:1.35}
 
+
+    /* Refinamento visual da página de entrada — triângulo institucional */
+    header{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-template-areas:
+        "brand brand"
+        "founder founder"
+        "constitution ethics"
+        "logo logo"
+        "eyebrow eyebrow"
+        "title title"
+        "intro intro";
+      column-gap:18px;
+      row-gap:0;
+      align-items:start;
+      max-width:900px;
+      margin:0 auto;
+    }
+    .brand{
+      grid-area:brand;
+      justify-self:center;
+      gap:10px;
+      transition:background .2s,border-color .2s,transform .2s;
+    }
+    .brand:hover{
+      background:rgba(24,78,113,.42);
+      border-color:rgba(126,226,255,.45);
+      transform:translateY(-1px);
+    }
+    .brand:focus-visible{
+      outline:2px solid var(--cyan);
+      outline-offset:4px;
+    }
+    .brand-arrow{font-size:13px;color:var(--cyan);letter-spacing:0}
+    .founder-spotlight{
+      grid-area:founder;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin:18px auto 14px;
+    }
+    .founder-card{width:min(390px,100%)}
+    .constitution-spotlight{
+      grid-area:constitution;
+      width:100%;
+      margin:0;
+      display:flex;
+      justify-content:flex-end;
+    }
+    .ethics-spotlight{
+      grid-area:ethics;
+      width:100%;
+      margin:0;
+      display:flex;
+      justify-content:flex-start;
+    }
+    .constitution-card,.ethics-card{
+      width:min(390px,100%);
+      min-height:88px;
+      margin:0 auto;
+    }
+    .logo-wrap{
+      grid-area:logo;
+      width:168px;
+      height:168px;
+      margin:27px auto 12px;
+    }
+    .logo-wrap img{width:168px;height:168px}
+    .eyebrow{grid-area:eyebrow;margin:0 0 8px}
+    h1{
+      grid-area:title;
+      max-width:700px;
+      font-size:clamp(32px,4.5vw,52px);
+      line-height:1.02;
+    }
+    .intro{grid-area:intro;margin:13px auto 0}
+    @media(max-width:700px){
+      header{
+        grid-template-columns:minmax(0,1fr);
+        grid-template-areas:
+          "brand"
+          "founder"
+          "constitution"
+          "ethics"
+          "logo"
+          "eyebrow"
+          "title"
+          "intro";
+        row-gap:0;
+      }
+      .founder-spotlight{margin:19px auto 12px}
+      .constitution-spotlight,.ethics-spotlight{justify-content:center;margin-top:10px}
+      .constitution-card,.ethics-card{width:min(390px,100%)}
+      .logo-wrap{width:132px;height:132px;margin:26px auto 12px}
+      .logo-wrap img{width:132px;height:132px}
+      h1{font-size:clamp(30px,8vw,42px)}
+      .intro{font-size:14px}
+    }
+
   </style>
 </head>
 <body>
   <div class="space" aria-hidden="true"><div class="glow"></div><div class="ring"></div><div class="grid"></div></div>
   <main>
     <header>
-      <div class="brand"><img src="../assets/logo-idmt.png" alt="IDMT"> Instituto Delyone</div>
+      <a class="brand" href="./instituto/" aria-label="Acessar a página principal do Instituto Delyone"><img src="../assets/logo-idmt.png" alt="IDMT"> Instituto Delyone <span class="brand-arrow" aria-hidden="true">↗</span></a>
       <div class="founder-spotlight"><a class="founder-card" href="../founder/" aria-label="Conheça o fundador do Instituto Delyone"><img class="founder-avatar" src="../founder/assets/IMG_0765.jpeg" alt="Delyone de Paula Canedo Filho"><span class="founder-card-copy"><span class="founder-card-kicker">Conheça o fundador</span><strong>Delyone de Paula Canedo Filho</strong><span>Fundador do Instituto Delyone de Medicina e Tecnologia</span></span><span class="founder-arrow" aria-hidden="true">→</span></a></div>
       <div class="constitution-spotlight"><a class="constitution-card" href="../constituicao/" aria-label="Conheça a Constituição Federal do Brasil"><span class="constitution-emblem" aria-hidden="true">🇧🇷</span><span class="constitution-card-copy"><span class="constitution-card-kicker">Conheça seus direitos</span><strong>Conheça a Constituição Federal do Brasil</strong><span>Texto oficial, artigo por artigo, com espaço para perguntas e comentários</span></span><span class="founder-arrow" aria-hidden="true">→</span></a></div>
       <div class="ethics-spotlight"><a class="ethics-card" href="./files/c%C3%B3digo%20de%20%C3%A9tica%20m%C3%A9dica/" aria-label="Consultar o Código de Ética Médica"><span class="ethics-emblem" aria-hidden="true">⚖️</span><span class="ethics-card-copy"><span class="ethics-card-kicker">Ética e exercício profissional</span><strong>Código de Ética Médica</strong><span>Consulte a edição documental de 2019, o índice e o texto original em PDF</span></span><span class="founder-arrow" aria-hidden="true">→</span></a></div>
