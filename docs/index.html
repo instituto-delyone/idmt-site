@@ -155,6 +155,32 @@
       .logo-wrap:before,.logo-wrap img{transition:none}
       .logo-wrap:hover img,.logo-wrap:focus-within img{transform:none}
     }
+    /* Logo IDMT — transparência visual e brilho interativo */
+    .logo-wrap img{
+      mix-blend-mode:screen;
+      filter:brightness(1.08)
+        drop-shadow(0 0 7px rgba(103,217,255,.22))
+        drop-shadow(0 0 17px rgba(74,177,255,.12));
+      transition:filter .35s ease,transform .35s ease;
+      will-change:filter,transform;
+    }
+    .logo-wrap:hover img,
+    .logo-wrap:focus-within img{
+      filter:brightness(1.22)
+        drop-shadow(0 0 5px rgba(170,239,255,.72))
+        drop-shadow(0 0 14px rgba(103,217,255,.52))
+        drop-shadow(0 0 27px rgba(48,151,255,.28));
+      transform:scale(1.025);
+    }
+    .brand img{
+      mix-blend-mode:screen;
+      filter:brightness(1.08) drop-shadow(0 0 5px rgba(103,217,255,.18));
+    }
+    @media(prefers-reduced-motion:reduce){
+      .logo-wrap img{transition:none}
+      .logo-wrap:hover img,.logo-wrap:focus-within img{transform:none}
+    }
+
   </style>
 </head>
 <body>
