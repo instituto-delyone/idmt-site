@@ -94,7 +94,24 @@
       height:260px;
       margin:24px auto 8px;
     }
-    .logo-wrap img{width:260px;height:260px;object-fit:contain}
+    .logo-wrap img{
+      width:260px;
+      height:260px;
+      object-fit:contain;
+      /* Integra visualmente o fundo escuro do PNG ao fundo azul. */
+      mix-blend-mode:screen;
+      filter:brightness(1.02) drop-shadow(0 0 10px rgba(88,210,255,.12));
+      transition:filter .35s ease,transform .35s ease;
+    }
+    .logo-wrap:hover img,
+    .logo-wrap:focus-within img{
+      filter:brightness(1.18) drop-shadow(0 0 7px rgba(128,226,255,.68)) drop-shadow(0 0 22px rgba(55,173,255,.38));
+      transform:scale(1.025);
+    }
+    @media (prefers-reduced-motion:reduce){
+      .logo-wrap img{transition:none}
+      .logo-wrap:hover img,.logo-wrap:focus-within img{transform:none}
+    }
     .eyebrow{grid-area:eyebrow;margin:0 0 8px}
     h1{
       grid-area:title;
