@@ -59,6 +59,44 @@
 <div class="notice"><strong>Limite deste simulador.</strong> Os números são hipotéticos e servem para demonstrar relações matemáticas, não para estimar a acurácia real de uma tomografia para apendicite ou orientar decisões clínicas. O modelo presume sensibilidade e especificidade constantes, hipótese que pode não se sustentar entre populações. Valores fracionários são arredondados apenas para exibição.</div>
 </section>
 </main>
+
+<section class="card" id="qualidade-assistencia">
+<div class="label">Parte 2 · Qualidade da assistência e saúde pública</div>
+<h2>Quanto vale uma boa anamnese e um bom exame físico?</h2>
+<p>Agora ampliamos o modelo: uma população passa primeiro por uma avaliação clínica — anamnese e exame físico — e somente quem apresenta avaliação positiva segue para o exame complementar. Ajuste os parâmetros e observe como a seleção clínica altera o número de exames, os resultados finais e os casos que podem passar despercebidos.</p>
+<div class="notice"><strong>Como o modelo funciona.</strong> População hipotética de 10.000 pessoas. A avaliação clínica positiva encaminha para o exame complementar; a avaliação clínica negativa não é testada e é classificada como negativa no fluxo. Isso permite contabilizar os casos da doença que a primeira etapa não selecionou.</div>
+<div class="controls">
+<div class="control"><div class="control-head"><label for="pop2">Prevalência inicial da doença</label><output class="value" id="pop2Out" for="pop2">10%</output></div><input id="pop2" type="range" min="1" max="50" step="1" value="10"><div class="range-labels"><span>1%</span><span>25%</span><span>50%</span></div></div>
+<h3>Etapa 1 — Avaliação clínica</h3>
+<div class="two">
+<div class="control"><div class="control-head"><label for="seC">Sensibilidade clínica</label><output class="value" id="seCOut" for="seC">85%</output></div><input id="seC" type="range" min="50" max="100" step="1" value="85"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+<div class="control"><div class="control-head"><label for="spC">Especificidade clínica</label><output class="value" id="spCOut" for="spC">80%</output></div><input id="spC" type="range" min="50" max="100" step="1" value="80"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+</div>
+<h3>Etapa 2 — Exame complementar</h3>
+<div class="two">
+<div class="control"><div class="control-head"><label for="seE">Sensibilidade do exame</label><output class="value" id="seEOut" for="seE">95%</output></div><input id="seE" type="range" min="50" max="100" step="1" value="95"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+<div class="control"><div class="control-head"><label for="spE">Especificidade do exame</label><output class="value" id="spEOut" for="spE">95%</output></div><input id="spE" type="range" min="50" max="100" step="1" value="95"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+</div>
+</div>
+<div class="metrics">
+<div class="metric"><span>População inicial</span><strong>10.000</strong></div>
+<div class="metric"><span>Encaminhados ao exame</span><strong id="selected2">—</strong></div>
+<div class="metric"><span>Exames evitados no modelo</span><strong id="avoided2">—</strong></div>
+<div class="metric"><span>Doentes não selecionados na etapa 1</span><strong id="missed2">—</strong></div>
+<div class="metric"><span>Sensibilidade do fluxo completo</span><strong id="pathSe2">—</strong></div>
+<div class="metric"><span>Especificidade do fluxo completo</span><strong id="pathSp2">—</strong></div>
+<div class="metric"><span>Acurácia global do fluxo</span><strong id="pathAcc2">—</strong></div>
+<div class="metric"><span>VPP final</span><strong id="pathVpp2">—</strong></div>
+</div>
+<h3>Resultados finais do percurso diagnóstico</h3>
+<div style="overflow-x:auto"><table class="matrix"><thead><tr><th>Classificação final</th><th>Doença presente</th><th>Doença ausente</th></tr></thead><tbody>
+<tr><td>Fluxo positivo</td><td id="pathVp2">—</td><td id="pathFp2">—</td></tr>
+<tr><td>Fluxo negativo</td><td id="pathFn2">—</td><td id="pathVn2">—</td></tr>
+</tbody></table></div>
+<p id="summary2" aria-live="polite" style="margin-top:14px">Ajuste as barras para explorar o fluxo.</p>
+<div class="notice"><strong>Interpretação responsável.</strong> Menos exames não significa automaticamente melhor assistência: é preciso considerar os casos não selecionados, a gravidade, os riscos de atraso, custos, efeitos adversos e consequências clínicas. Os parâmetros são hipotéticos, não estimativas validadas de uma consulta ou de um exame específico. Na prática, decisões clínicas não devem ser reduzidas a uma regra binária universal.</div>
+</section>
+
 <footer class="footer"><div class="container"><a class="back" href="../rienmann/index.html">← Voltar à Iniciação em Matemática</a><p style="margin-top:12px">Instituto Delyone de Medicina e Tecnologia · Conteúdo educacional em desenvolvimento.</p><a class="back" href="#inicio">Voltar ao início ↑</a></div></footer>
 <script>
 (() => {
@@ -85,4 +123,27 @@ el('reset').addEventListener('click',()=>{el('prev').value=0.1;el('sens').value=
 update();
 })();
 </script>
+
+<script>
+(() => {
+const N2=10000, el2=id=>document.getElementById(id);
+const f2=n=>Math.round(n).toLocaleString('pt-BR');
+const p2=n=>n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+function updateFlow(){
+ const prev=Number(el2('pop2').value)/100, seC=Number(el2('seC').value)/100, spC=Number(el2('spC').value)/100, seE=Number(el2('seE').value)/100, spE=Number(el2('spE').value)/100;
+ const d=N2*prev, h=N2-d, clinicalTP=d*seC, clinicalFP=h*(1-spC), selected=clinicalTP+clinicalFP;
+ const finalTP=clinicalTP*seE, finalFP=clinicalFP*(1-spE), finalFN=d-finalTP, finalTN=h-finalFP;
+ const sensitivity=d?finalTP/d*100:0, specificity=h?finalTN/h*100:0, accuracy=(finalTP+finalTN)/N2*100, vpp=(finalTP+finalFP)?finalTP/(finalTP+finalFP)*100:0;
+ el2('pop2Out').textContent=el2('pop2').value+'%';
+ [['seC','seCOut'],['spC','spCOut'],['seE','seEOut'],['spE','spEOut']].forEach(a=>el2(a[1]).textContent=el2(a[0]).value+'%');
+ el2('selected2').textContent=f2(selected); el2('avoided2').textContent=f2(N2-selected); el2('missed2').textContent=f2(d-clinicalTP);
+ el2('pathSe2').textContent=p2(sensitivity); el2('pathSp2').textContent=p2(specificity); el2('pathAcc2').textContent=p2(accuracy); el2('pathVpp2').textContent=p2(vpp);
+ el2('pathVp2').textContent=f2(finalTP); el2('pathFp2').textContent=f2(finalFP); el2('pathFn2').textContent=f2(finalFN); el2('pathVn2').textContent=f2(finalTN);
+ el2('summary2').textContent='Das '+f2(N2)+' pessoas, '+f2(selected)+' seriam encaminhadas ao exame complementar. A primeira etapa não selecionaria '+f2(d-clinicalTP)+' pessoas que têm a doença; considerando também os erros do exame complementar, '+f2(finalFN)+' pessoas com a doença terminariam classificadas como negativas no fluxo completo.';
+}
+['pop2','seC','spC','seE','spE'].forEach(id=>el2(id).addEventListener('input',updateFlow));
+updateFlow();
+})();
+</script>
+
 </body></html>
