@@ -87,6 +87,8 @@
 <div class="metric"><span>Especificidade do fluxo completo</span><strong id="pathSp2">—</strong></div>
 <div class="metric"><span>Acurácia global do fluxo</span><strong id="pathAcc2">—</strong></div>
 <div class="metric"><span>VPP final</span><strong id="pathVpp2">—</strong></div>
+<div class="metric"><span>Pessoas com a doença que não foram diagnosticadas</span><strong id="missedPct2">—</strong><span id="missedDetail2">—</span></div>
+<div class="metric"><span>Pessoas sem a doença diagnosticadas incorretamente</span><strong id="falsePct2">—</strong><span id="falseDetail2">—</span></div>
 </div>
 <h3>Resultados finais do percurso diagnóstico</h3>
 <div style="overflow-x:auto"><table class="matrix"><thead><tr><th>Classificação final</th><th>Doença presente</th><th>Doença ausente</th></tr></thead><tbody>
@@ -139,6 +141,8 @@ function updateFlow(){
  el2('selected2').textContent=f2(selected); el2('avoided2').textContent=f2(N2-selected); el2('missed2').textContent=f2(d-clinicalTP);
  el2('pathSe2').textContent=p2(sensitivity); el2('pathSp2').textContent=p2(specificity); el2('pathAcc2').textContent=p2(accuracy); el2('pathVpp2').textContent=p2(vpp);
  el2('pathVp2').textContent=f2(finalTP); el2('pathFp2').textContent=f2(finalFP); el2('pathFn2').textContent=f2(finalFN); el2('pathVn2').textContent=f2(finalTN);
+ el2('missedPct2').textContent=p2(d?finalFN/d*100:0); el2('missedDetail2').textContent=f2(finalFN)+' de '+f2(d)+' pessoas com a doença';
+ el2('falsePct2').textContent=p2(h?finalFP/h*100:0); el2('falseDetail2').textContent=f2(finalFP)+' de '+f2(h)+' pessoas sem a doença';
  el2('summary2').textContent='Das '+f2(N2)+' pessoas, '+f2(selected)+' seriam encaminhadas ao exame complementar. A primeira etapa não selecionaria '+f2(d-clinicalTP)+' pessoas que têm a doença; considerando também os erros do exame complementar, '+f2(finalFN)+' pessoas com a doença terminariam classificadas como negativas no fluxo completo.';
 }
 ['pop2','seC','spC','seE','spE'].forEach(id=>el2(id).addEventListener('input',updateFlow));
