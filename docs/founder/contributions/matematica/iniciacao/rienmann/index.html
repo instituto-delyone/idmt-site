@@ -526,7 +526,7 @@
         <a href="#caderno-preditivo"><b>09</b><span><strong>Caderno de previsão</strong><small>Da reconstrução à previsão por intervalos</small></span></a>
         <a href="#teste-pendulo"><b>11</b><span><strong>Hipótese do pêndulo</strong><small>Decomposição de δ e validação dos limites</small></span></a>\n        <a href="#pontos-na-faixa"><b>10</b><span><strong>Pontos dentro da faixa</strong><small>Avaliações de ζ em pontos que não são zeros</small></span></a>
         <a href="#plano"><b>11</b><span><strong>Metodologia e testes</strong><small>Procedimentos de validação</small></span></a>
-        <a href="#resultados"><b>12</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
+        <a href="#teste-faixa-movel"><b>12A</b><span><strong>Faixa móvel de cinco variações</strong><small>Teste sequencial de δ₇ a δ₂₁</small></span></a>\n        <a href="#resultados"><b>12</b><span><strong>Resultados preliminares</strong><small>Observações e limitações</small></span></a>
         <a href="#referencias"><b>13</b><span><strong>Referências e continuidade</strong><small>Fontes e próximos passos</small></span></a>
       </nav>
     </section>
@@ -579,6 +579,48 @@
         </ol>
       </div>
       <div class="notice"><strong>Estado científico:</strong> identidade algébrica exata + observação empírica inicial + três variações reservadas dentro dos limites. Não foi demonstrado um limite universal nem uma prova da Hipótese de Riemann.</div>
+    </section>
+
+
+    <section class="section" id="teste-faixa-movel">
+      <div class="section-label">07 · Nova rodada de testes</div>
+      <h2>Faixa móvel de cinco variações: teste de D₇ a D₂₁</h2>
+      <div class="card">
+        <p><strong>Pergunta desta rodada.</strong> Em vez de manter para sempre os limites iniciais obtidos com δ₂–δ₆, testamos uma regra móvel: para estimar a variação seguinte δₙ, usamos somente as cinco variações imediatamente anteriores, δₙ₋₅ a δₙ₋₁. A faixa prevista é o mínimo e o máximo desse conjunto anterior.</p>
+        <div class="equations">
+          <div class="equation">δₙ = Δₙ − Δₙ₋₁</div>
+          <div class="equation">Lₙ = min(δₙ₋₅, …, δₙ₋₁)</div>
+          <div class="equation">Uₙ = max(δₙ₋₅, …, δₙ₋₁)</div>
+          <small>Regra empírica: a faixa de δₙ é [Lₙ, Uₙ], calculada sem incluir o próprio δₙ.</small>
+        </div>
+        <p>Aplicando a regra aos valores D₁–D₂₁ usados nesta página, a faixa cobre <strong>11 das 15 variações testadas (73,3%)</strong>, de δ₇ a δ₂₁. Quatro valores ficam fora: δ₁₀, δ₁₄, δ₁₅ e δ₂₀. Isso mostra que a faixa móvel não garante conter a próxima variação; os resultados são descritivos e dependem da amostra e da regra escolhida.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:.9rem;min-width:680px">
+            <thead><tr style="text-align:left;border-bottom:1px solid var(--line)">
+              <th style="padding:9px">n</th><th style="padding:9px">δₙ observado</th><th style="padding:9px">Limite inferior</th><th style="padding:9px">Limite superior</th><th style="padding:9px">Resultado</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">7</td><td style="padding:9px">4,187558</td><td style="padding:9px">2,998732</td><td style="padding:9px">6,097928</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">8</td><td style="padding:9px">3,052773</td><td style="padding:9px">2,998732</td><td style="padding:9px">6,097928</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">9</td><td style="padding:9px">5,964452</td><td style="padding:9px">2,998732</td><td style="padding:9px">6,097928</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">10</td><td style="padding:9px">2,260741</td><td style="padding:9px">2,998732</td><td style="padding:9px">5,964452</td><td style="padding:9px"><strong>Fora</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">11</td><td style="padding:9px">4,086754</td><td style="padding:9px">2,260741</td><td style="padding:9px">5,964452</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">12</td><td style="padding:9px">4,439020</td><td style="padding:9px">2,260741</td><td style="padding:9px">5,964452</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">13</td><td style="padding:9px">3,696145</td><td style="padding:9px">2,260741</td><td style="padding:9px">5,964452</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">14</td><td style="padding:9px">1,887908</td><td style="padding:9px">2,260741</td><td style="padding:9px">4,439020</td><td style="padding:9px"><strong>Fora</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">15</td><td style="padding:9px">5,425411</td><td style="padding:9px">1,887908</td><td style="padding:9px">4,439020</td><td style="padding:9px"><strong>Fora</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">16</td><td style="padding:9px">2,483464</td><td style="padding:9px">1,887908</td><td style="padding:9px">5,425411</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">17</td><td style="padding:9px">3,104322</td><td style="padding:9px">1,887908</td><td style="padding:9px">5,425411</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">18</td><td style="padding:9px">3,161112</td><td style="padding:9px">1,887908</td><td style="padding:9px">5,425411</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">19</td><td style="padding:9px">4,540587</td><td style="padding:9px">1,887908</td><td style="padding:9px">5,425411</td><td style="padding:9px">Dentro</td></tr>
+              <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px">20</td><td style="padding:9px">1,790689</td><td style="padding:9px">2,483464</td><td style="padding:9px">5,425411</td><td style="padding:9px"><strong>Fora</strong></td></tr>
+              <tr><td style="padding:9px">21</td><td style="padding:9px">2,718510</td><td style="padding:9px">1,790689</td><td style="padding:9px">4,540587</td><td style="padding:9px">Dentro</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">Os números estão arredondados a seis casas decimais. A tabela é um registro computacional preliminar; antes de conclusões mais fortes, convém conferir todas as ordenadas de entrada em uma fonte de referência e fixar o protocolo para novos dados.</p>
+      </div>
+      <div class="notice"><strong>Conclusão limitada.</strong><br>A faixa móvel descreve a amplitude das cinco variações anteriores e permite um teste sequencial simples, mas não é um limite teórico nem uma demonstração de capacidade preditiva geral. Esta análise usa ordenadas de zeros já conhecidos na linha crítica e não constitui prova nem refutação da Hipótese de Riemann.</div>
     </section>
 
     <section class="section" id="resultados">
