@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3f7fd">
+<title>Matemática e a Medicina | Instituto Delyone</title>
+<meta name="description" content="Exploração interativa de como prevalência, sensibilidade e especificidade influenciam a interpretação de testes diagnósticos.">
+<style>
+:root{--page:#f3f7fd;--card:#fff;--ink:#13243d;--muted:#687b90;--blue:#246b9c;--soft:#eaf4fc;--line:#dce6f1;--green:#177245;--red:#a13b3b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65}.container{width:min(1000px,calc(100% - 32px));margin:auto}.top{padding:42px 0 25px}.eyebrow,.label{color:var(--blue);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.08;letter-spacing:-.04em;margin:12px 0}h2{font-size:clamp(1.45rem,3vw,2rem);line-height:1.2;letter-spacing:-.025em;margin:6px 0 14px}h3{font-size:1.08rem;margin:0 0 7px}p{margin:0 0 13px}.intro{font-size:1.1rem;color:var(--muted);max-width:800px}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{background:var(--soft);border:1px solid #d5e9f8;color:#245d86;padding:5px 10px;border-radius:999px;font-size:.8rem;font-weight:700}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4vw,30px);box-shadow:0 10px 28px rgba(31,63,99,.05);margin:18px 0}.muted{color:var(--muted)}.controls{display:grid;gap:22px;margin-top:20px}.control{min-width:0}.control-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}.control-head label{font-weight:700}.value{font-size:1.25rem;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}input[type=range]{width:100%;accent-color:var(--blue);cursor:pointer;min-height:28px}.range-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}.metric{background:#f0f5fa;border-radius:15px;padding:16px}.metric span{display:block;color:var(--muted);font-size:.9rem}.metric strong{display:block;font-size:clamp(1.6rem,5vw,2.25rem);letter-spacing:-.04em;line-height:1.2;font-variant-numeric:tabular-nums}.matrix{width:100%;border-collapse:collapse;margin-top:8px;font-variant-numeric:tabular-nums}.matrix th,.matrix td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line)}.matrix th:last-child,.matrix td:last-child{text-align:right}.matrix th{font-size:.85rem;color:var(--muted)}.notice{background:#fff9ec;border-left:3px solid #d4a84e;padding:16px 18px;border-radius:0 12px 12px 0;color:#66552f;margin-top:18px}.formula{background:var(--soft);border:1px solid #dceaf6;padding:15px;border-radius:13px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1rem,2.8vw,1.3rem);overflow-wrap:anywhere;margin:12px 0}.footer{border-top:1px solid var(--line);margin-top:35px;padding:24px 0 36px;color:var(--muted);font-size:.85rem}.back{color:var(--blue);font-weight:750;text-decoration:none}.back:hover{text-decoration:underline}button{font:inherit;border:1px solid var(--line);background:white;color:var(--blue);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:700}button:hover{background:var(--soft)}@media(max-width:600px){.two{grid-template-columns:1fr;gap:17px}.metrics{gap:9px}.metric{padding:13px}.matrix th,.matrix td{padding:9px 5px;font-size:.88rem}.top{padding-top:30px}}
+</style>
+</head>
+<body id="inicio">
+<header class="top"><div class="container">
+<div class="eyebrow">Instituto Delyone · Iniciação em Matemática</div>
+<h1>Matemática <span style="color:var(--blue)">e a Medicina</span></h1>
+<p class="intro">Uma exploração interativa de como a prevalência de uma doença, a sensibilidade e a especificidade de um teste influenciam a interpretação dos resultados diagnósticos.</p>
+<div class="pills"><span class="pill">Probabilidade pré-teste</span><span class="pill">Teorema de Bayes</span><span class="pill">Medicina diagnóstica</span></div>
+</div></header>
+<main class="container">
+<section class="card">
+<div class="label">Experimento interativo</div><h2>O que muda quando aplicamos o mesmo teste a populações diferentes?</h2>
+<p>Movimente as três barras. O modelo considera uma população hipotética de <strong>100.000 pessoas</strong> e calcula os resultados esperados com base na prevalência, sensibilidade e especificidade escolhidas.</p>
+<div class="controls">
+<div class="control"><div class="control-head"><label for="prev">Prevalência da doença</label><output class="value" id="prevOut" for="prev">0,1%</output></div><input id="prev" type="range" min="0.1" max="30" step="0.1" value="0.1"><div class="range-labels"><span>0,1%</span><span>10%</span><span>30%</span></div></div>
+<div class="two">
+<div class="control"><div class="control-head"><label for="sens">Sensibilidade</label><output class="value" id="sensOut" for="sens">95%</output></div><input id="sens" type="range" min="50" max="100" step="1" value="95"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+<div class="control"><div class="control-head"><label for="spec">Especificidade</label><output class="value" id="specOut" for="spec">95%</output></div><input id="spec" type="range" min="50" max="100" step="1" value="95"><div class="range-labels"><span>50%</span><span>75%</span><span>100%</span></div></div>
+</div></div>
+<div class="metrics">
+<div class="metric"><span>Acurácia global</span><strong id="acc">95,00%</strong></div>
+<div class="metric"><span>Valor preditivo positivo (VPP)</span><strong id="vpp">1,87%</strong></div>
+<div class="metric"><span>Valor preditivo negativo (VPN)</span><strong id="vpn">99,99%</strong></div>
+<div class="metric"><span>Resultados positivos</span><strong id="positive">5.090</strong></div>
+</div>
+<h3>Contagem esperada de resultados</h3>
+<div style="overflow-x:auto"><table class="matrix"><thead><tr><th>Resultado</th><th>Doença presente</th><th>Doença ausente</th></tr></thead><tbody>
+<tr><td>Teste positivo</td><td id="vp">95</td><td id="fp">4.995</td></tr><tr><td>Teste negativo</td><td id="fn">5</td><td id="vn">94.905</td></tr>
+</tbody></table></div>
+<p class="muted" id="summary" aria-live="polite" style="margin-top:14px">Com prevalência baixa, mesmo um teste com boa sensibilidade e especificidade pode produzir mais falsos positivos do que verdadeiros positivos.</p>
+<button id="reset" type="button">Restaurar valores iniciais</button>
+</section>
+<section class="card"><div class="label">Como interpretar</div><h2>Três métricas, perguntas diferentes</h2>
+<h3>Sensibilidade</h3><p>Entre as pessoas que realmente têm a doença, qual proporção recebe resultado positivo? Sensibilidade alta reduz falsos negativos.</p>
+<div class="formula">Sensibilidade = VP / (VP + FN)</div>
+<h3>Especificidade</h3><p>Entre as pessoas que não têm a doença, qual proporção recebe resultado negativo? Especificidade alta reduz falsos positivos.</p>
+<div class="formula">Especificidade = VN / (VN + FP)</div>
+<h3>Acurácia global</h3><p>Qual proporção de todos os resultados está correta? Ela depende das propriedades do teste e da composição da população estudada.</p>
+<div class="formula">Acurácia = (VP + VN) / total</div>
+<h3>Valor preditivo positivo</h3><p>Quando o teste dá positivo, qual é a probabilidade de a pessoa realmente ter a doença? Essa resposta depende fortemente da probabilidade pré-teste, que pode ser influenciada pela prevalência e pelo contexto clínico.</p>
+<div class="formula">VPP = VP / (VP + FP)</div>
+<div class="notice"><strong>O ponto central.</strong> A resposta de um exame não deve ser interpretada isoladamente. História clínica, exame físico, fatores de risco, qualidade técnica e contexto epidemiológico ajudam a estimar a probabilidade pré-teste. O sinal de Blumberg, por exemplo, pode modificar a suspeita clínica de apendicite, mas não determina sozinho o diagnóstico.</div>
+</section>
+<section class="card"><div class="label">Aplicação ao raciocínio clínico</div><h2>Da população geral ao paciente selecionado</h2>
+<p>Uma TC avaliada em pacientes com suspeita clínica de apendicite pode apresentar desempenho diferente quando aplicada a uma população com características distintas. Isso pode ocorrer por diferenças na prevalência, no espectro de gravidade, nas doenças alternativas, nos critérios de interpretação e na forma como o diagnóstico final foi confirmado.</p>
+<p>Por isso, estudos diagnósticos precisam descrever quem foi incluído, como a amostra foi selecionada, qual padrão de referência definiu a presença da doença e como os resultados foram verificados. Sensibilidade e especificidade também podem variar entre cenários; não são garantias universais independentes da população.</p>
+<h3>Conexão com o Diagnosis</h3><p>Uma linha de investigação possível é medir como o desempenho de um sistema diagnóstico muda conforme o contexto disponível: (1) apenas o resultado de um teste; (2) queixa principal; (3) anamnese e exame físico; (4) exames complementares. Cada etapa exigiria protocolo de avaliação, referência diagnóstica independente e dados de teste apropriados.</p>
+<div class="notice"><strong>Limite deste simulador.</strong> Os números são hipotéticos e servem para demonstrar relações matemáticas, não para estimar a acurácia real de uma tomografia para apendicite ou orientar decisões clínicas. O modelo presume sensibilidade e especificidade constantes, hipótese que pode não se sustentar entre populações. Valores fracionários são arredondados apenas para exibição.</div>
+</section>
+</main>
+<footer class="footer"><div class="container"><a class="back" href="../rienmann/index.html">← Voltar à Iniciação em Matemática</a><p style="margin-top:12px">Instituto Delyone de Medicina e Tecnologia · Conteúdo educacional em desenvolvimento.</p><a class="back" href="#inicio">Voltar ao início ↑</a></div></footer>
+<script>
+(() => {
+const N = 100000;
+const el = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('pt-BR');
+const pct = n => n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
+function update(){
+ const p = Number(el('prev').value)/100;
+ const se = Number(el('sens').value)/100;
+ const sp = Number(el('spec').value)/100;
+ const diseased = N*p, healthy = N-diseased;
+ const vp = diseased*se, fn = diseased-vp, vn = healthy*sp, fp = healthy-vn;
+ const totalPos = vp+fp, totalNeg = fn+vn;
+ const acc = (vp+vn)/N*100, vpp = totalPos ? vp/totalPos*100 : 0, vpn = totalNeg ? vn/totalNeg*100 : 0;
+ el('prevOut').textContent = Number(el('prev').value).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
+ el('sensOut').textContent = el('sens').value+'%'; el('specOut').textContent = el('spec').value+'%';
+ el('acc').textContent = pct(acc); el('vpp').textContent = pct(vpp); el('vpn').textContent = pct(vpn); el('positive').textContent = fmt(totalPos);
+ el('vp').textContent = fmt(vp); el('fp').textContent = fmt(fp); el('fn').textContent = fmt(fn); el('vn').textContent = fmt(vn);
+ el('summary').textContent = 'Em 100.000 pessoas, o modelo estima '+fmt(vp)+' verdadeiros positivos e '+fmt(fp)+' falsos positivos. Entre todos os resultados positivos, '+pct(vpp)+' seriam verdadeiros positivos sob estas hipóteses.';
+}
+['prev','sens','spec'].forEach(id=>el(id).addEventListener('input',update));
+el('reset').addEventListener('click',()=>{el('prev').value=0.1;el('sens').value=95;el('spec').value=95;update()});
+update();
+})();
+</script>
+</body></html>
