@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Delyone SOS</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #111827; color: #fff; }
+    main { width: min(100%, 440px); text-align: center; }
+    h1 { margin: 0 0 12px; font-size: clamp(1.8rem, 8vw, 2.5rem); }
+    p { color: #d1d5db; line-height: 1.55; }
+    button { width: min(78vw, 280px); aspect-ratio: 1; border: 8px solid #fecaca; border-radius: 50%; background: #dc2626; color: white; font-size: clamp(1.6rem, 7vw, 2.2rem); font-weight: 800; box-shadow: 0 0 0 8px #7f1d1d; cursor: pointer; touch-action: manipulation; }
+    button:focus-visible { outline: 4px solid white; outline-offset: 12px; }
+    button:disabled { opacity: .75; cursor: wait; }
+    #status { min-height: 3em; margin-top: 28px; font-weight: 600; overflow-wrap: anywhere; }
+    .note { font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Delyone SOS</h1>
+    <p>Use somente em uma emergência real. Ao tocar, o sistema tentará obter sua localização e enviar o evento à API configurada.</p>
+    <button id="sos" type="button" aria-describedby="status">SOS</button>
+    <p id="status" role="status" aria-live="polite">API ainda não ativada. Em perigo imediato no Brasil, ligue 190.</p>
+    <p class="note">A localização só é solicitada após seu acionamento e depende da permissão do aparelho.</p>
+  </main>
+  <script>
+    // Configure SOS_API_URL only after deploying and testing the authenticated backend.
+    const SOS_API_URL = "";
+    const button = document.getElementById("sos");
+    const status = document.getElementById("status");
+
+    function getPosition() {
+      return new Promise((resolve, reject) => {
+        if (!("geolocation" in navigator)) return reject(new Error("Este aparelho não oferece geolocalização pelo navegador."));
+        navigator.geolocation.getCurrentPosition(
+          p => resolve({ latitude: p.coords.latitude, longitude: p.coords.longitude, accuracy_m: Math.round(p.coords.accuracy), captured_at: new Date(p.timestamp).toISOString() }),
+          () => reject(new Error("Não foi possível obter a localização. Confira a permissão de localização.")),
+          { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+        );
+      });
+    }
+
+    button.addEventListener("click", async () => {
+      if (!SOS_API_URL) {
+        status.textContent = "Ainda não ativado: a API de emergência precisa ser implantada e testada. Em perigo imediato, ligue 190.";
+        return;
+      }
+      button.disabled = true;
+      status.textContent = "Obtendo localização…";
+      try {
+        const position = await getPosition();
+        const response = await fetch(SOS_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...position, maps_url: "https://maps.google.com/?q=" + position.latitude + "," + position.longitude, source: "delyone-sos-web" })
+        });
+        if (!response.ok) throw new Error("A API não confirmou o recebimento do alerta.");
+        status.textContent = "A API confirmou o recebimento. Verifique a resposta do serviço e, se houver risco imediato, ligue 190.";
+      } catch (error) {
+        status.textContent = error.message || "Falha ao enviar. Não presuma que o alerta foi entregue; ligue 190 se houver perigo imediato.";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
