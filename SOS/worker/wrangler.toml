@@ -1,0 +1,23 @@
+name = "delyone-sos-api"
+main = "src/index.js"
+compatibility_date = "2026-10-24"
+workers_dev = true
+
+# Configure these only after choosing the production origins.
+[vars]
+ALLOWED_ORIGINS = "https://delyone.com,https://www.delyone.com"
+SOS_DISPATCH_ENABLED = "false"
+
+# Add secrets through the Cloudflare dashboard or:
+# npx wrangler secret put TURNSTILE_SECRET_KEY
+# npx wrangler secret put TWILIO_ACCOUNT_SID
+# npx wrangler secret put TWILIO_AUTH_TOKEN
+# npx wrangler secret put SOS_FROM_E164
+# npx wrangler secret put SOS_RECIPIENT_E164
+#
+# Before activation:
+# - verify the destination recipient and obtain consent
+# - configure a Turnstile widget and add its token to the SOS frontend request
+# - configure rate limiting / abuse controls at the edge
+# - test in a non-emergency environment and verify provider delivery callbacks
+# - set SOS_DISPATCH_ENABLED=true only after all checks pass
