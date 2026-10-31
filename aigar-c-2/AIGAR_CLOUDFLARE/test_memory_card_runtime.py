@@ -58,7 +58,7 @@ class MemoryCardAdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result["documents"][0]["memory_card_id"], "PUBLIC-CORE")
         self.assertEqual(result["documents"][0]["memory_card_version"], "1.2")
         self.assertEqual(len(calls), 1)
-        self.assertIn("public_cards/core.yaml", calls[0])
+        self.assertIn("aigar-c-2/public_memory_cards/core.yaml", calls[0])
 
     async def test_manifest_id_or_version_mismatch_is_rejected(self):
         async def fake_fetch(url, options=None):
