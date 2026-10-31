@@ -1,15 +1,8 @@
 {
-  "name": "aigar-railway-backend",
+  "name": "diagnosis-engine",
   "version": "0.1.0",
-  "description": "AIGAR backend health and physiology-library reader",
-  "main": "Server/leitor.js",
-  "scripts": {
-    "start": "node Server/leitor.js",
-    "test": "node --check Server/leitor.js"
-  },
+  "description": "Diagnosis Engine — Capacitor application dependencies",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.3",
     "@capacitor/core": "latest",
     "@capacitor/ios": "latest"
   },
