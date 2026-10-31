@@ -98,5 +98,15 @@ class CortexCompatibilityTests(unittest.TestCase):
         self.assertEqual(result["routing_decision"]["admin_authorization"], "separate_authenticated_admin_routes")
 
 
+    def test_meta_interaction_routes_to_memory_without_identity_checks(self):
+        result = WORKER_CORTEX_BRIDGE.interpret_contract(
+            {"intent": "concept_basic", "needs_memory": False},
+            {"primary_type": "meta_interaction", "context_required": False},
+        )
+        self.assertTrue(result["routing_decision"]["use_memory"])
+        self.assertEqual(result["routing_decision"]["conversation_access"], "public")
+        self.assertFalse(result["routing_decision"]["identity_verification_required"])
+
+
 if __name__ == "__main__":
     unittest.main()
