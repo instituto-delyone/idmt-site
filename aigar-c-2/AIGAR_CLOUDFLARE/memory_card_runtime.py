@@ -38,7 +38,7 @@ def _safe_card_path(path):
 
 def _extract_scalar(content, key):
     match = re.search(
-        r"(?m)^\\s*" + re.escape(key) + r"\\s*:\\s*['\"]?([^'\"#\\r\\n]+)",
+        r"(?m)^\s*" + re.escape(key) + r"\s*:\s*['\"]?([^'\"#\r\n]+)",
         content or "",
     )
     return match.group(1).strip() if match else None
