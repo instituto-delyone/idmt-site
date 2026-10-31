@@ -1,68 +1,70 @@
 # 📖 README — AIGAR_UI_CHAT_MVP
 
 ## 1) Entrar na pasta do projeto
-No PowerShell:
+
+No PowerShell, a partir do local em que o repositório foi clonado:
+
 ```powershell
-cd "$env:USERPROFILE\Desktop\AIGAR_UI_CHAT_MVP"
+cd "<caminho-do-repositorio>\aigar-c-2\aigar_ui_chat_mvp"
 ```
-*(troque o caminho se a pasta estiver em outro lugar — o importante é parar na raiz onde existe a pasta `server/`).*
 
----
+A pasta atual deve conter `server\main.py`, `memory_cards\` e `requirements.txt`.
 
-## 2) Criar e ativar ambiente virtual (opcional, mas recomendado)
+## 2) Criar e ativar o ambiente virtual
+
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
-👉 Se der bloqueio no `Activate.ps1`, rode este comando **uma vez só**:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-```
-Depois tente ativar de novo.
 
----
+Se o PowerShell bloquear a ativação, use a orientação oficial de política de execução do Python/PowerShell para o seu ambiente. Não é necessário alterar a política global da máquina.
 
 ## 3) Instalar dependências
+
 ```powershell
 python -m pip install --upgrade pip
-python -m pip install "uvicorn[standard]" fastapi pyyaml
+python -m pip install -r requirements.txt
 ```
-
----
 
 ## 4) Rodar o servidor
-Na **raiz do projeto** (`…\AIGAR_UI_CHAT_MVP\`):
+
+Na raiz de `aigar_ui_chat_mvp`:
+
 ```powershell
 python -m uvicorn server.main:app --reload
 ```
 
-Se tudo certo, vai aparecer:
-```
-Uvicorn running on http://127.0.0.1:8000
-```
-
----
+O servidor local ficará disponível em `http://127.0.0.1:8000`.
 
 ## 5) Abrir a interface
-No navegador (Chrome/Edge):  
-👉 [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
----
+Abra no navegador:
+
+```text
+http://127.0.0.1:8000
+```
+
+Healthcheck:
+
+```text
+http://127.0.0.1:8000/health
+```
 
 ## 6) Atalhos de comando na UI
-- `!comando` → ordem direta  
-- `/explica` → modo sem sugestões  
-- `~regra` → instalar instrução  
-- `——` → pausa (responde “ok”)  
 
----
+- `!comando` → ordem direta
+- `/explica` → modo sem sugestões
+- `~regra` → instalar instrução
+- `——` → pausa (responde “ok”)
 
-📌 Dica: sempre que fechar o terminal e voltar depois, é só:
-1. Ativar a venv:
+## 7) Retomar o trabalho
+
+Depois de fechar o terminal:
+
 ```powershell
+cd "<caminho-do-repositorio>\aigar-c-2\aigar_ui_chat_mvp"
 .\.venv\Scripts\Activate.ps1
-```
-2. Rodar o servidor:
-```powershell
 python -m uvicorn server.main:app --reload
 ```
+
+O ambiente virtual é local e não deve ser enviado ao Git. As dependências são reconstruídas pelo arquivo `requirements.txt`.
