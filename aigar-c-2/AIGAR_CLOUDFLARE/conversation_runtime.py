@@ -13,7 +13,7 @@ from library_runtime import COGNITIVE_CORE, MEMORY_LAB, boot_library, boot_text_
 from context_runtime import AsymmetricContextManager, build_adaptive_plan, revise_adaptive_plan
 from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
-from storage_runtime import D1_BINDING
+from storage_runtime import D1_BINDING, search_r2_document_chunks
 
 INTERACTION_TYPES = {
     "social", "factual", "exploratory_reasoning", "continuity_recall",
@@ -320,21 +320,27 @@ async def handle_ask(body, env=None):
         "kind": "library", "id": "aigar.library", "status": "missing",
         "detail": "A biblioteca não foi consultada para esta intenção.",
     }
+    r2_terms = ("exame clínico","exame clinico","biblioteca","documento","documentos","livro","capítulo","capitulo","material","memória persistente","memoria persistente","conhecimento","base científica","base cientifica")
+    r2_search_requested = bool(routing_decision.get("use_library")) or bool(profile.get("research_required")) or answer_depth in {"deep","technical"} or any(term in text.casefold() for term in r2_terms)
     if routing_decision["use_library"]:
         try:
             evidence_items = await library_search(text, reading, limit=5)
-            library_trace = {
-                "kind": "library", "id": "aigar.library.hybrid",
-                "status": "confirmed" if evidence_items else "missing",
-                "detail": (f"{len(evidence_items)} evidência(s) recuperada(s) no catálogo híbrido."
-                           if evidence_items else
-                           "Nenhuma evidência suficientemente relevante foi recuperada."),
-            }
+            library_trace = {"kind":"library","id":"aigar.library.hybrid","status":"confirmed" if evidence_items else "missing","detail":(f"{len(evidence_items)} evidência(s) recuperada(s) no catálogo híbrido." if evidence_items else "Nenhuma evidência suficientemente relevante foi recuperada.")}
         except Exception as exc:
-            library_trace = {
-                "kind": "library", "id": "aigar.library.hybrid", "status": "missing",
-                "detail": "Falha na consulta da biblioteca: " + str(exc)[:400],
-            }
+            library_trace = {"kind":"library","id":"aigar.library.hybrid","status":"missing","detail":"Falha na consulta da biblioteca: "+str(exc)[:400]}
+    r2_evidence=[]
+    r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"skipped","detail":"Consulta R2 não necessária para esta intenção."}
+    if r2_search_requested:
+        try:
+            qinfo=(reading.get("linguistic_analysis") or {}).get("question") or {}
+            r2_topic=qinfo.get("topic_head") or qinfo.get("topic_candidate") or reading.get("scope") or ""
+            r2_evidence=await search_r2_document_chunks(env,text,topic=r2_topic,limit=5)
+            r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"confirmed" if r2_evidence else "missing","detail":(f"{len(r2_evidence)} chunk(s) recuperado(s) diretamente do R2, indexados no D1." if r2_evidence else "Nenhum chunk relevante recuperado diretamente do R2.")}
+            seen={str(x.get("chunk_id") or x.get("id") or "") for x in evidence_items}
+            for item in r2_evidence:
+                if str(item.get("chunk_id") or "") not in seen:evidence_items.append(item)
+        except Exception as exc:
+            r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
     # Usar a memória já recuperada no início, antes da busca de conhecimento.
     # Ela serve como evidência de fallback quando a biblioteca não encontrou itens.
@@ -477,6 +483,7 @@ async def handle_ask(body, env=None):
         {"kind": "language", "id": "aigar.language.mother", "status": "confirmed",
          "detail": "Entrada interpretada pela camada de Linguagem Materna executável."},
         library_trace,
+        r2_trace,
         {"kind": "cognitive_core", "id": "aigar.cognitive_core.v1",
          "status": "confirmed" if cognitive_context.get("ready") else "missing",
          "detail": f"{cognitive_context.get('selected_count', 0)} chunk(s) cognitivo(s) selecionado(s) de {cognitive_context.get('available_chunks', 0)} disponíveis antes da interpretação."},
