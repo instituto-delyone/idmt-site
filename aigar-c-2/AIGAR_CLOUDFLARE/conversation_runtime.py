@@ -353,18 +353,21 @@ async def handle_ask(body, env=None):
     # Memory Cards públicos são uma fonte própria, separada do Memory Lab textual.
     # Somente cartões explicitamente allowlisted no manifesto podem entrar aqui.
     public_card_documents = list(memory_card_result.get("documents", []) or [])
-    for card in public_card_documents:
-        evidence_items.append({
-            "text": card.get("text", ""),
-            "source": card.get("source"),
-            "source_key": "public_memory_card",
-            "memory_card_id": card.get("memory_card_id"),
-            "memory_card_version": card.get("memory_card_version"),
-            "memory_path": card.get("memory_path"),
-            "sha256": card.get("sha256"),
-            "score": card.get("score"),
-            "visibility": "public",
-        })
+    public_card_evidence = [{
+        "text": card.get("text", ""),
+        "source": card.get("source"),
+        "source_key": "public_memory_card",
+        "memory_card_id": card.get("memory_card_id"),
+        "memory_card_version": card.get("memory_card_version"),
+        "memory_path": card.get("memory_path"),
+        "sha256": card.get("sha256"),
+        "score": card.get("score"),
+        "visibility": "public",
+    } for card in public_card_documents]
+    if profile.get("primary_type") in {"continuity_recall", "meta_interaction"}:
+        evidence_items = public_card_evidence + evidence_items
+    else:
+        evidence_items.extend(public_card_evidence)
 
     # Usar a memória já recuperada no início, antes da busca de conhecimento.
     # Ela serve como evidência de fallback quando a biblioteca não encontrou itens.
