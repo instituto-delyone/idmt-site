@@ -207,13 +207,15 @@ class Default(WorkerEntrypoint):
                 return make_response(auth_data, status=auth_status, origin=origin)
 
             if path == "/admin/creator-memory/import" and method == "POST":
-                raw_length = request.headers.get("Content-Length")
                 try:
-                    if raw_length and int(raw_length) > 256 * 1024:
+                    raw_body = await request.text()
+                    if len(raw_body.encode("utf-8")) > 256 * 1024:
                         return make_response({"ok": False, "status": "payload_too_large", "message": "Limite de importação: 256 KiB por interação."}, status=413, origin=origin)
+                    body = json.loads(raw_body)
                 except Exception:
-                    return make_response({"ok": False, "status": "invalid_content_length"}, status=400, origin=origin)
-                body = await _json_body(request)
+                    return make_response({"ok": False, "status": "invalid_json", "message": "Envie um JSON válido."}, status=400, origin=origin)
+                if not isinstance(body, dict):
+                    return make_response({"ok": False, "status": "invalid_json_object", "message": "Envie um objeto JSON."}, status=400, origin=origin)
                 status, data = await import_creator_memory(body, self.env, usuario)
                 return make_response(data, status=status, origin=origin)
 
