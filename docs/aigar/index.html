@@ -105,6 +105,16 @@
 <div id="uploadMsg" class="sub" style="margin-top:10px">Entre como administrador para habilitar o upload.</div>
 <div class="gap"><label>Documentos persistentes</label><pre id="documents">—</pre></div>
 </div></section>
+<section id="creatorMemoryPanel" class="panel gap adminhide">
+<div class="head"><b>Memória histórica do criador</b><span class="tag">Privada · Admin</span></div>
+<div class="body">
+<div class="sub">Cole aqui o JSON copiado em “Raw Runtime JSON”. O conteúdo será armazenado como registro histórico privado; ainda não será usado para alterar respostas ou aprendizado automático.</div>
+<label for="creatorMemoryJson">JSON da interação</label>
+<textarea id="creatorMemoryJson" rows="8" placeholder="Cole o JSON completo aqui…" style="width:100%;font-family:monospace"></textarea>
+<div class="actions"><button id="creatorMemoryImportButton" class="primary" onclick="importCreatorMemory()">Importar para memória histórica</button><button onclick="loadCreatorMemoryRecords()">Atualizar lista</button></div>
+<div id="creatorMemoryStatus" class="sub" role="status" aria-live="polite" style="margin-top:10px">Disponível após autenticação administrativa.</div>
+<div class="gap"><label>Interações históricas importadas</label><pre id="creatorMemoryRecords">—</pre></div>
+</div></section>
 </main>
 <aside>
 <section class="panel"><div class="head"><b>Reasoning Plan</b><span class="tag">Execution</span></div><div class="body"><pre id="plan">—</pre></div></section>
@@ -136,7 +146,8 @@ function setAdmin(ok,user=""){
   $("adminBox").classList.toggle("adminhide",!ok);
   $("uploadPanel").classList.toggle("adminhide",!ok);
   $("authState").textContent=ok?("admin · "+user):"não autenticado";
-  if(ok) loadDocuments();
+  if(ok){loadDocuments();loadCreatorMemoryRecords();}
+  else clearCreatorMemoryPanel();
 }
 async function adminLogin(){
   const nome_usuario=$("adminUser").value.trim(), senha=$("adminPass").value;
@@ -153,7 +164,51 @@ async function adminLogin(){
     $("authMsg").textContent="Sessão administrativa ativa. A credencial foi validada pelo MedUnity.";
   }catch(e){adminToken=null;setAdmin(false);$("authMsg").textContent="Erro: "+e.message}
 }
-function adminLogout(){adminToken=null;setAdmin(false);$("authMsg").textContent="Sessão administrativa encerrada."; $("documents").textContent="—"; $("uploadMsg").textContent="Entre como administrador para habilitar o upload."}
+function adminLogout(){adminToken=null;setAdmin(false);$("authMsg").textContent="Sessão administrativa encerrada."; $("documents").textContent="—"; $("uploadMsg").textContent="Entre como administrador para habilitar o upload.";clearCreatorMemoryPanel()}
+function clearCreatorMemoryPanel(){
+  const input=$("creatorMemoryJson"), records=$("creatorMemoryRecords"), status=$("creatorMemoryStatus");
+  if(input)input.value="";
+  if(records)records.textContent="—";
+  if(status)status.textContent="Disponível após autenticação administrativa.";
+}
+async function loadCreatorMemoryRecords(){
+  if(!adminToken)return;
+  const output=$("creatorMemoryRecords"), status=$("creatorMemoryStatus");
+  try{
+    const r=await fetch(base()+"/admin/creator-memory/records",{headers:authHeaders(),cache:"no-store"});
+    const d=await r.json();
+    if(!r.ok)throw Error(d.message||d.status||("HTTP "+r.status));
+    output.textContent=pretty(d.items||[]);
+    status.textContent=(d.items||[]).length+" registro(s) histórico(s) privado(s). Os objetos originais permanecem no R2.";
+  }catch(e){output.textContent="Erro: "+e.message;status.textContent="Não foi possível carregar a memória histórica."}
+}
+async function importCreatorMemory(){
+  if(!adminToken){$("creatorMemoryStatus").textContent="Autentique-se como administrador primeiro.";return;}
+  const raw=$("creatorMemoryJson").value.trim();
+  if(!raw){$("creatorMemoryStatus").textContent="Cole um JSON antes de importar.";return;}
+  let payload;
+  try{payload=JSON.parse(raw)}catch(e){$("creatorMemoryStatus").textContent="JSON inválido: "+e.message;return;}
+  if(!payload||typeof payload!=="object"||Array.isArray(payload)){$("creatorMemoryStatus").textContent="O conteúdo precisa ser um objeto JSON.";return;}
+  const bytes=new TextEncoder().encode(JSON.stringify(payload)).length;
+  if(bytes>256*1024){$("creatorMemoryStatus").textContent="Limite: 256 KiB por interação.";return;}
+  const button=$("creatorMemoryImportButton");
+  button.disabled=true;
+  $("creatorMemoryStatus").textContent="Validando e armazenando no espaço privado…";
+  try{
+    const r=await fetch(base()+"/admin/creator-memory/import",{
+      method:"POST",headers:{...authHeaders(),"Content-Type":"application/json"},body:JSON.stringify(payload)
+    });
+    const d=await r.json();
+    if(!r.ok)throw Error(d.message||d.status||("HTTP "+r.status));
+    $("creatorMemoryStatus").textContent=d.status==="already_exists"
+      ?"Esta interação já está armazenada. Nenhuma cópia duplicada foi criada."
+      :"✓ Interação armazenada na memória histórica privada. SHA-256: "+(d.record?.sha256||"verificado no servidor");
+    $("creatorMemoryJson").value="";
+    await loadCreatorMemoryRecords();
+  }catch(e){$("creatorMemoryStatus").textContent="Falha na importação: "+e.message}
+  finally{button.disabled=false;}
+}
+
 async function checkStorage(){
   if(!adminToken){$("uploadMsg").textContent="Autentique-se como administrador primeiro.";return}
   try{
