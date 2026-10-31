@@ -62,6 +62,8 @@ class CortexCompatibilityTests(unittest.TestCase):
         self.assertTrue(route["use_reasoning"])
         self.assertEqual(route["diagnosis_execution"], "not_connected")
         self.assertFalse(CORTEX_COMPATIBILITY["local_cortex_imported"])
+        self.assertIn("public_memory_card_adapter_allowlisted", CORTEX_COMPATIBILITY["implemented_capabilities"])
+        self.assertIn("persistent_cross_instance_conversation_memory", CORTEX_COMPATIBILITY["deferred_capabilities"])
         self.assertEqual(CORTEX_COMPATIBILITY["access_policy"], PUBLIC_CONVERSATION_POLICY)
         self.assertFalse(PUBLIC_CONVERSATION_POLICY["identity_verification_required"])
         self.assertFalse(PUBLIC_CONVERSATION_POLICY["activation_phrase_required"])
