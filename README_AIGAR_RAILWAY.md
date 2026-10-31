@@ -12,8 +12,9 @@ idmt-site/
 └── Engines/
     └── Aurora/
         └── Bibliotecas/
-            └── Fisiologia/
-                └── *.md
+            └── Medicina/
+                └── Fisiologia/
+                    └── *.md
 ```
 
 ## Execução local
@@ -29,7 +30,7 @@ O serviço escuta em `0.0.0.0` e utiliza `process.env.PORT`, com fallback local 
 
 - `GET /` — identificação do serviço.
 - `GET /health` — estado do serviço e disponibilidade da biblioteca.
-- `/health` retorna HTTP 200 quando o diretório da biblioteca está acessível e HTTP 503 quando não está.
+- `/health` retorna HTTP 200 quando o diretório da biblioteca está acessível e contém ao menos um arquivo Markdown; retorna HTTP 503 quando não está.
 
 Teste local:
 
@@ -49,4 +50,4 @@ Não é necessário criar `railway.json` nem `.env.example` para essa configura�
 
 ## Observações
 
-O leitor verifica e contabiliza arquivos Markdown; não expõe o conteúdo clínico da biblioteca por HTTP. O diretório de fisiologia deve existir no repositório para que o healthcheck retorne sucesso.
+O leitor verifica e contabiliza arquivos Markdown em `Engines/Aurora/Bibliotecas/Medicina/Fisiologia`; não expõe o conteúdo clínico da biblioteca por HTTP.

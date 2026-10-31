@@ -12,6 +12,7 @@ const physiologyDirectory = path.join(
   "Engines",
   "Aurora",
   "Bibliotecas",
+  "Medicina",
   "Fisiologia"
 );
 
@@ -24,13 +25,13 @@ function getLibraryStatus() {
     return {
       available: true,
       markdown_files: files.length,
-      directory: "Engines/Aurora/Bibliotecas/Fisiologia"
+      directory: "Engines/Aurora/Bibliotecas/Medicina/Fisiologia"
     };
   } catch (error) {
     return {
       available: false,
       markdown_files: 0,
-      directory: "Engines/Aurora/Bibliotecas/Fisiologia",
+      directory: "Engines/Aurora/Bibliotecas/Medicina/Fisiologia",
       error: error.code || "LIBRARY_UNAVAILABLE"
     };
   }
@@ -48,7 +49,7 @@ app.get("/", (_request, response) => {
 
 app.get("/health", (_request, response) => {
   const library = getLibraryStatus();
-  const healthy = library.available;
+  const healthy = library.available && library.markdown_files > 0;
 
   response.status(healthy ? 200 : 503).json({
     ok: healthy,

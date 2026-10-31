@@ -1,0 +1,71 @@
+name: AIGAR backend and UI validation
+
+on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "Server/**"
+      - "Engines/Aurora/Bibliotecas/Medicina/Fisiologia/**"
+      - "aigar-c-2/aigar_ui_chat_mvp/**"
+      - ".github/workflows/aigar-backend-validation.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "package.json"
+      - "Server/**"
+      - "Engines/Aurora/Bibliotecas/Medicina/Fisiologia/**"
+      - "aigar-c-2/aigar_ui_chat_mvp/**"
+      - ".github/workflows/aigar-backend-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  railway-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install dependencies
+        run: npm install --omit=dev --no-audit --no-fund
+      - name: Check JavaScript syntax
+        run: npm test
+      - name: Smoke test HTTP health endpoint
+        env:
+          PORT: "3137"
+        run: |
+          set -e
+          node Server/leitor.js > /tmp/aigar-backend.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 20); do
+            if curl --silent --show-error --fail http://127.0.0.1:3137/health > /tmp/aigar-health.json; then
+              break
+            fi
+            sleep 1
+          done
+          node -e 'const fs=require("fs"); const h=JSON.parse(fs.readFileSync("/tmp/aigar-health.json","utf8")); if (!h.ok || !h.library.available || h.library.markdown_files < 1) process.exit(1); console.log(JSON.stringify(h));'
+
+  ui-chat:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aigar-c-2/aigar_ui_chat_mvp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install UI dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Compile UI and module sources
+        run: python -m compileall -q server
