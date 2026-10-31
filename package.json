@@ -1,10 +1,11 @@
 {
   "name": "aigar-railway-backend",
   "version": "0.1.0",
-  "description": "Motor backend",
-  "main": "leitor.js",
+  "description": "AIGAR backend health and physiology-library reader",
+  "main": "Server/leitor.js",
   "scripts": {
-    "start": "node leitor.js"
+    "start": "node Server/leitor.js",
+    "test": "node --check Server/leitor.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
