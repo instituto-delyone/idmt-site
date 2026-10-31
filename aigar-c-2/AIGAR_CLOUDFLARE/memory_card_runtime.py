@@ -9,7 +9,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from workers import fetch
 
 REPOSITORY = "instituto-delyone/idmt-site"
 MANIFEST_PATH = "aigar-c-2/CORTEX/memory/public_memory_manifest.json"
@@ -53,6 +52,7 @@ class MemoryCardAdapter:
         self._manifest_cache = None
 
     async def _worker_fetch(self, url, options=None):
+        from workers import fetch
         options = options or {}
         return await fetch(
             url,
