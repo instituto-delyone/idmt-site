@@ -97,13 +97,19 @@ async def import_creator_memory(payload, env, usuario):
             record_id, interaction_id, turn_id, r2_key, digest, size_bytes,
             imported_by, now, json.dumps(metadata, ensure_ascii=False),
         ).run()
-        await _audit_admin_action(db, imported_by, "import_creator_memory", "creator_memory_record", record_id, {"sha256": digest, "size_bytes": size_bytes})
     except Exception as exc:
         try:
             await bucket.delete(r2_key)
         except Exception:
             pass
         return 500, {"ok": False, "status": "d1_write_failed", "message": str(exc)[:300]}
+
+    try:
+        await _audit_admin_action(db, imported_by, "import_creator_memory", "creator_memory_record", record_id, {"sha256": digest, "size_bytes": size_bytes})
+    except Exception:
+        # The durable imported_by/imported_at fields remain the minimum provenance record.
+        # Audit-log availability must not turn a successfully persisted import into a false failure.
+        pass
 
     return 201, {
         "ok": True, "status": "stored",
