@@ -1,6 +1,6 @@
 schema_version: "1.0"
 policy_id: "AIGAR-PUBLIC-CONVERSATION-ACCESS"
-status: "proposed_for_runtime_integration"
+status: "runtime_integrated_pending_validation_and_deployment"
 scope:
   conversation:
     access: "public"
