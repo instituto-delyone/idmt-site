@@ -635,3 +635,51 @@ async def admin_documents(env):
 # AIGAR Adaptive Interaction Layer v0.1
 # Integrado ao runtime Cloudflare Workers existente (sem FastAPI/SQLite local).
 # ---------------------------------------------------------------------------
+
+
+async def search_r2_document_chunks(env, query, topic=None, limit=5):
+    """Busca os corpos dos chunks indexados em D1 e armazenados no R2."""
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    if not db or not bucket: return []
+    qtext = (str(query or "") + " " + str(topic or "")).casefold()
+    stop = {"para","com","uma","uns","das","dos","que","qual","quais","como","sobre","pela","pelo","este","esta","isso","esse","essa","the","and","for","from","into","with"}
+    def terms(s): return {x for x in re.findall(r"[a-z0-9À-ÿ]{3,}", str(s or "").casefold()) if x not in stop}
+    qt = terms(qtext)
+    if not qt: return []
+    result = await db.prepare("SELECT id, document_id, sequence, source, start_page, end_page, r2_key, text_length, checksum FROM document_chunks ORDER BY document_id, sequence LIMIT 1000").all()
+    rows = list(getattr(result, "results", []) or [])
+    def val(row,k,d=None):
+        try:
+            v=getattr(row,k); return d if v is None else v
+        except Exception:
+            try: v=row.get(k,d); return d if v is None else v
+            except Exception: return d
+    source_scores={}
+    for row in rows:
+        ov=len(qt & terms(val(row,"source","")))
+        if ov:
+            did=str(val(row,"document_id","") or ""); source_scores[did]=max(source_scores.get(did,0),ov/max(1,len(qt)))
+    candidates=[r for r in rows if str(val(r,"document_id","") or "") in source_scores] if source_scores else rows[:40]
+    if len(candidates)>160: candidates=sorted(candidates,key=lambda r:(-source_scores.get(str(val(r,"document_id","") or ""),0),int(val(r,"sequence",0) or 0)))[:160]
+    import asyncio as _asyncio
+    sem=_asyncio.Semaphore(8)
+    async def one(row):
+        key=str(val(row,"r2_key","") or "")
+        if not key:return None
+        async with sem:
+            try:
+                obj=await bucket.get(key)
+                if not obj:return None
+                content=(await obj.text()).strip()
+            except Exception:return None
+        body=re.sub(r"(?s)^#.*?---\s*","",content,count=1).strip()
+        bt=terms(body); overlap=len(qt & bt); coverage=overlap/max(1,len(qt)); density=overlap/max(1,min(len(bt),250))
+        did=str(val(row,"document_id","") or ""); src=str(val(row,"source","") or "")
+        bonus=source_scores.get(did,0)*0.18; phrase=0.12 if qtext.strip() and qtext.strip() in body.casefold() else 0.0
+        score=coverage*0.72+density*0.10+bonus+phrase
+        if overlap<2 and not phrase and bonus<0.10:return None
+        return {"chunk_id":str(val(row,"id","") or ""),"document_id":did,"sequence":int(val(row,"sequence",0) or 0),"source":src,"source_key":"r2_document_chunks","start_page":val(row,"start_page"),"end_page":val(row,"end_page"),"checksum":val(row,"checksum"),"r2_key":key,"text":body[:14000],"score":round(score,5),"retrieval_method":"d1_metadata_r2_body_lexical_v1"}
+    loaded=await _asyncio.gather(*(one(row) for row in candidates),return_exceptions=True)
+    found=[x for x in loaded if isinstance(x,dict)]; found.sort(key=lambda x:(x["score"],-x["sequence"]),reverse=True)
+    return found[:max(1,min(10,int(limit or 5)))]
