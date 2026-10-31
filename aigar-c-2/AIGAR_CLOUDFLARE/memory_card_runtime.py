@@ -28,7 +28,9 @@ def _safe_card_path(path):
     value = str(path or "").replace("\\", "/").strip("/")
     if not value or value.startswith("/") or ".." in value.split("/"):
         return None
-    if not value.startswith("aigar-c-2/"):
+    # Public cards must be copied/reviewed into a dedicated export folder.
+    # The adapter must never read historical project or user-memory directories.
+    if not value.startswith("aigar-c-2/public_memory_cards/"):
         return None
     if not value.lower().endswith((".yaml", ".yml", ".md", ".txt")):
         return None
@@ -50,6 +52,7 @@ class MemoryCardAdapter:
         self.fetcher = fetcher or self._worker_fetch
         self.manifest = manifest
         self._manifest_cache = None
+        self._card_cache = {}
 
     async def _worker_fetch(self, url, options=None):
         from workers import fetch
@@ -105,18 +108,28 @@ class MemoryCardAdapter:
                 continue
             try:
                 url = "https://raw.githubusercontent.com/" + REPOSITORY + "/main/" + path
-                response = await self.fetcher(url, {"method": "GET"})
-                if response.status >= 400:
-                    continue
-                content = await response.text()
+                cache_key = (card_id, version, path)
+                content = self._card_cache.get(cache_key)
+                if content is None:
+                    response = await self.fetcher(url, {"method": "GET"})
+                    if response.status >= 400:
+                        continue
+                    content = await response.text()
+                    if content:
+                        self._card_cache[cache_key] = content
                 if not content or len(content.encode("utf-8")) > MAX_CARD_BYTES:
                     continue
                 # If the card declares an ID/version, it must agree with the manifest.
                 declared_id = _extract_scalar(content, "id")
-                declared_version = _extract_scalar(content, "version")
+                declared_version = _extract_scalar(content, "version") or _extract_scalar(content, "versao")
                 if declared_id and declared_id != card_id:
                     continue
                 if declared_version and declared_version != version:
+                    continue
+                expected_hash = str(entry.get("sha256") or "").lower().strip()
+                actual_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()
+                if expected_hash and actual_hash != expected_hash:
+                    self._card_cache.pop(cache_key, None)
                     continue
                 body_tokens = _tokens(content)
                 overlap = len(query_tokens & body_tokens)
@@ -130,7 +143,7 @@ class MemoryCardAdapter:
                     "memory_card_id": card_id,
                     "memory_card_version": version,
                     "memory_path": path,
-                    "sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
+                    "sha256": actual_hash,
                     "score": round(score, 6),
                     "visibility": "public",
                 })
