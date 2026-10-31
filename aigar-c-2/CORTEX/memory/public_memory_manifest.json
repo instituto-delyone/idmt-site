@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AIGAR-PUBLIC-MEMORY-CARDS",
+  "purpose": "Explicit allowlist for memory cards approved for public conversational retrieval.",
+  "resolution_policy": "exact_id_and_version",
+  "cards": [],
+  "notes": [
+    "An empty cards list is intentional until individual cards are reviewed and explicitly approved for public use.",
+    "Never discover or expose historical cards by directory scanning.",
+    "Do not add private personal context, credentials, secrets, or administrator-only data.",
+    "YAML card content is treated as inert text and is never deserialized with unsafe constructors."
+  ]
+}
