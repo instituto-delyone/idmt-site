@@ -571,7 +571,7 @@ async def handle_ask(body, env=None):
     library_payload = {
         "chunks_loaded": len(evidence_items),
         "chunks": [{
-            "id": item.get("chunk_id"), "source": item.get("source"), "source_key": item.get("source_key"),
+            "id": item.get("chunk_id") or item.get("memory_card_id"), "source": item.get("source"), "source_key": item.get("source_key"),
             "start_page": item.get("start_page"), "end_page": item.get("end_page"),
             "score": item.get("score"), "semantic_score": item.get("semantic_score"),
             "lexical_score": item.get("lexical_score"), "source_relevance": item.get("source_relevance"),
