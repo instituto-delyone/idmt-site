@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import time
 
 REPOSITORY = "instituto-delyone/idmt-site"
 MANIFEST_PATH = "aigar-c-2/CORTEX/memory/public_memory_manifest.json"
@@ -17,6 +18,7 @@ MANIFEST_URL = (
 )
 MAX_CARD_BYTES = 60000
 MAX_RESULTS = 4
+MANIFEST_CACHE_TTL_SECONDS = 60
 TOKEN_RE = re.compile(r"[a-zA-ZÀ-ÿ0-9_]{3,}", re.UNICODE)
 
 
@@ -52,6 +54,7 @@ class MemoryCardAdapter:
         self.fetcher = fetcher or self._worker_fetch
         self.manifest = manifest
         self._manifest_cache = None
+        self._manifest_cache_at = 0
         self._card_cache = {}
 
     async def _worker_fetch(self, url, options=None):
@@ -66,7 +69,8 @@ class MemoryCardAdapter:
     async def _load_manifest(self):
         if isinstance(self.manifest, dict):
             return self.manifest
-        if self._manifest_cache is not None:
+        if (self._manifest_cache is not None
+                and time.time() - self._manifest_cache_at < MANIFEST_CACHE_TTL_SECONDS):
             return self._manifest_cache
         response = await self.fetcher(MANIFEST_URL, {"method": "GET"})
         if response.status >= 400:
@@ -75,6 +79,7 @@ class MemoryCardAdapter:
         if not isinstance(payload, dict) or payload.get("schema_version") != "1.0":
             raise ValueError("public_memory_manifest_invalid")
         self._manifest_cache = payload
+        self._manifest_cache_at = time.time()
         return payload
 
     async def retrieve(self, query, limit=MAX_RESULTS):
