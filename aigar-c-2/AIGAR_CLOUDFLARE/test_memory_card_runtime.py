@@ -40,7 +40,7 @@ class MemoryCardAdapterTests(unittest.IsolatedAsyncioTestCase):
                 "cards": [
                     {
                         "id": "PUBLIC-CORE", "version": "1.2",
-                        "path": "aigar-c-2/public_cards/core.yaml",
+                        "path": "aigar-c-2/public_memory_cards/core.yaml",
                         "visibility": "public", "status": "active",
                     },
                     {
@@ -71,7 +71,7 @@ class MemoryCardAdapterTests(unittest.IsolatedAsyncioTestCase):
                 "manifest_id": "test",
                 "cards": [{
                     "id": "EXPECTED", "version": "1.2",
-                    "path": "aigar-c-2/public_cards/core.yaml",
+                    "path": "aigar-c-2/public_memory_cards/core.yaml",
                     "visibility": "public", "status": "active",
                 }],
             },
@@ -80,10 +80,11 @@ class MemoryCardAdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result["documents"], [])
 
     def test_paths_are_confined_to_repository_tree(self):
-        self.assertIsNotNone(_safe_card_path("aigar-c-2/public_cards/core.yaml"))
+        self.assertIsNotNone(_safe_card_path("aigar-c-2/public_memory_cards/core.yaml"))
         self.assertIsNone(_safe_card_path("../../secrets.yaml"))
         self.assertIsNone(_safe_card_path("outside/private.yaml"))
-        self.assertIsNone(_safe_card_path("aigar-c-2/public_cards/core.exe"))
+        self.assertIsNone(_safe_card_path("aigar-c-2/aigar_ui_chat_mvp/memory_cards/private.yaml"))
+        self.assertIsNone(_safe_card_path("aigar-c-2/public_memory_cards/core.exe"))
 
 
 if __name__ == "__main__":
