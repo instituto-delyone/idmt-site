@@ -1,0 +1,71 @@
+schema_version: "1.0"
+manifest_id: "AIGAR-MEMORY-CARD-DEPENDENCIES"
+resolution_policy: "exact_id_and_version"
+legacy_filename_matching: false
+cards:
+  - id: "MC-AIGAR-BOOTSTRAP"
+    version: "2.4"
+    role: "bootstrap_context"
+    status: "historical_source"
+  - id: "MC-AIGAR-SIMPLIFICACAO"
+    version: "2.0"
+    role: "operational_simplification"
+    status: "current_reference"
+  - id: "MC-AIGAR-RECALL-AUTO"
+    version: "2.0"
+    role: "memory_retrieval_policy"
+    status: "legacy_policy_to_be_migrated"
+  - id: "MC-FADR-GUARDED"
+    version: "1.0"
+    role: "integrity_and_provenance"
+    status: "legacy_policy_to_be_migrated"
+  - id: "MC-PRINCIPIOS-AURORA"
+    version: "1.0"
+    role: "conversation_style_and_presentation"
+    status: "historical_reference"
+dependencies:
+  MC-AIGAR-RECALL-AUTO@2.0:
+    requires:
+      - id: "MC-AIGAR-BOOTSTRAP"
+        version: "2.4"
+        required: false
+        reason: "Historical bootstrap context; not a public-conversation activation prerequisite."
+      - id: "MC-AIGAR-SIMPLIFICACAO"
+        version: "2.0"
+        required: false
+        reason: "Optional policy context; ordinary conversation must continue if unavailable."
+    removed_legacy_dependencies:
+      - id: "MC-AIGAR-SIMPLIFICACAO"
+        version: "1.0"
+        reason: "Superseded by version 2.0."
+      - id: "MC-AIGAR-PRINCIPIOS-LEALDADE"
+        version: "1.0"
+        reason: "Not present in the audited package; must not block conversation."
+      - id: "MC-FADR-GUARDED"
+        version: "1.0"
+        reason: "Removed from activation prerequisites to avoid circular coupling."
+  MC-FADR-GUARDED@1.0:
+    requires:
+      - id: "MC-AIGAR-BOOTSTRAP"
+        version: "2.4"
+        required: false
+        reason: "Historical provenance context only."
+      - id: "MC-AIGAR-SIMPLIFICACAO"
+        version: "2.0"
+        required: false
+        reason: "Current referenced version; absence must not block public conversation."
+    removed_legacy_dependencies:
+      - id: "MC-AIGAR-SIMPLIFICACAO"
+        version: "1.0"
+        reason: "Superseded by version 2.0."
+      - id: "MC-AIGAR-RECALL-AUTO"
+        version: "1.0"
+        reason: "Superseded by version 2.0; avoid circular dependency."
+      - id: "MC-AIGAR-PRINCIPIOS-LEALDADE"
+        version: "1.0"
+        reason: "Not present in the audited package; not an activation prerequisite."
+notes:
+  - "This manifest normalizes identifiers and version references; it does not claim that all historical files are already present in the Worker runtime."
+  - "Memory-card dependencies describe optional context/provenance relationships, never the identity of the current speaker."
+  - "Integrity validation and provenance reporting are independent from authentication."
+  - "A missing optional card must produce a diagnostic trace, not an activation denial."

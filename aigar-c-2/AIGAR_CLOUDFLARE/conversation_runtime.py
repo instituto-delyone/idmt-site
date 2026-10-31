@@ -14,6 +14,7 @@ from context_runtime import AsymmetricContextManager, build_adaptive_plan, revis
 from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING, search_r2_document_chunks
+from memory_card_runtime import MEMORY_CARD_ADAPTER
 
 INTERACTION_TYPES = {
     "social", "factual", "exploratory_reasoning", "continuity_recall",
@@ -300,6 +301,13 @@ async def handle_ask(body, env=None):
         for turn in context_resolution.get("selected_context", [])
         if turn.get("content")
     ]
+    memory_card_result = {"ok": False, "status": "not_requested", "documents": [], "error": None}
+    if routing_decision.get("use_memory"):
+        try:
+            memory_card_result = await MEMORY_CARD_ADAPTER.retrieve(text, limit=4)
+        except Exception as exc:
+            memory_card_result = {"ok": False, "status": "unavailable", "documents": [], "error": str(exc)[:180]}
+
     if routing_decision["use_memory"] and memory_context:
         reading.setdefault("linguistic_analysis", {})["recent_context_available"] = True
         reading["linguistic_analysis"]["recent_context_turns"] = len(memory_context)
@@ -342,6 +350,25 @@ async def handle_ask(body, env=None):
         except Exception as exc:
             r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
+    # Memory Cards públicos são uma fonte própria, separada do Memory Lab textual.
+    # Somente cartões explicitamente allowlisted no manifesto podem entrar aqui.
+    public_card_documents = list(memory_card_result.get("documents", []) or [])
+    public_card_evidence = [{
+        "text": card.get("text", ""),
+        "source": card.get("source"),
+        "source_key": "public_memory_card",
+        "memory_card_id": card.get("memory_card_id"),
+        "memory_card_version": card.get("memory_card_version"),
+        "memory_path": card.get("memory_path"),
+        "sha256": card.get("sha256"),
+        "score": card.get("score"),
+        "visibility": "public",
+    } for card in public_card_documents]
+    if profile.get("primary_type") in {"continuity_recall", "meta_interaction"}:
+        evidence_items = public_card_evidence + evidence_items
+    else:
+        evidence_items.extend(public_card_evidence)
+
     # Usar a memória já recuperada no início, antes da busca de conhecimento.
     # Ela serve como evidência de fallback quando a biblioteca não encontrou itens.
     if not evidence_items and memory_lab_result.get("documents"):
@@ -381,7 +408,7 @@ async def handle_ask(body, env=None):
     plan["depth"] = reading.get("depth")
     plan["answer_depth"] = answer_depth
     plan["source_fidelity"] = source_fidelity
-    plan["use_memory"] = bool(routing_decision["use_memory"] and memory_context)
+    plan["use_memory"] = bool(routing_decision["use_memory"] and (memory_context or public_card_documents or memory_lab_result.get("documents")))
     plan["use_library"] = bool(routing_decision["use_library"])
     plan["use_diagnosis"] = bool(routing_decision["use_diagnosis"])
     plan["use_reasoning"] = bool(routing_decision["use_reasoning"])
@@ -390,7 +417,7 @@ async def handle_ask(body, env=None):
     plan["topic"] = topic
     plan["evidence"] = evidence_texts
     plan["evidence_details"] = evidence_items
-    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "gather_evidence", "memory_lab_optional_retrieval", "revise_plan", "select_response_strategy", "render_natural_language"]
+    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "public_memory_card_retrieval", "gather_evidence", "memory_lab_optional_retrieval", "revise_plan", "select_response_strategy", "render_natural_language"]
     plan["context_resolution"] = {
         "selected_turn_ids": context_resolution.get("context_dependencies", []),
         "unresolved_references": context_resolution.get("unresolved_references", []),
@@ -492,6 +519,7 @@ async def handle_ask(body, env=None):
          "detail": f"{len(memory_context)} turno(s) anterior(es) selecionados pelo cache desta sessão."
          if memory_context and profile.get("context_required")
          else "Contexto limitado à sessão em memória do Worker; persistência conversacional entre instâncias não está configurada."},
+        {"kind": "memory_card", "id": "aigar.public_memory_cards", "status": "confirmed" if public_card_documents else ("unavailable" if memory_card_result.get("status") == "unavailable" else "missing"), "detail": f"{len(public_card_documents)} Memory Card(s) públicos recuperados; manifesto {memory_card_result.get('manifest_id') or 'não identificado'}." if public_card_documents else ("Manifesto público indisponível; conversa preservada sem esse contexto." if memory_card_result.get("status") == "unavailable" else "Nenhum Memory Card público foi selecionado; cartões históricos não são expostos automaticamente.")},
         {"kind": "reasoning", "id": "aigar.reasoning",
          "status": "confirmed" if evidence_texts else "inferred",
          "detail": f"Plano organizado com {len(evidence_texts)} evidência(s); revisão {plan.get('revision', 0)}."},
@@ -543,7 +571,7 @@ async def handle_ask(body, env=None):
     library_payload = {
         "chunks_loaded": len(evidence_items),
         "chunks": [{
-            "id": item.get("chunk_id"), "source": item.get("source"), "source_key": item.get("source_key"),
+            "id": item.get("chunk_id") or item.get("memory_card_id"), "source": item.get("source"), "source_key": item.get("source_key"),
             "start_page": item.get("start_page"), "end_page": item.get("end_page"),
             "score": item.get("score"), "semantic_score": item.get("semantic_score"),
             "lexical_score": item.get("lexical_score"), "source_relevance": item.get("source_relevance"),
@@ -587,6 +615,7 @@ async def handle_ask(body, env=None):
         "plan": plan,
         "library": library_payload,
         "memory_lab": {"ok": bool(memory_lab_result.get("ok")), "selected_layer": memory_lab_result.get("selected_layer", []), "documents_used": [{"path": d.get("path"), "layer": d.get("layer"), "score": d.get("score")} for d in memory_lab_result.get("documents", [])], "status": memory_lab_result.get("status"), "error": memory_lab_result.get("error")},
+        "memory_cards": {"ok": bool(memory_card_result.get("ok")), "status": memory_card_result.get("status"), "manifest_id": memory_card_result.get("manifest_id"), "documents_used": [{"id": d.get("memory_card_id"), "version": d.get("memory_card_version"), "path": d.get("memory_path"), "score": d.get("score")} for d in public_card_documents], "error": memory_card_result.get("error")},
     }
 
 

@@ -4,6 +4,7 @@ from cortex_compat import (
     ALLOWED_DEPTHS,
     ALLOWED_INTENTS,
     CORTEX_COMPATIBILITY,
+    PUBLIC_CONVERSATION_POLICY,
     build_routing_decision,
     normalize_reading,
     WORKER_CORTEX_BRIDGE,
@@ -61,6 +62,12 @@ class CortexCompatibilityTests(unittest.TestCase):
         self.assertTrue(route["use_reasoning"])
         self.assertEqual(route["diagnosis_execution"], "not_connected")
         self.assertFalse(CORTEX_COMPATIBILITY["local_cortex_imported"])
+        self.assertIn("public_memory_card_adapter_allowlisted", CORTEX_COMPATIBILITY["implemented_capabilities"])
+        self.assertIn("persistent_cross_instance_conversation_memory", CORTEX_COMPATIBILITY["deferred_capabilities"])
+        self.assertEqual(CORTEX_COMPATIBILITY["access_policy"], PUBLIC_CONVERSATION_POLICY)
+        self.assertFalse(PUBLIC_CONVERSATION_POLICY["identity_verification_required"])
+        self.assertFalse(PUBLIC_CONVERSATION_POLICY["activation_phrase_required"])
+        self.assertFalse(PUBLIC_CONVERSATION_POLICY["designated_email_required"])
 
     def test_worker_bridge_returns_canonical_reading_and_explicit_routing(self):
         result = WORKER_CORTEX_BRIDGE.interpret_contract(
@@ -85,6 +92,20 @@ class CortexCompatibilityTests(unittest.TestCase):
             result["routing_decision"],
         )
         self.assertFalse(result["compatibility"]["local_cortex_imported"])
+        self.assertEqual(result["routing_decision"]["conversation_access"], "public")
+        self.assertFalse(result["routing_decision"]["identity_verification_required"])
+        self.assertFalse(result["routing_decision"]["activation_phrase_required"])
+        self.assertEqual(result["routing_decision"]["admin_authorization"], "separate_authenticated_admin_routes")
+
+
+    def test_meta_interaction_routes_to_memory_without_identity_checks(self):
+        result = WORKER_CORTEX_BRIDGE.interpret_contract(
+            {"intent": "concept_basic", "needs_memory": False},
+            {"primary_type": "meta_interaction", "context_required": False},
+        )
+        self.assertTrue(result["routing_decision"]["use_memory"])
+        self.assertEqual(result["routing_decision"]["conversation_access"], "public")
+        self.assertFalse(result["routing_decision"]["identity_verification_required"])
 
 
 if __name__ == "__main__":

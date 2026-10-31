@@ -10,6 +10,13 @@ from typing import Any
 
 CONTRACT_NAME = "CORTEX.thalamus.models"
 CONTRACT_VERSION = "1"
+PUBLIC_CONVERSATION_POLICY = {
+    "conversation_access": "public",
+    "identity_verification_required": False,
+    "activation_phrase_required": False,
+    "designated_email_required": False,
+    "admin_access_granted_by_conversation": False,
+}
 ALLOWED_INTENTS = {
     "phatic", "concept_basic", "concept_scoped", "clinical_case",
     "action", "correction", "continuity", "doubt", "unknown",
@@ -21,8 +28,10 @@ CORTEX_COMPATIBILITY = {
     "contract_version": CONTRACT_VERSION,
     "mode": "worker_native_adapter",
     "local_cortex_imported": False,
+    "access_policy": dict(PUBLIC_CONVERSATION_POLICY),
+    "implemented_capabilities": ["public_memory_card_adapter_allowlisted"],
     "deferred_capabilities": [
-        "persistent_memory_cards",
+        "persistent_cross_instance_conversation_memory",
         "diagnosis_engine_execution",
         "additional_workers",
         "audio_visual_input",
@@ -83,6 +92,7 @@ def build_routing_decision(
             reading.get("needs_memory")
             or reading.get("intent") == "continuity"
             or profile.get("context_required")
+            or profile.get("primary_type") == "meta_interaction"
         ),
         "use_library": bool(
             reading.get("needs_library") or profile.get("research_required")
@@ -90,6 +100,10 @@ def build_routing_decision(
         "use_diagnosis": use_diagnosis,
         "use_reasoning": bool(reading.get("needs_reasoning", True)),
         "diagnosis_execution": "not_connected" if use_diagnosis else "not_requested",
+        "conversation_access": "public",
+        "identity_verification_required": False,
+        "activation_phrase_required": False,
+        "admin_authorization": "separate_authenticated_admin_routes",
     }
 
 

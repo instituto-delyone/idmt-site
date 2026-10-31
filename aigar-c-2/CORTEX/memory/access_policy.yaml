@@ -1,0 +1,69 @@
+schema_version: "1.0"
+policy_id: "AIGAR-PUBLIC-CONVERSATION-ACCESS"
+status: "runtime_integrated_pending_validation_and_deployment"
+scope:
+  conversation:
+    access: "public"
+    authentication_required: false
+    identity_verification_required: false
+    activation_phrase_required: false
+    allowed_without_identity_match: true
+    memory_recall_requires_identity_match: false
+    reasoning_requires_identity_match: false
+    legacy_identity_gates: "ignored"
+  administration:
+    access: "authenticated_admin_only"
+    authentication_required: true
+    preserve_existing_admin_login: true
+    preserve_existing_admin_api_authorization: true
+    public_conversation_grants_admin_access: false
+    public_conversation_can_change_system_configuration: false
+    public_conversation_can_change_admin_credentials: false
+    admin_authorization_source: "existing_admin_session_and_server_side_permissions"
+    email_literal_as_authentication: false
+    activation_phrase_as_authentication: false
+principles:
+  - "Conversation access and administrative authorization are separate security domains."
+  - "No user must prove they are the project creator to use ordinary conversation, reasoning, or public features."
+  - "Historical memory cards remain historical records; obsolete activation and identity restrictions do not control runtime access."
+  - "Memory-card dependencies are resolved by stable identifier and explicit version, not by user identity."
+  - "Missing optional memory cards must not disable ordinary conversation."
+  - "Unknown provenance or invalid integrity must be reported; it must not be converted into an identity challenge."
+legacy_fields_ignored_for_conversation:
+  - "gatilho"
+  - "contas_permitidas"
+  - "autor_verificado"
+  - "desativacao.so_por"
+  - "pre_requisitos_criticos used as activation gates"
+legacy_fields_retained_as_metadata:
+  - "id"
+  - "versao"
+  - "created_at"
+  - "escopo"
+  - "referencias"
+  - "artifacts_hashes_sha256"
+  - "historia_compacta"
+dependency_contract:
+  key: "id"
+  version_key: "version"
+  resolution: "exact_identifier_and_version"
+  missing_dependency: "mark_unavailable_and_continue_when_optional"
+  incompatible_dependency: "report_conflict_and_do_not_silently_substitute"
+  legacy_filename_aliases: "explicit_migration_map_only"
+security_boundary:
+  public_features:
+    - "ordinary_conversation"
+    - "reasoning"
+    - "public_memory_retrieval"
+    - "public_knowledge_retrieval"
+  admin_features:
+    - "administrative_configuration"
+    - "credential_and_role_management"
+    - "protected_secrets_and_bindings"
+    - "privileged_data_mutation"
+  rule: "Only the existing authenticated admin path may authorize admin_features."
+migration:
+  legacy_cards: "preserve_original_bytes_and_provenance"
+  runtime_behavior: "apply_this_policy_over_legacy_activation_metadata"
+  destructive_edits_to_historical_cards: false
+  decryption_of_legacy_payloads: "not_required_and_not_attempted"

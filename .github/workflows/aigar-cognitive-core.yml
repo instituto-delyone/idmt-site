@@ -25,7 +25,7 @@ jobs:
         run: python -m compileall -q .
       - name: Test cognitive core, Memory Lab, and CORTEX compatibility boundary
         working-directory: aigar-c-2/AIGAR_CLOUDFLARE
-        run: python -m unittest -v test_cognitive_core.py test_cortex_compat.py test_memory_lab.py
+        run: python -m unittest -v test_cognitive_core.py test_cortex_compat.py test_memory_lab.py test_memory_card_runtime.py
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
