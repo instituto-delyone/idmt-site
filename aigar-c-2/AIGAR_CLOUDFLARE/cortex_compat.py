@@ -29,8 +29,9 @@ CORTEX_COMPATIBILITY = {
     "mode": "worker_native_adapter",
     "local_cortex_imported": False,
     "access_policy": dict(PUBLIC_CONVERSATION_POLICY),
+    "implemented_capabilities": ["public_memory_card_adapter_allowlisted"],
     "deferred_capabilities": [
-        "persistent_memory_cards",
+        "persistent_cross_instance_conversation_memory",
         "diagnosis_engine_execution",
         "additional_workers",
         "audio_visual_input",
@@ -91,6 +92,7 @@ def build_routing_decision(
             reading.get("needs_memory")
             or reading.get("intent") == "continuity"
             or profile.get("context_required")
+            or profile.get("primary_type") == "meta_interaction"
         ),
         "use_library": bool(
             reading.get("needs_library") or profile.get("research_required")
