@@ -76,7 +76,7 @@ class CreatorMemoryRetrievalTests(unittest.IsolatedAsyncioTestCase):
                             imported_by="creator-2", status="stored"),
         ]
         db, bucket = FakeDB(rows), FakeBucket({"mine.json": raw, "other.json": raw})
-        env = {"AIGAR_DB": db, "AIGAR_LIBRARY_BUCKET": bucket}
+        env = SimpleNamespace(AIGAR_DB=db, AIGAR_LIBRARY_BUCKET=bucket)
         status, result = await search_creator_memory(env, "história clínica", {"id": "creator-1"})
         self.assertEqual(status, 200)
         self.assertEqual([x["record"]["id"] for x in result["documents"]], ["mine"])
