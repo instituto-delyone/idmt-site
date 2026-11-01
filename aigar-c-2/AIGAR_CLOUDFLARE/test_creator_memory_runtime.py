@@ -1,8 +1,20 @@
 import hashlib
 import json
 import unittest
+import sys
+import types
 from types import SimpleNamespace
-from unittest.mock import AsyncMock
+
+# Local CI does not run inside the Cloudflare Workers Python runtime.
+# Stub only the platform entrypoint symbols needed while importing modules.
+workers_stub = types.ModuleType("workers")
+class WorkflowEntrypoint:
+    pass
+async def _unused_fetch(*args, **kwargs):
+    raise RuntimeError("workers.fetch is unavailable in unit tests")
+workers_stub.WorkflowEntrypoint = WorkflowEntrypoint
+workers_stub.fetch = _unused_fetch
+sys.modules.setdefault("workers", workers_stub)
 
 from creator_memory_runtime import _memory_search_text, _query_terms, search_creator_memory
 
