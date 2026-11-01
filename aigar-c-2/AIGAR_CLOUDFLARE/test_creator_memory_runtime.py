@@ -46,7 +46,10 @@ class FakeStatement:
     async def all(self):
         self.db.query = self.sql
         self.db.params = self.params
-        return SimpleNamespace(results=self.db.rows)
+        rows = self.db.rows
+        if "imported_by = ?" in self.sql and self.params:
+            rows = [row for row in rows if row.imported_by == self.params[0]]
+        return SimpleNamespace(results=rows)
 
 
 class FakeDB:
@@ -100,7 +103,7 @@ class CreatorMemoryRetrievalTests(unittest.IsolatedAsyncioTestCase):
                                 size_bytes=10, imported_at="2026-11-01",
                                 imported_by="creator-1", status="stored")]
         db, bucket = FakeDB(rows), FakeBucket({"tampered.json": '{"text":"história clínica"}'})
-        env = {"AIGAR_DB": db, "AIGAR_LIBRARY_BUCKET": bucket}
+        env = SimpleNamespace(AIGAR_DB=db, AIGAR_LIBRARY_BUCKET=bucket)
         status, result = await search_creator_memory(env, "história clínica", {"id": "creator-1"})
         self.assertEqual(status, 200)
         self.assertEqual(result["documents"], [])
