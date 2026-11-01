@@ -62,7 +62,7 @@ def build_retrieval_plan(
                 sub.get("subdomain_id") in (p.get("concept_ids") or []) or
                 any(ref in (p.get("relation_refs") or []) for ref in (sub.get("relation_refs") or []))
             )]
-            if sub_hits or pointer_hits or "fallback_broad_candidate" in domain_hits_signals:
+            if sub_hits or pointer_hits or "fallback_broad_candidate" in domain_hits_signals or ("requested_domain" in domain_hits_signals and not any(_matches(text, list(candidate.get("signals") or []) + [candidate.get("label", "")]) for candidate in index.get("subdomains", []))):
                 paths.append({
                     "path_id": f"path-{uuid.uuid4().hex[:12]}",
                     "start_node": did,
