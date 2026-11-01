@@ -15,7 +15,7 @@ from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING, search_r2_document_chunks
 from memory_card_runtime import MEMORY_CARD_ADAPTER
-from aclr_r2_runtime import run_aclr_r2_shadow
+from aclr_transition import execute_aclr_transition
 
 INTERACTION_TYPES = {
     "social", "factual", "exploratory_reasoning", "continuity_recall",
@@ -351,15 +351,20 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         except Exception as exc:
             r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
-    # ACLR runs in shadow mode: its index-first result is diagnostic only.
-    # It never replaces or augments the legacy evidence used to render this answer.
-    aclr_shadow = {"enabled": False, "status": "skipped", "mode": "shadow"}
+    # ACLR transition boundary: default shadow preserves legacy evidence.
+    # Candidate mode is opt-in and accepts only reviewed/verified catalogue sources.
+    aclr_transition = {"evidence_items": evidence_items, "diagnostic": {"mode": "shadow", "status": "skipped", "fallback": False}}
     if env is not None and r2_search_requested:
         try:
-            aclr_shadow = await run_aclr_r2_shadow(env, text, top_k=5)
+            aclr_transition = await execute_aclr_transition(env, text, evidence_items, top_k=5)
+            if aclr_transition.get("diagnostic", {}).get("status") == "candidate_selected":
+                evidence_items = list(aclr_transition.get("evidence_items") or evidence_items)
         except Exception as exc:
-            aclr_shadow = {"enabled": True, "status": "error", "mode": "shadow",
-                           "error_type": type(exc).__name__, "reason": str(exc)[:240]}
+            aclr_transition = {"evidence_items": evidence_items, "diagnostic": {
+                "mode": "shadow", "status": "error", "fallback": True,
+                "fallback_reason": "transition_exception", "error_type": type(exc).__name__,
+                "reason": str(exc)[:240]}}
+    aclr_shadow = aclr_transition.get("diagnostic", {})
 
     # Creator Memory is private and can only be injected by the authenticated
     # administrative conversation route. Public /perguntar never supplies it.
@@ -630,6 +635,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         "sources": sources,
         "renderer": renderer_status,
         "aclr_shadow": aclr_shadow,
+        "aclr_transition": aclr_shadow,
         "cognitive_core": {
             "version": cognitive_context.get("version"),
             "ready": bool(cognitive_context.get("ready")),

@@ -128,6 +128,11 @@ async def run_aclr_r2_shadow(env: Any, question: str, *, top_k: int = 5) -> dict
             "planned_paths": len(plan.get("paths", [])),
             "selected_chunk_count": len(loaded_keys),
             "selected_chunk_ids": [item["evidence_id"] for item in resolved.get("evidence", [])],
+            "evidence_items": [{
+                "evidence_id": item.get("evidence_id"), "source_id": item.get("source_id"),
+                "text": item.get("content", ""), "domain_ids": item.get("domain_ids", []),
+                "provenance": item.get("provenance", {}),
+            } for item in resolved.get("evidence", [])],
             "source_statuses": source_statuses,
             "synthetic_only": bool(source_statuses) and all(value == "synthetic_test_content" for value in source_statuses),
             "latency_ms": int((time.time() - started) * 1000),
