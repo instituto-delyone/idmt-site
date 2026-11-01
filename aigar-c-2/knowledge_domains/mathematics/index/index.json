@@ -1,0 +1,51 @@
+{
+  "schema_version": "aclr.domain-index.v0",
+  "domain_id": "mathematics",
+  "label": "Matemática",
+  "status": "prototype",
+  "subdomains": [
+    {
+      "subdomain_id": "algebra",
+      "label": "Álgebra",
+      "signals": [
+        "álgebra",
+        "equação",
+        "variável",
+        "polinômio",
+        "expressão algébrica"
+      ],
+      "chunks": [
+        "math-algebra-001"
+      ]
+    },
+    {
+      "subdomain_id": "geometry",
+      "label": "Geometria",
+      "signals": [
+        "geometria",
+        "figura",
+        "triângulo",
+        "ângulo",
+        "área",
+        "volume"
+      ],
+      "chunks": [
+        "math-geometry-001"
+      ]
+    },
+    {
+      "subdomain_id": "calculus",
+      "label": "Cálculo",
+      "signals": [
+        "cálculo",
+        "limite",
+        "derivada",
+        "integral",
+        "taxa de variação"
+      ],
+      "chunks": [
+        "math-calculus-001"
+      ]
+    }
+  ]
+}
