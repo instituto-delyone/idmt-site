@@ -1,0 +1,28 @@
+name: ACLR prototype validation
+
+on:
+  pull_request:
+    paths:
+      - "aigar-c-2/AIGAR_CLOUDFLARE/aclr_*.py"
+      - "aigar-c-2/AIGAR_CLOUDFLARE/aclr/**"
+      - "aigar-c-2/AIGAR_CLOUDFLARE/tests/**"
+      - ".github/workflows/aclr-validation.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "aigar-c-2/AIGAR_CLOUDFLARE/aclr_*.py"
+      - "aigar-c-2/AIGAR_CLOUDFLARE/aclr/**"
+      - "aigar-c-2/AIGAR_CLOUDFLARE/tests/**"
+      - ".github/workflows/aclr-validation.yml"
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run isolated ACLR tests
+        working-directory: aigar-c-2/AIGAR_CLOUDFLARE
+        run: python -m unittest discover -s tests -p "test_aclr_*.py" -v
