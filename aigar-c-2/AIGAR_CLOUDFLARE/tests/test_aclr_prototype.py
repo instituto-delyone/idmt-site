@@ -1,4 +1,5 @@
 import unittest
+import asyncio
 import json
 from pathlib import Path
 
@@ -6,6 +7,7 @@ from aclr_router import build_retrieval_plan, inspect_selected_targets
 from aclr_contracts import (ContractError, validate_query_request, validate_context_pointer, validate_library_manifest, validate_retrieval_plan, validate_evidence_envelope)
 from aclr_resolver import resolve_evidence
 from aclr_adapters import library_results_to_envelope, r2_results_to_envelope
+from aclr_orchestrator import execute_retrieval_plan
 
 MASTER = {
     "domains": [
@@ -67,6 +69,18 @@ class ACLRRouterTests(unittest.TestCase):
         plan=build_retrieval_plan({"query_id":"q","question":"tema sem sinal conhecido","language":"pt-BR","request_mode":"factual","requested_domains":["history"]},MASTER,INDEXES)
         self.assertIn(None,{p["domain_id"] for p in plan["paths"]})
         self.assertIn("history",{p["domain_id"] for p in plan["paths"]})
+
+class ACLROrchestratorTests(unittest.TestCase):
+    def test_one_failed_path_preserves_successful_paths(self):
+        plan=build_retrieval_plan({"query_id":"q","question":"idade média","language":"pt-BR","request_mode":"factual"},MASTER,INDEXES)
+        async def retrieve(path):
+            if path["domain_id"] is None:
+                raise RuntimeError("simulated general-index failure")
+            return {"query_id":"q","retriever_id":path["path_id"],"status":"success","evidence":[],"warnings":[]}
+        result=asyncio.run(execute_retrieval_plan(plan,retrieve,max_concurrency=2))
+        self.assertEqual(result["retrieval_status"],"partial")
+        self.assertTrue(any(x["status"]=="error" for x in result["path_results"]))
+        self.assertTrue(any(x["status"]=="success" for x in result["path_results"]))
 
 class ACLRAdapterTests(unittest.TestCase):
     def test_library_adapter_preserves_source_and_score_semantics(self):
