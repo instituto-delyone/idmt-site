@@ -45,6 +45,20 @@ class ACLRTransitionTests(unittest.TestCase):
         self.assertEqual(result["diagnostic"]["status"], "candidate_selected")
         self.assertEqual(result["evidence_items"][0]["text"], "Verified evidence")
 
+    def test_invalid_mode_override_fails_closed_to_shadow(self):
+        legacy = [{"text": "legacy"}]
+        class Env:
+            ACLR_MODE = "candidate"
+            AIGAR_LIBRARY_BUCKET = None
+        async def fake_shadow(env, question, top_k=5):
+            return {"status": "complete", "evidence_items": []}
+        with patch("aclr_transition.run_aclr_r2_shadow", new=fake_shadow):
+            result = asyncio.run(execute_aclr_transition(
+                Env(), "question", legacy, mode_override="unexpected"
+            ))
+        self.assertEqual(result["diagnostic"]["mode"], "shadow")
+        self.assertEqual(result["evidence_items"], legacy)
+
     def test_shadow_keeps_legacy_evidence(self):
         legacy = [{"text":"legacy"}]
         class EmptyEnv:
