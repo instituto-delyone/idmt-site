@@ -111,6 +111,14 @@
 <div class="actions"><button id="creatorMemoryImportButton" class="primary" onclick="importCreatorMemory()">Importar para memória histórica</button><button onclick="loadCreatorMemoryRecords()">Atualizar lista</button></div>
 <div id="creatorMemoryStatus" class="sub" role="status" aria-live="polite" style="margin-top:10px">Disponível após autenticação administrativa.</div>
 <div class="gap"><label>Interações históricas importadas</label><pre id="creatorMemoryRecords">—</pre></div>
+<div class="gap">
+<label for="creatorMemoryQuery">Consulta contextual privada</label>
+<textarea id="creatorMemoryQuery" rows="3" placeholder="Pergunte sobre uma decisão ou interação histórica…"></textarea>
+<label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="includeCreatorMemory" type="checkbox"> Autorizo explicitamente o uso da minha Creator Memory nesta consulta</label>
+<div class="actions"><button class="primary" id="creatorMemoryAskButton" onclick="askWithCreatorMemory()">Consultar memória privada</button></div>
+<div id="creatorMemoryAskStatus" class="sub" role="status" aria-live="polite"></div>
+<pre id="creatorMemoryAnswer">—</pre>
+</div>
 </div></section>
 </main>
 <aside>
@@ -142,6 +150,7 @@ function setAdmin(ok,user=""){
   $("loginBox").classList.toggle("adminhide",ok);
   $("adminBox").classList.toggle("adminhide",!ok);
   $("uploadPanel").classList.toggle("adminhide",!ok);
+  $("creatorMemoryPanel").classList.toggle("adminhide",!ok);
   $("authState").textContent=ok?("admin · "+user):"não autenticado";
   if(ok){loadDocuments();loadCreatorMemoryRecords();}
   else clearCreatorMemoryPanel();
@@ -167,6 +176,27 @@ function clearCreatorMemoryPanel(){
   if(input)input.value="";
   if(records)records.textContent="—";
   if(status)status.textContent="Disponível após autenticação administrativa.";
+}
+async function askWithCreatorMemory(){
+  const query=$("creatorMemoryQuery").value.trim();
+  const consent=$("includeCreatorMemory").checked;
+  const status=$("creatorMemoryAskStatus");
+  if(!adminToken){status.textContent="Autentique-se como administrador primeiro.";return;}
+  if(!query){status.textContent="Escreva uma pergunta para consultar a memória.";return;}
+  if(!consent){status.textContent="Marque a autorização explícita para usar a Creator Memory.";return;}
+  const button=$("creatorMemoryAskButton");
+  button.disabled=true;status.textContent="Recuperando registros privados e preparando resposta…";
+  try{
+    const r=await fetch(base()+"/admin/creator-memory/ask",{
+      method:"POST",headers:{...authHeaders(),"Content-Type":"application/json"},
+      body:JSON.stringify({input:query,include_creator_memory:true,limit:5})
+    });
+    const d=await r.json();
+    if(!r.ok)throw Error(d.message||d.detail||d.status||"Falha na consulta");
+    $("creatorMemoryAnswer").textContent=pretty(d);
+    status.textContent="Consulta concluída. Confira a seção private_creator_memory no resultado.";
+  }catch(e){status.textContent="Falha: "+e.message}
+  finally{button.disabled=false}
 }
 async function loadCreatorMemoryRecords(){
   if(!adminToken)return;
