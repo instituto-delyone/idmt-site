@@ -1,7 +1,9 @@
 import unittest
+import json
+from pathlib import Path
 
 from aclr_router import build_retrieval_plan, inspect_selected_targets
-from aclr_contracts import ContractError, validate_query_request, validate_context_pointer
+from aclr_contracts import (ContractError, validate_query_request, validate_context_pointer, validate_library_manifest, validate_retrieval_plan, validate_evidence_envelope)
 from aclr_resolver import resolve_evidence
 
 MASTER = {
@@ -32,6 +34,14 @@ class ACLRContractsTests(unittest.TestCase):
     def test_pointer_contract(self):
         pointer={"pointer_id":"p1","schema_version":"1","target_type":"chunk","target_id":"c1","domain_ids":["history"],"concept_ids":["medieval_history"],"provenance":{},"status":"active"}
         self.assertEqual(validate_context_pointer(pointer)["pointer_id"],"p1")
+    def test_manifest_contract(self):
+        manifest={"manifest_version":"1","library_id":"test","created_at":"2026-11-01T00:00:00Z","domains":[],"general_index":{"index_key":"library/general/index/","version":"1"}}
+        self.assertEqual(validate_library_manifest(manifest)["library_id"],"test")
+    def test_all_json_schemas_parse(self):
+        schema_dir=Path(__file__).parents[1]/"aclr"/"schemas"
+        for path in schema_dir.glob("*.schema.json"):
+            with self.subTest(schema=path.name):
+                self.assertIsInstance(json.loads(path.read_text(encoding="utf-8")),dict)
 
 class ACLRRouterTests(unittest.TestCase):
     def plan(self, question):
@@ -71,6 +81,15 @@ class ACLRResolverTests(unittest.TestCase):
         result=resolve_evidence("q",[self.envelope("r1",[],"empty")])
         self.assertEqual(result["retrieval_status"],"complete")
         self.assertEqual(result["evidence"],[])
+    def test_claim_conflict_is_preserved(self):
+        first=self.item("e1","A proposição foi confirmada.")
+        second=self.item("e2","A proposição foi refutada.")
+        first["provenance"]["claim_id"]="claim-1"
+        second["provenance"]["claim_id"]="claim-1"
+        result=resolve_evidence("q",[self.envelope("r1",[first]),self.envelope("r2",[second])])
+        self.assertEqual(len(result["evidence"]),2)
+        self.assertEqual(len(result["conflicts"]),1)
+        self.assertEqual(result["conflicts"][0]["resolution"],"unresolved_preserve_all")
 
 if __name__ == "__main__":
     unittest.main()
