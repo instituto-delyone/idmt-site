@@ -38,6 +38,7 @@ from conversation_runtime import (
     FEEDBACK_CATEGORIES,
     FEEDBACK_DECISIONS,
     FEEDBACK_RATINGS,
+    SESSIONS,
     FEEDBACK_ROOT_CAUSES,
     MODEL_VERSION,
     _audit_admin_action,
@@ -218,6 +219,7 @@ class Default(WorkerEntrypoint):
                     "session_id": "admin-aclr-shadow-" + actor[:48] + "-" + str(uuid.uuid4()),
                 }
                 status, data = await handle_ask(ask_body, self.env, aclr_only=True)
+                SESSIONS.pop(ask_body["session_id"], None)
                 if isinstance(data, dict):
                     data["execution_lane"] = "aclr_shadow_candidate"
                     data["legacy_evidence_used"] = False
