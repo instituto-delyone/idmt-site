@@ -207,6 +207,22 @@ class Default(WorkerEntrypoint):
             if not usuario:
                 return make_response(auth_data, status=auth_status, origin=origin)
 
+            if path == "/admin/aclr/shadow/ask" and method == "POST":
+                body = await _json_body(request)
+                question = _clip(body.get("input"), 20000)
+                if not question:
+                    return make_response({"ok": False, "status": "invalid_input", "message": "Informe uma pergunta para o Shadow."}, status=400, origin=origin)
+                actor = str(usuario.get("id") or usuario.get("usuario_id") or "admin")
+                ask_body = {
+                    "input": question,
+                    "session_id": "admin-aclr-shadow-" + actor[:48] + "-" + str(uuid.uuid4()),
+                }
+                status, data = await handle_ask(ask_body, self.env, aclr_only=True)
+                if isinstance(data, dict):
+                    data["execution_lane"] = "aclr_shadow_candidate"
+                    data["legacy_evidence_used"] = False
+                return make_response(data, status=status, origin=origin)
+
             if path == "/admin/creator-memory/import" and method == "POST":
                 try:
                     raw_body = await request.text()
