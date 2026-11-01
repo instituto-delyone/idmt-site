@@ -15,6 +15,7 @@ from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING, search_r2_document_chunks
 from memory_card_runtime import MEMORY_CARD_ADAPTER
+from aclr_r2_runtime import run_aclr_r2_shadow
 
 INTERACTION_TYPES = {
     "social", "factual", "exploratory_reasoning", "continuity_recall",
@@ -350,6 +351,16 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         except Exception as exc:
             r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
+    # ACLR runs in shadow mode: its index-first result is diagnostic only.
+    # It never replaces or augments the legacy evidence used to render this answer.
+    aclr_shadow = {"enabled": False, "status": "skipped", "mode": "shadow"}
+    if env is not None and r2_search_requested:
+        try:
+            aclr_shadow = await run_aclr_r2_shadow(env, text, top_k=5)
+        except Exception as exc:
+            aclr_shadow = {"enabled": True, "status": "error", "mode": "shadow",
+                           "error_type": type(exc).__name__, "reason": str(exc)[:240]}
+
     # Creator Memory is private and can only be injected by the authenticated
     # administrative conversation route. Public /perguntar never supplies it.
     private_memory_documents = list(private_memory_documents or [])
@@ -618,6 +629,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         },
         "sources": sources,
         "renderer": renderer_status,
+        "aclr_shadow": aclr_shadow,
         "cognitive_core": {
             "version": cognitive_context.get("version"),
             "ready": bool(cognitive_context.get("ready")),
