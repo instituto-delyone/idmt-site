@@ -163,6 +163,7 @@ let adminToken=null;
 let lastInteractionId=null;
 let feedbackEnabled=false;
 let feedbackSent=false;
+let shadowRunId=0;
 function authHeaders(){return adminToken?{"Authorization":"Bearer "+adminToken}:{}}
 function setAdmin(ok,user=""){
   $("loginBox").classList.toggle("adminhide",ok);
@@ -493,6 +494,7 @@ async function askShadow(){
   const input=$("shadowQ").value.trim();
   if(!input)return;
   const button=$("shadowAskButton");
+  const runId=++shadowRunId;
   button.disabled=true;
   $("shadowAnswer").textContent="Executando ACLR e síntese Candidate…";
   $("shadowDiagnostics").textContent="Aguardando diagnóstico…";
@@ -505,6 +507,7 @@ async function askShadow(){
       body:JSON.stringify({input})
     });
     const d=await r.json();
+    if(runId!==shadowRunId)return;
     if(!r.ok)throw Error(d.message||d.detail||d.status||("HTTP "+r.status));
     $("shadowAnswer").textContent=d.text||"O Shadow não retornou texto.";
     $("shadowDiagnostics").textContent=pretty({
@@ -518,13 +521,15 @@ async function askShadow(){
     $("shadowEvidence").textContent=pretty(d.plan?.evidence_details||d.plan?.evidence||[]);
     $("shadowStatus").textContent="Execução concluída. Confira status, proveniência e evidências antes de avaliar a síntese.";
   }catch(e){
+    if(runId!==shadowRunId)return;
     $("shadowAnswer").textContent="Falha na execução Shadow: "+e.message;
     $("shadowDiagnostics").textContent=pretty({status:"error",message:e.message});
     $("shadowEvidence").textContent="—";
     $("shadowStatus").textContent="Ocorreu uma falha. O fluxo padrão não foi alterado.";
-  }finally{button.disabled=false;}
+  }finally{if(runId===shadowRunId)button.disabled=false;}
 }
 function clearShadow(){
+  shadowRunId++;
   $("shadowQ").value="";
   $("shadowAnswer").textContent="A resposta experimental do ACLR aparecerá aqui.";
   $("shadowDiagnostics").textContent="—";
