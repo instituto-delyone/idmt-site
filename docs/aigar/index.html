@@ -511,11 +511,11 @@ async function askShadow(){
       execution_lane:d.execution_lane,
       legacy_evidence_used:d.legacy_evidence_used,
       aclr_transition:d.aclr_transition||d.aclr_shadow||{},
-      renderer:d.sources?.filter(x=>x.kind==="renderer")||[],
+      renderer:d.renderer||d.sources?.filter(x=>x.kind==="renderer")||[],
       interaction_id:d.interaction_id,
       confidence:d.confidence
     });
-    $("shadowEvidence").textContent=pretty(d.adaptive_plan?.evidence_details||d.plan?.evidence||[]);
+    $("shadowEvidence").textContent=pretty(d.plan?.evidence_details||d.plan?.evidence||[]);
     $("shadowStatus").textContent="Execução concluída. Confira status, proveniência e evidências antes de avaliar a síntese.";
   }catch(e){
     $("shadowAnswer").textContent="Falha na execução Shadow: "+e.message;
