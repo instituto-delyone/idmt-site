@@ -31,13 +31,18 @@ class AsymmetricContextManager:
                 continue
             turn_tokens = _context_token_set(content)
             overlap = len(q_tokens & turn_tokens) / max(1, len(q_tokens))
+            metadata = turn.get("metadata") or {}
+            dependency = 1.0 if metadata.get("pinned_context") else 0.0
+            # Recência só desempata itens que já demonstraram pertinência.
+            # Não transforma um turno sem relação temática em contexto útil.
+            if overlap <= 0 and dependency <= 0:
+                excluded.append({"turn_id": turn_id, "reason": "no_relevance_or_explicit_dependency"})
+                continue
             recency = (index + 1) / max(1, total)
-            dependency = 1.0 if (turn.get("metadata") or {}).get("pinned_context") else 0.0
-            reference_signal = 1.0 if needs_context and index >= max(0, total - 4) else 0.0
-            score = 0.42 * overlap + 0.25 * recency + 0.23 * reference_signal + 0.10 * dependency
+            score = 0.75 * overlap + 0.15 * dependency + 0.10 * recency
             eligible.append((score, index, turn))
 
-        # Dependências explícitas de referência e turnos recentes ganham preferência.
+        # Pertinência temática ou dependência explicitamente fixada são pré-requisitos.
         eligible.sort(key=lambda item: (item[0], item[1]), reverse=True)
         chosen = []
         chars = 0

@@ -69,7 +69,7 @@ def classify_interaction(text, reading):
 
     if intent == "phatic" or _has_any_phrase(t, ("bom dia", "boa tarde", "boa noite", "oi", "olá", "ola", "tudo bem", "você está aí")):
         add("social")
-    if intent in {"continuity", "doubt"} or bool((reading or {}).get("needs_memory")) or _has_any_phrase(t, ("lembra", "como combinamos", "na conversa anterior", "continua", "continue", "e depois", "isso que você falou")):
+    if intent == "continuity" or _has_any_phrase(t, ("lembra", "como combinamos", "na conversa anterior", "naquele plano", "continua", "continue", "retome", "retomar", "isso que você falou", "o que decidimos", "como ficou")):
         add("continuity_recall")
     if intent == "correction" or _has_any_phrase(t, ("está errado", "esta errado", "não era isso", "nao era isso", "corrigindo", "quis dizer", "melhore a resposta", "ficou errado")):
         add("correction_feedback")
@@ -109,7 +109,7 @@ def classify_interaction(text, reading):
         "primary_type": primary,
         "secondary_types": secondaries,
         "intent": intent,
-        "context_required": bool((reading or {}).get("needs_memory")) or "continuity_recall" in detected,
+        "context_required": intent == "continuity" or "continuity_recall" in detected,
         "research_required": bool((reading or {}).get("needs_library")) or "research_audit" in detected,
         "artifact_required": "artifact_creation" in detected,
         "confidence": min(0.95, 0.45 + 0.12 * max(0, len(detected) - 1)),
@@ -117,7 +117,7 @@ def classify_interaction(text, reading):
             "language_engine_intent": intent,
             "needs_memory": bool((reading or {}).get("needs_memory")),
             "needs_library": bool((reading or {}).get("needs_library")),
-            "classifier_version": "composable-heuristic-v1",
+            "classifier_version": "composable-heuristic-v2-explicit-continuity",
         },
     }
 
@@ -329,7 +329,7 @@ async def handle_ask(body, env=None):
         "detail": "A biblioteca não foi consultada para esta intenção.",
     }
     r2_terms = ("exame clínico","exame clinico","biblioteca","documento","documentos","livro","capítulo","capitulo","material","memória persistente","memoria persistente","conhecimento","base científica","base cientifica")
-    r2_search_requested = bool(routing_decision.get("use_library")) or bool(profile.get("research_required")) or answer_depth in {"deep","technical"} or any(term in text.casefold() for term in r2_terms)
+    r2_search_requested = bool(routing_decision.get("use_library")) or bool(profile.get("research_required")) or any(term in text.casefold() for term in r2_terms)
     if routing_decision["use_library"]:
         try:
             evidence_items = await library_search(text, reading, limit=5)
