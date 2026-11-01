@@ -11,6 +11,16 @@ class ACLRTransitionTests(unittest.TestCase):
         self.assertEqual(configured_aclr_mode(Env()), "shadow")
     def test_synthetic_sources_are_never_adapted(self):
         self.assertEqual(_adapt_evidence([{"evidence_id":"x","text":"synthetic","provenance":{"source_status":"synthetic_test_content"}}]), [])
+    def test_reviewed_sources_are_eligible(self):
+        items = _adapt_evidence([{
+            "evidence_id": "reviewed-1",
+            "source_id": "reviewed-source",
+            "text": "Reviewed content",
+            "provenance": {"source_status": "reviewed"},
+        }])
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["text"], "Reviewed content")
+
     def test_verified_sources_are_mapped(self):
         items = _adapt_evidence([{"evidence_id":"chunk-1","source_id":"medicine","text":"Verified content","domain_ids":["medicine"],"provenance":{"source_status":"verified","r2_key":"real/chunk.md"}}])
         self.assertEqual(items[0]["text"], "Verified content")
