@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"AIGAR Retrieval Plan","type":"object",
+  "required":["plan_id","query_id","planner_version","general_index_required","paths"],
+  "properties":{
+    "plan_id":{"type":"string"},"query_id":{"type":"string"},"planner_version":{"type":"string"},
+    "general_index_required":{"const":true},
+    "paths":{"type":"array","items":{"type":"object","required":["path_id","target_index","query_text","rationale"],
+      "properties":{
+        "path_id":{"type":"string"},"start_node":{"type":["string","null"]},"target_index":{"type":"string"},
+        "domain_id":{"type":["string","null"]},"query_text":{"type":"string"},
+        "traversed_edges":{"type":"array","items":{"type":"string"}},"rationale":{"type":"string"},
+        "priority":{"type":"number"},"max_results":{"type":"integer","minimum":1},
+        "status":{"enum":["planned","running","success","empty","partial","error"]}
+      },"additionalProperties":false}},
+    "expansion_policy":{"type":"object"},"coverage_targets":{"type":"array","items":{"type":"string"}}
+  },"additionalProperties":false
+}
