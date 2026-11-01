@@ -1,0 +1,64 @@
+{
+  "schema_version": "aclr.domain-index.v0",
+  "domain_id": "history",
+  "label": "História",
+  "status": "prototype",
+  "subdomains": [
+    {
+      "subdomain_id": "ancient_history",
+      "label": "História Antiga",
+      "signals": [
+        "antiguidade",
+        "egito antigo",
+        "grécia antiga",
+        "roma antiga",
+        "mesopotâmia"
+      ],
+      "chunks": [
+        "hist-ancient-001"
+      ]
+    },
+    {
+      "subdomain_id": "medieval_history",
+      "label": "História Medieval",
+      "signals": [
+        "idade média",
+        "medieval",
+        "feudalismo",
+        "senhores feudais",
+        "império bizantino"
+      ],
+      "chunks": [
+        "hist-medieval-001"
+      ]
+    },
+    {
+      "subdomain_id": "modern_history",
+      "label": "História Moderna",
+      "signals": [
+        "idade moderna",
+        "renascimento",
+        "reforma",
+        "expansão marítima",
+        "absolutismo"
+      ],
+      "chunks": [
+        "hist-modern-001"
+      ]
+    },
+    {
+      "subdomain_id": "contemporary_history",
+      "label": "História Contemporânea",
+      "signals": [
+        "idade contemporânea",
+        "revolução industrial",
+        "revolução francesa",
+        "século xx",
+        "século xxi"
+      ],
+      "chunks": [
+        "hist-contemporary-001"
+      ]
+    }
+  ]
+}
