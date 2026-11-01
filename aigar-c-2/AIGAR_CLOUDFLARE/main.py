@@ -232,6 +232,31 @@ class Default(WorkerEntrypoint):
                 status, data = await search_creator_memory(self.env, query, usuario, body.get("limit", 5))
                 return make_response(data, status=status, origin=origin)
 
+            if path == "/admin/creator-memory/ask" and method == "POST":
+                body = await _json_body(request)
+                question = _clip(body.get("input"), 20000)
+                if not question:
+                    return make_response({"ok": False, "status": "invalid_input"}, status=400, origin=origin)
+                if body.get("include_creator_memory") is not True:
+                    return make_response({"ok": False, "status": "explicit_private_memory_consent_required"}, status=400, origin=origin)
+                status, retrieval = await search_creator_memory(self.env, question, usuario, body.get("limit", 5))
+                if status != 200:
+                    return make_response(retrieval, status=status, origin=origin)
+                ask_body = {"input": question, "session_id": "admin-creator-" + str(usuario.get("id") or usuario.get("usuario_id") or "admin")}
+                status, answer = await handle_ask(
+                    ask_body, self.env,
+                    private_memory_documents=retrieval.get("documents", []),
+                )
+                if isinstance(answer, dict):
+                    answer["private_creator_memory"] = {
+                        "requested": True,
+                        "records_scanned": retrieval.get("records_scanned", 0),
+                        "records_used": len(retrieval.get("documents", [])),
+                        "integrity_failures": retrieval.get("integrity_failures", []),
+                        "consolidated_knowledge": False,
+                    }
+                return make_response(answer, status=status, origin=origin)
+
             creator_memory_match = re.fullmatch(r"/admin/creator-memory/records/([0-9a-fA-F-]{36})", path)
             if creator_memory_match and method == "GET":
                 status, data = await get_creator_memory(self.env, creator_memory_match.group(1))
