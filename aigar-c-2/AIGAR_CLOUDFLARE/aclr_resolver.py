@@ -8,7 +8,7 @@ from typing import Any, Mapping
 from aclr_contracts import validate_evidence_envelope
 
 def _canonical_content(value: str) -> str:
-    return re.sub(r"\\s+", " ", value.casefold()).strip()
+    return re.sub(r"\s+", " ", value.casefold()).strip()
 
 def resolve_evidence(query_id: str, envelopes: list[Mapping[str, Any]]) -> dict:
     """Merge evidence, preserve provenance/status and expose claim disagreement."""
