@@ -229,7 +229,7 @@ class Default(WorkerEntrypoint):
                 query = _clip(body.get("query"), 1000)
                 if not query or len(query) < 3:
                     return make_response({"ok": False, "status": "invalid_query"}, status=400, origin=origin)
-                status, data = await search_creator_memory(self.env, query, body.get("limit", 5))
+                status, data = await search_creator_memory(self.env, query, usuario, body.get("limit", 5))
                 return make_response(data, status=status, origin=origin)
 
             creator_memory_match = re.fullmatch(r"/admin/creator-memory/records/([0-9a-fA-F-]{36})", path)
