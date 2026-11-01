@@ -1,0 +1,66 @@
+{
+  "schema_version": "aclr.router-index.v0",
+  "kind": "master_domain_router_index",
+  "status": "prototype",
+  "description": "Mapeia sinais de assunto para domínios de conhecimento. Não recupera conteúdo diretamente.",
+  "domains": [
+    {
+      "domain_id": "history",
+      "label": "História",
+      "index_path": "history/index/index.json",
+      "signals": [
+        "história",
+        "historia",
+        "passado",
+        "período histórico",
+        "civilização",
+        "idade antiga",
+        "idade média",
+        "idade moderna",
+        "idade contemporânea",
+        "medieval"
+      ]
+    },
+    {
+      "domain_id": "mathematics",
+      "label": "Matemática",
+      "index_path": "mathematics/index/index.json",
+      "signals": [
+        "matemática",
+        "matematica",
+        "número",
+        "números",
+        "equação",
+        "equações",
+        "álgebra",
+        "algebra",
+        "geometria",
+        "cálculo",
+        "calculo",
+        "função",
+        "funções"
+      ]
+    },
+    {
+      "domain_id": "portuguese",
+      "label": "Língua Portuguesa",
+      "index_path": "portuguese/index/index.json",
+      "signals": [
+        "língua portuguesa",
+        "português",
+        "portugues",
+        "gramática",
+        "gramatica",
+        "palavra",
+        "palavras",
+        "morfologia",
+        "sintaxe",
+        "semântica",
+        "semantica",
+        "pragmática",
+        "pragmatica"
+      ]
+    }
+  ],
+  "routing_note": "Este arquivo é um mapa declarativo inicial. A lógica de interpretação e seleção ainda será implementada e testada separadamente."
+}
