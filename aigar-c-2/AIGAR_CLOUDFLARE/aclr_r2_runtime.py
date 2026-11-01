@@ -10,7 +10,7 @@ import time
 from typing import Any
 
 from cloudflare_bindings import binding
-from storage_runtime import R2_BINDING
+R2_BINDING = "AIGAR_LIBRARY_BUCKET"
 from aclr_router import build_retrieval_plan, inspect_selected_targets
 from aclr_resolver import resolve_evidence
 
