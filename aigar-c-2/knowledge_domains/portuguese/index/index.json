@@ -1,0 +1,67 @@
+{
+  "schema_version": "aclr.domain-index.v0",
+  "domain_id": "portuguese",
+  "label": "Língua Portuguesa",
+  "status": "prototype",
+  "subdomains": [
+    {
+      "subdomain_id": "morphology",
+      "label": "Morfologia",
+      "signals": [
+        "morfologia",
+        "classe gramatical",
+        "substantivo",
+        "verbo",
+        "adjetivo",
+        "flexão"
+      ],
+      "chunks": [
+        "pt-morphology-001"
+      ]
+    },
+    {
+      "subdomain_id": "syntax",
+      "label": "Sintaxe",
+      "signals": [
+        "sintaxe",
+        "sujeito",
+        "predicado",
+        "oração",
+        "período",
+        "termos da oração"
+      ],
+      "chunks": [
+        "pt-syntax-001"
+      ]
+    },
+    {
+      "subdomain_id": "semantics",
+      "label": "Semântica",
+      "signals": [
+        "semântica",
+        "sentido",
+        "significado",
+        "polissemia",
+        "sinonímia",
+        "ambiguidade"
+      ],
+      "chunks": [
+        "pt-semantics-001"
+      ]
+    },
+    {
+      "subdomain_id": "pragmatics",
+      "label": "Pragmática",
+      "signals": [
+        "pragmática",
+        "contexto comunicativo",
+        "intenção comunicativa",
+        "ato de fala",
+        "inferência"
+      ],
+      "chunks": [
+        "pt-pragmatics-001"
+      ]
+    }
+  ]
+}
