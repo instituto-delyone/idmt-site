@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"AIGAR Evidence Envelope","type":"object",
+  "required":["query_id","retriever_id","status","evidence","warnings"],
+  "properties":{
+    "query_id":{"type":"string"},"retriever_id":{"type":"string"},
+    "status":{"enum":["success","empty","partial","error"]},
+    "latency_ms":{"type":["integer","null"],"minimum":0},
+    "evidence":{"type":"array","items":{"type":"object","required":["evidence_id","source_id","content","domain_ids","provenance"],
+      "properties":{
+        "evidence_id":{"type":"string"},"source_id":{"type":"string"},
+        "document_id":{"type":["string","null"]},"chunk_id":{"type":["string","null"]},
+        "domain_ids":{"type":"array","items":{"type":"string"}},"content":{"type":"string"},
+        "relevance_score":{"type":["number","null"]},"score_semantics":{"type":["string","null"]},
+        "confidence":{"type":["number","null"],"minimum":0,"maximum":1},"provenance":{"type":"object"},
+        "location":{"type":["object","null"]},"content_hash":{"type":["string","null"]},
+        "index_version":{"type":["string","null"]},"pointer_refs":{"type":"array","items":{"type":"string"}}
+      },"additionalProperties":false}},
+    "warnings":{"type":"array","items":{"type":"string"}},"error":{"type":["object","null"]}
+  },"additionalProperties":false
+}

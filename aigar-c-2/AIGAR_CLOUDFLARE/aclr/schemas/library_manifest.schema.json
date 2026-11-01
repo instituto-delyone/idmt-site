@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"AIGAR Library Manifest","type":"object",
+  "required":["manifest_version","library_id","created_at","domains","general_index"],
+  "properties":{
+    "manifest_version":{"type":"string"},"library_id":{"type":"string"},"created_at":{"type":"string","format":"date-time"},
+    "build_id":{"type":["string","null"]},
+    "domains":{"type":"array","items":{"type":"object","required":["domain_id","domain_manifest_key","status"],
+      "properties":{
+        "domain_id":{"type":"string"},"domain_manifest_key":{"type":"string"},
+        "index_versions":{"type":"array","items":{"type":"string"}},
+        "status":{"enum":["active","staged","deprecated"]}
+      },"additionalProperties":false}},
+    "general_index":{"type":"object","required":["index_key","version"],"properties":{"index_key":{"type":"string"},"version":{"type":"string"}}},
+    "previous_manifest":{"type":["string","null"]}
+  },"additionalProperties":false
+}

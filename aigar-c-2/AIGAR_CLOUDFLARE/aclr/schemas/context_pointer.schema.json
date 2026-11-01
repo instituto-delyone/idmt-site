@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"AIGAR Context Pointer","type":"object",
+  "required":["pointer_id","schema_version","target_type","target_id","domain_ids","concept_ids","provenance","status"],
+  "properties":{
+    "pointer_id":{"type":"string"},"schema_version":{"type":"string"},
+    "target_type":{"enum":["domain","subdomain","concept","entity","document","chunk","index","collection","claim"]},
+    "target_id":{"type":"string"},"domain_ids":{"type":"array","items":{"type":"string"}},
+    "concept_ids":{"type":"array","items":{"type":"string"}},
+    "relation_refs":{"type":"array","items":{"type":"string"}},
+    "source_document_id":{"type":["string","null"]},"chunk_id":{"type":["string","null"]},
+    "index_refs":{"type":"array","items":{"type":"string"}},
+    "location":{"type":["object","null"]},"provenance":{"type":"object"},
+    "content_hash":{"type":["string","null"]},"build_id":{"type":["string","null"]},
+    "created_at":{"type":"string","format":"date-time"},"updated_at":{"type":"string","format":"date-time"},
+    "status":{"enum":["unreviewed","active","deprecated","rejected"]}
+  },"additionalProperties":false
+}
