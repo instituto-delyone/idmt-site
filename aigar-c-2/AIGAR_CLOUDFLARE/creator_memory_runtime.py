@@ -189,7 +189,7 @@ def _query_terms(query):
     }
 
 
-async def search_creator_memory(env, query, limit=5):
+async def search_creator_memory(env, query, usuario, limit=5):
     """Retrieve relevant, integrity-verified creator-imported episodes.
 
     This function is intentionally reachable only through an authenticated
@@ -205,12 +205,16 @@ async def search_creator_memory(env, query, limit=5):
     if not await creator_memory_schema_ready(db):
         return 503, {"ok": False, "status": "creator_memory_schema_not_ready", "documents": []}
 
+    creator_id = str(
+        usuario.get("id") or usuario.get("usuario_id")
+        or usuario.get("nome_usuario") or "admin"
+    )[:200]
     rows = (await db.prepare(
         """SELECT id, r2_key, sha256, size_bytes, imported_at, imported_by, status
            FROM creator_memory_records
-           WHERE status = 'stored'
+           WHERE status = 'stored' AND imported_by = ?
            ORDER BY imported_at DESC LIMIT 100"""
-    ).all()).results
+    ).bind(creator_id).all()).results
     ranked = []
     integrity_failures = []
     for row in rows:
