@@ -252,7 +252,8 @@ async def handle_ask(body, env=None, private_memory_documents=None, *, aclr_only
     # A falha da memória é isolada e não bloqueia a conversa.
     memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": None}
     try:
-        memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
+        if not aclr_only:
+            memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
     except Exception as exc:
         memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": str(exc)[:300]}
 
@@ -303,7 +304,7 @@ async def handle_ask(body, env=None, private_memory_documents=None, *, aclr_only
         if turn.get("content")
     ]
     memory_card_result = {"ok": False, "status": "not_requested", "documents": [], "error": None}
-    if routing_decision.get("use_memory"):
+    if routing_decision.get("use_memory") and not aclr_only:
         try:
             memory_card_result = await MEMORY_CARD_ADAPTER.retrieve(text, limit=4)
         except Exception as exc:
