@@ -165,3 +165,92 @@ async def get_creator_memory(env, record_id):
         "record": {"id": str(row.id), "sha256": digest, "size_bytes": int(row.size_bytes or 0), "status": str(row.status)},
         "payload": payload,
     }
+
+
+def _memory_search_text(value, depth=0):
+    if depth > 5:
+        return ""
+    if isinstance(value, dict):
+        return " ".join(
+            str(key) + " " + _memory_search_text(item, depth + 1)
+            for key, item in list(value.items())[:80]
+        )
+    if isinstance(value, list):
+        return " ".join(_memory_search_text(item, depth + 1) for item in value[:80])
+    if isinstance(value, (str, int, float, bool)):
+        return str(value)[:12000]
+    return ""
+
+
+def _query_terms(query):
+    return {
+        token for token in re.findall(r"[a-zA-ZÀ-ÿ0-9_]{3,}", str(query or "").lower())
+        if token not in {"para", "com", "uma", "que", "the", "and", "from", "this"}
+    }
+
+
+async def search_creator_memory(env, query, limit=5):
+    """Retrieve relevant, integrity-verified creator-imported episodes.
+
+    This function is intentionally reachable only through an authenticated
+    /admin route. It does not publish records or consolidate lessons.
+    """
+    terms = _query_terms(query)
+    if not terms:
+        return 400, {"ok": False, "status": "query_too_short", "documents": []}
+    db = binding(env, D1_BINDING)
+    bucket = binding(env, R2_BINDING)
+    if not db or not bucket:
+        return 503, {"ok": False, "status": "storage_not_configured", "documents": []}
+    if not await creator_memory_schema_ready(db):
+        return 503, {"ok": False, "status": "creator_memory_schema_not_ready", "documents": []}
+
+    rows = (await db.prepare(
+        """SELECT id, r2_key, sha256, size_bytes, imported_at, imported_by, status
+           FROM creator_memory_records
+           WHERE status = 'stored'
+           ORDER BY imported_at DESC LIMIT 100"""
+    ).all()).results
+    ranked = []
+    integrity_failures = []
+    for row in rows:
+        obj = await bucket.get(str(row.r2_key))
+        if not obj:
+            integrity_failures.append(str(row.id))
+            continue
+        raw = await obj.text()
+        digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        if digest != str(row.sha256):
+            integrity_failures.append(str(row.id))
+            continue
+        try:
+            payload = json.loads(raw)
+        except Exception:
+            integrity_failures.append(str(row.id))
+            continue
+        searchable = _memory_search_text(payload).lower()
+        matched = terms.intersection(_query_terms(searchable))
+        if not matched:
+            continue
+        score = len(matched) / max(1, len(terms))
+        ranked.append({
+            "record": {
+                "id": str(row.id), "sha256": digest,
+                "imported_at": str(row.imported_at),
+                "imported_by": str(row.imported_by),
+                "status": str(row.status),
+            },
+            "score": round(score, 4),
+            "matched_terms": sorted(matched),
+            "payload": payload,
+        })
+    ranked.sort(key=lambda item: (item["score"], item["record"]["imported_at"]), reverse=True)
+    return 200, {
+        "ok": True,
+        "status": "ready",
+        "query_terms": sorted(terms),
+        "documents": ranked[:max(1, min(int(limit), 10))],
+        "integrity_failures": integrity_failures,
+        "records_scanned": len(rows),
+        "consolidated_knowledge": False,
+    }
