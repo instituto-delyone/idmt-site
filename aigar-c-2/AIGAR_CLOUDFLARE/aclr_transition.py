@@ -25,8 +25,10 @@ def _adapt_evidence(items: list[Mapping[str, Any]]) -> list[dict]:
             "visibility": "public", "retrieval_method": "aclr_hierarchical_index_first"})
     return adapted
 
-async def execute_aclr_transition(env: Any, question: str, legacy_evidence: list[dict], *, top_k: int = 5) -> dict:
-    mode = configured_aclr_mode(env)
+async def execute_aclr_transition(env: Any, question: str, legacy_evidence: list[dict], *, top_k: int = 5, mode_override: str | None = None) -> dict:
+    mode = str(mode_override or configured_aclr_mode(env)).strip().lower()
+    if mode not in ALLOWED_MODES:
+        mode = "shadow"
     diagnostic = {"mode": mode, "status": "skipped", "selected_count": 0, "accepted_count": 0,
         "fallback": False, "fallback_reason": None, "manifest_version": None, "latency_ms": 0, "warnings": []}
     if env is None:
