@@ -15,7 +15,7 @@ from cortex_compat import CORTEX_COMPATIBILITY, WORKER_CORTEX_BRIDGE
 from answer_runtime import render_adaptive_answer
 from storage_runtime import D1_BINDING, search_r2_document_chunks
 from memory_card_runtime import MEMORY_CARD_ADAPTER
-from aclr_r2_runtime import run_aclr_r2_shadow
+from aclr_transition import execute_aclr_transition
 
 INTERACTION_TYPES = {
     "social", "factual", "exploratory_reasoning", "continuity_recall",
@@ -218,7 +218,7 @@ async def _audit_admin_action(db, actor_id, action, target_type, target_id, deta
     ).run()
 
 
-async def handle_ask(body, env=None, private_memory_documents=None):
+async def handle_ask(body, env=None, private_memory_documents=None, *, aclr_only=False):
     text = body.get("input")
     session_id = body.get("session_id") or "default"
     if not isinstance(text, str) or not text.strip():
@@ -252,7 +252,8 @@ async def handle_ask(body, env=None, private_memory_documents=None):
     # A falha da memória é isolada e não bloqueia a conversa.
     memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": None}
     try:
-        memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
+        if not aclr_only:
+            memory_lab_result = await MEMORY_LAB.retrieve_with_fallback(text)
     except Exception as exc:
         memory_lab_result = {"ok": False, "selected_layer": [], "documents": [], "error": str(exc)[:300]}
 
@@ -303,7 +304,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         if turn.get("content")
     ]
     memory_card_result = {"ok": False, "status": "not_requested", "documents": [], "error": None}
-    if routing_decision.get("use_memory"):
+    if routing_decision.get("use_memory") and not aclr_only:
         try:
             memory_card_result = await MEMORY_CARD_ADAPTER.retrieve(text, limit=4)
         except Exception as exc:
@@ -331,7 +332,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
     }
     r2_terms = ("exame clínico","exame clinico","biblioteca","documento","documentos","livro","capítulo","capitulo","material","memória persistente","memoria persistente","conhecimento","base científica","base cientifica")
     r2_search_requested = bool(routing_decision.get("use_library")) or bool(profile.get("research_required")) or any(term in text.casefold() for term in r2_terms)
-    if routing_decision["use_library"]:
+    if not aclr_only and routing_decision["use_library"]:
         try:
             evidence_items = await library_search(text, reading, limit=5)
             library_trace = {"kind":"library","id":"aigar.library.hybrid","status":"confirmed" if evidence_items else "missing","detail":(f"{len(evidence_items)} evidência(s) recuperada(s) no catálogo híbrido." if evidence_items else "Nenhuma evidência suficientemente relevante foi recuperada.")}
@@ -339,7 +340,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
             library_trace = {"kind":"library","id":"aigar.library.hybrid","status":"missing","detail":"Falha na consulta da biblioteca: "+str(exc)[:400]}
     r2_evidence=[]
     r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"skipped","detail":"Consulta R2 não necessária para esta intenção."}
-    if r2_search_requested:
+    if not aclr_only and r2_search_requested:
         try:
             qinfo=(reading.get("linguistic_analysis") or {}).get("question") or {}
             r2_topic=qinfo.get("topic_head") or qinfo.get("topic_candidate") or reading.get("scope") or ""
@@ -351,19 +352,24 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         except Exception as exc:
             r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
-    # ACLR runs in shadow mode: its index-first result is diagnostic only.
-    # It never replaces or augments the legacy evidence used to render this answer.
-    aclr_shadow = {"enabled": False, "status": "skipped", "mode": "shadow"}
-    if env is not None and r2_search_requested:
+    # ACLR transition boundary: default shadow preserves legacy evidence.
+    # Candidate mode is opt-in and accepts only reviewed/verified catalogue sources.
+    aclr_transition = {"evidence_items": evidence_items, "diagnostic": {"mode": "shadow", "status": "skipped", "fallback": False}}
+    if env is not None and (r2_search_requested or aclr_only):
         try:
-            aclr_shadow = await run_aclr_r2_shadow(env, text, top_k=5)
+            aclr_transition = await execute_aclr_transition(env, text, evidence_items, top_k=5, mode_override="candidate" if aclr_only else None)
+            if aclr_transition.get("diagnostic", {}).get("status") == "candidate_selected":
+                evidence_items = list(aclr_transition.get("evidence_items") or evidence_items)
         except Exception as exc:
-            aclr_shadow = {"enabled": True, "status": "error", "mode": "shadow",
-                           "error_type": type(exc).__name__, "reason": str(exc)[:240]}
+            aclr_transition = {"evidence_items": evidence_items, "diagnostic": {
+                "mode": "shadow", "status": "error", "fallback": True,
+                "fallback_reason": "transition_exception", "error_type": type(exc).__name__,
+                "reason": str(exc)[:240]}}
+    aclr_shadow = aclr_transition.get("diagnostic", {})
 
     # Creator Memory is private and can only be injected by the authenticated
     # administrative conversation route. Public /perguntar never supplies it.
-    private_memory_documents = list(private_memory_documents or [])
+    private_memory_documents = [] if aclr_only else list(private_memory_documents or [])
     private_memory_evidence = [{
         "text": str((item.get("payload") or {}).get("text")
                     or (item.get("payload") or {}).get("content")
@@ -393,14 +399,15 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         "score": card.get("score"),
         "visibility": "public",
     } for card in public_card_documents]
-    if profile.get("primary_type") in {"continuity_recall", "meta_interaction"}:
-        evidence_items = public_card_evidence + evidence_items
-    else:
-        evidence_items.extend(public_card_evidence)
+    if not aclr_only:
+        if profile.get("primary_type") in {"continuity_recall", "meta_interaction"}:
+            evidence_items = public_card_evidence + evidence_items
+        else:
+            evidence_items.extend(public_card_evidence)
 
     # Usar a memória já recuperada no início, antes da busca de conhecimento.
     # Ela serve como evidência de fallback quando a biblioteca não encontrou itens.
-    if not evidence_items and memory_lab_result.get("documents"):
+    if not aclr_only and not evidence_items and memory_lab_result.get("documents"):
         for doc in memory_lab_result["documents"][:3]:
             content = str(doc.get("content") or "").strip()
             if content:
@@ -630,6 +637,7 @@ async def handle_ask(body, env=None, private_memory_documents=None):
         "sources": sources,
         "renderer": renderer_status,
         "aclr_shadow": aclr_shadow,
+        "aclr_transition": aclr_shadow,
         "cognitive_core": {
             "version": cognitive_context.get("version"),
             "ready": bool(cognitive_context.get("ready")),

@@ -60,11 +60,11 @@
 <header><div class="brand"><div class="logo">A</div><div><h1>AIGAR Developer Console</h1><div class="sub">Runtime · Linguagem · Biblioteca · Reasoning · Aurora</div></div></div><div class="status"><i id="dot" class="dot"></i><span id="st">offline</span></div></header>
 <div class="grid">
 <main>
-<section class="panel"><div class="head"><b>Runtime</b><span class="tag">Developer</span></div><div class="body">
+<section class="panel"><div class="head"><b>Padrão · Candidate</b><span class="tag">Fluxo convencional</span></div><div class="body">
 <label>API Base</label><div class="row"><input id="api" value="/aigar/api"><button onclick="health()">Health</button></div>
 <div class="gap"><label>Entrada</label><textarea id="q">O que é uma oração na língua portuguesa?</textarea>
 
-<div class="actions"><button class="primary" onclick="ask()">Perguntar ao AIGAR</button><button onclick="clearAll()">Limpar</button></div></div>
+<div class="actions"><button class="primary" onclick="ask()">Perguntar ao padrão</button><button onclick="clearAll()">Limpar</button></div></div>
 <div class="metrics"><div class="metric"><small>Intent</small><b id="intent">—</b></div><div class="metric"><small>Scope</small><b id="scope">—</b></div><div class="metric"><small>Depth</small><b id="depth">—</b></div><div class="metric"><small>Confidence</small><b id="conf">—</b></div></div>
 <div id="answer" class="response">A resposta do runtime aparecerá aqui.</div>
 <div id="feedbackPanel" class="feedback-panel" hidden>
@@ -92,6 +92,24 @@
   <div id="feedbackStatus" class="feedback-status" role="status" aria-live="polite"></div>
 </div>
 </div></section>
+<section id="shadowPanel" class="panel gap adminhide">
+  <div class="head"><b>ACLR Shadow · Laboratório experimental</b><span class="tag">Admin · Candidate synthesis</span></div>
+  <div class="body">
+    <div class="sub">Execução isolada: ACLR seleciona as evidências e a infraestrutura Candidate sintetiza a resposta. A recuperação legada e as Memory Cards não são usadas como evidência neste ambiente.</div>
+    <div class="gap">
+      <label for="shadowQ">Entrada Shadow</label>
+      <textarea id="shadowQ" placeholder="Faça uma pergunta para testar o ACLR…"></textarea>
+      <div class="actions">
+        <button id="shadowAskButton" class="primary" onclick="askShadow()">Perguntar ao Shadow</button>
+        <button onclick="clearShadow()">Limpar</button>
+      </div>
+    </div>
+    <div id="shadowAnswer" class="response">A resposta experimental do ACLR aparecerá aqui.</div>
+    <div class="gap"><label>Diagnóstico ACLR / Candidate</label><pre id="shadowDiagnostics">—</pre></div>
+    <div class="gap"><label>Evidências selecionadas</label><pre id="shadowEvidence">—</pre></div>
+    <div class="sub" id="shadowStatus" role="status" aria-live="polite" style="margin-top:10px">Disponível após autenticação administrativa.</div>
+  </div>
+</section>
 <section class="panel gap"><div class="head"><b>Leitura linguística</b><span class="tag">Language Layer</span></div><div class="body"><div id="reading" class="kv"></div><div class="gap"><label>Análise linguística</label><pre id="ling">—</pre></div></div></section>
 <section id="uploadPanel" class="panel gap adminhide">
 <div class="head"><b>Biblioteca persistente</b><span class="tag">Admin · R2 + D1</span></div>
@@ -145,12 +163,15 @@ let adminToken=null;
 let lastInteractionId=null;
 let feedbackEnabled=false;
 let feedbackSent=false;
+let shadowRunId=0;
 function authHeaders(){return adminToken?{"Authorization":"Bearer "+adminToken}:{}}
 function setAdmin(ok,user=""){
   $("loginBox").classList.toggle("adminhide",ok);
   $("adminBox").classList.toggle("adminhide",!ok);
   $("uploadPanel").classList.toggle("adminhide",!ok);
   $("creatorMemoryPanel").classList.toggle("adminhide",!ok);
+  $("shadowPanel").classList.toggle("adminhide",!ok);
+  if(!ok)clearShadow();
   $("authState").textContent=ok?("admin · "+user):"não autenticado";
   if(ok){loadDocuments();loadCreatorMemoryRecords();}
   else clearCreatorMemoryPanel();
@@ -468,6 +489,54 @@ async function health(){try{let r=await fetch(base()+"/health");if(!r.ok)throw E
 async function refreshMemoryLab(){try{const r=await fetch(base()+"/memory/status",{cache:"no-store"});const d=await r.json();const m=d.memory_lab||{};$("memoryLabTag").textContent=m.mode||"indisponível";$("memoryLabSummary").textContent="Imediata: "+(m.document_counts?.imediata??0)+" · Curto prazo: "+(m.document_counts?.curto_prazo??0)+" · Longo prazo: "+(m.document_counts?.longo_prazo??0)+" documentos";$("memoryLabDetails").textContent=pretty(m)}catch(e){$("memoryLabTag").textContent="erro";$("memoryLabSummary").textContent="Memory Lab indisponível: "+e.message}}
 function setReading(x={}){let f=["intent","scope","depth","ambiguity","uncertainty","needs_memory","needs_library","needs_diagnosis","needs_reasoning"];$("reading").innerHTML=f.map(k=>`<div>${k}</div><div>${x[k]??"—"}</div>`).join("");$("intent").textContent=x.intent??"—";$("scope").textContent=x.scope??"—";$("depth").textContent=x.depth??"—";$("ling").textContent=pretty(x.linguistic_analysis)}
 async function ask(){if(!libraryBootReady||!textMatrixReady){$("answer").textContent="Aguarde: o boot do AIGAR ainda não confirmou o carregamento completo das bibliotecas e dos capítulos Texto-Matriz.";return;}let input=$("q").value.trim();if(!input)return;/* A conversa pode funcionar mesmo quando a biblioteca está indisponível. */$("feedbackPanel").hidden=true;lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;$("feedbackStatus").textContent="";$("feedbackSubmit").disabled=false;$("answer").textContent="Processando…";state(true,"processando");try{let r=await fetch(base()+"/perguntar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input,session_id:"developer-console"})});let d=await r.json();if(!r.ok)throw Error(d.detail||"HTTP "+r.status);$("answer").textContent=d.text||"—";const core=d.cognitive_core||{};$("coreStatus").textContent=core.ready?"ATIVO":"REDUZIDO";$("coreSummary").textContent=core.ready?"Núcleo ativo antes da interpretação · "+(core.available_chunks||0)+" chunks disponíveis · "+(core.selected_count||0)+" selecionados para esta pergunta.":"Núcleo indisponível nesta requisição; resposta segue em modo reduzido."; $("coreChunks").textContent=pretty(core.selected_chunks||[]);$("raw").textContent=pretty(d);const ml=d.memory_lab||{};if(ml.status){$("memoryLabTag").textContent=ml.status.mode||"ativo";$("memoryLabSummary").textContent="Camadas usadas: "+((ml.selected_layer||[]).join(", ")||"nenhuma")+(ml.documents_used?.length?" · documentos recuperados: "+ml.documents_used.length:"");$("memoryLabDetails").textContent=pretty(ml)}$("plan").textContent=pretty(d.plan);$("evidence").textContent=pretty(d.plan?.evidence||[]);$("sources").textContent=pretty(d.sources);$("conf").textContent=d.confidence??"—";const lib=d.library||{};$("chunkSummary").textContent=`${lib.chunks_loaded||0} chunk(s) carregado(s) pelo runtime`;$("chunks").textContent=pretty(lib.chunks||[]);setReading(d.state?.reading||{});lastInteractionId=d.interaction_id||d.feedback?.interaction_id||null;feedbackEnabled=!!(d.feedback?.enabled&&lastInteractionId);if(lastInteractionId){$("feedbackPanel").hidden=false;$("feedbackStatus").className="feedback-status"+(feedbackEnabled?"":" err");$("feedbackStatus").textContent=feedbackEnabled?"Você pode avaliar esta resposta.":"Feedback temporariamente indisponível: a interação ainda não foi persistida no D1.";$("feedbackSubmit").disabled=!feedbackEnabled;}state(true,"online")}catch(e){$("answer").textContent="Erro: "+e.message;state(false,"erro")}}
+async function askShadow(){
+  if(!adminToken){$("shadowStatus").textContent="Autentique-se como administrador primeiro.";return}
+  const input=$("shadowQ").value.trim();
+  if(!input)return;
+  const button=$("shadowAskButton");
+  const runId=++shadowRunId;
+  button.disabled=true;
+  $("shadowAnswer").textContent="Executando ACLR e síntese Candidate…";
+  $("shadowDiagnostics").textContent="Aguardando diagnóstico…";
+  $("shadowEvidence").textContent="Aguardando evidências…";
+  $("shadowStatus").textContent="Execução experimental em andamento.";
+  try{
+    const r=await fetch(base()+"/admin/aclr/shadow/ask",{
+      method:"POST",
+      headers:{...authHeaders(),"Content-Type":"application/json"},
+      body:JSON.stringify({input})
+    });
+    const d=await r.json();
+    if(runId!==shadowRunId)return;
+    if(!r.ok)throw Error(d.message||d.detail||d.status||("HTTP "+r.status));
+    $("shadowAnswer").textContent=d.text||"O Shadow não retornou texto.";
+    $("shadowDiagnostics").textContent=pretty({
+      execution_lane:d.execution_lane,
+      legacy_evidence_used:d.legacy_evidence_used,
+      aclr_transition:d.aclr_transition||d.aclr_shadow||{},
+      renderer:d.renderer||d.sources?.filter(x=>x.kind==="renderer")||[],
+      interaction_id:d.interaction_id,
+      confidence:d.confidence
+    });
+    $("shadowEvidence").textContent=pretty(d.plan?.evidence_details||d.plan?.evidence||[]);
+    $("shadowStatus").textContent="Execução concluída. Confira status, proveniência e evidências antes de avaliar a síntese.";
+  }catch(e){
+    if(runId!==shadowRunId)return;
+    $("shadowAnswer").textContent="Falha na execução Shadow: "+e.message;
+    $("shadowDiagnostics").textContent=pretty({status:"error",message:e.message});
+    $("shadowEvidence").textContent="—";
+    $("shadowStatus").textContent="Ocorreu uma falha. O fluxo padrão não foi alterado.";
+  }finally{if(runId===shadowRunId)button.disabled=false;}
+}
+function clearShadow(){
+  shadowRunId++;
+  $("shadowQ").value="";
+  $("shadowAnswer").textContent="A resposta experimental do ACLR aparecerá aqui.";
+  $("shadowDiagnostics").textContent="—";
+  $("shadowEvidence").textContent="—";
+  $("shadowStatus").textContent=adminToken?"Ambiente Shadow limpo.":"Disponível após autenticação administrativa.";
+  $("shadowAskButton").disabled=false;
+}
 async function sendFeedback(){if(!lastInteractionId||!feedbackEnabled||feedbackSent)return;const button=$("feedbackSubmit"),status=$("feedbackStatus");button.disabled=true;status.className="feedback-status";status.textContent="Enviando feedback…";try{const r=await fetch(base()+"/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({interaction_id:lastInteractionId,category:$("feedbackCategory").value,rating:$("feedbackRating").value,comment:$("feedbackComment").value.trim()})});const d=await r.json();if(!r.ok)throw Error(d.message||d.detail||d.status||("HTTP "+r.status));feedbackSent=true;status.className="feedback-status ok";status.textContent="Feedback registrado. Obrigado por ajudar a melhorar o AIGAR!";button.textContent="Feedback enviado";}catch(e){status.className="feedback-status err";status.textContent="Não foi possível registrar: "+e.message;button.disabled=false;}}
 function clearAll(){$("q").value="";$("answer").textContent="A resposta do runtime aparecerá aqui.";$("raw").textContent="{}";$("plan").textContent=$("evidence").textContent=$("sources").textContent="—";$("chunkSummary").textContent="Nenhum chunk carregado ainda.";$("chunks").textContent="—";$("feedbackPanel").hidden=true;$("feedbackStatus").textContent="";lastInteractionId=null;feedbackEnabled=false;feedbackSent=false;setReading({})}
 async function copyJson(){await navigator.clipboard.writeText($("raw").textContent)}
