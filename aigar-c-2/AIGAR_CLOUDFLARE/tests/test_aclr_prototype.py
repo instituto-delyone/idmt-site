@@ -5,6 +5,7 @@ from pathlib import Path
 from aclr_router import build_retrieval_plan, inspect_selected_targets
 from aclr_contracts import (ContractError, validate_query_request, validate_context_pointer, validate_library_manifest, validate_retrieval_plan, validate_evidence_envelope)
 from aclr_resolver import resolve_evidence
+from aclr_adapters import library_results_to_envelope, r2_results_to_envelope
 
 MASTER = {
     "domains": [
@@ -66,6 +67,18 @@ class ACLRRouterTests(unittest.TestCase):
         plan=build_retrieval_plan({"query_id":"q","question":"tema sem sinal conhecido","language":"pt-BR","request_mode":"factual","requested_domains":["history"]},MASTER,INDEXES)
         self.assertIn(None,{p["domain_id"] for p in plan["paths"]})
         self.assertIn("history",{p["domain_id"] for p in plan["paths"]})
+
+class ACLRAdapterTests(unittest.TestCase):
+    def test_library_adapter_preserves_source_and_score_semantics(self):
+        envelope=library_results_to_envelope("q",[{"text":"Passagem de teste","chunk_id":"chunk-1","source_key":"book-a","score":0.82}])
+        self.assertEqual(envelope["evidence"][0]["chunk_id"],"chunk-1")
+        self.assertEqual(envelope["evidence"][0]["source_id"],"book-a")
+        self.assertIsNone(envelope["evidence"][0]["confidence"])
+        self.assertEqual(envelope["evidence"][0]["relevance_score"],0.82)
+    def test_r2_adapter_keeps_checksum_provenance(self):
+        envelope=r2_results_to_envelope("q",[{"text":"Texto","chunk_id":"r2-chunk","document_id":"doc-1","checksum":"abc","retrieval_method":"lexical"}])
+        self.assertEqual(envelope["evidence"][0]["provenance"]["checksum"],"abc")
+        self.assertEqual(envelope["status"],"success")
 
 class ACLRResolverTests(unittest.TestCase):
     def envelope(self, rid, evidence, status="success"):
