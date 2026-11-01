@@ -217,7 +217,7 @@ async def _audit_admin_action(db, actor_id, action, target_type, target_id, deta
     ).run()
 
 
-async def handle_ask(body, env=None):
+async def handle_ask(body, env=None, private_memory_documents=None):
     text = body.get("input")
     session_id = body.get("session_id") or "default"
     if not isinstance(text, str) or not text.strip():
@@ -350,6 +350,24 @@ async def handle_ask(body, env=None):
         except Exception as exc:
             r2_trace={"kind":"r2_library","id":"aigar.library.r2_document_chunks","status":"error","detail":"Falha isolada na consulta R2: "+str(exc)[:300]}
 
+    # Creator Memory is private and can only be injected by the authenticated
+    # administrative conversation route. Public /perguntar never supplies it.
+    private_memory_documents = list(private_memory_documents or [])
+    private_memory_evidence = [{
+        "text": str((item.get("payload") or {}).get("text")
+                    or (item.get("payload") or {}).get("content")
+                    or json.dumps(item.get("payload") or {}, ensure_ascii=False)[:6000]),
+        "source": "Creator Memory — registro histórico privado",
+        "source_key": "private_creator_memory",
+        "record_id": (item.get("record") or {}).get("id"),
+        "sha256": (item.get("record") or {}).get("sha256"),
+        "score": item.get("score"),
+        "visibility": "private_creator",
+    } for item in private_memory_documents]
+    evidence_items.extend(
+        item for item in private_memory_evidence if item.get("text")
+    )
+
     # Memory Cards públicos são uma fonte própria, separada do Memory Lab textual.
     # Somente cartões explicitamente allowlisted no manifesto podem entrar aqui.
     public_card_documents = list(memory_card_result.get("documents", []) or [])
@@ -417,7 +435,7 @@ async def handle_ask(body, env=None):
     plan["topic"] = topic
     plan["evidence"] = evidence_texts
     plan["evidence_details"] = evidence_items
-    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "public_memory_card_retrieval", "gather_evidence", "memory_lab_optional_retrieval", "revise_plan", "select_response_strategy", "render_natural_language"]
+    plan["steps"] = ["initialize_cognitive_core", "interpret_with_cognitive_context", "resolve_asymmetric_context", "public_memory_card_retrieval", "private_creator_memory_retrieval_if_authorized", "gather_evidence", "memory_lab_optional_retrieval", "revise_plan", "select_response_strategy", "render_natural_language"]
     plan["context_resolution"] = {
         "selected_turn_ids": context_resolution.get("context_dependencies", []),
         "unresolved_references": context_resolution.get("unresolved_references", []),
