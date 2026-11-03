@@ -47,12 +47,11 @@ def build_runtime_health(env: Any, library_module: Any, memory_lab: Any = None) 
     text_total = len(getattr(library_module, "TEXT_MATRIX_FILES", []) or [])
     text_ready = text_total > 0 and text_loaded == text_total
 
-    r2_binding_name = getattr(library_module, "R2_BINDING", "AIGAR_LIBRARY_BUCKET")
-    d1_binding_name = getattr(library_module, "D1_BINDING", "AIGAR_DB")
     try:
         from cloudflare_bindings import binding
-        r2_ready = binding(env, r2_binding_name) is not None
-        d1_ready = binding(env, d1_binding_name) is not None
+        from storage_runtime import R2_BINDING, D1_BINDING
+        r2_ready = binding(env, R2_BINDING) is not None
+        d1_ready = binding(env, D1_BINDING) is not None
     except Exception:
         r2_ready = d1_ready = False
 
