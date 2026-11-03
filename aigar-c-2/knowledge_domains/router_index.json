@@ -1,8 +1,20 @@
 {
-  "schema_version": "aclr.router-index.v0",
+  "schema_version": "aclr.router-index.v1",
   "kind": "master_domain_router_index",
-  "status": "prototype",
-  "description": "Mapeia sinais de assunto para domínios de conhecimento. Não recupera conteúdo diretamente.",
+  "status": "scaffold",
+  "description": "Registro declarativo de domínios e sinais de roteamento. Não recupera conteúdo por si só.",
+  "routing_policy": {
+    "primary_domain": "Selecionar domínio por sinais e contexto; manter candidatos concorrentes quando houver ambiguidade.",
+    "hierarchy": [
+      "domain",
+      "subdomain",
+      "topic",
+      "document",
+      "chunk"
+    ],
+    "cross_domain": "disabled_until_validated",
+    "evidence_rule": "Só tratar conteúdo como evidência quando houver documento, localização e proveniência verificáveis."
+  },
   "domains": [
     {
       "domain_id": "history",
@@ -12,14 +24,14 @@
         "história",
         "historia",
         "passado",
-        "período histórico",
-        "civilização",
         "idade antiga",
         "idade média",
         "idade moderna",
         "idade contemporânea",
-        "medieval"
-      ]
+        "civilização",
+        "revolução industrial"
+      ],
+      "status": "prototype"
     },
     {
       "domain_id": "mathematics",
@@ -29,17 +41,13 @@
         "matemática",
         "matematica",
         "número",
-        "números",
         "equação",
-        "equações",
         "álgebra",
-        "algebra",
         "geometria",
         "cálculo",
-        "calculo",
-        "função",
-        "funções"
-      ]
+        "função"
+      ],
+      "status": "prototype"
     },
     {
       "domain_id": "portuguese",
@@ -48,19 +56,135 @@
       "signals": [
         "língua portuguesa",
         "português",
-        "portugues",
         "gramática",
-        "gramatica",
-        "palavra",
-        "palavras",
         "morfologia",
         "sintaxe",
         "semântica",
-        "semantica",
-        "pragmática",
-        "pragmatica"
-      ]
+        "pragmática"
+      ],
+      "status": "prototype"
+    },
+    {
+      "domain_id": "geography",
+      "label": "Geografia",
+      "index_path": "geography/index/index.json",
+      "signals": [
+        "geografia",
+        "território",
+        "paisagem",
+        "cartografia",
+        "clima",
+        "relevo"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "philosophy",
+      "label": "Filosofia",
+      "index_path": "philosophy/index/index.json",
+      "signals": [
+        "filosofia",
+        "ética",
+        "epistemologia",
+        "metafísica",
+        "lógica"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "physics",
+      "label": "Física",
+      "index_path": "physics/index/index.json",
+      "signals": [
+        "física",
+        "movimento",
+        "força",
+        "energia",
+        "termodinâmica",
+        "eletricidade"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "chemistry",
+      "label": "Química",
+      "index_path": "chemistry/index/index.json",
+      "signals": [
+        "química",
+        "átomo",
+        "molécula",
+        "reação química",
+        "estequiometria"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "biology",
+      "label": "Biologia",
+      "index_path": "biology/index/index.json",
+      "signals": [
+        "biologia",
+        "célula",
+        "genética",
+        "ecologia",
+        "evolução",
+        "fisiologia"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "sociology",
+      "label": "Sociologia",
+      "index_path": "sociology/index/index.json",
+      "signals": [
+        "sociologia",
+        "sociedade",
+        "cultura",
+        "desigualdade",
+        "instituição social"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "computer_science",
+      "label": "Computação",
+      "index_path": "computer_science/index/index.json",
+      "signals": [
+        "computação",
+        "programação",
+        "algoritmo",
+        "estrutura de dados",
+        "inteligência artificial"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "literature",
+      "label": "Literatura",
+      "index_path": "literature/index/index.json",
+      "signals": [
+        "literatura",
+        "romance",
+        "poesia",
+        "narrativa",
+        "gênero literário"
+      ],
+      "status": "scaffold"
+    },
+    {
+      "domain_id": "economics",
+      "label": "Economia",
+      "index_path": "economics/index/index.json",
+      "signals": [
+        "economia",
+        "microeconomia",
+        "macroeconomia",
+        "inflação",
+        "PIB",
+        "mercado"
+      ],
+      "status": "scaffold"
     }
   ],
-  "routing_note": "Este arquivo é um mapa declarativo inicial. A lógica de interpretação e seleção ainda será implementada e testada separadamente."
+  "routing_note": "A classificação hierárquica deve ser refinada e testada antes de ligar recuperação real. Cross-links semânticos não são inferidos automaticamente nesta etapa."
 }
