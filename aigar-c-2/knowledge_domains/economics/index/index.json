@@ -14,7 +14,8 @@
         "mercado"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "microeconomics/index.json"
     },
     {
       "subdomain_id": "macroeconomics",
@@ -26,7 +27,8 @@
         "política monetária"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "macroeconomics/index.json"
     },
     {
       "subdomain_id": "economic_history",
@@ -37,7 +39,8 @@
         "comércio"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "economic_history/index.json"
     }
   ],
   "notes": [
