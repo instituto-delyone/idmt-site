@@ -1,0 +1,33 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "mathematics",
+  "subdomain_id": "geometry",
+  "label": "Geometria",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "geometry_01",
+      "label": "Geometria plana",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "geometry_02",
+      "label": "Geometria espacial",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "geometry_03",
+      "label": "Geometria analítica",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}
