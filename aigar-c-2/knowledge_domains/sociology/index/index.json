@@ -13,7 +13,8 @@
         "clássicos"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "social_theory/index.json"
     },
     {
       "subdomain_id": "political_sociology",
@@ -24,7 +25,8 @@
         "movimentos sociais"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "political_sociology/index.json"
     },
     {
       "subdomain_id": "culture_sociology",
@@ -35,7 +37,8 @@
         "socialização"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "culture_sociology/index.json"
     }
   ],
   "notes": [
