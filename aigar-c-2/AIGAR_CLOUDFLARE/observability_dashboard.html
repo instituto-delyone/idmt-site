@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIGAR · Painel de Observabilidade</title>
+<style>
+:root{color-scheme:dark;--bg:#080d18;--panel:#111a2b;--panel2:#0d1524;--line:#24334b;--text:#edf3ff;--muted:#91a2bd;--cyan:#69d9e8;--violet:#a99bff;--amber:#f4c879;--green:#7bd9ad}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#172847 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.shell{max-width:1440px;margin:auto;padding:34px 28px 60px}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:24px}
+.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}.title{font-size:clamp(30px,5vw,48px);letter-spacing:-.04em;margin:6px 0}.sub{color:var(--muted);max-width:700px;margin:0}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #705b36;background:#2b2419;color:#f5d69c;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.notice{margin:22px 0;padding:14px 17px;border:1px solid #665334;background:#211d16;border-radius:12px;color:#e9d6b2}.notice strong{color:#ffe3a9}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:19px;min-width:0}.span3{grid-column:span 3}.span4{grid-column:span 4}.span5{grid-column:span 5}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}
+.label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:750}.metric{font-size:28px;font-weight:750;letter-spacing:-.04em;margin:9px 0 2px}.hint{font-size:12px;color:var(--muted)}h2{font-size:17px;margin:0 0 15px;letter-spacing:-.02em}.rows{display:grid;gap:11px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #1d2a3e}.row:last-child{border:0}.name{font-weight:650}.tag{font-size:11px;border-radius:999px;padding:4px 9px;border:1px solid #43516a;color:#c1cde0;white-space:nowrap}.tag.plan{border-color:#665334;color:#f4d49a;background:#2b2419}.tag.ready{border-color:#28634f;color:#9be4c1;background:#122b25}.bar{height:7px;background:#202d42;border-radius:9px;overflow:hidden;margin:9px 0 5px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+.roadmap{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{border:1px solid var(--line);border-radius:12px;padding:14px;background:#0b1422}.step b{display:block;margin:7px 0}.step small{color:var(--muted)}.step:before{counter-increment:step;content:"0" counter(step);font-size:11px;color:var(--cyan);letter-spacing:.12em;font-weight:800}
+.footer{margin-top:22px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+code{color:#b8c9ff;background:#101c30;padding:3px 6px;border-radius:5px}
+@media(max-width:900px){.span3,.span4,.span5,.span7,.span8{grid-column:span 6}.roadmap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.shell{padding:22px 15px 40px}.top{display:block}.pill{margin-top:16px}.span3,.span4,.span5,.span7,.span8,.span12{grid-column:span 12}.roadmap{grid-template-columns:1fr}.metric{font-size:25px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top">
+ <div><div class="eyebrow">AIGAR · Master Core</div><h1 class="title">Observability Console</h1><p class="sub">Painel de referência para acompanhar a saúde do runtime, a recuperação de conhecimento, os recursos de armazenamento e a evolução da arquitetura.</p></div>
+ <div class="pill"><span class="dot"></span> PROTÓTIPO · SEM CONEXÃO AO VIVO</div>
+</header>
+<div class="notice"><strong>Marco visual de memória.</strong> Os valores e estados abaixo são placeholders intencionais. Este arquivo ainda não consulta a API, não executa diagnósticos e não representa o estado atual da produção.</div>
+<section class="grid">
+ <article class="card span3"><div class="label">Runtime global</div><div class="metric">A definir</div><div class="hint">READY · DEGRADED · INITIALIZING</div></article>
+ <article class="card span3"><div class="label">Biblioteca</div><div class="metric">—</div><div class="hint">Boot, índices e chunks</div></article>
+ <article class="card span3"><div class="label">Text Matrix</div><div class="metric">—</div><div class="hint">Capítulos e cache</div></article>
+ <article class="card span3"><div class="label">Memória do isolate</div><div class="metric">N/D</div><div class="hint">Métrica real ainda não exposta</div></article>
+ <article class="card span7"><h2>Componentes do runtime</h2><div class="rows">
+  <div class="row"><span class="name">Library Runtime</span><span class="tag plan">A instrumentar</span></div>
+  <div class="row"><span class="name">Text Matrix Runtime</span><span class="tag plan">A instrumentar</span></div>
+  <div class="row"><span class="name">Memory Lab</span><span class="tag plan">Validar inicialização</span></div>
+  <div class="row"><span class="name">Chunk Cache</span><span class="tag plan">Contagem disponível no código</span></div>
+  <div class="row"><span class="name">Storage Bindings · R2 / D1</span><span class="tag plan">Presença ≠ teste de I/O</span></div>
+ </div></article>
+ <article class="card span5"><h2>Cache &amp; recursos</h2><div class="label">Índice / Biblioteca / Text Matrix</div><div class="bar"><i></i></div><div class="hint">A preencher com contagens e timestamps reais após integração.</div><div style="height:18px"></div><div class="row"><span>Chunks em cache</span><span class="tag">—</span></div><div class="row"><span>Idade dos caches</span><span class="tag">—</span></div><div class="row"><span>Memória real do isolate</span><span class="tag">Não exposta</span></div></article>
+ <article class="card span4"><h2>Armazenamento</h2><div class="rows">
+  <div class="row"><span class="name">Cloudflare R2</span><span class="tag plan">Binding a verificar</span></div>
+  <div class="row"><span class="name">Cloudflare D1</span><span class="tag plan">Binding a verificar</span></div>
+  <div class="row"><span class="name">Leitura / escrita</span><span class="tag plan">Não testada</span></div>
+ </div></article>
+ <article class="card span8"><h2>Rota de implementação</h2><div class="roadmap">
+  <div class="step"><b>Contrato de telemetria</b><small>Definir estados, campos e limites do /health.</small></div>
+  <div class="step"><b>Conectar dados reais</b><small>Consumir runtime_health sem iniciar boots ou operações colaterais.</small></div>
+  <div class="step"><b>Validar e proteger</b><small>Testes, autenticação adequada e revisão de exposição de dados.</small></div>
+  <div class="step"><b>Operação contínua</b><small>Histórico, alertas, tendências e diagnóstico operacional.</small></div>
+ </div></article>
+ <article class="card span12"><h2>Próximos itens de trabalho</h2><div class="rows">
+  <div class="row"><span>1. Executar testes no ambiente compatível com Python Workers</span><span class="tag plan">Pendente</span></div>
+  <div class="row"><span>2. Revisar Memory Lab: atributo de inicialização e criticidade</span><span class="tag plan">Pendente</span></div>
+  <div class="row"><span>3. Revisar o escopo do PR #42 e o estado de mergeabilidade</span><span class="tag plan">Pendente</span></div>
+  <div class="row"><span>4. Integrar o painel ao endpoint e validar em ambiente controlado</span><span class="tag plan">Futuro</span></div>
+  <div class="row"><span>5. Publicar somente após revisão e autorização</span><span class="tag plan">Futuro</span></div>
+ </div></article>
+</section>
+<footer class="footer"><span>AIGAR · Observability Console · Documento visual de planejamento</span><span>API planejada: <code>GET /health</code> → <code>runtime_health</code></span></footer>
+</main>
+</body>
+</html>
