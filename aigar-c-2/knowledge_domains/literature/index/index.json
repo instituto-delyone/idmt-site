@@ -13,7 +13,8 @@
         "gênero"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "literary_theory/index.json"
     },
     {
       "subdomain_id": "brazilian_literature",
@@ -23,7 +24,8 @@
         "romantismo brasileiro"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "brazilian_literature/index.json"
     },
     {
       "subdomain_id": "world_literature",
@@ -33,7 +35,8 @@
         "literatura moderna"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "world_literature/index.json"
     }
   ],
   "notes": [
