@@ -49,9 +49,10 @@ def build_runtime_health(env: Any, library_module: Any, memory_lab: Any = None) 
 
     try:
         from cloudflare_bindings import binding
-        from storage_runtime import R2_BINDING, D1_BINDING
-        r2_ready = binding(env, R2_BINDING) is not None
-        d1_ready = binding(env, D1_BINDING) is not None
+        # Keep binding names aligned with storage_runtime.py without importing
+        # its heavier Worker-specific dependency graph into this observer.
+        r2_ready = binding(env, "AIGAR_LIBRARY_BUCKET") is not None
+        d1_ready = binding(env, "AIGAR_DB") is not None
     except Exception:
         r2_ready = d1_ready = False
 
