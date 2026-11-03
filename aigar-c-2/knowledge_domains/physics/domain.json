@@ -1,0 +1,9 @@
+{
+  "schema_version": "aclr.domain.v1",
+  "domain_id": "physics",
+  "label": "Física",
+  "status": "scaffold",
+  "description": "Domínio cadastrado; ainda sem corpus documental validado.",
+  "index_path": "index/index.json",
+  "content_policy": "Adicionar fontes originais e metadados de proveniência. Não inserir chunks sintéticos como evidência."
+}
