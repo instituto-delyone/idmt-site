@@ -13,7 +13,8 @@
         "membrana"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "cell_biology/index.json"
     },
     {
       "subdomain_id": "genetics",
@@ -25,7 +26,8 @@
         "RNA"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "genetics/index.json"
     },
     {
       "subdomain_id": "ecology",
@@ -36,7 +38,8 @@
         "biodiversidade"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "ecology/index.json"
     }
   ],
   "notes": [
