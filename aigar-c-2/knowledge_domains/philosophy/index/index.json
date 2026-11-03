@@ -14,7 +14,8 @@
         "justiça"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "ethics/index.json"
     },
     {
       "subdomain_id": "epistemology",
@@ -26,7 +27,8 @@
         "método"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "epistemology/index.json"
     },
     {
       "subdomain_id": "political_philosophy",
@@ -38,7 +40,8 @@
         "liberdade"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "political_philosophy/index.json"
     }
   ],
   "notes": [
