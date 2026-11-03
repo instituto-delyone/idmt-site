@@ -14,7 +14,8 @@
         "depuração"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "programming/index.json"
     },
     {
       "subdomain_id": "algorithms",
@@ -26,7 +27,8 @@
         "grafo"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "algorithms/index.json"
     },
     {
       "subdomain_id": "artificial_intelligence",
@@ -38,7 +40,8 @@
         "IA"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "artificial_intelligence/index.json"
     }
   ],
   "notes": [
