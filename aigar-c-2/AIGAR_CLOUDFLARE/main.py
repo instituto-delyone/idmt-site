@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 from workers import WorkerEntrypoint
 
 import library_runtime
+from telemetry_runtime import build_runtime_health
 from library_runtime import MEMORY_LAB, boot_library, boot_text_matrix
 from http_runtime import _json_body, _request_origin, make_response
 from cloudflare_bindings import binding
@@ -105,6 +106,7 @@ class Default(WorkerEntrypoint):
                         "default_mode_network",
                     ],
                 },
+                "runtime_health": build_runtime_health(self.env, library_runtime, MEMORY_LAB),
                 "features": {
                     "language": True,
                     "hybrid_library_search": True,
