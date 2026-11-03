@@ -1,5 +1,5 @@
 {
-  "schema_version": "aclr.domain-index.v0",
+  "schema_version": "aclr.domain-index.v1",
   "domain_id": "history",
   "label": "História",
   "status": "prototype",
@@ -16,6 +16,13 @@
       ],
       "chunks": [
         "hist-ancient-001"
+      ],
+      "index_path": "ancient_history/index.json",
+      "topics": [
+        "Mesopotâmia",
+        "Egito Antigo",
+        "Grécia Antiga",
+        "Roma Antiga"
       ]
     },
     {
@@ -30,6 +37,13 @@
       ],
       "chunks": [
         "hist-medieval-001"
+      ],
+      "index_path": "medieval_history/index.json",
+      "topics": [
+        "Alta Idade Média",
+        "Baixa Idade Média",
+        "Feudalismo",
+        "Império Bizantino"
       ]
     },
     {
@@ -44,6 +58,13 @@
       ],
       "chunks": [
         "hist-modern-001"
+      ],
+      "index_path": "modern_history/index.json",
+      "topics": [
+        "Renascimento",
+        "Reforma Protestante",
+        "Expansão Marítima",
+        "Absolutismo"
       ]
     },
     {
@@ -58,6 +79,14 @@
       ],
       "chunks": [
         "hist-contemporary-001"
+      ],
+      "index_path": "contemporary_history/index.json",
+      "topics": [
+        "Revolução Industrial",
+        "Revolução Francesa",
+        "Imperialismo",
+        "Guerras Mundiais",
+        "Guerra Fria"
       ]
     }
   ]
