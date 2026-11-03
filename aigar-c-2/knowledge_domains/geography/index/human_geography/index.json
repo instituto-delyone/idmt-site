@@ -1,0 +1,11 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "geography",
+  "subdomain_id": "human_geography",
+  "label": "Geografia Humana",
+  "status": "scaffold",
+  "topics": [],
+  "notes": [
+    "Subdomínio cadastrado; tópicos e documentos serão adicionados durante a curadoria das fontes."
+  ]
+}
