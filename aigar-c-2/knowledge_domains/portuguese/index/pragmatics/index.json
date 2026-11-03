@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "portuguese",
+  "subdomain_id": "pragmatics",
+  "label": "Pragmática",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "pragmatics_01",
+      "label": "Contexto comunicativo",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "pragmatics_02",
+      "label": "Atos de fala",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "pragmatics_03",
+      "label": "Inferência",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "pragmatics_04",
+      "label": "Intenção comunicativa",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}
