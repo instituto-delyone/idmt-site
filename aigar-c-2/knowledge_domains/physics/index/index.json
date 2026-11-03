@@ -14,7 +14,8 @@
         "movimento"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "mechanics/index.json"
     },
     {
       "subdomain_id": "thermodynamics",
@@ -25,7 +26,8 @@
         "entropia"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "thermodynamics/index.json"
     },
     {
       "subdomain_id": "electromagnetism",
@@ -36,7 +38,8 @@
         "magnetismo"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "electromagnetism/index.json"
     }
   ],
   "notes": [
