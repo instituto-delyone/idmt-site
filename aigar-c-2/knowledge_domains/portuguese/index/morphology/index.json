@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "portuguese",
+  "subdomain_id": "morphology",
+  "label": "Morfologia",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "morphology_01",
+      "label": "Substantivos",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "morphology_02",
+      "label": "Verbos",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "morphology_03",
+      "label": "Adjetivos",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "morphology_04",
+      "label": "Pronomes",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}
