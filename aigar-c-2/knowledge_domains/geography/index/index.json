@@ -14,7 +14,8 @@
         "vegetação"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "physical_geography/index.json"
     },
     {
       "subdomain_id": "human_geography",
@@ -26,7 +27,8 @@
         "território"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "human_geography/index.json"
     },
     {
       "subdomain_id": "cartography",
@@ -38,7 +40,8 @@
         "projeção cartográfica"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "cartography/index.json"
     }
   ],
   "notes": [
