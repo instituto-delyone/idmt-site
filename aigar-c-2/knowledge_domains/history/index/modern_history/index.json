@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "history",
+  "subdomain_id": "modern_history",
+  "label": "História Moderna",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "modern_history_01",
+      "label": "Renascimento",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "modern_history_02",
+      "label": "Reforma Protestante",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "modern_history_03",
+      "label": "Expansão Marítima",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "modern_history_04",
+      "label": "Absolutismo",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}
