@@ -13,7 +13,8 @@
         "ligações químicas"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "general_chemistry/index.json"
     },
     {
       "subdomain_id": "physical_chemistry",
@@ -24,7 +25,8 @@
         "equilíbrio químico"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "physical_chemistry/index.json"
     },
     {
       "subdomain_id": "organic_chemistry",
@@ -35,7 +37,8 @@
         "funções orgânicas"
       ],
       "children": [],
-      "chunks": []
+      "chunks": [],
+      "index_path": "organic_chemistry/index.json"
     }
   ],
   "notes": [
