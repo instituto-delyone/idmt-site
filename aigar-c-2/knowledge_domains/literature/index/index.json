@@ -1,0 +1,43 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "literature",
+  "label": "Literatura",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "literary_theory",
+      "label": "Teoria Literária",
+      "signals": [
+        "narrador",
+        "foco narrativo",
+        "gênero"
+      ],
+      "children": [],
+      "chunks": []
+    },
+    {
+      "subdomain_id": "brazilian_literature",
+      "label": "Literatura Brasileira",
+      "signals": [
+        "modernismo brasileiro",
+        "romantismo brasileiro"
+      ],
+      "children": [],
+      "chunks": []
+    },
+    {
+      "subdomain_id": "world_literature",
+      "label": "Literatura Mundial",
+      "signals": [
+        "literatura clássica",
+        "literatura moderna"
+      ],
+      "children": [],
+      "chunks": []
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}
