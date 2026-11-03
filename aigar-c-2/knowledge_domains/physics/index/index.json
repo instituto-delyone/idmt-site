@@ -1,0 +1,46 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "physics",
+  "label": "Física",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "mechanics",
+      "label": "Mecânica",
+      "signals": [
+        "cinemática",
+        "dinâmica",
+        "força",
+        "movimento"
+      ],
+      "children": [],
+      "chunks": []
+    },
+    {
+      "subdomain_id": "thermodynamics",
+      "label": "Termodinâmica",
+      "signals": [
+        "calor",
+        "temperatura",
+        "entropia"
+      ],
+      "children": [],
+      "chunks": []
+    },
+    {
+      "subdomain_id": "electromagnetism",
+      "label": "Eletromagnetismo",
+      "signals": [
+        "carga elétrica",
+        "campo elétrico",
+        "magnetismo"
+      ],
+      "children": [],
+      "chunks": []
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}
