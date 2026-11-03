@@ -1,0 +1,11 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "biology",
+  "subdomain_id": "cell_biology",
+  "label": "Biologia Celular",
+  "status": "scaffold",
+  "topics": [],
+  "notes": [
+    "Subdomínio cadastrado; tópicos e documentos serão adicionados durante a curadoria das fontes."
+  ]
+}
