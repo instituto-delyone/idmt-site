@@ -23,43 +23,87 @@ code{color:#b8c9ff;background:#101c30;padding:3px 6px;border-radius:5px}
 <body>
 <main class="shell">
 <header class="top">
- <div><div class="eyebrow">AIGAR · Master Core</div><h1 class="title">Observability Console</h1><p class="sub">Painel de referência para acompanhar a saúde do runtime, a recuperação de conhecimento, os recursos de armazenamento e a evolução da arquitetura.</p></div>
- <div class="pill"><span class="dot"></span> PROTÓTIPO · SEM CONEXÃO AO VIVO</div>
+ <div><div class="eyebrow">AIGAR · Master Core</div><h1 class="title">Observability Console</h1><p class="sub">Telemetria observada do Worker. Os valores são lidos do endpoint /health; ausência de resposta é exibida como indisponibilidade, nunca substituída por dados fictícios.</p></div>
+ <div class="pill" id="connection"><span class="dot"></span> AGUARDANDO API</div>
 </header>
-<div class="notice"><strong>Marco visual de memória.</strong> Os valores e estados abaixo são placeholders intencionais. Este arquivo ainda não consulta a API, não executa diagnósticos e não representa o estado atual da produção.</div>
-<section class="grid">
- <article class="card span3"><div class="label">Runtime global</div><div class="metric">A definir</div><div class="hint">READY · DEGRADED · INITIALIZING</div></article>
- <article class="card span3"><div class="label">Biblioteca</div><div class="metric">—</div><div class="hint">Boot, índices e chunks</div></article>
- <article class="card span3"><div class="label">Text Matrix</div><div class="metric">—</div><div class="hint">Capítulos e cache</div></article>
- <article class="card span3"><div class="label">Memória do isolate</div><div class="metric">N/D</div><div class="hint">Métrica real ainda não exposta</div></article>
- <article class="card span7"><h2>Componentes do runtime</h2><div class="rows">
-  <div class="row"><span class="name">Library Runtime</span><span class="tag plan">A instrumentar</span></div>
-  <div class="row"><span class="name">Text Matrix Runtime</span><span class="tag plan">A instrumentar</span></div>
-  <div class="row"><span class="name">Memory Lab</span><span class="tag plan">Validar inicialização</span></div>
-  <div class="row"><span class="name">Chunk Cache</span><span class="tag plan">Contagem disponível no código</span></div>
-  <div class="row"><span class="name">Storage Bindings · R2 / D1</span><span class="tag plan">Presença ≠ teste de I/O</span></div>
- </div></article>
- <article class="card span5"><h2>Cache &amp; recursos</h2><div class="label">Índice / Biblioteca / Text Matrix</div><div class="bar"><i></i></div><div class="hint">A preencher com contagens e timestamps reais após integração.</div><div style="height:18px"></div><div class="row"><span>Chunks em cache</span><span class="tag">—</span></div><div class="row"><span>Idade dos caches</span><span class="tag">—</span></div><div class="row"><span>Memória real do isolate</span><span class="tag">Não exposta</span></div></article>
- <article class="card span4"><h2>Armazenamento</h2><div class="rows">
-  <div class="row"><span class="name">Cloudflare R2</span><span class="tag plan">Binding a verificar</span></div>
-  <div class="row"><span class="name">Cloudflare D1</span><span class="tag plan">Binding a verificar</span></div>
-  <div class="row"><span class="name">Leitura / escrita</span><span class="tag plan">Não testada</span></div>
- </div></article>
- <article class="card span8"><h2>Rota de implementação</h2><div class="roadmap">
-  <div class="step"><b>Contrato de telemetria</b><small>Definir estados, campos e limites do /health.</small></div>
-  <div class="step"><b>Conectar dados reais</b><small>Consumir runtime_health sem iniciar boots ou operações colaterais.</small></div>
-  <div class="step"><b>Validar e proteger</b><small>Testes, autenticação adequada e revisão de exposição de dados.</small></div>
-  <div class="step"><b>Operação contínua</b><small>Histórico, alertas, tendências e diagnóstico operacional.</small></div>
- </div></article>
- <article class="card span12"><h2>Próximos itens de trabalho</h2><div class="rows">
-  <div class="row"><span>1. Executar testes no ambiente compatível com Python Workers</span><span class="tag plan">Pendente</span></div>
-  <div class="row"><span>2. Revisar Memory Lab: atributo de inicialização e criticidade</span><span class="tag plan">Pendente</span></div>
-  <div class="row"><span>3. Revisar o escopo do PR #42 e o estado de mergeabilidade</span><span class="tag plan">Pendente</span></div>
-  <div class="row"><span>4. Integrar o painel ao endpoint e validar em ambiente controlado</span><span class="tag plan">Futuro</span></div>
-  <div class="row"><span>5. Publicar somente após revisão e autorização</span><span class="tag plan">Futuro</span></div>
- </div></article>
+<section class="card span12" style="margin-top:20px">
+ <div class="label">Endpoint de saúde</div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+  <input id="endpoint" type="url" value="/aigar/api/health" aria-label="URL do endpoint de saúde" style="flex:1;min-width:240px;background:#0b1422;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:11px">
+  <button id="refresh" style="background:#1a3448;color:var(--text);border:1px solid #31536c;border-radius:8px;padding:10px 16px;cursor:pointer">Atualizar agora</button>
+ </div>
+ <div class="hint" id="last-update" style="margin-top:8px">Aguardando primeira coleta.</div>
+ <div class="hint" id="error" role="status" style="color:var(--amber);margin-top:4px"></div>
 </section>
-<footer class="footer"><span>AIGAR · Observability Console · Documento visual de planejamento</span><span>API planejada: <code>GET /health</code> → <code>runtime_health</code></span></footer>
+<section class="grid">
+ <article class="card span3"><div class="label">Runtime global</div><div class="metric" id="overall">—</div><div class="hint" id="observed">Sem coleta</div></article>
+ <article class="card span3"><div class="label">Índices</div><div class="metric" id="indexes">—</div><div class="hint" id="indexes-age">Cache não observado</div></article>
+ <article class="card span3"><div class="label">Chunks no boot</div><div class="metric" id="boot-chunks">—</div><div class="hint" id="boot-detail">Cache não observado</div></article>
+ <article class="card span3"><div class="label">Text Matrix</div><div class="metric" id="matrix">—</div><div class="hint" id="matrix-age">Cache não observado</div></article>
+ <article class="card span7"><h2>Componentes do runtime</h2><div class="rows" id="components"><div class="row"><span class="name">Aguardando dados do Worker</span><span class="tag">—</span></div></div></article>
+ <article class="card span5"><h2>Cache &amp; recursos</h2><div class="row"><span>Chunks linguísticos em cache</span><strong id="chunk-cache">—</strong></div><div class="row"><span>Memória do isolate</span><strong id="isolate-memory">Não exposta</strong></div><div class="hint" style="margin-top:12px">Contagens de chunks não representam bytes de RAM. O Worker não fornece RSS confiável neste contrato.</div></article>
+ <article class="card span12"><h2>Armazenamento persistente</h2><div class="rows" id="storage"><div class="row"><span>R2 / D1</span><span class="tag">Aguardando dados</span></div></div><div class="hint">O contrato informa presença de bindings. Leitura/escrita só serão marcadas como verificadas após testes explícitos de I/O.</div></article>
+</section>
+<footer class="footer"><span>AIGAR · Observability Console · Dados da API</span><span>Atualização automática a cada 15 segundos</span></footer>
 </main>
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ const fmtAge = v => Number.isFinite(v) ? v.toFixed(1) + " s" : "—";
+ const safe = v => (v === null || v === undefined || v === "") ? "—" : String(v);
+ const tag = state => {
+   const el=document.createElement("span"); el.className="tag";
+   el.textContent=safe(state); if(state==="READY"||state==="CONFIGURED") el.classList.add("ready");
+   return el;
+ };
+ const row = (label,state,detail="") => {
+   const el=document.createElement("div"); el.className="row";
+   const name=document.createElement("span"); name.className="name"; name.textContent=label;
+   el.append(name,tag(state));
+   if(detail){const hint=document.createElement("span");hint.className="hint";hint.textContent=detail;el.append(hint);}
+   return el;
+ };
+ async function refresh(){
+   const endpoint=$("endpoint").value.trim();
+   $("error").textContent="";
+   try{
+     const response=await fetch(endpoint,{headers:{Accept:"application/json"},cache:"no-store"});
+     if(!response.ok) throw new Error("HTTP "+response.status);
+     const payload=await response.json();
+     const h=payload.runtime_health;
+     if(!h || !h.components) throw new Error("A resposta não contém runtime_health.");
+     $("connection").textContent="API CONECTADA";
+     $("overall").textContent=safe(h.status);
+     $("observed").textContent="Coleta: "+new Date((h.observed_at_epoch||0)*1000).toLocaleString("pt-BR");
+     const c=h.components;
+     const ix=c.library_indexes?.detail||{}, boot=c.library_boot?.detail||{}, tm=c.text_matrix?.detail||{};
+     $("indexes").textContent=safe(ix.cached_indexes);
+     $("indexes-age").textContent="Idade do cache: "+fmtAge(ix.cache_age_seconds);
+     $("boot-chunks").textContent=safe(boot.cached_chunks);
+     $("boot-detail").textContent=safe(boot.libraries_ready)+" / "+safe(boot.libraries_reported)+" bibliotecas prontas";
+     $("matrix").textContent=safe(tm.loaded_documents)+" / "+safe(tm.expected_documents);
+     $("matrix-age").textContent="Idade do cache: "+fmtAge(tm.cache_age_seconds);
+     $("chunk-cache").textContent=safe(c.chunk_cache?.detail?.cached_chunks);
+     $("isolate-memory").textContent=h.resources?.isolate_memory?.value==null?"Não exposta":safe(h.resources.isolate_memory.value)+" bytes";
+     const list=$("components");list.replaceChildren();
+     Object.entries(c).forEach(([name,item])=>list.append(row(name,item.state)));
+     const storage=$("storage");storage.replaceChildren();
+     const sd=c.storage?.detail||{};
+     storage.append(row("Cloudflare R2",sd.r2_binding_present?"Binding presente":"Não configurado"));
+     storage.append(row("Cloudflare D1",sd.d1_binding_present?"Binding presente":"Não configurado"));
+     storage.append(row("I/O verificado",sd.io_verified?"Sim":"Não testado"));
+     $("last-update").textContent="Última resposta recebida: "+new Date().toLocaleString("pt-BR");
+   }catch(err){
+     $("connection").textContent="API INDISPONÍVEL";
+     $("overall").textContent="—";
+     $("error").textContent="Falha na coleta: "+err.message;
+     $("last-update").textContent="Nenhum dado atualizado nesta tentativa.";
+   }
+ }
+ $("refresh").addEventListener("click",refresh);
+ $("endpoint").addEventListener("change",refresh);
+ refresh(); setInterval(refresh,15000);
+})();
+</script>
 </body>
 </html>
