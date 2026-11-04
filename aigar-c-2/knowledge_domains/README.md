@@ -1,23 +1,32 @@
-# ACLR — protótipo de domínios de conhecimento
+# ACLR — domínios e navegação hierárquica
 
-Este diretório é uma camada paralela de prototipagem para o ACLR. Não altera rotas, HREFs, runtime, biblioteca R2 nem os mecanismos atuais de recuperação.
+Esta camada organiza a taxonomia de conhecimento e os índices de navegação. Ela não altera rotas públicas, runtime, HREFs, biblioteca R2, D1 ou mecanismos de recuperação em produção.
 
-## Estrutura
+## Organização
 
-- `router_index.json`: índice mestre que associa sinais de assunto a domínios.
-- `<domínio>/index/index.json`: índice do domínio, com subdomínios e referências a protochunks.
-- `<domínio>/content/*.md`: protochunks textuais pequenos, escritos apenas para testar navegação e recuperação.
+- `router_index.json`: registro mestre dos domínios e sinais iniciais.
+- `<domínio>/domain.json`: metadados e estado do domínio.
+- `<domínio>/index/index.json`: índice hierárquico do domínio e seus subdomínios.
+- `<domínio>/content/`: reservado a conteúdo extraído e validado; livros brutos não devem ser confundidos com chunks indexados.
 
-## Domínios iniciais
+## Domínios cadastrados
 
-- `history`: história antiga, medieval, moderna e contemporânea.
-- `mathematics`: álgebra, geometria e cálculo.
-- `portuguese`: morfologia, sintaxe, semântica e pragmática.
+História, Matemática, Língua Portuguesa, Geografia, Filosofia, Física, Química, Biologia, Sociologia, Computação, Literatura e Economia.
 
-## Contrato mínimo do protótipo
+Os três domínios iniciais mantêm seus índices de protótipo existentes. Os demais foram cadastrados como scaffolds taxonômicos, sem afirmar que já possuem livros ou conteúdo factual disponível.
 
-O índice mestre aponta para um domínio. O índice do domínio aponta para um subdomínio e para um ou mais chunks. O conteúdo só deve ser lido depois que a navegação pelos índices indicar os IDs correspondentes.
+## Navegação pretendida
 
-Os textos são conteúdo sintético de teste, não fontes acadêmicas nem material de referência factual. Quando a biblioteca real for adicionada ao R2, estes protótipos deverão ser substituídos ou marcados como exemplos, sem confundi-los com documentos verificados.
+`domínio → subdomínio → tópico → documento → unidade/chunk`
 
-**Estado:** scaffolding e dados de teste; ainda não integrado ao Worker nem validado ponta a ponta.
+O Router deve preservar candidatos ambíguos em vez de escolher arbitrariamente. A recuperação de conteúdo só ocorre depois da seleção dos IDs e da verificação de proveniência.
+
+## Cross-domain
+
+Cross-links semânticos ficam desativados nesta etapa. Não criar relações entre disciplinas por mera coincidência de palavras. Uma futura camada interdisciplinar deverá exigir evidência explícita, relação tipada, proveniência e avaliação; se não puder fazê-lo com fidelidade, deve abster-se.
+
+## Ingestão futura
+
+Livros podem ser adicionados como fontes brutas. A pipeline posterior deverá extrair texto, segmentar unidades, preservar página/capítulo e checksum, classificar com revisão e só então publicar índices. A biblioteca R2 será integrada em etapa posterior.
+
+**Estado:** estrutura taxonômica inicial em desenvolvimento; não é um corpus validado nem um Router de produção.

@@ -1,0 +1,50 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "economics",
+  "label": "Economia",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "microeconomics",
+      "label": "Microeconomia",
+      "signals": [
+        "oferta",
+        "demanda",
+        "elasticidade",
+        "mercado"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "microeconomics/index.json"
+    },
+    {
+      "subdomain_id": "macroeconomics",
+      "label": "Macroeconomia",
+      "signals": [
+        "PIB",
+        "inflação",
+        "desemprego",
+        "política monetária"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "macroeconomics/index.json"
+    },
+    {
+      "subdomain_id": "economic_history",
+      "label": "História Econômica",
+      "signals": [
+        "industrialização",
+        "crise econômica",
+        "comércio"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "economic_history/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

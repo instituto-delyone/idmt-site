@@ -1,0 +1,48 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "chemistry",
+  "label": "Química",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "general_chemistry",
+      "label": "Química Geral",
+      "signals": [
+        "átomo",
+        "tabela periódica",
+        "ligações químicas"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "general_chemistry/index.json"
+    },
+    {
+      "subdomain_id": "physical_chemistry",
+      "label": "Físico-Química",
+      "signals": [
+        "termoquímica",
+        "cinética",
+        "equilíbrio químico"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "physical_chemistry/index.json"
+    },
+    {
+      "subdomain_id": "organic_chemistry",
+      "label": "Química Orgânica",
+      "signals": [
+        "carbono",
+        "hidrocarboneto",
+        "funções orgânicas"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "organic_chemistry/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

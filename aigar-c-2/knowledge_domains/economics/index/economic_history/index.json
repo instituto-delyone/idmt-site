@@ -1,0 +1,11 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "economics",
+  "subdomain_id": "economic_history",
+  "label": "História Econômica",
+  "status": "scaffold",
+  "topics": [],
+  "notes": [
+    "Subdomínio cadastrado; tópicos e documentos serão adicionados durante a curadoria das fontes."
+  ]
+}

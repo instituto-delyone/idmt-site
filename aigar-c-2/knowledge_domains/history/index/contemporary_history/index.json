@@ -1,0 +1,47 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "history",
+  "subdomain_id": "contemporary_history",
+  "label": "História Contemporânea",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "contemporary_history_01",
+      "label": "Revolução Industrial",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "contemporary_history_02",
+      "label": "Revolução Francesa",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "contemporary_history_03",
+      "label": "Imperialismo",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "contemporary_history_04",
+      "label": "Guerras Mundiais",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "contemporary_history_05",
+      "label": "Guerra Fria",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

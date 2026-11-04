@@ -1,5 +1,5 @@
 {
-  "schema_version": "aclr.domain-index.v0",
+  "schema_version": "aclr.domain-index.v1",
   "domain_id": "portuguese",
   "label": "Língua Portuguesa",
   "status": "prototype",
@@ -17,6 +17,13 @@
       ],
       "chunks": [
         "pt-morphology-001"
+      ],
+      "index_path": "morphology/index.json",
+      "topics": [
+        "Substantivos",
+        "Verbos",
+        "Adjetivos",
+        "Pronomes"
       ]
     },
     {
@@ -32,6 +39,13 @@
       ],
       "chunks": [
         "pt-syntax-001"
+      ],
+      "index_path": "syntax/index.json",
+      "topics": [
+        "Termos da oração",
+        "Período simples",
+        "Período composto",
+        "Concordância"
       ]
     },
     {
@@ -47,6 +61,13 @@
       ],
       "chunks": [
         "pt-semantics-001"
+      ],
+      "index_path": "semantics/index.json",
+      "topics": [
+        "Significação",
+        "Polissemia",
+        "Sinonímia e antonímia",
+        "Ambiguidade"
       ]
     },
     {
@@ -61,6 +82,13 @@
       ],
       "chunks": [
         "pt-pragmatics-001"
+      ],
+      "index_path": "pragmatics/index.json",
+      "topics": [
+        "Contexto comunicativo",
+        "Atos de fala",
+        "Inferência",
+        "Intenção comunicativa"
       ]
     }
   ]

@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "history",
+  "subdomain_id": "ancient_history",
+  "label": "História Antiga",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "ancient_history_01",
+      "label": "Mesopotâmia",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "ancient_history_02",
+      "label": "Egito Antigo",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "ancient_history_03",
+      "label": "Grécia Antiga",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "ancient_history_04",
+      "label": "Roma Antiga",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

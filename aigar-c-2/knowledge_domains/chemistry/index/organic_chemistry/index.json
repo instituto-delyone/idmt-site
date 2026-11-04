@@ -1,0 +1,11 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "chemistry",
+  "subdomain_id": "organic_chemistry",
+  "label": "Química Orgânica",
+  "status": "scaffold",
+  "topics": [],
+  "notes": [
+    "Subdomínio cadastrado; tópicos e documentos serão adicionados durante a curadoria das fontes."
+  ]
+}

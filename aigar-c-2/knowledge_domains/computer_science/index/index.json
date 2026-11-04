@@ -1,0 +1,51 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "computer_science",
+  "label": "Computação",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "programming",
+      "label": "Programação",
+      "signals": [
+        "linguagem de programação",
+        "variável",
+        "função",
+        "depuração"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "programming/index.json"
+    },
+    {
+      "subdomain_id": "algorithms",
+      "label": "Algoritmos e Estruturas de Dados",
+      "signals": [
+        "algoritmo",
+        "complexidade",
+        "árvore",
+        "grafo"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "algorithms/index.json"
+    },
+    {
+      "subdomain_id": "artificial_intelligence",
+      "label": "Inteligência Artificial",
+      "signals": [
+        "aprendizado de máquina",
+        "modelo",
+        "rede neural",
+        "IA"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "artificial_intelligence/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

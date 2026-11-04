@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "mathematics",
+  "subdomain_id": "calculus",
+  "label": "Cálculo",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "calculus_01",
+      "label": "Funções",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "calculus_02",
+      "label": "Limites",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "calculus_03",
+      "label": "Derivadas",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "calculus_04",
+      "label": "Integrais",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

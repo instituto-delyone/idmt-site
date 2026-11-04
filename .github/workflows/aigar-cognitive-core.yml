@@ -25,7 +25,7 @@ jobs:
         run: python -m compileall -q .
       - name: Test cognitive core, Memory Lab, and CORTEX compatibility boundary
         working-directory: aigar-c-2/AIGAR_CLOUDFLARE
-        run: python -m unittest -v test_cognitive_core.py test_cortex_compat.py test_memory_lab.py test_memory_card_runtime.py test_creator_memory_runtime.py
+        run: python -m unittest -v test_cognitive_core.py test_cortex_compat.py test_memory_lab.py test_memory_card_runtime.py test_creator_memory_runtime.py test_runtime_health.py
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -41,3 +41,20 @@ jobs:
           Path("/tmp/aigar-inline.js").write_text(script, encoding="utf-8")
           PY
           node --check /tmp/aigar-inline.js
+
+      - name: Check observability dashboard JavaScript syntax
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate dashboard script
+        working-directory: aigar-c-2/AIGAR_CLOUDFLARE
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("observability_dashboard.html").read_text(encoding="utf-8")
+          if "PROTÓTIPO" in html or "placeholder" in html.lower():
+              raise SystemExit("Dashboard still contains prototype/placeholder markers")
+          script = html.split("<script>", 1)[1].split("</script>", 1)[0]
+          Path("/tmp/aigar-observability.js").write_text(script, encoding="utf-8")
+          PY
+          node --check /tmp/aigar-observability.js

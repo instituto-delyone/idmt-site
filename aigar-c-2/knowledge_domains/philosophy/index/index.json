@@ -1,0 +1,51 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "philosophy",
+  "label": "Filosofia",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "ethics",
+      "label": "Ética",
+      "signals": [
+        "moral",
+        "virtude",
+        "dever",
+        "justiça"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "ethics/index.json"
+    },
+    {
+      "subdomain_id": "epistemology",
+      "label": "Epistemologia",
+      "signals": [
+        "conhecimento",
+        "verdade",
+        "crença",
+        "método"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "epistemology/index.json"
+    },
+    {
+      "subdomain_id": "political_philosophy",
+      "label": "Filosofia Política",
+      "signals": [
+        "estado",
+        "poder",
+        "contrato social",
+        "liberdade"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "political_philosophy/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "schema_version": "aclr.domain-index.v0",
+  "schema_version": "aclr.domain-index.v1",
   "domain_id": "mathematics",
   "label": "Matemática",
   "status": "prototype",
@@ -16,6 +16,13 @@
       ],
       "chunks": [
         "math-algebra-001"
+      ],
+      "index_path": "algebra/index.json",
+      "topics": [
+        "Expressões algébricas",
+        "Equações",
+        "Polinômios",
+        "Sistemas lineares"
       ]
     },
     {
@@ -31,6 +38,12 @@
       ],
       "chunks": [
         "math-geometry-001"
+      ],
+      "index_path": "geometry/index.json",
+      "topics": [
+        "Geometria plana",
+        "Geometria espacial",
+        "Geometria analítica"
       ]
     },
     {
@@ -45,6 +58,13 @@
       ],
       "chunks": [
         "math-calculus-001"
+      ],
+      "index_path": "calculus/index.json",
+      "topics": [
+        "Funções",
+        "Limites",
+        "Derivadas",
+        "Integrais"
       ]
     }
   ]

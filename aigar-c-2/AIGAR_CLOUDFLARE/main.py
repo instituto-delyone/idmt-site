@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 from workers import WorkerEntrypoint
 
 import library_runtime
+from telemetry_runtime import build_runtime_health
 from library_runtime import MEMORY_LAB, boot_library, boot_text_matrix
 from http_runtime import _json_body, _request_origin, make_response
 from cloudflare_bindings import binding
@@ -80,6 +81,17 @@ class Default(WorkerEntrypoint):
             r2_ready = binding(self.env, R2_BINDING) is not None
             d1_ready = binding(self.env, D1_BINDING) is not None
             storage_ready = r2_ready and d1_ready
+            try:
+                runtime_health = build_runtime_health(self.env, library_runtime, MEMORY_LAB)
+            except Exception as exc:
+                # Observability must never take down the legacy health contract.
+                runtime_health = {
+                    "schema_version": "1.1",
+                    "status": "UNAVAILABLE",
+                    "error": type(exc).__name__,
+                    "components": {},
+                    "resources": {"isolate_memory": {"value": None, "unit": "bytes", "status": "not_exposed"}},
+                }
             return make_response({
                 "ok": True,
                 "service": "aigar-api",
@@ -105,6 +117,7 @@ class Default(WorkerEntrypoint):
                         "default_mode_network",
                     ],
                 },
+                "runtime_health": runtime_health,
                 "features": {
                     "language": True,
                     "hybrid_library_search": True,
@@ -133,7 +146,7 @@ class Default(WorkerEntrypoint):
                 matrix = await boot_text_matrix()
                 return make_response({"ok": True, "text_matrix": matrix}, status=200, origin=origin)
             except Exception as exc:
-                return make_response({"ok": False, "text_matrix": {"ready": False, "loaded": 0, "total": len(TEXT_MATRIX_FILES), "error": str(exc)[:500]}}, status=200, origin=origin)
+                return make_response({"ok": False, "text_matrix": {"ready": False, "loaded": 0, "total": len(getattr(library_runtime, "TEXT_MATRIX_FILES", [])), "error": str(exc)[:500]}}, status=200, origin=origin)
 
         if method == "GET" and path == "/library/boot":
             try:

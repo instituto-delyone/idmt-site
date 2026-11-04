@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "portuguese",
+  "subdomain_id": "semantics",
+  "label": "Semântica",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "semantics_01",
+      "label": "Significação",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "semantics_02",
+      "label": "Polissemia",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "semantics_03",
+      "label": "Sinonímia e antonímia",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "semantics_04",
+      "label": "Ambiguidade",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

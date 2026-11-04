@@ -1,0 +1,49 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "biology",
+  "label": "Biologia",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "cell_biology",
+      "label": "Biologia Celular",
+      "signals": [
+        "célula",
+        "organelas",
+        "membrana"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "cell_biology/index.json"
+    },
+    {
+      "subdomain_id": "genetics",
+      "label": "Genética",
+      "signals": [
+        "gene",
+        "hereditariedade",
+        "DNA",
+        "RNA"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "genetics/index.json"
+    },
+    {
+      "subdomain_id": "ecology",
+      "label": "Ecologia",
+      "signals": [
+        "ecossistema",
+        "cadeia alimentar",
+        "biodiversidade"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "ecology/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

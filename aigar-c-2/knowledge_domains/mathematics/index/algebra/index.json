@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "mathematics",
+  "subdomain_id": "algebra",
+  "label": "Álgebra",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "algebra_01",
+      "label": "Expressões algébricas",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "algebra_02",
+      "label": "Equações",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "algebra_03",
+      "label": "Polinômios",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "algebra_04",
+      "label": "Sistemas lineares",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

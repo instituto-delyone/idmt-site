@@ -1,0 +1,40 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "history",
+  "subdomain_id": "medieval_history",
+  "label": "História Medieval",
+  "status": "scaffold",
+  "topics": [
+    {
+      "topic_id": "medieval_history_01",
+      "label": "Alta Idade Média",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "medieval_history_02",
+      "label": "Baixa Idade Média",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "medieval_history_03",
+      "label": "Feudalismo",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    },
+    {
+      "topic_id": "medieval_history_04",
+      "label": "Império Bizantino",
+      "signals": [],
+      "document_refs": [],
+      "chunk_refs": []
+    }
+  ],
+  "notes": [
+    "Estrutura de navegação inicial; sem documentos ou chunks validados."
+  ]
+}

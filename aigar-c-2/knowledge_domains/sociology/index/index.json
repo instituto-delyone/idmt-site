@@ -1,0 +1,48 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "sociology",
+  "label": "Sociologia",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "social_theory",
+      "label": "Teoria Social",
+      "signals": [
+        "ação social",
+        "estrutura social",
+        "clássicos"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "social_theory/index.json"
+    },
+    {
+      "subdomain_id": "political_sociology",
+      "label": "Sociologia Política",
+      "signals": [
+        "poder",
+        "estado",
+        "movimentos sociais"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "political_sociology/index.json"
+    },
+    {
+      "subdomain_id": "culture_sociology",
+      "label": "Sociologia da Cultura",
+      "signals": [
+        "cultura",
+        "identidade",
+        "socialização"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "culture_sociology/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}

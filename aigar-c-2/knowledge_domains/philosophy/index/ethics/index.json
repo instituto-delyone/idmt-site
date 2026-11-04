@@ -1,0 +1,11 @@
+{
+  "schema_version": "aclr.subdomain-index.v1",
+  "domain_id": "philosophy",
+  "subdomain_id": "ethics",
+  "label": "Ética",
+  "status": "scaffold",
+  "topics": [],
+  "notes": [
+    "Subdomínio cadastrado; tópicos e documentos serão adicionados durante a curadoria das fontes."
+  ]
+}

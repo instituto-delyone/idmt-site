@@ -1,0 +1,51 @@
+{
+  "schema_version": "aclr.domain-index.v1",
+  "domain_id": "geography",
+  "label": "Geografia",
+  "status": "scaffold",
+  "subdomains": [
+    {
+      "subdomain_id": "physical_geography",
+      "label": "Geografia Física",
+      "signals": [
+        "clima",
+        "relevo",
+        "hidrografia",
+        "vegetação"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "physical_geography/index.json"
+    },
+    {
+      "subdomain_id": "human_geography",
+      "label": "Geografia Humana",
+      "signals": [
+        "população",
+        "urbanização",
+        "migração",
+        "território"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "human_geography/index.json"
+    },
+    {
+      "subdomain_id": "cartography",
+      "label": "Cartografia",
+      "signals": [
+        "mapa",
+        "escala",
+        "coordenadas",
+        "projeção cartográfica"
+      ],
+      "children": [],
+      "chunks": [],
+      "index_path": "cartography/index.json"
+    }
+  ],
+  "notes": [
+    "Taxonomia inicial de navegação; revisar com especialista antes de classificar documentos.",
+    "Nenhum conteúdo factual é declarado disponível neste domínio."
+  ]
+}
