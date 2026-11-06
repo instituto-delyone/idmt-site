@@ -80,7 +80,7 @@ async def import_creator_memory(payload, env, usuario):
     }
 
     try:
-        await bucket.put(r2_key, raw, {
+        await bucket.put(r2_key, canonical, {
             "httpMetadata": {"contentType": "application/json; charset=utf-8"},
             "customMetadata": {"record_id": record_id, "sha256": digest, "visibility": "private"},
         })
