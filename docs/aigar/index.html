@@ -130,6 +130,13 @@
 <div id="creatorMemoryStatus" class="sub" role="status" aria-live="polite" style="margin-top:10px">Disponível após autenticação administrativa.</div>
 <div class="gap"><label>Interações históricas importadas</label><pre id="creatorMemoryRecords">—</pre></div>
 <div class="gap">
+<div class="gap">
+<label for="creatorMemoryPerceptionQuestion">Percepção longitudinal da Creator Memory</label>
+<textarea id="creatorMemoryPerceptionQuestion" rows="2" placeholder="Opcional: direcione a análise ou deixe vazio para examinar o conjunto completo…"></textarea>
+<div class="actions"><button class="primary" id="creatorMemoryPerceiveButton" onclick="buildCreatorMemoryPerception()">Construir percepção longitudinal de todos os registros</button></div>
+<div id="creatorMemoryPerceptionStatus" class="sub" role="status" aria-live="polite" style="margin-top:8px">Registros originais preservados; interpretação derivada e versionada.</div>
+<pre id="creatorMemoryPerceptionOutput">—</pre>
+</div>
 <label for="creatorMemoryQuery">Consulta contextual privada</label>
 <textarea id="creatorMemoryQuery" rows="3" placeholder="Pergunte sobre uma decisão ou interação histórica…"></textarea>
 <label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="includeCreatorMemory" type="checkbox"> Autorizo explicitamente o uso da minha Creator Memory nesta consulta</label>
@@ -197,6 +204,19 @@ function clearCreatorMemoryPanel(){
   if(input)input.value="";
   if(records)records.textContent="—";
   if(status)status.textContent="Disponível após autenticação administrativa.";
+}
+async function buildCreatorMemoryPerception(){
+  const status=$("creatorMemoryPerceptionStatus"),output=$("creatorMemoryPerceptionOutput");
+  if(!adminToken){status.textContent="Autentique-se como administrador primeiro.";return;}
+  const button=$("creatorMemoryPerceiveButton");button.disabled=true;
+  status.textContent="Lendo todos os registros privados, verificando hashes e construindo a percepção longitudinal…";
+  try{
+    const r=await fetch(base()+"/admin/creator-memory/perceive",{method:"POST",headers:{...authHeaders(),"Content-Type":"application/json"},body:JSON.stringify({question:$("creatorMemoryPerceptionQuestion").value.trim()||null,include_creator_memory:true,max_records:500})});
+    const d=await r.json();if(!r.ok)throw Error(d.message||d.status||("HTTP "+r.status));
+    output.textContent=pretty(d.perception||d);
+    status.textContent="✓ Percepção v"+(d.storage?.version||"—")+" persistida. Registros utilizados: "+(d.records_used||0)+"; falhas de integridade: "+(d.integrity_failures||[]).length+".";
+  }catch(e){status.textContent="Falha na percepção: "+e.message;output.textContent="—";}
+  finally{button.disabled=false;}
 }
 async function askWithCreatorMemory(){
   const query=$("creatorMemoryQuery").value.trim();
