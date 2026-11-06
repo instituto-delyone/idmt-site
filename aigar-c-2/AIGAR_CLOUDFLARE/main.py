@@ -50,6 +50,7 @@ from conversation_runtime import (
     classify_interaction,
     _safe_useful_snapshot,
 )
+from creator_memory_perception import build_creator_memory_perception
 from creator_memory_runtime import (
     import_creator_memory,
     list_creator_memory,
@@ -238,6 +239,25 @@ class Default(WorkerEntrypoint):
                 if isinstance(data, dict):
                     data["execution_lane"] = "aclr_shadow_candidate"
                     data["legacy_evidence_used"] = False
+                return make_response(data, status=status, origin=origin)
+
+            if path == "/admin/creator-memory/perceive" and method == "POST":
+                body = await _json_body(request)
+                if body.get("include_creator_memory") is not True:
+                    return make_response({"ok": False, "status": "explicit_private_memory_consent_required"}, status=400, origin=origin)
+                question = _clip(body.get("question"), 2000) or None
+                status, data = await build_creator_memory_perception(
+                    self.env, usuario, question=question, max_records=body.get("max_records", 500)
+                )
+                if status == 201:
+                    try:
+                        await _audit_admin_action(binding(self.env, D1_BINDING),
+                            str(usuario.get("id") or usuario.get("usuario_id") or "admin"),
+                            "build_creator_memory_perception", "creator_memory_perception",
+                            data.get("storage", {}).get("id"),
+                            {"records_used": data.get("records_used", 0), "version": data.get("storage", {}).get("version")})
+                    except Exception:
+                        pass
                 return make_response(data, status=status, origin=origin)
 
             if path == "/admin/creator-memory/import" and method == "POST":
