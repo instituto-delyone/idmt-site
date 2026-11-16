@@ -205,6 +205,33 @@
       .logo-wrap:hover img,.logo-wrap:focus-within img{transform:none}
     }
 
+
+    /* MedUnity — produto flagship do ecossistema IDMT */
+    .flagship{position:relative;isolation:isolate;overflow:hidden;width:min(100%,900px);margin:34px auto 0;padding:clamp(25px,5vw,42px);border:1px solid rgba(112,224,255,.48);border-radius:30px;background:radial-gradient(ellipse at 88% 12%,rgba(31,167,226,.24),transparent 38%),linear-gradient(125deg,rgba(7,55,88,.96),rgba(2,15,31,.94) 68%);box-shadow:0 28px 90px rgba(0,0,0,.28),0 0 45px rgba(40,173,235,.09);text-align:left}
+    .flagship:before{content:"";position:absolute;z-index:-1;width:360px;height:360px;right:-125px;top:-170px;border:1px solid rgba(133,225,255,.18);border-radius:50%;box-shadow:0 0 0 35px rgba(133,225,255,.025),0 0 0 75px rgba(133,225,255,.02)}
+    .flagship-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .flagship-kicker{display:inline-flex;align-items:center;gap:8px;color:#8ce3ff;font-size:10px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
+    .flagship-kicker:before{content:"";width:8px;height:8px;border-radius:50%;background:#70e0ff;box-shadow:0 0 14px #70e0ff}
+    .flagship-status{padding:7px 11px;border:1px solid rgba(132,222,255,.28);border-radius:999px;color:#c9efff;background:rgba(3,25,45,.46);font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .flagship h2{max-width:720px;margin:22px 0 0;color:#fff;font-size:clamp(34px,5.6vw,57px);line-height:1;letter-spacing:-.055em}
+    .flagship h2 span{color:#83ddff}
+    .flagship-copy{max-width:690px;margin:17px 0 0;color:#c0d9e9;font-size:15px;line-height:1.7}
+    .flagship-points{display:flex;flex-wrap:wrap;gap:9px;margin:23px 0 27px;padding:0;list-style:none}
+    .flagship-points li{padding:9px 12px;border:1px solid rgba(136,218,250,.2);border-radius:999px;background:rgba(2,19,35,.42);color:#d9f2ff;font-size:11px;font-weight:700}
+    .flagship-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .flagship-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;border:1px solid rgba(177,239,255,.8);border-radius:999px;background:linear-gradient(110deg,#a8edff,#5cc9f1);color:#05223a;font-size:12px;font-weight:950;letter-spacing:.04em;box-shadow:0 10px 28px rgba(53,180,231,.2);transition:transform .2s,box-shadow .2s}
+    .flagship-cta:hover{transform:translateY(-2px);box-shadow:0 15px 36px rgba(53,180,231,.3)}
+    .flagship-note{color:#91b6ca;font-size:11px;line-height:1.5}
+    .ecosystem{width:min(100%,900px);margin:28px auto 0;text-align:left}
+    .ecosystem-heading{margin:0 0 13px;color:#dff5ff;font-size:13px;font-weight:850;letter-spacing:.08em}
+    .ecosystem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .ecosystem-link{display:flex;min-height:125px;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:18px;border:1px solid rgba(154,224,255,.17);border-radius:19px;background:linear-gradient(145deg,rgba(5,31,56,.7),rgba(2,13,27,.52));transition:transform .2s,border-color .2s}
+    .ecosystem-link:hover{transform:translateY(-3px);border-color:rgba(126,226,255,.5)}
+    .ecosystem-icon{font-size:22px}
+    .ecosystem-link strong{color:#effaff;font-size:15px}
+    .ecosystem-link span:last-child{color:#9fb8cc;font-size:11px;line-height:1.45}
+    @media(max-width:700px){.flagship{margin-top:25px;border-radius:24px}.flagship h2{font-size:clamp(32px,10vw,46px)}.flagship-copy{font-size:14px}.ecosystem-grid{grid-template-columns:1fr}.ecosystem-link{min-height:95px}}
+
   </style>
 </head>
 <body>
@@ -223,6 +250,47 @@
       <div class="ethics-spotlight"><a class="ethics-card" href="./files/c%C3%B3digo%20de%20%C3%A9tica%20m%C3%A9dica/" aria-label="Consultar o Código de Ética Médica"><span class="ethics-emblem" aria-hidden="true">⚖️</span><span class="ethics-card-copy"><span class="ethics-card-kicker">Ética e exercício profissional</span><strong>Código de Ética Médica</strong><span>Consulte a edição documental de 2019, o índice e o texto original em PDF</span></span><span class="founder-arrow" aria-hidden="true">→</span></a></div>
       <div class="logo-wrap"><img src="../assets/logo-idmt.png" alt="Instituto Delyone de Medicina e Tecnologia"></div><p class="eyebrow">Medicina · Tecnologia · Desenvolvimento · Pesquisa</p><h1>Medicina, ciência e tecnologia a serviço da vida.</h1><p class="intro">O Instituto Delyone reúne assistência, tecnologia, pesquisa, educação e desenvolvimento. Escolha a porta de entrada que melhor corresponde ao que você procura.</p>
     </header>
+
+    <section class="flagship" aria-labelledby="flagship-title">
+      <div class="flagship-top">
+        <span class="flagship-kicker">Conheça nosso flagship</span>
+        <span class="flagship-status">Plataforma do Instituto Delyone</span>
+      </div>
+      <h2 id="flagship-title">MedUnity<span>.</span><br>Medicina conectada ao fluxo de trabalho.</h2>
+      <p class="flagship-copy">Uma plataforma desenvolvida pelo Instituto Delyone para reunir organização do plantão, prontuário e documentação médica em um ambiente integrado. Conheça o produto central do nosso ecossistema de tecnologia em saúde.</p>
+      <ul class="flagship-points" aria-label="Recursos do MedUnity">
+        <li>Gestão de plantão</li>
+        <li>Ficha-Mãe e prontuário</li>
+        <li>Documentação médica</li>
+        <li>Fluxo clínico integrado</li>
+      </ul>
+      <div class="flagship-actions">
+        <a class="flagship-cta" href="https://medunity.delyone.com/" target="_blank" rel="noopener">Conheça o MedUnity <span aria-hidden="true">↗</span></a>
+        <span class="flagship-note">Acesse a plataforma oficial do MedUnity</span>
+      </div>
+    </section>
+
+    <section class="ecosystem" aria-labelledby="ecosystem-title">
+      <h2 class="ecosystem-heading" id="ecosystem-title">Explore também nosso ecossistema</h2>
+      <div class="ecosystem-grid">
+        <a class="ecosystem-link" href="../profissionais/ferramentas-plantao/">
+          <span class="ecosystem-icon" aria-hidden="true">🧰</span>
+          <strong>Ferramentas médicas</strong>
+          <span>Recursos práticos para apoiar atividades do plantão.</span>
+        </a>
+        <a class="ecosystem-link" href="https://instituto-delyone.github.io/Diagnosis/" target="_blank" rel="noopener">
+          <span class="ecosystem-icon" aria-hidden="true">🧠</span>
+          <strong>Diagnosis</strong>
+          <span>Simulação e treinamento do raciocínio clínico.</span>
+        </a>
+        <a class="ecosystem-link" href="https://instituto-delyone.github.io/CSI-/" target="_blank" rel="noopener">
+          <span class="ecosystem-icon" aria-hidden="true">🧬</span>
+          <strong>CSI</strong>
+          <span>Infraestrutura semântica para organizar conhecimento clínico.</span>
+        </a>
+      </div>
+    </section>
+
     <div class="question">Qual é o seu objetivo?</div>
     <section class="cards" aria-label="Escolha seu perfil">
       <a class="card primary" href="../teleconsulta/"><div class="icon" aria-hidden="true">🩺</div><h2>Sou paciente</h2><p>Quero me consultar e conhecer as opções de atendimento e telemedicina.</p><span class="cta">Ir para consultas <span aria-hidden="true">→</span></span></a>
