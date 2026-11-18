@@ -35,6 +35,13 @@
     @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-inner{padding-top:140px}.hero-panel{margin-top:10px}.partner-layout{grid-template-columns:1fr}.partner-side-space:not(.acnur-side-space){display:none}.acnur-side-space{display:flex;min-height:145px}.partner-stage{width:min(540px,100%)}.two{grid-template-columns:1fr}.ip-grid{grid-template-columns:1fr}.prof-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:650px){.hybrid-hero{min-height:1110px}.hybrid-nav{padding-top:18px}.nav-brand{flex-direction:column;gap:3px}.nav-brand .nav-institute{font-size:13px}.nav-brand .nav-idmt{font-size:21px}.nav-links{display:none}.hero-inner{padding-top:105px}.hero-copy h1{font-size:44px}.logo-wrap,.logo-wrap img{width:165px;height:165px}.logo-wrap{margin-bottom:18px}.founder-card{width:94%;margin:16px auto 0}.telemedicina-capsule{padding:16px 18px}.medicine-links,.technology-links{grid-template-columns:1fr}.international-link{width:92%}.partner-stage{height:210px}.cred-partner{width:122px;min-height:68px}.cred-partner small{font-size:7px;max-width:108px}.cred-partner.nasa{left:10px}.cred-partner.cnpq{right:10px}.cred-partner.sam{left:0;top:76px}.cred-partner.nato{right:0;top:76px}.cred-partner.milmed{left:calc(50% - 61px)}.brazil-seal{width:44px;height:44px}.pill-grid,.memorial-links{grid-template-columns:1fr}.prof-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:420px){.hero-copy h1{font-size:39px}.hero-panel{padding:15px}.partner-stage{transform:scale(.92);transform-origin:center top;margin-bottom:-12px}}
+  
+    .directors-preview{width:min(430px,92%);margin:16px 0 0 4%;padding:17px;border:1px solid rgba(126,220,255,.24);border-radius:20px;background:linear-gradient(145deg,rgba(2,18,36,.88),rgba(3,10,22,.82));box-shadow:0 16px 40px rgba(0,0,0,.24);backdrop-filter:blur(14px);text-align:left}
+    .directors-heading{margin:0 0 13px}.directors-heading>span{display:block;color:#82dcff;font-size:9px;font-weight:850;letter-spacing:.17em;text-transform:uppercase}.directors-heading h2{margin:5px 0;color:#f1f8ff;font-size:21px;letter-spacing:-.035em}.directors-heading p{margin:0;color:#a9c2d5;font-size:11px;line-height:1.5}
+    .directors-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.director-card{display:flex;align-items:center;gap:9px;min-width:0;padding:10px;border:1px solid rgba(126,220,255,.13);border-radius:13px;background:rgba(255,255,255,.035)}.director-avatar{width:38px;height:38px;flex:0 0 38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#15516e,#0a2038);border:1px solid rgba(126,220,255,.25);color:#9ce8ff;font-size:11px;font-weight:850}.director-copy{min-width:0}.director-copy h3{margin:0;color:#f2f8ff;font-size:11px;line-height:1.25}.director-copy p{margin:3px 0 0;color:#a6bed0;font-size:9px;line-height:1.3}.director-copy a{display:inline-block;margin-top:4px;color:#7edfff;font-size:9px;font-weight:750}.director-copy a:hover{text-decoration:underline}
+    @media(max-width:650px){.directors-preview{width:94%;margin:14px auto 0}.directors-grid{grid-template-columns:1fr 1fr}.director-card{padding:8px;gap:7px}.director-avatar{width:32px;height:32px;flex-basis:32px;border-radius:10px}}
+    @media(max-width:390px){.directors-grid{grid-template-columns:1fr}}
+
   </style>
 </head>
 <body>
@@ -52,6 +59,23 @@
           <h1>Instituto Delyone<br>de Medicina e Tecnologia</h1>
           <p>Um ecossistema institucional para integrar assistência médica, tecnologia, ciência, educação e propriedade intelectual — com cada área podendo crescer sem perder a estrutura que já existe.</p>
           <a class="founder-card" href="/founder/" aria-label="Conheça o fundador do Instituto Delyone"><img class="founder-avatar" src="/founder/assets/IMG_9560.png" alt=""><span class="founder-card-copy"><span class="founder-card-kicker">Conheça o fundador</span><strong>Delyone de Paula Canedo Filho</strong><span>Fundador do Instituto Delyone de Medicina e Tecnologia</span></span><span class="founder-arrow">→</span></a>
+
+          <section class="directors-preview" aria-labelledby="directors-title">
+            <div class="directors-heading">
+              <span>Instituto Delyone</span>
+              <h2 id="directors-title">Conheça a diretoria</h2>
+              <p>Uma equipe multidisciplinar que reúne competências para desenvolver ciência, tecnologia e soluções institucionais.</p>
+            </div>
+            <div class="directors-grid">
+              <article class="director-card"><div class="director-avatar">IC</div><div class="director-copy"><h3>Isabella Canedo</h3><p>Engenheira Civil</p><a href="https://www.instagram.com/isabellacanedo/" target="_blank" rel="noopener noreferrer">◎ @isabellacanedo</a></div></article>
+              <article class="director-card"><div class="director-avatar">LP</div><div class="director-copy"><h3>Lucas Porto</h3><p>Advogado</p><a href="https://www.instagram.com/porto_lucas/" target="_blank" rel="noopener noreferrer">◎ @porto_lucas</a></div></article>
+              <article class="director-card"><div class="director-avatar">LR</div><div class="director-copy"><h3>Lucas Rodrigues</h3><p>Proteção de redes e sistemas</p><a href="https://www.instagram.com/lucask8/" target="_blank" rel="noopener noreferrer">◎ @lucask8</a></div></article>
+              <article class="director-card"><div class="director-avatar">N</div><div class="director-copy"><h3>Noriyuki</h3><p>Analista Comercial e Arquiteto</p><a href="https://www.instagram.com/noriyuki_uto/" target="_blank" rel="noopener noreferrer">◎ @noriyuki_uto</a></div></article>
+              <article class="director-card"><div class="director-avatar">MR</div><div class="director-copy"><h3>Marcos Filipe dos Reis</h3><p>Head de Tecnologia</p></div></article>
+              <article class="director-card"><div class="director-avatar">LS</div><div class="director-copy"><h3>Lucas Scalia</h3><p>Médico</p><a href="https://www.instagram.com/scalialucas/" target="_blank" rel="noopener noreferrer">◎ @scalialucas</a></div></article>
+            </div>
+          </section>
+
           <a class="telemedicina-capsule" href="/teleconsulta/"><strong>Telemedicina, psicoterapeutas e em breve demais especialidades médicas</strong><span>Agende sua consulta com o doutor Delyone ou com nossos parceiros</span><span>schedule your medical consultation with Delyone Canedo M.D.</span><span class="price">Preço promocional até dia 20/10/2026</span><span class="deadline">Até 20-10</span></a>
         </div>
         <div class="hero-panel">
