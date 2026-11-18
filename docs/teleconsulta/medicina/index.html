@@ -13,6 +13,16 @@
 .photo-card{position:relative;min-height:470px;border:1px solid #9cb9ed40;border-radius:28px;overflow:hidden;background:linear-gradient(145deg,#253653,#101a30);box-shadow:0 24px 65px #0004}.photo-card img{display:block;width:100%;height:470px;object-fit:cover;object-position:center top}.photo-caption{position:absolute;left:0;right:0;bottom:0;padding:48px 24px 23px;background:linear-gradient(transparent,rgba(5,13,29,.95));}.photo-caption strong{display:block;font-size:1.28rem;line-height:1.25}.photo-caption span{color:#d1def3;font-size:.94rem}
 .promo{display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center;background:linear-gradient(135deg,#fff9e9,#f3e6c5);color:#382316;border:1px solid #ead59d;border-radius:25px;padding:clamp(24px,4vw,40px);margin-bottom:65px;box-shadow:0 20px 55px #0003}.promo-label{color:#8c421d;font-weight:900;letter-spacing:.17em;text-transform:uppercase;font-size:.75rem}.price{font-size:clamp(2.3rem,4vw,3.25rem);font-weight:900;letter-spacing:-.04em}.old{color:#8a7563;text-decoration:line-through;margin-left:10px}.promo p{margin:8px 0}.promo .btn{background:var(--brown);color:white;max-width:280px}.fine{font-size:.85rem;color:#786653!important;margin-top:14px!important}.credentials{margin:0 auto 58px;padding:34px 24px 38px;max-width:760px;text-align:center;border:1px solid #9cb9ed45;border-radius:28px;background:linear-gradient(155deg,#101f39,#0b1428);box-shadow:0 22px 58px #0003}.credentials-kicker{color:#9fc1ff;font-size:.72rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase}.credentials h2{margin:8px 0 7px;font-size:clamp(1.65rem,3.8vw,2.35rem);line-height:1.15;letter-spacing:-.035em}.credentials-intro{margin:0 auto 27px;max-width:490px;color:#b9c8df;font-size:.94rem}.credential-list{display:grid;gap:22px}.credential-item{display:grid;justify-items:center;gap:3px}.credential-name{color:#9fc1ff;font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.credential-number{color:#f7f8fc;font-size:clamp(1.15rem,3vw,1.55rem);font-weight:850;letter-spacing:.015em;overflow-wrap:anywhere}.credential-divider{width:64px;height:1px;background:#9cb9ed38;margin:0 auto}.credentials-footnote{color:#9eacc2;font-size:.78rem;margin:24px 0 0}.note{text-align:center;color:#aebbd0;font-size:.88rem;max-width:800px;margin:0 auto 65px}footer{border-top:1px solid #ffffff20;padding:24px 0;color:#9eacc2;font-size:.82rem}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.back{color:#bfd2f4}
 @media(max-width:760px){.hero{grid-template-columns:1fr;gap:25px;padding:30px 0 45px}.pill{display:none}.photo-card{min-height:360px}.photo-card img{height:420px}.promo{grid-template-columns:1fr}.promo .btn{max-width:none;width:100%}}
+
+.doctor-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:0 auto 66px;max-width:900px}
+.doctor-choice{overflow:hidden;border:1px solid #9cb9ed45;border-radius:24px;background:linear-gradient(150deg,#142744,#0b1428);box-shadow:0 20px 55px #0003}
+.doctor-photo{height:260px;background:linear-gradient(145deg,#263d5e,#101a30);display:grid;place-items:center;overflow:hidden}
+.doctor-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.doctor-initials{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;border:1px solid #9fc1ff70;background:#203d65;color:#bcd5ff;font-size:30px;font-weight:850}
+.doctor-info{padding:21px}.doctor-info .eyebrow{margin:0 0 7px}.doctor-info h2{margin:0;color:#f7f8fc;font-size:21px}.doctor-info p{margin:6px 0 17px;color:#b9c8df;font-size:13px}
+.doctor-info .btn{width:100%;min-height:48px;padding:11px 15px}
+@media(max-width:700px){.doctor-choices{grid-template-columns:1fr;max-width:430px}.doctor-photo{height:300px}}
+
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18157021349"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','AW-18157021349');</script>
@@ -30,6 +40,17 @@
 <div class="buttons"><a class="btn primary" data-oaiq-event="lead_created" data-oaiq-label="telemedicina_solicitar_consulta" href="https://www.delyone.com/senior-consult/">Solicitar consulta <span aria-hidden="true">→</span></a></div>
 </div>
 <aside class="photo-card" aria-label="Foto do Dr. Delyone"><img src="../../assets/IMG_0005.png" alt="Dr. Delyone de Paula Canedo Filho"><div class="photo-caption"><strong>Dr. Delyone de Paula Canedo Filho</strong><span>Clínica Médica · Teleconsulta</span></div></aside>
+
+</section>
+<section class="wrap doctor-choices" aria-label="Escolha seu médico">
+  <article class="doctor-choice">
+    <div class="doctor-photo"><img src="../../assets/IMG_0005.png" alt="Dr. Delyone de Paula Canedo Filho"></div>
+    <div class="doctor-info"><div class="eyebrow">Clínica Médica</div><h2>Dr. Delyone de Paula Canedo Filho</h2><p>Médico · Fundador do Instituto Delyone</p><a class="btn primary" data-oaiq-event="lead_created" data-oaiq-label="telemedicina_delyone" href="https://www.delyone.com/senior-consult/">Agendar consulta →</a></div>
+  </article>
+  <article class="doctor-choice">
+    <div class="doctor-photo"><div class="doctor-initials" aria-label="Retrato de Lucas Scalia">LS</div></div>
+    <div class="doctor-info"><div class="eyebrow">Medicina</div><h2>Dr. Lucas Scalia</h2><p>Médico · Instituto Delyone</p><a class="btn primary" href="/contato/">Solicitar agendamento →</a></div>
+  </article>
 </section>
 <section class="wrap"><div class="promo"><div><div class="promo-label">✦ Condições especiais até 20/10/2026</div><p style="font-size:1.35rem;font-weight:850;margin:12px 0">Preço mínimo a consultar</p><p><strong>Solicitações realizadas até 20 de outubro de 2026</strong> serão avaliadas conforme as condições disponíveis.</p><p class="fine">A solicitação não confirma automaticamente a consulta. A equipe verificará a disponibilidade e orientará você sobre confirmação e pagamento.</p></div><a class="btn" data-oaiq-event="lead_created" data-oaiq-label="telemedicina_agendar_promocional" href="https://www.delyone.com/senior-consult/">Consultar condições →</a></div></section>
 <section class="wrap credentials" aria-labelledby="credentials-title">
